@@ -1,6 +1,6 @@
 # Hardware Secure Module for Smartfusion2 FPGA
 
-This is my Master thesis work. The goal is develop a Hardware Secure Module on a non-volatile FPGA (in this case, the Smartfusion2 FPGA). The HSM works together with a Windows API which should be used by a developer to integrate the system into another software.
+This is the work of my Master thesis in Electrical and Computer Engineering at Instituto Superior Técnico, Lisbon. The goal is develop a Hardware Secure Module on a non-volatile FPGA (in this case, the Smartfusion2 FPGA). The HSM works together with a Windows API which should be used by a developer to integrate the system into another software.
 
 The system contains a root administrator who can manage users (add/delete/modify).
 
