@@ -114,6 +114,50 @@ BOOL PKC_genKeyPair(uint8_t * pri, uint8_t * pub)
 		return FALSE;
 	}
 
+
+	//// TEST
+
+	/*char data[32] = {
+		0x8d, 0x96, 0x9e, 0xef, 0x6e, 0xca, 0xd3, 0xc2,
+		0x9a, 0x3a, 0x62, 0x92, 0x80, 0xe6, 0x86, 0xcf,
+		0x0c, 0x3f, 0x5d, 0x5a, 0x86, 0xaf, 0xf3, 0xca,
+		0x12, 0x02, 0x0c, 0x92, 0x3a, 0xdc, 0x6c, 0x92
+	};
+	char signature[512];
+	size_t signature_len = 0;
+
+	 if( ( ret = mbedtls_ecdsa_write_signature( &ctx_sign, MBEDTLS_MD_SHA256,
+									   data, sizeof(data),
+									   signature, &signature_len,
+									   mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return 2;
+	}
+
+	// Import point Q
+	ret = mbedtls_ecp_point_read_binary(&ctx_sign.grp, &ctx_sign.Q, pub, ECC_PUBLIC_KEY_STORE_SIZE);
+	if( ret != 0 )
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return FALSE;
+	}
+
+	//Verify signature
+	if( ( ret = mbedtls_ecdsa_read_signature(&ctx_sign,
+									  data, sizeof(data),
+									  signature, signature_len) ) != 0 )
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return FALSE;
+	}*/
+
     mbedtls_ecdsa_free( &ctx_sign );
     mbedtls_ctr_drbg_free( &ctr_drbg );
     mbedtls_entropy_free( &entropy );
@@ -174,7 +218,7 @@ uint8_t PKC_signData(uint8_t * private, uint8_t * data, size_t data_len, uint8_t
 	}
 
     if( ( ret = mbedtls_ecdsa_write_signature( &ctx_sign, MBEDTLS_MD_SHA256,
-                                       data, sizeof(data_len),
+                                       data, data_len,
                                        signature, signature_len,
                                        mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
     {

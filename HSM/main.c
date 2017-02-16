@@ -32,12 +32,15 @@ int main()
 
 	/*USER_init();
 
-	USER_remove(4);
-	USER_remove(2);
-	USER_remove(3);
 	USER_remove(1);
 
-	USER_add(1, "12345678912345678912345678912341");
+	return 0;*/
+
+	/*USER_remove(4);
+	USER_remove(2);
+	USER_remove(3);
+
+	/*USER_add(1, "12345678912345678912345678912341");
 	USER * n1 = USER_get(1);
 	USER * n2 = USER_get(2);
 
