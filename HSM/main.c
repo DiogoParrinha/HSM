@@ -30,11 +30,37 @@ int main()
 	/* Disable Watchdog */
 	SYSREG->WDOG_CR = 0x00000000;
 
-	/*USER_init();
+	/*volatile int i = 0;
+	i++;
+	i += 3;
 
-	USER_remove(1);
+	data = malloc(sizeof(char)*3);
+	data[0] = '1';
+	data[1] = '2';
+	data[2] = '3';
+
+	volatile char data2[5];
+
+	if(i == 4)
+	{
+		data2[0] = 'A';
+		data2[1] = 'B';
+		data2[2] = 'C';
+		data2[3] = 'D';
+		data2[4] = 'E';
+	}
 
 	return 0;*/
+
+	USER_init();
+
+	USER * n1 = USER_get(1);
+
+	PKC_createCertificate(n1->publicKey, "Diogo Parrinha", "digital_signature", &global_buffer[0]);
+
+	//USER_remove(1);
+
+	return 0;
 
 	/*USER_remove(4);
 	USER_remove(2);
@@ -81,8 +107,6 @@ int main()
 	UART_connect(); // Connect
 
 	MSS_RTC_start();
-
-	volatile int c = 0;
 
 	UART_waitCOMMAND(); // Wait for TIME_SEND (should be...)
 	UART_receive(&command[0], 64);

@@ -127,14 +127,14 @@ void COMMAND_USER_process(uint8_t * command)
 
 		if(!USER_modify(u))
 		{
-			free(u);
+			USER_free(u);
 
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: Cannot modify PIN");
 			return;
 		}
 
-		free(u);
+		USER_free(u);
 
 		// Send SUCCESS
 		UART_send("SUCCESS", 7);
@@ -200,14 +200,28 @@ void COMMAND_USER_process(uint8_t * command)
 		if(!USER_exists(U_ID))
 		{
 			// Respond back with ERROR
-			// user already exists - but it shouldn't, our algorithm for finding the next free is wrong
 			COMMAND_ERROR("ERROR: User does not exist");
 			return;
 		}
 
-		uint8_t private[ECC_PRIVATE_KEY_SIZE] = {0};
-		uint8_t public[ECC_PUBLIC_KEY_STORE_SIZE] = {0};
-		if(!PKC_genKeyPair(&private[0], &public[0]))
+		// Generate key pair and store it
+		uint8_t * privateKey = malloc(sizeof(uint8_t)*ECC_PRIVATE_KEY_SIZE);
+		if(!privateKey)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not enough space");
+			return;
+		}
+
+		uint8_t *  publicKey = malloc(sizeof(uint8_t)*ECC_PUBLIC_KEY_SIZE);
+		if(!publicKey)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not enough space");
+			return;
+		};
+
+		if(!PKC_genKeyPair(privateKey, publicKey))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: Generating key pair");
@@ -216,6 +230,9 @@ void COMMAND_USER_process(uint8_t * command)
 
 		// TODO: Store key pair
 		// Add UPDATE routine to User (Modify and Remove need to be tested as well)
+
+		free(publicKey);
+		free(privateKey);
 
 		// Success
 		UART_send("SUCCESS", 7);
@@ -288,12 +305,14 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 		size_t sig_len = 0;
 		if(!PKC_signData(u->privateKey, HASH, HASH_SIZE, &sig[0], &sig_len))
 		{
+			USER_free(u);
+
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: signature");
 			return;
 		}
 
-		free(u);
+		USER_free(u);
 
 		// Send SIGNATURE
 		UART_send("SIGNATURE", 9);
@@ -354,19 +373,24 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 		uint8_t res = PKC_verifySignature(u->publicKey, HASH, HASH_SIZE, SIGNATURE, SIG_SIZE);
 		if(res == 0)
 		{
+			USER_free(u);
+
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: signature");
 			return;
 		}
 		else if(res == 2)
 		{
+			USER_free(u);
 			UART_send("INCORRECT", 9);
 		}
+		else
+		{
+			USER_free(u);
 
-		free(u);
-
-		// Send SUCCESS
-		UART_send("SUCCESS", 7);
+			// Send SUCCESS
+			UART_send("SUCCESS", 7);
+		}
 	}
 }
 
@@ -377,17 +401,17 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 		// User is requesting a certificate for a public key
 
 		// Expect 32B ADMIN_PIN and 384-bit Public Key (assuming for now)
-		uint8_t buffer[PIN_SIZE+ECC_PUBLIC_KEY_STORE_SIZE] = {0};
-		UART_receive(&buffer[0], PIN_SIZE+ECC_PUBLIC_KEY_STORE_SIZE);
+		uint8_t buffer[PIN_SIZE+ECC_PUBLIC_KEY_SIZE] = {0};
+		UART_receive(&buffer[0], PIN_SIZE+ECC_PUBLIC_KEY_SIZE);
 
 		uint8_t AUTH_PIN[PIN_SIZE] = {0};
-		uint8_t KEY[ECC_PUBLIC_KEY_STORE_SIZE] = {0};
+		uint8_t KEY[ECC_PUBLIC_KEY_SIZE] = {0};
 
 		// First 32B => AUTH_PIN
 		memcpy(AUTH_PIN, &buffer[0], PIN_SIZE);
 
 		// Second 48B => Public Key
-		memcpy(KEY, &buffer[PIN_SIZE], ECC_PUBLIC_KEY_STORE_SIZE);
+		memcpy(KEY, &buffer[PIN_SIZE], ECC_PUBLIC_KEY_SIZE);
 
 		if(!USER_isAdmin(AUTH_PIN))
 		{

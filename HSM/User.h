@@ -11,8 +11,8 @@
 typedef struct USER {
 	uint8_t PIN[PIN_SIZE];
 	uint8_t ID;
-	uint8_t privateKey[ECC_PRIVATE_KEY_SIZE];
-	uint8_t publicKey[ECC_PUBLIC_KEY_STORE_SIZE];
+	uint8_t *privateKey;
+	uint8_t *publicKey;
 } USER;
 
 #define HASHED_PIN_SIZE (uint8_t)32
@@ -26,7 +26,7 @@ USER * USER_getUser(uint8_t ID);
 void USER_init();
 void USER_terminate();
 USER * USER_get(uint8_t ID);
-USER * USER_add(uint8_t ID, uint8_t * PIN);
+BOOL USER_add(uint8_t ID, uint8_t * PIN);
 void USER_remove(uint8_t ID);
 BOOL USER_modify(USER *user);
 BOOL USER_exists(uint8_t ID);
@@ -34,5 +34,6 @@ BOOL USER_isAdmin(uint8_t * PIN);
 BOOL USER_verify(uint8_t ID, uint8_t * PIN);
 uint8_t USER_getNextAvailableID();
 BOOL USER_isFull();
+void USER_free(USER * u);
 
 #endif // USER_H

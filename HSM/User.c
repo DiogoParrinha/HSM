@@ -65,27 +65,33 @@ BOOL USER_isFull()
 	return FALSE;
 }
 
-USER * USER_add(uint8_t ID, uint8_t * PIN)
+BOOL USER_add(uint8_t ID, uint8_t * PIN)
 {
 	// Check if the user exists
 	if(USER_exists(ID))
-		return NULL;
+		return FALSE;
 
 	USER * newUser = malloc(sizeof(USER));
+	if(!newUser)
+		return FALSE;
+
 	newUser->ID = ID;
 	memcpy(newUser->PIN, PIN, HASHED_PIN_SIZE);
 
 	// Generate key pair and store it
-	uint8_t private[ECC_PRIVATE_KEY_SIZE] = {0};
-	uint8_t public[ECC_PUBLIC_KEY_STORE_SIZE] = {0};
-	if(!PKC_genKeyPair(&private[0], &public[0]))
+	newUser->privateKey = malloc(sizeof(uint8_t)*ECC_PRIVATE_KEY_SIZE);
+	if(!newUser->privateKey)
+		return FALSE;
+
+	newUser->publicKey = malloc(sizeof(uint8_t)*ECC_PUBLIC_KEY_SIZE);
+	if(!newUser->publicKey)
+		return FALSE;
+
+	if(!PKC_genKeyPair(newUser->publicKey, newUser->privateKey))
 	{
 		free(newUser);
-		return NULL;
+		return FALSE;
 	}
-
-	memcpy(newUser->privateKey, private, ECC_PRIVATE_KEY_SIZE);
-	memcpy(newUser->publicKey, public, ECC_PUBLIC_KEY_STORE_SIZE);
 
 	SPIFLASH_list[ID-1] = ID;
 	SPIFLASH_total++;
@@ -95,10 +101,10 @@ USER * USER_add(uint8_t ID, uint8_t * PIN)
 	uint8_t * data = malloc(size);
 	if(data == NULL)
 	{
-		free(newUser);
+		USER_free(newUser);
 
 		// Not enough space
-		return NULL;
+		return FALSE;
 	}
 	memset(data, 0, FLASH_BLOCK_SIZE);
 
@@ -114,14 +120,15 @@ USER * USER_add(uint8_t ID, uint8_t * PIN)
 	 */
 	memset(data, ID, 1);
 	memcpy(data+1, newUser->PIN, HASHED_PIN_SIZE);
-	memcpy(data+1+HASHED_PIN_SIZE, newUser->privateKey, ECC_PRIVATE_KEY_SIZE);
-	memcpy(data+1+HASHED_PIN_SIZE+ECC_PRIVATE_KEY_SIZE, newUser->publicKey, ECC_PUBLIC_KEY_STORE_SIZE);
+	memcpy(data+1+HASHED_PIN_SIZE, newUser->privateKey, strlen(newUser->privateKey)+1);
+	memcpy(data+1+HASHED_PIN_SIZE+strlen(newUser->privateKey)+1, newUser->publicKey, strlen(newUser->publicKey)+1);
 
 	SPIFLASH_writeBlock(ID, data);
 
 	free(data);
+	USER_free(newUser);
 
-	return newUser;
+	return TRUE;
 }
 
 BOOL USER_modify(USER *user)
@@ -152,8 +159,8 @@ BOOL USER_modify(USER *user)
 	 */
 	memset(data, user->ID, 1);
 	memcpy(data+1, user->PIN, HASHED_PIN_SIZE);
-	memcpy(data+1+HASHED_PIN_SIZE, user->privateKey, ECC_PRIVATE_KEY_SIZE);
-	memcpy(data+1+HASHED_PIN_SIZE+ECC_PRIVATE_KEY_SIZE, user->publicKey, ECC_PUBLIC_KEY_STORE_SIZE);
+	memcpy(data+1+HASHED_PIN_SIZE, user->privateKey, strlen(user->privateKey)+1);
+	memcpy(data+1+HASHED_PIN_SIZE+strlen(user->privateKey)+1, user->publicKey, strlen(user->publicKey)+1);
 
 	SPIFLASH_writeBlock(user->ID, data);
 
@@ -191,10 +198,48 @@ USER * USER_get(uint8_t ID)
 	 */
 
 	USER * newUser = malloc(sizeof(USER));
+	if(!newUser)
+		return NULL;
+
 	newUser->ID = data[0];
-	memmove(newUser->PIN, data+1, HASHED_PIN_SIZE);
-	memmove(newUser->privateKey, data+1+HASHED_PIN_SIZE, ECC_PRIVATE_KEY_SIZE);
-	memmove(newUser->publicKey, data+1+HASHED_PIN_SIZE+ECC_PRIVATE_KEY_SIZE, ECC_PUBLIC_KEY_STORE_SIZE);
+	memcpy(newUser->PIN, data+1, HASHED_PIN_SIZE);
+
+	newUser->privateKey = malloc(sizeof(uint8_t)*ECC_PRIVATE_KEY_SIZE);
+	if(!newUser->privateKey)
+		return NULL;
+
+	newUser->publicKey = malloc(sizeof(uint8_t)*ECC_PUBLIC_KEY_SIZE);
+	if(!newUser->publicKey)
+		return NULL;
+
+	// Start at x=1+HASHED_PIN_SIZE and stop when we find 0 or '\0' (should be the same but mbedTLS checks both...)
+	int x;
+	int cert_end = 0;
+	for(x=1+HASHED_PIN_SIZE;x<FLASH_BLOCK_SIZE;x++)
+	{
+		if(data[x] == 0 || data[x] == '\0')
+		{
+			// Finished it
+			cert_end = x+1; // this character counts
+			break;
+		}
+	}
+	size_t pubkeysize = cert_end-(1+HASHED_PIN_SIZE);
+	memcpy(newUser->publicKey, data+1+HASHED_PIN_SIZE, pubkeysize);
+
+	x = 0;
+	cert_end = 0;
+	for(x=1+HASHED_PIN_SIZE+pubkeysize;x<FLASH_BLOCK_SIZE;x++)
+	{
+		if(data[x] == 0 || data[x] == '\0')
+		{
+			// Finished it
+			cert_end = x+1; // this character counts
+			break;
+		}
+	}
+	size_t prikeysize = cert_end-(1+HASHED_PIN_SIZE+pubkeysize);
+	memcpy(newUser->privateKey, data+1+HASHED_PIN_SIZE+pubkeysize, prikeysize);
 
 	free(data);
 
@@ -255,9 +300,18 @@ BOOL USER_verify(uint8_t ID, uint8_t * P1)
 	// P1 != P2 ?
 	if(!USER_comparePIN(P1, P2))
 	{
+		USER_free(u);
 		return FALSE;
 	}
 
+	USER_free(u);
 	return TRUE;
+}
+
+void USER_free(USER * u)
+{
+	free(u->publicKey);
+	free(u->privateKey);
+	free(u);
 }
 

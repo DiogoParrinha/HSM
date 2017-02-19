@@ -13,6 +13,7 @@
 #include "drivers/mss_rtc/mss_rtc.h"
 
 //#include "micro-ecc/uECC.h"
+
 #if !defined(MBEDTLS_CONFIG_FILE)
 #include "mbedtls/config.h"
 #else
@@ -27,8 +28,6 @@
 
 #include "mbedtls/entropy.h"
 #include "mbedtls/ctr_drbg.h"
-#include "mbedtls/ecdh.h"
-#include "mbedtls/ecdsa.h"
 
 //#define DEBUG_MODE 1
 void __printf(char *s);
@@ -37,10 +36,14 @@ typedef uint8_t BOOL;
 #define TRUE 1
 #define FALSE 0
 
-#define ECC_PUBLIC_KEY_SIZE 24 // 48 bytes for P-384 I believe
-#define ECC_PUBLIC_KEY_STORE_SIZE 2*ECC_PUBLIC_KEY_SIZE+1 // 2xPUB_KEY_SIZE + 1 (that's how mbedtls_ecp_point_write_binary stores it)
-#define ECC_PRIVATE_KEY_SIZE 24 // 32 bytes for P-384 I beleive
+// size of the PEM strings (512 is enough to hold them)
+#define ECC_PUBLIC_KEY_SIZE 512
+#define ECC_PRIVATE_KEY_SIZE 512
 #define HASH_SIZE 32
+
+// Issuer keys
+#define ISSUER_PRIVATE_KEY "-----BEGIN EC PRIVATE KEY-----\nMGACAQEEGQDmasoEkQx8q6S//Ubt+oyQA/4YeoXgj9agCgYIKoZIzj0DAQGhNAMy\nAATFWTpjMnjv9zHHIH2dM1J/RDj0HP+cpvG2eLLKsijkAELpzJhsCwV2ZAAVNp5n\nyXw=\n-----END EC PRIVATE KEY-----\n"
+#define ISSUER_PUBLIC_KEY "-----BEGIN PUBLIC KEY-----\nMEkwEwYHKoZIzj0CAQYIKoZIzj0DAQEDMgAExVk6YzJ47/cxxyB9nTNSf0Q49Bz/\nnKbxtniyyrIo5ABC6cyYbAsFdmQAFTaeZ8l8\n-----END PUBLIC KEY-----\n"
 
 /* Manufacture and device IDs for Winbond Electronics FL128SD___ SPI Flash. */
 #define FLASH_MANUFACTURER_ID   (uint8_t)0x01
@@ -50,14 +53,12 @@ typedef uint8_t BOOL;
 
 #define MAX_USERS FLASH_MAX_BLOCKS
 
-#define ERROR_MSG "ERROR: "
-
-/*#define USERS_BASE_ADDRESS 0
-#define KEYS_BASE_ADDRESS 4096*/
-
 #define PIN_SIZE (uint8_t)32
 #define ADMIN_ID (uint8_t)0
 #define ADMIN_PIN (uint8_t*)"12345678912345678912345678912345"
+
+#define GLOBAL_BUFFER_SIZE 4096
+uint8_t global_buffer[GLOBAL_BUFFER_SIZE];
 
 uint32_t calculate_weekday(uint32_t day, uint32_t month, uint32_t year);
 uint32_t calculate_totaldays(uint32_t day, uint32_t month, uint32_t year);

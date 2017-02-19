@@ -10,102 +10,25 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include "drivers/mss_pdma/mss_pdma.h"
-#include "drivers/mss_spi/mss_spi.h"
-#include "drivers/w25q64fvssig/w25q64fvssig.h"
 
-BOOL PKC_genKeyPair(uint8_t * pri, uint8_t * pub)
+BOOL PKC_genKeyPair(uint8_t * pub, uint8_t * pri)
 {
-	/*const struct uECC_Curve_t * curve = uECC_secp256r1();
-    uint8_t private[32] = {0};
-    uint8_t public[64] = {0};
-    uint8_t hash[32] = {0};
-    uint8_t sig[64] = {0};
-
-    // Define random number generator
-    uECC_set_rng(myRandom);
-
-    if (!uECC_make_key(public, private, curve)) {
-    	__printf("uECC_make_key() failed\n");
-        return FALSE;
-    }
-    memcpy(hash, public, sizeof(hash));
-
-    if (!uECC_sign(private, hash, sizeof(hash), sig, curve)) {
-    	__printf("uECC_sign() failed\n");
-        return FALSE;
-    }
-
-    if (!uECC_verify(public, hash, sizeof(hash), sig, curve)) {
-        __printf("uECC_verify() failed\n");
-        return FALSE;
-    }
-
-    // Copy private and public
-    memcpy(pri, private, 32);
-    memcpy(pub, public, 64);*/
-
-    mbedtls_ecdsa_context ctx_sign;
+    mbedtls_pk_context ctx;
     mbedtls_entropy_context entropy;
     mbedtls_ctr_drbg_context ctr_drbg;
     const char *pers = "ecdsa";
 
-    mbedtls_ecdsa_init(&ctx_sign);
-    mbedtls_ctr_drbg_init( &ctr_drbg );
-
-    int ret = 0;
-
-    //Generate a key pair for signing
-    //__printf( "\n  . Seeding the random number generator..." );
-
-    mbedtls_entropy_init( &entropy );
-
-    if( ( ret = mbedtls_entropy_add_source( &entropy, mbedtls_hardware_poll,
-									NULL, 4,
-									MBEDTLS_ENTROPY_SOURCE_STRONG ) ) != 0 )
-	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
-		return FALSE;
-	}
-
-    if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy,
-                               (const unsigned char *) pers,
-                               strlen( pers ) ) ) != 0 )
-    {
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
-		return FALSE;
-    }
-
-    //__printf( " ok\n  . Generating key pair..." );
-    if( ( ret = mbedtls_ecdsa_genkey( &ctx_sign, MBEDTLS_ECP_DP_SECP192R1,
-                              mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
-    {
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
-		return FALSE;
-    }
-
-    /*char data[256] = {0};
-	sprintf(data, "key size: %d bits", (int) ctx_sign.grp.pbits );
-	__printf(data);*/
-
-    // Write point Q (X,Y,Z) into buffer
-    size_t olen = 0;
-    ret = mbedtls_ecp_point_write_binary(&ctx_sign.grp, &ctx_sign.Q, MBEDTLS_ECP_PF_UNCOMPRESSED, &olen, pub, ECC_PUBLIC_KEY_STORE_SIZE);
+    int ret = PKC_init(&ctx, &entropy, &ctr_drbg, pers, TRUE);
     if( ret != 0 )
-    {
+	{
 		char error[10];
 		sprintf(error, "E: %d", ret );
 		__printf(error);
 		return FALSE;
-    }
+	}
 
-    ret = mbedtls_mpi_write_binary(&ctx_sign.d, pri, ECC_PRIVATE_KEY_SIZE);
+    // Generate key pair
+    ret = mbedtls_ecp_gen_key(MBEDTLS_ECP_DP_SECP192R1, mbedtls_pk_ec(ctx), mbedtls_ctr_drbg_random, &ctr_drbg);
 	if( ret != 0 )
 	{
 		char error[10];
@@ -114,32 +37,9 @@ BOOL PKC_genKeyPair(uint8_t * pri, uint8_t * pub)
 		return FALSE;
 	}
 
-
-	//// TEST
-
-	/*char data[32] = {
-		0x8d, 0x96, 0x9e, 0xef, 0x6e, 0xca, 0xd3, 0xc2,
-		0x9a, 0x3a, 0x62, 0x92, 0x80, 0xe6, 0x86, 0xcf,
-		0x0c, 0x3f, 0x5d, 0x5a, 0x86, 0xaf, 0xf3, 0xca,
-		0x12, 0x02, 0x0c, 0x92, 0x3a, 0xdc, 0x6c, 0x92
-	};
-	char signature[512];
-	size_t signature_len = 0;
-
-	 if( ( ret = mbedtls_ecdsa_write_signature( &ctx_sign, MBEDTLS_MD_SHA256,
-									   data, sizeof(data),
-									   signature, &signature_len,
-									   mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
-	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
-		return 2;
-	}
-
-	// Import point Q
-	ret = mbedtls_ecp_point_read_binary(&ctx_sign.grp, &ctx_sign.Q, pub, ECC_PUBLIC_KEY_STORE_SIZE);
-	if( ret != 0 )
+    // Write a PEM string for the public key (we can use strlen of pub to find out how many bytes are in the string)
+	ret = mbedtls_pk_write_pubkey_pem(&ctx, pub, ECC_PUBLIC_KEY_SIZE);
+	if(ret != 0)
 	{
 		char error[10];
 		sprintf(error, "E: %d", ret );
@@ -147,140 +47,9 @@ BOOL PKC_genKeyPair(uint8_t * pri, uint8_t * pub)
 		return FALSE;
 	}
 
-	//Verify signature
-	if( ( ret = mbedtls_ecdsa_read_signature(&ctx_sign,
-									  data, sizeof(data),
-									  signature, signature_len) ) != 0 )
-	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
-		return FALSE;
-	}*/
-
-    mbedtls_ecdsa_free( &ctx_sign );
-    mbedtls_ctr_drbg_free( &ctr_drbg );
-    mbedtls_entropy_free( &entropy );
-
-    return TRUE;
-}
-
-uint8_t PKC_signData(uint8_t * private, uint8_t * data, size_t data_len, uint8_t * signature, size_t * signature_len)
-{
-    mbedtls_ecdsa_context ctx_sign;
-    mbedtls_entropy_context entropy;
-    mbedtls_ctr_drbg_context ctr_drbg;
-    const char *pers = "ecdsa";
-
-    mbedtls_ecdsa_init(&ctx_sign);
-    mbedtls_ctr_drbg_init( &ctr_drbg );
-
-    int ret = 0;
-
-    mbedtls_entropy_init( &entropy );
-
-    if( ( ret = mbedtls_entropy_add_source( &entropy, mbedtls_hardware_poll,
-									NULL, 4,
-									MBEDTLS_ENTROPY_SOURCE_STRONG ) ) != 0 )
-	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
-		return 0;
-	}
-
-    if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy,
-                               (const unsigned char *) pers,
-                               strlen( pers ) ) ) != 0 )
-    {
-    	char error[10];
-    	sprintf(error, "E: %d", ret );
-        __printf(error);
-        return 0;
-    }
-
-    ret = mbedtls_ecp_group_load(&ctx_sign.grp, MBEDTLS_ECP_DP_SECP192R1);
-	if( ret != 0 )
-	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
-		return 0;
-	}
-
-	ret = mbedtls_mpi_read_binary(&ctx_sign.d, private, ECC_PRIVATE_KEY_SIZE);
-	if( ret != 0 )
-	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
-		return 0;
-	}
-
-    if( ( ret = mbedtls_ecdsa_write_signature( &ctx_sign, MBEDTLS_MD_SHA256,
-                                       data, data_len,
-                                       signature, signature_len,
-                                       mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
-    {
-    	char error[10];
-    	sprintf(error, "E: %d", ret );
-        __printf(error);
-        return 2;
-    }
-
-    mbedtls_ecdsa_free( &ctx_sign );
-    mbedtls_ctr_drbg_free( &ctr_drbg );
-    mbedtls_entropy_free( &entropy );
-
-    return 1;
-}
-
-BOOL PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint8_t * signature, size_t signature_len)
-{
-    mbedtls_ecdsa_context ctx_sign;
-    mbedtls_entropy_context entropy;
-    mbedtls_ctr_drbg_context ctr_drbg;
-    const char *pers = "ecdsa";
-
-    mbedtls_ecdsa_init(&ctx_sign);
-    mbedtls_ctr_drbg_init( &ctr_drbg );
-
-    int ret = 0;
-
-    mbedtls_entropy_init( &entropy );
-
-    if( ( ret = mbedtls_entropy_add_source( &entropy, mbedtls_hardware_poll,
-									NULL, 4,
-									MBEDTLS_ENTROPY_SOURCE_STRONG ) ) != 0 )
-	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
-		return FALSE;
-	}
-
-    if( ( ret = mbedtls_ctr_drbg_seed( &ctr_drbg, mbedtls_entropy_func, &entropy,
-                               (const unsigned char *) pers,
-                               strlen( pers ) ) ) != 0 )
-    {
-    	char error[10];
-    	sprintf(error, "E: %d", ret );
-        __printf(error);
-        return FALSE;
-    }
-
-    ret = mbedtls_ecp_group_load(&ctx_sign.grp, MBEDTLS_ECP_DP_SECP192R1);
-	if( ret != 0 )
-	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
-		return FALSE;
-	}
-
-	// Import point Q
-	ret = mbedtls_ecp_point_read_binary(&ctx_sign.grp, &ctx_sign.Q, public, ECC_PUBLIC_KEY_STORE_SIZE);
-	if( ret != 0 )
+    // Write a PEM string for the private key (we can use strlen of pri to find out how many bytes are in the string)
+    ret = mbedtls_pk_write_key_pem(&ctx, pri, ECC_PRIVATE_KEY_SIZE);
+	if(ret != 0)
 	{
 		char error[10];
 		sprintf(error, "E: %d", ret );
@@ -289,11 +58,14 @@ BOOL PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint
 	}
 
 	/*
-	 * Verify signature
-	 */
-	if( ( ret = mbedtls_ecdsa_read_signature(&ctx_sign,
-									  data, data_len,
-									  signature, signature_len) ) != 0 )
+	////// TEST
+
+	mbedtls_pk_context ctx_sign;
+	mbedtls_pk_init(&ctx_sign);
+
+	// Parse private key
+	ret = mbedtls_pk_parse_key(&ctx_sign, pri, strlen(pri)+1, NULL, 0);
+	if( ret != 0 )
 	{
 		char error[10];
 		sprintf(error, "E: %d", ret );
@@ -301,38 +73,307 @@ BOOL PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint
 		return FALSE;
 	}
 
-    mbedtls_ecdsa_free( &ctx_sign );
-    mbedtls_ctr_drbg_free( &ctr_drbg );
-    mbedtls_entropy_free( &entropy );
+	uint8_t data[32] = {
+			0x8d, 0x96, 0x9e, 0xef, 0x6e, 0xca, 0xd3, 0xc2, 0x9a, 0x3a, 0x62, 0x92, 0x80, 0xe6, 0x86, 0xcf,
+			0x0c, 0x3f, 0x5d, 0x5a, 0x86, 0xaf, 0xf3, 0xca, 0x12, 0x02, 0x0c, 0x92, 0x3a, 0xdc, 0x6c, 0x92
+	};
+
+	uint8_t signature[512];
+	size_t signature_len = 0;
+	if( ( ret = mbedtls_pk_sign(&ctx_sign, MBEDTLS_MD_SHA256, data, 32, signature, &signature_len, mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return FALSE;
+	}
+
+	mbedtls_pk_context ctx_verify;
+	mbedtls_pk_init(&ctx_verify);
+
+	// Parse public key
+	ret = mbedtls_pk_parse_public_key(&ctx_verify, pub, strlen(pub)+1);
+	if(ret != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return FALSE;
+	}
+
+	//Verify signature
+	ret = mbedtls_pk_verify(&ctx, MBEDTLS_MD_SHA256, data, 32, signature, signature_len);
+	if(ret != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return FALSE;
+	}
+
+	mbedtls_pk_free(&ctx_sign);
+	mbedtls_pk_free(&ctx_verify);
+
+	*/
+
+    mbedtls_pk_free(&ctx);
+    mbedtls_ctr_drbg_free(&ctr_drbg);
+    mbedtls_entropy_free(&entropy);
 
     return TRUE;
 }
 
-/*
- * uECC_RNG_Function type
- *
- * The RNG function should fill 'size' random bytes into 'dest'. It should return 1 if
- * 'dest' was filled with random data, or 0 if the random data could not be generated.
- * The filled-in values should be either truly random, or from a cryptographically-secure PRNG.
-*/
-/*int myRandom(uint8_t *dest, unsigned size)
+uint8_t PKC_signData(uint8_t * private, uint8_t * data, size_t data_len, uint8_t * signature, size_t * signature_len)
 {
-	unsigned t = 0;
-	uint32_t r = 0;
-	uint8_t l = 0;
-	for(t=0;t<size;t++)
+	mbedtls_pk_context ctx;
+    mbedtls_entropy_context entropy;
+    mbedtls_ctr_drbg_context ctr_drbg;
+    const char *pers = "mbedtls_pk_sign";
+
+    int ret = PKC_init(&ctx, &entropy, &ctr_drbg, pers, FALSE);
+    if( ret != 0 )
 	{
-		// Rand returns a 4-byte number
-		r = rand();
-
-		// Take the least significant byte
-		l = r & 0x000000FF;
-
-		dest[t] = l;
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return 1;
 	}
 
-	return 1;
-}*/
+    // Parse private key
+    ret = mbedtls_pk_parse_key(&ctx, private, strlen(private)+1, NULL, 0);
+	if( ret != 0 )
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return 2;
+	}
+
+	if( ( ret = mbedtls_pk_sign(&ctx, MBEDTLS_MD_SHA256, data, 32, signature, signature_len,
+	                         mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return 3;
+	}
+
+	mbedtls_pk_free(&ctx);
+    mbedtls_ctr_drbg_free(&ctr_drbg);
+    mbedtls_entropy_free(&entropy);
+
+    return 1;
+}
+
+BOOL PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint8_t * signature, size_t signature_len)
+{
+	mbedtls_pk_context ctx;
+    mbedtls_entropy_context entropy;
+    mbedtls_ctr_drbg_context ctr_drbg;
+    const char *pers = "mbedtls_pk_sign";
+
+    int ret = PKC_init(&ctx, &entropy, &ctr_drbg, pers, FALSE);
+    if(ret != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return FALSE;
+	}
+
+    // Parse public key
+	ret = mbedtls_pk_parse_public_key(&ctx, public, strlen(public)+1);
+	if(ret != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return 2;
+	}
+
+	//Verify signature
+	ret = mbedtls_pk_verify(&ctx, MBEDTLS_MD_SHA256, data, 32, signature, signature_len);
+	if(ret != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret );
+		__printf(error);
+		return 2;
+	}
+
+    mbedtls_pk_free(&ctx);
+    mbedtls_ctr_drbg_free(&ctr_drbg);
+    mbedtls_entropy_free(&entropy);
+
+    return TRUE;
+}
+
+BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint8_t key_usage, uint8_t* certificate)
+{
+	mbedtls_entropy_context entropy;
+	mbedtls_ctr_drbg_context ctr_drbg;
+	mbedtls_pk_context issuer_key, subject_key;
+	mbedtls_x509write_cert crt;
+	const char *pers = "crt_issue";
+	mbedtls_mpi serial;
+
+    mbedtls_x509write_crt_init( &crt );
+    mbedtls_x509write_crt_set_md_alg( &crt, MBEDTLS_MD_SHA256 );
+
+	mbedtls_pk_init(&issuer_key);
+	mbedtls_pk_init(&subject_key);
+	mbedtls_mpi_init(&serial);
+
+	// Load our issuer key (context doesn't matter becaues last param is FALSE)
+    int ret = PKC_init(&issuer_key, &entropy, &ctr_drbg, pers, FALSE);
+    if(ret != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
+
+    // Parse issuer private key
+	ret = mbedtls_pk_parse_key(&issuer_key, ISSUER_PRIVATE_KEY, strlen(ISSUER_PRIVATE_KEY)+1, NULL, 0);
+	if(ret != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
+
+	// Parse subject public key
+	ret = mbedtls_pk_parse_public_key(&subject_key, public, strlen(public)+1);
+	if(ret != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
+
+	// Set issuer and subject keys
+	mbedtls_x509write_crt_set_subject_key(&crt, &subject_key);
+	mbedtls_x509write_crt_set_issuer_key(&crt, &issuer_key);
+
+	// Set subject and issuer names
+	if((ret = mbedtls_x509write_crt_set_subject_name(&crt, subject_name)) != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
+
+	if((ret = mbedtls_x509write_crt_set_issuer_name(&crt, "HSM")) != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
+
+	// TODO: Get next serial to use (last serial is stored in the first sector of SPI Flash) - it's "1" for now
+	if((ret = mbedtls_mpi_read_string(&serial, 10, "1")) != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
+
+	// Set serial
+    ret = mbedtls_x509write_crt_set_serial(&crt, &serial);
+    if(ret != 0)
+    {
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+    }
+
+    // Set validity (format: 20301231235959)
+    ret = mbedtls_x509write_crt_set_validity(&crt, "20010101000000", "20301231235959");
+    if(ret != 0)
+    {
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+    }
+
+    // Set basic constraints (is_ca and max_pathlen)
+	ret = mbedtls_x509write_crt_set_basic_constraints(&crt, 0, -1);
+	if(ret != 0)
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
+
+	// Set key usage extension
+	ret = mbedtls_x509write_crt_set_key_usage(&crt, key_usage);
+	if( ret != 0 )
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
+
+	// Write certificate
+    memset(certificate, 0, GLOBAL_BUFFER_SIZE);
+    if((ret = mbedtls_x509write_crt_pem(&crt, certificate, 4096, mbedtls_ctr_drbg_random, &ctr_drbg)) < 0)
+    {
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
+
+    mbedtls_x509write_crt_free(&crt);
+    mbedtls_pk_free(&issuer_key);
+    mbedtls_pk_free(&subject_key);
+    mbedtls_ctr_drbg_free(&ctr_drbg);
+    mbedtls_entropy_free(&entropy);
+
+    return TRUE;
+}
+
+int PKC_init(mbedtls_pk_context *ctx, mbedtls_entropy_context * entropy, mbedtls_ctr_drbg_context * ctr_drbg, const char * pers, BOOL loadGroup)
+{
+	mbedtls_pk_init(ctx);
+	mbedtls_ctr_drbg_init(ctr_drbg);
+	mbedtls_entropy_init(entropy);
+
+	int ret = 0;
+	if( ( ret = mbedtls_entropy_add_source(entropy, mbedtls_hardware_poll,
+									NULL, 4,
+									MBEDTLS_ENTROPY_SOURCE_STRONG ) ) != 0 )
+	{
+		return ret;
+	}
+
+	if( ( ret = mbedtls_ctr_drbg_seed(ctr_drbg, mbedtls_entropy_func, entropy,
+							   (const unsigned char *) pers,
+							   strlen( pers ) ) ) != 0 )
+	{
+		return ret;
+	}
+
+	if(loadGroup)
+	{
+		if((ret = mbedtls_pk_setup(ctx, mbedtls_pk_info_from_type(MBEDTLS_PK_ECKEY))) != 0)
+		{
+			return FALSE;
+		}
+	}
+
+	return 0;
+}
 
 int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t *olen)
 {
@@ -368,3 +409,4 @@ int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t 
 
     return(0);
 }
+
