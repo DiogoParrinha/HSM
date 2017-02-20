@@ -57,11 +57,13 @@ typedef uint8_t BOOL;
 #define ADMIN_ID (uint8_t)0
 #define ADMIN_PIN (uint8_t*)"12345678912345678912345678912345"
 
-#define GLOBAL_BUFFER_SIZE 4096
-uint8_t global_buffer[GLOBAL_BUFFER_SIZE];
+#define FLASH_BLOCK_SIZE 4096
+#define GLOBAL_BUFFER_SIZE FLASH_BLOCK_SIZE
+uint8_t global_buffer[GLOBAL_BUFFER_SIZE]; // goes in the BSS section
 
 uint32_t calculate_weekday(uint32_t day, uint32_t month, uint32_t year);
 uint32_t calculate_totaldays(uint32_t day, uint32_t month, uint32_t year);
 uint32_t calculate_week(uint32_t day, uint32_t month, uint32_t year);
+int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t *olen);
 
 #endif /* COMMON_H_ */

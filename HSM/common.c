@@ -7,6 +7,8 @@
 
 #include "common.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 void __printf(char *s)
 {
@@ -97,3 +99,37 @@ uint32_t calculate_week(uint32_t day, uint32_t month, uint32_t year)
     return weeks;
 }
 
+int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t *olen)
+{
+	mss_rtc_calendar_t calendar_count;
+	MSS_RTC_get_calendar_count(&calendar_count);
+
+	// apparently, using mktime requires an extra 5KB of binary size - out of question.
+	/*struct tm ptm;
+
+	ptm.tm_sec = calendar_count.second;
+	ptm.tm_min = calendar_count.minute;
+	ptm.tm_hour = calendar_count.hour;
+	ptm.tm_mday = calendar_count.day;
+	ptm.tm_mon = calendar_count.month-1; // time works with months since january (0 being jan) while RTC works with 1 to 12
+	ptm.tm_year = calendar_count.year+100; // time works with years since 1900, while RTC works with years since 2009
+	ptm.tm_wday = calendar_count.weekday-1; // time works with days since sunday 80 being sunday) while RTC works with 1-7
+
+	uint32_t timer = mktime(&ptm);*/
+
+	// instead, let's do some modifications to the structure we have
+	// we're going to use the hardware RNG so this doesn't really matter!
+	uint32_t timer = calendar_count.second + calendar_count.minute*60 + calendar_count.hour*60*60 + calendar_count.day*24*60*60 + calendar_count.month*30*24*60*60;
+
+	MSS_RTC_clear_update_flag();
+
+    *olen = 0;
+
+    if( len < sizeof(uint32_t) )
+        return(0);
+
+    memcpy(output, &timer, sizeof(uint32_t));
+    *olen = sizeof(uint32_t);
+
+    return(0);
+}

@@ -4,8 +4,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include "drivers/mss_uart/mss_uart.h"
+#include "common.h"
 
 #define BLOCK_SIZE 16
+
+/*==============================================================================
+  Globlal Variables
+ */
+uint8_t UART_sessionKey[32]; // 256-bit key
+BOOL UART_usingKey;
 
 /*==============================================================================
   Macro
@@ -40,6 +47,7 @@ void UART_waitCOMMAND();
 void UART_receive(char *location, uint32_t locsize);
 size_t UART_Polled_Rx(mss_uart_instance_t * this_uart, uint8_t * rx_buff, size_t buff_size);
 
+void UART_setKey(uint8_t * key);
 void UART_connect();
 uint8_t UART_get(uint8_t* src_ptr, uint8_t size);
 int UART_send(uint8_t *buffer, uint32_t len);

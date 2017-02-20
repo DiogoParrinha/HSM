@@ -8,7 +8,6 @@
 #include "Common.h"
 
 #define FLASH_BASE_ADDRESS 0x0
-#define FLASH_BLOCK_SIZE 4096
 
 // Can't be 255 because when erased, all bytes=255 so we can't check if it's 255 because it will be for empty ones and we couldn't distinguish
 #define FLASH_MAX_BLOCKS 254

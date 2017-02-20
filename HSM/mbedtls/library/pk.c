@@ -164,16 +164,12 @@ static inline int pk_hashlen_helper( mbedtls_md_type_t md_alg, size_t *hash_len 
     if( *hash_len != 0 )
         return( 0 );
 
-    /// EDITED BY DIOGO PARRINHA
-    // We don't need the MD module and it's disabled but it's needed here...
-    // Since length is determined by us, we don't need to calculate it
-    /*
-		if( ( md_info = mbedtls_md_info_from_type( md_alg ) ) == NULL )
-			return( -1 );
+	if( ( md_info = mbedtls_md_info_from_type( md_alg ) ) == NULL )
+		return( -1 );
 
-		*hash_len = mbedtls_md_get_size( md_info );
-		return( 0 );
-    */
+	*hash_len = mbedtls_md_get_size( md_info );
+	return( 0 );
+
     return 0;
 }
 

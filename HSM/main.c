@@ -52,15 +52,11 @@ int main()
 
 	return 0;*/
 
-	USER_init();
+	/*USER_init();
 
-	USER * n1 = USER_get(1);
+	USER_remove(1);
 
-	PKC_createCertificate(n1->publicKey, "Diogo Parrinha", "digital_signature", &global_buffer[0]);
-
-	//USER_remove(1);
-
-	return 0;
+	return 0;*/
 
 	/*USER_remove(4);
 	USER_remove(2);
@@ -134,9 +130,6 @@ int main()
 			MSS_RTC_clear_update_flag();
 		}
 	}*/
-
-	/*** TODO: INITIATE SECURE COMMUNICATION ***/
-	// Establish session key
 
 	/*** Receive commands ***/
 	while(1)

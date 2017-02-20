@@ -29,6 +29,11 @@ void COMMAND_process(uint8_t * command)
 		COMMAND_TIME_process(command);
 		return;
 	}
+	else if(command[0] == 'S' && command[1] == 'E' && command[2] == 'S' && command[3] == 'S')
+	{
+		COMMAND_SESSION_process(command);
+		return;
+	}
 }
 
 void COMMAND_USER_process(uint8_t * command)
@@ -256,12 +261,22 @@ void COMMAND_USER_process(uint8_t * command)
 			return;
 		}
 
-		// TODO: Get certificate
+		USER * u = USER_get(U_ID);
+		uint8_t SUBJECT_NAME[50] = {0};
+		sprintf(SUBJECT_NAME, "CN=User %d, O=HSM, C=PT", u->ID);
 
-		// Success
+		if(!PKC_createCertificate(u->publicKey, SUBJECT_NAME, MBEDTLS_X509_KU_DIGITAL_SIGNATURE, &global_buffer[0]))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: generating certificate");
+			return;
+		}
+
+		// Send SUCCESS with Certificate
 		UART_send("CERTIFICATE", 11);
 
-		// TODO: send certificate
+		// Send certificate
+		UART_send(global_buffer, strlen(global_buffer)+1);
 	}
 }
 
@@ -400,18 +415,73 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 	{
 		// User is requesting a certificate for a public key
 
-		// Expect 32B ADMIN_PIN and 384-bit Public Key (assuming for now)
-		uint8_t buffer[PIN_SIZE+ECC_PUBLIC_KEY_SIZE] = {0};
-		UART_receive(&buffer[0], PIN_SIZE+ECC_PUBLIC_KEY_SIZE);
+		// Expect 32B ADMIN_PIN | subject name + \0 or 0 (should be the same thing) | 1B key usage
+		uint8_t buffer[PIN_SIZE+ECC_PUBLIC_KEY_SIZE+1] = {0};
+		UART_receive(&buffer[0], PIN_SIZE+256);
 
 		uint8_t AUTH_PIN[PIN_SIZE] = {0};
-		uint8_t KEY[ECC_PUBLIC_KEY_SIZE] = {0};
+		uint8_t SUBJECT_NAME[256] = {0}; // subject name shouldn't go over this limit
+		uint8_t KEY[ECC_PUBLIC_KEY_SIZE] = {0}; // key shouldn't go over this limit
+		uint8_t sizeArray[4] = {0};
 
 		// First 32B => AUTH_PIN
 		memcpy(AUTH_PIN, &buffer[0], PIN_SIZE);
 
-		// Second 48B => Public Key
-		memcpy(KEY, &buffer[PIN_SIZE], ECC_PUBLIC_KEY_SIZE);
+		// Then go through the subject name until we find \0 or 0
+		uint32_t i;
+		uint32_t k = 0;
+		for(i=PIN_SIZE;i<PIN_SIZE+256;i++)
+		{
+			SUBJECT_NAME[i-PIN_SIZE] = buffer[i];
+
+			if(buffer[i]  == '\0' || buffer[i] == 0)
+			{
+				// We're at the end of subject name
+				k = i+1;
+				break;
+			}
+		}
+
+		// Get key usage
+		uint32_t key_usage = 0;
+		if(k > 0)
+		{
+			key_usage = buffer[k];
+		}
+
+		switch(key_usage)
+		{
+			case 0:
+				key_usage = MBEDTLS_X509_KU_DIGITAL_SIGNATURE;
+			break;
+			case 1:
+				key_usage = MBEDTLS_X509_KU_NON_REPUDIATION;
+			break;
+			case 2:
+				key_usage = MBEDTLS_X509_KU_KEY_ENCIPHERMENT;
+			break;
+			case 3:
+				key_usage = MBEDTLS_X509_KU_DATA_ENCIPHERMENT;
+			break;
+			case 4:
+				key_usage = MBEDTLS_X509_KU_KEY_AGREEMENT;
+			break;
+			case 5:
+				key_usage = MBEDTLS_X509_KU_KEY_CERT_SIGN;
+			break;
+			case 6:
+				key_usage = MBEDTLS_X509_KU_CRL_SIGN;
+			break;
+			case 7:
+				key_usage = MBEDTLS_X509_KU_ENCIPHER_ONLY;
+			break;
+			case 8:
+				key_usage = MBEDTLS_X509_KU_DECIPHER_ONLY;
+			break;
+		}
+
+		// Except public key now
+		UART_receive(KEY, ECC_PUBLIC_KEY_SIZE);
 
 		if(!USER_isAdmin(AUTH_PIN))
 		{
@@ -420,17 +490,18 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 			return;
 		}
 
-		// TODO: Generate certificate for public key
+		if(!PKC_createCertificate(KEY, SUBJECT_NAME, key_usage, &global_buffer[0]))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: generating certificate");
+			return;
+		}
 
 		// Send SUCCESS with Certificate
 		UART_send("CERTIFICATE", 11);
 
-		// TODO: Send certificate
-		/*
-		uint8_t data[1];
-		data[0] = U_ID;
-		UART_send(data, 1);
-		*/
+		// Send certificate
+		UART_send(global_buffer, strlen(global_buffer)+1);
 	}
 }
 
@@ -480,6 +551,15 @@ void COMMAND_TIME_process(uint8_t * command)
         srand(timestamp);
 
         free(ptm);
+	}
+}
+
+void COMMAND_SESSION_process(uint8_t * command)
+{
+	if(strcmp(command, "SESS_START") == 0)
+	{
+		char key[32] = {0};
+		SecComm_start(&key[0]);
 	}
 }
 

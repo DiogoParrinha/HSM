@@ -75,14 +75,14 @@ BOOL SPIFLASH_eraseBlock(uint8_t ID)
 
 	// Allocate enough space for block size
 	uint32_t size = sizeof(uint8_t)*FLASH_BLOCK_SIZE;
-	uint8_t * data = malloc(size);
+	/*uint8_t * data = malloc(size);
 	if(data == NULL)
 	{
 		// Not enough space
 		return FALSE;
-	}
+	}*/
 
-	memset(data, 0, FLASH_BLOCK_SIZE);
+	memset(global_buffer, 0, FLASH_BLOCK_SIZE);
 
 	// Erase 4KB block at ID-1
 	FLASH_erase_4k_block(addr);
@@ -94,17 +94,17 @@ BOOL SPIFLASH_eraseBlock(uint8_t ID)
 	uint32_t bytes = 0;
 	for(c=0;c<chunks;c++)
 	{
-		FLASH_program(addr+256*c, data+256*c, 256);
+		FLASH_program(addr+256*c, global_buffer+256*c, 256);
 		bytes += 256;
 	}
 
 	if(bytes < size)
 	{
 		uint32_t remaining = size-bytes;
-		FLASH_program(addr+256*c, data+256*c, remaining);
+		FLASH_program(addr+256*c, global_buffer+256*c, remaining);
 	}
 
-	free(data);
+	//free(data);
 
 	return TRUE;
 }

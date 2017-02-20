@@ -98,15 +98,15 @@ BOOL USER_add(uint8_t ID, uint8_t * PIN)
 
 	// Allocate enough space for block size
 	uint32_t size = sizeof(uint8_t)*FLASH_BLOCK_SIZE;
-	uint8_t * data = malloc(size);
+	/*uint8_t * data = malloc(size);
 	if(data == NULL)
 	{
 		USER_free(newUser);
 
 		// Not enough space
 		return FALSE;
-	}
-	memset(data, 0, FLASH_BLOCK_SIZE);
+	}*/
+	memset(global_buffer, 0, FLASH_BLOCK_SIZE);
 
 	/*
 	 * TODO: we should store the hash of the PIN, not the actual PIN
@@ -118,14 +118,14 @@ BOOL USER_add(uint8_t ID, uint8_t * PIN)
 	 * YB Public Key Certificate
 	 *
 	 */
-	memset(data, ID, 1);
-	memcpy(data+1, newUser->PIN, HASHED_PIN_SIZE);
-	memcpy(data+1+HASHED_PIN_SIZE, newUser->privateKey, strlen(newUser->privateKey)+1);
-	memcpy(data+1+HASHED_PIN_SIZE+strlen(newUser->privateKey)+1, newUser->publicKey, strlen(newUser->publicKey)+1);
+	memset(global_buffer, ID, 1);
+	memcpy(global_buffer+1, newUser->PIN, HASHED_PIN_SIZE);
+	memcpy(global_buffer+1+HASHED_PIN_SIZE, newUser->privateKey, strlen(newUser->privateKey)+1);
+	memcpy(global_buffer+1+HASHED_PIN_SIZE+strlen(newUser->privateKey)+1, newUser->publicKey, strlen(newUser->publicKey)+1);
 
-	SPIFLASH_writeBlock(ID, data);
+	SPIFLASH_writeBlock(ID, global_buffer);
 
-	free(data);
+	//free(data);
 	USER_free(newUser);
 
 	return TRUE;
@@ -139,13 +139,13 @@ BOOL USER_modify(USER *user)
 
 	// Allocate enough space for block size
 	uint32_t size = sizeof(uint8_t)*FLASH_BLOCK_SIZE;
-	uint8_t * data = malloc(size);
+	/*uint8_t * data = malloc(size);
 	if(data == NULL)
 	{
 		// Not enough space
 		return FALSE;
-	}
-	memset(data, 0, FLASH_BLOCK_SIZE);
+	}*/
+	memset(global_buffer, 0, FLASH_BLOCK_SIZE);
 
 	/*
 	 * TODO: we should store the hash of the PIN, not the actual PIN
@@ -157,14 +157,14 @@ BOOL USER_modify(USER *user)
 	 * YB Public Key Certificate
 	 *
 	 */
-	memset(data, user->ID, 1);
-	memcpy(data+1, user->PIN, HASHED_PIN_SIZE);
-	memcpy(data+1+HASHED_PIN_SIZE, user->privateKey, strlen(user->privateKey)+1);
-	memcpy(data+1+HASHED_PIN_SIZE+strlen(user->privateKey)+1, user->publicKey, strlen(user->publicKey)+1);
+	memset(global_buffer, user->ID, 1);
+	memcpy(global_buffer+1, user->PIN, HASHED_PIN_SIZE);
+	memcpy(global_buffer+1+HASHED_PIN_SIZE, user->privateKey, strlen(user->privateKey)+1);
+	memcpy(global_buffer+1+HASHED_PIN_SIZE+strlen(user->privateKey)+1, user->publicKey, strlen(user->publicKey)+1);
 
-	SPIFLASH_writeBlock(user->ID, data);
+	SPIFLASH_writeBlock(user->ID, global_buffer);
 
-	free(data);
+	//free(data);
 
 	return TRUE;
 }
@@ -177,15 +177,15 @@ USER * USER_get(uint8_t ID)
 	}
 	// Allocate enough space for block size
 	uint32_t size = sizeof(uint8_t)*FLASH_BLOCK_SIZE;
-	uint8_t * data = malloc(size);
+	/*uint8_t * data = malloc(size);
 	if(data == NULL)
 	{
 		// Not enough space
 		return NULL;
-	}
-	memset(data, 0, FLASH_BLOCK_SIZE);
+	}*/
+	memset(global_buffer, 0, FLASH_BLOCK_SIZE);
 
-	SPIFLASH_readBlock(ID, data);
+	SPIFLASH_readBlock(ID, global_buffer);
 
 	/*
 	 *
@@ -201,8 +201,8 @@ USER * USER_get(uint8_t ID)
 	if(!newUser)
 		return NULL;
 
-	newUser->ID = data[0];
-	memcpy(newUser->PIN, data+1, HASHED_PIN_SIZE);
+	newUser->ID = global_buffer[0];
+	memcpy(newUser->PIN, global_buffer+1, HASHED_PIN_SIZE);
 
 	newUser->privateKey = malloc(sizeof(uint8_t)*ECC_PRIVATE_KEY_SIZE);
 	if(!newUser->privateKey)
@@ -217,7 +217,7 @@ USER * USER_get(uint8_t ID)
 	int cert_end = 0;
 	for(x=1+HASHED_PIN_SIZE;x<FLASH_BLOCK_SIZE;x++)
 	{
-		if(data[x] == 0 || data[x] == '\0')
+		if(global_buffer[x] == 0 || global_buffer[x] == '\0')
 		{
 			// Finished it
 			cert_end = x+1; // this character counts
@@ -225,13 +225,13 @@ USER * USER_get(uint8_t ID)
 		}
 	}
 	size_t pubkeysize = cert_end-(1+HASHED_PIN_SIZE);
-	memcpy(newUser->publicKey, data+1+HASHED_PIN_SIZE, pubkeysize);
+	memcpy(newUser->publicKey, global_buffer+1+HASHED_PIN_SIZE, pubkeysize);
 
 	x = 0;
 	cert_end = 0;
 	for(x=1+HASHED_PIN_SIZE+pubkeysize;x<FLASH_BLOCK_SIZE;x++)
 	{
-		if(data[x] == 0 || data[x] == '\0')
+		if(global_buffer[x] == 0 || global_buffer[x] == '\0')
 		{
 			// Finished it
 			cert_end = x+1; // this character counts
@@ -239,9 +239,9 @@ USER * USER_get(uint8_t ID)
 		}
 	}
 	size_t prikeysize = cert_end-(1+HASHED_PIN_SIZE+pubkeysize);
-	memcpy(newUser->privateKey, data+1+HASHED_PIN_SIZE+pubkeysize, prikeysize);
+	memcpy(newUser->privateKey, global_buffer+1+HASHED_PIN_SIZE+pubkeysize, prikeysize);
 
-	free(data);
+	//free(data);
 
 	return newUser;
 }

@@ -1,8 +1,9 @@
 
-#include "UART.h"
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
+#include "common.h"
+#include "UART.h"
 
 /*==============================================================================
   Global Variables.
@@ -27,6 +28,15 @@ void UART_connect()
 
 	// Send 'OK'
 	UART_sendOK();
+
+	// Not using session key for now
+	UART_usingKey = FALSE;
+}
+
+void UART_setKey(uint8_t * key)
+{
+	memcpy(UART_sessionKey, key, 32);
+	UART_usingKey = TRUE;
 }
 
 uint8_t UART_get
@@ -179,7 +189,7 @@ void UART_receive(char *location, uint32_t locsize)
 	UART_get(&sizeArray[0], 4u);
 
 	// Put back the size together into a 32 bit integer
-	volatile uint32_t size = (0x000000FF & sizeArray[0]) | ((0x000000FF & sizeArray[1]) << 8) | ((0x000000FF & sizeArray[2]) << 16) | ((0x000000FF & sizeArray[3]) << 24);
+	uint32_t size = (0x000000FF & sizeArray[0]) | ((0x000000FF & sizeArray[1]) << 8) | ((0x000000FF & sizeArray[2]) << 16) | ((0x000000FF & sizeArray[3]) << 24);
 
 	// Now get the actual command
 	memset(location, 0, locsize);
