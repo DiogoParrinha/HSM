@@ -8,6 +8,9 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
+// comment to use M2S060
+//#define SECURITY_DEVICE 1
+
 #include "drivers/mss_uart/mss_uart.h"
 #include "drivers/mss_gpio/mss_gpio.h"
 #include "drivers/mss_rtc/mss_rtc.h"
@@ -35,6 +38,9 @@ void __printf(char *s);
 typedef uint8_t BOOL;
 #define TRUE 1
 #define FALSE 0
+
+// size of ECC public key certificates (1048 seems enough)
+#define ECC_PUBLIC_KEY_CERT_SIZE 1048
 
 // size of the PEM strings (512 is enough to hold them)
 #define ECC_PUBLIC_KEY_SIZE 512

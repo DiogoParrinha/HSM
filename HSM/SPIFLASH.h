@@ -9,7 +9,8 @@
 
 #define FLASH_BASE_ADDRESS 0x0
 
-// Can't be 255 because when erased, all bytes=255 so we can't check if it's 255 because it will be for empty ones and we couldn't distinguish
+// Can't be 255 because when erased, all bytes=255 so we can't check if ID is 255 because it will be for empty ones and we couldn't distinguish
+// Solution: first byte is a flag rather than the ID
 #define FLASH_MAX_BLOCKS 254
 
 uint8_t SPIFLASH_total;

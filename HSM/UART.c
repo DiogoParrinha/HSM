@@ -8,7 +8,11 @@
 /*==============================================================================
   Global Variables.
  */
+#ifdef SECURITY_DEVICE
+mss_uart_instance_t * gp_my_uart = &g_mss_uart1;
+#else
 mss_uart_instance_t * gp_my_uart = &g_mss_uart0;
+#endif
 const uint8_t g_separator[] =
 "\r\n\
 ------------------------------------------------------------------------------";

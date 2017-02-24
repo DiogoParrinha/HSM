@@ -13,6 +13,7 @@ typedef struct USER {
 	uint8_t ID;
 	uint8_t *privateKey;
 	uint8_t *publicKey;
+	uint8_t *publicKeyCertificate;
 } USER;
 
 #define HASHED_PIN_SIZE (uint8_t)32
@@ -20,6 +21,7 @@ typedef struct USER {
 #define ADMIN_ID (uint8_t)0
 #define ADMIN_PIN (uint8_t*)"12345678912345678912345678912345"
 
+// P2 must always be a hash; P1 must be plain-text
 BOOL USER_comparePIN(uint8_t * P1, uint8_t * P2);
 USER * USER_getUser(uint8_t ID);
 

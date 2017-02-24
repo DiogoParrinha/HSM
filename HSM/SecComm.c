@@ -44,7 +44,7 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	}
 
 	// load group
-	ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_SECP384R1);
+	ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_CURVE25519);
 	if( ret != 0 )
 	{
 		char error[10];
@@ -73,6 +73,8 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 		return FALSE;
 	}
 
+	UART_sendOK();
+
 	// write client's public key into cli_to_srv (unsigned binary data)
 	UART_receive(&cli_to_srv[0], 32u);
 
@@ -100,7 +102,7 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 
 	// compute shared secret
 	int len = 0;
-	uint8_t shared_secret[128];
+	uint8_t shared_secret[32];
 	if((ret = mbedtls_ecdh_calc_secret(&ctx_srv, &len, shared_secret, 128u, mbedtls_ctr_drbg_random, &SecComm_ctr_drbg)) != 0)
 	{
 		char error[10];
@@ -110,7 +112,7 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	}
 
 	// calculate SHA-256
-	mbedtls_sha256(sessionKey, len, sessionKey, 0);
+	mbedtls_sha256(shared_secret, len, sessionKey, 0);
 
 	mbedtls_md_free(&sha_ctx);
 

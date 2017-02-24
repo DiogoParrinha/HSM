@@ -116,9 +116,7 @@ BOOL PKC_genKeyPair(uint8_t * pub, uint8_t * pri)
 
 	*/
 
-    mbedtls_pk_free(&ctx);
-    mbedtls_ctr_drbg_free(&ctr_drbg);
-    mbedtls_entropy_free(&entropy);
+	PKC_free(&ctx, &entropy, &ctr_drbg);
 
     return TRUE;
 }
@@ -158,9 +156,7 @@ uint8_t PKC_signData(uint8_t * private, uint8_t * data, size_t data_len, uint8_t
 		return 3;
 	}
 
-	mbedtls_pk_free(&ctx);
-    mbedtls_ctr_drbg_free(&ctr_drbg);
-    mbedtls_entropy_free(&entropy);
+    PKC_free(&ctx, &entropy, &ctr_drbg);
 
     return 1;
 }
@@ -201,14 +197,12 @@ BOOL PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint
 		return 2;
 	}
 
-    mbedtls_pk_free(&ctx);
-    mbedtls_ctr_drbg_free(&ctr_drbg);
-    mbedtls_entropy_free(&entropy);
+	PKC_free(&ctx, &entropy, &ctr_drbg);
 
     return TRUE;
 }
 
-BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint8_t key_usage, uint8_t* certificate)
+BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint8_t key_usage, uint8_t* certificate, uint32_t bufsize)
 {
 	mbedtls_entropy_context entropy;
 	mbedtls_ctr_drbg_context ctr_drbg;
@@ -225,7 +219,7 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint8_t key_
 	mbedtls_mpi_init(&serial);
 
 	// Load our issuer key (context doesn't matter becaues last param is FALSE)
-    int ret = PKC_init(&issuer_key, &entropy, &ctr_drbg, pers, FALSE);
+    volatile int ret = PKC_init(&issuer_key, &entropy, &ctr_drbg, pers, FALSE);
     if(ret != 0)
 	{
 		char error[10];
@@ -326,7 +320,7 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint8_t key_
 
 	// Write certificate
     memset(certificate, 0, GLOBAL_BUFFER_SIZE);
-    if((ret = mbedtls_x509write_crt_pem(&crt, certificate, 4096, mbedtls_ctr_drbg_random, &ctr_drbg)) < 0)
+    if((ret = mbedtls_x509write_crt_pem(&crt, certificate, bufsize, mbedtls_ctr_drbg_random, &ctr_drbg)) < 0)
     {
 		char error[10];
 		sprintf(error, "E: %d", ret);
@@ -335,10 +329,9 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint8_t key_
 	}
 
     mbedtls_x509write_crt_free(&crt);
-    mbedtls_pk_free(&issuer_key);
     mbedtls_pk_free(&subject_key);
-    mbedtls_ctr_drbg_free(&ctr_drbg);
-    mbedtls_entropy_free(&entropy);
+
+	PKC_free(&issuer_key, &entropy, &ctr_drbg);
 
     return TRUE;
 }
@@ -373,6 +366,13 @@ int PKC_init(mbedtls_pk_context *ctx, mbedtls_entropy_context * entropy, mbedtls
 	}
 
 	return 0;
+}
+
+void PKC_free(mbedtls_pk_context *ctx, mbedtls_entropy_context * entropy, mbedtls_ctr_drbg_context * ctr_drbg)
+{
+	mbedtls_pk_free(ctx);
+	mbedtls_ctr_drbg_free(ctr_drbg);
+	mbedtls_entropy_free(entropy);
 }
 
 

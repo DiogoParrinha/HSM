@@ -65,7 +65,7 @@ BOOL USER_isFull()
 	return FALSE;
 }
 
-BOOL USER_add(uint8_t ID, uint8_t * PIN)
+BOOL USER_add(uint8_t ID, uint8_t * plainPIN)
 {
 	// Check if the user exists
 	if(USER_exists(ID))
@@ -74,6 +74,10 @@ BOOL USER_add(uint8_t ID, uint8_t * PIN)
 	USER * newUser = malloc(sizeof(USER));
 	if(!newUser)
 		return FALSE;
+
+	// Store the hash
+	uint8_t PIN[32] = {0};
+	mbedtls_sha256(plainPIN, 32, PIN, 0);
 
 	newUser->ID = ID;
 	memcpy(newUser->PIN, PIN, HASHED_PIN_SIZE);
@@ -87,6 +91,8 @@ BOOL USER_add(uint8_t ID, uint8_t * PIN)
 	if(!newUser->publicKey)
 		return FALSE;
 
+	newUser->publicKeyCertificate = NULL;
+
 	if(!PKC_genKeyPair(newUser->publicKey, newUser->privateKey))
 	{
 		free(newUser);
@@ -98,39 +104,47 @@ BOOL USER_add(uint8_t ID, uint8_t * PIN)
 
 	// Allocate enough space for block size
 	uint32_t size = sizeof(uint8_t)*FLASH_BLOCK_SIZE;
-	/*uint8_t * data = malloc(size);
-	if(data == NULL)
-	{
-		USER_free(newUser);
-
-		// Not enough space
-		return FALSE;
-	}*/
 	memset(global_buffer, 0, FLASH_BLOCK_SIZE);
 
 	/*
-	 * TODO: we should store the hash of the PIN, not the actual PIN
 	 *
 	 * Write into buffer in the following format:
 	 * 1B: ID
 	 * 32B: PIN
 	 * XB: Private Key
-	 * YB Public Key Certificate
+	 * YB: Public Key
+	 * ZB Public Key Certificate
 	 *
 	 */
 	memset(global_buffer, ID, 1);
 	memcpy(global_buffer+1, newUser->PIN, HASHED_PIN_SIZE);
-	memcpy(global_buffer+1+HASHED_PIN_SIZE, newUser->privateKey, strlen(newUser->privateKey)+1);
-	memcpy(global_buffer+1+HASHED_PIN_SIZE+strlen(newUser->privateKey)+1, newUser->publicKey, strlen(newUser->publicKey)+1);
+	uint32_t l0 = 1+HASHED_PIN_SIZE;
+
+	memcpy(global_buffer+l0, newUser->privateKey, strlen(newUser->privateKey)+1);
+	uint32_t l1 = strlen(newUser->privateKey)+1;
+
+	memcpy(global_buffer+l0+l1, newUser->publicKey, strlen(newUser->publicKey)+1);
+	uint32_t l2 = strlen(newUser->publicKey)+1;
+
+	uint32_t pos = l0+l1+l2;
+	uint8_t SUBJECT_NAME[50] = {0};
+	sprintf(SUBJECT_NAME, "CN=User %d, O=HSM, C=PT", newUser->ID);
+	if(!PKC_createCertificate(newUser->publicKey, SUBJECT_NAME, MBEDTLS_X509_KU_DIGITAL_SIGNATURE, &global_buffer[pos], FLASH_BLOCK_SIZE-pos))
+	{
+		free(newUser);
+		return FALSE;
+	}
 
 	SPIFLASH_writeBlock(ID, global_buffer);
 
-	//free(data);
 	USER_free(newUser);
+
+	SPIFLASH_list[ID-1] = ID;
 
 	return TRUE;
 }
 
+// Modify a user's PIN
 BOOL USER_modify(USER *user)
 {
 	// Check if the user exists
@@ -139,32 +153,30 @@ BOOL USER_modify(USER *user)
 
 	// Allocate enough space for block size
 	uint32_t size = sizeof(uint8_t)*FLASH_BLOCK_SIZE;
-	/*uint8_t * data = malloc(size);
-	if(data == NULL)
-	{
-		// Not enough space
-		return FALSE;
-	}*/
 	memset(global_buffer, 0, FLASH_BLOCK_SIZE);
 
 	/*
-	 * TODO: we should store the hash of the PIN, not the actual PIN
-	 *
 	 * Write into buffer in the following format:
 	 * 1B: ID
 	 * 32B: PIN
 	 * XB: Private Key
-	 * YB Public Key Certificate
+	 * YB: Public Key
+	 * ZB Public Key Certificate
 	 *
 	 */
 	memset(global_buffer, user->ID, 1);
 	memcpy(global_buffer+1, user->PIN, HASHED_PIN_SIZE);
-	memcpy(global_buffer+1+HASHED_PIN_SIZE, user->privateKey, strlen(user->privateKey)+1);
-	memcpy(global_buffer+1+HASHED_PIN_SIZE+strlen(user->privateKey)+1, user->publicKey, strlen(user->publicKey)+1);
+	uint32_t l0 = 1+HASHED_PIN_SIZE;
+
+	memcpy(global_buffer+l0, user->privateKey, strlen(user->privateKey)+1);
+	uint32_t l1 = strlen(user->privateKey)+1;
+
+	memcpy(global_buffer+l0+l1, user->publicKey, strlen(user->publicKey)+1);
+	uint32_t l2 = strlen(user->publicKey)+1;
+
+	memcpy(global_buffer+l0+l1+l2, user->publicKeyCertificate, strlen(user->publicKeyCertificate)+1);
 
 	SPIFLASH_writeBlock(user->ID, global_buffer);
-
-	//free(data);
 
 	return TRUE;
 }
@@ -175,25 +187,20 @@ USER * USER_get(uint8_t ID)
 	{
 		return NULL;
 	}
+
 	// Allocate enough space for block size
 	uint32_t size = sizeof(uint8_t)*FLASH_BLOCK_SIZE;
-	/*uint8_t * data = malloc(size);
-	if(data == NULL)
-	{
-		// Not enough space
-		return NULL;
-	}*/
 	memset(global_buffer, 0, FLASH_BLOCK_SIZE);
 
 	SPIFLASH_readBlock(ID, global_buffer);
 
 	/*
-	 *
 	 * Read from buffer in of the following format:
 	 * 1B: ID
 	 * 32B: PIN
 	 * XB: Private Key
-	 * YB Public Key Certificate
+	 * YB: Public Key
+	 * ZB Public Key Certificate
 	 *
 	 */
 
@@ -212,6 +219,10 @@ USER * USER_get(uint8_t ID)
 	if(!newUser->publicKey)
 		return NULL;
 
+	newUser->publicKeyCertificate = malloc(sizeof(uint8_t)*ECC_PUBLIC_KEY_CERT_SIZE);
+	if(!newUser->publicKeyCertificate)
+		return NULL;
+
 	// Start at x=1+HASHED_PIN_SIZE and stop when we find 0 or '\0' (should be the same but mbedTLS checks both...)
 	int x;
 	int cert_end = 0;
@@ -224,12 +235,13 @@ USER * USER_get(uint8_t ID)
 			break;
 		}
 	}
-	size_t pubkeysize = cert_end-(1+HASHED_PIN_SIZE);
-	memcpy(newUser->publicKey, global_buffer+1+HASHED_PIN_SIZE, pubkeysize);
+	size_t prikeysize = cert_end-(1+HASHED_PIN_SIZE);
+	memcpy(newUser->privateKey, global_buffer+1+HASHED_PIN_SIZE, prikeysize);
 
+	// Public Key
 	x = 0;
 	cert_end = 0;
-	for(x=1+HASHED_PIN_SIZE+pubkeysize;x<FLASH_BLOCK_SIZE;x++)
+	for(x=1+HASHED_PIN_SIZE+prikeysize;x<FLASH_BLOCK_SIZE;x++)
 	{
 		if(global_buffer[x] == 0 || global_buffer[x] == '\0')
 		{
@@ -238,10 +250,23 @@ USER * USER_get(uint8_t ID)
 			break;
 		}
 	}
-	size_t prikeysize = cert_end-(1+HASHED_PIN_SIZE+pubkeysize);
-	memcpy(newUser->privateKey, global_buffer+1+HASHED_PIN_SIZE+pubkeysize, prikeysize);
+	size_t pubkeysize = cert_end-(1+HASHED_PIN_SIZE+prikeysize);
+	memcpy(newUser->publicKey, global_buffer+1+HASHED_PIN_SIZE+prikeysize, pubkeysize);
 
-	//free(data);
+	// Public Key Certificate
+	x = 0;
+	cert_end = 0;
+	for(x=1+HASHED_PIN_SIZE+prikeysize+pubkeysize;x<FLASH_BLOCK_SIZE;x++)
+	{
+		if(global_buffer[x] == 0 || global_buffer[x] == '\0')
+		{
+			// Finished it
+			cert_end = x+1; // this character counts
+			break;
+		}
+	}
+	size_t certsize = cert_end-(1+HASHED_PIN_SIZE+prikeysize+pubkeysize);
+	memcpy(newUser->publicKeyCertificate, global_buffer+1+HASHED_PIN_SIZE+prikeysize+pubkeysize, certsize);
 
 	return newUser;
 }
@@ -250,12 +275,18 @@ USER * USER_get(uint8_t ID)
 void USER_remove(uint8_t ID)
 {
 	SPIFLASH_eraseBlock(ID);
+	SPIFLASH_list[ID-1] = 0;
 }
 
+// check if a plain-text PIN matches the admin pin
 BOOL USER_isAdmin(uint8_t * PIN)
 {
+	// Calculate hash of ADMIN_PIN and compare with PIN (second param of comparePIN must be a hash)
+	uint8_t HASH_ADMIN_PIN[32] = {0};
+	mbedtls_sha256(ADMIN_PIN, 32, HASH_ADMIN_PIN, 0);
+
 	// Attempt to perform admin login
-	if(!USER_comparePIN(PIN, ADMIN_PIN))
+	if(!USER_comparePIN(PIN, HASH_ADMIN_PIN))
 	{
 		return FALSE;
 	}
@@ -263,9 +294,11 @@ BOOL USER_isAdmin(uint8_t * PIN)
 	return TRUE;
 }
 
-BOOL USER_comparePIN(uint8_t * P1, uint8_t * P2)
+BOOL USER_comparePIN(uint8_t * plainP1, uint8_t * P2)
 {
-	// TODO: we should compare the hashes of both
+	// Calculate hash of plainP1 and compare with P2 (P2 must always be a hash)
+	uint8_t P1[32] = {0};
+	mbedtls_sha256(plainP1, 32, P1, 0);
 
 	unsigned int i;
 	for (i=0;i<HASHED_PIN_SIZE;i++)
@@ -310,8 +343,16 @@ BOOL USER_verify(uint8_t ID, uint8_t * P1)
 
 void USER_free(USER * u)
 {
-	free(u->publicKey);
-	free(u->privateKey);
+	if(u == NULL)
+		return;
+
+	if(u->publicKey != NULL)
+		free(u->publicKey);
+	if(u->privateKey != NULL)
+		free(u->privateKey);
+	if(u->publicKeyCertificate != NULL)
+		free(u->publicKeyCertificate);
+
 	free(u);
 }
 

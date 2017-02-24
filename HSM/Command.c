@@ -262,21 +262,12 @@ void COMMAND_USER_process(uint8_t * command)
 		}
 
 		USER * u = USER_get(U_ID);
-		uint8_t SUBJECT_NAME[50] = {0};
-		sprintf(SUBJECT_NAME, "CN=User %d, O=HSM, C=PT", u->ID);
-
-		if(!PKC_createCertificate(u->publicKey, SUBJECT_NAME, MBEDTLS_X509_KU_DIGITAL_SIGNATURE, &global_buffer[0]))
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: generating certificate");
-			return;
-		}
 
 		// Send SUCCESS with Certificate
 		UART_send("CERTIFICATE", 11);
 
 		// Send certificate
-		UART_send(global_buffer, strlen(global_buffer)+1);
+		UART_send(u->publicKeyCertificate, strlen(u->publicKeyCertificate)+1);
 	}
 }
 
@@ -490,7 +481,7 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 			return;
 		}
 
-		if(!PKC_createCertificate(KEY, SUBJECT_NAME, key_usage, &global_buffer[0]))
+		if(!PKC_createCertificate(KEY, SUBJECT_NAME, key_usage, &global_buffer[0], GLOBAL_BUFFER_SIZE))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: generating certificate");

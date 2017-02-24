@@ -23,38 +23,25 @@ int main()
 
 	MSS_GPIO_init();
 	MSS_GPIO_config( MSS_GPIO_0 , MSS_GPIO_OUTPUT_MODE );
+
+#ifdef SECURITY_DEVICE
+	MSS_GPIO_set_output( MSS_GPIO_0 , 0 );
+#else
 	MSS_GPIO_set_output( MSS_GPIO_0 , 1 );
+#endif
 
 	//MSS_UART_init(&g_mss_uart0, MSS_UART_57600_BAUD, MSS_UART_DATA_8_BITS | MSS_UART_NO_PARITY | MSS_UART_ONE_STOP_BIT);
 
 	/* Disable Watchdog */
 	SYSREG->WDOG_CR = 0x00000000;
 
-	/*volatile int i = 0;
-	i++;
-	i += 3;
-
-	data = malloc(sizeof(char)*3);
-	data[0] = '1';
-	data[1] = '2';
-	data[2] = '3';
-
-	volatile char data2[5];
-
-	if(i == 4)
-	{
-		data2[0] = 'A';
-		data2[1] = 'B';
-		data2[2] = 'C';
-		data2[3] = 'D';
-		data2[4] = 'E';
-	}
-
-	return 0;*/
+	//return 0;
 
 	/*USER_init();
 
-	USER_remove(1);
+	//USER_remove(1);
+	//USER_add(1, "12345678912345678912345678912341");
+	USER * n1 = USER_get(1);
 
 	return 0;*/
 
