@@ -51,19 +51,26 @@ typedef uint8_t BOOL;
 #define ISSUER_PRIVATE_KEY "-----BEGIN EC PRIVATE KEY-----\nMGACAQEEGQDmasoEkQx8q6S//Ubt+oyQA/4YeoXgj9agCgYIKoZIzj0DAQGhNAMy\nAATFWTpjMnjv9zHHIH2dM1J/RDj0HP+cpvG2eLLKsijkAELpzJhsCwV2ZAAVNp5n\nyXw=\n-----END EC PRIVATE KEY-----\n"
 #define ISSUER_PUBLIC_KEY "-----BEGIN PUBLIC KEY-----\nMEkwEwYHKoZIzj0CAQYIKoZIzj0DAQEDMgAExVk6YzJ47/cxxyB9nTNSf0Q49Bz/\nnKbxtniyyrIo5ABC6cyYbAsFdmQAFTaeZ8l8\n-----END PUBLIC KEY-----\n"
 
+/// ----- FLASH ----- ///
 /* Manufacture and device IDs for Winbond Electronics FL128SD___ SPI Flash. */
 #define FLASH_MANUFACTURER_ID   (uint8_t)0x01
 #define FLASH_DEVICE_ID         (uint8_t)0x17
 
-#define DEV_MODE 1
+#define FLASH_GLOBAL_BASE_ADDRESS 0
+#define FLASH_USERS_BASE_ADDRESS 1
+#define FLASH_LOGS_BASE_ADDRESS 2000
 
-#define MAX_USERS FLASH_MAX_BLOCKS
+// 255 blocks lead to 255 hashes in the eNVM (that's 8KB)
+#define FLASH_MAX_USER_BLOCKS 255 // 1-256
+#define MAX_USERS FLASH_MAX_USER_BLOCKS
+
+#define FLASH_BLOCK_SIZE 4096
+/// ----- FLASH ----- ///
 
 #define PIN_SIZE (uint8_t)32
 #define ADMIN_ID (uint8_t)0
 #define ADMIN_PIN (uint8_t*)"12345678912345678912345678912345"
 
-#define FLASH_BLOCK_SIZE 4096
 #define GLOBAL_BUFFER_SIZE FLASH_BLOCK_SIZE
 uint8_t global_buffer[GLOBAL_BUFFER_SIZE]; // goes in the BSS section
 
@@ -71,5 +78,13 @@ uint32_t calculate_weekday(uint32_t day, uint32_t month, uint32_t year);
 uint32_t calculate_totaldays(uint32_t day, uint32_t month, uint32_t year);
 uint32_t calculate_week(uint32_t day, uint32_t month, uint32_t year);
 int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t *olen);
+
+#include "UART.h"
+#include "SPIFLASH.h"
+#include "PKC.h"
+#include "SecComm.h"
+#include "User.h"
+#include "Command.h"
+#include "Logs.h"
 
 #endif /* COMMON_H_ */

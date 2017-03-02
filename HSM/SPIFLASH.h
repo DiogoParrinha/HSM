@@ -4,17 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "UART.h"
-#include "Common.h"
-
-#define FLASH_BASE_ADDRESS 0x0
-
-// Can't be 255 because when erased, all bytes=255 so we can't check if ID is 255 because it will be for empty ones and we couldn't distinguish
-// Solution: first byte is a flag rather than the ID
-#define FLASH_MAX_BLOCKS 254
-
-uint8_t SPIFLASH_total;
-uint8_t SPIFLASH_list[FLASH_MAX_BLOCKS];
+#include "common.h"
 
 void SPIFLASH_init();
 void SPIFLASH_terminate();
@@ -24,24 +14,24 @@ void SPIFLASH_terminate();
  *
  * Buffer must be as long as len
  */
-void SPIFLASH_readBytes(uint8_t ID, uint8_t * buffer, uint32_t len);
+void SPIFLASH_readBytes(uint8_t ID, uint8_t * buffer, uint32_t len, uint32_t base_addr);
 
 /*
  * Read block (ID-1) into buffer
  *
  * Buffer must be as long as FLASH_BLOCK_SIZE
  */
-void SPIFLASH_readBlock(uint8_t ID, uint8_t * buffer);
+void SPIFLASH_readBlock(uint8_t ID, uint8_t * buffer, uint32_t base_addr);
 
 /*
  * Write buffer into block (ID-1)
  */
-void SPIFLASH_writeBlock(uint8_t ID, uint8_t * buffer);
+void SPIFLASH_writeBlock(uint8_t ID, uint8_t * buffer, uint32_t base_addr);
 
 /*
  * Erase block (ID-1)
  */
-BOOL SPIFLASH_eraseBlock(uint8_t ID);
+BOOL SPIFLASH_eraseBlock(uint8_t ID, uint32_t base_addr);
 
 /*
  * Erase all

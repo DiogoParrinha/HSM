@@ -4,9 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "UART.h"
-#include "Common.h"
-#include "SPIFLASH.h"
+#include "common.h"
 
 typedef struct USER {
 	uint8_t PIN[PIN_SIZE];
@@ -15,6 +13,9 @@ typedef struct USER {
 	uint8_t *publicKey;
 	uint8_t *publicKeyCertificate;
 } USER;
+
+uint8_t SPIFLASH_totalUsers;
+uint8_t SPIFLASH_UserList[FLASH_MAX_USER_BLOCKS];
 
 #define HASHED_PIN_SIZE (uint8_t)32
 #define PIN_SIZE (uint8_t)32

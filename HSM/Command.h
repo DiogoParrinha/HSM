@@ -4,11 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "Common.h"
-#include "UART.h"
-#include "User.h"
-#include "PKC.h"
-#include "SecComm.h"
+#include "common.h"
 
 void COMMAND_USER_process(uint8_t * command);
 void COMMAND_DATASIGN_process(uint8_t * command);

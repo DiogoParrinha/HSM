@@ -5,10 +5,6 @@
 
 void SPIFLASH_init()
 {
-	SPIFLASH_total = 0;
-
-	memset(SPIFLASH_list, 0, FLASH_MAX_BLOCKS);
-
 	//Flash Driver Initialization
 	FLASH_init();
 	FLASH_global_unprotect();
@@ -18,13 +14,12 @@ void SPIFLASH_init()
 
 void SPIFLASH_terminate()
 {
-	SPIFLASH_total = 0;
 }
 
 // Read a block from the SPI Flash
-void SPIFLASH_readBytes(uint8_t ID, uint8_t * buffer, uint32_t len)
+void SPIFLASH_readBytes(uint8_t ID, uint8_t * buffer, uint32_t len, uint32_t base_addr)
 {
-	uint32_t addr = FLASH_BASE_ADDRESS+(ID-1)*FLASH_BLOCK_SIZE;
+	uint32_t addr = base_addr+(ID-1)*FLASH_BLOCK_SIZE;
 
 	memset(buffer, 0, len);
 
@@ -33,9 +28,9 @@ void SPIFLASH_readBytes(uint8_t ID, uint8_t * buffer, uint32_t len)
 }
 
 // Read a block from the SPI Flash
-void SPIFLASH_readBlock(uint8_t ID, uint8_t * buffer)
+void SPIFLASH_readBlock(uint8_t ID, uint8_t * buffer, uint32_t base_addr)
 {
-	uint32_t addr = FLASH_BASE_ADDRESS+(ID-1)*FLASH_BLOCK_SIZE;
+	uint32_t addr = base_addr+(ID-1)*FLASH_BLOCK_SIZE;
 
 	memset(buffer, 0, FLASH_BLOCK_SIZE);
 
@@ -44,9 +39,9 @@ void SPIFLASH_readBlock(uint8_t ID, uint8_t * buffer)
 }
 
 // Store all registered users in SPI Flash
-void SPIFLASH_writeBlock(uint8_t ID, uint8_t * buffer)
+void SPIFLASH_writeBlock(uint8_t ID, uint8_t * buffer, uint32_t base_addr)
 {
-	uint32_t addr = FLASH_BASE_ADDRESS+(ID-1)*FLASH_BLOCK_SIZE;
+	uint32_t addr = base_addr+(ID-1)*FLASH_BLOCK_SIZE;
 
 	// Erase 4KB block
 	FLASH_erase_4k_block(addr);
@@ -69,9 +64,9 @@ void SPIFLASH_writeBlock(uint8_t ID, uint8_t * buffer)
 	}
 }
 
-BOOL SPIFLASH_eraseBlock(uint8_t ID)
+BOOL SPIFLASH_eraseBlock(uint8_t ID, uint32_t base_addr)
 {
-	uint32_t addr = FLASH_BASE_ADDRESS+(ID-1)*FLASH_BLOCK_SIZE;
+	uint32_t addr = base_addr+(ID-1)*FLASH_BLOCK_SIZE;
 
 	// Allocate enough space for block size
 	uint32_t size = sizeof(uint8_t)*FLASH_BLOCK_SIZE;

@@ -5,11 +5,11 @@
  *      Author: diogo
  */
 
-#include "PKC.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include "PKC.h"
 
 BOOL PKC_genKeyPair(uint8_t * pub, uint8_t * pri)
 {

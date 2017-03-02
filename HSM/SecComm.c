@@ -5,11 +5,11 @@
  *      Author: diogo
  */
 
-#include "SecComm.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include "SecComm.h"
 
 BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 {

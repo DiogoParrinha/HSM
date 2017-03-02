@@ -9,7 +9,6 @@
 #define SECCOMM_H_
 
 #include "common.h"
-#include "Command.h"
 #include "mbedtls/ecdh.h"
 
 mbedtls_ecdh_context ctx_cli, ctx_srv;

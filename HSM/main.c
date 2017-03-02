@@ -3,9 +3,6 @@
 #include <string.h>
 #include <stdarg.h>
 #include "common.h"
-#include "UART.h"
-#include "Command.h"
-#include "PKC.h"
 
 /*------------------------------------------------------------------------------
   RTC prescaler value.
@@ -35,13 +32,33 @@ int main()
 	/* Disable Watchdog */
 	SYSREG->WDOG_CR = 0x00000000;
 
-	//return 0;
+	LOGS_init();
+	uint8_t data1[32];
+	memset(data1, 1, 32);
+	LOGS_add(data1);
+	uint8_t data2[32];
+	memset(data2, 2, 32);
+	LOGS_add(data2);
+	uint8_t data3[32];
+	memset(data3, 3, 32);
+	LOGS_add(data3);
+	uint8_t data4[32];
+	memset(data4, 4, 32);
+	LOGS_add(data4);
+	uint8_t data5[32];
+	memset(data5, 5, 32);
+	LOGS_add(data5);
+
+	return 0;
 
 	/*USER_init();
 
 	//USER_remove(1);
-	//USER_add(1, "12345678912345678912345678912341");
+	USER_add(1, "12345678912345678912345678912341");
 	USER * n1 = USER_get(1);
+
+	volatile int t = 0;
+	t++;
 
 	return 0;*/
 
