@@ -30,13 +30,13 @@ BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * fina
 	// time
 	mss_rtc_calendar_t calendar_count;
 	MSS_RTC_get_calendar_count(&calendar_count);
-	uint8_t w = snprintf(global_buffer+data_len+3, GLOBAL_BUFFER_SIZE-3, "%02d:%02d:%02d,%d-%d-2%03d",
+	uint8_t w = snprintf(global_buffer+data_len+3, GLOBAL_BUFFER_SIZE-3, "%d-%d-2%03d,%02d:%02d:%02d",
 				 (int)calendar_count.day,
 				 (int)calendar_count.month,
 				 (int)calendar_count.year,
-				 (int)calendar_count.second,
+				 (int)calendar_count.hour,
 				 (int)calendar_count.minute,
-				 (int)calendar_count.hour);
+				 (int)calendar_count.second);
 	MSS_RTC_clear_update_flag();
 
 	global_buffer[data_len+3+w] = '|'; // separator

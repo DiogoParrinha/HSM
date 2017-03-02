@@ -13,6 +13,8 @@
 /*#define RTC_PRESCALER    (25000000u - 1u) */ /* 25MHz clock is RTC clock source. */
 #define RTC_PRESCALER    (50000000u - 1u) /* 50MHz clock is RTC clock source. */
 
+BOOL timeInited = FALSE;
+
 int main()
 {
     /* Release USB Controller from Reset */
@@ -32,7 +34,7 @@ int main()
 	/* Disable Watchdog */
 	SYSREG->WDOG_CR = 0x00000000;
 
-	/*OOL r;
+	/*BOOL r;
 
 	uint8_t * finalMessage;
 	uint8_t signature[128];
