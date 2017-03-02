@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 void __printf(char *s)
 {
@@ -133,3 +134,25 @@ int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t 
 
     return(0);
 }
+
+/*uint8_t get_timestamp()
+{
+	mss_rtc_calendar_t calendar_count;
+	MSS_RTC_get_calendar_count(&calendar_count);
+
+	struct tm ptm;
+
+	ptm.tm_sec = calendar_count.second;
+	ptm.tm_min = calendar_count.minute;
+	ptm.tm_hour = calendar_count.hour;
+	ptm.tm_mday = calendar_count.day;
+	ptm.tm_mon = calendar_count.month-1; // time works with months since january (0 being jan) while RTC works with 1 to 12
+	ptm.tm_year = calendar_count.year+100; // time works with years since 1900, while RTC works with years since 2009
+	ptm.tm_wday = calendar_count.weekday-1; // time works with days since sunday 80 being sunday) while RTC works with 1-7
+
+	uint8_t timer = mktime(&ptm);
+
+	MSS_RTC_clear_update_flag();
+
+	return timer;
+}*/

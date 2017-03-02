@@ -197,7 +197,7 @@ void UART_receive(char *location, uint32_t locsize)
 	// Now get the actual command
 	memset(location, 0, locsize);
 
-	// Truncate command size
+	// Truncate data size
 	if(size > locsize)
 		size = locsize;
 

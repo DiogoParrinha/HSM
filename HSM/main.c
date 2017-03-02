@@ -32,24 +32,20 @@ int main()
 	/* Disable Watchdog */
 	SYSREG->WDOG_CR = 0x00000000;
 
-	LOGS_init();
-	uint8_t data1[32];
-	memset(data1, 1, 32);
-	LOGS_add(data1);
-	uint8_t data2[32];
-	memset(data2, 2, 32);
-	LOGS_add(data2);
-	uint8_t data3[32];
-	memset(data3, 3, 32);
-	LOGS_add(data3);
-	uint8_t data4[32];
-	memset(data4, 4, 32);
-	LOGS_add(data4);
-	uint8_t data5[32];
-	memset(data5, 5, 32);
-	LOGS_add(data5);
+	/*OOL r;
 
-	return 0;
+	uint8_t * finalMessage;
+	uint8_t signature[128];
+	size_t sig_len = 0;
+
+	volatile int t = 0;
+	for(t=0;t<1000;t++)
+		r = LOGS_sign("rm myname_is_diogo.txt", strlen("rm myname_is_diogo.txt"), 1, finalMessage, &signature[0], &sig_len);
+
+
+	t++;
+
+	return 0;*/
 
 	/*USER_init();
 

@@ -138,6 +138,8 @@ BOOL USER_add(uint8_t ID, uint8_t * plainPIN)
 
 	SPIFLASH_writeBlock(ID, global_buffer, FLASH_USERS_BASE_ADDRESS);
 
+	// TODO: Update hash in eNVM
+
 	USER_free(newUser);
 
 	SPIFLASH_UserList[ID-1] = ID;
@@ -180,6 +182,8 @@ BOOL USER_modify(USER *user)
 	memcpy(global_buffer+l0+l1+l2, user->publicKeyCertificate, strlen(user->publicKeyCertificate)+1);
 
 	SPIFLASH_writeBlock(user->ID, global_buffer, FLASH_USERS_BASE_ADDRESS);
+
+	// TODO: Update hash in eNVM
 
 	return TRUE;
 }

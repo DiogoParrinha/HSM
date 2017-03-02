@@ -177,7 +177,7 @@ void COMMAND_USER_process(uint8_t * command)
 		// Send SUCCESS
 		UART_send("SUCCESS", 7);
 	}
-	else if(strcmp(command, "USER_GENKEYS") == 0)
+	/*else if(strcmp(command, "USER_GENKEYS") == 0)
 	{
 		// Generate Key Pair for user (overwrites existing one)
 
@@ -241,7 +241,7 @@ void COMMAND_USER_process(uint8_t * command)
 
 		// Success
 		UART_send("SUCCESS", 7);
-	}
+	}*/
 	else if(strcmp(command, "USER_CERT") == 0)
 	{
 		// Get certificate of user's public key
@@ -501,7 +501,33 @@ void COMMAND_LOGS_process(uint8_t * command)
 	if(strcmp(command, "LOGS_ADD") == 0)
 	{
 		// Add a new action to the log
-		// Receive 'user|action|date|'
+		// 1. Receive 'message' (null terminated string)
+		// 2. Append UID, TIME, COUNTER1, COUNTER2
+		// 3. Generate signature
+		// 4. Send back final message + signature
+
+		// Expect message (max 512B)
+		uint8_t buffer[512] = {0};
+		UART_receive(&buffer[0], 512);
+
+		uint8_t * finalMessage;
+		uint8_t signature[128];
+		size_t sig_len;
+		if(!LOGS_sign(buffer, strlen(buffer), 1, finalMessage, &signature[0], &sig_len))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: signing message");
+			return;
+		}
+
+		// Send SUCCESS with data + signature
+		UART_send("SUCCESS", 7);
+
+		// Send data
+		UART_send(global_buffer, strlen(global_buffer)+1); // include null character
+
+		// Send data
+		UART_send(signature, sig_len); // include null character
 	}
 }
 

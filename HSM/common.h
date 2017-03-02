@@ -51,6 +51,10 @@ typedef uint8_t BOOL;
 #define ISSUER_PRIVATE_KEY "-----BEGIN EC PRIVATE KEY-----\nMGACAQEEGQDmasoEkQx8q6S//Ubt+oyQA/4YeoXgj9agCgYIKoZIzj0DAQGhNAMy\nAATFWTpjMnjv9zHHIH2dM1J/RDj0HP+cpvG2eLLKsijkAELpzJhsCwV2ZAAVNp5n\nyXw=\n-----END EC PRIVATE KEY-----\n"
 #define ISSUER_PUBLIC_KEY "-----BEGIN PUBLIC KEY-----\nMEkwEwYHKoZIzj0CAQYIKoZIzj0DAQEDMgAExVk6YzJ47/cxxyB9nTNSf0Q49Bz/\nnKbxtniyyrIo5ABC6cyYbAsFdmQAFTaeZ8l8\n-----END PUBLIC KEY-----\n"
 
+// Admin Logs keys
+#define LOGS_PRIVATE_KEY "-----BEGIN EC PRIVATE KEY-----\nMGACAQEEGQDmasoEkQx8q6S//Ubt+oyQA/4YeoXgj9agCgYIKoZIzj0DAQGhNAMy\nAATFWTpjMnjv9zHHIH2dM1J/RDj0HP+cpvG2eLLKsijkAELpzJhsCwV2ZAAVNp5n\nyXw=\n-----END EC PRIVATE KEY-----\n"
+#define LOGS_PUBLIC_KEY "-----BEGIN PUBLIC KEY-----\nMEkwEwYHKoZIzj0CAQYIKoZIzj0DAQEDMgAExVk6YzJ47/cxxyB9nTNSf0Q49Bz/\nnKbxtniyyrIo5ABC6cyYbAsFdmQAFTaeZ8l8\n-----END PUBLIC KEY-----\n"
+
 /// ----- FLASH ----- ///
 /* Manufacture and device IDs for Winbond Electronics FL128SD___ SPI Flash. */
 #define FLASH_MANUFACTURER_ID   (uint8_t)0x01
@@ -58,10 +62,11 @@ typedef uint8_t BOOL;
 
 #define FLASH_GLOBAL_BASE_ADDRESS 0
 #define FLASH_USERS_BASE_ADDRESS 1
-#define FLASH_LOGS_BASE_ADDRESS 2000
+//#define FLASH_LOGS_BASE_ADDRESS 2000 // currently not used
 
-// 255 blocks lead to 255 hashes in the eNVM (that's 8KB)
-#define FLASH_MAX_USER_BLOCKS 255 // 1-256
+// 255 blocks lead to 255 hashes in the eNVM (that's ~8KB)
+// because we'd need more than 1B to store greater IDs, we stick to 255 as the maximum
+#define FLASH_MAX_USER_BLOCKS 255 // 1-255
 #define MAX_USERS FLASH_MAX_USER_BLOCKS
 
 #define FLASH_BLOCK_SIZE 4096
@@ -78,6 +83,7 @@ uint32_t calculate_weekday(uint32_t day, uint32_t month, uint32_t year);
 uint32_t calculate_totaldays(uint32_t day, uint32_t month, uint32_t year);
 uint32_t calculate_week(uint32_t day, uint32_t month, uint32_t year);
 int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t *olen);
+//uint8_t get_timestamp();
 
 #include "UART.h"
 #include "SPIFLASH.h"

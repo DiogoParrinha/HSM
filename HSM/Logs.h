@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include "common.h"
 
-#define LOGS_HASHES_PER_BLOCK 128
+/*#define LOGS_HASHES_PER_BLOCK 128
 #define LOGS_CURRENT_DAY_BLOCK 1
 #define LOGS_DAYS_BLOCK 2
 #define LOGS_MONTHS_BLOCK 3
@@ -23,5 +23,9 @@ uint8_t* LOGS_getHashDay(uint8_t n); // n goes from 0 to 127
 uint8_t* LOGS_getHashMonth(uint8_t n); // n goes from 0 to 127
 
 BOOL LOGS_add(uint8_t * hash);
+*/
+
+/* Message cannot be longer than 512B */
+BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * finalMessage, uint8_t * signature, size_t * signature_len);
 
 #endif // LOGS_H
