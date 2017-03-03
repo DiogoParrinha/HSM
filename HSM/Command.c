@@ -1,26 +1,56 @@
 #include "Command.h"
 #include <time.h>
 
+BOOL connected = FALSE;
+
 // Process command
 void COMMAND_process(uint8_t * command)
 {
 	if(command[0] == 'U' && command[1] == 'S' && command[2] == 'E' && command[3] == 'R')
 	{
+		if(!connected)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected");
+			return;
+		}
+
 		COMMAND_USER_process(command);
 		return;
 	}
 	else if(command[0] == 'D' && command[1] == 'T' && command[2] == 'S' && command[3] == 'N')
 	{
+		if(!connected)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected");
+			return;
+		}
+
 		COMMAND_DATASIGN_process(command);
 		return;
 	}
 	else if(command[0] == 'C' && command[1] == 'R' && command[2] == 'T')
 	{
+		if(!connected)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected");
+			return;
+		}
+
 		COMMAND_CERTMGT_process(command);
 		return;
 	}
 	else if(command[0] == 'L' && command[1] == 'O' && command[2] == 'G' && command[3] == 'S')
 	{
+		if(!connected)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected");
+			return;
+		}
+
 		COMMAND_LOGS_process(command);
 		return;
 	}
@@ -573,10 +603,26 @@ void COMMAND_TIME_process(uint8_t * command)
 
 void COMMAND_SESSION_process(uint8_t * command)
 {
+	// TODO: handle connected status
+
 	if(strcmp(command, "SESS_START") == 0)
 	{
+		if(!UART_connect())
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: cannot connect");
+			return;
+		}
+
+		connected = TRUE;
+
 		char key[32] = {0};
-		SecComm_start(&key[0]);
+		/*if(!SecComm_start(&key[0]))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: init sec comm");
+			return;
+		}*/
 	}
 }
 

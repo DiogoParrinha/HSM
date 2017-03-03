@@ -4,6 +4,15 @@
 #include <stdio.h>
 #include "UART.h"
 
+/*------------------------------------------------------------------------------
+  RTC prescaler value.
+  Uncomment the value corresponding to your hardware configuration.
+ */
+/* #define RTC_PRESCALER    (32768u - 1u)    */ /* 32KHz crystal is RTC clock source. */
+/* #define RTC_PRESCALER    (1000000u - 1u) */       /* 1MHz clock is RTC clock source. */
+/*#define RTC_PRESCALER    (25000000u - 1u) */ /* 25MHz clock is RTC clock source. */
+#define RTC_PRESCALER    (50000000u - 1u) /* 50MHz clock is RTC clock source. */
+
 /*==============================================================================
   Global Variables.
  */
@@ -16,10 +25,13 @@ const uint8_t g_separator[] =
 "\r\n\
 ------------------------------------------------------------------------------";
 
-void UART_connect()
+void UART_init()
 {
 	MSS_UART_init(gp_my_uart, MSS_UART_57600_BAUD, MSS_UART_DATA_8_BITS | MSS_UART_NO_PARITY | MSS_UART_ONE_STOP_BIT);
+}
 
+BOOL UART_connect()
+{
 	// Wait for 'Connected'
 	uint8_t data[64];
 
@@ -27,6 +39,7 @@ void UART_connect()
 	if(data[0] != 'C' || data[1] != 'O' || data[2] != 'N' || data[3] != 'N' || data[4] != 'E' || data[5] != 'C' || data[6] != 'T' || data[7] != 'E' || data[8] != 'D')
 	{
 		__printf("\nError: not Connected.");
+		return FALSE;
 	}
 
 	// Send 'OK'
@@ -34,6 +47,22 @@ void UART_connect()
 
 	// Not using session key for now
 	UART_usingKey = FALSE;
+
+	/*** USE RTC FOR TIME CONTROL ***/
+	mss_rtc_calendar_t calendar_count;
+	MSS_RTC_init(MSS_RTC_CALENDAR_MODE, RTC_PRESCALER);
+
+	/*** SETUP CONNECTION ***/
+	MSS_RTC_start();
+
+	UART_receive(&data[0], 64);
+	if(data[0] != 'T' || data[1] != 'I' || data[2] != 'M' || data[3] != 'E' || data[4] != '_' || data[5] != 'S' || data[6] != 'E' || data[7] != 'N' || data[8] != 'D')
+	{
+		__printf("\nError: not Connected.");
+		return FALSE;
+	}
+
+	COMMAND_process(data); // Process TIME_SEND
 }
 
 void UART_setKey(uint8_t * key)

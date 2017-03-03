@@ -4,17 +4,6 @@
 #include <stdarg.h>
 #include "common.h"
 
-/*------------------------------------------------------------------------------
-  RTC prescaler value.
-  Uncomment the value corresponding to your hardware configuration.
- */
-/* #define RTC_PRESCALER    (32768u - 1u)    */ /* 32KHz crystal is RTC clock source. */
-/* #define RTC_PRESCALER    (1000000u - 1u) */       /* 1MHz clock is RTC clock source. */
-/*#define RTC_PRESCALER    (25000000u - 1u) */ /* 25MHz clock is RTC clock source. */
-#define RTC_PRESCALER    (50000000u - 1u) /* 50MHz clock is RTC clock source. */
-
-BOOL timeInited = FALSE;
-
 int main()
 {
     /* Release USB Controller from Reset */
@@ -95,21 +84,6 @@ int main()
 	USER_remove(2);
 	USER_remove(3);*/
 
-	/*** USE RTC FOR TIME CONTROL ***/
-	mss_rtc_calendar_t calendar_count;
-	MSS_RTC_init(MSS_RTC_CALENDAR_MODE, RTC_PRESCALER);
-
-	/*** SETUP CONNECTION ***/
-	uint8_t command[64];
-
-	UART_connect(); // Connect
-
-	MSS_RTC_start();
-
-	UART_waitCOMMAND(); // Wait for TIME_SEND (should be...)
-	UART_receive(&command[0], 64);
-	COMMAND_process(command); // Process TIME_SEND
-
 	/* Display time over UART. */
 	/*char display_buffer[1024] = {0};
 	for(;;)
@@ -133,7 +107,10 @@ int main()
 		}
 	}*/
 
+	UART_init();
+
 	/*** Receive commands ***/
+	uint8_t command[64];
 	while(1)
 	{
 		// Wait for COMMAND

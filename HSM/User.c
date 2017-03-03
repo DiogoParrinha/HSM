@@ -19,7 +19,7 @@ void USER_init()
 		SPIFLASH_readBytes(i+1, temp, 2, FLASH_USERS_BASE_ADDRESS);
 
 		if(temp[0] != 0x64) // 0x64 means the user exists
-			temp[0] = 0;
+			temp[1] = 0;
 
 		SPIFLASH_UserList[i] = temp[1]; // uid is in position 1
 	}
