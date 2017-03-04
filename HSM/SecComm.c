@@ -123,6 +123,9 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 {
 	int ret = 0;
 
+	// Set session key
+	UART_setKey(key);
+
 	mbedtls_aes_context aes_ctx;
 	mbedtls_aes_init(&aes_ctx);
 
@@ -133,10 +136,24 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 	mbedtls_aes_setkey_enc(&aes_ctx, key, 256);
 	mbedtls_aes_setkey_dec(&aes_ctx, key, 256);
 
-	// TODO: Generate random IV of 16B
+	// TODO: Generate random IV of 16B (AES block size)
 	uint8_t IV[16] = {0x72, 0x88, 0xd4, 0x11, 0x94, 0xea, 0xf7, 0x1c, 0x31, 0xac, 0xc3, 0x8c, 0xc7, 0xdc, 0x82, 0x4b};
 
-	// Calculate HMAC-256 of IV
+	// TODO: Generate 128-bit challenge (AES blocks are made of 16B)
+	uint8_t challenge[16] = {0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28};
+
+	// Encrypt challenge (must be a multiple of 16B)
+	uint8_t ciphertext[16] = {0};
+	uint8_t IV_t[16]; // gets modified by CBC for chain operations
+	memcpy(IV_t, IV, 16);
+	mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, 16, IV_t, challenge, &ciphertext[0]);
+
+	// Compute HMAC of IV || C
+	uint8_t block[32] = {0};
+	memcpy(block, IV, 16);
+	memcpy(block+16, ciphertext, 16);
+
+	// Calculate HMAC-256 of block
 	uint8_t HMAC[32] = {0};
 	ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
 	if(ret != 0)
@@ -148,41 +165,38 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 	}
 
 	mbedtls_md_hmac_starts(&sha_ctx, key, 32);
-	mbedtls_md_hmac_update(&sha_ctx, IV, 16);
+	mbedtls_md_hmac_update(&sha_ctx, block, 32);
 
-	//Finally write the HMAC.
+	// Finally write the HMAC.
 	mbedtls_md_hmac_finish(&sha_ctx, HMAC);
 
-	// Send HMAC-256 of IV
-	UART_send(HMAC, 32);
+	// Send IV || C || HMAC
+	uint8_t data[64];
+	memcpy(data, IV, 16);
+	memcpy(data+16, ciphertext, 16);
+	memcpy(data+32, HMAC, 32);
+	UART_send(data, 64);
 
-	// Set session key
-	UART_setKey(key);
-
-	// Send 32-bit challenge (4B)
-	// TODO: Generate random challenge
-	uint8_t challenge[4] = {
-			0x72, 0x88, 0xd4, 0x11};
-	UART_send(challenge, 4);
-
-	// Expect 32-bit modification
-	// (challenge XOR 0x7a52f2d1)
-	uint8_t mod_challenge[4] = {0};
-	mod_challenge[0] = challenge[0] ^ 0x7a;
-	mod_challenge[1] = challenge[1] ^ 0x52;
-	mod_challenge[2] = challenge[2] ^ 0xf2;
-	mod_challenge[3] = challenge[3] ^ 0xd1;
-	uint8_t ver_challenge[4] = {0};
-	UART_receive(&ver_challenge[0], 4);
-	if(ver_challenge[0] != mod_challenge[0] ||
-			ver_challenge[1] != mod_challenge[1] ||
-			ver_challenge[2] != mod_challenge[2] ||
-			ver_challenge[3] != mod_challenge[3])
+	// Expect modified challenge
+	// (challenge mod 6)
+	uint8_t mod_challenge[16];
+	UART_receive(&mod_challenge[0], 16u);
+	for (int a = 0; a < 16; a++)
 	{
-		char error[10];
-		sprintf(error, "E: invalid challenge");
-		__printf(error);
-		return FALSE;
+		mod_challenge[a] = challenge[a] % 6; // TODO: challenge[a] mod 6 for now...
+	}
+
+	uint8_t ver_challenge[16] = {0};
+	UART_receive(&ver_challenge[0], 16);
+	for(a=0;a<16;a++)
+	{
+		if(ver_challenge[a] != mod_challenge[a])
+		{
+			char error[10];
+			sprintf(error, "E: invalid challenge");
+			__printf(error);
+			return FALSE;
+		}
 	}
 
 	mbedtls_md_free(&sha_ctx);

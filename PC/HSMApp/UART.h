@@ -16,23 +16,28 @@ class UART {
 		uint8_t getDataFormatted(uint8_t* src_ptr, uint8_t size);
 		size_t getDataUART(uint8_t * rx_buff, size_t buff_size);
 		uint8_t get(uint8_t* src_ptr, uint8_t size);
-		void waitOK();
-		void sendOK();
 		void printBits(size_t const size, void const * const ptr);
 		SerialPort *usb;
+		bool usingKey;
+		uint8_t sessionKey[32];
 
 	public:
 		UART();
 		~UART();
 	 
+		void init();
 		void connect();
 		void disconnect();
 
 		void reqCommand();
 
+		void setKey(uint8_t * key);
 		uint32_t receive(uint8_t *location, uint32_t locsize);
 		int send(uint8_t *buffer, uint32_t len);
 		void display(const uint8_t * in_buffer, uint32_t byte_length);
+
+		void waitOK();
+		void sendOK();
 };
 
 #endif // UART_H

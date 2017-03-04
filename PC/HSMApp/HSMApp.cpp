@@ -77,6 +77,10 @@ void TIME_SEND();
 void GEN_KEYS();
 void DATA_SIGN();
 void DATA_VERIFY();
+void GET_CERT();
+void USER_CERT();
+void START_SESSION();
+void LOG_ADD();
 
 int main()
 {
@@ -89,16 +93,43 @@ int main()
 
 	// Initiate UART communication
 	comm = new UART();
-	comm->connect();
+	comm->init();
+	//comm->connect();
 
 	// Send command request
-	comm->reqCommand();
+	/*comm->reqCommand();
 
-	TIME_SEND();
+	TIME_SEND();*/
+	
+	comm->reqCommand();
+	START_SESSION();
+
+	comm->reqCommand();
+	LOG_ADD();
+	comm->reqCommand();
+	LOG_ADD();
+	/*comm->reqCommand();
+	LOG_ADD();
+	comm->reqCommand();
+	LOG_ADD();
+	comm->reqCommand();
+	LOG_ADD();
+	comm->reqCommand();
+	LOG_ADD();*/
+
+	/*comm->reqCommand();
+	NEW_USER();*/
+
+	comm->reqCommand();
+	USER_CERT();
 
 	/*comm->reqCommand();
 
-	NEW_USER();*/
+	GET_CERT();
+
+	comm->reqCommand();
+
+	NEW_USER();
 
 	comm->reqCommand();
 
@@ -108,7 +139,7 @@ int main()
 	// Run DATA_VERIFY
 	comm->reqCommand();
 
-	DATA_VERIFY();
+	DATA_VERIFY();*/
 
 	/*comm->reqCommand();
 
@@ -174,6 +205,76 @@ void NEW_USER()
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 4096);
 	printf("OK: %d\n", buffer[0]);
+}
+
+// get certificate for a public key
+void GET_CERT()
+{
+	printf("Sending CRT_REQUEST command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "CRT_REQUEST");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Now it expects:
+	// 32B ADMIN_PIN | subject name + \0 or 0 (should be the same thing) | 1B for key usage
+	printf("Sending DATA...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "12345678912345678912345678912345");
+	sprintf_s((char*)buffer, sizeof(buffer), "%sCN=Diogo Parrinha, O=CIIST, C=PT", buffer);
+	buffer[strlen((char*)buffer)] = '\0';
+	buffer[strlen((char*)buffer) + 1] = 1; // non-repudiation
+	comm->send(buffer, strlen((char*)buffer)+1+1); // +1 because of \0 at the end of subject name and +1 becaues of key usage
+	printf("OK\n");
+
+	// Send public key
+	printf("Sending public key...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "-----BEGIN PUBLIC KEY-----\nMEkwEwYHKoZIzj0CAQYIKoZIzj0DAQEDMgAExVk6YzJ47/cxxyB9nTNSf0Q49Bz/\nnKbxtniyyrIo5ABC6cyYbAsFdmQAFTaeZ8l8\n-----END PUBLIC KEY-----\n");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK\n");
+
+	// Wait for 'CERTIFICATE'
+	printf("Receiving CERTIFICATE...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %s\n", buffer);
+
+	// Wait for actual certificate
+	printf("Receiving certificate content...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK.\n");
+}
+
+// get certificate for a public key
+void USER_CERT()
+{
+	printf("Sending USER_CERT command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "USER_CERT");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Now it expects:
+	// 1B ID
+	printf("Sending DATA...");
+	memset(buffer, 0, sizeof(buffer));
+	buffer[0] = 1;
+	comm->send(buffer, 1);
+	printf("OK\n");
+
+	// Wait for 'CERTIFICATE'
+	printf("Receiving CERTIFICATE...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %s\n", buffer);
+
+	// Wait for actual certificate
+	printf("Receiving certificate content...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK.\n");
 }
 
 // works for len < 256
@@ -252,7 +353,7 @@ void DATA_SIGN()
 	printf("Receiving actual signature...");
 	memset(buffer, 0, sizeof(buffer));
 	len = comm->receive(&buffer[0], 4096);
-	printf("OK: %s\n", buffer);
+	printf("OK: %d\n", len);
 }
 
 // Send hash along with signature to be verified
@@ -260,7 +361,7 @@ void DATA_SIGN()
 void DATA_VERIFY()
 {
 	// 'buffer' should contain the signature
-	uint8_t signature[100] = { 0 };
+	uint8_t signature[512] = { 0 };
 	uint8_t sig_len = len;
 	memcpy(signature, buffer, sig_len);
 
@@ -293,7 +394,6 @@ void DATA_VERIFY()
 	comm->send(buffer, sig_len);
 	printf("OK\n");
 	
-
 	// Wait for response
 	printf("Receiving response...");
 	memset(buffer, 0, sizeof(buffer));
@@ -316,5 +416,262 @@ void EXPORT_USERS()
 	printf("OK.\n");
 }
 
+// Send hash to be signed
+void LOG_ADD()
+{
+	printf("Sending LOGS_ADD command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "LOGS_ADD");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Now it expects:
+	// DATA
+	printf("Sending DATA...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "rm -rf inc/data/test/lol.txt");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK\n");
+
+	// Wait for 'SUCCESS'
+	printf("Receiving SUCCESS...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %s\n", buffer);
+
+	// Wait for new data
+	printf("Receiving new data...");
+	uint8_t data[768];
+	memset(data, 0, sizeof(data));
+	len = comm->receive(&data[0], 768);
+	printf("OK: %d\n", len);
+
+	// Wait for signature
+	printf("Receiving signature...");
+	uint8_t signature[128];
+	memset(signature, 0, sizeof(signature));
+	len = comm->receive(&signature[0], 128);
+	printf("OK: %d\n", len);
+}
+
+void START_SESSION()
+{
+	printf("Sending SESS_START command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "SESS_START");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Send CONNECTED
+	comm->connect();
+
+	// Send TIME_SEND and time
+	TIME_SEND();
+
+	// Initiate secure comm
+	//return;
+
+	int ret;
+	mbedtls_ecdh_context ctx_cli, ctx_srv;
+	mbedtls_entropy_context entropy;
+	mbedtls_ctr_drbg_context ctr_drbg;
+	unsigned char cli_to_srv[32], srv_to_cli[32];
+	const char pers[] = "ecdh";
+
+	mbedtls_aes_context aes_ctx;
+	mbedtls_md_context_t sha_ctx;
+
+	mbedtls_aes_init(&aes_ctx);
+	mbedtls_md_init(&sha_ctx);
+
+	unsigned char aes_output[128];
+	memset(aes_output, 0, 128);
+
+	mbedtls_ecdh_init(&ctx_cli);
+	mbedtls_ecdh_init(&ctx_srv);
+	mbedtls_ctr_drbg_init(&ctr_drbg);
+
+	/*
+	* Initialize random number generation
+	*/
+	mbedtls_entropy_init(&entropy);
+	if ((ret = mbedtls_ctr_drbg_seed(&ctr_drbg, mbedtls_entropy_func, &entropy,
+		(const unsigned char *)pers,
+		sizeof pers)) != 0)
+	{
+		mbedtls_printf(" failed\n  ! mbedtls_ctr_drbg_seed returned %d\n", ret);
+		return;
+	}
+
+	/*
+	* Client: inialize context and generate keypair
+	*/
+	ret = mbedtls_ecp_group_load(&ctx_cli.grp, MBEDTLS_ECP_DP_CURVE25519);
+	if (ret != 0)
+	{
+		mbedtls_printf(" failed\n  ! mbedtls_ecp_group_load returned %d\n", ret);
+		return;
+	}
+
+	ret = mbedtls_ecdh_gen_public(&ctx_cli.grp, &ctx_cli.d, &ctx_cli.Q, mbedtls_ctr_drbg_random, &ctr_drbg);
+	if (ret != 0)
+	{
+		mbedtls_printf(" failed\n  ! mbedtls_ecdh_gen_public returned %d\n", ret);
+		return;
+	}
+
+	ret = mbedtls_mpi_write_binary(&ctx_cli.Q.X, cli_to_srv, 32);
+	if (ret != 0)
+	{
+		mbedtls_printf(" failed\n  ! mbedtls_mpi_write_binary returned %d\n", ret);
+		return;
+	}
+
+	// wait for "OK" because the device takes longer to do this than the computer
+	comm->waitOK();
+
+	// send 256-bits (32B) public key
+	comm->send(cli_to_srv, 32);
+
+	// get 256-bits (32B) public key
+	comm->receive(&srv_to_cli[0], 32);
+
+	/*
+	* Client: read peer's key and generate shared secret
+	*/
+	ret = mbedtls_mpi_lset(&ctx_cli.Qp.Z, 1);
+	if (ret != 0)
+	{
+		mbedtls_printf(" failed\n  ! mbedtls_mpi_lset returned %d\n", ret);
+		return;
+	}
+
+	ret = mbedtls_mpi_read_binary(&ctx_cli.Qp.X, srv_to_cli, 32);
+	if (ret != 0)
+	{
+		mbedtls_printf(" failed\n  ! mbedtls_mpi_read_binary returned %d\n", ret);
+		return;
+	}
+
+	size_t len = 0;
+	unsigned char buffer[BUFSIZE];
+
+	if ((ret = mbedtls_ecdh_calc_secret(&ctx_cli,
+		&len,
+		buffer,
+		BUFSIZE,
+		mbedtls_ctr_drbg_random, &ctr_drbg)) != 0)
+	{
+		mbedtls_printf(" failed\n  ! mbedtls_ecdh_calc_secret returned %d\n", ret);
+		return;
+	}
+
+	mbedtls_printf(" ok\n");
+
+	printf("\n");
+
+	printf("\n");
+	mbedtls_printf("\nsecret: ");
+	for (size_t i = 0; i < len; i++) {
+		printf("%02x", buffer[i]);
+	}
+
+	unsigned char key[32] = { 0 };
+	mbedtls_sha256(buffer, len, key, 0);
+
+	printf("\n");
+	mbedtls_printf("\nkey: ");
+	for (int i = 0; i < 32; i++) {
+		printf("%02x", key[i]);
+	}
+
+	printf("\n");
+
+	// Set AES key
+	mbedtls_aes_setkey_enc(&aes_ctx, key, 256);
+
+	/**************/
+	/**** HMAC ****/
+	/**************/
+	// Get IV || C || HMAC
+	uint8_t data[64] = { 0 };
+	comm->receive(data, 64);
+
+	uint8_t IV[16];
+	memcpy(IV, data, 16);
+
+	uint8_t ciphertext[16];
+	memcpy(ciphertext, data + 16, 16);
+
+	uint8_t recHMAC[32];
+	memcpy(recHMAC, data+32, 32);
+
+	// Decrypt challenge
+	uint8_t plaintext[16] = { 0 };
+	uint8_t IV_t[16]; // gets modified by CBC for chain operations
+	memcpy(IV_t, IV, 16);
+	mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, 16, IV_t, ciphertext, &plaintext[0]);
+
+	printf("\n");
+	mbedtls_printf("\nchallenge: ");
+	for (int i = 0; i < 16; i++) {
+		printf("%02x", plaintext[i]);
+	}
+
+	printf("\n");
+
+	///// Verify HMAC of IV || C
+	uint8_t block[32] = { 0 };
+	memcpy(block, IV, 16);
+	memcpy(block + 16, ciphertext, 16);
+
+	// HMAC-256 Setup
+	uint8_t HMAC[32] = { 0 };
+	ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
+	if (ret != 0)
+	{
+		mbedtls_printf("  ! mbedtls_md_setup() returned -0x%04x\n", -ret);
+		return;
+	}
+
+	mbedtls_md_hmac_starts(&sha_ctx, key, 32);
+	mbedtls_md_hmac_update(&sha_ctx, block, 32);
+
+	//Finally write the HMAC.
+	mbedtls_md_hmac_finish(&sha_ctx, HMAC);
+
+	// Compare HMACs
+	unsigned char diff = 0;
+	for (int i = 0; i < 32; i++)
+		diff |= HMAC[i] ^ recHMAC[i]; // XOR = 1 if one is different from the other
+
+	if (diff != 0)
+	{
+		mbedtls_fprintf(stderr, "HMAC check failed: wrong key, "
+			"or file corrupted.\n");
+		return;
+	}
+	else
+		printf("\nHMAC-256 Matches.\n");
+
+	///// Send modified challenge encrypted with session key
+
+	uint8_t mod_challenge[16];
+	for (int a = 0; a < 16; a++)
+	{
+		mod_challenge[a] = plaintext[a] % 6; // plaintext[a] mod 6 for now...
+	}
+
+	// TODO: we should generate another IV, HMAC and send IV || C || HMAC
+	memset(ciphertext, 0, 16);
+	mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, 16, IV, mod_challenge, &ciphertext[0]);
+
+	comm->send(ciphertext, 16);
+
+	mbedtls_ecdh_free(&ctx_srv);
+	mbedtls_ecdh_free(&ctx_cli);
+	mbedtls_ctr_drbg_free(&ctr_drbg);
+	mbedtls_entropy_free(&entropy);
+}
 
 #endif

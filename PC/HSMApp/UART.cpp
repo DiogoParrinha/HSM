@@ -8,6 +8,7 @@
 
 UART::UART() {
 	usb = new SerialPort();
+	usingKey = false;
 }
  
 UART::~UART() {
@@ -17,7 +18,7 @@ UART::~UART() {
 	usb = NULL;
 }
 
-void UART::connect()
+void UART::init()
 {
 	printf("Linking...");
 	if (usb->connect())
@@ -26,7 +27,10 @@ void UART::connect()
 		return;
 	}
 	printf("OK.\n");
+}
 
+void UART::connect()
+{
 	// Send 'Connected'
 	printf("Sending CONNECTED...");
 	uint8_t buffer[4096];
@@ -39,6 +43,12 @@ void UART::connect()
 #endif
 
 	printf("OK\n");
+}
+
+void UART::setKey(uint8_t * key)
+{
+	memcpy(sessionKey, key, 32);
+	usingKey = true;
 }
 
 void UART::disconnect()

@@ -617,12 +617,12 @@ void COMMAND_SESSION_process(uint8_t * command)
 		connected = TRUE;
 
 		char key[32] = {0};
-		/*if(!SecComm_start(&key[0]))
+		if(!SecComm_start(&key[0]))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: init sec comm");
 			return;
-		}*/
+		}
 	}
 }
 

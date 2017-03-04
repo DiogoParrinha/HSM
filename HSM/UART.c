@@ -63,6 +63,8 @@ BOOL UART_connect()
 	}
 
 	COMMAND_process(data); // Process TIME_SEND
+
+	return TRUE;
 }
 
 void UART_setKey(uint8_t * key)
@@ -144,6 +146,7 @@ int UART_send(uint8_t *buffer, uint32_t len)
 	}
 
 	// Anything left to sent? (last block may not be 16B)
+	// TODO: PKCS#7 padding
 	if (bytes < len)
 	{
 		uint32_t remaining = len - bytes;
