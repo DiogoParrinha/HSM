@@ -111,6 +111,46 @@ int UART_send(uint8_t *buffer, uint32_t len)
 		return -1;
 	}
 
+	int ret = 0;
+
+	mbedtls_aes_context aes_ctx;
+	mbedtls_md_context_t sha_ctx;
+	uint8_t IV[16] = {0x72, 0x88, 0xd4, 0x11, 0x94, 0xea, 0xf7, 0x1c, 0x31, 0xac, 0xc3, 0x8c, 0xc7, 0xdc, 0x82, 0x4b};
+	uint8_t HMAC[32] = {0};
+	unsigned char data[BLOCK_SIZE];
+
+	if(UART_usingKey)
+	{
+		mbedtls_aes_init(&aes_ctx);
+		mbedtls_md_init(&sha_ctx);
+
+		// Set AES key
+		mbedtls_aes_setkey_enc(&aes_ctx, UART_sessionKey, 256);
+
+		// TODO: Generate IV
+
+		// Send IV
+		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )IV, BLOCK_SIZE);
+		// Wait for OK
+		UART_waitOK();
+
+		// Setup HMAC
+		ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
+		if(ret != 0)
+		{
+			char error[10];
+			sprintf(error, "E: %d", ret);
+			__printf(error);
+			return -1;
+		}
+
+		mbedtls_md_hmac_starts(&sha_ctx, UART_sessionKey, 32);
+		mbedtls_md_hmac_update(&sha_ctx, IV, BLOCK_SIZE);
+	}
+
+	// Calculate total chunks
+	uint32_t totalChunks = len / BLOCK_SIZE;
+
 	// Place the size into an array
 	unsigned char size[4];
 	size[0] = len & 0x000000FF;
@@ -118,18 +158,35 @@ int UART_send(uint8_t *buffer, uint32_t len)
 	size[2] = (len & 0x00FF0000) >> 16;
 	size[3] = (len & 0xFF000000) >> 24;
 
-	// Send size
-	MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )size, 4);
+	// Place the total chunks into an array
+	uint32_t totalC = totalChunks;
+	// TODO: If the client knows the size, we don't need an extra padding block (this can only be done if attacker knowing the size is not a problem)
+	/*if(len % BLOCK_SIZE == 0) // Block boundary -> add another extra block of 0x10
+		totalC++;*/
 
+	unsigned char total_blocks[4];
+	total_blocks[0] = totalChunks & 0x000000FF;
+	total_blocks[1] = (totalChunks & 0x0000FF00) >> 8;
+	total_blocks[2] = (totalChunks & 0x00FF0000) >> 16;
+	total_blocks[3] = (totalChunks & 0xFF000000) >> 24;
+
+	// Send size + total blocks
+	// TODO: If the attacker knows the size already, is it dangerous?
+	uint8_t dataInfo[8];
+	memcpy(dataInfo, size, 4);
+	memcpy(dataInfo+4, total_blocks, 4);
+	MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )dataInfo, 8);
 	// Wait for OK
 	UART_waitOK();
 
-	// Calculate total chunks
-	uint32_t totalChunks = len / BLOCK_SIZE;
+	// Add dataInfo to HMAC
+	if(UART_usingKey)
+	{
+		mbedtls_md_hmac_update(&sha_ctx, dataInfo, 8);
+	}
 
 	// Send chunks of 16B
-	unsigned char data[BLOCK_SIZE+1]; // +1 because we want the last char to be 0 for printing possibilities
-	memset(data, 0, sizeof(data));
+	uint8_t ciphertext[BLOCK_SIZE];
 
 	uint32_t bytes = 0;
 	uint32_t chunk = 0;
@@ -138,15 +195,26 @@ int UART_send(uint8_t *buffer, uint32_t len)
 		memset(data, 0, sizeof(data));
 		memcpy(data, buffer + chunk * BLOCK_SIZE, BLOCK_SIZE);
 
+		if(UART_usingKey)
+		{
+			// Encrypt block
+			memset(ciphertext, 0, BLOCK_SIZE);
+			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, BLOCK_SIZE, IV, data, &ciphertext[0]);
+
+			// Update HMAC
+			mbedtls_md_hmac_update(&sha_ctx, ciphertext, BLOCK_SIZE);
+
+			// Copy ciphertext to data
+			memcpy(data, ciphertext, BLOCK_SIZE);
+		}
+
 		bytes += BLOCK_SIZE;
 		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )data, BLOCK_SIZE);
-
 		// Wait for OK
 		UART_waitOK();
 	}
 
-	// Anything left to sent? (last block may not be 16B)
-	// TODO: PKCS#7 padding
+	// Anything left to send? (last block may not be 16B)
 	if (bytes < len)
 	{
 		uint32_t remaining = len - bytes;
@@ -155,12 +223,47 @@ int UART_send(uint8_t *buffer, uint32_t len)
 			__printf("\nError: remaining amount bigger than block size.");
 			return -1;
 		}
+
 		memset(data, 0, sizeof(data));
 		memcpy(data, buffer + chunk * BLOCK_SIZE, remaining);
 
+		if(UART_usingKey)
+		{
+			// TODO: Apply PKCS#7 padding
+			// Set the padded bytes to the padded length value
+			// Send another block with all bytes set to the padded length value
+			add_pkcs_padding(data, BLOCK_SIZE, remaining);
+			remaining = BLOCK_SIZE;
+
+			// Encrypt block
+			memset(ciphertext, 0, BLOCK_SIZE);
+			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, BLOCK_SIZE, IV, data, &ciphertext[0]);
+
+			// Update HMAC
+			mbedtls_md_hmac_update(&sha_ctx, ciphertext, BLOCK_SIZE);
+
+			// Copy ciphertext to data
+			memcpy(data, ciphertext, BLOCK_SIZE);
+		}
+
 		bytes += remaining;
 		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )data, remaining);
+		// Wait for OK
+		UART_waitOK();
+	}
 
+	// Send HMAC
+	if(UART_usingKey)
+	{
+		// Finally write the HMAC.
+		mbedtls_md_hmac_finish(&sha_ctx, HMAC);
+
+		// Send two blocks of 16B
+		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )HMAC, BLOCK_SIZE);
+		// Wait for OK
+		UART_waitOK();
+		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )HMAC+BLOCK_SIZE, BLOCK_SIZE);
+		// Wait for OK
 		UART_waitOK();
 	}
 

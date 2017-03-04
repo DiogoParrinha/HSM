@@ -588,85 +588,29 @@ void START_SESSION()
 	printf("\n");
 
 	// Set AES key
-	mbedtls_aes_setkey_enc(&aes_ctx, key, 256);
+	comm->setKey(key);
 
-	/**************/
-	/**** HMAC ****/
-	/**************/
-	// Get IV || C || HMAC
-	uint8_t data[64] = { 0 };
-	comm->receive(data, 64);
-
-	uint8_t IV[16];
-	memcpy(IV, data, 16);
-
-	uint8_t ciphertext[16];
-	memcpy(ciphertext, data + 16, 16);
-
-	uint8_t recHMAC[32];
-	memcpy(recHMAC, data+32, 32);
-
-	// Decrypt challenge
-	uint8_t plaintext[16] = { 0 };
-	uint8_t IV_t[16]; // gets modified by CBC for chain operations
-	memcpy(IV_t, IV, 16);
-	mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, 16, IV_t, ciphertext, &plaintext[0]);
+	// Receive challenge
+	uint8_t challenge[16];
+	comm->receive(challenge, 16);
 
 	printf("\n");
 	mbedtls_printf("\nchallenge: ");
 	for (int i = 0; i < 16; i++) {
-		printf("%02x", plaintext[i]);
+		printf("%02x", challenge[i]);
 	}
 
 	printf("\n");
-
-	///// Verify HMAC of IV || C
-	uint8_t block[32] = { 0 };
-	memcpy(block, IV, 16);
-	memcpy(block + 16, ciphertext, 16);
-
-	// HMAC-256 Setup
-	uint8_t HMAC[32] = { 0 };
-	ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
-	if (ret != 0)
-	{
-		mbedtls_printf("  ! mbedtls_md_setup() returned -0x%04x\n", -ret);
-		return;
-	}
-
-	mbedtls_md_hmac_starts(&sha_ctx, key, 32);
-	mbedtls_md_hmac_update(&sha_ctx, block, 32);
-
-	//Finally write the HMAC.
-	mbedtls_md_hmac_finish(&sha_ctx, HMAC);
-
-	// Compare HMACs
-	unsigned char diff = 0;
-	for (int i = 0; i < 32; i++)
-		diff |= HMAC[i] ^ recHMAC[i]; // XOR = 1 if one is different from the other
-
-	if (diff != 0)
-	{
-		mbedtls_fprintf(stderr, "HMAC check failed: wrong key, "
-			"or file corrupted.\n");
-		return;
-	}
-	else
-		printf("\nHMAC-256 Matches.\n");
 
 	///// Send modified challenge encrypted with session key
 
 	uint8_t mod_challenge[16];
 	for (int a = 0; a < 16; a++)
 	{
-		mod_challenge[a] = plaintext[a] % 6; // plaintext[a] mod 6 for now...
+		mod_challenge[a] = challenge[a] % 6; // plaintext[a] mod 6 for now...
 	}
 
-	// TODO: we should generate another IV, HMAC and send IV || C || HMAC
-	memset(ciphertext, 0, 16);
-	mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, 16, IV, mod_challenge, &ciphertext[0]);
-
-	comm->send(ciphertext, 16);
+	comm->send(challenge, 16);
 
 	mbedtls_ecdh_free(&ctx_srv);
 	mbedtls_ecdh_free(&ctx_cli);

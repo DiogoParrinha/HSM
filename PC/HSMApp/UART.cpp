@@ -1,6 +1,25 @@
 #include "stdafx.h"
 #include "UART.h"
+#include <cstdlib>
 #include <cmath>
+
+#include "mbedtls/config.h"
+
+#if defined(MBEDTLS_PLATFORM_C)
+#include "mbedtls/platform.h"
+#else
+#include <stdio.h>
+#define mbedtls_printf     printf
+#endif
+
+#define VERBOSE 0
+
+#include "mbedtls/entropy.h"
+#include "mbedtls/ctr_drbg.h"
+#include "mbedtls/ecdh.h"
+#include "mbedtls/aes.h"
+#include "mbedtls/sha256.h"
+#include "mbedtls/md.h"
 
 #define BLOCK_SIZE 16
 
@@ -205,14 +224,55 @@ int UART::send(uint8_t *buffer, uint32_t len)
 
 uint32_t UART::receive(uint8_t *location, uint32_t locsize)
 {
+	mbedtls_aes_context aes_ctx;
+	mbedtls_md_context_t sha_ctx;
+	uint8_t HMAC[32] = { 0 };
+	uint8_t IV[16];
+
+	if (usingKey)
+	{
+		mbedtls_aes_init(&aes_ctx);
+		mbedtls_md_init(&sha_ctx);
+
+		// Set AES key
+		//mbedtls_aes_setkey_enc(&aes_ctx, sessionKey, 256);
+		mbedtls_aes_setkey_dec(&aes_ctx, sessionKey, 256);
+
+		// Expect IV (16B)
+		get(&IV[0], 16u);
+		sendOK();
+
+		// Setup HMAC
+		int ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
+		if (ret != 0)
+		{
+			char error[10];
+			sprintf_s(error, 10, "\nE: %d\n", ret);
+			printf(error);
+			return -1;
+		}
+
+		mbedtls_md_hmac_starts(&sha_ctx, sessionKey, 32);
+		mbedtls_md_hmac_update(&sha_ctx, IV, BLOCK_SIZE);
+	}
+
 	// Expect data size (bytes) first
 	// We are supposed to receive 4B
 	// Size is split among 4B (up to ~4GB (4*1024^3))
-	uint8_t sizeArray[4];
-	get(&sizeArray[0], 4u);
+	uint8_t dataArray[8];
+	get(&dataArray[0], 8u);
+	// Send OK
+	sendOK();
+
+	// Add dataInfo to HMAC
+	if (usingKey)
+	{
+		mbedtls_md_hmac_update(&sha_ctx, dataArray, 8);
+	}
 
 	// Put back the size together into a 32 bit integer
-	volatile uint32_t size = (0x000000FF & sizeArray[0]) | ((0x000000FF & sizeArray[1]) << 8) | ((0x000000FF & sizeArray[2]) << 16) | ((0x000000FF & sizeArray[3]) << 24);
+	volatile uint32_t size = (0x000000FF & dataArray[0]) | ((0x000000FF & dataArray[1]) << 8) | ((0x000000FF & dataArray[2]) << 16) | ((0x000000FF & dataArray[3]) << 24);
+	volatile uint32_t blocks = (0x000000FF & dataArray[4]) | ((0x000000FF & dataArray[5]) << 8) | ((0x000000FF & dataArray[6]) << 16) | ((0x000000FF & dataArray[7]) << 24);
 
 	// Now get the actual command
 	memset(location, 0, locsize);
@@ -221,14 +281,18 @@ uint32_t UART::receive(uint8_t *location, uint32_t locsize)
 	if (size > locsize)
 		size = locsize;
 
-	// Send OK
-	sendOK();
-
 	// Calculate total chunks
 	uint32_t totalChunks = size / BLOCK_SIZE;
+	// TODO: If the client knows the size, we don't need an extra padding block (this can only be done if attacker knowing the size is not a problem)
+	/*if(size % BLOCK_SIZE == 0) // Block boundary -> add another extra block of 0x10
+		totalChunks++;*/
+	if (totalChunks != blocks) // not equal?
+	{
+		return 0;
+	}
 
 	// Send chunks of 16B
-	unsigned char data[BLOCK_SIZE + 1]; // +1 because we want the last char to be 0 for printing possibilities
+	unsigned char data[BLOCK_SIZE];
 	memset(data, 0, sizeof(data));
 
 	uint32_t bytes = 0;
@@ -240,36 +304,80 @@ uint32_t UART::receive(uint8_t *location, uint32_t locsize)
 		// Read chunk
 		get(data, BLOCK_SIZE);
 
+		if (usingKey)
+		{
+			// Update HMAC
+			mbedtls_md_hmac_update(&sha_ctx, data, BLOCK_SIZE);
+
+			// Decrypt
+			uint8_t plaintext[BLOCK_SIZE];
+			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, BLOCK_SIZE, IV, data, &plaintext[0]);
+
+			memcpy(data, plaintext, BLOCK_SIZE);
+		}
+		
 		memcpy(location + chunk * BLOCK_SIZE, data, BLOCK_SIZE);
 		
 		bytes += BLOCK_SIZE;
 
 		// Wait for OK
 		sendOK();
-
-		//printf("\nprocessed block %d", chunk);
 	}
 
-	// Anything left to sent? (last block may not be 16B)
-	if (bytes < size)
+	if (usingKey)
 	{
-		uint32_t remaining = size - bytes;
-		if (remaining > BLOCK_SIZE)
-		{
-			printf("\nError: remaining amount bigger than block size: %d (total size: %d | %d).", remaining, size, bytes);
-			return 0;
-		}
-		memset(data, 0, sizeof(data));
+		// Finally write the HMAC.
+		mbedtls_md_hmac_finish(&sha_ctx, HMAC);
 
-		// Read remaining data
-		get(data, remaining);
-
-		memcpy(location + chunk * BLOCK_SIZE, data, remaining);
-
-		bytes += remaining;
-
+		// The last two 16B blocks make up the HMAC
+		// HMAC(IV || dataInfo || C)
+		// Compare HMACs
+		uint8_t recHMAC[32];
+		get(&recHMAC[0], 16u);
 		// Send OK
 		sendOK();
+		get(&recHMAC[16], 16u);
+		// Send OK
+		sendOK();
+
+		// Compare HMACs
+		unsigned char diff = 0;
+		for (int i = 0; i < 32; i++)
+			diff |= HMAC[i] ^ recHMAC[i]; // XOR = 1 if one is different from the other
+
+		if (diff != 0)
+		{
+			mbedtls_fprintf(stderr, "HMAC check failed: wrong key, "
+				"or file corrupted.\n");
+			return -1;
+		}
+		else
+			printf("\nHMAC-256 Matches.\n");
+	}
+	else
+	{
+		// Anything left to sent? (last block may not be 16B)
+		// Only happens when not in a secure communication (otherwise the last block is padded so it matches 16B)
+		if (bytes < size)
+		{
+			uint32_t remaining = size - bytes;
+			if (remaining > BLOCK_SIZE)
+			{
+				printf("\nError: remaining amount bigger than block size: %d (total size: %d | %d).", remaining, size, bytes);
+				return 0;
+			}
+			memset(data, 0, sizeof(data));
+
+			// Read remaining data
+			get(data, remaining);
+
+			memcpy(location + chunk * BLOCK_SIZE, data, remaining);
+
+			bytes += remaining;
+
+			// Send OK
+			sendOK();
+		}
 	}
 
 	return size;

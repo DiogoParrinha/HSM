@@ -84,6 +84,8 @@ uint32_t calculate_totaldays(uint32_t day, uint32_t month, uint32_t year);
 uint32_t calculate_week(uint32_t day, uint32_t month, uint32_t year);
 int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t *olen);
 //uint8_t get_timestamp();
+void add_pkcs_padding(unsigned char *output, size_t output_len, size_t data_len);
+int get_pkcs_padding(unsigned char *input, size_t input_len, size_t *data_len);
 
 #include "UART.h"
 #include "SPIFLASH.h"
