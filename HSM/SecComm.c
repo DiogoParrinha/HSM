@@ -128,7 +128,7 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 
 	// TODO: Generate 128-bit challenge
 	uint8_t challenge[16] = {0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28};
-	if(!UART_send(challenge, 16))
+	if(UART_send(challenge, 16) != 0)
 	{
 		return FALSE;
 	}

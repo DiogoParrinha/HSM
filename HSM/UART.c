@@ -55,7 +55,13 @@ BOOL UART_connect()
 	/*** SETUP CONNECTION ***/
 	MSS_RTC_start();
 
-	UART_receive(&data[0], 64);
+	volatile int ret = 0;
+	if((ret = UART_receive(&data[0], 64)) != 0)
+	{
+		__printf("\nError: not Connected.");
+		return FALSE;
+	}
+
 	if(data[0] != 'T' || data[1] != 'I' || data[2] != 'M' || data[3] != 'E' || data[4] != '_' || data[5] != 'S' || data[6] != 'E' || data[7] != 'N' || data[8] != 'D')
 	{
 		__printf("\nError: not Connected.");
@@ -102,13 +108,13 @@ uint8_t UART_get
     return count;
 }
 
-int UART_send(uint8_t *buffer, uint32_t len)
+uint8_t UART_send(uint8_t *buffer, uint32_t len)
 {
 	// > ~4GB? fail (4*1024^3)
 	if (len > 4294967295)
 	{
 		__printf("\nError: can't send data bigger than 4GiB.");
-		return -1;
+		return ERROR_UART_INVALID_SIZE;
 	}
 
 	int ret = 0;
@@ -141,7 +147,7 @@ int UART_send(uint8_t *buffer, uint32_t len)
 			char error[10];
 			sprintf(error, "E: %d", ret);
 			__printf(error);
-			return -1;
+			return ERROR_UART_HMAC_SETUP;
 		}
 
 		mbedtls_md_hmac_starts(&sha_ctx, UART_sessionKey, 32);
@@ -221,7 +227,7 @@ int UART_send(uint8_t *buffer, uint32_t len)
 		if (remaining > BLOCK_SIZE)
 		{
 			__printf("\nError: remaining amount bigger than block size.");
-			return -1;
+			return ERROR_UART_BLOCK_SIZE_INVALID;
 		}
 
 		memset(data, 0, sizeof(data));
@@ -267,7 +273,7 @@ int UART_send(uint8_t *buffer, uint32_t len)
 		UART_waitOK();
 	}
 
-	return bytes;
+	return 0;
 }
 
 void UART_waitOK()
@@ -318,16 +324,56 @@ void UART_waitCOMMAND()
 	UART_sendOK();
 }
 
-void UART_receive(char *location, uint32_t locsize)
+uint8_t UART_receive(char *location, uint32_t locsize)
 {
+	mbedtls_aes_context aes_ctx;
+	mbedtls_md_context_t sha_ctx;
+	uint8_t HMAC[32] = { 0 };
+	uint8_t IV[16];
+
+	if(UART_usingKey)
+	{
+		mbedtls_aes_init(&aes_ctx);
+		mbedtls_md_init(&sha_ctx);
+
+		// Set AES key
+		mbedtls_aes_setkey_dec(&aes_ctx, UART_sessionKey, 256);
+
+		// Expect IV (16B)
+		UART_get(&IV[0], 16u);
+		UART_sendOK();
+
+		// Setup HMAC
+		int ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
+		if (ret != 0)
+		{
+			char error[10];
+			sprintf(error, "E: %d", ret);
+			__printf(error);
+			return ERROR_UART_HMAC_SETUP;
+		}
+
+		mbedtls_md_hmac_starts(&sha_ctx, UART_sessionKey, 32);
+		mbedtls_md_hmac_update(&sha_ctx, IV, BLOCK_SIZE);
+	}
+
 	// Expect data size (bytes) first
 	// We are supposed to receive 4B
 	// Size is split among 4B (up to ~4GB (4*1024^3))
-	uint8_t sizeArray[4];
-	UART_get(&sizeArray[0], 4u);
+	uint8_t dataArray[8];
+	UART_get(&dataArray[0], 8u);
+	// Send OK
+	UART_sendOK();
+
+	// Add dataInfo to HMAC
+	if (UART_usingKey)
+	{
+		mbedtls_md_hmac_update(&sha_ctx, dataArray, 8);
+	}
 
 	// Put back the size together into a 32 bit integer
-	uint32_t size = (0x000000FF & sizeArray[0]) | ((0x000000FF & sizeArray[1]) << 8) | ((0x000000FF & sizeArray[2]) << 16) | ((0x000000FF & sizeArray[3]) << 24);
+	uint32_t size = (0x000000FF & dataArray[0]) | ((0x000000FF & dataArray[1]) << 8) | ((0x000000FF & dataArray[2]) << 16) | ((0x000000FF & dataArray[3]) << 24);
+	uint32_t blocks = (0x000000FF & dataArray[4]) | ((0x000000FF & dataArray[5]) << 8) | ((0x000000FF & dataArray[6]) << 16) | ((0x000000FF & dataArray[7]) << 24);
 
 	// Now get the actual command
 	memset(location, 0, locsize);
@@ -336,17 +382,21 @@ void UART_receive(char *location, uint32_t locsize)
 	if(size > locsize)
 		size = locsize;
 
-	// Send OK
-	UART_sendOK();
-
 	// Calculate total chunks
 	uint32_t totalChunks = size / BLOCK_SIZE;
+	// TODO: If the client knows the size, we don't need an extra padding block (this can only be done if attacker knowing the size is not a problem)
+	/*if(size % BLOCK_SIZE == 0) // Block boundary -> add another extra block of 0x10
+		totalChunks++;*/
+	if (totalChunks != blocks) // not equal?
+	{
+		return ERROR_UART_CHUNKS_MISMATCH;
+	}
 
 	// Send chunks of 16B
 	unsigned char data[BLOCK_SIZE+1]; // +1 because we want the last char to be 0 for printing possibilities
 	memset(data, 0, sizeof(data));
 
-	uint32_t bytes = 0;
+	volatile uint32_t bytes = 0;
 	uint32_t chunk = 0;
 	for (chunk = 0; chunk < totalChunks; chunk++)
 	{
@@ -354,6 +404,18 @@ void UART_receive(char *location, uint32_t locsize)
 
 		// Read chunk
 		UART_get(data, BLOCK_SIZE);
+
+		if(UART_usingKey)
+		{
+			// Update HMAC
+			mbedtls_md_hmac_update(&sha_ctx, data, BLOCK_SIZE);
+
+			// Decrypt
+			uint8_t plaintext[BLOCK_SIZE];
+			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, BLOCK_SIZE, IV, data, &plaintext[0]);
+
+			memcpy(data, plaintext, BLOCK_SIZE);
+		}
 
 		memcpy(location + chunk * BLOCK_SIZE, data, BLOCK_SIZE);
 
@@ -363,27 +425,60 @@ void UART_receive(char *location, uint32_t locsize)
 		UART_sendOK();
 	}
 
-	// Anything left to sent? (last block may not be 16B)
-	if (bytes < size)
+	if(UART_usingKey)
 	{
-		uint32_t remaining = size - bytes;
-		if (remaining > BLOCK_SIZE)
-		{
-			__printf("\nError: remaining amount bigger than block size.");
-			return;
-		}
-		memset(data, 0, sizeof(data));
+		// Finally write the HMAC.
+		mbedtls_md_hmac_finish(&sha_ctx, HMAC);
 
-		// Read remaining data
-		UART_get(data, remaining);
-
-		memcpy(location + chunk * BLOCK_SIZE, data, remaining);
-
-		bytes += remaining;
-
+		// The last two 16B blocks make up the HMAC
+		// HMAC(IV || dataInfo || C)
+		// Compare HMACs
+		uint8_t recHMAC[32];
+		UART_get(&recHMAC[0], 16u);
 		// Send OK
 		UART_sendOK();
+		UART_get(&recHMAC[16], 16u);
+		// Send OK
+		UART_sendOK();
+
+		// Compare HMACs
+		unsigned char diff = 0;
+		for (int i = 0; i < 32; i++)
+			diff |= HMAC[i] ^ recHMAC[i]; // XOR = 1 if one is different from the other
+
+		if (diff != 0)
+		{
+			__printf("\nError: HMAC differs");
+			return ERROR_UART_HMAC_MISMATCH;
+		}
 	}
+	else
+	{
+		// Anything left to sent? (last block may not be 16B)
+		// Only happens when not in a secure communication (otherwise the last block is padded so it matches 16B)
+		if (bytes < size)
+		{
+			uint32_t remaining = size - bytes;
+			if (remaining > BLOCK_SIZE)
+			{
+				__printf("\nError: remaining amount bigger than block size.");
+				return ERROR_UART_BLOCK_SIZE_INVALID;
+			}
+			memset(data, 0, sizeof(data));
+
+			// Read remaining data
+			UART_get(data, remaining);
+
+			memcpy(location + chunk * BLOCK_SIZE, data, remaining);
+
+			bytes += remaining;
+
+			// Send OK
+			UART_sendOK();
+		}
+	}
+
+	return 0;
 }
 
 size_t UART_Polled_Rx
