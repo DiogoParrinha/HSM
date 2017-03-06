@@ -567,18 +567,18 @@ void COMMAND_TIME_process(uint8_t * command)
 	{
 		// Receive the current timestamp
 
-        mss_rtc_calendar_t new_calendar_time;
-        MSS_RTC_get_calendar_count(&new_calendar_time);
+		mss_rtc_calendar_t new_calendar_time;
+		MSS_RTC_get_calendar_count(&new_calendar_time);
 
-        // Expect 4B (32bit timestamp)
-        uint8_t buffer[4] = {0};
+		// Expect 4B (32bit timestamp)
+		uint8_t buffer[4] = {0};
 		UART_receive(&buffer[0], 4u);
 
 		// Convert this back to an integer of 32bits
 		time_t timestamp = (0x000000FF & buffer[0])
-				| ((0x000000FF & buffer[1]) << 8)
-				| ((0x000000FF & buffer[2]) << 16)
-				| ((0x000000FF & buffer[3]) << 24);
+			| ((0x000000FF & buffer[1]) << 8)
+			| ((0x000000FF & buffer[2]) << 16)
+			| ((0x000000FF & buffer[3]) << 24);
 
 		struct tm * ptm;
 		ptm = gmtime(&timestamp);
@@ -586,18 +586,20 @@ void COMMAND_TIME_process(uint8_t * command)
 		new_calendar_time.second = ptm->tm_sec;
 		new_calendar_time.minute = ptm->tm_min;
 		new_calendar_time.hour = ptm->tm_hour;
-        new_calendar_time.day = ptm->tm_mday;
-        new_calendar_time.month = ptm->tm_mon+1; // time works with months since january (0 being jan) while RTC works with 1 to 12
-        new_calendar_time.year = ptm->tm_year-100; // time works with years since 1900, while RTC works with years since 2009
-        new_calendar_time.weekday = ptm->tm_wday+1; // time works with days since sunday 80 being sunday) while RTC works with 1-7
-        new_calendar_time.week = calculate_week(new_calendar_time.day, new_calendar_time.month,  new_calendar_time.year);
+		new_calendar_time.day = ptm->tm_mday;
+		new_calendar_time.month = ptm->tm_mon+1; // time works with months since january (0 being jan) while RTC works with 1 to 12
+		new_calendar_time.year = ptm->tm_year-100; // time works with years since 1900, while RTC works with years since 2009
+		new_calendar_time.weekday = ptm->tm_wday+1; // time works with days since sunday 80 being sunday) while RTC works with 1-7
+		new_calendar_time.week = calculate_week(new_calendar_time.day, new_calendar_time.month,  new_calendar_time.year);
 
-        MSS_RTC_set_calendar_count(&new_calendar_time);
+		MSS_RTC_set_calendar_count(&new_calendar_time);
 
-        // Use timestamp as random seed
-        srand(timestamp);
+		// Use timestamp as random seed
+		#ifndef SECURITY_DEVICE
+			srand(timestamp);
+		#endif
 
-        free(ptm);
+		free(ptm);
 	}
 }
 

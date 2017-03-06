@@ -87,6 +87,9 @@ int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t 
 void add_pkcs_padding(unsigned char *output, size_t output_len, size_t data_len);
 int get_pkcs_padding(unsigned char *input, size_t input_len, size_t *data_len);
 
+// RNG Handle
+uint8_t drbg_handle;
+
 #include "UART.h"
 #include "SPIFLASH.h"
 #include "PKC.h"

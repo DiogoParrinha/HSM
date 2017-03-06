@@ -126,8 +126,22 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 	// Set session key
 	UART_setKey(key);
 
-	// TODO: Generate 128-bit challenge
 	uint8_t challenge[16] = {0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28};
+	#ifdef SECURITY_DEVICE
+		// Generate 128-bit challenge
+		/* Generate random bits */
+		status = MSS_SYS_nrbg_generate(&challenge,    /* p_requested_data */
+			0,               /* p_additional_input */
+			16,			/* requested_length */
+			0,               /* additional_input_length */
+			0,               /* pr_req */
+			drbg_handle);    /* drbg_handle */
+		if(MSS_SYS_SUCCESS != status)
+		{
+			return FALSE; // error
+		}
+	#endif
+	
 	if(UART_send(challenge, 16) != 0)
 	{
 		return FALSE;

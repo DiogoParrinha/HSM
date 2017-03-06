@@ -133,7 +133,12 @@ uint8_t UART_send(uint8_t *buffer, uint32_t len)
 		// Set AES key
 		mbedtls_aes_setkey_enc(&aes_ctx, UART_sessionKey, 256);
 
-		// TODO: Generate IV
+		// Generate IV
+		#ifdef SECURITY_DEVICE
+			MSS_SYS_nrbg_instantiate
+			uint8_t puf_seed[32];
+			MSS_SYS_puf_get_random_seed(&puf_seed[0]);
+		#endif
 
 		// Send IV
 		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )IV, BLOCK_SIZE);

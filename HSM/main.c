@@ -106,6 +106,19 @@ int main()
 			MSS_RTC_clear_update_flag();
 		}
 	}*/
+	
+	#ifdef SECURITY_DEVICE
+		MSS_SYS_init();
+		uint8_t puf_seed[32];
+		MSS_SYS_puf_get_random_seed(&puf_seed[0]);
+		
+		// Instantiate RNG
+		status = MSS_SYS_nrbg_instantiate(0, 0, &drbg_handle[drbg_handle_no]);
+		if(MSS_SYS_SUCCESS != status)
+		{
+			return 1;
+		}
+	#endif
 
 	UART_init();
 
