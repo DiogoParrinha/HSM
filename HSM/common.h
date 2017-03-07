@@ -90,6 +90,15 @@ int get_pkcs_padding(unsigned char *input, size_t input_len, size_t *data_len);
 // RNG Handle
 uint8_t drbg_handle;
 
+/*------------------------------------------------------------------------------
+  RTC prescaler value.
+  Uncomment the value corresponding to your hardware configuration.
+ */
+/* #define RTC_PRESCALER    (32768u - 1u)    */ /* 32KHz crystal is RTC clock source. */
+/* #define RTC_PRESCALER    (1000000u - 1u) */       /* 1MHz clock is RTC clock source. */
+/*#define RTC_PRESCALER    (25000000u - 1u) */ /* 25MHz clock is RTC clock source. */
+#define RTC_PRESCALER    (50000000u - 1u) /* 50MHz clock is RTC clock source. */
+
 #include "UART.h"
 #include "SPIFLASH.h"
 #include "PKC.h"

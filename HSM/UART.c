@@ -4,15 +4,6 @@
 #include <stdio.h>
 #include "UART.h"
 
-/*------------------------------------------------------------------------------
-  RTC prescaler value.
-  Uncomment the value corresponding to your hardware configuration.
- */
-/* #define RTC_PRESCALER    (32768u - 1u)    */ /* 32KHz crystal is RTC clock source. */
-/* #define RTC_PRESCALER    (1000000u - 1u) */       /* 1MHz clock is RTC clock source. */
-/*#define RTC_PRESCALER    (25000000u - 1u) */ /* 25MHz clock is RTC clock source. */
-#define RTC_PRESCALER    (50000000u - 1u) /* 50MHz clock is RTC clock source. */
-
 /*==============================================================================
   Global Variables.
  */
@@ -48,10 +39,6 @@ BOOL UART_connect()
 	// Not using session key for now
 	UART_usingKey = FALSE;
 
-	/*** USE RTC FOR TIME CONTROL ***/
-	mss_rtc_calendar_t calendar_count;
-	MSS_RTC_init(MSS_RTC_CALENDAR_MODE, RTC_PRESCALER);
-
 	/*** SETUP CONNECTION ***/
 	MSS_RTC_start();
 
@@ -71,6 +58,12 @@ BOOL UART_connect()
 	COMMAND_process(data); // Process TIME_SEND
 
 	return TRUE;
+}
+
+void UART_disconnect()
+{
+	memcpy(UART_sessionKey, 0, 32);
+	UART_usingKey = FALSE;
 }
 
 void UART_setKey(uint8_t * key)
@@ -171,15 +164,17 @@ uint8_t UART_send(uint8_t *buffer, uint32_t len)
 
 	// Place the total chunks into an array
 	uint32_t totalC = totalChunks;
-	// TODO: If the client knows the size, we don't need an extra padding block (this can only be done if attacker knowing the size is not a problem)
-	/*if(len % BLOCK_SIZE == 0) // Block boundary -> add another extra block of 0x10
-		totalC++;*/
+	if (UART_usingKey)
+	{
+		if (len % BLOCK_SIZE != 0)
+			totalC++;
+	}
 
 	unsigned char total_blocks[4];
-	total_blocks[0] = totalChunks & 0x000000FF;
-	total_blocks[1] = (totalChunks & 0x0000FF00) >> 8;
-	total_blocks[2] = (totalChunks & 0x00FF0000) >> 16;
-	total_blocks[3] = (totalChunks & 0xFF000000) >> 24;
+	total_blocks[0] = totalC & 0x000000FF;
+	total_blocks[1] = (totalC & 0x0000FF00) >> 8;
+	total_blocks[2] = (totalC & 0x00FF0000) >> 16;
+	total_blocks[3] = (totalC & 0xFF000000) >> 24;
 
 	// Send size + total blocks
 	// TODO: If the attacker knows the size already, is it dangerous?
@@ -388,14 +383,15 @@ uint8_t UART_receive(char *location, uint32_t locsize)
 		size = locsize;
 
 	// Calculate total chunks
-	uint32_t totalChunks = size / BLOCK_SIZE;
+	//uint32_t totalChunks = size / BLOCK_SIZE;
+	uint32_t totalChunks = blocks;
 	// TODO: If the client knows the size, we don't need an extra padding block (this can only be done if attacker knowing the size is not a problem)
 	/*if(size % BLOCK_SIZE == 0) // Block boundary -> add another extra block of 0x10
 		totalChunks++;*/
-	if (totalChunks != blocks) // not equal?
+	/*if (totalChunks != blocks) // not equal?
 	{
 		return ERROR_UART_CHUNKS_MISMATCH;
-	}
+	}*/
 
 	// Send chunks of 16B
 	unsigned char data[BLOCK_SIZE+1]; // +1 because we want the last char to be 0 for printing possibilities
@@ -419,7 +415,20 @@ uint8_t UART_receive(char *location, uint32_t locsize)
 			uint8_t plaintext[BLOCK_SIZE];
 			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, BLOCK_SIZE, IV, data, &plaintext[0]);
 
-			memcpy(data, plaintext, BLOCK_SIZE);
+			// Remove padding from message
+			memset(data, 0, BLOCK_SIZE);
+			size_t l = 0;
+			int r = get_pkcs_padding(plaintext, BLOCK_SIZE, &l);
+			if(r == 0)
+			{
+				// l contains the actual length of this block
+				memcpy(data, plaintext, l);
+			}
+			else
+			{
+				// assume whole block
+				memcpy(data, plaintext, BLOCK_SIZE);
+			}
 		}
 
 		memcpy(location + chunk * BLOCK_SIZE, data, BLOCK_SIZE);
@@ -459,7 +468,7 @@ uint8_t UART_receive(char *location, uint32_t locsize)
 	}
 	else
 	{
-		// Anything left to sent? (last block may not be 16B)
+		// Anything left to receive? (last block may not be 16B)
 		// Only happens when not in a secure communication (otherwise the last block is padded so it matches 16B)
 		if (bytes < size)
 		{

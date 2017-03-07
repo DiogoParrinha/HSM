@@ -55,12 +55,7 @@ void UART::connect()
 	uint8_t buffer[4096];
 	sprintf_s((char*)buffer, sizeof(buffer), "CONNECTED");
 	usb->sendArray(buffer, 9);
-
-	// Wait for 'OK'
-#ifndef DEBUG_MODE
 	waitOK();
-#endif
-
 	printf("OK\n");
 }
 
@@ -82,13 +77,8 @@ void UART::reqCommand()
 	uint8_t buffer[4096];
 	sprintf_s((char*)buffer, sizeof(buffer), "COMMAND");
 	usb->sendArray(buffer, 7);
-
-	// Wait for 'OK'
-#ifndef DEBUG_MODE
-	waitOK();
-#endif
-
 	printf("OK\n");
+	waitOK();
 }
  
 uint8_t UART::get
@@ -120,8 +110,47 @@ int UART::send(uint8_t *buffer, uint32_t len)
 	if (len >= 4294967295)
 	{
 		printf("\nError: can't send data bigger than 4GiB.");
-		return -1;
+		return ERROR_UART_INVALID_SIZE;
 	}
+
+	int ret = 0;
+	mbedtls_aes_context aes_ctx;
+	mbedtls_md_context_t sha_ctx;
+	uint8_t IV[16] = { 0x72, 0x88, 0xd4, 0x11, 0x94, 0xea, 0xf7, 0x1c, 0x31, 0xac, 0xc3, 0x8c, 0xc7, 0xdc, 0x82, 0x4b };
+	uint8_t HMAC[32] = { 0 };
+	unsigned char data[BLOCK_SIZE];
+
+	if (usingKey)
+	{
+		mbedtls_aes_init(&aes_ctx);
+		mbedtls_md_init(&sha_ctx);
+
+		// Set AES key
+		mbedtls_aes_setkey_enc(&aes_ctx, sessionKey, 256);
+
+		// TODO: Generate IV
+
+		// Send IV
+		usb->sendArray(IV, BLOCK_SIZE);
+		// Wait for OK
+		waitOK();
+
+		// Setup HMAC
+		ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
+		if (ret != 0)
+		{
+			char error[10];
+			sprintf_s(error, 10, "E: %d", ret);
+			printf(error);
+			return ERROR_UART_HMAC_SETUP;
+		}
+
+		mbedtls_md_hmac_starts(&sha_ctx, sessionKey, 32);
+		mbedtls_md_hmac_update(&sha_ctx, IV, BLOCK_SIZE);
+	}
+
+	// Calculate total chunks
+	uint32_t totalChunks = len / BLOCK_SIZE;
 
 	// Place the size into an array
 	unsigned char size[4];
@@ -130,37 +159,43 @@ int UART::send(uint8_t *buffer, uint32_t len)
 	size[2] = (len & 0x00FF0000) >> 16;
 	size[3] = (len & 0xFF000000) >> 24;
 
-	printf("Size (%ld | %d):\n", len, sizeof(len));
+	// Place the total chunks into an array
+	uint32_t totalC = totalChunks;
+	if (usingKey)
+	{
+		if (len % BLOCK_SIZE != 0)
+			totalC++;
+	}
+	
+	unsigned char total_blocks[4];
+	total_blocks[0] = totalC & 0x000000FF;
+	total_blocks[1] = (totalC & 0x0000FF00) >> 8;
+	total_blocks[2] = (totalC & 0x00FF0000) >> 16;
+	total_blocks[3] = (totalC & 0xFF000000) >> 24;
 
-#ifdef DEBUG_MODE
-	printf("Size (%ld | %d):\n", len, sizeof(len));
-	printBits(sizeof(size[0]), &size[0]);
-	printBits(sizeof(size[1]), &size[1]);
-	printBits(sizeof(size[2]), &size[2]);
-	printBits(sizeof(size[3]), &size[3]);
-	printf("\n");
+	// Send size + total blocks
+	// TODO: If the attacker knows the size already, is it dangerous?
+	uint8_t dataInfo[8];
+	memcpy(dataInfo, size, 4);
+	memcpy(dataInfo + 4, total_blocks, 4);
 
-	// Putting the size back together
-	uint32_t s = (0x000000FF & size[0]) | ((0x000000FF & size[1]) << 8) | ((0x000000FF & size[2]) << 16) | ((0x000000FF & size[3]) << 24);
-	printf("New size: %d\n", s);
-#else
 	// Send size
-	if (usb->sendArray(size, sizeof(size)) != sizeof(size))
+	if (usb->sendArray(dataInfo, sizeof(dataInfo)) != sizeof(dataInfo))
 	{
 		printf("\nError: (size) total bytes sent do not match.");
-		return -1;
+		return ERROR_UART_INVALID_SIZE;
 	}
-
 	// Wait for OK
 	waitOK();
-#endif
 
-	// Calculate total chunks
-	uint32_t totalChunks = len / BLOCK_SIZE;
+	// Add dataInfo to HMAC
+	if (usingKey)
+	{
+		mbedtls_md_hmac_update(&sha_ctx, dataInfo, 8);
+	}
 
 	// Send chunks of 16B
-	unsigned char data[BLOCK_SIZE+1]; // +1 because we want the last char to be 0 for printing possibilities
-	memset(data, 0, sizeof(data));
+	uint8_t ciphertext[BLOCK_SIZE];
 
 	uint32_t bytes = 0;
 	uint32_t chunk = 0;
@@ -169,11 +204,19 @@ int UART::send(uint8_t *buffer, uint32_t len)
 		memset(data, 0, sizeof(data));
 		memcpy(data, buffer + chunk * BLOCK_SIZE, BLOCK_SIZE);
 
-#ifdef DEBUG_MODE
-		printf("\ndata (%d): %s", chunk * BLOCK_SIZE, data);
+		if (usingKey)
+		{
+			// Encrypt block
+			memset(ciphertext, 0, BLOCK_SIZE);
+			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, BLOCK_SIZE, IV, data, &ciphertext[0]);
 
-		bytes += BLOCK_SIZE;
-#else
+			// Update HMAC
+			mbedtls_md_hmac_update(&sha_ctx, ciphertext, BLOCK_SIZE);
+
+			// Copy ciphertext to data
+			memcpy(data, ciphertext, BLOCK_SIZE);
+		}
+
 		uint8_t bw = 0;
 		if((bw = usb->sendArray(data, BLOCK_SIZE)) != BLOCK_SIZE)
 		{
@@ -185,7 +228,6 @@ int UART::send(uint8_t *buffer, uint32_t len)
 
 		// Wait for OK
 		waitOK();
-#endif
 	}
 
 	// Anything left to sent? (last block may not be 16B)
@@ -200,11 +242,25 @@ int UART::send(uint8_t *buffer, uint32_t len)
 		memset(data, 0, sizeof(data));
 		memcpy(data, buffer + chunk * BLOCK_SIZE, remaining);
 		
-#ifdef DEBUG_MODE
-		printf("\nremaining (%d): %s", remaining, data);
+		if (usingKey)
+		{
+			// TODO: Apply PKCS#7 padding
+			// Set the padded bytes to the padded length value
+			// Send another block with all bytes set to the padded length value
+			add_pkcs_padding(data, BLOCK_SIZE, remaining);
+			remaining = BLOCK_SIZE;
 
-		bytes += remaining;
-#else
+			// Encrypt block
+			memset(ciphertext, 0, BLOCK_SIZE);
+			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, BLOCK_SIZE, IV, data, &ciphertext[0]);
+
+			// Update HMAC
+			mbedtls_md_hmac_update(&sha_ctx, ciphertext, BLOCK_SIZE);
+
+			// Copy ciphertext to data
+			memcpy(data, ciphertext, BLOCK_SIZE);
+		}
+
 		uint8_t bw = 0;
 		if ((bw = usb->sendArray(data, remaining)) != remaining)
 		{
@@ -216,7 +272,29 @@ int UART::send(uint8_t *buffer, uint32_t len)
 
 		// Wait for OK
 		waitOK();
-#endif
+	}
+
+	// Send HMAC
+	if (usingKey)
+	{
+		// Finally write the HMAC.
+		mbedtls_md_hmac_finish(&sha_ctx, HMAC);
+
+		// Send two blocks of 16B
+		if ((usb->sendArray(HMAC, BLOCK_SIZE)) != BLOCK_SIZE)
+		{
+			printf("\nError: (block %d) total bytes sent do not match.", chunk);
+			return ERROR_UART_INVALID_SIZE;
+		}
+		// Wait for OK
+		waitOK();
+		if ((usb->sendArray(HMAC+ BLOCK_SIZE, BLOCK_SIZE)) != BLOCK_SIZE)
+		{
+			printf("\nError: (block %d) total bytes sent do not match.", chunk);
+			return ERROR_UART_INVALID_SIZE;
+		}
+		// Wait for OK
+		waitOK();
 	}
 	
 	return bytes;
@@ -271,8 +349,8 @@ uint32_t UART::receive(uint8_t *location, uint32_t locsize)
 	}
 
 	// Put back the size together into a 32 bit integer
-	volatile uint32_t size = (0x000000FF & dataArray[0]) | ((0x000000FF & dataArray[1]) << 8) | ((0x000000FF & dataArray[2]) << 16) | ((0x000000FF & dataArray[3]) << 24);
-	volatile uint32_t blocks = (0x000000FF & dataArray[4]) | ((0x000000FF & dataArray[5]) << 8) | ((0x000000FF & dataArray[6]) << 16) | ((0x000000FF & dataArray[7]) << 24);
+	uint32_t size = (0x000000FF & dataArray[0]) | ((0x000000FF & dataArray[1]) << 8) | ((0x000000FF & dataArray[2]) << 16) | ((0x000000FF & dataArray[3]) << 24);
+	uint32_t blocks = (0x000000FF & dataArray[4]) | ((0x000000FF & dataArray[5]) << 8) | ((0x000000FF & dataArray[6]) << 16) | ((0x000000FF & dataArray[7]) << 24);
 
 	// Now get the actual command
 	memset(location, 0, locsize);
@@ -282,14 +360,15 @@ uint32_t UART::receive(uint8_t *location, uint32_t locsize)
 		size = locsize;
 
 	// Calculate total chunks
-	uint32_t totalChunks = size / BLOCK_SIZE;
+	//uint32_t totalChunks = size / BLOCK_SIZE;
+	uint32_t totalChunks = blocks;
 	// TODO: If the client knows the size, we don't need an extra padding block (this can only be done if attacker knowing the size is not a problem)
 	/*if(size % BLOCK_SIZE == 0) // Block boundary -> add another extra block of 0x10
 		totalChunks++;*/
-	if (totalChunks != blocks) // not equal?
+	/*if (totalChunks != blocks) // not equal?
 	{
 		return 0;
-	}
+	}*/
 
 	// Send chunks of 16B
 	unsigned char data[BLOCK_SIZE];
@@ -313,7 +392,20 @@ uint32_t UART::receive(uint8_t *location, uint32_t locsize)
 			uint8_t plaintext[BLOCK_SIZE];
 			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, BLOCK_SIZE, IV, data, &plaintext[0]);
 
-			memcpy(data, plaintext, BLOCK_SIZE);
+			// Remove padding from message
+			memset(data, 0, BLOCK_SIZE);
+			size_t l = 0;
+			int r = get_pkcs_padding(plaintext, BLOCK_SIZE, &l);
+			if (r == 0)
+			{
+				// l contains the actual length of this block
+				memcpy(data, plaintext, l);
+			}
+			else
+			{
+				// assume whole block
+				memcpy(data, plaintext, BLOCK_SIZE);
+			}
 		}
 		
 		memcpy(location + chunk * BLOCK_SIZE, data, BLOCK_SIZE);
@@ -347,12 +439,12 @@ uint32_t UART::receive(uint8_t *location, uint32_t locsize)
 
 		if (diff != 0)
 		{
-			mbedtls_fprintf(stderr, "HMAC check failed: wrong key, "
-				"or file corrupted.\n");
+			/*mbedtls_fprintf(stderr, "HMAC check failed: wrong key, "
+				"or file corrupted.\n");*/
 			return -1;
 		}
-		else
-			printf("\nHMAC-256 Matches.\n");
+		/*else
+			printf("\nHMAC-256 Matches.\n");*/
 	}
 	else
 	{
@@ -610,4 +702,39 @@ void UART::printBits(size_t const size, void const * const ptr)
 		}
 	}
 	puts("");
+}
+
+
+void UART::add_pkcs_padding(unsigned char *output, size_t output_len,
+	size_t data_len)
+{
+	size_t padding_len = output_len - data_len;
+	unsigned char i;
+
+	for (i = 0; i < padding_len; i++)
+		output[data_len + i] = (unsigned char)padding_len;
+}
+
+int UART::get_pkcs_padding(unsigned char *input, size_t input_len, size_t *data_len)
+{
+	size_t i, pad_idx;
+	unsigned char padding_len, bad = 0;
+
+	if (NULL == input || NULL == data_len)
+		return -1;
+
+	padding_len = input[input_len - 1];
+	*data_len = input_len - padding_len;
+
+	/* Avoid logical || since it results in a branch */
+	bad |= padding_len > input_len;
+	bad |= padding_len == 0;
+
+	/* The number of bytes checked must be independent of padding_len,
+	* so pick input_len, which is usually 8 or 16 (one block) */
+	pad_idx = input_len - padding_len;
+	for (i = 0; i < input_len; i++)
+		bad |= (input[i] ^ padding_len) * (i >= pad_idx);
+
+	return(-2 * (bad != 0));
 }

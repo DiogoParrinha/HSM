@@ -7,6 +7,11 @@
 #include <stdint.h>
 #include "SerialPort.h"
 
+#define ERROR_UART_HMAC_SETUP 			0x01
+#define ERROR_UART_CHUNKS_MISMATCH 		0x02
+#define ERROR_UART_HMAC_MISMATCH 		0x03
+#define ERROR_UART_BLOCK_SIZE_INVALID	0x04
+#define ERROR_UART_INVALID_SIZE			0x05
  
 class UART {
 	private:
@@ -17,6 +22,9 @@ class UART {
 		size_t getDataUART(uint8_t * rx_buff, size_t buff_size);
 		uint8_t get(uint8_t* src_ptr, uint8_t size);
 		void printBits(size_t const size, void const * const ptr);
+		void add_pkcs_padding(unsigned char *output, size_t output_len, size_t data_len);
+		int get_pkcs_padding(unsigned char *input, size_t input_len, size_t *data_len);
+
 		SerialPort *usb;
 		bool usingKey;
 		uint8_t sessionKey[32];

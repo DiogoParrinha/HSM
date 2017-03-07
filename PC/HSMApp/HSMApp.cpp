@@ -80,6 +80,7 @@ void DATA_VERIFY();
 void GET_CERT();
 void USER_CERT();
 void START_SESSION();
+void END_SESSION();
 void LOG_ADD();
 
 int main()
@@ -144,6 +145,11 @@ int main()
 	/*comm->reqCommand();
 
 	GEN_KEYS();*/
+
+	comm->reqCommand();
+	END_SESSION();
+
+	comm->disconnect();
 
 	printf("\nPress ENTER to continue.\n");
 
@@ -454,6 +460,15 @@ void LOG_ADD()
 	printf("OK: %d\n", len);
 }
 
+void END_SESSION()
+{
+	printf("Sending SESS_END command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "SESS_END");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+}
+
 void START_SESSION()
 {
 	printf("Sending SESS_START command...");
@@ -610,7 +625,7 @@ void START_SESSION()
 		mod_challenge[a] = challenge[a] % 6; // plaintext[a] mod 6 for now...
 	}
 
-	comm->send(challenge, 16);
+	comm->send(mod_challenge, 16);
 
 	mbedtls_ecdh_free(&ctx_srv);
 	mbedtls_ecdh_free(&ctx_cli);

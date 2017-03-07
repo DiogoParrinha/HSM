@@ -56,6 +56,7 @@ size_t UART_Polled_Rx(mss_uart_instance_t * this_uart, uint8_t * rx_buff, size_t
 void UART_setKey(uint8_t * key);
 void UART_init();
 BOOL UART_connect();
+void UART_disconnect();
 uint8_t UART_get(uint8_t* src_ptr, uint8_t size);
 uint8_t UART_send(uint8_t *buffer, uint32_t len);
 void UART_display(const uint8_t * in_buffer, uint32_t byte_length);

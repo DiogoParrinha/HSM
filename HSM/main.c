@@ -23,6 +23,9 @@ int main()
 	/* Disable Watchdog */
 	SYSREG->WDOG_CR = 0x00000000;
 
+	/*** USE RTC FOR TIME CONTROL ***/
+	MSS_RTC_init(MSS_RTC_CALENDAR_MODE, RTC_PRESCALER);
+
 	/*BOOL r;
 
 	uint8_t * finalMessage;

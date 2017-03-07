@@ -605,8 +605,6 @@ void COMMAND_TIME_process(uint8_t * command)
 
 void COMMAND_SESSION_process(uint8_t * command)
 {
-	// TODO: handle connected status
-
 	if(strcmp(command, "SESS_START") == 0)
 	{
 		if(!UART_connect())
@@ -625,6 +623,19 @@ void COMMAND_SESSION_process(uint8_t * command)
 			COMMAND_ERROR("ERROR: init sec comm");
 			return;
 		}
+	}
+	else if(strcmp(command, "SESS_END") == 0)
+	{
+		if(!connected)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected");
+			return;
+		}
+
+		UART_disconnect();
+
+		connected = FALSE;
 	}
 }
 
