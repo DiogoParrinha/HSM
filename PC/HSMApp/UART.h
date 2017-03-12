@@ -33,8 +33,8 @@ class UART {
 		UART();
 		~UART();
 	 
-		void init();
-		void connect();
+		bool init();
+		bool connect();
 		void disconnect();
 
 		void reqCommand();

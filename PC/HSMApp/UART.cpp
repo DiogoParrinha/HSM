@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "UART.h"
+#include <stdbool.h>
 #include <cstdlib>
 #include <cmath>
 
@@ -23,8 +24,6 @@
 
 #define BLOCK_SIZE 16
 
-//#define DEBUG_MODE 1
-
 UART::UART() {
 	usb = new SerialPort();
 	usingKey = false;
@@ -37,18 +36,20 @@ UART::~UART() {
 	usb = NULL;
 }
 
-void UART::init()
+bool UART::init()
 {
 	printf("Linking...");
 	if (usb->connect())
 	{
 		printf("\nError: cannot connect.\n");
-		return;
+		return false;
 	}
 	printf("OK.\n");
+
+	return true;
 }
 
-void UART::connect()
+bool UART::connect()
 {
 	// Send 'Connected'
 	printf("Sending CONNECTED...");
@@ -57,6 +58,8 @@ void UART::connect()
 	usb->sendArray(buffer, 9);
 	waitOK();
 	printf("OK\n");
+
+	return true;
 }
 
 void UART::setKey(uint8_t * key)

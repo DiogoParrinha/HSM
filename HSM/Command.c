@@ -1,6 +1,8 @@
 #include "Command.h"
 #include <time.h>
 
+#define HSM_SERIAL_NUMBER "123456789"
+
 BOOL connected = FALSE;
 
 // Process command
@@ -62,6 +64,11 @@ void COMMAND_process(uint8_t * command)
 	else if(command[0] == 'S' && command[1] == 'E' && command[2] == 'S' && command[3] == 'S')
 	{
 		COMMAND_SESSION_process(command);
+		return;
+	}
+	else if(command[0] == 'D' && command[1] == 'V' && command[2] == 'C')
+	{
+		COMMAND_DEVICE_process(command);
 		return;
 	}
 }
@@ -636,6 +643,20 @@ void COMMAND_SESSION_process(uint8_t * command)
 		UART_disconnect();
 
 		connected = FALSE;
+	}
+}
+
+void COMMAND_DEVICE_process(uint8_t * command)
+{
+	if(strcmp(command, "DVC_CHECK") == 0)
+	{
+		// Reply back HSM_SERIAL_NUMBER
+
+		// Send SERIAL with data
+		UART_send("SUCCESS", 7);
+
+		// Send data
+		UART_send(HSM_SERIAL_NUMBER, strlen(HSM_SERIAL_NUMBER));
 	}
 }
 

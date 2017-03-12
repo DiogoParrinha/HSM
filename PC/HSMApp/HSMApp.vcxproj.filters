@@ -39,6 +39,18 @@
     <ClInclude Include="PKCS11\pkcs11.h">
       <Filter>Header Files\PKCS11</Filter>
     </ClInclude>
+    <ClInclude Include="PKCS11\pkcs11_common.h">
+      <Filter>Header Files\PKCS11</Filter>
+    </ClInclude>
+    <ClInclude Include="PKCS11\cryptoki.h">
+      <Filter>Header Files\PKCS11</Filter>
+    </ClInclude>
+    <ClInclude Include="PKCS11\pkcs11f.h">
+      <Filter>Header Files\PKCS11</Filter>
+    </ClInclude>
+    <ClInclude Include="PKCS11\pkcs11t.h">
+      <Filter>Header Files\PKCS11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -264,9 +276,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UART.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cryptoki.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

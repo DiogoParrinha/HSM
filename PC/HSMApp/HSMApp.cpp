@@ -36,7 +36,9 @@ int main(void)
 #include "mbedtls/sha256.h"
 #include "mbedtls/md.h"
 
+#include "PKCS11/cryptoki.h"
 #include <string.h>
+#include <stdbool.h>
 
 /*==============================================================================
 Macro
@@ -89,18 +91,74 @@ int main()
 	printf("\t\tHSM Application\r\n");
 	printf("\tPress ENTER to initiate communication.\r\n");
 	printf("%s", g_separator);
+	getchar();
+
+	int r = 0;
+
+	// Initialize
+	r = C_Initialize(NULL);
+	if (r != CKR_OK)
+	{
+		printf("\nError: %d\n", r);
+		return 1;
+	}
+
+	// Get total slots
+	CK_ULONG slotCount;
+
+	r = C_GetSlotList(CK_FALSE, NULL_PTR, &slotCount);
+
+	// all slots with token
+	r = C_GetSlotList(CK_TRUE, NULL_PTR, &slotCount);
+	if (r != CKR_OK)
+	{
+		printf("\nError: %d\n", r);
+		return 2;
+	}
+
+	CK_SLOT_ID_PTR slotList = (CK_SLOT_ID_PTR)malloc(sizeof(CK_SLOT_ID)*slotCount);
+	r = C_GetSlotList(CK_TRUE, slotList, &slotCount);
+	if (r != CKR_OK)
+	{
+		printf("\nError: %d\n", r);
+		return 3;
+	}
+
+	// slot info
+	CK_SLOT_INFO pInfo;
+	r = C_GetSlotInfo(0, &pInfo);
+	if (r != CKR_OK)
+	{
+		printf("\nError: %d\n", r);
+		return 4;
+	}
+
+	// open session
+	CK_BYTE application = 1;
+	CK_SESSION_HANDLE phSession;
+	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
+	if (r != CKR_OK)
+	{
+		printf("\nError: %d\n", r);
+		return 5;
+	}
+
+	// login
+
+	// sign data
+
+	// close session
+	C_CloseSession(phSession);
+
+	// Finalize
+	C_Finalize(NULL);
+
+	/*comm = new UART();
 
 	getchar();
 
 	// Initiate UART communication
-	comm = new UART();
 	comm->init();
-	//comm->connect();
-
-	// Send command request
-	/*comm->reqCommand();
-
-	TIME_SEND();*/
 	
 	comm->reqCommand();
 	START_SESSION();
@@ -109,47 +167,31 @@ int main()
 	LOG_ADD();
 	comm->reqCommand();
 	LOG_ADD();
-	/*comm->reqCommand();
-	LOG_ADD();
-	comm->reqCommand();
-	LOG_ADD();
-	comm->reqCommand();
-	LOG_ADD();
-	comm->reqCommand();
-	LOG_ADD();*/
 
-	/*comm->reqCommand();
-	NEW_USER();*/
+	//comm->reqCommand();
+	//NEW_USER();
 
 	comm->reqCommand();
 	USER_CERT();
 
-	/*comm->reqCommand();
-
+	comm->reqCommand();
 	GET_CERT();
 
-	comm->reqCommand();
-
-	NEW_USER();
-
-	comm->reqCommand();
-
-	DATA_SIGN();
+	//comm->reqCommand();
+	//DATA_SIGN();
 
 	// 'buffer' contains the signature (25B length as of time of writing)
 	// Run DATA_VERIFY
-	comm->reqCommand();
+	//comm->reqCommand();
+	//DATA_VERIFY();
 
-	DATA_VERIFY();*/
-
-	/*comm->reqCommand();
-
-	GEN_KEYS();*/
+	//comm->reqCommand();
+	//GEN_KEYS();
 
 	comm->reqCommand();
 	END_SESSION();
 
-	comm->disconnect();
+	comm->disconnect();*/
 
 	printf("\nPress ENTER to continue.\n");
 

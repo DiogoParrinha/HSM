@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "SerialPort.h"
 
+FILE *fpOut, *fpIn;
+
 SerialPort::SerialPort() {
 	serialPortHandle = INVALID_HANDLE_VALUE;
 }
@@ -13,6 +15,10 @@ SerialPort::~SerialPort() {
 }
  
 int SerialPort::connect() {
+
+	fopen_s(&fpOut, "./logOut.txt", "w+");
+	fopen_s(&fpIn, "./logIn.txt", "w+");
+
 	return connect(L"COM3");
 }
  
@@ -61,6 +67,10 @@ int SerialPort::connect( wchar_t* device) {
 }
  
 void SerialPort::disconnect(void) {
+
+	fclose(fpIn);
+	fclose(fpOut);
+
 	CloseHandle(serialPortHandle);
 	serialPortHandle = INVALID_HANDLE_VALUE;
 	 
@@ -72,6 +82,9 @@ int SerialPort::sendArray(unsigned char *buffer, int len) {
 	 
 	if (serialPortHandle!=INVALID_HANDLE_VALUE)
 		WriteFile(serialPortHandle, buffer, len, &result, NULL);
+
+	fwrite("\n", sizeof(char), 1, fpOut);
+	fwrite(buffer, sizeof(char), len, fpOut);
 	 
 	return result;
 }
@@ -86,6 +99,9 @@ int SerialPort::getArray (unsigned char *buffer, int len) {
 	{
 		ReadFile(serialPortHandle, buffer, len, &read_nbr, NULL);
 	}
+
+	fwrite("\n", sizeof(char), 1, fpIn);
+	fwrite(buffer, sizeof(char), read_nbr, fpIn);
 	 
 	return((int) read_nbr);
 }

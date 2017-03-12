@@ -12,6 +12,7 @@ void COMMAND_CERTMGT_process(uint8_t * command);
 void COMMAND_LOGS_process(uint8_t * command);
 void COMMAND_TIME_process(uint8_t * command);
 void COMMAND_SESSION_process(uint8_t * command);
+void COMMAND_DEVICE_process(uint8_t * command);
 
 void COMMAND_ERROR(char * message);
 void COMMAND_process(uint8_t * command);
