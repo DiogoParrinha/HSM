@@ -43,7 +43,7 @@ BOOL UART_connect()
 	MSS_RTC_start();
 
 	volatile int ret = 0;
-	if((ret = UART_receive(&data[0], 64)) != 0)
+	if((ret = UART_receive(&data[0], 64)) <= 0)
 	{
 		__printf("\nError: not Connected.");
 		return FALSE;
@@ -62,7 +62,7 @@ BOOL UART_connect()
 
 void UART_disconnect()
 {
-	memcpy(UART_sessionKey, 0, 32);
+	memset(UART_sessionKey, 0, 32);
 	UART_usingKey = FALSE;
 }
 
@@ -96,12 +96,12 @@ uint8_t UART_get
 #endif
 
     // Reply back the contents
-    __printf(location);
+    //__printf(location);
 
     return count;
 }
 
-uint8_t UART_send(uint8_t *buffer, uint32_t len)
+int UART_send(uint8_t *buffer, uint32_t len)
 {
 	// > ~4GB? fail (4*1024^3)
 	if (len > 4294967295)
@@ -117,6 +117,8 @@ uint8_t UART_send(uint8_t *buffer, uint32_t len)
 	uint8_t IV[16] = {0x72, 0x88, 0xd4, 0x11, 0x94, 0xea, 0xf7, 0x1c, 0x31, 0xac, 0xc3, 0x8c, 0xc7, 0xdc, 0x82, 0x4b};
 	uint8_t HMAC[32] = {0};
 	unsigned char data[BLOCK_SIZE];
+
+	uint32_t plainBytesSent = 0;
 
 	if(UART_usingKey)
 	{
@@ -214,6 +216,7 @@ uint8_t UART_send(uint8_t *buffer, uint32_t len)
 			memcpy(data, ciphertext, BLOCK_SIZE);
 		}
 
+		plainBytesSent += BLOCK_SIZE;
 		bytes += BLOCK_SIZE;
 		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )data, BLOCK_SIZE);
 		// Wait for OK
@@ -233,11 +236,14 @@ uint8_t UART_send(uint8_t *buffer, uint32_t len)
 		memset(data, 0, sizeof(data));
 		memcpy(data, buffer + chunk * BLOCK_SIZE, remaining);
 
+		plainBytesSent += remaining;
+
 		if(UART_usingKey)
 		{
-			// TODO: Apply PKCS#7 padding
+			// Apply PKCS#7 padding
 			// Set the padded bytes to the padded length value
-			// Send another block with all bytes set to the padded length value
+			// TODO: (maybe) Send another block with all bytes set to the padded length value
+			// (instead of sending the size of the plaintext before)
 			add_pkcs_padding(data, BLOCK_SIZE, remaining);
 			remaining = BLOCK_SIZE;
 
@@ -273,7 +279,7 @@ uint8_t UART_send(uint8_t *buffer, uint32_t len)
 		UART_waitOK();
 	}
 
-	return 0;
+	return plainBytesSent;
 }
 
 void UART_waitOK()
@@ -324,12 +330,14 @@ void UART_waitCOMMAND()
 	UART_sendOK();
 }
 
-uint8_t UART_receive(char *location, uint32_t locsize)
+int UART_receive(char *location, uint32_t locsize)
 {
 	mbedtls_aes_context aes_ctx;
 	mbedtls_md_context_t sha_ctx;
 	uint8_t HMAC[32] = { 0 };
 	uint8_t IV[16];
+
+	uint32_t plainBytesReceived = 0;
 
 	if(UART_usingKey)
 	{
@@ -421,11 +429,15 @@ uint8_t UART_receive(char *location, uint32_t locsize)
 			int r = get_pkcs_padding(plaintext, BLOCK_SIZE, &l);
 			if(r == 0)
 			{
+				plainBytesReceived += l;
+
 				// l contains the actual length of this block
 				memcpy(data, plaintext, l);
 			}
 			else
 			{
+				plainBytesReceived += BLOCK_SIZE;
+
 				// assume whole block
 				memcpy(data, plaintext, BLOCK_SIZE);
 			}
@@ -485,6 +497,8 @@ uint8_t UART_receive(char *location, uint32_t locsize)
 
 			memcpy(location + chunk * BLOCK_SIZE, data, remaining);
 
+			plainBytesReceived += remaining;
+
 			bytes += remaining;
 
 			// Send OK
@@ -492,7 +506,7 @@ uint8_t UART_receive(char *location, uint32_t locsize)
 		}
 	}
 
-	return 0;
+	return plainBytesReceived;
 }
 
 size_t UART_Polled_Rx

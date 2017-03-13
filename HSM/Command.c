@@ -4,28 +4,24 @@
 #define HSM_SERIAL_NUMBER "123456789"
 
 BOOL connected = FALSE;
+BOOL loggedIn = FALSE;
+BOOL isAdmin = FALSE;
+uint8_t authID = 0;
 
 // Process command
 void COMMAND_process(uint8_t * command)
 {
 	if(command[0] == 'U' && command[1] == 'S' && command[2] == 'E' && command[3] == 'R')
 	{
-		if(!connected)
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected");
-			return;
-		}
-
 		COMMAND_USER_process(command);
 		return;
 	}
 	else if(command[0] == 'D' && command[1] == 'T' && command[2] == 'S' && command[3] == 'N')
 	{
-		if(!connected)
+		if(!connected || !loggedIn)
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected");
+			COMMAND_ERROR("ERROR: not connected/auth");
 			return;
 		}
 
@@ -46,10 +42,10 @@ void COMMAND_process(uint8_t * command)
 	}
 	else if(command[0] == 'L' && command[1] == 'O' && command[2] == 'G' && command[3] == 'S')
 	{
-		if(!connected)
+		if(!connected || !loggedIn)
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected");
+			COMMAND_ERROR("ERROR: not connected/auth");
 			return;
 		}
 
@@ -77,28 +73,25 @@ void COMMAND_USER_process(uint8_t * command)
 {
 	if(strcmp(command, "USER_NEW") == 0)
 	{
-		// New User
-
-		// Expect 32B ADMIN_PIN and 32B User PIN
-		uint8_t buffer[64] = {0};
-		UART_receive(&buffer[0], 64u);
-
-		uint8_t AUTH_PIN[32] = {0};
-		uint8_t U_PIN[32] = {0};
-
-		// First 32B => AUTH_PIN
-		memcpy(AUTH_PIN, &buffer[0], 32u);
-
-		// Second 32B => User PIN
-		memcpy(U_PIN, &buffer[32], 32u);
-
-		if(!USER_isAdmin(AUTH_PIN))
+		if(!connected || !loggedIn || !isAdmin)
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: Not Admin");
+			COMMAND_ERROR("ERROR: not connected/auth");
 			return;
 		}
 
+		// New User
+
+		// Expect 32B User PIN
+		uint8_t buffer[32] = {0};
+		UART_receive(&buffer[0], 32u);
+
+		uint8_t U_PIN[32] = {0};
+
+		// 32B => User PIN
+		memcpy(U_PIN, &buffer[0], 32u);
+
+		// Check if it's full
 		USER_init();
 		if(USER_isFull())
 		{
@@ -126,39 +119,31 @@ void COMMAND_USER_process(uint8_t * command)
 	}
 	else if(strcmp(command, "USER_MODIFY") == 0)
 	{
+		if(!connected || !loggedIn)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected/auth");
+			return;
+		}
+
 		// Modify PIN
 
-		// Expect 32B PIN and ID|PIN
-		uint8_t buffer[2*PIN_SIZE+1] = {0};
-		UART_receive(&buffer[0], 65u);
+		// Expect PIN|ID
+		uint8_t buffer[PIN_SIZE+1] = {0};
+		UART_receive(&buffer[0], 33u);
 
-		uint8_t AUTH_PIN[PIN_SIZE] = {0};
 		uint8_t U_ID = 0;
 		uint8_t U_PIN[PIN_SIZE] = {0};
 
-		// First 32B => AUTH_PIN (user or admin)
-		memcpy(AUTH_PIN, &buffer[0], PIN_SIZE);
+		// 32B => New PIN
+		memcpy(U_PIN, &buffer[0], PIN_SIZE);
 
+		// ID
 		U_ID = buffer[PIN_SIZE];
-
-		// Authenticate
-		if(!USER_isAdmin(AUTH_PIN))
-		{
-			// If not admin, check if ID matches PIN
-			if(!USER_verify(U_ID, AUTH_PIN))
-			{
-				// Respond back with ERROR
-				COMMAND_ERROR("ERROR: Not Admin");
-				return;
-			}
-		}
-
-		// Second 32B => New PIN
-		memcpy(U_PIN, &buffer[PIN_SIZE+1], PIN_SIZE);
 
 		USER_init();
 		USER * u = USER_get(U_ID);
-		if(!u)
+		if(!u || (U_ID != authID && !isAdmin))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: Cannot find user");
@@ -166,7 +151,6 @@ void COMMAND_USER_process(uint8_t * command)
 		}
 
 		memcpy(u->PIN, U_PIN, PIN_SIZE);
-
 		if(!USER_modify(u))
 		{
 			USER_free(u);
@@ -183,29 +167,24 @@ void COMMAND_USER_process(uint8_t * command)
 	}
 	else if(strcmp(command, "USER_DELETE") == 0)
 	{
-		// Delete User
-
-		// Expect 32B ADMIN_PIN and User ID
-		uint8_t buffer[PIN_SIZE+1] = {0};
-		UART_get(&buffer[0], PIN_SIZE+1);
-		UART_sendOK();
-
-		uint8_t AUTH_PIN[PIN_SIZE] = {0};
-		uint8_t ID = 0;
-
-		// First 32B => AUTH_PIN
-		memcpy(AUTH_PIN, &buffer[0], PIN_SIZE);
-
-		// ID
-		ID = buffer[PIN_SIZE];
-
-		USER_init();
-		if(!USER_isAdmin(AUTH_PIN))
+		if(!connected || !loggedIn || !isAdmin)
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: Not Admin");
+			COMMAND_ERROR("ERROR: not connected/auth");
 			return;
 		}
+
+		// Delete User
+
+		// Expect 1B User ID
+		uint8_t buffer[1] = {0};
+		UART_get(&buffer[0], 1);
+		UART_sendOK();
+
+		uint8_t ID = 0;
+
+		// ID
+		ID = buffer[0];
 
 		USER_init();
 
@@ -312,35 +291,25 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 {
 	if(strcmp(command, "DTSN_SIGN") == 0)
 	{
-		// User is requesting a hash to be signed using its private key
-
-		// Expect 32B AUTH_PIN + 1B PIN
-		uint8_t buffer[PIN_SIZE+1+HASH_SIZE] = {0};
-		UART_receive(&buffer[0], PIN_SIZE+1+HASH_SIZE);
-
-		uint8_t AUTH_PIN[PIN_SIZE] = {0};
-		uint8_t U_ID = 0;
-		uint8_t HASH[HASH_SIZE] = {0};
-
-		// First 32B => AUTH_PIN (user)
-		memcpy(AUTH_PIN, &buffer[0], PIN_SIZE);
-
-		// 1B => U_ID
-		U_ID = buffer[PIN_SIZE];
-
-		memcpy(HASH, &buffer[PIN_SIZE+1], HASH_SIZE);
-
-		// Check if ID matches PIN
-		USER_init();
-		if(!USER_verify(U_ID, AUTH_PIN))
+		if(!connected || !loggedIn || authID == 0) // admin (authID=0) cannot sign data because it has no generated data signing key pair
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: Not Valid");
+			COMMAND_ERROR("ERROR: not connected/auth");
 			return;
 		}
 
+		// User is requesting a hash to be signed using its private key
+
+		// Expect HASH_SIZE
+		uint8_t buffer[HASH_SIZE] = {0};
+		UART_receive(&buffer[0], HASH_SIZE);
+
+		uint8_t HASH[HASH_SIZE] = {0};
+
+		memcpy(HASH, &buffer[0], HASH_SIZE);
+
 		// Get user private key
-		USER * u = USER_get(U_ID);
+		USER * u = USER_get(authID);
 
 		// We have the hash
 		// Apply ECDSA
@@ -365,28 +334,31 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 	}
 	else if(strcmp(command, "DTSN_VERIFY") == 0)
 	{
+		if(!connected || !loggedIn)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected/auth");
+			return;
+		}
+
 		// User is requesting a hash and a signature to be verified
 
-		// Expect 32B AUTH_PIN + 1B PIN + 32B hash + 1B (signature size)
-		uint8_t buffer[PIN_SIZE+1+HASH_SIZE] = {0};
-		UART_receive(&buffer[0], PIN_SIZE+1+HASH_SIZE+4);
+		// Expect 1B ID + 32B hash + 4B (signature size)
+		uint8_t buffer[1+HASH_SIZE+4] = {0};
+		UART_receive(&buffer[0], 1+HASH_SIZE+4);
 
-		uint8_t AUTH_PIN[PIN_SIZE] = {0};
 		uint8_t U_ID = 0;
 		uint8_t HASH[HASH_SIZE] = {0};
 		uint8_t SIG_SIZE = 0;
 
-		// First 32B => AUTH_PIN (user)
-		memcpy(AUTH_PIN, &buffer[0], PIN_SIZE);
-
 		// 1B => U_ID
-		U_ID = buffer[PIN_SIZE];
+		U_ID = buffer[0];
 
 		// 32B for hash
-		memcpy(HASH, &buffer[PIN_SIZE+1], HASH_SIZE);
+		memcpy(HASH, &buffer[1], HASH_SIZE);
 
 		// signature size
-		SIG_SIZE = buffer[PIN_SIZE+1+HASH_SIZE];
+		SIG_SIZE = buffer[1+HASH_SIZE];
 
 		// Wait for X bytes
 		uint8_t * SIGNATURE = malloc(sizeof(uint8_t)*SIG_SIZE);
@@ -399,38 +371,32 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 
 		UART_receive(SIGNATURE, SIG_SIZE);
 
-		// Check if ID matches PIN
+		// Get user private key
 		USER_init();
-		if(!USER_verify(U_ID, AUTH_PIN))
+		if(!USER_exists(U_ID))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: Not Valid");
+			COMMAND_ERROR("ERROR: User does not exist");
 			return;
 		}
-
-		// Get user private key
 		USER * u = USER_get(U_ID);
 
 		// We have the hash
 		// Apply ECDSA
 		uint8_t res = PKC_verifySignature(u->publicKey, HASH, HASH_SIZE, SIGNATURE, SIG_SIZE);
+		USER_free(u);
 		if(res == 0)
 		{
-			USER_free(u);
-
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: signature");
 			return;
 		}
 		else if(res == 2)
 		{
-			USER_free(u);
 			UART_send("INCORRECT", 9);
 		}
 		else
 		{
-			USER_free(u);
-
 			// Send SUCCESS
 			UART_send("SUCCESS", 7);
 		}
@@ -441,26 +407,29 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 {
 	if(strcmp(command, "CRT_REQUEST") == 0)
 	{
-		// User is requesting a certificate for a public key
+		if(!connected || !loggedIn || !isAdmin || authID > 0)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected/auth");
+			return;
+		}
 
-		// Expect 32B ADMIN_PIN | subject name + \0 or 0 (should be the same thing) | 1B key usage
-		uint8_t buffer[PIN_SIZE+ECC_PUBLIC_KEY_SIZE+1] = {0};
-		UART_receive(&buffer[0], PIN_SIZE+256);
+		// Admin is requesting a certificate for a public key
 
-		uint8_t AUTH_PIN[PIN_SIZE] = {0};
+		// Expect subject name + \0 or 0 (should be the same thing) | 1B key usage
+		uint8_t buffer[255+1] = {0};
+		UART_receive(&buffer[0], 255+1);
+
 		uint8_t SUBJECT_NAME[256] = {0}; // subject name shouldn't go over this limit
 		uint8_t KEY[ECC_PUBLIC_KEY_SIZE] = {0}; // key shouldn't go over this limit
 		uint8_t sizeArray[4] = {0};
 
-		// First 32B => AUTH_PIN
-		memcpy(AUTH_PIN, &buffer[0], PIN_SIZE);
-
 		// Then go through the subject name until we find \0 or 0
 		uint32_t i;
 		uint32_t k = 0;
-		for(i=PIN_SIZE;i<PIN_SIZE+256;i++)
+		for(i=0;i<256;i++)
 		{
-			SUBJECT_NAME[i-PIN_SIZE] = buffer[i];
+			SUBJECT_NAME[i] = buffer[i];
 
 			if(buffer[i]  == '\0' || buffer[i] == 0)
 			{
@@ -511,13 +480,6 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 		// Except public key now
 		UART_receive(KEY, ECC_PUBLIC_KEY_SIZE);
 
-		if(!USER_isAdmin(AUTH_PIN))
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: Not Admin");
-			return;
-		}
-
 		if(!PKC_createCertificate(KEY, SUBJECT_NAME, key_usage, &global_buffer[0], GLOBAL_BUFFER_SIZE))
 		{
 			// Respond back with ERROR
@@ -537,6 +499,13 @@ void COMMAND_LOGS_process(uint8_t * command)
 {
 	if(strcmp(command, "LOGS_ADD") == 0)
 	{
+		if(!connected || !loggedIn || !isAdmin)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected/auth");
+			return;
+		}
+
 		// Add a new action to the log
 		// 1. Receive 'message' (null terminated string)
 		// 2. Append UID, TIME, COUNTER1, COUNTER2
@@ -642,7 +611,80 @@ void COMMAND_SESSION_process(uint8_t * command)
 
 		UART_disconnect();
 
+		//UART_init();
+
 		connected = FALSE;
+	}
+	else if(strcmp(command, "SESS_LOGIN") == 0)
+	{
+		if(!connected)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected");
+			return;
+		}
+
+		if(loggedIn)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: logged in");
+			return;
+		}
+
+		// login
+
+		// Expect 32B AUTH_PIN + 1B PIN
+		uint8_t buffer[PIN_SIZE+1] = {0};
+		UART_receive(&buffer[0], PIN_SIZE+1);
+
+		uint8_t AUTH_PIN[PIN_SIZE] = {0};
+		uint8_t U_ID = 0;
+
+		// First 32B => AUTH_PIN (user)
+		memcpy(AUTH_PIN, &buffer[0], PIN_SIZE);
+
+		// 1B => U_ID
+		U_ID = buffer[PIN_SIZE];
+
+		// Check if ID matches PIN
+		USER_init();
+		if(!USER_verify(U_ID, AUTH_PIN))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: Not Valid");
+			return;
+		}
+
+		authID = U_ID;
+
+		isAdmin = FALSE;
+		if(U_ID == 0)
+			isAdmin = TRUE;
+
+		loggedIn = TRUE;
+
+		// Send SUCCESS
+		UART_send("SUCCESS", 7);
+
+		loggedIn = TRUE;
+	}
+	else if(strcmp(command, "SESS_LOGOUT") == 0)
+	{
+		if(!connected || !loggedIn)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected/auth");
+			return;
+		}
+
+		// Logout
+
+		authID = 0; // even though UID is 0 by default (admin), nothing bad happens as long as isAdmin/loggedIn gets checked when necessary
+		isAdmin = FALSE;
+		loggedIn = FALSE;
+
+		// Send SUCCESS
+		UART_send("SUCCESS", 7);
 	}
 }
 

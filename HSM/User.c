@@ -336,6 +336,17 @@ BOOL USER_exists(uint8_t ID)
 // Verify if ID matches P1
 BOOL USER_verify(uint8_t ID, uint8_t * P1)
 {
+	if(ID == 0)
+	{
+		// Admin
+		if(!USER_isAdmin(P1))
+		{
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+
 	if(!USER_exists(ID))
 	{
 		return FALSE;

@@ -142,7 +142,8 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 		}
 	#endif
 	
-	if(UART_send(challenge, 16) != 0)
+	int r = UART_send(challenge, 16);
+	if(r <= 0)
 	{
 		return FALSE;
 	}

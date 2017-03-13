@@ -143,9 +143,63 @@ int main()
 		return 5;
 	}
 
-	// login
+	// Login
+	unsigned char data[33];
+	sprintf_s((char*)data, 33, "%s", "12345678912345678912345678912345"); // admin
+	data[32] = 0;
+	r = C_Login(phSession, CKU_SO, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("\nError: %d\n", r);
+		return 6;
+	}
 
-	// sign data
+	// Logout Admin
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("\nError: %d\n", r);
+		return 7;
+	}
+
+	// Login User
+	sprintf_s((char*)data, 33, "%s", "12345678912345678912345678912341"); // user 1
+	data[32] = 1;
+	r = C_Login(phSession, CKU_USER, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("\nError: %d\n", r);
+		return 8;
+	}
+
+	// Sign Data
+	CK_MECHANISM mechanism = {
+		CKM_ECDSA, NULL_PTR, 0
+	};
+	r = C_SignInit(phSession, &mechanism, NULL_PTR);
+	if (r != CKR_OK)
+	{
+		printf("\nError: %d\n", r);
+		return 9;
+	}
+
+	uint8_t msg[6] = { '1','2','3','4','5','6' };
+	CK_BYTE signature[512] = { 0 };
+	CK_ULONG sig_len = 0;
+	r = C_Sign(phSession, msg, sizeof(msg), &signature[0], &sig_len);
+	if (r != CKR_OK)
+	{
+		printf("\nError: %d\n", r);
+		return 10;
+	}
+
+	// Logout User
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("\nError: %d\n", r);
+		return 11;
+	}
 
 	// close session
 	C_CloseSession(phSession);

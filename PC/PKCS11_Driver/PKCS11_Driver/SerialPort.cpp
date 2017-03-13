@@ -39,7 +39,7 @@ int SerialPort::connect( wchar_t* device) {
 	dcb.ByteSize = 8;
 	 
 	serialPortHandle = CreateFile(device, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, NULL, NULL);
-	 
+	DWORD data = GetLastError();
 	if (serialPortHandle != INVALID_HANDLE_VALUE) {
 		if(!SetCommState(serialPortHandle,&dcb))
 			error=2;
@@ -72,7 +72,15 @@ void SerialPort::disconnect(void) {
 	fclose(fpIn);
 	fclose(fpOut);
 
-	CloseHandle(serialPortHandle);
+	// Purge data in the buffer
+	/*PurgeComm(serialPortHandle, PURGE_TXABORT);
+	PurgeComm(serialPortHandle, PURGE_TXCLEAR);*/
+
+	DWORD errorCode;
+	if (!CloseHandle(serialPortHandle))
+	{
+		errorCode = GetLastError();
+	}
 	serialPortHandle = INVALID_HANDLE_VALUE;
 	 
 	//printf("Port 1 has been CLOSED and %d is the file descriptionn", fileDescriptor);

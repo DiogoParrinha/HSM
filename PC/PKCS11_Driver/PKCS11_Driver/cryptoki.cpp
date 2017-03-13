@@ -98,7 +98,7 @@ bool g_init = CK_FALSE;
 p11_slot g_slots[MAX_SLOTS];
 
 std::vector<Device*> devices_list;
-std::vector<CK_SESSION_INFO_PTR> g_sessions;
+std::vector<p11_session*> g_sessions;
 
 /********************************
 ********** PROTOTYPES **********
@@ -163,10 +163,20 @@ CK_RV C_Finalize(CK_VOID_PTR pReserved)
 
 	// Clean up
 	int i;
+	Device * prev = NULL;
 	for (i = 0; i < MAX_SLOTS; i++)
 	{
 		if (devices_list.at(i) != NULL)
-			delete devices_list.at(i);
+		{
+			// only attempt to delete if the previously deleted was different from this one
+			if (prev != NULL && prev != devices_list.at(i))
+			{
+				prev = devices_list.at(i);
+				delete devices_list.at(i);
+			}
+			
+			devices_list.at(i) = NULL;
+		}
 	}
 
 	g_init = CK_FALSE;
@@ -367,20 +377,14 @@ CK_RV C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK
 	return CKR_OK;*/
 
 	// We have no use for this function right now
+	// in the future we may use it to send the time for example
 
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_InitPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 {
-	if (!g_init)
-	{
-		return CKR_CRYPTOKI_NOT_INITIALIZED;
-	}
-
-	// Init PIN for Login
-
-	return CKR_OK;
+	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_SetPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pOldPin, CK_ULONG ulOldLen, CK_UTF8CHAR_PTR pNewPin, CK_ULONG ulNewLen)
@@ -436,10 +440,15 @@ CK_RV C_OpenSession(CK_SLOT_ID slotID, CK_FLAGS flags, CK_VOID_PTR pApplication,
 	session->ulDeviceError = 0;
 	session->state = 0;
 
-	g_sessions.push_back(session);
+	p11_session * session_h = (p11_session*)malloc(sizeof(p11_session));
+	session_h->session = session;
+	session_h->operation[P11_OP_FIND] = 0;
+	session_h->operation[P11_OP_SIGN] = 0;
 
-	// set the handle to the size of the vector (regardless of having empty members or not)
-	*phSession = g_sessions.size();
+	g_sessions.push_back(session_h);
+
+	// set the handle to the size of the vector-1 (regardless of having empty members or not)
+	*phSession = g_sessions.size()-1;
 	
 	return CKR_OK;
 }
@@ -452,9 +461,34 @@ CK_RV C_CloseSession(CK_SESSION_HANDLE hSession)
 	}
 
 	// End session
-	int r = devices_list.at(0)->endSession();
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch(const std::out_of_range& oor) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+	
+	if (s != NULL_PTR)
+	{
+		Device* d;
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range& oor) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
 
-	return 1;
+		d->endSession();
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	return CKR_OK;
 }
 
 CK_RV C_CloseAllSessions(CK_SLOT_ID slotID)
@@ -464,7 +498,19 @@ CK_RV C_CloseAllSessions(CK_SLOT_ID slotID)
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	return 1;
+	int r = 0;
+	for (std::vector<p11_session*>::iterator it = g_sessions.begin(); it != g_sessions.end(); ++it) {
+		/* std::cout << *it; ... */
+		r = C_CloseSession(it - g_sessions.begin());
+		if (r != CKR_OK)
+			return CKR_FUNCTION_FAILED;
+
+		delete g_sessions.at(it - g_sessions.begin());
+		g_sessions.at(it - g_sessions.begin()) = NULL_PTR;
+	}
+	g_sessions.clear();
+
+	return CKR_OK;
 }
 
 CK_RV C_GetSessionInfo(CK_SESSION_HANDLE hSession, CK_SESSION_INFO_PTR pInfo)
@@ -474,12 +520,21 @@ CK_RV C_GetSessionInfo(CK_SESSION_HANDLE hSession, CK_SESSION_INFO_PTR pInfo)
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	return 1;
+	// TODO
+
+	return CKR_OK;
 }
 
 CK_RV C_GetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pOperationState, CK_ULONG_PTR pulOperationStateLen)
 {
-	return CKR_FUNCTION_NOT_SUPPORTED;
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// TODO
+
+	return CKR_OK;
 }
 
 CK_RV C_SetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pOperationState, CK_ULONG ulOperationStateLen, CK_OBJECT_HANDLE hEncryptionKey, CK_OBJECT_HANDLE hAuthenticationKey)
@@ -493,11 +548,48 @@ CK_RV C_Login(CK_SESSION_HANDLE hSession, CK_USER_TYPE userType, CK_UTF8CHAR_PTR
 	{
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
-	// Perform login (basically verify if a PIN is valid)
-	// Associate the PIN in memory with a user ID
-	// Will be used to perform actions such as Sign and VerifySign
 
-	return 1;
+	if (userType != CKU_USER && userType != CKU_SO)
+	{
+		return CKR_USER_TYPE_INVALID;
+	}
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range& oor) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get session device
+	Device* d;
+	try {
+		d = devices_list.at(s->slotID);
+	}
+	catch (const std::out_of_range& oor) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Perform login
+	int r = d->login(pPin, ulPinLen, userType);
+	if (r == 1)
+	{
+		return CKR_USER_ALREADY_LOGGED_IN;
+	}
+	else if (r == 2)
+	{
+		return CKR_FUNCTION_FAILED;
+	}
+	else if (r == 3)
+	{
+		return CKR_PIN_INCORRECT;
+	}
+
+	return CKR_OK;
 }
 
 CK_RV C_Logout(CK_SESSION_HANDLE hSession)
@@ -507,9 +599,42 @@ CK_RV C_Logout(CK_SESSION_HANDLE hSession)
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	// Nothing to do...
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range& oor) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
 
-	return 1;
+	// Get session device
+	Device* d;
+	try {
+		d = devices_list.at(s->slotID);
+	}
+	catch (const std::out_of_range& oor) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Perform login
+	int r = d->logout();
+	if (r == 1)
+	{
+		return CKR_USER_NOT_LOGGED_IN;
+	}
+	else if (r == 2)
+	{
+		return CKR_FUNCTION_FAILED;
+	}
+	else if (r == 3)
+	{
+		return CKR_PIN_INCORRECT;
+	}
+
+	return CKR_OK;
 }
 
 /*************************
@@ -720,7 +845,52 @@ CK_RV C_SignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJ
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	return 1;
+	if (pMechanism->mechanism != CKM_ECDSA)
+		return CKR_MECHANISM_INVALID;
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range& oor) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	if (s != NULL_PTR)
+	{
+		Device* d;
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range& oor) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Is the selected session performing data signing?
+	if (g_sessions.at(hSession)->operation[P11_OP_SIGN] == 1)
+	{
+		return CKR_OPERATION_ACTIVE;
+	}
+
+	// Key object must be NULL_PTR (the HSM uses internal keys)
+	if (hKey != NULL_PTR)
+	{
+		return CKR_KEY_HANDLE_INVALID;
+	}
+
+	// session is performing data signing
+	g_sessions.at(hSession)->operation[P11_OP_SIGN] = 1;
+
+	return CKR_OK;
 }
 
 CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen)
@@ -730,7 +900,61 @@ CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, 
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	return 1;
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range& oor) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range& oor) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Is the selected session performing data signing?
+	if (g_sessions.at(hSession)->operation[P11_OP_SIGN] == 0)
+	{
+		return CKR_OPERATION_NOT_INITIALIZED;
+	}
+
+	if (pData == NULL_PTR)
+		return CKR_DATA_INVALID;
+
+	if (ulDataLen == 0)
+		return CKR_DATA_LEN_RANGE;
+	
+	// Signature
+	if (pSignature == NULL_PTR)
+	{
+		*pulSignatureLen = 512; // should handle most signatures...
+		return CKR_OK;
+	}
+
+	g_sessions.at(hSession)->operation[P11_OP_SIGN] = 0;
+
+	if (!d->signData(pData, ulDataLen, pSignature, pulSignatureLen))
+	{
+
+		return CKR_FUNCTION_FAILED;
+	}
+	
+	return CKR_OK;
 }
 
 CK_RV C_SignUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen)

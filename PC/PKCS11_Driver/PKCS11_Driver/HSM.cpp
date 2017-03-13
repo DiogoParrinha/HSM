@@ -59,6 +59,9 @@ HSM::HSM()
 {
 	comm = new UART();
 
+	loggedIn = false;
+	isAdmin = false;
+
 	maxSlots = HSM_MAX_SLOTS;
 	maxSessions = HSM_MAX_SESSIONS;
 	openSessions = 0;
@@ -165,7 +168,7 @@ void HSM::addSlot(p11_slot * s, int i)
 int HSM::startSession()
 {
 	// How many open sessions? If >= than HSM_MAX_SESSIONS return 1
-	if (openSessions >= maxSessions)
+	if (sessionLimit())
 		return 1;
 
 	comm->reqCommand();
@@ -279,41 +282,36 @@ int HSM::startSession()
 		return 8;
 	}
 
-	mbedtls_printf(" ok\n");
-
-	printf("\n");
-
-	printf("\n");
+	/*printf("\n");
 	mbedtls_printf("\nsecret: ");
 	for (size_t i = 0; i < len; i++) {
 		printf("%02x", buffer[i]);
-	}
+	}*/
 
 	unsigned char key[32] = { 0 };
 	mbedtls_sha256(buffer, len, key, 0);
 
-	printf("\n");
+	/*printf("\n");
 	mbedtls_printf("\nkey: ");
 	for (int i = 0; i < 32; i++) {
 		printf("%02x", key[i]);
 	}
-
-	printf("\n");
+	printf("\n");*/
 
 	// Set AES key
-	comm->setKey(key);
+	comm->setKey(key, true);
 
 	// Receive challenge
 	uint8_t challenge[16];
 	comm->receive(challenge, 16);
 
-	printf("\n");
+	/*printf("\n");
 	mbedtls_printf("\nchallenge: ");
 	for (int i = 0; i < 16; i++) {
 		printf("%02x", challenge[i]);
 	}
 
-	printf("\n");
+	printf("\n");*/
 
 	///// Send modified challenge encrypted with session key
 
@@ -346,6 +344,9 @@ bool HSM::endSession()
 	comm->send(buffer, strlen((char*)buffer));
 	printf("OK.\n");
 
+	uint8_t data[32] = { 0 };
+	comm->setKey(data, false);
+
 	openSessions--;
 
 	return true;
@@ -353,6 +354,10 @@ bool HSM::endSession()
 
 bool HSM::sessionLimit()
 {
+	// How many open sessions? If >= than HSM_MAX_SESSIONS return true
+	if (openSessions >= maxSessions)
+		return true;
+
 	return false;
 }
 
@@ -377,6 +382,134 @@ bool HSM::sendTime()
 	timestamp[3] = (t & 0xFF000000) >> 24;
 	comm->send(timestamp, 4);
 	printf("OK\n");
+
+	return true;
+}
+
+int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
+{
+	// According to the standard, an application only needs to login once for the same token
+	// Because all sessions with a token share the same login state
+	if (loggedIn)
+	{
+		return 1;
+	}
+
+	if (ulPinLen != 33) // 32B for PIN + 1B for user ID
+	{
+		return 2;
+	}
+
+	if (userType == CKU_SO && pPin[32] != 0) // incorrect admin pin?
+	{
+		return 2;
+	}
+	
+	comm->reqCommand();
+
+	printf("Sending SESS_LOGIN command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "SESS_LOGIN");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Now it expects:
+	// PIN | ID
+	printf("Sending DATA...");
+	memset(buffer, 0, sizeof(buffer));
+	memcpy(buffer, pPin, 32);
+	buffer[32] = pPin[32]; // ID
+	comm->send(buffer, 33);
+	printf("OK\n");
+
+	// Wait for 'SUCCESS'
+	printf("Receiving SUCCESS...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 512);
+	printf("OK: %s\n", buffer);
+	if(strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		printf("\nError logging in: %s\n", buffer);
+		return 3;
+	}
+
+	isAdmin = false;
+	if (userType == CKU_SO)
+		isAdmin = true;
+
+	loggedIn = true;
+
+	return 0;
+}
+
+int HSM::logout()
+{
+	// Not logged in?
+	if (!loggedIn)
+	{
+		return 1;
+	}
+
+	comm->reqCommand();
+
+	printf("Sending SESS_LOGOUT command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "SESS_LOGOUT");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Wait for 'SUCCESS'
+	printf("Receiving SUCCESS...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 512);
+	printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		printf("\nError logging out: %s\n", buffer);
+		return 3;
+	}
+
+	isAdmin = false;
+	loggedIn = false;
+
+	return 0;
+}
+
+bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen)
+{
+	// Calculate SHA-256 of pData
+	unsigned char digest[32] = { 0 };
+	mbedtls_sha256(pData, ulDataLen, &digest[0], 0);
+
+	comm->reqCommand();
+	printf("Sending DTSN_SIGN command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "DTSN_SIGN");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Now it expects:
+	// 32B_HASH
+	printf("Sending DATA...");
+	comm->send(digest, 32);
+	printf("OK\n");
+
+	// Wait for 'SIGNATURE'
+	printf("Receiving SIGNATURE...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 512);
+	if (strcmp((char*)buffer, "SIGNATURE") != 0)
+	{
+		printf("\nError: %s\n", buffer);
+		return false;
+	}
+	printf("OK: %s\n", buffer);
+
+	// Wait for actual signature
+	printf("Receiving actual signature...");
+	memset(pSignature, 0, *pulSignatureLen);
+	*pulSignatureLen = comm->receive(pSignature, *pulSignatureLen);
+	printf("OK: %d\n", *pulSignatureLen);
 
 	return true;
 }

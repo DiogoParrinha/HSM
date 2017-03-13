@@ -44,7 +44,7 @@ class UART {
 
 		bool reqCommand();
 
-		void setKey(uint8_t * key);
+		void setKey(uint8_t * key, bool use);
 		int receive(uint8_t *location, uint32_t locsize);
 		int send(uint8_t *buffer, uint32_t len);
 		void display(const uint8_t * in_buffer, uint32_t byte_length);

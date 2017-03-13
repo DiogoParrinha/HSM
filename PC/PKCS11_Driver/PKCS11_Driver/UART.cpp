@@ -104,10 +104,10 @@ bool UART::connect()
 	return true;
 }
 
-void UART::setKey(uint8_t * key)
+void UART::setKey(uint8_t * key, bool use)
 {
 	memcpy(sessionKey, key, 32);
-	usingKey = true;
+	usingKey = use;
 }
 
 void UART::disconnect()
@@ -171,6 +171,8 @@ int UART::send(uint8_t *buffer, uint32_t len)
 	uint8_t IV[16] = { 0x72, 0x88, 0xd4, 0x11, 0x94, 0xea, 0xf7, 0x1c, 0x31, 0xac, 0xc3, 0x8c, 0xc7, 0xdc, 0x82, 0x4b };
 	uint8_t HMAC[32] = { 0 };
 	unsigned char data[BLOCK_SIZE];
+
+	uint32_t plainBytesSent = 0;
 
 	if (usingKey)
 	{
@@ -279,6 +281,7 @@ int UART::send(uint8_t *buffer, uint32_t len)
 		}
 
 		bytes += bw;
+		plainBytesSent += BLOCK_SIZE;
 
 		// Wait for OK
 		waitOK();
@@ -294,6 +297,7 @@ int UART::send(uint8_t *buffer, uint32_t len)
 		}
 		memset(data, 0, sizeof(data));
 		memcpy(data, buffer + chunk * BLOCK_SIZE, remaining);
+		plainBytesSent += remaining;
 		
 		if (usingKey)
 		{
@@ -347,7 +351,7 @@ int UART::send(uint8_t *buffer, uint32_t len)
 		waitOK();
 	}
 	
-	return bytes;
+	return plainBytesSent;
 }
 
 int UART::receive(uint8_t *location, uint32_t locsize)
@@ -356,6 +360,8 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 	mbedtls_md_context_t sha_ctx;
 	uint8_t HMAC[32] = { 0 };
 	uint8_t IV[16];
+
+	uint32_t plainBytesReceived = 0;
 
 	if (usingKey)
 	{
@@ -445,11 +451,15 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 			int r = get_pkcs_padding(plaintext, BLOCK_SIZE, &l);
 			if (r == 0)
 			{
+				plainBytesReceived += l;
+
 				// l contains the actual length of this block
 				memcpy(data, plaintext, l);
 			}
 			else
 			{
+				plainBytesReceived += BLOCK_SIZE;
+
 				// assume whole block
 				memcpy(data, plaintext, BLOCK_SIZE);
 			}
@@ -508,6 +518,8 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 
 			memcpy(location + chunk * BLOCK_SIZE, data, remaining);
 
+			plainBytesReceived += remaining;
+
 			bytes += remaining;
 
 			// Send OK
@@ -515,7 +527,7 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 		}
 	}
 
-	return size;
+	return plainBytesReceived;
 }
 
 bool UART::sendOK()

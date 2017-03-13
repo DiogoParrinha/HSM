@@ -24,7 +24,9 @@ void Device::addSlot(p11_slot * s, int i) { return; }
 int Device::startSession() { return 0; }
 bool Device::endSession() { return false; }
 bool Device::sessionLimit() { return false; }
-
+int Device::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType) { return 0; }
+int Device::logout() { return 0; }
+bool Device::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen) { return false; };
 
 void Device::strcpy_bp(void * destination, const char * source, size_t dest_size)
 {

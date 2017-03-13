@@ -133,6 +133,7 @@ int main()
 		UART_waitCOMMAND();
 
 		// Alright, client is going to issue a command
+		memset(command, 0, 64);
 		UART_receive(&command[0], 64);
 
 		// Process the command
