@@ -910,3 +910,33 @@ CK_PKCS11_FUNCTION_INFO(C_WaitForSlotEvent)
   CK_VOID_PTR pRserved   /* reserved.  Should be NULL_PTR */
 );
 #endif
+
+/* HSM_C_UserAdd adds a user. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_UserAdd)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession, /* the session's handle */
+	CK_UTF8CHAR_PTR pPin,		/* user PIN */
+	CK_ULONG ulPinLen,			/* pin length */
+	CK_ULONG_PTR uID			/* receives the user ID*/
+);
+#endif
+
+/* HSM_C_UserModify modifies a user. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_UserModify)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession, /* the session's handle */
+	CK_UTF8CHAR_PTR pPin,		/* new user PIN */
+	CK_ULONG ulPinLen			/* new pin length */
+);
+#endif
+
+/* HSM_C_UserDelete deletes a user. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_UserDelete)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession, /* the session's handle */
+	CK_ULONG_PTR uID			/* the user ID*/
+);
+#endif

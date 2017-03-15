@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include <windows.h>
 #include <stdint.h>
+#include <assert.h>
 #include "UART.h"
 #include "mbedtls/config.h"
 
@@ -97,115 +98,147 @@ int main()
 
 	// Initialize
 	r = C_Initialize(NULL);
-	if (r != CKR_OK)
-	{
-		printf("\nError: %d\n", r);
-		return 1;
-	}
+	assert(r != CKR_OK);
 
 	// Get total slots
 	CK_ULONG slotCount;
 
 	r = C_GetSlotList(CK_FALSE, NULL_PTR, &slotCount);
+	assert(r != CKR_OK);
 
-	// all slots with token
+	// All slots with token
 	r = C_GetSlotList(CK_TRUE, NULL_PTR, &slotCount);
-	if (r != CKR_OK)
-	{
-		printf("\nError: %d\n", r);
-		return 2;
-	}
+	assert(r != CKR_OK);
 
 	CK_SLOT_ID_PTR slotList = (CK_SLOT_ID_PTR)malloc(sizeof(CK_SLOT_ID)*slotCount);
 	r = C_GetSlotList(CK_TRUE, slotList, &slotCount);
-	if (r != CKR_OK)
-	{
-		printf("\nError: %d\n", r);
-		return 3;
-	}
+	assert(r != CKR_OK);
 
-	// slot info
+	// Slot Info
 	CK_SLOT_INFO pInfo;
 	r = C_GetSlotInfo(0, &pInfo);
-	if (r != CKR_OK)
-	{
-		printf("\nError: %d\n", r);
-		return 4;
-	}
+	assert(r != CKR_OK);
 
-	// open session
+	// Open Session
 	CK_BYTE application = 1;
 	CK_SESSION_HANDLE phSession;
 	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
-	if (r != CKR_OK)
-	{
-		printf("\nError: %d\n", r);
-		return 5;
-	}
+	assert(r != CKR_OK);
 
 	// Login
 	unsigned char data[33];
 	sprintf_s((char*)data, 33, "%s", "12345678912345678912345678912345"); // admin
 	data[32] = 0;
 	r = C_Login(phSession, CKU_SO, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("\nError: %d\n", r);
-		return 6;
-	}
+	assert(r != CKR_OK);
 
 	// Logout Admin
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("\nError: %d\n", r);
-		return 7;
-	}
+	/*r = C_Logout(phSession);
+	assert(r != CKR_OK);
 
 	// Login User
 	sprintf_s((char*)data, 33, "%s", "12345678912345678912345678912341"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("\nError: %d\n", r);
-		return 8;
-	}
+	assert(r != CKR_OK);
 
 	// Sign Data
-	CK_MECHANISM mechanism = {
+	CK_MECHANISM sign_mechanism = {
 		CKM_ECDSA, NULL_PTR, 0
 	};
-	r = C_SignInit(phSession, &mechanism, NULL_PTR);
-	if (r != CKR_OK)
-	{
-		printf("\nError: %d\n", r);
-		return 9;
-	}
+	r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
+	assert(r != CKR_OK);
 
 	uint8_t msg[6] = { '1','2','3','4','5','6' };
-	CK_BYTE signature[512] = { 0 };
-	CK_ULONG sig_len = 0;
-	r = C_Sign(phSession, msg, sizeof(msg), &signature[0], &sig_len);
-	if (r != CKR_OK)
-	{
-		printf("\nError: %d\n", r);
-		return 10;
-	}
+	CK_BYTE signature1[512] = { 0 };
+	CK_ULONG sig1_len = 0;
+	r = C_Sign(phSession, msg, sizeof(msg), &signature1[0], &sig1_len);
+	assert(r != CKR_OK);
+
+	r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
+	assert(r != CKR_OK);
+
+	r = C_SignUpdate(phSession, msg, sizeof(msg));
+	assert(r != CKR_OK);
+
+	r = C_SignUpdate(phSession, msg, sizeof(msg));
+	assert(r != CKR_OK);
+
+	CK_BYTE signature2[512] = { 0 };
+	CK_ULONG sig2_len = 0;
+	r = C_SignFinal(phSession, &signature2[0], &sig2_len);
+	assert(r != CKR_OK);
+
+	// Verify signatures
+	r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
+	assert(r != CKR_OK);
+
+	r = C_Verify(phSession, msg, sizeof(msg), &signature1[0], sig1_len);
+	assert(r != CKR_OK);
+
+	r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
+	assert(r != CKR_OK);
+
+	r = C_VerifyUpdate(phSession, msg, sizeof(msg));
+	assert(r != CKR_OK);
+
+	r = C_VerifyUpdate(phSession, msg, sizeof(msg));
+	assert(r != CKR_OK);
+
+	r = C_VerifyFinal(phSession, &signature2[0], sig2_len);
+	assert(r != CKR_OK);*/
+
+	// Generate a key pair 
+	/*CK_MECHANISM genkey_mechanism = {
+		CKM_EC_KEY_PAIR_GEN, NULL_PTR, 0
+	};
+
+	CK_OBJECT_HANDLE pri, pub;
+	CK_OBJECT_CLASS keyClass = CKO_PUBLIC_KEY;
+	CK_KEY_TYPE keyType = CKK_EC;
+	CK_BYTE id[] = { 0x1 };
+
+	CK_ATTRIBUTE keysTemplate[] = {
+		{ CKA_CLASS, &keyClass, sizeof(keyClass) },
+		{ CKA_KEY_TYPE, &keyType, sizeof(keyType) }
+	};
+
+	r = C_GenerateKeyPair(phSession, &genkey_mechanism, keysTemplate, 2, keysTemplate, 2, &pub, &pri);
+	assert(r != CKR_OK);*/
+
+	// Use FindObjects to get a certificate of a user's public key
+
+	CK_OBJECT_CLASS certClass = CKO_CERTIFICATE;
+	CK_BYTE id[] = { 0x1 }; // user ID 1
+	CK_ATTRIBUTE certTemplate1[] = {
+		{ CKA_ID, id, sizeof(id) }, // user ID
+		{ CKA_CLASS, &certClass, sizeof(certClass) },
+	};
+	r = C_FindObjectsInit(phSession, certTemplate1, 2);
+	assert(r != CKR_OK);
+
+	CK_OBJECT_HANDLE cert1;
+	CK_ULONG objectCount;
+	r = C_FindObjects(phSession, &cert1, 1, &objectCount);
+	assert(r != CKR_OK);
+
+	r = C_FindObjectsFinal(phSession);
+	assert(r != CKR_OK);
+
+	// Use FindObjects to get a certificate for a given public key
+	// We must pass several fields in the template
 
 	// Logout User
 	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("\nError: %d\n", r);
-		return 11;
-	}
+	assert(r != CKR_OK);
 
 	// close session
-	C_CloseSession(phSession);
+	r = C_CloseSession(phSession);
+	assert(r != CKR_OK);
 
 	// Finalize
-	C_Finalize(NULL);
+	r = C_Finalize(NULL);
+	assert(r != CKR_OK);
 
 	/*comm = new UART();
 

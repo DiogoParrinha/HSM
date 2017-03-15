@@ -437,6 +437,7 @@ int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 	if (userType == CKU_SO)
 		isAdmin = true;
 
+	authID = pPin[32];
 	loggedIn = true;
 
 	return 0;
@@ -469,6 +470,7 @@ int HSM::logout()
 		return 3;
 	}
 
+	authID = 0;
 	isAdmin = false;
 	loggedIn = false;
 
@@ -477,6 +479,12 @@ int HSM::logout()
 
 bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen)
 {
+	// Not logged in?
+	if (!loggedIn)
+	{
+		return false;
+	}
+
 	// Calculate SHA-256 of pData
 	unsigned char digest[32] = { 0 };
 	mbedtls_sha256(pData, ulDataLen, &digest[0], 0);
@@ -512,4 +520,88 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 	printf("OK: %d\n", *pulSignatureLen);
 
 	return true;
+}
+
+bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG pulSignatureLen)
+{
+	// this shouldn't happen! (unless the points of the curve are huge, e,g. > 1000 bits)
+	if (pulSignatureLen > 255)
+		return false; 
+
+	// if not logged in, signature verification must provide an ID (author of the signature)
+	if (!loggedIn && ulDataLen != 33)
+		return false;
+
+	// admin couldn't sign so we can't request a signature to verified for his ID
+	if (loggedIn && authID == 0)
+		return false;
+
+	// Calculate SHA-256 of data
+	unsigned char digest[32] = { 0 };
+	if (loggedIn)
+		mbedtls_sha256(pData, ulDataLen, digest, 0); // message = everything
+	else
+		mbedtls_sha256(&pData[1], ulDataLen, digest, 0); // message starts at index 1
+
+	comm->reqCommand();
+	printf("Sending DTSN_VERIFY command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "DTSN_VERIFY");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Now it expects:
+	// 1B ID | 32B_HASH | 1B SIGNATURE SIZE
+	printf("Sending DATA...");
+	memset(buffer, 0, sizeof(buffer));
+
+	if (loggedIn)
+		buffer[0] = authID;
+	else
+		buffer[0] = pData[0]; // ID
+
+	memcpy(&buffer[1], digest, 32);
+	buffer[33] = pulSignatureLen; // won't be bigger than 255 because we check at the beginning
+	comm->send(buffer, 32+1);
+	printf("OK\n");
+
+	// Send signature
+	printf("Sending SIGNATURE...");
+	comm->send(pSignature, pulSignatureLen);
+	printf("OK\n");
+
+	// Wait for response
+	printf("Receiving response...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool HSM::generateKeyPair(CK_OBJECT_HANDLE_PTR privateKey, CK_OBJECT_HANDLE_PTR publicKey)
+{
+	// Not logged in? Not admin? (only the admin can generate a key pair)
+	if (!loggedIn || authID != 0)
+	{
+		return false;
+	}
+
+	comm->reqCommand();
+
+	return true;
+}
+
+bool HSM::getCertificate(CK_BYTE uid, CK_UTF8CHAR_PTR* certificate)
+{
+	return false;
+}
+
+bool HSM::genCertificate(CK_OBJECT_HANDLE_PTR publicKeyTemplate, CK_UTF8CHAR_PTR publicKey, CK_UTF8CHAR_PTR* certificate)
+{
+	return false;
 }

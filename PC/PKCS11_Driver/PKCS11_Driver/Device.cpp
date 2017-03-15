@@ -26,7 +26,11 @@ bool Device::endSession() { return false; }
 bool Device::sessionLimit() { return false; }
 int Device::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType) { return 0; }
 int Device::logout() { return 0; }
-bool Device::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen) { return false; };
+bool Device::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen) { return false; }
+bool Device::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG pulSignatureLen) { return false; }
+bool Device::generateKeyPair(CK_OBJECT_HANDLE_PTR privateKey, CK_OBJECT_HANDLE_PTR publicKey) { return false; }
+bool Device::getCertificate(CK_BYTE uid, CK_UTF8CHAR_PTR* certificate) { return false; }
+bool Device::genCertificate(CK_OBJECT_HANDLE_PTR publicKeyTemplate, CK_UTF8CHAR_PTR publicKey, CK_UTF8CHAR_PTR* certificate) { return false;  }
 
 void Device::strcpy_bp(void * destination, const char * source, size_t dest_size)
 {
