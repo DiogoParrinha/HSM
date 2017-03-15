@@ -161,7 +161,7 @@ uint8_t PKC_signData(uint8_t * private, uint8_t * data, size_t data_len, uint8_t
     return 1;
 }
 
-BOOL PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint8_t * signature, size_t signature_len)
+int PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint8_t * signature, size_t signature_len)
 {
 	mbedtls_pk_context ctx;
     mbedtls_entropy_context entropy;
@@ -174,7 +174,7 @@ BOOL PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint
 		char error[10];
 		sprintf(error, "E: %d", ret );
 		__printf(error);
-		return FALSE;
+		return 1;
 	}
 
     // Parse public key
@@ -194,12 +194,12 @@ BOOL PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint
 		char error[10];
 		sprintf(error, "E: %d", ret );
 		__printf(error);
-		return 2;
+		return 3;
 	}
 
 	PKC_free(&ctx, &entropy, &ctr_drbg);
 
-    return TRUE;
+    return 0;
 }
 
 BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint8_t key_usage, uint8_t* certificate, uint32_t bufsize)

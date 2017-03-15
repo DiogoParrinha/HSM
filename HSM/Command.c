@@ -195,33 +195,12 @@ void COMMAND_USER_process(uint8_t * command)
 	}
 	/*else if(strcmp(command, "USER_GENKEYS") == 0)
 	{
-		// Generate Key Pair for user (overwrites existing one)
+		// Generate Key Pair and send it
 
-		// Expect 32B PIN and ID
-		uint8_t buffer[PIN_SIZE+1] = {0};
-		UART_receive(&buffer[0], 33u);
-
-		uint8_t AUTH_PIN[PIN_SIZE] = {0};
-		uint8_t U_ID = 0;
-
-		// First 32B => AUTH_PIN (user or admin)
-		memcpy(AUTH_PIN, &buffer[0], PIN_SIZE);
-
-		U_ID = buffer[PIN_SIZE];
-
-		// Authenticate
-		if(!USER_isAdmin(AUTH_PIN))
+		if(!connected || !loggedIn || !isAdmin)
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: Not Admin");
-			return;
-		}
-
-		USER_init();
-		if(!USER_exists(U_ID))
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: User does not exist");
+			COMMAND_ERROR("ERROR: not connected/auth");
 			return;
 		}
 
@@ -249,14 +228,15 @@ void COMMAND_USER_process(uint8_t * command)
 			return;
 		}
 
-		// TODO: Store key pair
-		// Add UPDATE routine to User (Modify and Remove need to be tested as well)
+		// Success
+		UART_send("SUCCESS_KEYS", 7);
+
+		// Send both keys
+		UART_send(privateKey, strlen(privateKey));
+		UART_send(publicKey, strlen(publicKey));
 
 		free(publicKey);
 		free(privateKey);
-
-		// Success
-		UART_send("SUCCESS", 7);
 	}*/
 	else if(strcmp(command, "USER_CERT") == 0)
 	{
@@ -334,7 +314,7 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 	}
 	else if(strcmp(command, "DTSN_VERIFY") == 0)
 	{
-		if(!connected || !loggedIn)
+		if(!connected)
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -343,13 +323,12 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 
 		// User is requesting a hash and a signature to be verified
 
-		// Expect 1B ID + 32B hash + 4B (signature size)
+		// Expect 1B ID + 32B hash
 		uint8_t buffer[1+HASH_SIZE+4] = {0};
-		UART_receive(&buffer[0], 1+HASH_SIZE+4);
+		UART_receive(&buffer[0], 1+HASH_SIZE);
 
-		uint8_t U_ID = 0;
+		volatile uint8_t U_ID = 0;
 		uint8_t HASH[HASH_SIZE] = {0};
-		uint8_t SIG_SIZE = 0;
 
 		// 1B => U_ID
 		U_ID = buffer[0];
@@ -357,19 +336,9 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 		// 32B for hash
 		memcpy(HASH, &buffer[1], HASH_SIZE);
 
-		// signature size
-		SIG_SIZE = buffer[1+HASH_SIZE];
-
-		// Wait for X bytes
-		uint8_t * SIGNATURE = malloc(sizeof(uint8_t)*SIG_SIZE);
-		if(!SIGNATURE)
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: No memory");
-			return;
-		}
-
-		UART_receive(SIGNATURE, SIG_SIZE);
+		// > 255B shouldn't happen! (unless the points of the curve are huge, e,g. > 1000 bits)
+		uint8_t signature[255];
+		volatile uint32_t signature_len = UART_receive(&signature[0], 255);
 
 		// Get user private key
 		USER_init();
@@ -383,15 +352,19 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 
 		// We have the hash
 		// Apply ECDSA
-		uint8_t res = PKC_verifySignature(u->publicKey, HASH, HASH_SIZE, SIGNATURE, SIG_SIZE);
+		uint8_t res = PKC_verifySignature(u->publicKey, HASH, HASH_SIZE, signature, signature_len);
 		USER_free(u);
-		if(res == 0)
+		if(res == 1)
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: signature");
+			UART_send("SIG_ERROR", 9);
 			return;
 		}
 		else if(res == 2)
+		{
+			UART_send("PUBLIC_KEY_ERROR", 16);
+		}
+		else if(res == 3)
 		{
 			UART_send("INCORRECT", 9);
 		}
