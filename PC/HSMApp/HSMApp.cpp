@@ -94,151 +94,188 @@ int main()
 	printf("%s", g_separator);
 	getchar();
 
-	int r = 0;
+	CK_ULONG r = 0;
 
 	// Initialize
 	r = C_Initialize(NULL);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	// Get total slots
 	CK_ULONG slotCount;
 
 	r = C_GetSlotList(CK_FALSE, NULL_PTR, &slotCount);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	// All slots with token
 	r = C_GetSlotList(CK_TRUE, NULL_PTR, &slotCount);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	CK_SLOT_ID_PTR slotList = (CK_SLOT_ID_PTR)malloc(sizeof(CK_SLOT_ID)*slotCount);
 	r = C_GetSlotList(CK_TRUE, slotList, &slotCount);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	// Slot Info
 	CK_SLOT_INFO pInfo;
 	r = C_GetSlotInfo(0, &pInfo);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	// Open Session
 	CK_BYTE application = 1;
 	CK_SESSION_HANDLE phSession;
 	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	// Login
 	unsigned char data[33];
 	sprintf_s((char*)data, 33, "%s", "12345678912345678912345678912345"); // admin
 	data[32] = 0;
 	r = C_Login(phSession, CKU_SO, data, 33);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	// Logout Admin
 	/*r = C_Logout(phSession);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	// Login User
 	sprintf_s((char*)data, 33, "%s", "12345678912345678912345678912341"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	// Sign Data
 	CK_MECHANISM sign_mechanism = {
 		CKM_ECDSA, NULL_PTR, 0
 	};
 	r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	uint8_t msg[6] = { '1','2','3','4','5','6' };
 	CK_BYTE signature1[512] = { 0 };
 	CK_ULONG sig1_len = 0;
 	r = C_Sign(phSession, msg, sizeof(msg), &signature1[0], &sig1_len);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	r = C_SignUpdate(phSession, msg, sizeof(msg));
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	r = C_SignUpdate(phSession, msg, sizeof(msg));
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	CK_BYTE signature2[512] = { 0 };
 	CK_ULONG sig2_len = 0;
 	r = C_SignFinal(phSession, &signature2[0], &sig2_len);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	// Verify signatures
 	r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	r = C_Verify(phSession, msg, sizeof(msg), &signature1[0], sig1_len);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	r = C_VerifyUpdate(phSession, msg, sizeof(msg));
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	r = C_VerifyUpdate(phSession, msg, sizeof(msg));
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	r = C_VerifyFinal(phSession, &signature2[0], sig2_len);
-	assert(r != CKR_OK);*/
+	assert(r == CKR_OK);*/
 
 	// Generate a key pair 
-	/*CK_MECHANISM genkey_mechanism = {
+	CK_MECHANISM genkey_mechanism = {
 		CKM_EC_KEY_PAIR_GEN, NULL_PTR, 0
 	};
 
 	CK_OBJECT_HANDLE pri, pub;
-	CK_OBJECT_CLASS keyClass = CKO_PUBLIC_KEY;
+	CK_OBJECT_CLASS keyClass1 = CKO_PUBLIC_KEY;
+	CK_OBJECT_CLASS keyClass2 = CKO_PRIVATE_KEY;
 	CK_KEY_TYPE keyType = CKK_EC;
-	CK_BYTE id[] = { 0x1 };
 
-	CK_ATTRIBUTE keysTemplate[] = {
-		{ CKA_CLASS, &keyClass, sizeof(keyClass) },
-		{ CKA_KEY_TYPE, &keyType, sizeof(keyType) }
+	uint8_t pubBuffer[512] = { 0 };
+	CK_ATTRIBUTE pubKeyTemplate[] = {
+		{ CKA_CLASS, &keyClass1, sizeof(keyClass1) },
+		{ CKA_KEY_TYPE, &keyType, sizeof(keyType) },
+		{ CKA_EC_POINT, pubBuffer, sizeof(pubBuffer) }
 	};
 
-	r = C_GenerateKeyPair(phSession, &genkey_mechanism, keysTemplate, 2, keysTemplate, 2, &pub, &pri);
-	assert(r != CKR_OK);*/
+	uint8_t priBuffer[512] = { 0 };
+	CK_ATTRIBUTE priKeyTemplate[] = {
+		{ CKA_CLASS, &keyClass2, sizeof(keyClass2) },
+		{ CKA_KEY_TYPE, &keyType, sizeof(keyType) },
+		{ CKA_VALUE, priBuffer, sizeof(priBuffer) }
+	};
+
+	r = C_GenerateKeyPair(phSession, &genkey_mechanism, pubKeyTemplate, 3, priKeyTemplate, 3, &pub, &pri);
+	assert(r == CKR_OK);
+
+	memset(pubBuffer, 0, 512);
+	memset(priBuffer, 0, 512);
+	r = C_GetAttributeValue(phSession, pub, pubKeyTemplate, 3);
+	assert(r == CKR_OK);
+
+	r = C_GetAttributeValue(phSession, pri, priKeyTemplate, 3);
+	assert(r == CKR_OK);
 
 	// Use FindObjects to get a certificate of a user's public key
 
-	CK_OBJECT_CLASS certClass = CKO_CERTIFICATE;
+	/*CK_OBJECT_CLASS certClass = CKO_CERTIFICATE;
 	CK_BYTE id[] = { 0x1 }; // user ID 1
 	CK_ATTRIBUTE certTemplate1[] = {
 		{ CKA_ID, id, sizeof(id) }, // user ID
 		{ CKA_CLASS, &certClass, sizeof(certClass) },
 	};
 	r = C_FindObjectsInit(phSession, certTemplate1, 2);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	CK_OBJECT_HANDLE cert1;
 	CK_ULONG objectCount;
 	r = C_FindObjects(phSession, &cert1, 1, &objectCount);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	r = C_FindObjectsFinal(phSession);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);*/
 
 	// Use FindObjects to get a certificate for a given public key
 	// We must pass several fields in the template
 
+	// Instead of the above, we use our own functions
+	CK_UTF8CHAR certificate[4096];
+	CK_ULONG bufSize = 4096;
+	r = HSM_C_CertGet(phSession, 1, certificate, &bufSize);
+	assert(r == CKR_OK);
+
+	CK_BBOOL MTRUE = CK_TRUE;
+	CK_UTF8CHAR subject[] = "CN=Diogo Parrinha, O=INESC-ID, C=PT";
+	CK_ATTRIBUTE pubTemplateCert[] = {
+		{ CKA_CLASS, &keyClass1, sizeof(keyClass1) },
+		{ CKA_SUBJECT, subject, sizeof(subject) },
+		{ CKA_VERIFY, &MTRUE, sizeof(MTRUE) },
+		{ CKA_ENCRYPT, &MTRUE, sizeof(MTRUE) },
+		{ CKA_DERIVE, &MTRUE, sizeof(MTRUE) }
+	};
+	bufSize = 4096;
+	uint8_t data2[] = "-----BEGIN PUBLIC KEY-----\nMEkwEwYHKoZIzj0CAQYIKoZIzj0DAQEDMgAExVk6YzJ47/cxxyB9nTNSf0Q49Bz/\nnKbxtniyyrIo5ABC6cyYbAsFdmQAFTaeZ8l8\n-----END PUBLIC KEY-----\n";
+	r = HSM_C_CertGen(phSession, pubTemplateCert, 4, data2, certificate, &bufSize);
+	assert(r == CKR_OK);
+
 	// Logout User
 	r = C_Logout(phSession);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	// close session
 	r = C_CloseSession(phSession);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	// Finalize
 	r = C_Finalize(NULL);
-	assert(r != CKR_OK);
+	assert(r == CKR_OK);
 
 	/*comm = new UART();
 

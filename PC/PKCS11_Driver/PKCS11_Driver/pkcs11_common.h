@@ -14,6 +14,14 @@ typedef struct p11_slot_s {
 	p11_token* token;
 } p11_slot;
 
+typedef struct p11_object_s {
+	CK_OBJECT_CLASS oClass;
+	CK_KEY_TYPE oType;
+	CK_BBOOL oToken;
+	CK_BYTE_PTR oValue;
+	CK_ULONG oValueLen;
+} p11_object;
+
 #define P11_NUM_OPS 3
 #define P11_OP_FIND 0
 #define P11_OP_SIGN 1 
@@ -29,6 +37,9 @@ typedef struct p11_session_s {
 	uint8_t *verifyData; // holds plain-text data for multi-part operations
 	uint32_t verifyData_s; // holds the data size
 
+	p11_object ** objects; // our array of pointers to session objects
+	int totalObjects;
+	
 	/*
 	bool certAlready; // already got it?
 	uint8_t certUID; // uid of the public key owner

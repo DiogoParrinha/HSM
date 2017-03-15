@@ -444,6 +444,8 @@ CK_RV C_OpenSession(CK_SLOT_ID slotID, CK_FLAGS flags, CK_VOID_PTR pApplication,
 	session_h->session = session;
 	session_h->operation[P11_OP_FIND] = 0;
 	session_h->operation[P11_OP_SIGN] = 0;
+	session_h->objects = NULL;
+	session_h->totalObjects = 0;
 
 	g_sessions.push_back(session_h);
 
@@ -465,7 +467,7 @@ CK_RV C_CloseSession(CK_SESSION_HANDLE hSession)
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch(const std::out_of_range& oor) {
+	catch(const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -476,7 +478,7 @@ CK_RV C_CloseSession(CK_SESSION_HANDLE hSession)
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -554,17 +556,18 @@ CK_RV C_Login(CK_SESSION_HANDLE hSession, CK_USER_TYPE userType, CK_UTF8CHAR_PTR
 		return CKR_USER_TYPE_INVALID;
 	}
 
-	if (hSession == NULL_PTR)
+	// We accept sessions with handle=0
+	/*if (hSession == NULL_PTR)
 	{
 		return CKR_SESSION_HANDLE_INVALID;
-	}
+	}*/
 
 	// Get session
 	CK_SESSION_INFO_PTR s;
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -574,7 +577,7 @@ CK_RV C_Login(CK_SESSION_HANDLE hSession, CK_USER_TYPE userType, CK_UTF8CHAR_PTR
 	try {
 		d = devices_list.at(s->slotID);
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -604,17 +607,18 @@ CK_RV C_Logout(CK_SESSION_HANDLE hSession)
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	if (hSession == NULL_PTR)
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
 	{
 		return CKR_SESSION_HANDLE_INVALID;
-	}
+	}*/
 
 	// Get session
 	CK_SESSION_INFO_PTR s;
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -624,7 +628,7 @@ CK_RV C_Logout(CK_SESSION_HANDLE hSession)
 	try {
 		d = devices_list.at(s->slotID);
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -653,7 +657,105 @@ CK_RV C_Logout(CK_SESSION_HANDLE hSession)
 
 CK_RV C_CreateObject(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phObject)
 {
-	return CKR_FUNCTION_NOT_SUPPORTED;
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	p11_session * P11_SESSION;
+	try {
+		P11_SESSION = g_sessions.at(hSession);
+		s = P11_SESSION->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get session device
+	Device* d;
+	try {
+		d = devices_list.at(s->slotID);
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	if (pTemplate == NULL_PTR)
+	{
+		return CKR_ARGUMENTS_BAD;
+	}
+
+	// Do we have any objects already?
+	CK_OBJECT_HANDLE h = P11_SESSION->totalObjects;
+	if (P11_SESSION->objects == NULL)
+	{
+		// Allocate pointer to array of pointers (with one element so far)
+		P11_SESSION->objects = (p11_object **)malloc(sizeof(p11_object *));
+		if (P11_SESSION->objects == NULL)
+		{
+			return CKR_HOST_MEMORY;
+		}
+
+		P11_SESSION->objects[h] = NULL;
+	}
+	else
+	{
+		// We must realloc our array of pointers
+		P11_SESSION->objects = (p11_object**)realloc(P11_SESSION->objects, sizeof(p11_object *)*(P11_SESSION->totalObjects+1));
+		if (P11_SESSION->objects == NULL)
+		{
+			// Ideally we'd free our existing objects...
+
+			return CKR_HOST_MEMORY;
+		}
+
+		P11_SESSION->objects[h] = NULL;
+	}
+
+	// Allocate our object pointer
+	P11_SESSION->objects[h] = (p11_object *)malloc(sizeof(p11_object));
+	P11_SESSION->objects[h]->oClass = 0;
+	P11_SESSION->objects[h]->oType = 0;
+	P11_SESSION->objects[h]->oToken = 0;
+	P11_SESSION->objects[h]->oValue = NULL;
+	P11_SESSION->totalObjects++;
+
+	int p = 0;
+	for (p = 0; p < ulCount; p++)
+	{
+		if (pTemplate[p].type == CKA_CLASS)
+		{
+			P11_SESSION->objects[h]->oClass = (*(CK_OBJECT_CLASS*)pTemplate[p].pValue);
+		}
+		else if (pTemplate[p].type == CKA_KEY_TYPE)
+		{
+			P11_SESSION->objects[h]->oType = (*(CK_KEY_TYPE*)pTemplate[p].pValue);
+		}
+		else if (pTemplate[p].type == CKA_TOKEN)
+		{
+			P11_SESSION->objects[h]->oToken = (*(CK_BBOOL*)pTemplate[p].pValue);
+		}
+		else if (pTemplate[p].type == CKA_VALUE || pTemplate[p].type == CKA_EC_POINT)
+		{
+			P11_SESSION->objects[h]->oValue = (CK_BYTE_PTR)malloc(sizeof(CK_BYTE)*pTemplate[p].ulValueLen);
+			memcpy(P11_SESSION->objects[h]->oValue, pTemplate[p].pValue, pTemplate[p].ulValueLen * sizeof(CK_BYTE));
+			P11_SESSION->objects[h]->oValueLen = pTemplate[p].ulValueLen;
+		}
+	}
+
+	*phObject = h;
+
+	return CKR_OK;
 }
 
 CK_RV C_CopyObject(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phNewObject)
@@ -663,7 +765,56 @@ CK_RV C_CopyObject(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ATTR
 
 CK_RV C_DestroyObject(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject)
 {
-	return CKR_FUNCTION_NOT_SUPPORTED;
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	p11_session * P11_SESSION;
+	try {
+		P11_SESSION = g_sessions.at(hSession);
+		s = P11_SESSION->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get session device
+	Device* d;
+	try {
+		d = devices_list.at(s->slotID);
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Do we have any objects already?
+	CK_OBJECT_HANDLE h = P11_SESSION->totalObjects;
+	if (P11_SESSION->objects == NULL)
+	{
+		return CKR_OBJECT_HANDLE_INVALID;
+	}
+	else
+	{
+		// Delete the selected object
+		free(P11_SESSION->objects[hObject]->oValue);
+		free(P11_SESSION->objects[hObject]);
+		P11_SESSION->objects[hObject] = NULL;
+	}
+
+	// DO NOT DECREASE TOTAL OBJECTS BECAUSE WE USE THAT AS HANDLE POINTER
+
+	return CKR_OK;
 }
 
 CK_RV C_GetObjectSize(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ULONG_PTR pulSize)
@@ -673,7 +824,126 @@ CK_RV C_GetObjectSize(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_U
 
 CK_RV C_GetAttributeValue(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount)
 {
-	return CKR_FUNCTION_NOT_SUPPORTED;
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	p11_session * P11_SESSION;
+	try {
+		P11_SESSION = g_sessions.at(hSession);
+		s = P11_SESSION->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get session device
+	Device* d;
+	try {
+		d = devices_list.at(s->slotID);
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Do we have any objects already?
+	if (P11_SESSION->objects == NULL || (P11_SESSION->totalObjects-1) < hObject)
+	{
+		return CKR_OBJECT_HANDLE_INVALID;
+	}
+	
+	int p = 0;
+	for (p = 0; p < ulCount; p++)
+	{
+		if (pTemplate[p].type == CKA_CLASS)
+		{
+			if (pTemplate[p].pValue == NULL_PTR)
+			{
+				// Modify length to contain value size
+				pTemplate[p].ulValueLen = sizeof(P11_SESSION->objects[hObject]->oClass);
+			}
+			else
+			{
+				if (pTemplate[p].ulValueLen < sizeof(P11_SESSION->objects[hObject]->oClass))
+				{
+					pTemplate[p].ulValueLen = -1;
+					return CKR_BUFFER_TOO_SMALL;
+				}
+
+				CK_OBJECT_CLASS_PTR ptr = (CK_OBJECT_CLASS_PTR)pTemplate[p].pValue;
+				*ptr = P11_SESSION->objects[hObject]->oClass;
+			}
+		}
+		else if (pTemplate[p].type == CKA_KEY_TYPE)
+		{
+			if (pTemplate[p].pValue == NULL_PTR)
+			{
+				// Modify length to contain value size
+				pTemplate[p].ulValueLen = sizeof(P11_SESSION->objects[hObject]->oType);
+			}
+			else
+			{
+				if (pTemplate[p].ulValueLen < sizeof(P11_SESSION->objects[hObject]->oType))
+				{
+					pTemplate[p].ulValueLen = -1;
+					return CKR_BUFFER_TOO_SMALL;
+				}
+
+				CK_OBJECT_CLASS_PTR ptr = (CK_OBJECT_CLASS_PTR)pTemplate[p].pValue;
+				*ptr = P11_SESSION->objects[hObject]->oType;
+			}
+		}
+		else if (pTemplate[p].type == CKA_TOKEN)
+		{
+			if (pTemplate[p].pValue == NULL_PTR)
+			{
+				// Modify length to contain value size
+				pTemplate[p].ulValueLen = sizeof(P11_SESSION->objects[hObject]->oToken);
+			}
+			else
+			{
+				if (pTemplate[p].ulValueLen < sizeof(P11_SESSION->objects[hObject]->oToken))
+				{
+					pTemplate[p].ulValueLen = -1;
+					return CKR_BUFFER_TOO_SMALL;
+				}
+
+				CK_OBJECT_CLASS_PTR ptr = (CK_OBJECT_CLASS_PTR)pTemplate[p].pValue;
+				*ptr = P11_SESSION->objects[hObject]->oToken;
+			}
+		}
+		else if (pTemplate[p].type == CKA_VALUE || pTemplate[p].type == CKA_EC_POINT)
+		{
+			if (pTemplate[p].pValue == NULL_PTR)
+			{
+				// Modify length to contain value size
+				pTemplate[p].ulValueLen = sizeof(CK_BYTE)*P11_SESSION->objects[hObject]->oValueLen;
+			}
+			else
+			{
+				if (pTemplate[p].ulValueLen < sizeof(CK_BYTE)*P11_SESSION->objects[hObject]->oValueLen)
+				{
+					pTemplate[p].ulValueLen = -1;
+					return CKR_BUFFER_TOO_SMALL;
+				}
+
+				memcpy(pTemplate[p].pValue, P11_SESSION->objects[hObject]->oValue, sizeof(CK_BYTE)*P11_SESSION->objects[hObject]->oValueLen);
+			}
+		}
+	}
+
+	return CKR_OK;
 }
 
 CK_RV C_SetAttributeValue(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount)
@@ -688,14 +958,15 @@ CK_RV C_FindObjectsInit(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, 
 	/*if (!g_init)
 	{
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
-	}
+	}*/
 
-	if (hSession == NULL_PTR)
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
 	{
 		return CKR_SESSION_HANDLE_INVALID;
-	}
+	}*/
 
-	if (pTemplate == NULL_PTR)
+	/*if (pTemplate == NULL_PTR)
 	{
 		return CKR_ARGUMENTS_BAD;
 	}
@@ -705,7 +976,7 @@ CK_RV C_FindObjectsInit(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, 
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -717,7 +988,7 @@ CK_RV C_FindObjectsInit(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, 
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -780,7 +1051,7 @@ CK_RV C_FindObjects(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR phObject, C
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -792,7 +1063,7 @@ CK_RV C_FindObjects(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR phObject, C
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -955,17 +1226,18 @@ CK_RV C_SignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJ
 	if (pMechanism->mechanism != CKM_ECDSA)
 		return CKR_MECHANISM_INVALID;
 
-	if (hSession == NULL_PTR)
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
 	{
 		return CKR_SESSION_HANDLE_INVALID;
-	}
+	}*/
 
 	// Get session
 	CK_SESSION_INFO_PTR s;
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -977,7 +1249,7 @@ CK_RV C_SignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJ
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -1015,17 +1287,18 @@ CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, 
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	if (hSession == NULL_PTR)
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
 	{
-		return CKR_SESSION_HANDLE_INVALID;
-	}
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
 
 	// Get session
 	CK_SESSION_INFO_PTR s;
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -1037,7 +1310,7 @@ CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, 
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -1090,17 +1363,18 @@ CK_RV C_SignUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPar
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	if (hSession == NULL_PTR)
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
 	{
-		return CKR_SESSION_HANDLE_INVALID;
-	}
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
 
 	// Get session
 	CK_SESSION_INFO_PTR s;
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -1112,7 +1386,7 @@ CK_RV C_SignUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPar
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -1153,17 +1427,18 @@ CK_RV C_SignFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG_P
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	if (hSession == NULL_PTR)
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
 	{
-		return CKR_SESSION_HANDLE_INVALID;
-	}
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
 
 	// Get session
 	CK_SESSION_INFO_PTR s;
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -1175,7 +1450,7 @@ CK_RV C_SignFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG_P
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -1234,17 +1509,18 @@ CK_RV C_VerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_O
 	if (pMechanism->mechanism != CKM_ECDSA)
 		return CKR_MECHANISM_INVALID;
 
-	if (hSession == NULL_PTR)
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
 	{
-		return CKR_SESSION_HANDLE_INVALID;
-	}
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
 
 	// Get session
 	CK_SESSION_INFO_PTR s;
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -1256,7 +1532,7 @@ CK_RV C_VerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_O
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -1294,17 +1570,18 @@ CK_RV C_Verify(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	if (hSession == NULL_PTR)
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
 	{
-		return CKR_SESSION_HANDLE_INVALID;
-	}
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
 
 	// Get session
 	CK_SESSION_INFO_PTR s;
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -1316,7 +1593,7 @@ CK_RV C_Verify(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -1362,17 +1639,18 @@ CK_RV C_VerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulP
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	if (hSession == NULL_PTR)
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
 	{
-		return CKR_SESSION_HANDLE_INVALID;
-	}
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
 
 	// Get session
 	CK_SESSION_INFO_PTR s;
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -1384,7 +1662,7 @@ CK_RV C_VerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulP
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -1425,17 +1703,18 @@ CK_RV C_VerifyFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	if (hSession == NULL_PTR)
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
 	{
-		return CKR_SESSION_HANDLE_INVALID;
-	}
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
 
 	// Get session
 	CK_SESSION_INFO_PTR s;
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -1447,7 +1726,7 @@ CK_RV C_VerifyFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -1534,17 +1813,16 @@ CK_RV C_GenerateKeyPair(CK_SESSION_HANDLE hSession,
 	CK_OBJECT_HANDLE_PTR phPublicKey,
 	CK_OBJECT_HANDLE_PTR phPrivateKey)
 {
-	return CKR_FUNCTION_NOT_SUPPORTED;
-
-	/*if (!g_init)
+	if (!g_init)
 	{
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	if (hSession == NULL_PTR)
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
 	{
-	return CKR_SESSION_HANDLE_INVALID;
-	}
+		return CKR_SESSION_HANDLE_INVALID;
+	}*/
 
 	if (pMechanism->mechanism != CKM_EC_KEY_PAIR_GEN)
 		return CKR_MECHANISM_INVALID;
@@ -1557,7 +1835,7 @@ CK_RV C_GenerateKeyPair(CK_SESSION_HANDLE hSession,
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -1569,7 +1847,7 @@ CK_RV C_GenerateKeyPair(CK_SESSION_HANDLE hSession,
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -1580,7 +1858,7 @@ CK_RV C_GenerateKeyPair(CK_SESSION_HANDLE hSession,
 	}
 
 	// Check parameters (we only care about CKA_CLASS and CKA_KEY_TYPE...)
-	int p = 0;
+	uint32_t p = 0;
 	for (p = 0; p < ulPublicKeyAttributeCount; p++)
 	{
 		if (pPublicKeyTemplate[p].type == CKA_CLASS)
@@ -1603,25 +1881,19 @@ CK_RV C_GenerateKeyPair(CK_SESSION_HANDLE hSession,
 				return CKR_TEMPLATE_INCONSISTENT;
 	}
 
-	CK_OBJECT_HANDLE_PTR privateKey = (CK_OBJECT_HANDLE_PTR)malloc(sizeof(CK_OBJECT_HANDLE));
-	if (privateKey == NULL)
-	{
-		return CKR_HOST_MEMORY;
-	}
-
-	CK_OBJECT_HANDLE_PTR publicKey = (CK_OBJECT_HANDLE_PTR)malloc(sizeof(CK_OBJECT_HANDLE));
-	if (publicKey == NULL)
-	{
-		return CKR_HOST_MEMORY;
-	}
+	CK_OBJECT_HANDLE privateKey;
+	CK_OBJECT_HANDLE publicKey;
 
 	// Either return both keys or none (with their CKA_LOCAL attribute set to CK_TRUE)
-	d->generateKeyPair(privateKey, publicKey);
+	if (!d->generateKeyPair(hSession, &privateKey, &publicKey))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
-	phPrivateKey = privateKey;
-	phPublicKey = publicKey;
+	*phPrivateKey = privateKey;
+	*phPublicKey = publicKey;
 
-	return CKR_OK;*/
+	return CKR_OK;
 }
 
 CK_RV C_WrapKey(CK_SESSION_HANDLE hSession,
@@ -1689,7 +1961,7 @@ CK_RV C_CancelFunction(CK_SESSION_HANDLE hSession)
 **************************/
 
 // HSM_C_UserAdd
-CK_RV HSM_C_UserAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_ULONG_PTR uID)
+CK_RV HSM_C_UserAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE uID)
 {
 	// TODO
 
@@ -1705,7 +1977,7 @@ CK_RV HSM_C_UserModify(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULON
 }
 
 // HSM_C_UserDelete
-CK_RV HSM_C_UserDelete(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pUid)
+CK_RV HSM_C_UserDelete(CK_SESSION_HANDLE hSession, CK_BYTE pUid)
 {
 	// TODO
 
@@ -1721,7 +1993,7 @@ CK_RV HSM_C_LogAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pMessage)
 }
 
 // HSM_C_CertGen
-CK_RV HSM_C_CertGen(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR publicKeyTemplate, CK_UTF8CHAR_PTR publicKey, CK_UTF8CHAR_PTR certificate)
+CK_RV HSM_C_CertGen(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, CK_UTF8CHAR_PTR publicKey, CK_UTF8CHAR_PTR certificate, CK_ULONG_PTR bufSize)
 {
 	if (!g_init)
 	{
@@ -1733,7 +2005,7 @@ CK_RV HSM_C_CertGen(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR publicKeyTe
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -1745,7 +2017,7 @@ CK_RV HSM_C_CertGen(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR publicKeyTe
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -1755,9 +2027,13 @@ CK_RV HSM_C_CertGen(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR publicKeyTe
 		return CKR_SESSION_HANDLE_INVALID;
 	}
 
-	// TODO: Check template attribute
+	if (publicKey == NULL_PTR)
+		return ERROR_BAD_ARGUMENTS;
 
-	if (!d->genCertificate(publicKeyTemplate, publicKey, &certificate))
+	if (publicKeyTemplate == NULL_PTR)
+		return CKR_TEMPLATE_INCOMPLETE;
+
+	if (!d->genCertificate(publicKeyTemplate, ulCount, publicKey, certificate, bufSize))
 	{
 		return CKR_FUNCTION_FAILED;
 	}
@@ -1766,7 +2042,7 @@ CK_RV HSM_C_CertGen(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR publicKeyTe
 }
 
 // HSM_C_CertGet
-CK_RV HSM_C_CertGet(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pUid, CK_UTF8CHAR_PTR certificate)
+CK_RV HSM_C_CertGet(CK_SESSION_HANDLE hSession, CK_BYTE pUid, CK_UTF8CHAR_PTR certificate, CK_ULONG_PTR bufSize)
 {
 	if (!g_init)
 	{
@@ -1778,7 +2054,7 @@ CK_RV HSM_C_CertGet(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pUid, CK_UTF8CHAR_PT
 	try {
 		s = g_sessions.at(hSession)->session;
 	}
-	catch (const std::out_of_range& oor) {
+	catch (const std::out_of_range&) {
 		// 'out of range' error
 		return CKR_SESSION_HANDLE_INVALID;
 	}
@@ -1790,7 +2066,7 @@ CK_RV HSM_C_CertGet(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pUid, CK_UTF8CHAR_PT
 		try {
 			d = devices_list.at(s->slotID);
 		}
-		catch (const std::out_of_range& oor) {
+		catch (const std::out_of_range&) {
 			// 'out of range' error
 			return CKR_SESSION_HANDLE_INVALID;
 		}
@@ -1800,7 +2076,10 @@ CK_RV HSM_C_CertGet(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pUid, CK_UTF8CHAR_PT
 		return CKR_SESSION_HANDLE_INVALID;
 	}
 
-	if (!d->getCertificate(*pUid, &certificate))
+	if (pUid <= 0)
+		return ERROR_BAD_ARGUMENTS;
+
+	if (!d->getCertificate(pUid, &certificate, bufSize))
 	{
 		return CKR_FUNCTION_FAILED;
 	}

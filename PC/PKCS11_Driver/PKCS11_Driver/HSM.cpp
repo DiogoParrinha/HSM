@@ -20,6 +20,8 @@
 #include "mbedtls/aes.h"
 #include "mbedtls/sha256.h"
 #include "mbedtls/md.h"
+#include "mbedtls/pk.h"
+#include "mbedtls/x509_crt.h"
 
 #include "HSM.h"
 #include "UART.h"
@@ -583,7 +585,7 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	return true;
 }
 
-bool HSM::generateKeyPair(CK_OBJECT_HANDLE_PTR privateKey, CK_OBJECT_HANDLE_PTR publicKey)
+bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR privateKey, CK_OBJECT_HANDLE_PTR publicKey)
 {
 	// Not logged in? Not admin? (only the admin can generate a key pair)
 	if (!loggedIn || authID != 0)
@@ -592,16 +594,259 @@ bool HSM::generateKeyPair(CK_OBJECT_HANDLE_PTR privateKey, CK_OBJECT_HANDLE_PTR 
 	}
 
 	comm->reqCommand();
+	printf("Sending USER_GENKEYS command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "USER_GENKEYS");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Wait for 'SUCCESS'
+	printf("Receiving SUCCESS...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		return false;
+	}
+
+	int r = 0;
+
+	// Wait for both keys
+	uint8_t pubBuffer[512] = { 0 };
+	if ((r = comm->receive(&pubBuffer[0], 512)) <= 0)
+		return false;
+	uint8_t priBuffer[512] = { 0 };
+	if ((r = comm->receive(&priBuffer[0], 512)) <= 0)
+		return false;
+
+	// Parse keys
+	mbedtls_pk_context ctx_pri, ctx_pub;
+	mbedtls_pk_init(&ctx_pri);
+	mbedtls_pk_init(&ctx_pub);
+
+	int ret = 0;
+	ret = mbedtls_pk_parse_key(&ctx_pri, priBuffer, strlen((char*)priBuffer) + 1, NULL, 0);
+	if (ret != 0)
+		return false;
+
+	ret = mbedtls_pk_parse_public_key(&ctx_pub, pubBuffer, strlen((char*)pubBuffer) + 1);
+	if (ret != 0)
+		return false;
+
+	// Validate that they are ECC keys
+	ret = mbedtls_pk_can_do(&ctx_pri, MBEDTLS_PK_ECKEY);
+	if (ret != 1)
+		return false;
+
+	ret = mbedtls_pk_can_do(&ctx_pub, MBEDTLS_PK_ECKEY);
+	if (ret != 1)
+		return false;
+
+	size_t l1 = mbedtls_pk_get_bitlen(&ctx_pri);
+	size_t l2 = mbedtls_pk_get_bitlen(&ctx_pub);
+
+	CK_OBJECT_CLASS keyClass1 = CKO_PUBLIC_KEY;
+	CK_OBJECT_CLASS keyClass2 = CKO_PRIVATE_KEY;
+	CK_KEY_TYPE keyType = CKK_EC;
+	CK_BBOOL MFALSE = CK_FALSE;
+	CK_ATTRIBUTE pubTemplate[] = {
+		{ CKA_CLASS, &keyClass1, sizeof(keyClass1) },
+		{ CKA_KEY_TYPE, &keyType, sizeof(keyType) },
+		{ CKA_TOKEN, &MFALSE, sizeof(MFALSE) }, // session object
+		//{ CKA_EC_PARAMS, ecParams, sizeof(ecParams) },
+		{ CKA_EC_POINT, pubBuffer, l2 } // This should be "DER-encoding of ANSI X9.62 ECPoint value Q"
+		
+	};
+	CK_ATTRIBUTE priTemplate[] = {
+		{ CKA_CLASS, &keyClass2, sizeof(keyClass2) },
+		{ CKA_KEY_TYPE, &keyType, sizeof(keyType) },
+		{ CKA_TOKEN, &MFALSE, sizeof(MFALSE) }, // session object
+		//{ CKA_EC_PARAMS, ecParams, sizeof(ecParams) },
+		{ CKA_VALUE, priBuffer, l1 } // This should be "ANSI X9.62 private value d"
+	};
+
+	// We got both keys, create the objects
+	CK_OBJECT_HANDLE hPrivate;
+	CK_OBJECT_HANDLE hPublic;
+	r = C_CreateObject(hSession, priTemplate, 4, &hPrivate);
+	if (r != CKR_OK)
+		return false;
+
+	r = C_CreateObject(hSession, pubTemplate, 4, &hPublic);
+	if (r != CKR_OK)
+	{
+		C_DestroyObject(hSession, hPrivate);
+		return false;
+	}
+
+	*privateKey = hPrivate;
+	*publicKey = hPublic;
 
 	return true;
 }
 
-bool HSM::getCertificate(CK_BYTE uid, CK_UTF8CHAR_PTR* certificate)
+bool HSM::getCertificate(CK_BYTE uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR bufSize)
 {
-	return false;
+	if (uid <= 0)
+		return false;
+
+	comm->reqCommand();
+	printf("Sending USER_CERT command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "USER_CERT");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Now it expects:
+	// 1B ID
+	printf("Sending DATA...");
+	memset(buffer, 0, sizeof(buffer));
+	buffer[0] = uid;
+	comm->send(buffer, 1);
+	printf("OK\n");
+
+	// Wait for 'SUCCESS'
+	printf("Receiving SUCCESS...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		return false;
+	}
+
+	// Wait for actual certificate
+	printf("Receiving certificate content...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK.\n");
+
+	mbedtls_x509_crt crt;
+	mbedtls_x509_crt_init(&crt);
+	int r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer)+1);
+	if (r != 0)
+		return false;
+
+	if (*bufSize < strlen((char*)buffer) + 1 || certificate == NULL)
+	{
+		*bufSize = strlen((char*)buffer) + 1;
+		return CKR_BUFFER_TOO_SMALL;
+	}
+
+	memcpy(certificate, buffer, strlen((char*)buffer) + 1);
+
+	return true;
 }
 
-bool HSM::genCertificate(CK_OBJECT_HANDLE_PTR publicKeyTemplate, CK_UTF8CHAR_PTR publicKey, CK_UTF8CHAR_PTR* certificate)
+bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, CK_UTF8CHAR_PTR publicKey, CK_UTF8CHAR_PTR certificate, CK_ULONG_PTR bufSize)
 {
+	if (!loggedIn || !isAdmin)
+		return false;
+
+	// Parse Public Key (must be in PEM format)
+	mbedtls_pk_context ctx_pub;
+	mbedtls_pk_init(&ctx_pub);
+
+	// check if it can be parsed (should be in PEM format)
+	int ret = mbedtls_pk_parse_public_key(&ctx_pub, publicKey, strlen((char*)publicKey) + 1);
+	if (ret != 0)
+		return false;
+
+	if (strlen((char*)publicKey) + 1 > sizeof(buffer))
+		return false;
+
+	// Check template
+	CK_UTF8CHAR * subjectName;
+	uint16_t keyUsage = 0;
+
+	// Check template attribute
+	// Subject name, Key usage
+	// Check parameters (we only care about CKA_CLASS and CKA_KEY_TYPE...)
+	uint32_t p = 0;
+	for (p = 0; p < ulCount; p++)
+	{
+		if (publicKeyTemplate[p].type == CKA_SUBJECT)
+		{
+			subjectName = (CK_UTF8CHAR*)publicKeyTemplate[p].pValue;
+			if (strlen((char*)subjectName) > 255) // HSM only supports 255 chars subject names
+				return false;
+		}
+
+		if (publicKeyTemplate[p].type == CKA_ENCRYPT)
+			keyUsage |= MBEDTLS_X509_KU_DATA_ENCIPHERMENT;
+
+		if (publicKeyTemplate[p].type == CKA_VERIFY)
+		{
+			keyUsage |= MBEDTLS_X509_KU_DIGITAL_SIGNATURE;
+			keyUsage |= MBEDTLS_X509_KU_KEY_CERT_SIGN;
+			keyUsage |= MBEDTLS_X509_KU_CRL_SIGN;
+			keyUsage |= MBEDTLS_X509_KU_NON_REPUDIATION;
+		}
+
+		if (publicKeyTemplate[p].type == CKA_VERIFY_RECOVER)
+		{
+			keyUsage |= MBEDTLS_X509_KU_DIGITAL_SIGNATURE;
+			keyUsage |= MBEDTLS_X509_KU_KEY_CERT_SIGN;
+			keyUsage |= MBEDTLS_X509_KU_CRL_SIGN;
+			keyUsage |= MBEDTLS_X509_KU_NON_REPUDIATION;
+		}
+
+		if (publicKeyTemplate[p].type == CKA_DERIVE)
+			keyUsage |= MBEDTLS_X509_KU_KEY_AGREEMENT;
+
+		if (publicKeyTemplate[p].type == CKA_WRAP)
+			keyUsage |= MBEDTLS_X509_KU_KEY_ENCIPHERMENT;
+	}
+
+	// Place the keyUsage into an array
+	unsigned char keyUsageArray[2];
+	keyUsageArray[0] = keyUsage & 0x000000FF;
+	keyUsageArray[1] = (keyUsage & 0x0000FF00) >> 8;
+
+	comm->reqCommand();
+	printf("Sending CRT_REQUEST command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "CRT_REQUEST");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Now it expects:
+	// subject name + \0 or 0 (should be the same thing) | 1B for key usage
+	printf("Sending DATA...");
+	memset(buffer, 0, sizeof(buffer));
+	memcpy(buffer, subjectName, strlen((char*)subjectName));
+	buffer[strlen((char*)subjectName)] = '\0';
+	buffer[strlen((char*)subjectName) + 1] = keyUsageArray[0];
+	buffer[strlen((char*)subjectName) + 2] = keyUsageArray[1];
+	comm->send(buffer, strlen((char*)subjectName) + 1 + 2); // +1 because of \0 at the end of subject name and +2 because of key usage
+	printf("OK\n");
+
+	// Send public key
+	printf("Sending public key...");
+	memset(buffer, 0, sizeof(buffer));
+	memcpy(buffer, publicKey, strlen((char*)publicKey));
+	comm->send(buffer, strlen((char*)buffer)+1);
+	printf("OK\n");
+
+	// Wait for 'SUCCESS'
+	printf("Receiving SUCCESS...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		return false;
+	}
+
+	// Wait for actual certificate
+	printf("Receiving certificate content...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK.\n");
+
+	// copy certificate
+	memcpy(certificate, buffer, strlen((char*)buffer) + 1);
+
 	return false;
 }

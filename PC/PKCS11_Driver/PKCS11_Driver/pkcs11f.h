@@ -918,7 +918,7 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_UserAdd)
 	CK_SESSION_HANDLE hSession, /* the session's handle */
 	CK_UTF8CHAR_PTR pPin,		/* user PIN */
 	CK_ULONG ulPinLen,			/* pin length */
-	CK_ULONG_PTR uID			/* receives the user ID*/
+	CK_BYTE uID			/* receives the user ID*/
 );
 #endif
 
@@ -932,11 +932,44 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_UserModify)
 );
 #endif
 
-/* HSM_C_UserDelete deletes a user. */
+/* HSM_C_UserDelete modifies a user. */
 CK_PKCS11_FUNCTION_INFO(HSM_C_UserDelete)
 #ifdef CK_NEED_ARG_LIST
 (
 	CK_SESSION_HANDLE hSession, /* the session's handle */
-	CK_ULONG_PTR uID			/* the user ID*/
+	CK_BYTE pUid		/* new user PIN */
+);
+#endif
+
+/* HSM_C_LogAdd adds a message to the log. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_LogAdd)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession,	/* the session's handle */
+	CK_UTF8CHAR_PTR pMessage	/* the message to add */
+);
+#endif
+
+/* HSM_C_CertGet gets a user's public key certificate. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_CertGet)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession,		/* the session's handle */
+	CK_BYTE pUid,					/* the user ID*/
+	CK_UTF8CHAR_PTR certificate,	/* will hold the certificate in PEM format */
+	CK_ULONG_PTR bufSize			/* size of the buffer; if too small, it will be filled with size needed */
+);
+#endif
+
+/* HSM_C_CertGen generates a certificate for a given public key. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_CertGen)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession,				/* the session's handle */
+	CK_ATTRIBUTE_PTR publicKeyTemplate,	/* the template of the public key */
+	CK_ULONG ulCount,						/* total template attributes */
+	CK_UTF8CHAR_PTR publicKey,				/* public key in PEM format */
+	CK_UTF8CHAR_PTR certificate,			/* will hold the certificate in PEM format */
+	CK_ULONG_PTR bufSize					/* size of the buffer; if too small, it will be filled with size needed */
 );
 #endif
