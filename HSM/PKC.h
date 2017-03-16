@@ -17,7 +17,7 @@ int PKC_init(mbedtls_pk_context *ctx, mbedtls_entropy_context * entropy, mbedtls
 BOOL PKC_genKeyPair(uint8_t * public, uint8_t * private);
 BOOL PKC_signData(uint8_t * private, uint8_t * data, size_t data_len, uint8_t * signature, size_t * signature_len);
 int PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint8_t * signature, size_t signature_len);
-BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint8_t key_usage, uint8_t* certificate, uint32_t bufsize);
+BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key_usage, uint8_t* certificate, uint32_t bufsize);
 void PKC_free(mbedtls_pk_context *ctx, mbedtls_entropy_context * entropy, mbedtls_ctr_drbg_context * ctr_drbg);
 
 #endif /* PKC_H_ */

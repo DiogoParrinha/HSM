@@ -84,11 +84,17 @@ BOOL USER_add(uint8_t ID, uint8_t * plainPIN)
 	// Generate key pair and store it
 	newUser->privateKey = malloc(sizeof(uint8_t)*ECC_PRIVATE_KEY_SIZE);
 	if(!newUser->privateKey)
+	{
+		free(newUser);
 		return FALSE;
+	}
 
 	newUser->publicKey = malloc(sizeof(uint8_t)*ECC_PUBLIC_KEY_SIZE);
 	if(!newUser->publicKey)
+	{
+		free(newUser);
 		return FALSE;
+	}
 
 	newUser->publicKeyCertificate = NULL;
 
@@ -101,9 +107,8 @@ BOOL USER_add(uint8_t ID, uint8_t * plainPIN)
 	SPIFLASH_UserList[ID-1] = ID;
 	SPIFLASH_totalUsers++;
 
-	// Allocate enough space for block size
-	uint32_t size = sizeof(uint8_t)*FLASH_BLOCK_SIZE;
-	memset(global_buffer, 0, FLASH_BLOCK_SIZE);
+	// Enough space for block size
+	memset(global_buffer, 0, GLOBAL_BUFFER_SIZE);
 
 	/*
 	 *
@@ -132,6 +137,8 @@ BOOL USER_add(uint8_t ID, uint8_t * plainPIN)
 	sprintf(SUBJECT_NAME, "CN=User %d, O=HSM, C=PT", newUser->ID);
 	if(!PKC_createCertificate(newUser->publicKey, SUBJECT_NAME, MBEDTLS_X509_KU_DIGITAL_SIGNATURE, &global_buffer[pos], FLASH_BLOCK_SIZE-pos))
 	{
+		free(newUser->publicKey);
+		free(newUser->privateKey);
 		free(newUser);
 		return FALSE;
 	}
@@ -140,6 +147,8 @@ BOOL USER_add(uint8_t ID, uint8_t * plainPIN)
 
 	// TODO: Update hash in eNVM
 
+	free(newUser->publicKey);
+	free(newUser->privateKey);
 	USER_free(newUser);
 
 	SPIFLASH_UserList[ID-1] = ID;
@@ -154,9 +163,8 @@ BOOL USER_modify(USER *user)
 	if(!USER_exists(user->ID))
 		return FALSE;
 
-	// Allocate enough space for block size
-	uint32_t size = sizeof(uint8_t)*FLASH_BLOCK_SIZE;
-	memset(global_buffer, 0, FLASH_BLOCK_SIZE);
+	// Enough space for block size
+	memset(global_buffer, 0, GLOBAL_BUFFER_SIZE);
 
 	/*
 	 * Write into buffer in the following format:
@@ -196,8 +204,7 @@ USER * USER_get(uint8_t ID)
 	}
 
 	// Calculate block size
-	uint32_t size = sizeof(uint8_t)*FLASH_BLOCK_SIZE;
-	memset(global_buffer, 0, FLASH_BLOCK_SIZE);
+	memset(global_buffer, 0, GLOBAL_BUFFER_SIZE);
 
 	SPIFLASH_readBlock(ID, global_buffer, FLASH_USERS_BASE_ADDRESS);
 

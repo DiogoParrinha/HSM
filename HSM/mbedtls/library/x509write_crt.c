@@ -305,7 +305,7 @@ int mbedtls_x509write_crt_der( mbedtls_x509write_cert *ctx, unsigned char *buf, 
     unsigned char tmp_buf[2048];
     size_t sub_len = 0, pub_len = 0, sig_and_oid_len = 0, sig_len;
     size_t len = 0;
-    volatile mbedtls_pk_type_t pk_alg;
+    mbedtls_pk_type_t pk_alg;
 
     /*
      * Prepare data to be signed in tmp_buf

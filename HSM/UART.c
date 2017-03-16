@@ -206,7 +206,7 @@ int UART_send(uint8_t *buffer, uint32_t len)
 		if(UART_usingKey)
 		{
 			// Encrypt block
-			memset(ciphertext, 0, BLOCK_SIZE);
+			memset(ciphertext, 0, sizeof(data));
 			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, BLOCK_SIZE, IV, data, &ciphertext[0]);
 
 			// Update HMAC
@@ -248,7 +248,7 @@ int UART_send(uint8_t *buffer, uint32_t len)
 			remaining = BLOCK_SIZE;
 
 			// Encrypt block
-			memset(ciphertext, 0, BLOCK_SIZE);
+			memset(ciphertext, 0, sizeof(ciphertext));
 			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, BLOCK_SIZE, IV, data, &ciphertext[0]);
 
 			// Update HMAC
@@ -287,7 +287,7 @@ void UART_waitOK()
 	uint16_t count = 0u;
 	
 	uint8_t ok[4];
-	memset(ok, 0, 4);
+	memset(ok, 0, sizeof(ok));
 	
 	while(1)
 	{
@@ -311,7 +311,7 @@ void UART_waitCOMMAND()
 	uint16_t count = 0u;
 
 	uint8_t data[7];
-	memset(data, 0, 7);
+	memset(data, 0, sizeof(data));
 
 	while(1)
 	{
@@ -402,7 +402,7 @@ int UART_receive(char *location, uint32_t locsize)
 	}*/
 
 	// Send chunks of 16B
-	unsigned char data[BLOCK_SIZE+1]; // +1 because we want the last char to be 0 for printing possibilities
+	unsigned char data[BLOCK_SIZE];
 	memset(data, 0, sizeof(data));
 
 	volatile uint32_t bytes = 0;
@@ -424,7 +424,7 @@ int UART_receive(char *location, uint32_t locsize)
 			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, BLOCK_SIZE, IV, data, &plaintext[0]);
 
 			// Remove padding from message
-			memset(data, 0, BLOCK_SIZE);
+			memset(data, 0, sizeof(data));
 			size_t l = 0;
 			int r = get_pkcs_padding(plaintext, BLOCK_SIZE, &l);
 			if(r == 0)

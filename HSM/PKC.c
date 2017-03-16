@@ -202,7 +202,7 @@ int PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint8
     return 0;
 }
 
-BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint8_t key_usage, uint8_t* certificate, uint32_t bufsize)
+BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key_usage, uint8_t* certificate, uint32_t bufsize)
 {
 	mbedtls_entropy_context entropy;
 	mbedtls_ctr_drbg_context ctr_drbg;
@@ -261,7 +261,7 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint8_t key_
 		return FALSE;
 	}
 
-	if((ret = mbedtls_x509write_crt_set_issuer_name(&crt, "CN=HSM,C=PT")) != 0)
+	if((ret = mbedtls_x509write_crt_set_issuer_name(&crt, "CN=HSM-INESC,C=PT")) != 0)
 	{
 		char error[10];
 		sprintf(error, "E: %d", ret);
@@ -319,7 +319,7 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint8_t key_
 	}
 
 	// Write certificate
-    memset(certificate, 0, GLOBAL_BUFFER_SIZE);
+    memset(certificate, 0, bufsize);
     if((ret = mbedtls_x509write_crt_pem(&crt, certificate, bufsize, mbedtls_ctr_drbg_random, &ctr_drbg)) < 0)
     {
 		char error[10];

@@ -110,8 +110,8 @@ void COMMAND_USER_process(uint8_t * command)
 			return;
 		}
 
-		// Send SUCCESS with ID
-		UART_send("SUCCESS_ID", 10);
+		// Send SUCCESS
+		UART_send("SUCCESS", 7);
 
 		uint8_t data[1];
 		data[0] = U_ID;
@@ -193,7 +193,7 @@ void COMMAND_USER_process(uint8_t * command)
 		// Send SUCCESS
 		UART_send("SUCCESS", 7);
 	}
-	/*else if(strcmp(command, "USER_GENKEYS") == 0)
+	else if(strcmp(command, "USER_GENKEYS") == 0)
 	{
 		// Generate Key Pair and send it
 
@@ -221,7 +221,7 @@ void COMMAND_USER_process(uint8_t * command)
 			return;
 		};
 
-		if(!PKC_genKeyPair(privateKey, publicKey))
+		if(!PKC_genKeyPair(publicKey, privateKey))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: Generating key pair");
@@ -229,15 +229,15 @@ void COMMAND_USER_process(uint8_t * command)
 		}
 
 		// Success
-		UART_send("SUCCESS_KEYS", 7);
+		UART_send("SUCCESS", 7);
 
 		// Send both keys
-		UART_send(privateKey, strlen(privateKey));
 		UART_send(publicKey, strlen(publicKey));
+		UART_send(privateKey, strlen(privateKey));
 
 		free(publicKey);
 		free(privateKey);
-	}*/
+	}
 	else if(strcmp(command, "USER_CERT") == 0)
 	{
 		// Get certificate of user's public key
@@ -259,11 +259,13 @@ void COMMAND_USER_process(uint8_t * command)
 
 		USER * u = USER_get(U_ID);
 
-		// Send SUCCESS with Certificate
-		UART_send("CERTIFICATE", 11);
+		// Send SUCCESS
+		UART_send("SUCCESS", 7);
 
 		// Send certificate
 		UART_send(u->publicKeyCertificate, strlen(u->publicKeyCertificate)+1);
+		
+		USER_free(u);
 	}
 }
 
@@ -306,8 +308,8 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 
 		USER_free(u);
 
-		// Send SIGNATURE
-		UART_send("SIGNATURE", 9);
+		// Send SUCCESS
+		UART_send("SUCCESS", 7);
 
 		// Send signature
 		UART_send(sig, sig_len);
@@ -389,13 +391,13 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 
 		// Admin is requesting a certificate for a public key
 
-		// Expect subject name + \0 or 0 (should be the same thing) | 1B key usage
-		uint8_t buffer[255+1] = {0};
-		UART_receive(&buffer[0], 255+1);
+		// Expect subject name + \0 or 0 (should be the same thing) | 2B key usage
+		uint8_t buffer[255+3] = {0};
+		UART_receive(&buffer[0], 255+3);
 
 		uint8_t SUBJECT_NAME[256] = {0}; // subject name shouldn't go over this limit
 		uint8_t KEY[ECC_PUBLIC_KEY_SIZE] = {0}; // key shouldn't go over this limit
-		uint8_t sizeArray[4] = {0};
+		uint8_t keyUsageArray[2] = {0};
 
 		// Then go through the subject name until we find \0 or 0
 		uint32_t i;
@@ -412,8 +414,15 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 			}
 		}
 
+		keyUsageArray[0] = buffer[k];
+		keyUsageArray[1] = buffer[k+1];
+
+		// Convert this back to an integer of 16bits
+		uint16_t keyUsage = (0x000000FF & keyUsageArray[0])
+			| ((0x000000FF & keyUsageArray[1]) << 8);
+
 		// Get key usage
-		uint32_t key_usage = 0;
+		/*uint32_t key_usage = 0;
 		if(k > 0)
 		{
 			key_usage = buffer[k];
@@ -448,12 +457,12 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 			case 8:
 				key_usage = MBEDTLS_X509_KU_DECIPHER_ONLY;
 			break;
-		}
+		}*/
 
 		// Except public key now
 		UART_receive(KEY, ECC_PUBLIC_KEY_SIZE);
 
-		if(!PKC_createCertificate(KEY, SUBJECT_NAME, key_usage, &global_buffer[0], GLOBAL_BUFFER_SIZE))
+		if(!PKC_createCertificate(KEY, SUBJECT_NAME, keyUsage, &global_buffer[0], GLOBAL_BUFFER_SIZE))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: generating certificate");
@@ -461,7 +470,7 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 		}
 
 		// Send SUCCESS with Certificate
-		UART_send("CERTIFICATE", 11);
+		UART_send("SUCCESS", 7);
 
 		// Send certificate
 		UART_send(global_buffer, strlen(global_buffer)+1);

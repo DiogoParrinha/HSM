@@ -60,14 +60,14 @@ MEMORY
     ram (rwx) : ORIGIN = 0x20000000, LENGTH = 64k
 	
 	/* LSRAM stores stack */
-	lsram (rwx) : ORIGIN = 0x30000000, LENGTH = 32k
+	lsram (rwx) : ORIGIN = 0x30000000, LENGTH = 64k
 }
 
 LSRAM_START_ADDRESS = 0x30000000;
-LSRAM_SIZE			= 32k;
+LSRAM_SIZE			= 64k;
 RAM_START_ADDRESS   = 0x20000000;       /* Must be the same value MEMORY region ram ORIGIN above. */
 RAM_SIZE            = 64k;              /* Must be the same value MEMORY region ram LENGTH above. */
-MAIN_STACK_SIZE     = 8k;               /* Cortex main stack size. */
+MAIN_STACK_SIZE     = 16k;               /* Cortex main stack size. */
 MIN_SIZE_HEAP       = 4k;               /* needs to be calculated for your application */
 
 /* Please note that unassigned RAM will be allocated to the .heap section. */

@@ -76,7 +76,7 @@ typedef uint8_t BOOL;
 #define ADMIN_ID (uint8_t)0
 #define ADMIN_PIN (uint8_t*)"12345678912345678912345678912345"
 
-#define GLOBAL_BUFFER_SIZE FLASH_BLOCK_SIZE
+#define GLOBAL_BUFFER_SIZE FLASH_BLOCK_SIZE*2
 uint8_t global_buffer[GLOBAL_BUFFER_SIZE]; // goes in the BSS section
 
 uint32_t calculate_weekday(uint32_t day, uint32_t month, uint32_t year);

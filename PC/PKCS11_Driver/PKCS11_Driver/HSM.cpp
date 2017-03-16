@@ -505,10 +505,10 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 	printf("OK\n");
 
 	// Wait for 'SIGNATURE'
-	printf("Receiving SIGNATURE...");
+	printf("Receiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 512);
-	if (strcmp((char*)buffer, "SIGNATURE") != 0)
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
 	{
 		printf("\nError: %s\n", buffer);
 		return false;
@@ -751,10 +751,16 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	// check if it can be parsed (should be in PEM format)
 	int ret = mbedtls_pk_parse_public_key(&ctx_pub, publicKey, strlen((char*)publicKey) + 1);
 	if (ret != 0)
+	{
+		mbedtls_pk_free(&ctx_pub);
 		return false;
+	}
 
 	if (strlen((char*)publicKey) + 1 > sizeof(buffer))
+	{
+		mbedtls_pk_free(&ctx_pub);
 		return false;
+	}
 
 	// Check template
 	CK_UTF8CHAR * subjectName;
@@ -770,7 +776,10 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 		{
 			subjectName = (CK_UTF8CHAR*)publicKeyTemplate[p].pValue;
 			if (strlen((char*)subjectName) > 255) // HSM only supports 255 chars subject names
+			{
+				mbedtls_pk_free(&ctx_pub);
 				return false;
+			}
 		}
 
 		if (publicKeyTemplate[p].type == CKA_ENCRYPT)
@@ -836,6 +845,7 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
 	{
+		mbedtls_pk_free(&ctx_pub);
 		return false;
 	}
 
@@ -848,5 +858,7 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	// copy certificate
 	memcpy(certificate, buffer, strlen((char*)buffer) + 1);
 
-	return false;
+	mbedtls_pk_free(&ctx_pub);
+
+	return true;
 }
