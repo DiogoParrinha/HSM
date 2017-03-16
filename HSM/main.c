@@ -43,8 +43,10 @@ int main()
 
 	/*USER_init();
 
-	//USER_remove(1);
-	USER_add(2, "12345678912345678912345678912342");
+	USER_remove(1);
+	USER_remove(2);
+	return 0;*/
+	/*USER_add(2, "12345678912345678912345678912342");
 	USER * n1 = USER_get(2);
 
 	volatile int t = 0;

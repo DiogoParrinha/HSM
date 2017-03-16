@@ -20,6 +20,8 @@ void USER_init()
 
 		if(temp[0] != 0x64) // 0x64 means the user exists
 			temp[1] = 0;
+		else
+			SPIFLASH_totalUsers++;
 
 		SPIFLASH_UserList[i] = temp[1]; // uid is in position 1
 	}
@@ -166,6 +168,12 @@ BOOL USER_modify(USER *user)
 	// Enough space for block size
 	memset(global_buffer, 0, GLOBAL_BUFFER_SIZE);
 
+	// Store the hash
+	uint8_t PIN[32] = {0};
+	memcpy(PIN, user->PIN, PIN_SIZE);
+
+	mbedtls_sha256(PIN, PIN_SIZE, user->PIN, 0);
+
 	/*
 	 * Write into buffer in the following format:
 	 * 1B: 0x64
@@ -298,6 +306,7 @@ void USER_remove(uint8_t ID)
 {
 	SPIFLASH_eraseBlock(ID, FLASH_USERS_BASE_ADDRESS);
 	SPIFLASH_UserList[ID-1] = 0;
+	SPIFLASH_totalUsers--;
 }
 
 // check if a plain-text PIN matches the admin pin

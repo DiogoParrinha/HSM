@@ -101,7 +101,7 @@ void COMMAND_USER_process(uint8_t * command)
 		}
 
 		// Get next available ID
-		uint8_t U_ID = USER_getNextAvailableID();
+		volatile uint8_t U_ID = USER_getNextAvailableID();
 		if(!USER_add(U_ID, U_PIN))
 		{
 			// Respond back with ERROR
@@ -119,7 +119,7 @@ void COMMAND_USER_process(uint8_t * command)
 	}
 	else if(strcmp(command, "USER_MODIFY") == 0)
 	{
-		if(!connected || !loggedIn)
+		if(!connected || !loggedIn || isAdmin) // admin can't modify PINs
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -128,25 +128,21 @@ void COMMAND_USER_process(uint8_t * command)
 
 		// Modify PIN
 
-		// Expect PIN|ID
-		uint8_t buffer[PIN_SIZE+1] = {0};
-		UART_receive(&buffer[0], 33u);
+		// Expect PIN
+		uint8_t buffer[PIN_SIZE] = {0};
+		UART_receive(&buffer[0], PIN_SIZE);
 
-		uint8_t U_ID = 0;
 		uint8_t U_PIN[PIN_SIZE] = {0};
 
 		// 32B => New PIN
 		memcpy(U_PIN, &buffer[0], PIN_SIZE);
 
-		// ID
-		U_ID = buffer[PIN_SIZE];
-
 		USER_init();
-		USER * u = USER_get(U_ID);
-		if(!u || (U_ID != authID && !isAdmin))
+		USER * u = USER_get(authID);
+		if(!u)
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: Cannot find user");
+			COMMAND_ERROR("ERROR: invalid user");
 			return;
 		}
 
@@ -178,8 +174,7 @@ void COMMAND_USER_process(uint8_t * command)
 
 		// Expect 1B User ID
 		uint8_t buffer[1] = {0};
-		UART_get(&buffer[0], 1);
-		UART_sendOK();
+		UART_receive(&buffer[0], 1);
 
 		uint8_t ID = 0;
 
@@ -687,4 +682,6 @@ void COMMAND_DEVICE_process(uint8_t * command)
 void COMMAND_ERROR(char * message)
 {
 	UART_send(message, strlen(message));
+	UART_disconnect();
+	connected = FALSE;
 }
