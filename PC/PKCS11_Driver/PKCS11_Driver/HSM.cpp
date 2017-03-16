@@ -834,7 +834,7 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	// Send public key
 	printf("Sending public key...");
 	memset(buffer, 0, sizeof(buffer));
-	memcpy(buffer, publicKey, strlen((char*)publicKey));
+	memcpy(buffer, publicKey, strlen((char*)publicKey)*sizeof(CK_UTF8CHAR));
 	comm->send(buffer, strlen((char*)buffer)+1);
 	printf("OK\n");
 
@@ -859,6 +859,124 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	memcpy(certificate, buffer, strlen((char*)buffer) + 1);
 
 	mbedtls_pk_free(&ctx_pub);
+
+	return true;
+}
+
+bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
+{
+	if (!loggedIn || !isAdmin)
+		return false;
+
+	if (ulPinLen != 32)
+		return false;
+
+	comm->reqCommand();
+	printf("Sending USER_NEW command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "USER_NEW");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Now it expects:
+	// ADMIN_PIN | USER_PIN
+	printf("Sending DATA...");
+	memset(buffer, 0, sizeof(buffer));
+	memcpy((char*)buffer, pPin, ulPinLen*sizeof(CK_UTF8CHAR));
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK\n");
+
+	// Wait for 'SUCCESS'
+	printf("Receiving SUCCESS...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		return false;
+	}
+
+	// Wait for ID (1B)
+	printf("Receiving ID...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %d\n", buffer[0]);
+	if (buffer[0] <= 0 || buffer[0] > 255)
+		return false;
+
+	*uID = buffer[0];
+
+	return true;
+}
+
+bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
+{
+	if (!loggedIn || isAdmin) // admin cannot modify PINs
+		return false;
+
+	if (ulPinLen != 32)
+		return false;
+
+	comm->reqCommand();
+	printf("Sending USER_MODIFY command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "USER_MODIFY");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Now it expects:
+	// USER_PIN
+	printf("Sending DATA...");
+	memset(buffer, 0, sizeof(buffer));
+	memcpy((char*)buffer, pPin, ulPinLen * sizeof(CK_UTF8CHAR));
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK\n");
+
+	// Wait for 'SUCCESS'
+	printf("Receiving SUCCESS...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool HSM::deleteUser(CK_BYTE uID)
+{
+	if (!loggedIn || !isAdmin)
+		return false;
+
+	if (uID <= 0 || uID > 255)
+		return false;
+
+	comm->reqCommand();
+	printf("Sending USER_DELETE command...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "USER_DELETE");
+	comm->send(buffer, strlen((char*)buffer));
+	printf("OK.\n");
+
+	// Now it expects:
+	// USER_ID
+	printf("Sending DATA...");
+	memset(buffer, 0, sizeof(buffer));
+	buffer[0] = uID;
+	comm->send(buffer, 1);
+	printf("OK\n");
+
+	// Wait for 'SUCCESS'
+	printf("Receiving SUCCESS...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		return false;
+	}
 
 	return true;
 }

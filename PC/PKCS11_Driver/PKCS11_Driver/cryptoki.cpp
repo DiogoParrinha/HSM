@@ -1961,9 +1961,55 @@ CK_RV C_CancelFunction(CK_SESSION_HANDLE hSession)
 **************************/
 
 // HSM_C_UserAdd
-CK_RV HSM_C_UserAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE uID)
+CK_RV HSM_C_UserAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 {
-	// TODO
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	if (pPin == NULL || ulPinLen <= 0)
+	{
+		return ERROR_BAD_ARGUMENTS;
+	}
+
+	if (!d->addUser(pPin, ulPinLen, uID))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
 	return CKR_OK;
 }
@@ -1971,7 +2017,53 @@ CK_RV HSM_C_UserAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG u
 // HSM_C_UserModify
 CK_RV HSM_C_UserModify(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 {
-	// TODO
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	if (pPin == NULL || ulPinLen <= 0)
+	{
+		return ERROR_BAD_ARGUMENTS;
+	}
+
+	if (!d->modifyUser(pPin, ulPinLen))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
 	return CKR_OK;
 }
@@ -1979,7 +2071,53 @@ CK_RV HSM_C_UserModify(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULON
 // HSM_C_UserDelete
 CK_RV HSM_C_UserDelete(CK_SESSION_HANDLE hSession, CK_BYTE pUid)
 {
-	// TODO
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	if (pUid <= 0)
+	{
+		return ERROR_BAD_ARGUMENTS;
+	}
+
+	if (!d->deleteUser(pUid))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
 	return CKR_OK;
 }

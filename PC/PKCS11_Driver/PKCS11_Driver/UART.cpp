@@ -24,12 +24,18 @@
 
 #define BLOCK_SIZE 16
 
+FILE *fpIn;
+
 UART::UART() {
 	usb = new SerialPort();
 	usingKey = false;
+
+	fopen_s(&fpIn, "./logIn.txt", "w+");
 }
  
 UART::~UART() {
+	fclose(fpIn);
+
 	if (usb!=NULL)
 		disconnect();
 
@@ -113,6 +119,8 @@ void UART::setKey(uint8_t * key, bool use)
 void UART::disconnect()
 {
 	usb->disconnect();
+
+	fclose(fpIn);
 }
 
 bool UART::reqCommand()
@@ -614,6 +622,9 @@ size_t UART::getDataUART
 			++rx_size;
 		}
 	}
+
+	fwrite("\n", sizeof(char), 1, fpIn);
+	fwrite(rx_buff, sizeof(char), rx_size, fpIn);
 
 	return rx_size;
 }

@@ -125,10 +125,12 @@ int main()
 	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
 	assert(r == CKR_OK);
 
-	unsigned char data[33];
+	unsigned char data[128];
 
 	// Login User
-	sprintf_s((char*)data, 33, "%s", "12345678912345678912345678912341"); // user 1
+	/*
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912341"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
 	assert(r == CKR_OK);
@@ -181,16 +183,114 @@ int main()
 
 	// Logout User
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);
+	assert(r == CKR_OK);*/
 
 	// Login
-	sprintf_s((char*)data, 33, "%s", "12345678912345678912345678912345"); // admin
+	/*memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
 	data[32] = 0;
 	r = C_Login(phSession, CKU_SO, data, 33);
 	assert(r == CKR_OK);
 
+	CK_BYTE userID = 0;
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
+	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	assert(r == CKR_OK);
+
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555002"); // user 2
+	userID = 0;
+	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	assert(r == CKR_OK);
+
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555003"); // user 3
+	userID = 0;
+	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	assert(r == CKR_OK);
+
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555004"); // user 4
+	userID = 0;
+	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	assert(r == CKR_OK);
+
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555005"); // user 5
+	userID = 0;
+	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	assert(r == CKR_OK);
+
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555006"); // user 6
+	userID = 0;
+	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	assert(r == CKR_OK);
+
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555007"); // user 7
+	userID = 0;
+	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	assert(r == CKR_OK);*/
+
+
+	// Login admin
+	/*memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
+	data[32] = 0;
+	r = C_Login(phSession, CKU_SO, data, 33);
+	assert(r == CKR_OK);
+
+	r = HSM_C_UserDelete(phSession, 1);
+	assert(r == CKR_OK);
+
+	CK_BYTE userID = 0;
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
+	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	assert(r == CKR_OK);
+
+	// Logout Admin
+	r = C_Logout(phSession);
+	assert(r == CKR_OK);
+
+	// Login user 1
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
+	data[32] = 1;
+	r = C_Login(phSession, CKU_USER, data, 33);
+	assert(r == CKR_OK);
+
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555100"); // user 1
+	r = HSM_C_UserModify(phSession, &data[0], 32);
+	assert(r == CKR_OK);
+
+	// Logout user 1
+	r = C_Logout(phSession);
+	assert(r == CKR_OK);
+
+
+	// Login user 1
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555100"); // user 1
+	data[32] = 1;
+	r = C_Login(phSession, CKU_USER, data, 33);
+	assert(r == CKR_OK);
+
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
+	r = HSM_C_UserModify(phSession, &data[0], 32);
+	assert(r == CKR_OK);
+
+	// Logout user 1
+	r = C_Logout(phSession);
+	assert(r == CKR_OK);*/
+
+
 	// Generate a key pair 
-	CK_MECHANISM genkey_mechanism = {
+	/*CK_MECHANISM genkey_mechanism = {
 		CKM_EC_KEY_PAIR_GEN, NULL_PTR, 0
 	};
 
@@ -224,29 +324,7 @@ int main()
 	r = C_GetAttributeValue(phSession, pri, priKeyTemplate, 3);
 	assert(r == CKR_OK);
 
-	// Use FindObjects to get a certificate of a user's public key
-
-	/*CK_OBJECT_CLASS certClass = CKO_CERTIFICATE;
-	CK_BYTE id[] = { 0x1 }; // user ID 1
-	CK_ATTRIBUTE certTemplate1[] = {
-		{ CKA_ID, id, sizeof(id) }, // user ID
-		{ CKA_CLASS, &certClass, sizeof(certClass) },
-	};
-	r = C_FindObjectsInit(phSession, certTemplate1, 2);
-	assert(r == CKR_OK);
-
-	CK_OBJECT_HANDLE cert1;
-	CK_ULONG objectCount;
-	r = C_FindObjects(phSession, &cert1, 1, &objectCount);
-	assert(r == CKR_OK);
-
-	r = C_FindObjectsFinal(phSession);
-	assert(r == CKR_OK);*/
-
-	// Use FindObjects to get a certificate for a given public key
-	// We must pass several fields in the template
-
-	// Instead of the above, we use our own functions
+	// We use our own functions
 	CK_UTF8CHAR certificate[4096];
 	CK_ULONG bufSize = 4096;
 	r = HSM_C_CertGet(phSession, 1, certificate, &bufSize);
@@ -265,11 +343,35 @@ int main()
 	CK_ULONG certSize = 4096;
 	//uint8_t data2[] = "-----BEGIN PUBLIC KEY-----\nMEkwEwYHKoZIzj0CAQYIKoZIzj0DAQEDMgAExVk6YzJ47/cxxyB9nTNSf0Q49Bz/\nnKbxtniyyrIo5ABC6cyYbAsFdmQAFTaeZ8l8\n-----END PUBLIC KEY-----\n";
 	r = HSM_C_CertGen(phSession, pubTemplateCert, 5, pubBuffer, certificate2, &certSize);
+	assert(r == CKR_OK);*/
+
+	/*
+	// Use FindObjects to get a certificate of a user's public key
+
+	CK_OBJECT_CLASS certClass = CKO_CERTIFICATE;
+	CK_BYTE id[] = { 0x1 }; // user ID 1
+	CK_ATTRIBUTE certTemplate1[] = {
+	{ CKA_ID, id, sizeof(id) }, // user ID
+	{ CKA_CLASS, &certClass, sizeof(certClass) },
+	};
+	r = C_FindObjectsInit(phSession, certTemplate1, 2);
 	assert(r == CKR_OK);
 
-	// Logout Admin
-	r = C_Logout(phSession);
+	CK_OBJECT_HANDLE cert1;
+	CK_ULONG objectCount;
+	r = C_FindObjects(phSession, &cert1, 1, &objectCount);
 	assert(r == CKR_OK);
+
+	r = C_FindObjectsFinal(phSession);
+	assert(r == CKR_OK);
+
+	// Use FindObjects to get a certificate for a given public key
+	// We must pass several fields in the template
+	*/
+
+	// Logout Admin
+	/*r = C_Logout(phSession);
+	assert(r == CKR_OK);*/
 
 	// close session
 	r = C_CloseSession(phSession);

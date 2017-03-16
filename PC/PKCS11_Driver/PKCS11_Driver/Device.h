@@ -24,6 +24,10 @@ class Device
 		virtual bool generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR privateKey, CK_OBJECT_HANDLE_PTR publicKey);
 		virtual bool getCertificate(CK_BYTE uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR bufSize);
 		virtual bool genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, CK_UTF8CHAR_PTR publicKey, CK_UTF8CHAR_PTR certificate, CK_ULONG_PTR bufSize);
+		virtual bool addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID);
+		virtual bool modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen);
+		virtual bool deleteUser(CK_BYTE uID);
+
 
 		void strcpy_bp(void * destination, const char * source, size_t dest_size);
 

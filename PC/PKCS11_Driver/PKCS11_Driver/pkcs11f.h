@@ -918,7 +918,7 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_UserAdd)
 	CK_SESSION_HANDLE hSession, /* the session's handle */
 	CK_UTF8CHAR_PTR pPin,		/* user PIN */
 	CK_ULONG ulPinLen,			/* pin length */
-	CK_BYTE uID			/* receives the user ID*/
+	CK_BYTE_PTR uID			/* receives the user ID*/
 );
 #endif
 
