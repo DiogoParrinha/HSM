@@ -19,7 +19,7 @@ int SerialPort::connect() {
 
 	fopen_s(&fpOut, "./logOut.txt", "w+");
 
-	return connect(L"COM3");
+	return connect(L"COM7");
 }
  
 int SerialPort::connect( wchar_t* device) {

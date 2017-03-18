@@ -13,6 +13,7 @@ class HSM : public Device
 	public:
 		HSM();
 		~HSM();
+
 		uint8_t getTotalServices();
 
 		bool init();
@@ -33,8 +34,16 @@ class HSM : public Device
 		bool modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen);
 		bool deleteUser(CK_BYTE uID);
 
+		void startTimer();
+		void endTimer();
+
 	private:
 		UART* comm;
 		uint8_t authID;
+
+		// Timer
+		LARGE_INTEGER frequency;        // ticks per second
+		LARGE_INTEGER t1, t2;           // ticks
+		double elapsedTime;
 };
 

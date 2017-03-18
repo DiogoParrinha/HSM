@@ -78,6 +78,35 @@ HSM::~HSM()
 	comm->disconnect();
 }
 
+void HSM::startTimer()
+{
+#ifdef _WIN32
+	elapsedTime = 0.0f;
+	frequency.HighPart = 0;
+	frequency.LowPart = 0;
+	t1.HighPart = 0;
+	t1.LowPart = 0;
+	t2.HighPart = 0;
+	t2.LowPart = 0;
+
+	// get ticks per second
+	QueryPerformanceFrequency(&frequency);
+	// start timer
+	QueryPerformanceCounter(&t1);
+#endif
+}
+
+void HSM::endTimer()
+{
+#ifdef _WIN32
+	// stop timer
+	QueryPerformanceCounter(&t2);
+	// compute and print the elapsed time in millisec
+	elapsedTime = (t2.QuadPart - t1.QuadPart) * 1000.0 / frequency.QuadPart;
+	printf("%lf ms.\n", elapsedTime);
+#endif
+}
+
 bool HSM::init()
 {
 	// Initialize comm
@@ -173,13 +202,14 @@ int HSM::startSession()
 	if (sessionLimit())
 		return 1;
 
+	startTimer();
+
 	comm->reqCommand();
 
-	printf("Sending SESS_START command...");
+	printf("SESS_START...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "SESS_START");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Send CONNECTED
 	comm->connect();
@@ -188,7 +218,7 @@ int HSM::startSession()
 	sendTime();
 
 	// Initiate secure comm
-
+	
 	int ret;
 	mbedtls_ecdh_context ctx_cli, ctx_srv;
 	mbedtls_entropy_context entropy;
@@ -284,36 +314,15 @@ int HSM::startSession()
 		return 8;
 	}
 
-	/*printf("\n");
-	mbedtls_printf("\nsecret: ");
-	for (size_t i = 0; i < len; i++) {
-		printf("%02x", buffer[i]);
-	}*/
-
 	unsigned char key[32] = { 0 };
 	mbedtls_sha256(buffer, len, key, 0);
-
-	/*printf("\n");
-	mbedtls_printf("\nkey: ");
-	for (int i = 0; i < 32; i++) {
-		printf("%02x", key[i]);
-	}
-	printf("\n");*/
-
+	
 	// Set AES key
 	comm->setKey(key, true);
 
 	// Receive challenge
 	uint8_t challenge[16];
 	comm->receive(challenge, 16);
-
-	/*printf("\n");
-	mbedtls_printf("\nchallenge: ");
-	for (int i = 0; i < 16; i++) {
-		printf("%02x", challenge[i]);
-	}
-
-	printf("\n");*/
 
 	///// Send modified challenge encrypted with session key
 
@@ -333,14 +342,20 @@ int HSM::startSession()
 	// increase open sessions
 	openSessions++;
 
+	printf("OK.\n");
+
+	endTimer();
+
 	return 0;
 }
 
 bool HSM::endSession()
 {
+	startTimer();
+
 	comm->reqCommand();
 
-	printf("Sending SESS_END command...");
+	printf("SESS_END command...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "SESS_END");
 	comm->send(buffer, strlen((char*)buffer));
@@ -350,6 +365,8 @@ bool HSM::endSession()
 	comm->setKey(data, false);
 
 	openSessions--;
+
+	endTimer();
 
 	return true;
 }
@@ -365,16 +382,16 @@ bool HSM::sessionLimit()
 
 bool HSM::sendTime()
 {
-	printf("Sending SEND_TIME command...");
+	printf("\n\tSEND_TIME...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "TIME_SEND");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Now it expects a timestamp
-	printf("Sending DATA...");
+	printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	uint32_t t = time(NULL);
+	printf("OK.\n");
 
 	// Place the size into an array
 	unsigned char timestamp[4];
@@ -383,13 +400,16 @@ bool HSM::sendTime()
 	timestamp[2] = (t & 0x00FF0000) >> 16;
 	timestamp[3] = (t & 0xFF000000) >> 24;
 	comm->send(timestamp, 4);
-	printf("OK\n");
+
+	printf("OK.\n");
 
 	return true;
 }
 
 int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 {
+	startTimer();
+
 	// According to the standard, an application only needs to login once for the same token
 	// Because all sessions with a token share the same login state
 	if (loggedIn)
@@ -409,15 +429,14 @@ int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 	
 	comm->reqCommand();
 
-	printf("Sending SESS_LOGIN command...");
+	printf("SESS_LOGIN...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "SESS_LOGIN");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Now it expects:
 	// PIN | ID
-	printf("Sending DATA...");
+	printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	memcpy(buffer, pPin, 32);
 	buffer[32] = pPin[32]; // ID
@@ -425,7 +444,7 @@ int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 	printf("OK\n");
 
 	// Wait for 'SUCCESS'
-	printf("Receiving SUCCESS...");
+	printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 512);
 	printf("OK: %s\n", buffer);
@@ -435,12 +454,16 @@ int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 		return 3;
 	}
 
+	printf("OK.\n");
+
 	isAdmin = false;
 	if (userType == CKU_SO)
 		isAdmin = true;
 
 	authID = pPin[32];
 	loggedIn = true;
+
+	endTimer();
 
 	return 0;
 }
@@ -453,16 +476,17 @@ int HSM::logout()
 		return 1;
 	}
 
+	startTimer();
+
 	comm->reqCommand();
 
-	printf("Sending SESS_LOGOUT command...");
+	printf("SESS_LOGOUT...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "SESS_LOGOUT");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Wait for 'SUCCESS'
-	printf("Receiving SUCCESS...");
+	printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 512);
 	printf("OK: %s\n", buffer);
@@ -472,9 +496,13 @@ int HSM::logout()
 		return 3;
 	}
 
+	printf("OK.\n");
+
 	authID = 0;
 	isAdmin = false;
 	loggedIn = false;
+
+	endTimer();
 
 	return 0;
 }
@@ -487,39 +515,44 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 		return false;
 	}
 
+	startTimer();
+
 	// Calculate SHA-256 of pData
 	unsigned char digest[32] = { 0 };
 	mbedtls_sha256(pData, ulDataLen, &digest[0], 0);
 
 	comm->reqCommand();
-	printf("Sending DTSN_SIGN command...");
+	printf("DTSN_SIGN...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "DTSN_SIGN");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Now it expects:
 	// 32B_HASH
-	printf("Sending DATA...");
+	printf("\n\tSending DATA...");
 	comm->send(digest, 32);
 	printf("OK\n");
 
 	// Wait for 'SIGNATURE'
-	printf("Receiving SUCCESS...");
+	printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 512);
+	printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
 	{
 		printf("\nError: %s\n", buffer);
 		return false;
 	}
-	printf("OK: %s\n", buffer);
 
 	// Wait for actual signature
-	printf("Receiving actual signature...");
+	printf("\n\tReceiving actual signature...");
 	memset(pSignature, 0, *pulSignatureLen);
 	*pulSignatureLen = comm->receive(pSignature, *pulSignatureLen);
 	printf("OK: %d\n", *pulSignatureLen);
+
+	printf("OK.\n");
+
+	endTimer();
 
 	return true;
 }
@@ -537,6 +570,8 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	// admin couldn't sign so we can't request a signature to verified for his ID
 	if (loggedIn && authID == 0)
 		return false;
+	
+	startTimer();
 
 	// Calculate SHA-256 of data
 	unsigned char digest[32] = { 0 };
@@ -546,15 +581,14 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 		mbedtls_sha256(&pData[1], ulDataLen, digest, 0); // message starts at index 1
 
 	comm->reqCommand();
-	printf("Sending DTSN_VERIFY command...");
+	printf("DTSN_VERIFY...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "DTSN_VERIFY");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Now it expects:
 	// 1B ID | 32B_HASH | 1B SIGNATURE SIZE
-	printf("Sending DATA...");
+	printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 
 	if (loggedIn)
@@ -568,12 +602,12 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	printf("OK\n");
 
 	// Send signature
-	printf("Sending SIGNATURE...");
+	printf("\n\tSending SIGNATURE...");
 	comm->send(pSignature, pulSignatureLen);
 	printf("OK\n");
 
 	// Wait for response
-	printf("Receiving response...");
+	printf("\n\tReceiving response...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 4096);
 	printf("OK: %s\n", buffer);
@@ -581,6 +615,10 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	{
 		return false;
 	}
+
+	printf("OK.\n");
+
+	endTimer();
 
 	return true;
 }
@@ -593,15 +631,16 @@ bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR priva
 		return false;
 	}
 
+	startTimer();
+
 	comm->reqCommand();
-	printf("Sending USER_GENKEYS command...");
+	printf("USER_GENKEYS...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "USER_GENKEYS");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Wait for 'SUCCESS'
-	printf("Receiving SUCCESS...");
+	printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 4096);
 	printf("OK: %s\n", buffer);
@@ -683,6 +722,10 @@ bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR priva
 	*privateKey = hPrivate;
 	*publicKey = hPublic;
 
+	printf("OK.\n");
+
+	endTimer();
+
 	return true;
 }
 
@@ -691,23 +734,24 @@ bool HSM::getCertificate(CK_BYTE uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 	if (uid <= 0)
 		return false;
 
+	startTimer();
+
 	comm->reqCommand();
-	printf("Sending USER_CERT command...");
+	printf("USER_CERT...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "USER_CERT");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Now it expects:
 	// 1B ID
-	printf("Sending DATA...");
+	printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	buffer[0] = uid;
 	comm->send(buffer, 1);
 	printf("OK\n");
 
 	// Wait for 'SUCCESS'
-	printf("Receiving SUCCESS...");
+	printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 4096);
 	printf("OK: %s\n", buffer);
@@ -717,7 +761,7 @@ bool HSM::getCertificate(CK_BYTE uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 	}
 
 	// Wait for actual certificate
-	printf("Receiving certificate content...");
+	printf("\n\tReceiving certificate content...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 4096);
 	printf("OK.\n");
@@ -736,6 +780,10 @@ bool HSM::getCertificate(CK_BYTE uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 
 	memcpy(certificate, buffer, strlen((char*)buffer) + 1);
 
+	printf("OK.\n");
+
+	endTimer();
+
 	return true;
 }
 
@@ -743,6 +791,8 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 {
 	if (!loggedIn || !isAdmin)
 		return false;
+
+	startTimer();
 
 	// Parse Public Key (must be in PEM format)
 	mbedtls_pk_context ctx_pub;
@@ -814,15 +864,14 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	keyUsageArray[1] = (keyUsage & 0x0000FF00) >> 8;
 
 	comm->reqCommand();
-	printf("Sending CRT_REQUEST command...");
+	printf("CRT_REQUEST command...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "CRT_REQUEST");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Now it expects:
 	// subject name + \0 or 0 (should be the same thing) | 1B for key usage
-	printf("Sending DATA...");
+	printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	memcpy(buffer, subjectName, strlen((char*)subjectName));
 	buffer[strlen((char*)subjectName)] = '\0';
@@ -832,14 +881,14 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	printf("OK\n");
 
 	// Send public key
-	printf("Sending public key...");
+	printf("\n\tSending public key...");
 	memset(buffer, 0, sizeof(buffer));
 	memcpy(buffer, publicKey, strlen((char*)publicKey)*sizeof(CK_UTF8CHAR));
 	comm->send(buffer, strlen((char*)buffer)+1);
 	printf("OK\n");
 
 	// Wait for 'SUCCESS'
-	printf("Receiving SUCCESS...");
+	printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 4096);
 	printf("OK: %s\n", buffer);
@@ -850,15 +899,19 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	}
 
 	// Wait for actual certificate
-	printf("Receiving certificate content...");
+	printf("\n\tReceiving certificate content...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 4096);
+	printf("OK.\n");
+
 	printf("OK.\n");
 
 	// copy certificate
 	memcpy(certificate, buffer, strlen((char*)buffer) + 1);
 
 	mbedtls_pk_free(&ctx_pub);
+
+	endTimer();
 
 	return true;
 }
@@ -871,23 +924,24 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 	if (ulPinLen != 32)
 		return false;
 
+	startTimer();
+
 	comm->reqCommand();
-	printf("Sending USER_NEW command...");
+	printf("USER_NEW...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "USER_NEW");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Now it expects:
-	// ADMIN_PIN | USER_PIN
-	printf("Sending DATA...");
+	// USER_PIN
+	printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	memcpy((char*)buffer, pPin, ulPinLen*sizeof(CK_UTF8CHAR));
 	comm->send(buffer, strlen((char*)buffer));
 	printf("OK\n");
 
 	// Wait for 'SUCCESS'
-	printf("Receiving SUCCESS...");
+	printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 4096);
 	printf("OK: %s\n", buffer);
@@ -897,14 +951,18 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 	}
 
 	// Wait for ID (1B)
-	printf("Receiving ID...");
+	printf("\n\tReceiving ID...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 4096);
 	printf("OK: %d\n", buffer[0]);
 	if (buffer[0] <= 0 || buffer[0] > 255)
 		return false;
 
+	printf("OK.\n");
+
 	*uID = buffer[0];
+
+	endTimer();
 
 	return true;
 }
@@ -917,23 +975,24 @@ bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 	if (ulPinLen != 32)
 		return false;
 
+	startTimer();
+
 	comm->reqCommand();
-	printf("Sending USER_MODIFY command...");
+	printf("USER_MODIFY...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "USER_MODIFY");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Now it expects:
 	// USER_PIN
-	printf("Sending DATA...");
+	printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	memcpy((char*)buffer, pPin, ulPinLen * sizeof(CK_UTF8CHAR));
 	comm->send(buffer, strlen((char*)buffer));
 	printf("OK\n");
 
 	// Wait for 'SUCCESS'
-	printf("Receiving SUCCESS...");
+	printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 4096);
 	printf("OK: %s\n", buffer);
@@ -941,6 +1000,10 @@ bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 	{
 		return false;
 	}
+
+	printf("OK.\n");
+
+	endTimer();
 
 	return true;
 }
@@ -953,23 +1016,24 @@ bool HSM::deleteUser(CK_BYTE uID)
 	if (uID <= 0 || uID > 255)
 		return false;
 
+	startTimer();
+
 	comm->reqCommand();
-	printf("Sending USER_DELETE command...");
+	printf("USER_DELETE...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "USER_DELETE");
 	comm->send(buffer, strlen((char*)buffer));
-	printf("OK.\n");
 
 	// Now it expects:
 	// USER_ID
-	printf("Sending DATA...");
+	printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	buffer[0] = uID;
 	comm->send(buffer, 1);
 	printf("OK\n");
 
 	// Wait for 'SUCCESS'
-	printf("Receiving SUCCESS...");
+	printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
 	comm->receive(&buffer[0], 4096);
 	printf("OK: %s\n", buffer);
@@ -977,6 +1041,10 @@ bool HSM::deleteUser(CK_BYTE uID)
 	{
 		return false;
 	}
+
+	printf("OK.\n");
+
+	endTimer();
 
 	return true;
 }

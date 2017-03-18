@@ -128,9 +128,8 @@ int main()
 	unsigned char data[128];
 
 	// Login User
-	/*
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912341"); // user 1
+	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
 	assert(r == CKR_OK);
@@ -183,7 +182,9 @@ int main()
 
 	// Logout User
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);*/
+	assert(r == CKR_OK);
+
+	///// ADD 7 USERS
 
 	// Login
 	/*memset(data, 0, 128);
@@ -232,8 +233,13 @@ int main()
 	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555007"); // user 7
 	userID = 0;
 	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	assert(r == CKR_OK);
+
+	// Logout Admin
+	r = C_Logout(phSession);
 	assert(r == CKR_OK);*/
 
+	/////// Delete User 1 and Add Back
 
 	// Login admin
 	/*memset(data, 0, 128);
@@ -255,6 +261,8 @@ int main()
 	r = C_Logout(phSession);
 	assert(r == CKR_OK);
 
+	/////// Login with user 1 and modify pin; Logout user 1 and login again with new PIN; Modify PIN and Logout
+
 	// Login user 1
 	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
@@ -289,8 +297,18 @@ int main()
 	assert(r == CKR_OK);*/
 
 
+
+	///// Login admin and generate key pair | Get certificate of user 1 | Generate certificate for generated public key
+
+	// Login admin
+	/*memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
+	data[32] = 0;
+	r = C_Login(phSession, CKU_SO, data, 33);
+	assert(r == CKR_OK);
+
 	// Generate a key pair 
-	/*CK_MECHANISM genkey_mechanism = {
+	CK_MECHANISM genkey_mechanism = {
 		CKM_EC_KEY_PAIR_GEN, NULL_PTR, 0
 	};
 
@@ -341,9 +359,21 @@ int main()
 	};
 	CK_UTF8CHAR certificate2[4096];
 	CK_ULONG certSize = 4096;
-	//uint8_t data2[] = "-----BEGIN PUBLIC KEY-----\nMEkwEwYHKoZIzj0CAQYIKoZIzj0DAQEDMgAExVk6YzJ47/cxxyB9nTNSf0Q49Bz/\nnKbxtniyyrIo5ABC6cyYbAsFdmQAFTaeZ8l8\n-----END PUBLIC KEY-----\n";
 	r = HSM_C_CertGen(phSession, pubTemplateCert, 5, pubBuffer, certificate2, &certSize);
+	assert(r == CKR_OK);
+	
+	// Logout Admin
+	r = C_Logout(phSession);
 	assert(r == CKR_OK);*/
+
+	// close session
+	r = C_CloseSession(phSession);
+	assert(r == CKR_OK);
+
+	// Finalize
+	r = C_Finalize(NULL);
+	assert(r == CKR_OK);
+
 
 	/*
 	// Use FindObjects to get a certificate of a user's public key
@@ -369,17 +399,7 @@ int main()
 	// We must pass several fields in the template
 	*/
 
-	// Logout Admin
-	/*r = C_Logout(phSession);
-	assert(r == CKR_OK);*/
 
-	// close session
-	r = C_CloseSession(phSession);
-	assert(r == CKR_OK);
-
-	// Finalize
-	r = C_Finalize(NULL);
-	assert(r == CKR_OK);
 
 	/*comm = new UART();
 

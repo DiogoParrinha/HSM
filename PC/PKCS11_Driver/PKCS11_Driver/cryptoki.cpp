@@ -2125,10 +2125,105 @@ CK_RV HSM_C_UserDelete(CK_SESSION_HANDLE hSession, CK_BYTE pUid)
 // HSM_C_LogAdd
 CK_RV HSM_C_LogAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pMessage)
 {
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
 	// TODO
 
 	return CKR_OK;
 }
+
+// HSM_C_LogGet
+CK_RV HSM_C_LogGet(HANDLE hSession, CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_ULONG_PTR logSize)
+{
+	// TODO
+
+	return CKR_OK;
+}
+
+// HSM_C_LogGetHash
+CK_RV HSM_C_LogGetHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+{
+	// TODO
+
+	return CKR_OK;
+}
+
+// HSM_C_LogGetDayHash
+CK_RV HSM_C_LogGetDayHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+{
+	// TODO
+
+	return CKR_OK;
+}
+
+// HSM_C_LogGetMonthHash
+CK_RV HSM_C_LogGetMonthHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+{
+	// TODO
+
+	return CKR_OK;
+}
+
+// HSM_C_LogVerify
+CK_RV HSM_C_LogVerify(CK_SESSION_HANDLE hSession, CK_ULONG lNumber)
+{
+	// TODO
+
+	return CKR_OK;
+}
+
+// HSM_C_LogVerifyDayHash
+CK_RV HSM_C_LogVerifyDayHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber)
+{
+	// TODO
+
+	return CKR_OK;
+}
+
+// HSM_C_LogCounter
+CK_RV HSM_C_LogCounter(CK_SESSION_HANDLE hSession, CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
+{
+	// TODO
+
+	return CKR_OK;
+}
+
 
 // HSM_C_CertGen
 CK_RV HSM_C_CertGen(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, CK_UTF8CHAR_PTR publicKey, CK_UTF8CHAR_PTR certificate, CK_ULONG_PTR bufSize)

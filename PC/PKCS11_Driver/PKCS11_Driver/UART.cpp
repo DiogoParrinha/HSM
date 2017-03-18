@@ -59,7 +59,7 @@ bool UART::checkDevice()
 {
 	// Send 'DVC_CHECK'
 	reqCommand();
-	printf("Sending DVC_CHECK...");
+	printf("DVC_CHECK...");
 	uint8_t buffer[4096];
 	sprintf_s((char*)buffer, sizeof(buffer), "DVC_CHECK");
 	int r = send(buffer, 9);
@@ -67,7 +67,6 @@ bool UART::checkDevice()
 	{
 		return false;
 	}
-	printf("OK\n");
 
 	// Expect SUCCESS
 	memset(buffer, 0, sizeof(buffer));
@@ -89,13 +88,15 @@ bool UART::checkDevice()
 	if (strcmp((char*)data, HSM_SERIAL_NUMBER) != 0)
 		return false;
 
+	printf("OK\n");
+
 	return true;
 }
 
 bool UART::connect()
 {
 	// Send 'Connected'
-	printf("Sending CONNECTED...");
+	printf("\n\tCONNECTED...");
 	uint8_t buffer[4096];
 	sprintf_s((char*)buffer, sizeof(buffer), "CONNECTED");
 	int r = usb->sendArray(buffer, 9);
@@ -126,7 +127,6 @@ void UART::disconnect()
 bool UART::reqCommand()
 {
 	// Send 'COMMAND'
-	printf("Sending COMMAND...");
 	uint8_t buffer[4096];
 	sprintf_s((char*)buffer, sizeof(buffer), "COMMAND");
 	int r = usb->sendArray(buffer, 7);
@@ -134,8 +134,7 @@ bool UART::reqCommand()
 	{
 		return false;
 	}
-
-	printf("OK\n");
+	
 	waitOK();
 
 	return true;
