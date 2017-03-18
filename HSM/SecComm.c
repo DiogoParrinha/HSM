@@ -23,7 +23,7 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	// add entropy source
 	int ret = 0;
 	if( ( ret = mbedtls_entropy_add_source(&SecComm_entropy, mbedtls_hardware_poll,
-									NULL, 4,
+									NULL, ENTROPY_MIN_BYTES_RELEASE,
 									MBEDTLS_ENTROPY_SOURCE_STRONG ) ) != 0 )
 	{
 		char error[10];
@@ -130,13 +130,13 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 	#ifdef SECURITY_DEVICE
 		// Generate 128-bit challenge
 		/* Generate random bits */
-		status = MSS_SYS_nrbg_generate(&challenge,    /* p_requested_data */
-			0,               /* p_additional_input */
-			16,			/* requested_length */
-			0,               /* additional_input_length */
-			0,               /* pr_req */
-			drbg_handle);    /* drbg_handle */
-		if(MSS_SYS_SUCCESS != status)
+		uint8_t status = MSS_SYS_nrbg_generate(&challenge[0],    // p_requested_data
+			0,              // p_additional_input
+			16,				// requested_length
+			0,              // additional_input_length
+			0,              // pr_req
+			drbg_handle);   // drbg_handle
+		if(status != MSS_SYS_SUCCESS)
 		{
 			return FALSE; // error
 		}

@@ -130,9 +130,9 @@ int UART_send(uint8_t *buffer, uint32_t len)
 
 		// Generate IV
 		#ifdef SECURITY_DEVICE
-			MSS_SYS_nrbg_instantiate
+			/*MSS_SYS_nrbg_instantiate
 			uint8_t puf_seed[32];
-			MSS_SYS_puf_get_random_seed(&puf_seed[0]);
+			MSS_SYS_puf_get_random_seed(&puf_seed[0]);*/
 		#endif
 
 		// Send IV

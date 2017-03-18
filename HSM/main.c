@@ -113,16 +113,50 @@ int main()
 	}*/
 	
 	#ifdef SECURITY_DEVICE
-		MSS_SYS_init();
-		uint8_t puf_seed[32];
-		MSS_SYS_puf_get_random_seed(&puf_seed[0]);
+		MSS_SYS_init(MSS_SYS_NO_EVENT_HANDLER);
 		
+		MSS_SYS_nrbg_reset();
+
 		// Instantiate RNG
-		status = MSS_SYS_nrbg_instantiate(0, 0, &drbg_handle[drbg_handle_no]);
-		if(MSS_SYS_SUCCESS != status)
+		uint8_t status;
+		status = MSS_SYS_nrbg_instantiate(0, 0, &drbg_handle);
+		if(status != MSS_SYS_SUCCESS)
 		{
 			return 1;
 		}
+
+		/*uint8_t challenge[16] = {0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28};
+		status = MSS_SYS_nrbg_generate(&challenge[0],    // p_requested_data
+			0,              // p_additional_input
+			16,				// requested_length
+			0,              // additional_input_length
+			0,              // pr_req
+			drbg_handle);   // drbg_handle
+		if(status != MSS_SYS_SUCCESS)
+		{
+			return 2; // error
+		}
+
+		uint8_t puf_seed[32];
+		MSS_SYS_puf_get_random_seed(&puf_seed[0]);
+		if(status != MSS_SYS_SUCCESS)
+		{
+			return 3; // error
+		}*/
+
+		// calculate SHA-256
+		/*uint8_t challenge[129] = "k4SWZF2WfoemUAMYj24wUpCUs8s77GfFUFoSShbeR8CuFTh94SG2EOaNakcsESV3a1EsvN5oV8sUW6VV3UOiuHOIzBerQTtmVP4r08cUqZgP9tfWt8uhI1e6gkh7A27B";
+		uint8_t digest1[32] = {0};
+		mbedtls_sha256(challenge, 120, &digest1[0], 0);
+
+		uint8_t digest2[32] = {0};
+		status = MSS_SYS_sha256(challenge, 120*8, &digest2[0]);
+		if(status != MSS_SYS_SUCCESS)
+		{
+			return 4; // error
+		}
+
+		return 0;*/
 	#endif
 
 	UART_init();

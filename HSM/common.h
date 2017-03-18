@@ -9,11 +9,12 @@
 #define COMMON_H_
 
 // comment to use M2S060
-//#define SECURITY_DEVICE 1
+#define SECURITY_DEVICE 1
 
 #include "drivers/mss_uart/mss_uart.h"
 #include "drivers/mss_gpio/mss_gpio.h"
 #include "drivers/mss_rtc/mss_rtc.h"
+#include "drivers/mss_sys_services/mss_sys_services.h"
 
 //#include "micro-ecc/uECC.h"
 
@@ -98,6 +99,9 @@ uint8_t drbg_handle;
 /* #define RTC_PRESCALER    (1000000u - 1u) */       /* 1MHz clock is RTC clock source. */
 /*#define RTC_PRESCALER    (25000000u - 1u) */ /* 25MHz clock is RTC clock source. */
 #define RTC_PRESCALER    (50000000u - 1u) /* 50MHz clock is RTC clock source. */
+
+// DRBG
+uint8_t drbg_handle;
 
 #include "UART.h"
 #include "SPIFLASH.h"

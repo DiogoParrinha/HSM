@@ -118,19 +118,32 @@ int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t 
 
 	uint32_t timer = mktime(&ptm);*/
 
+#ifdef SECURITY_DEVICE
+	uint8_t puf_seed[32] = {0};
+	MSS_SYS_puf_get_random_seed(&puf_seed[0]);
+	uint8_t status;
+	if(status != MSS_SYS_SUCCESS)
+	{
+		return 1; // error
+	}
+
+	memcpy(output, puf_seed, sizeof(uint8_t)*32);
+	*olen = sizeof(uint8_t)*32;
+#else
 	// instead, let's do some modifications to the structure we have
 	// we're going to use the hardware RNG so this doesn't really matter!
 	uint32_t timer = calendar_count.second + calendar_count.minute*60 + calendar_count.hour*60*60 + calendar_count.day*24*60*60 + calendar_count.month*30*24*60*60;
 
 	MSS_RTC_clear_update_flag();
 
-    *olen = 0;
+	*olen = 0;
 
-    if( len < sizeof(uint32_t) )
-        return(0);
+	if( len < sizeof(uint32_t) )
+		return(0);
 
-    memcpy(output, &timer, sizeof(uint32_t));
-    *olen = sizeof(uint32_t);
+	memcpy(output, &timer, sizeof(uint32_t));
+	*olen = sizeof(uint32_t);
+#endif
 
     return(0);
 }

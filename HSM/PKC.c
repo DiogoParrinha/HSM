@@ -344,7 +344,7 @@ int PKC_init(mbedtls_pk_context *ctx, mbedtls_entropy_context * entropy, mbedtls
 
 	int ret = 0;
 	if( ( ret = mbedtls_entropy_add_source(entropy, mbedtls_hardware_poll,
-									NULL, 4,
+									NULL, ENTROPY_MIN_BYTES_RELEASE,
 									MBEDTLS_ENTROPY_SOURCE_STRONG ) ) != 0 )
 	{
 		return ret;
