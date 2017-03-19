@@ -32,6 +32,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "../../drivers/mss_sys_services/mss_sys_services.h"
+
 /* padlock.c and aesni.c rely on these values! */
 #define MBEDTLS_AES_ENCRYPT     1
 #define MBEDTLS_AES_DECRYPT     0
@@ -49,17 +51,11 @@ extern "C" {
 
 /**
  * \brief          AES context structure
- *
- * \note           buf is able to hold 32 extra bytes, which can be used:
- *                 - for alignment purposes if VIA padlock is used, and/or
- *                 - to simplify key expansion in the 256-bit case by
- *                 generating an extra round key
  */
 typedef struct
 {
-    int nr;                     /*!<  number of rounds  */
-    uint32_t *rk;               /*!<  AES round keys    */
-    uint32_t buf[68];           /*!<  unaligned data    */
+    uint8_t enc_key[32];	/*!<  AES encryption key	*/
+	uint8_t dec_key[32];	/*!<  AES decryption key	*/
 }
 mbedtls_aes_context;
 
@@ -245,34 +241,10 @@ int mbedtls_aes_crypt_ctr( mbedtls_aes_context *ctx,
                        unsigned char *output );
 #endif /* MBEDTLS_CIPHER_MODE_CTR */
 
-/**
- * \brief           Internal AES block encryption function
- *                  (Only exposed to allow overriding it,
- *                  see MBEDTLS_AES_ENCRYPT_ALT)
- *
- * \param ctx       AES context
- * \param input     Plaintext block
- * \param output    Output (ciphertext) block
- */
-void mbedtls_aes_encrypt( mbedtls_aes_context *ctx,
-                          const unsigned char input[16],
-                          unsigned char output[16] );
-
-/**
- * \brief           Internal AES block decryption function
- *                  (Only exposed to allow overriding it,
- *                  see MBEDTLS_AES_DECRYPT_ALT)
- *
- * \param ctx       AES context
- * \param input     Ciphertext block
- * \param output    Output (plaintext) block
- */
-void mbedtls_aes_decrypt( mbedtls_aes_context *ctx,
-                          const unsigned char input[16],
-                          unsigned char output[16] );
-
 #ifdef __cplusplus
 }
+#endif
+
 #endif
 
 #endif /* aes_alt.h */
