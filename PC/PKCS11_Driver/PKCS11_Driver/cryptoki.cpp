@@ -1824,7 +1824,7 @@ CK_RV C_GenerateKeyPair(CK_SESSION_HANDLE hSession,
 		return CKR_SESSION_HANDLE_INVALID;
 	}*/
 
-	if (pMechanism->mechanism != CKM_EC_KEY_PAIR_GEN)
+	if (pMechanism->mechanism != CKM_AES_CBC)
 		return CKR_MECHANISM_INVALID;
 
 	if (pPublicKeyTemplate == NULL_PTR || pPrivateKeyTemplate == NULL_PTR)

@@ -62,6 +62,10 @@
 #define mbedtls_free       free
 #endif
 
+#if defined(SF2_SECURITY_DEVICE)
+	#include "../../drivers/mss_sys_services/mss_sys_services.h"
+#endif
+
 #if ( defined(__ARMCC_VERSION) || defined(_MSC_VER) ) && \
     !defined(inline) && !defined(__cplusplus)
 #define inline __inline
@@ -1018,6 +1022,66 @@ static int ecp_add_mixed( const mbedtls_ecp_group *grp, mbedtls_ecp_point *R,
     if( Q->Z.p != NULL && mbedtls_mpi_cmp_int( &Q->Z, 1 ) != 0 )
         return( MBEDTLS_ERR_ECP_BAD_INPUT_DATA );
 
+//// MODIFIED BY DIOGO PARRINHA
+#if defined(SF2_SECURITY_DEVICE)
+    uint8_t status = 0u;
+	uint8_t p[96] = { 0x00u };
+	uint8_t q[96] = { 0x00u };
+	uint8_t r[96] = { 0x00u };
+
+	// X coordinate of P
+	if((ret = mbedtls_mpi_write_binary(&P->X, p, 48)) != 0)
+	{
+		return ret;
+	}
+
+	// Y coordinate of P
+	if((ret = mbedtls_mpi_write_binary(&P->Y, &p[48], 48)) != 0)
+	{
+		return ret;
+	}
+
+	// X coordinate of Q
+	if((ret = mbedtls_mpi_write_binary(&Q->X, q, 48)) != 0)
+	{
+		return ret;
+	}
+
+	// Y coordinate of Q
+	if((ret = mbedtls_mpi_write_binary(&Q->Y, &q[48], 48)) != 0)
+	{
+		return ret;
+	}
+
+	status = MSS_SYS_ecc_point_addition(&p[0], &q[0], &r[0]);
+	if(status != MSS_SYS_SUCCESS)
+	{
+		return 0;
+	}
+
+	// X coordinate of R
+	if((ret = mbedtls_mpi_read_binary(&R->X, r, 48)) != 0)
+	{
+		return ret;
+	}
+
+	// Y coordinate of R
+	if((ret = mbedtls_mpi_read_binary(&R->Y, &r[48], 48)) != 0)
+	{
+		return ret;
+	}
+
+	// Z coordinate of R
+	if((ret = mbedtls_mpi_lset(&R->Z, 1)) != 0)
+	{
+		return ret;
+	}
+
+	return 0;
+
+#endif
+////// If we are here, it means we failed to do the point addition via HW core
+
     mbedtls_mpi_init( &T1 ); mbedtls_mpi_init( &T2 ); mbedtls_mpi_init( &T3 ); mbedtls_mpi_init( &T4 );
     mbedtls_mpi_init( &X ); mbedtls_mpi_init( &Y ); mbedtls_mpi_init( &Z );
 
@@ -1628,7 +1692,67 @@ int mbedtls_ecp_mul( mbedtls_ecp_group *grp, mbedtls_ecp_point *R,
 #endif
 #if defined(ECP_SHORTWEIERSTRASS)
     if( ecp_get_type( grp ) == ECP_TYPE_SHORT_WEIERSTRASS )
+    {
+    	//// MODIFIED BY DIOGO PARRINHA
+#if defined(SF2_SECURITY_DEVICE)
+    	if(grp->id == MBEDTLS_ECP_DP_SECP384R1)
+    	{
+    		// 384-bit values
+    		uint8_t status = 0u;
+			uint8_t d[48] = {0x00u}; // m
+			uint8_t p[96] = {0x00u}; // P (x,y) -> (48B,48B)
+			uint8_t q[96] = {0x00u}; // R (x,y) -> (48B,48B)
+
+			// d
+			if((ret = mbedtls_mpi_write_binary(m, d, sizeof(d))) != 0)
+			{
+				return ret;
+			}
+
+			// X coordinate of P
+			if((ret = mbedtls_mpi_write_binary(&P->X, p, 48)) != 0)
+			{
+				return ret;
+			}
+
+			// Y coordinate of P
+			if((ret = mbedtls_mpi_write_binary(&P->Y, &p[48], 48)) != 0)
+			{
+				return ret;
+			}
+
+			status = MSS_SYS_ecc_point_multiplication(&d[0], &p[0], &q[0]);
+			if(status != MSS_SYS_SUCCESS)
+			{
+				// Go back to the default way
+				return( ecp_mul_comb( grp, R, m, P, f_rng, p_rng ) );
+			}
+			else{
+				// X coordinate of R
+				if((ret = mbedtls_mpi_read_binary(&R->X, q, 48)) != 0)
+				{
+					return ret;
+				}
+
+				// Y coordinate of R
+				if((ret = mbedtls_mpi_read_binary(&R->Y, &q[48], 48)) != 0)
+				{
+					return ret;
+				}
+
+				// Z coordinate of R
+				if((ret = mbedtls_mpi_lset(&R->Z, 1)) != 0)
+				{
+					return ret;
+				}
+
+				return 0;
+			}
+    	}
+#else
         return( ecp_mul_comb( grp, R, m, P, f_rng, p_rng ) );
+#endif
+    }
 #endif
     return( MBEDTLS_ERR_ECP_BAD_INPUT_DATA );
 }

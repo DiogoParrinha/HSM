@@ -21,7 +21,7 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	// TODO: something must be used to stop Man-in-the-Middle and Replay Attacks (think if the latter is possible to do)
 
 	// add entropy source
-	int ret = 0;
+	volatile int ret = 0;
 	if( ( ret = mbedtls_entropy_add_source(&SecComm_entropy, mbedtls_hardware_poll,
 									NULL, ENTROPY_MIN_BYTES_RELEASE,
 									MBEDTLS_ENTROPY_SOURCE_STRONG ) ) != 0 )
@@ -44,7 +44,8 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	}
 
 	// load group
-	ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_CURVE25519);
+	ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_SECP384R1);
+	//ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_CURVE25519);
 	if( ret != 0 )
 	{
 		char error[10];
@@ -63,8 +64,8 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 		return FALSE;
 	}
 
-	// write public key into srv_to_cli (unsigned binary data)
-	ret = mbedtls_mpi_write_binary(&ctx_srv.Q.X, srv_to_cli, 32u);
+	// write public key X into srv_to_cli (unsigned binary data)
+	ret = mbedtls_mpi_write_binary(&ctx_srv.Q.X, srv_to_cli, 48u);
 	if( ret != 0 )
 	{
 		char error[10];
@@ -76,10 +77,48 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	UART_sendOK();
 
 	// write client's public key into cli_to_srv (unsigned binary data)
-	UART_receive(&cli_to_srv[0], 32u);
+	UART_receive(&cli_to_srv[0], 48u);
 
 	// send our srv_to_cli
-	UART_send(srv_to_cli, 32);
+	UART_send(srv_to_cli, 48u);
+
+	// store client's public key X into ctx_srv public key
+	ret = mbedtls_mpi_read_binary(&ctx_srv.Qp.X, cli_to_srv, 48u);
+	if( ret != 0 )
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
+
+	// write public key Y into srv_to_cli (unsigned binary data)
+	ret = mbedtls_mpi_write_binary(&ctx_srv.Q.Y, srv_to_cli, 48u);
+	if( ret != 0 )
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
+
+	UART_sendOK();
+
+	// write client's public key into cli_to_srv (unsigned binary data)
+	UART_receive(&cli_to_srv[0], 48u);
+
+	// send our srv_to_cli
+	UART_send(srv_to_cli, 48u);
+
+	// store client's public key Y into ctx_srv public key
+	ret = mbedtls_mpi_read_binary(&ctx_srv.Qp.Y, cli_to_srv, 48u);
+	if( ret != 0 )
+	{
+		char error[10];
+		sprintf(error, "E: %d", ret);
+		__printf(error);
+		return FALSE;
+	}
 
 	ret = mbedtls_mpi_lset(&ctx_srv.Qp.Z, 1);
 	if( ret != 0 )
@@ -90,19 +129,9 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 		return FALSE;
 	}
 
-	// store client's public key X into ctx_srv public key
-	ret = mbedtls_mpi_read_binary(&ctx_srv.Qp.X, cli_to_srv, 32u);
-	if( ret != 0 )
-	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
-		return FALSE;
-	}
-
 	// compute shared secret
 	int len = 0;
-	uint8_t shared_secret[32];
+	uint8_t shared_secret[128];
 	if((ret = mbedtls_ecdh_calc_secret(&ctx_srv, &len, shared_secret, 128u, mbedtls_ctr_drbg_random, &SecComm_ctr_drbg)) != 0)
 	{
 		char error[10];
@@ -162,9 +191,6 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 	{
 		if(ver_challenge[a] != mod_challenge[a])
 		{
-			char error[10];
-			sprintf(error, "E: invalid challenge");
-			__printf(error);
 			return FALSE;
 		}
 	}

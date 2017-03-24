@@ -45,49 +45,13 @@ int main()
 
 	USER_remove(1);
 	USER_remove(2);
-	return 0;*/
-	/*USER_add(2, "12345678912345678912345678912342");
-	USER * n1 = USER_get(2);
-
-	volatile int t = 0;
-	t++;
-
-	return 0;*/
-
-	/*USER_remove(4);
-	USER_remove(2);
 	USER_remove(3);
-
-	/*USER_add(1, "12345678912345678912345678912341");
-	USER * n1 = USER_get(1);
-	USER * n2 = USER_get(2);
-
-	USER_add(3, "12345678912345678912345678912343");
-	USER * n3 = USER_get(3);
-
-	USER_terminate();
+	USER_remove(4);
+	USER_remove(5);
+	USER_remove(6);
+	USER_remove(7);
 
 	return 0;*/
-
-	/*USER_add(1, "12345678912345678912345678912341");
-	USER * n1 = USER_get(1);
-	USER * n2 = USER_get(2);
-	USER_add(3, "32345678912345678912345678912343");
-	USER * n3 = USER_get(3);*/
-
-	/*USER_add(2, "12345678912345678912345678912341");
-	USER_add(4, "12345678912345678912345678912344");
-
-	ret = USER_modify(1, "62345678912345678912345678912340");
-	ret = USER_modify(2, "72345678912345678912345678912341");
-	//ret = USER_modify(4, "82345678912345678912345678912343");
-	ret = USER_modify(3, "92345678912345678912345678912344"); // shouldn't work because user doesn't exist
-
-	USER_terminate();*/
-
-	/*USER_remove(4);
-	USER_remove(2);
-	USER_remove(3);*/
 
 	/* Display time over UART. */
 	/*char display_buffer[1024] = {0};
@@ -158,6 +122,12 @@ int main()
 
 		return 0;*/
 	#endif
+
+	/*uint8_t issuer_pub[512] = {0};
+	uint8_t issuer_pri[512] = {0};
+	PKC_genKeyPair(&issuer_pub[0], &issuer_pri[0]);
+
+	return 0;*/
 
 	UART_init();
 

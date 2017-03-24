@@ -28,6 +28,10 @@
 #ifndef MBEDTLS_CONFIG_H
 #define MBEDTLS_CONFIG_H
 
+//// CREATED BY DIOGO PARRINHA
+//// USED FOR ECC (ecp.h)
+#define SF2_SECURITY_DEVICE 1
+
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_DEPRECATE)
 #define _CRT_SECURE_NO_DEPRECATE 1
 #endif
@@ -439,12 +443,15 @@
  *
  * Comment macros to disable the curve and functions for it
  */
-#define MBEDTLS_ECP_DP_SECP192R1_ENABLED
-/*#define MBEDTLS_ECP_DP_SECP224R1_ENABLED
-#define MBEDTLS_ECP_DP_SECP256R1_ENABLED*/
-#define MBEDTLS_ECP_DP_SECP384R1_ENABLED
-/*#define MBEDTLS_ECP_DP_SECP521R1_ENABLED
-#define MBEDTLS_ECP_DP_SECP192K1_ENABLED
+#ifndef SF2_SECURITY_DEVICE
+	#define MBEDTLS_ECP_DP_SECP192R1_ENABLED
+	#define MBEDTLS_ECP_DP_SECP224R1_ENABLED
+	#define MBEDTLS_ECP_DP_SECP256R1_ENABLED
+	#define MBEDTLS_ECP_DP_SECP521R1_ENABLED
+#else
+	#define MBEDTLS_ECP_DP_SECP384R1_ENABLED
+#endif
+/*#define MBEDTLS_ECP_DP_SECP192K1_ENABLED
 #define MBEDTLS_ECP_DP_SECP224K1_ENABLED
 #define MBEDTLS_ECP_DP_SECP256K1_ENABLED
 #define MBEDTLS_ECP_DP_BP256R1_ENABLED
@@ -2486,8 +2493,11 @@
  */
 
 /* MPI / BIGNUM options */
-#define MBEDTLS_MPI_WINDOW_SIZE            2 /**< Maximum windows size used. */
-#define MBEDTLS_MPI_MAX_SIZE            512 /**< Maximum number of bytes for usable MPIs. */
+//#define MBEDTLS_MPI_WINDOW_SIZE            2 /**< Maximum windows size used. */
+//#define MBEDTLS_MPI_MAX_SIZE            512 /**< Maximum number of bytes for usable MPIs. */
+// DEFAULT:
+//#define MBEDTLS_MPI_WINDOW_SIZE            6 /**< Maximum windows size used. */
+//#define MBEDTLS_MPI_MAX_SIZE            1024 /**< Maximum number of bytes for usable MPIs. */
 
 /* CTR_DRBG options */
 //#define MBEDTLS_CTR_DRBG_ENTROPY_LEN               48 /**< Amount of entropy used per seed by default (48 with SHA-512, 32 with SHA-256) */

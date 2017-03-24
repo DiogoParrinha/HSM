@@ -220,10 +220,10 @@ int HSM::startSession()
 	// Initiate secure comm
 	
 	int ret;
-	mbedtls_ecdh_context ctx_cli, ctx_srv;
+	mbedtls_ecdh_context ctx_cli;
 	mbedtls_entropy_context entropy;
 	mbedtls_ctr_drbg_context ctr_drbg;
-	unsigned char cli_to_srv[32], srv_to_cli[32];
+	unsigned char cli_to_srv[48], srv_to_cli[48];
 	const char pers[] = "ecdh";
 
 	mbedtls_aes_context aes_ctx;
@@ -236,7 +236,6 @@ int HSM::startSession()
 	memset(aes_output, 0, 128);
 
 	mbedtls_ecdh_init(&ctx_cli);
-	mbedtls_ecdh_init(&ctx_srv);
 	mbedtls_ctr_drbg_init(&ctr_drbg);
 
 	/*
@@ -254,7 +253,8 @@ int HSM::startSession()
 	/*
 	* Client: inialize context and generate keypair
 	*/
-	ret = mbedtls_ecp_group_load(&ctx_cli.grp, MBEDTLS_ECP_DP_CURVE25519);
+	ret = mbedtls_ecp_group_load(&ctx_cli.grp, MBEDTLS_ECP_DP_SECP384R1);
+	//ret = mbedtls_ecp_group_load(&ctx_cli.grp, MBEDTLS_ECP_DP_CURVE25519);
 	if (ret != 0)
 	{
 		mbedtls_printf(" failed\n  ! mbedtls_ecp_group_load returned %d\n", ret);
@@ -268,7 +268,7 @@ int HSM::startSession()
 		return 4;
 	}
 
-	ret = mbedtls_mpi_write_binary(&ctx_cli.Q.X, cli_to_srv, 32);
+	ret = mbedtls_mpi_write_binary(&ctx_cli.Q.X, cli_to_srv, 48);
 	if (ret != 0)
 	{
 		mbedtls_printf(" failed\n  ! mbedtls_mpi_write_binary returned %d\n", ret);
@@ -278,11 +278,41 @@ int HSM::startSession()
 	// wait for "OK" because the device takes longer to do this than the computer
 	comm->waitOK();
 
-	// send 256-bits (32B) public key
-	comm->send(cli_to_srv, 32);
+	// send 48B public key
+	comm->send(cli_to_srv, 48);
 
-	// get 256-bits (32B) public key
-	comm->receive(&srv_to_cli[0], 32);
+	// get 48B public key
+	comm->receive(&srv_to_cli[0], 48);
+
+	ret = mbedtls_mpi_read_binary(&ctx_cli.Qp.X, srv_to_cli, 48);
+	if (ret != 0)
+	{
+		mbedtls_printf(" failed\n  ! mbedtls_mpi_read_binary returned %d\n", ret);
+		return 7;
+	}
+
+	ret = mbedtls_mpi_write_binary(&ctx_cli.Q.Y, cli_to_srv, 48);
+	if (ret != 0)
+	{
+		mbedtls_printf(" failed\n  ! mbedtls_mpi_write_binary returned %d\n", ret);
+		return 5;
+	}
+
+	// wait for "OK" because the device takes longer to do this than the computer
+	comm->waitOK();
+
+	// send 48B public key
+	comm->send(cli_to_srv, 48);
+
+	// get 48B public key
+	comm->receive(&srv_to_cli[0], 48);
+
+	ret = mbedtls_mpi_read_binary(&ctx_cli.Qp.Y, srv_to_cli, 48);
+	if (ret != 0)
+	{
+		mbedtls_printf(" failed\n  ! mbedtls_mpi_read_binary returned %d\n", ret);
+		return 7;
+	}
 
 	/*
 	* Client: read peer's key and generate shared secret
@@ -292,13 +322,6 @@ int HSM::startSession()
 	{
 		mbedtls_printf(" failed\n  ! mbedtls_mpi_lset returned %d\n", ret);
 		return 6;
-	}
-
-	ret = mbedtls_mpi_read_binary(&ctx_cli.Qp.X, srv_to_cli, 32);
-	if (ret != 0)
-	{
-		mbedtls_printf(" failed\n  ! mbedtls_mpi_read_binary returned %d\n", ret);
-		return 7;
 	}
 
 	size_t len = 0;
@@ -334,7 +357,6 @@ int HSM::startSession()
 
 	comm->send(mod_challenge, 16);
 
-	mbedtls_ecdh_free(&ctx_srv);
 	mbedtls_ecdh_free(&ctx_cli);
 	mbedtls_ctr_drbg_free(&ctr_drbg);
 	mbedtls_entropy_free(&entropy);
@@ -382,13 +404,13 @@ bool HSM::sessionLimit()
 
 bool HSM::sendTime()
 {
-	printf("\n\tSEND_TIME...");
+	printf("\tSEND_TIME...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "TIME_SEND");
 	comm->send(buffer, strlen((char*)buffer));
 
 	// Now it expects a timestamp
-	printf("\n\tSending DATA...");
+	printf("\n\t\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	uint32_t t = time(NULL);
 	printf("OK.\n");
@@ -401,7 +423,7 @@ bool HSM::sendTime()
 	timestamp[3] = (t & 0xFF000000) >> 24;
 	comm->send(timestamp, 4);
 
-	printf("OK.\n");
+	printf("\tOK.\n");
 
 	return true;
 }

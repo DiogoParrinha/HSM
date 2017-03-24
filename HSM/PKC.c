@@ -27,8 +27,9 @@ BOOL PKC_genKeyPair(uint8_t * pub, uint8_t * pri)
 		return FALSE;
 	}
 
-    // Generate key pair
-    ret = mbedtls_ecp_gen_key(MBEDTLS_ECP_DP_SECP192R1, mbedtls_pk_ec(ctx), mbedtls_ctr_drbg_random, &ctr_drbg);
+    // Generate key pair (in theory 192R1 is the fastest ECDSA curve https://tls.mbed.org/kb/cryptography/elliptic-curve-performance-nist-vs-brainpool)
+    //ret = mbedtls_ecp_gen_key(MBEDTLS_ECP_DP_SECP192R1, mbedtls_pk_ec(ctx), mbedtls_ctr_drbg_random, &ctr_drbg);
+    ret = mbedtls_ecp_gen_key(MBEDTLS_ECP_DP_SECP384R1, mbedtls_pk_ec(ctx), mbedtls_ctr_drbg_random, &ctr_drbg);
 	if( ret != 0 )
 	{
 		char error[10];

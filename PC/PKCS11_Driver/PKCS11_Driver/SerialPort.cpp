@@ -31,7 +31,8 @@ int SerialPort::connect( wchar_t* device) {
 	 
 	dcb.DCBlength = sizeof(dcb);
 	 
-	dcb.BaudRate = 57600;
+	//dcb.BaudRate = 57600;
+	dcb.BaudRate = 115200;
 	dcb.Parity = NOPARITY;
 	dcb.fParity = 0;
 	dcb.StopBits = ONESTOPBIT;

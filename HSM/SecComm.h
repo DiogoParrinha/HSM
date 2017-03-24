@@ -12,7 +12,7 @@
 #include "mbedtls/ecdh.h"
 
 mbedtls_ecdh_context ctx_cli, ctx_srv;
-unsigned char srv_to_cli[32], cli_to_srv[32];
+unsigned char srv_to_cli[48], cli_to_srv[48];
 mbedtls_entropy_context SecComm_entropy;
 mbedtls_ctr_drbg_context SecComm_ctr_drbg;
 
