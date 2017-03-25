@@ -20,36 +20,50 @@ BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * fina
 	else
 		LOGS_globalCounter1++;
 
-	// Append time (1B) and user ID (1B)
 	memset(global_buffer, 0, GLOBAL_BUFFER_SIZE);
-	global_buffer[0] = '"'; // separator
-	memcpy(global_buffer+1, message, data_len);
-	global_buffer[data_len+1] = '"'; // separator
-	global_buffer[data_len+2] = '|'; // separator
 
 	// time
 	mss_rtc_calendar_t calendar_count;
 	MSS_RTC_get_calendar_count(&calendar_count);
-	uint8_t w = snprintf(global_buffer+data_len+3, GLOBAL_BUFFER_SIZE-3, "%d-%d-2%03d,%02d:%02d:%02d",
+	uint8_t w = snprintf(global_buffer, GLOBAL_BUFFER_SIZE, "%d-%d-2%03d,%02d:%02d:%02d",
 				 (int)calendar_count.day,
 				 (int)calendar_count.month,
 				 (int)calendar_count.year,
 				 (int)calendar_count.hour,
 				 (int)calendar_count.minute,
 				 (int)calendar_count.second);
-	MSS_RTC_clear_update_flag();
 
-	global_buffer[data_len+3+w] = '|'; // separator
-	global_buffer[data_len+4+w] = UID; // UID
-	global_buffer[data_len+5+w] = '|'; // separator
+	// Append time (1B) and user ID (1B)
+	global_buffer[w++] = ':'; // separator
+	global_buffer[w++] = '{'; // separator
+	global_buffer[w++] = '"'; // separator
+	memcpy(global_buffer+(w++), message, data_len);
+	data_len--; // we use it as a pointer from now on so we must subtract 1
+	global_buffer[data_len+(w++)] = '"'; // separator
+	global_buffer[data_len+(w++)] = '|'; // separator
+
+	w += snprintf(global_buffer+w+data_len, GLOBAL_BUFFER_SIZE-(w+data_len), "%d-%d-2%03d,%02d:%02d:%02d",
+					 (int)calendar_count.day,
+					 (int)calendar_count.month,
+					 (int)calendar_count.year,
+					 (int)calendar_count.hour,
+					 (int)calendar_count.minute,
+					 (int)calendar_count.second);
+
+	global_buffer[data_len+(w++)] = '|'; // separator
+	global_buffer[data_len+(w++)] = UID; // UID
+	global_buffer[data_len+(w++)] = '|'; // separator
 
 	// counter
-	uint8_t n = snprintf(global_buffer+data_len+6+w, GLOBAL_BUFFER_SIZE-data_len+6+w, "%10d,%10d",
+	w += snprintf(global_buffer+data_len+w, GLOBAL_BUFFER_SIZE-(data_len+w), "%10d,%10d",
 			LOGS_globalCounter1, LOGS_globalCounter2);
 
-	global_buffer[data_len+6+w+n] = '\0'; // end
+	global_buffer[data_len+(w++)] = '}'; // end
+	global_buffer[data_len+(w++)] = '\0'; // end
 
-	if(!PKC_signData(LOGS_PRIVATE_KEY, message, data_len, signature, signature_len))
+	MSS_RTC_clear_update_flag();
+
+	if(!PKC_signData(LOGS_PRIVATE_KEY, global_buffer, data_len+w-1, signature, signature_len))
 	{
 		return FALSE;
 	}

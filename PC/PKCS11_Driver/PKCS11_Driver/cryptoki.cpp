@@ -19,7 +19,7 @@
 #define MAX_SLOTS 10
 
 CK_FUNCTION_LIST pkcs11_function_list = {
-	{ 2, 11 }, /* Note: NSS/Firefox ignores this version number and uses C_GetInfo() */
+	{ 2, 20 }, /* Note: NSS/Firefox ignores this version number and uses C_GetInfo() */
 	C_Initialize,
 	C_Finalize,
 	C_GetInfo,
@@ -87,7 +87,13 @@ CK_FUNCTION_LIST pkcs11_function_list = {
 	C_GenerateRandom,
 	C_GetFunctionStatus,
 	C_CancelFunction,
-	C_WaitForSlotEvent
+	C_WaitForSlotEvent,
+	/*HSM_C_CertGen, // for some reason, uncommenting this ends up in an error (TODO)
+	HSM_C_CertGet,
+	HSM_C_LogAdd,
+	HSM_C_UserDelete,
+	HSM_C_UserModify,
+	HSM_C_UserAdd*/
 };
 
 /********************************
@@ -97,7 +103,7 @@ bool g_init = CK_FALSE;
 
 p11_slot g_slots[MAX_SLOTS];
 
-std::vector<Device*> devices_list;
+std::vector<Device*> devices_list; // the index represents the slotID (so the same device pointer may be in multiple indexes)
 std::vector<p11_session*> g_sessions;
 
 /********************************
@@ -131,25 +137,18 @@ CK_RV C_Initialize(CK_VOID_PTR pInitArgs)
 
 	// init sessions list
 	g_sessions.clear();
-	/*for (i = 0; i < MAX_SESSIONS; i++)
-	{
-		g_sessions[i].slotID = 0;
-		g_sessions[i].flags = CKF_SERIAL_SESSION; // default (must be set for backwards compatibility)
-		g_sessions[i].state = 0;
-		g_sessions[i].ulDeviceError = 0;
-	}*/
-
-	// add slots with HSM token
+	
+	// add slot for HSM token
 	HSM * g_hsm = new HSM();
 	if (!g_hsm->init())
 		return CKR_FUNCTION_FAILED;
 
 	devices_list.clear();
-	for (i = 0; i < MAX_SLOTS; i++)
-	{
-		devices_list.push_back(g_hsm);
-		g_hsm->addSlot(&g_slots[i], i);
-	}
+	devices_list.push_back(g_hsm);
+	g_hsm->addSlot(&g_slots[0], 0);
+
+	for (i = 1; i < MAX_SLOTS; i++)
+		devices_list.push_back(NULL);
 
 	g_init = CK_TRUE;
 
@@ -163,18 +162,11 @@ CK_RV C_Finalize(CK_VOID_PTR pReserved)
 
 	// Clean up
 	int i;
-	Device * prev = NULL;
 	for (i = 0; i < MAX_SLOTS; i++)
 	{
 		if (devices_list.at(i) != NULL)
 		{
-			// only attempt to delete if the previously deleted was different from this one
-			if (prev != NULL && prev != devices_list.at(i))
-			{
-				prev = devices_list.at(i);
-				delete devices_list.at(i);
-			}
-			
+			delete devices_list.at(i);
 			devices_list.at(i) = NULL;
 		}
 	}
@@ -349,36 +341,73 @@ CK_RV C_GetTokenInfo(CK_SLOT_ID slotID, CK_TOKEN_INFO_PTR pInfo)
 
 CK_RV C_WaitForSlotEvent(CK_FLAGS flags, CK_SLOT_ID_PTR pSlot, CK_VOID_PTR pReserved)
 {
-	// Possible TODO
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_GetMechanismList(CK_SLOT_ID slotID, CK_MECHANISM_TYPE_PTR pMechanismList, CK_ULONG_PTR pulCount)
 {
-	// TODO
-
-	return CKR_FUNCTION_NOT_SUPPORTED;
-}
-
-CK_RV C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_MECHANISM_INFO_PTR pInfo)
-{
-	// TODO
-
-	return CKR_FUNCTION_NOT_SUPPORTED;
-}
-
-CK_RV C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_UTF8CHAR_PTR pLabel)
-{
-	/*if (!g_init)
+	if (!g_init)
 	{
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	return CKR_OK;*/
+	if (slotID > MAX_SLOTS)
+		return CKR_SLOT_ID_INVALID;
 
-	// We have no use for this function right now
-	// in the future we may use it to send the time for example
+	p11_slot pSlot = g_slots[slotID];
+	if (!(pSlot.slotInfo.flags & CKF_TOKEN_PRESENT))
+		return CKR_TOKEN_NOT_PRESENT;
 
+	// The HSM only support two mechanisms
+	// Ideally, this would come from the HSM class
+	if (pMechanismList == NULL_PTR)
+	{
+		*pulCount = 2;
+		return CKR_OK;
+	}
+
+	pMechanismList[0] = CKM_ECDSA;
+	pMechanismList[1] = CKM_EC_KEY_PAIR_GEN;
+
+	return CKR_OK;
+}
+
+CK_RV C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_MECHANISM_INFO_PTR pInfo)
+{
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	if (pInfo == NULL_PTR)
+		return CKR_ARGUMENTS_BAD;
+
+	if (slotID > MAX_SLOTS)
+		return CKR_SLOT_ID_INVALID;
+
+	p11_slot pSlot = g_slots[slotID];
+	if (!(pSlot.slotInfo.flags & CKF_TOKEN_PRESENT))
+		return CKR_TOKEN_NOT_PRESENT;
+
+	if (type != CKM_ECDSA && type != CKM_EC_KEY_PAIR_GEN)
+	{
+		return CKR_MECHANISM_INVALID;
+	}
+
+	pInfo->ulMaxKeySize = 384 + 1;
+	pInfo->ulMinKeySize = 384 + 1;
+
+	// Ideally, this would come from the HSM class
+	if (type == CKM_ECDSA)
+		pInfo->flags = CKF_HW | CKF_SIGN | CKF_VERIFY;
+	else
+		pInfo->flags = CKF_HW | CKF_GENERATE_KEY_PAIR;
+
+	return CKR_OK;
+}
+
+CK_RV C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_UTF8CHAR_PTR pLabel)
+{
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
@@ -416,12 +445,18 @@ CK_RV C_OpenSession(CK_SLOT_ID slotID, CK_FLAGS flags, CK_VOID_PTR pApplication,
 	}
 
 	// How many sessions in the selected token?
-	if (devices_list.at(slotID)->sessionLimit())
-	{
-		// Too many open sessions with device
-		return CKR_SESSION_COUNT;
+	try {
+		if (devices_list.at(slotID)->sessionLimit())
+		{
+			// Too many open sessions with device
+			return CKR_SESSION_COUNT;
+		}
 	}
-
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+	
 	// Start session
 	int r = devices_list.at(slotID)->startSession();
 	if (r == 1 || g_sessions.size() >= MAX_SESSIONS)
@@ -442,8 +477,8 @@ CK_RV C_OpenSession(CK_SLOT_ID slotID, CK_FLAGS flags, CK_VOID_PTR pApplication,
 
 	p11_session * session_h = (p11_session*)malloc(sizeof(p11_session));
 	session_h->session = session;
-	session_h->operation[P11_OP_FIND] = 0;
 	session_h->operation[P11_OP_SIGN] = 0;
+	session_h->operation[P11_OP_VERIFY] = 0;
 	session_h->objects = NULL;
 	session_h->totalObjects = 0;
 
@@ -730,7 +765,7 @@ CK_RV C_CreateObject(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, CK_
 	P11_SESSION->objects[h]->oValue = NULL;
 	P11_SESSION->totalObjects++;
 
-	int p = 0;
+	uint32_t p = 0;
 	for (p = 0; p < ulCount; p++)
 	{
 		if (pTemplate[p].type == CKA_CLASS)
@@ -863,7 +898,7 @@ CK_RV C_GetAttributeValue(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, 
 		return CKR_OBJECT_HANDLE_INVALID;
 	}
 	
-	int p = 0;
+	uint32_t p = 0;
 	for (p = 0; p < ulCount; p++)
 	{
 		if (pTemplate[p].type == CKA_CLASS)
@@ -954,159 +989,16 @@ CK_RV C_SetAttributeValue(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, 
 CK_RV C_FindObjectsInit(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount)
 {
 	return CKR_FUNCTION_NOT_SUPPORTED;
-
-	/*if (!g_init)
-	{
-		return CKR_CRYPTOKI_NOT_INITIALIZED;
-	}*/
-
-	// We accept handle=0
-	/*if (hSession == NULL_PTR)
-	{
-		return CKR_SESSION_HANDLE_INVALID;
-	}*/
-
-	/*if (pTemplate == NULL_PTR)
-	{
-		return CKR_ARGUMENTS_BAD;
-	}
-	
-	// Get session
-	CK_SESSION_INFO_PTR s;
-	try {
-		s = g_sessions.at(hSession)->session;
-	}
-	catch (const std::out_of_range&) {
-		// 'out of range' error
-		return CKR_SESSION_HANDLE_INVALID;
-	}
-
-	// Get device
-	if (s != NULL_PTR)
-	{
-		Device* d;
-		try {
-			d = devices_list.at(s->slotID);
-		}
-		catch (const std::out_of_range&) {
-			// 'out of range' error
-			return CKR_SESSION_HANDLE_INVALID;
-		}
-	}
-	else
-	{
-		return CKR_SESSION_HANDLE_INVALID;
-	}
-
-	// Check parameters (we only care about CKA_CLASS and CKA_KEY_TYPE...)
-	// We can only search for certificates!
-	// And uids > 0
-	uint32_t uid = 0;
-	int p = 0;
-	for (p = 0; p < ulCount; p++)
-	{
-		if (pTemplate[p].type == CKA_CLASS)
-			if ((*(int*)pTemplate[p].pValue) != CKO_CERTIFICATE)
-				return CKR_TEMPLATE_INCONSISTENT;
-
-		if (pTemplate[p].type == CKA_ID)
-			if ((*(int*)pTemplate[p].pValue) <= 0)
-				return CKR_TEMPLATE_INCONSISTENT;
-			else
-				uid = (*(int*)pTemplate[p].pValue);
-	}
-
-	if (uid <= 0)
-		return CKR_TEMPLATE_INCOMPLETE;
-
-	// Is the selected session performing finding?
-	if (g_sessions.at(hSession)->operation[P11_OP_FIND] == 1)
-	{
-		return CKR_OPERATION_ACTIVE;
-	}
-
-	g_sessions.at(hSession)->operation[P11_OP_FIND] = 1;
-	g_sessions.at(hSession)->certUID = uid;
-	g_sessions.at(hSession)->certAlready = false;
-
-	return CKR_OK;*/
 }
 
 CK_RV C_FindObjects(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR phObject, CK_ULONG ulMaxObjectCount, CK_ULONG_PTR pulObjectCount)
 {
 	return CKR_FUNCTION_NOT_SUPPORTED;
-
-	/*if (!g_init)
-	{
-		return CKR_CRYPTOKI_NOT_INITIALIZED;
-	}
-
-	if (ulMaxObjectCount > 1)
-	{
-		// Ignore...we only get one certificate
-	}
-
-	// Get session
-	CK_SESSION_INFO_PTR s;
-	try {
-		s = g_sessions.at(hSession)->session;
-	}
-	catch (const std::out_of_range&) {
-		// 'out of range' error
-		return CKR_SESSION_HANDLE_INVALID;
-	}
-
-	// Get device
-	Device* d;
-	if (s != NULL_PTR)
-	{
-		try {
-			d = devices_list.at(s->slotID);
-		}
-		catch (const std::out_of_range&) {
-			// 'out of range' error
-			return CKR_SESSION_HANDLE_INVALID;
-		}
-	}
-	else
-	{
-		return CKR_SESSION_HANDLE_INVALID;
-	}
-
-	// Is the selected session performing object finding?
-	if (g_sessions.at(hSession)->operation[P11_OP_FIND] == 0)
-	{
-		return CKR_OPERATION_NOT_INITIALIZED;
-	}
-
-	if (g_sessions.at(hSession)->certAlready == true)
-	{
-		*pulObjectCount = 0;
-		return CKR_OK;
-	}
-
-	if(!d->getCertificate(g_sessions.at(hSession)->certUID))
-	{
-		g_sessions.at(hSession)->certAlready = true;
-		*pulObjectCount = 0;
-
-		return CKR_FUNCTION_FAILED;
-	}
-
-	g_sessions.at(hSession)->certAlready = true;
-
-	return CKR_OK;*/
 }
 
 CK_RV C_FindObjectsFinal(CK_SESSION_HANDLE hSession)
 {
 	return CKR_FUNCTION_NOT_SUPPORTED;
-
-	/*g_sessions.at(hSession)->operation[P11_OP_FIND] = 0;
-	g_sessions.at(hSession)->certAlready = false;
-	g_sessions.at(hSession)->certUID = 0;
-
-	return CKR_OK;*/
 }
 
 /*************************
@@ -1115,29 +1007,21 @@ CK_RV C_FindObjectsFinal(CK_SESSION_HANDLE hSession)
 
 CK_RV C_EncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_Encrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_EncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pEncryptedPart, CK_ULONG_PTR pulEncryptedPartLen)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_EncryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pLastEncryptedPart, CK_ULONG_PTR pulLastEncryptedPartLen)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
@@ -1147,29 +1031,21 @@ CK_RV C_EncryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pLastEncryptedPart,
 
 CK_RV C_DecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_Decrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG ulEncryptedDataLen, CK_BYTE_PTR pData, CK_ULONG_PTR pulDataLen)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_DecryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedPart, CK_ULONG ulEncryptedPartLen, CK_BYTE_PTR pPart, CK_ULONG_PTR pulPartLen)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_DecryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pLastPart, CK_ULONG_PTR pulLastPartLen)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
@@ -1179,36 +1055,26 @@ CK_RV C_DecryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pLastPart, CK_ULONG
 
 CK_RV C_DigestInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_Digest(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pDigest, CK_ULONG_PTR pulDigestLen)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_DigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_DigestKey(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hKey)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
 CK_RV C_DigestFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pDigest, CK_ULONG_PTR pulDigestLen)
 {
-	// N/D
-
 	return CKR_FUNCTION_NOT_SUPPORTED;
 }
 
@@ -1625,7 +1491,6 @@ CK_RV C_Verify(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen
 
 	if (!d->verifySignature(pData, ulDataLen, pSignature, ulSignatureLen))
 	{
-
 		return CKR_SIGNATURE_INVALID;
 	}
 
@@ -1824,7 +1689,7 @@ CK_RV C_GenerateKeyPair(CK_SESSION_HANDLE hSession,
 		return CKR_SESSION_HANDLE_INVALID;
 	}*/
 
-	if (pMechanism->mechanism != CKM_AES_CBC)
+	if (pMechanism->mechanism != CKM_EC_KEY_PAIR_GEN)
 		return CKR_MECHANISM_INVALID;
 
 	if (pPublicKeyTemplate == NULL_PTR || pPrivateKeyTemplate == NULL_PTR)
@@ -2123,7 +1988,7 @@ CK_RV HSM_C_UserDelete(CK_SESSION_HANDLE hSession, CK_BYTE pUid)
 }
 
 // HSM_C_LogAdd
-CK_RV HSM_C_LogAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pMessage)
+CK_RV HSM_C_LogAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 {
 	if (!g_init)
 	{
@@ -2163,7 +2028,10 @@ CK_RV HSM_C_LogAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pMessage)
 		return CKR_SESSION_HANDLE_INVALID;
 	}
 
-	// TODO
+	if (d->logsAdd(pMessage, lMessage))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
 	return CKR_OK;
 }

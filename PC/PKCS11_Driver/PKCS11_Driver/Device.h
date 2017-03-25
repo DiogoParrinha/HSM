@@ -27,7 +27,7 @@ class Device
 		virtual bool addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID);
 		virtual bool modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen);
 		virtual bool deleteUser(CK_BYTE uID);
-		virtual bool logsAdd(CK_UTF8CHAR_PTR message);
+		virtual bool logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage);
 
 		void strcpy_bp(void * destination, const char * source, size_t dest_size);
 

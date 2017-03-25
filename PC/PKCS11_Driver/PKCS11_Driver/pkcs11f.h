@@ -946,7 +946,8 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_LogAdd)
 #ifdef CK_NEED_ARG_LIST
 (
 	CK_SESSION_HANDLE hSession,	/* the session's handle */
-	CK_UTF8CHAR_PTR pMessage	/* the message to add */
+	CK_UTF8CHAR_PTR pMessage,	/* the message to add */
+	CK_ULONG lMessage			/* length of message */
 );
 #endif
 

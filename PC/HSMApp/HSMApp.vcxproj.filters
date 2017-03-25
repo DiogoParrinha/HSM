@@ -39,9 +39,6 @@
     <ClInclude Include="PKCS11\pkcs11.h">
       <Filter>Header Files\PKCS11</Filter>
     </ClInclude>
-    <ClInclude Include="PKCS11\pkcs11_common.h">
-      <Filter>Header Files\PKCS11</Filter>
-    </ClInclude>
     <ClInclude Include="PKCS11\cryptoki.h">
       <Filter>Header Files\PKCS11</Filter>
     </ClInclude>

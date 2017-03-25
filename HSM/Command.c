@@ -101,7 +101,7 @@ void COMMAND_USER_process(uint8_t * command)
 		}
 
 		// Get next available ID
-		volatile uint8_t U_ID = USER_getNextAvailableID();
+		uint8_t U_ID = USER_getNextAvailableID();
 		if(!USER_add(U_ID, U_PIN))
 		{
 			// Respond back with ERROR
@@ -324,7 +324,7 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 		uint8_t buffer[1+HASH_SIZE+4] = {0};
 		UART_receive(&buffer[0], 1+HASH_SIZE);
 
-		volatile uint8_t U_ID = 0;
+		uint8_t U_ID = 0;
 		uint8_t HASH[HASH_SIZE] = {0};
 
 		// 1B => U_ID
@@ -335,7 +335,7 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 
 		// > 255B shouldn't happen! (unless the points of the curve are huge, e,g. > 1000 bits)
 		uint8_t signature[255];
-		volatile uint32_t signature_len = UART_receive(&signature[0], 255);
+		uint32_t signature_len = UART_receive(&signature[0], 255);
 
 		// Get user private key
 		USER_init();
@@ -476,7 +476,7 @@ void COMMAND_LOGS_process(uint8_t * command)
 {
 	if(strcmp(command, "LOGS_ADD") == 0)
 	{
-		if(!connected || !loggedIn || !isAdmin)
+		if(!connected || !loggedIn || isAdmin)
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -486,8 +486,9 @@ void COMMAND_LOGS_process(uint8_t * command)
 		// Add a new action to the log
 		// 1. Receive 'message' (null terminated string)
 		// 2. Append UID, TIME, COUNTER1, COUNTER2
-		// 3. Generate signature
-		// 4. Send back final message + signature
+		// 3. Format: TIME: {"message", UID, TIME, COUNTER1, COUNTER2}
+		// 4. Generate signature
+		// 5. Send back final message + signature
 
 		// Expect message (max 512B)
 		uint8_t buffer[512] = {0};
@@ -509,8 +510,10 @@ void COMMAND_LOGS_process(uint8_t * command)
 		// Send data
 		UART_send(global_buffer, strlen(global_buffer)+1); // include null character
 
-		// Send data
-		UART_send(signature, sig_len); // include null character
+		// Send sha256 of signature
+		uint8_t digest[32] = {0};
+		mbedtls_sha256(signature, sig_len, digest, 0);
+		UART_send(digest, 32);
 	}
 }
 
@@ -560,14 +563,7 @@ void COMMAND_SESSION_process(uint8_t * command)
 {
 	if(strcmp(command, "SESS_START") == 0)
 	{
-		if(!UART_connect())
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: cannot connect");
-			return;
-		}
-
-		connected = TRUE;
+		UART_connect();
 
 		char key[32] = {0};
 		if(!SecComm_start(&key[0]))
@@ -576,6 +572,15 @@ void COMMAND_SESSION_process(uint8_t * command)
 			COMMAND_ERROR("ERROR: init sec comm");
 			return;
 		}
+
+		if(!UART_recTime())
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: time error");
+			return;
+		}
+
+		connected = TRUE;
 	}
 	else if(strcmp(command, "SESS_END") == 0)
 	{

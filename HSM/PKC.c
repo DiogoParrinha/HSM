@@ -220,7 +220,7 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key
 	mbedtls_mpi_init(&serial);
 
 	// Load our issuer key (context doesn't matter becaues last param is FALSE)
-    volatile int ret = PKC_init(&issuer_key, &entropy, &ctr_drbg, pers, FALSE);
+    int ret = PKC_init(&issuer_key, &entropy, &ctr_drbg, pers, FALSE);
     if(ret != 0)
 	{
 		char error[10];

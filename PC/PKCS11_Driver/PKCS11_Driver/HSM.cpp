@@ -26,6 +26,8 @@
 #include "HSM.h"
 #include "UART.h"
 
+#include <fstream>
+
 /*==============================================================================
 Macro
 */
@@ -52,8 +54,7 @@ Macro
 #define   BUFSIZE         1024
 
 #define HSM_SERIAL_NUMBER "123456789"
-#define HSM_MAX_SESSIONS 1
-#define HSM_MAX_SLOTS 6
+#define HSM_MAX_SESSIONS 1 // per slot
 
 uint8_t buffer[4096];
 
@@ -63,8 +64,7 @@ HSM::HSM()
 
 	loggedIn = false;
 	isAdmin = false;
-
-	maxSlots = HSM_MAX_SLOTS;
+	
 	maxSessions = HSM_MAX_SESSIONS;
 	openSessions = 0;
 	connected = false;
@@ -172,9 +172,6 @@ bool HSM::isConnected()
 
 void HSM::addSlot(p11_slot * s, int i)
 {
-	if (i >= maxSlots) // i starts at 0
-		return;
-
 	// Create slot information
 	s->slotInfo.firmwareVersion.major = 1;
 	s->slotInfo.firmwareVersion.minor = 0;
@@ -192,7 +189,7 @@ void HSM::addSlot(p11_slot * s, int i)
 		s->token = &token;
 		s->slotInfo.flags |= CKF_TOKEN_PRESENT;
 
-		strcpy_bp(s->slotInfo.slotDescription, "HSM USB COM Slot", sizeof(s->slotInfo.slotDescription));
+		strcpy_bp(s->slotInfo.slotDescription, "INESC-ID HSM USB COM Slot", sizeof(s->slotInfo.slotDescription));
 	}
 }
 
@@ -210,15 +207,8 @@ int HSM::startSession()
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "SESS_START");
 	comm->send(buffer, strlen((char*)buffer));
-
-	// Send CONNECTED
-	comm->connect();
-
-	// Send TIME_SEND and time
-	sendTime();
-
-	// Initiate secure comm
 	
+	// Initiate secure comm
 	int ret;
 	mbedtls_ecdh_context ctx_cli;
 	mbedtls_entropy_context entropy;
@@ -361,6 +351,9 @@ int HSM::startSession()
 	mbedtls_ctr_drbg_free(&ctr_drbg);
 	mbedtls_entropy_free(&entropy);
 
+	// Send TIME_SEND and time
+	sendTime();
+
 	// increase open sessions
 	openSessions++;
 
@@ -404,7 +397,7 @@ bool HSM::sessionLimit()
 
 bool HSM::sendTime()
 {
-	printf("\tSEND_TIME...");
+	printf("\n\tSEND_TIME...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "TIME_SEND");
 	comm->send(buffer, strlen((char*)buffer));
@@ -412,7 +405,7 @@ bool HSM::sendTime()
 	// Now it expects a timestamp
 	printf("\n\t\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
-	uint32_t t = time(NULL);
+	uint32_t t = (uint32_t)time(NULL);
 	printf("OK.\n");
 
 	// Place the size into an array
@@ -619,7 +612,7 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 		buffer[0] = pData[0]; // ID
 
 	memcpy(&buffer[1], digest, 32);
-	buffer[33] = pulSignatureLen; // won't be bigger than 255 because we check at the beginning
+	buffer[33] = (uint8_t)pulSignatureLen; // won't be bigger than 255 because we check at the beginning
 	comm->send(buffer, 32+1);
 	printf("OK\n");
 
@@ -797,7 +790,7 @@ bool HSM::getCertificate(CK_BYTE uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 	if (*bufSize < strlen((char*)buffer) + 1 || certificate == NULL)
 	{
 		*bufSize = strlen((char*)buffer) + 1;
-		return CKR_BUFFER_TOO_SMALL;
+		return false;
 	}
 
 	memcpy(certificate, buffer, strlen((char*)buffer) + 1);
@@ -1064,6 +1057,68 @@ bool HSM::deleteUser(CK_BYTE uID)
 		return false;
 	}
 
+	printf("OK.\n");
+
+	endTimer();
+
+	return true;
+}
+
+bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
+{
+	// we only accept messages with a maximum of 512 bytes
+	if (lMessage > 512)
+		return false;
+
+	// not a valid user
+	if (!loggedIn || authID == 0)
+		return false;
+
+	startTimer();
+
+	comm->reqCommand();
+	printf("LOGS_ADD...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "LOGS_ADD");
+	comm->send(buffer, strlen((char*)buffer));
+	
+	// Send message
+	printf("\n\tSending message...");
+	/*sprintf_s((char*)buffer, sizeof(buffer), "rm -rf inc/data/test/lol.txt");
+	comm->send(buffer, strlen((char*)buffer));*/
+	comm->send(pMessage, lMessage);
+	printf("OK\n");
+
+	// Wait for response
+	printf("\n\tReceiving response...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		return false;
+	}
+
+	// Wait for logged message
+	printf("\n\tReceiving logged message...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	printf("OK.\n");
+
+	// Wait for signature
+	printf("\n\tReceiving signature...");
+	uint8_t signature[255];
+	memset(signature, 0, sizeof(signature));
+	uint32_t sig_len = comm->receive(&signature[0], 255);
+	printf("OK.\n");
+
+	// Append logged message + signature to file
+	std::ofstream outfile;
+	outfile.open("log.txt", std::ios_base::app);
+	outfile << buffer << " [";
+	outfile.write((char*)signature, sig_len);
+	outfile << "]" << std::endl;
+	outfile.close();
 	printf("OK.\n");
 
 	endTimer();

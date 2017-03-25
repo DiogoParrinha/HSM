@@ -34,7 +34,7 @@ bool Device::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount
 bool Device::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID) { return false; }
 bool Device::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen) { return false; }
 bool Device::deleteUser(CK_BYTE uID) { return false; }
-bool Device::logsAdd(CK_UTF8CHAR_PTR message) { return false; }
+bool Device::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage) { return false; }
 
 void Device::strcpy_bp(void * destination, const char * source, size_t dest_size)
 {

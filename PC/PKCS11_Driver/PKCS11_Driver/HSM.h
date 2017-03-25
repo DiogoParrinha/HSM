@@ -33,6 +33,7 @@ class HSM : public Device
 		bool addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID);
 		bool modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen);
 		bool deleteUser(CK_BYTE uID);
+		bool logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage);
 
 		void startTimer();
 		void endTimer();

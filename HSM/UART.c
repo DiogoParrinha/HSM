@@ -22,28 +22,20 @@ void UART_init()
 	MSS_UART_init(gp_my_uart, MSS_UART_115200_BAUD, MSS_UART_DATA_8_BITS | MSS_UART_NO_PARITY | MSS_UART_ONE_STOP_BIT);
 }
 
-BOOL UART_connect()
+void UART_connect()
 {
-	// Wait for 'Connected'
-	uint8_t data[64];
-
-	UART_get(&data[0], 9u);
-	if(data[0] != 'C' || data[1] != 'O' || data[2] != 'N' || data[3] != 'N' || data[4] != 'E' || data[5] != 'C' || data[6] != 'T' || data[7] != 'E' || data[8] != 'D')
-	{
-		__printf("\nError: not Connected.");
-		return FALSE;
-	}
-
-	// Send 'OK'
-	UART_sendOK();
-
 	// Not using session key for now
 	UART_usingKey = FALSE;
+}
+
+BOOL UART_recTime()
+{
+	uint8_t data[64];
 
 	/*** SETUP CONNECTION ***/
 	MSS_RTC_start();
 
-	volatile int ret = 0;
+	int ret = 0;
 	if((ret = UART_receive(&data[0], 64)) <= 0)
 	{
 		__printf("\nError: not Connected.");
@@ -145,6 +137,8 @@ int UART_send(uint8_t *buffer, uint32_t len)
 		ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
 		if(ret != 0)
 		{
+			mbedtls_aes_free( &aes_ctx );
+
 			char error[10];
 			sprintf(error, "E: %d", ret);
 			__printf(error);
@@ -230,6 +224,12 @@ int UART_send(uint8_t *buffer, uint32_t len)
 		uint32_t remaining = len - bytes;
 		if (remaining > BLOCK_SIZE)
 		{
+			if(UART_usingKey)
+			{
+				mbedtls_aes_free( &aes_ctx );
+				mbedtls_md_free( &sha_ctx );
+			}
+
 			__printf("\nError: remaining amount bigger than block size.");
 			return ERROR_UART_BLOCK_SIZE_INVALID;
 		}
@@ -278,12 +278,15 @@ int UART_send(uint8_t *buffer, uint32_t len)
 		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )HMAC+BLOCK_SIZE, BLOCK_SIZE);
 		// Wait for OK
 		UART_waitOK();
+
+		mbedtls_aes_free( &aes_ctx );
+		mbedtls_md_free( &sha_ctx );
 	}
 
 	return plainBytesSent;
 }
 
-void UART_waitOK()
+BOOL UART_waitOK()
 {
 	uint16_t count = 0u;
 	
@@ -292,19 +295,30 @@ void UART_waitOK()
 	
 	while(1)
 	{
-		count = UART_get(&ok[0], 2u);
+		//UART_receive(&ok[0], 2u);
+		UART_get(&ok[0], 2u);
 		if(ok[0] != '0' || ok[1] != '1')
 		{
 			__printf("\nError: not OK.");
+			return FALSE;
 		}
 		else
 			break;
 	}
+
+	return TRUE;
 }
 
-void UART_sendOK()
+BOOL UART_sendOK()
 {
 	MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )"01", 2);
+	/*uint8_t data[2] = {'0','1'};
+	if(UART_send(data, 2) != 2)
+	{
+		return FALSE;
+	}
+
+	return TRUE;*/
 }
 
 void UART_waitCOMMAND()
@@ -316,7 +330,7 @@ void UART_waitCOMMAND()
 
 	while(1)
 	{
-		count = UART_get(&data[0], 7u);
+		count = UART_receive(&data[0], 7u);
 
 		// If not equal to COMMAND then we keep reading
 		if(data[0] != 'C' || data[1] != 'O' || data[2] != 'M' || data[3] != 'M' || data[4] != 'A' || data[5] != 'N' || data[6] != 'D')
@@ -356,6 +370,8 @@ int UART_receive(char *location, uint32_t locsize)
 		int ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
 		if (ret != 0)
 		{
+			mbedtls_aes_free( &aes_ctx );
+
 			char error[10];
 			sprintf(error, "E: %d", ret);
 			__printf(error);
@@ -406,7 +422,7 @@ int UART_receive(char *location, uint32_t locsize)
 	unsigned char data[BLOCK_SIZE];
 	memset(data, 0, sizeof(data));
 
-	volatile uint32_t bytes = 0;
+	uint32_t bytes = 0;
 	uint32_t chunk = 0;
 	for (chunk = 0; chunk < totalChunks; chunk++)
 	{
@@ -475,9 +491,15 @@ int UART_receive(char *location, uint32_t locsize)
 
 		if (diff != 0)
 		{
+			mbedtls_aes_free( &aes_ctx );
+			mbedtls_md_free( &sha_ctx );
+
 			__printf("\nError: HMAC differs");
 			return ERROR_UART_HMAC_MISMATCH;
 		}
+
+		mbedtls_aes_free( &aes_ctx );
+		mbedtls_md_free( &sha_ctx );
 	}
 	else
 	{

@@ -127,10 +127,8 @@ void UART::disconnect()
 bool UART::reqCommand()
 {
 	// Send 'COMMAND'
-	uint8_t buffer[4096];
-	sprintf_s((char*)buffer, sizeof(buffer), "COMMAND");
-	int r = usb->sendArray(buffer, 7);
-	if (r != 7)
+	uint8_t buffer[7] = {'C','O','M','M','A','N','D'};
+	if(send(buffer, 7) != 7)
 	{
 		return false;
 	}
@@ -204,6 +202,8 @@ int UART::send(uint8_t *buffer, uint32_t len)
 		ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
 		if (ret != 0)
 		{
+			mbedtls_aes_free(&aes_ctx);
+
 			char error[10];
 			sprintf_s(error, 10, "E: %d", ret);
 			printf(error);
@@ -247,6 +247,12 @@ int UART::send(uint8_t *buffer, uint32_t len)
 	// Send size
 	if (usb->sendArray(dataInfo, sizeof(dataInfo)) != sizeof(dataInfo))
 	{
+		if (usingKey)
+		{
+			mbedtls_aes_free(&aes_ctx);
+			mbedtls_md_free(&sha_ctx);
+		}
+
 		return ERROR_UART_INVALID_DATAINFO;
 	}
 	// Wait for OK
@@ -284,6 +290,12 @@ int UART::send(uint8_t *buffer, uint32_t len)
 		uint8_t bw = 0;
 		if((bw = usb->sendArray(data, BLOCK_SIZE)) != BLOCK_SIZE)
 		{
+			if (usingKey)
+			{
+				mbedtls_aes_free(&aes_ctx);
+				mbedtls_md_free(&sha_ctx);
+			}
+
 			return ERROR_UART_BLOCK_SIZE_INVALID;
 		}
 
@@ -300,6 +312,12 @@ int UART::send(uint8_t *buffer, uint32_t len)
 		uint32_t remaining = len - bytes;
 		if (remaining > BLOCK_SIZE)
 		{
+			if (usingKey)
+			{
+				mbedtls_aes_free(&aes_ctx);
+				mbedtls_md_free(&sha_ctx);
+			}
+
 			return ERROR_UART_BLOCK_SIZE_INVALID;
 		}
 		memset(data, 0, sizeof(data));
@@ -328,6 +346,12 @@ int UART::send(uint8_t *buffer, uint32_t len)
 		uint8_t bw = 0;
 		if ((bw = usb->sendArray(data, remaining)) != remaining)
 		{
+			if (usingKey)
+			{
+				mbedtls_aes_free(&aes_ctx);
+				mbedtls_md_free(&sha_ctx);
+			}
+
 			return ERROR_UART_BLOCK_SIZE_INVALID;
 		}
 
@@ -346,18 +370,27 @@ int UART::send(uint8_t *buffer, uint32_t len)
 		// Send two blocks of 16B
 		if ((usb->sendArray(HMAC, BLOCK_SIZE)) != BLOCK_SIZE)
 		{
+			mbedtls_aes_free(&aes_ctx);
+			mbedtls_md_free(&sha_ctx);
+
 			return ERROR_UART_BLOCK_SIZE_INVALID;
 		}
 		// Wait for OK
 		waitOK();
 		if ((usb->sendArray(HMAC+ BLOCK_SIZE, BLOCK_SIZE)) != BLOCK_SIZE)
 		{
+			mbedtls_aes_free(&aes_ctx);
+			mbedtls_md_free(&sha_ctx);
+
 			return ERROR_UART_BLOCK_SIZE_INVALID;
 		}
 		// Wait for OK
 		waitOK();
+
+		mbedtls_aes_free(&aes_ctx);
+		mbedtls_md_free(&sha_ctx);
 	}
-	
+
 	return plainBytesSent;
 }
 
@@ -387,6 +420,8 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 		int ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
 		if (ret != 0)
 		{
+			mbedtls_aes_free(&aes_ctx);
+			
 			return ERROR_UART_HMAC_SETUP;
 		}
 
@@ -427,6 +462,12 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 		totalChunks++;*/
 	/*if (totalChunks != blocks) // not equal?
 	{
+		if (usingKey)
+		{
+			mbedtls_aes_free( &aes_ctx );
+			mbedtls_md_free( &sha_ctx );
+		}
+
 		return 0;
 	}*/
 
@@ -503,8 +544,14 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 
 		if (diff != 0)
 		{
+			mbedtls_aes_free(&aes_ctx);
+			mbedtls_md_free(&sha_ctx);
+
 			return ERROR_UART_HMAC_MISMATCH;
 		}
+
+		mbedtls_aes_free(&aes_ctx);
+		mbedtls_md_free(&sha_ctx);
 	}
 	else
 	{
@@ -539,6 +586,7 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 
 bool UART::sendOK()
 {
+	//if (send((uint8_t *)"01", 2) != 2)
 	if (usb->sendArray((uint8_t *)"01", 2) != 2)
 		return false;
 
@@ -547,10 +595,11 @@ bool UART::sendOK()
 
 bool UART::waitOK()
 {
-	uint16_t count = 0u;
+	uint32_t count = 0u;
 	
-	uint8_t ok[64] = { 0 };
+	uint8_t ok[2] = { 0 };
 	
+	// receive(&ok[0], 2u);
 	get(&ok[0], 2u);
 	if (ok[0] != '0' || ok[1] != '1')
 	{

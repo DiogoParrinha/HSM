@@ -22,10 +22,9 @@ typedef struct p11_object_s {
 	CK_ULONG oValueLen;
 } p11_object;
 
-#define P11_NUM_OPS 3
-#define P11_OP_FIND 0
-#define P11_OP_SIGN 1 
-#define P11_OP_VERIFY 2
+#define P11_NUM_OPS 2
+#define P11_OP_SIGN 0
+#define P11_OP_VERIFY 1
 
 typedef struct p11_session_s {
 	CK_SESSION_INFO_PTR session;
