@@ -339,7 +339,7 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 
 		// > 256B shouldn't happen! (unless the points of the curve are huge, e,g. > 1000 bits)
 		uint8_t signature[16*BLOCK_SIZE];
-		volatile uint32_t signature_len = UART_receive(&signature[0], 16*BLOCK_SIZE);
+		uint32_t signature_len = UART_receive(&signature[0], 16*BLOCK_SIZE);
 
 		// Get user private key
 		USER_init();
@@ -515,10 +515,12 @@ void COMMAND_LOGS_process(uint8_t * command)
 		// Send data
 		UART_send(global_buffer, strlen(global_buffer)+1); // include null character
 
-		// Send sha256 of signature
+		UART_send(signature, sig_len);
+
+		/*// Send sha256 of signature
 		uint8_t digest[32] = {0};
 		mbedtls_sha256(signature, sig_len, digest, 0);
-		UART_send(digest, 32);
+		UART_send(digest, 32);*/
 	}
 }
 

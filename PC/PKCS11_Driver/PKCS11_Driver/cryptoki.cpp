@@ -1205,14 +1205,14 @@ CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, 
 	}
 	
 	// Signature
-	if (pSignature == NULL_PTR || *pulSignatureLen < 512)
+	if (pSignature == NULL_PTR || *pulSignatureLen < 256)
 	{
-		*pulSignatureLen = 512; // should handle most signatures...
+		*pulSignatureLen = 256; // should handle most signatures...
 		return CKR_OK;
 	}
 
 	// Validate length
-	if (*pulSignatureLen < 512)
+	if (*pulSignatureLen < 256)
 	{
 		return CKR_BUFFER_TOO_SMALL;
 	}

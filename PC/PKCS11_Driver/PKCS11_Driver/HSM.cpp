@@ -22,6 +22,8 @@
 #include "mbedtls/md.h"
 #include "mbedtls/pk.h"
 #include "mbedtls/x509_crt.h"
+#include "mbedtls/md5.h"
+#include "mbedtls/base64.h"
 
 #include "HSM.h"
 #include "UART.h"
@@ -557,13 +559,13 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 	}
 
 	// Wait for actual signature
-	uint8_t tempSignature[512];
+	uint8_t tempSignature[256];
 	printf("\n\tReceiving actual signature...");
-	memset(pSignature, 0, 512);
-	*pulSignatureLen = comm->receive(tempSignature, 512);
+	memset(pSignature, 0, 256);
+	*pulSignatureLen = comm->receive(tempSignature, 256);
 	printf("OK: %d\n", *pulSignatureLen);
 
-	// the function calling this one should make sure the buffer has space for 512B so we don't worry about that here
+	// the function calling this one should make sure the buffer has space for 256B so we don't worry about that here
 	memset(pSignature, 0, *pulSignatureLen);
 	memcpy(pSignature, tempSignature, *pulSignatureLen);
 
@@ -1109,16 +1111,29 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 
 	// Wait for signature
 	printf("\n\tReceiving signature...");
-	uint8_t signature[255];
+	uint8_t signature[256];
 	memset(signature, 0, sizeof(signature));
 	uint32_t sig_len = comm->receive(&signature[0], 256);
+	if(sig_len <= 0)
+	{
+		return false;
+	}
 	printf("OK.\n");
+
+	// Base64 encode the signature
+	// Base64 requires 4/3 of the original size so we simply double it to avoid dynamic allocation
+	uint8_t base64[512];
+	uint32_t olen = 0;
+	if (mbedtls_base64_encode(base64, 512, &olen, signature, sig_len) != 0)
+	{
+		return false;
+	}
 
 	// Append logged message + signature to file
 	std::ofstream outfile;
 	outfile.open("log.txt", std::ios_base::app);
 	outfile << buffer << " [";
-	outfile.write((char*)signature, sig_len);
+	outfile.write((char*)base64, olen);
 	outfile << "]" << std::endl;
 	outfile.close();
 	printf("OK.\n");
