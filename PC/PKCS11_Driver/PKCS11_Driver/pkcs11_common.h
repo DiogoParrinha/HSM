@@ -37,7 +37,7 @@ typedef struct p11_session_s {
 	uint32_t verifyData_s; // holds the data size
 
 	p11_object ** objects; // our array of pointers to session objects
-	int totalObjects;
+	uint32_t totalObjects;
 	
 	/*
 	bool certAlready; // already got it?

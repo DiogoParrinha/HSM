@@ -36,6 +36,51 @@ bool Device::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen) { return false;
 bool Device::deleteUser(CK_BYTE uID) { return false; }
 bool Device::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage) { return false; }
 
+bool Device::logsGet(CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_ULONG_PTR logSize)
+{
+	return false;
+}
+
+bool Device::logsGetHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+{
+	return false;
+}
+
+bool Device::logsGetDayHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+{
+	return false;
+}
+
+bool Device::logsGetMonthHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+{
+	return false;
+}
+
+bool Device::logsVerifyDay(CK_ULONG lNumber)
+{
+	return false;
+}
+
+bool Device::logsVerify(CK_ULONG lNumber)
+{
+	return false;
+}
+
+bool Device::logsVerifyDayHash(CK_ULONG lNumber)
+{
+	return false;
+}
+
+bool Device::logsVerifyMonthHash(CK_ULONG lNumber)
+{
+	return false;
+}
+
+bool Device::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
+{
+	return false;
+}
+
 void Device::strcpy_bp(void * destination, const char * source, size_t dest_size)
 {
 	int c = strlen(source) > dest_size ? dest_size : strlen(source);

@@ -28,6 +28,15 @@ class Device
 		virtual bool modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen);
 		virtual bool deleteUser(CK_BYTE uID);
 		virtual bool logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage);
+		virtual bool logsGet(CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_ULONG_PTR logSize);
+		virtual bool logsGetHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
+		virtual bool logsGetDayHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
+		virtual bool logsGetMonthHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
+		virtual bool logsVerifyDay(CK_ULONG lNumber);
+		virtual bool logsVerify(CK_ULONG lNumber);
+		virtual bool logsVerifyDayHash(CK_ULONG lNumber);
+		virtual bool logsVerifyMonthHash(CK_ULONG lNumber);
+		virtual bool logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2);
 
 		void strcpy_bp(void * destination, const char * source, size_t dest_size);
 

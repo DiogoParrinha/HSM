@@ -1093,6 +1093,10 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	comm->send(pMessage, lMessage);
 	printf("OK\n");
 
+	// TODO: send current day hash + signature
+
+	// TODO: send current month hash + signature
+
 	// Wait for response
 	printf("\n\tReceiving response...");
 	memset(buffer, 0, sizeof(buffer));
@@ -1110,7 +1114,7 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	printf("OK.\n");
 
 	// Wait for signature
-	printf("\n\tReceiving signature...");
+	printf("\n\tReceiving log signature...");
 	uint8_t signature[256];
 	memset(signature, 0, sizeof(signature));
 	uint32_t sig_len = comm->receive(&signature[0], 256);
@@ -1120,7 +1124,11 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	}
 	printf("OK.\n");
 
-	// Base64 encode the signature
+	// TODO: Wait for current day hash + signature
+
+	// TODO: Wait for current month hash + signature
+
+	// Base64 encode the log signature
 	// Base64 requires 4/3 of the original size so we simply double it to avoid dynamic allocation
 	uint8_t base64[512];
 	uint32_t olen = 0;
@@ -1138,7 +1146,56 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	outfile.close();
 	printf("OK.\n");
 
+	// TODO: replace current day hash + signature
+
+	// TODO: replace current month hash + signature
+
 	endTimer();
 
+	return true;
+}
+
+bool HSM::logsGet(CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_ULONG_PTR logSize)
+{
+	return true;
+}
+
+bool HSM::logsGetHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+{
+	return true;
+}
+
+bool HSM::logsGetDayHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+{
+	return true;
+}
+
+bool HSM::logsGetMonthHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+{
+	return true;
+}
+
+bool HSM::logsVerifyDay(CK_ULONG lNumber)
+{
+	return true;
+}
+
+bool HSM::logsVerify(CK_ULONG lNumber)
+{
+	return true;
+}
+
+bool HSM::logsVerifyDayHash(CK_ULONG lNumber)
+{
+	return true;
+}
+
+bool HSM::logsVerifyMonthHash(CK_ULONG lNumber)
+{
+	return true;
+}
+
+bool HSM::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
+{
 	return true;
 }

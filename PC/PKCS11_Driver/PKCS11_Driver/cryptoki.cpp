@@ -7,6 +7,7 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <time.h>
 
 #include "pkcs11_common.h"
 #include "HSM.h"
@@ -360,6 +361,9 @@ CK_RV C_GetMechanismList(CK_SLOT_ID slotID, CK_MECHANISM_TYPE_PTR pMechanismList
 
 	// The HSM only support two mechanisms
 	// Ideally, this would come from the HSM class
+	// Because the idea would be to allow multiple versions of the HSM
+	// That extends the Device class
+	// This would mean that we'd have to get the mechanism list/info for the verify/sign functions as well (instead of being hardcoded)
 	if (pMechanismList == NULL_PTR)
 	{
 		*pulCount = 2;
@@ -2042,9 +2046,63 @@ CK_RV HSM_C_LogAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pMessage, CK_ULON
 }
 
 // HSM_C_LogGet
-CK_RV HSM_C_LogGet(HANDLE hSession, CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_ULONG_PTR logSize)
+CK_RV HSM_C_LogGet(CK_SESSION_HANDLE hSession, CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_ULONG_PTR logSize)
 {
-	// TODO
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Signature
+	if (logSize == NULL_PTR || *logSize < 512)
+	{
+		*logSize = 512;
+		return CKR_OK;
+	}
+
+	// Validate length
+	if (*logSize < 512)
+	{
+		return CKR_BUFFER_TOO_SMALL;
+	}
+
+	if (d->logsGet(lNumber, pLog, logSize))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
 	return CKR_OK;
 }
@@ -2052,7 +2110,61 @@ CK_RV HSM_C_LogGet(HANDLE hSession, CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_U
 // HSM_C_LogGetHash
 CK_RV HSM_C_LogGetHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
 {
-	// TODO
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Signature
+	if (pHash == NULL_PTR || *hashSize < 32)
+	{
+		*hashSize = 32;// hash must have at least 32B
+		return CKR_OK;
+	}
+
+	// Validate length
+	if (*hashSize < 32)
+	{
+		return CKR_BUFFER_TOO_SMALL;
+	}
+
+	if (d->logsGetHash(lNumber, pHash, hashSize))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
 	return CKR_OK;
 }
@@ -2060,7 +2172,86 @@ CK_RV HSM_C_LogGetHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber, CK_UTF8CHAR
 // HSM_C_LogGetDayHash
 CK_RV HSM_C_LogGetDayHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
 {
-	// TODO
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Signature
+	if (pHash == NULL_PTR || *hashSize < 32)
+	{
+		*hashSize = 32;// hash must have at least 32B
+		return CKR_OK;
+	}
+
+	// Validate length
+	if (*hashSize < 32)
+	{
+		return CKR_BUFFER_TOO_SMALL;
+	}
+
+	time_t theTime = time(NULL);
+	struct tm aTime;
+	localtime_s(&aTime, &theTime);
+	int month = aTime.tm_mon + 1; // Month is 0-11 so we add 1
+	int year = aTime.tm_year + 1900; // Years since 1900
+	uint32_t max_days = 0;
+	if (month == 4 || month == 6 || month == 9 || month == 11)
+		max_days = 30;
+	else if (month == 02)
+	{
+		bool leapyear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+
+		if (leapyear == 0)
+			max_days = 29;
+		else
+			max_days = 29;
+	}
+	else
+		max_days = 31;
+
+	if (lNumber < 0 || lNumber > max_days)
+	{
+		return ERROR_BAD_ARGUMENTS;
+	}
+
+	if (d->logsGetDayHash(lNumber, pHash, hashSize))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
 	return CKR_OK;
 }
@@ -2068,7 +2259,66 @@ CK_RV HSM_C_LogGetDayHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber, CK_UTF8C
 // HSM_C_LogGetMonthHash
 CK_RV HSM_C_LogGetMonthHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
 {
-	// TODO
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Signature
+	if (pHash == NULL_PTR || *hashSize < 32)
+	{
+		*hashSize = 32;// hash must have at least 32B
+		return CKR_OK;
+	}
+
+	// Validate length
+	if (*hashSize < 32)
+	{
+		return CKR_BUFFER_TOO_SMALL;
+	}
+	
+	if (lNumber < 0 || lNumber > 12)
+	{
+		return ERROR_BAD_ARGUMENTS;
+	}
+
+	if (d->logsGetMonthHash(lNumber, pHash, hashSize))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
 	return CKR_OK;
 }
@@ -2076,7 +2326,53 @@ CK_RV HSM_C_LogGetMonthHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber, CK_UTF
 // HSM_C_LogVerify
 CK_RV HSM_C_LogVerify(CK_SESSION_HANDLE hSession, CK_ULONG lNumber)
 {
-	// TODO
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	if (lNumber < 0)
+	{
+		return ERROR_BAD_ARGUMENTS;
+	}
+
+	if (d->logsVerify(lNumber))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
 	return CKR_OK;
 }
@@ -2084,7 +2380,127 @@ CK_RV HSM_C_LogVerify(CK_SESSION_HANDLE hSession, CK_ULONG lNumber)
 // HSM_C_LogVerifyDayHash
 CK_RV HSM_C_LogVerifyDayHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber)
 {
-	// TODO
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+	
+	time_t theTime = time(NULL);
+	struct tm aTime;
+	localtime_s(&aTime, &theTime);
+	int month = aTime.tm_mon + 1; // Month is 0-11 so we add 1
+	int year = aTime.tm_year + 1900; // Years since 1900
+	uint32_t max_days = 0;
+	if (month == 4 || month == 6 || month == 9 || month == 11)
+		max_days = 30;
+	else if (month == 02)
+	{
+		bool leapyear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+
+		if (leapyear == 0)
+			max_days = 29;
+		else
+			max_days = 29;
+	}
+	else
+		max_days = 31;
+
+	if (lNumber < 0 || lNumber > max_days)
+	{
+		return ERROR_BAD_ARGUMENTS;
+	}
+
+	if (d->logsVerifyDayHash(lNumber))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
+
+	return CKR_OK;
+}
+
+// HSM_C_LogVerifyMonthHash
+CK_RV HSM_C_LogVerifyMonthHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber)
+{
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	if (lNumber < 0 || lNumber > 12)
+	{
+		return ERROR_BAD_ARGUMENTS;
+	}
+
+	if (d->logsVerifyMonthHash(lNumber))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
 	return CKR_OK;
 }
@@ -2092,7 +2508,48 @@ CK_RV HSM_C_LogVerifyDayHash(CK_SESSION_HANDLE hSession, CK_ULONG lNumber)
 // HSM_C_LogCounter
 CK_RV HSM_C_LogCounter(CK_SESSION_HANDLE hSession, CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
 {
-	// TODO
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	Device* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	if (d->logsGetCounter(lNumber1, lNumber2))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
 
 	return CKR_OK;
 }

@@ -34,6 +34,15 @@ class HSM : public Device
 		bool modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen);
 		bool deleteUser(CK_BYTE uID);
 		bool logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage);
+		bool logsGet(CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_ULONG_PTR logSize);
+		bool logsGetHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
+		bool logsGetDayHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
+		bool logsGetMonthHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
+		bool logsVerifyDay(CK_ULONG lNumber);
+		bool logsVerify(CK_ULONG lNumber);
+		bool logsVerifyDayHash(CK_ULONG lNumber);
+		bool logsVerifyMonthHash(CK_ULONG lNumber);
+		bool logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2);
 
 		void startTimer();
 		void endTimer();
