@@ -9,8 +9,6 @@ int main()
     /* Release USB Controller from Reset */
     //*(volatile uint32_t *)0x40038048 = 0x0;
 
-	printf("test");
-
 	MSS_GPIO_init();
 	MSS_GPIO_config( MSS_GPIO_0 , MSS_GPIO_OUTPUT_MODE );
 

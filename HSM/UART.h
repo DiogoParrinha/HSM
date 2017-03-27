@@ -13,6 +13,8 @@
 #define ERROR_UART_HMAC_MISMATCH 		-0x03
 #define ERROR_UART_BLOCK_SIZE_INVALID	-0x04
 #define ERROR_UART_INVALID_SIZE			-0x05
+#define ERROR_UART_IV_GENERATE			-0x06
+#define ERROR_UART_INVALID_BUFFER		-0x07
 
 /*==============================================================================
   Globlal Variables

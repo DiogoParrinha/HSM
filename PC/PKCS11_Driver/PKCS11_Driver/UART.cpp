@@ -29,7 +29,7 @@ FILE *fpIn;
 UART::UART() {
 	usb = new SerialPort();
 	usingKey = false;
-
+	memset(sessionKey, 0, 32);
 	fopen_s(&fpIn, "./logIn.txt", "w+");
 }
  
@@ -454,6 +454,12 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 	if (size > locsize)
 		size = locsize;
 
+	if (usingKey)
+	{
+		if (blocks*BLOCK_SIZE > locsize)
+			return ERROR_UART_INVALID_BUFFER;
+	}
+
 	// Calculate total chunks
 	//uint32_t totalChunks = size / BLOCK_SIZE;
 	uint32_t totalChunks = blocks;
@@ -493,25 +499,39 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 			uint8_t plaintext[BLOCK_SIZE];
 			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, BLOCK_SIZE, IV, data, &plaintext[0]);
 
-			// Remove padding from message
-			memset(data, 0, BLOCK_SIZE);
-			size_t l = 0;
-			int r = get_pkcs_padding(plaintext, BLOCK_SIZE, &l);
-			if (r == 0)
+			// TODO: if we add the final full padding block, we must remove this if
+			// Because right now we're checking if we overlapped the size specified by the client
+			// We remove padding, otherwise we assume it's a non-final block
+			memset(data, 0, sizeof(data));
+			if (plainBytesReceived + BLOCK_SIZE > size)
 			{
-				plainBytesReceived += l;
+				// Remove padding from message
+				size_t l = 0;
+				int r = get_pkcs_padding(plaintext, BLOCK_SIZE, &l);
+				if (r == 0)
+				{
+					plainBytesReceived += l;
 
-				// l contains the actual length of this block
-				memcpy(data, plaintext, l);
+					// l contains the actual length of this block
+					memcpy(data, plaintext, l);
+				}
+				else
+				{
+					plainBytesReceived += BLOCK_SIZE;
+
+					// assume whole block
+					memcpy(data, plaintext, BLOCK_SIZE);
+				}
 			}
 			else
 			{
-				plainBytesReceived += BLOCK_SIZE;
-
-				// assume whole block
+				// Non-final block so we copy the plaintext to data
 				memcpy(data, plaintext, BLOCK_SIZE);
+				plainBytesReceived += BLOCK_SIZE;
 			}
 		}
+		else
+			plainBytesReceived += BLOCK_SIZE;
 		
 		memcpy(location + chunk * BLOCK_SIZE, data, BLOCK_SIZE);
 		

@@ -5,37 +5,6 @@
 #include <windows.h>
 #include <stdint.h>
 #include <assert.h>
-#include "UART.h"
-#include "mbedtls/config.h"
-
-#if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
-#else
-#include <stdio.h>
-#define mbedtls_printf     printf
-#endif
-
-#define VERBOSE 0
-
-#if !defined(MBEDTLS_ECDH_C) || \
-    !defined(MBEDTLS_ECP_DP_CURVE25519_ENABLED) || \
-    !defined(MBEDTLS_ENTROPY_C) || !defined(MBEDTLS_CTR_DRBG_C)
-int main(void)
-{
-	mbedtls_printf("MBEDTLS_ECDH_C and/or "
-		"MBEDTLS_ECP_DP_CURVE25519_ENABLED and/or "
-		"MBEDTLS_ENTROPY_C and/or MBEDTLS_CTR_DRBG_C "
-		"not defined\n");
-	return(0);
-}
-#else
-
-#include "mbedtls/entropy.h"
-#include "mbedtls/ctr_drbg.h"
-#include "mbedtls/ecdh.h"
-#include "mbedtls/aes.h"
-#include "mbedtls/sha256.h"
-#include "mbedtls/md.h"
 
 #include "PKCS11/cryptoki.h"
 #include <string.h>
@@ -45,50 +14,8 @@ int main(void)
 #include <sstream>
 #include <fstream>
 
-/*==============================================================================
-Macro
-*/
-#define   VALID                   0U
-#define   INVALID                 1U
-#define   AES_KEY_REGEN_CNT       10u
-#define   KEY_LENGTH_128          32u
-#define   KEY_LENGTH_256          64u
-#define   KEY_HMAC                6u
-#define   INIT_VECTOR_VALUE       8u
-#define   AES_DECRYPT             1u
-#define   AES_ENCRYPT             2u
-#define   ENTER                   13u
-#define   DUMMY_DATA              0u
-#define   ASCII_32_CHARACTERS     32u
-#define   ASCII_64_CHARACTERS     (ASCII_32_CHARACTERS * 2)
-#define   ASCII_128_CHARACTERS    (ASCII_32_CHARACTERS * 4)
-#define   DATA_LENGTH_128_BITS    ASCII_32_CHARACTERS
-#define   DATA_LENGTH_256_BITS    ASCII_64_CHARACTERS
-#define   DATA_LENGTH_512_BITS    ASCII_128_CHARACTERS
-#define   DATA_LENGTH_16_BYTES    (ASCII_32_CHARACTERS / 2)
-#define   DATA_LENGTH_32_BYTES    (ASCII_64_CHARACTERS / 2)
-#define   DATA_LENGTH_64_BYTES    (ASCII_128_CHARACTERS / 2)
-#define   BUFSIZE         1024
-
 const uint8_t g_separator[] =
 "------------------------------------------------------------------------------\r\n";
-
-uint8_t buffer[4096];
-uint32_t len;
-
-UART * comm;
-
-void NEW_USER();
-void EXPORT_USERS();
-void TIME_SEND();
-void GEN_KEYS();
-void DATA_SIGN();
-void DATA_VERIFY();
-void GET_CERT();
-void USER_CERT();
-void START_SESSION();
-void END_SESSION();
-void LOG_ADD();
 
 int main()
 {
@@ -138,51 +65,56 @@ int main()
 	r = C_Login(phSession, CKU_USER, data, 33);
 	assert(r == CKR_OK);
 
-	// Sign Data
-	CK_MECHANISM sign_mechanism = {
-		CKM_ECDSA, NULL_PTR, 0
-	};
-	r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
-	assert(r == CKR_OK);
+	int i = 0;
+	for (i=0; i<10; i++)
+	{
+		printf("\n-----------------------------------\ni=%d\n", i);
+		// Sign Data
+		CK_MECHANISM sign_mechanism = {
+			CKM_ECDSA, NULL_PTR, 0
+		};
+		r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
+		assert(r == CKR_OK);
 
-	uint8_t msg[7] = { '1','2','3','4','5','6', '\0' };
-	CK_BYTE signature1[512] = { 0 };
-	CK_ULONG sig1_len = 0;
-	r = C_Sign(phSession, msg, sizeof(msg), &signature1[0], &sig1_len);
-	assert(r == CKR_OK);
+		uint8_t msg[7] = { '1','2','3','4','5','6', '\0' };
+		CK_BYTE signature1[512] = { 0 };
+		CK_ULONG sig1_len = 512;
+		r = C_Sign(phSession, msg, sizeof(msg), &signature1[0], &sig1_len);
+		assert(r == CKR_OK);
 
-	r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
-	assert(r == CKR_OK);
+		r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
+		assert(r == CKR_OK);
 
-	r = C_SignUpdate(phSession, msg, sizeof(msg));
-	assert(r == CKR_OK);
+		r = C_SignUpdate(phSession, msg, sizeof(msg));
+		assert(r == CKR_OK);
 
-	r = C_SignUpdate(phSession, msg, sizeof(msg));
-	assert(r == CKR_OK);
+		r = C_SignUpdate(phSession, msg, sizeof(msg));
+		assert(r == CKR_OK);
 
-	CK_BYTE signature2[512] = { 0 };
-	CK_ULONG sig2_len = 0;
-	r = C_SignFinal(phSession, &signature2[0], &sig2_len);
-	assert(r == CKR_OK);
+		CK_BYTE signature2[512] = { 0 };
+		CK_ULONG sig2_len = 512;
+		r = C_SignFinal(phSession, &signature2[0], &sig2_len);
+		assert(r == CKR_OK);
 
-	// Verify signatures
-	r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
-	assert(r == CKR_OK);
+		// Verify signatures
+		r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
+		assert(r == CKR_OK);
 
-	r = C_Verify(phSession, msg, sizeof(msg), &signature1[0], sig1_len);
-	assert(r == CKR_OK);
+		r = C_Verify(phSession, msg, sizeof(msg), &signature1[0], sig1_len);
+		assert(r == CKR_OK);
 
-	r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
-	assert(r == CKR_OK);
+		r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
+		assert(r == CKR_OK);
 
-	r = C_VerifyUpdate(phSession, msg, sizeof(msg));
-	assert(r == CKR_OK);
+		r = C_VerifyUpdate(phSession, msg, sizeof(msg));
+		assert(r == CKR_OK);
 
-	r = C_VerifyUpdate(phSession, msg, sizeof(msg));
-	assert(r == CKR_OK);
+		r = C_VerifyUpdate(phSession, msg, sizeof(msg));
+		assert(r == CKR_OK);
 
-	r = C_VerifyFinal(phSession, &signature2[0], sig2_len);
-	assert(r == CKR_OK);
+		r = C_VerifyFinal(phSession, &signature2[0], sig2_len);
+		assert(r == CKR_OK);
+	}
 
 	// Logout User
 	r = C_Logout(phSession);
@@ -411,5 +343,3 @@ int main()
 
     return 0;
 }
-
-#endif

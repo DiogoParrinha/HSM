@@ -91,6 +91,8 @@ void mbedtls_sha256_update( mbedtls_sha256_context *ctx, const unsigned char *in
 	{
 		// Eventually we'll run out of memory...and the hash will fail
 		// (even though these are void functions, in the end the hash will be wrong)
+		volatile t = 0;
+		t++;
 		return;
 	}
 

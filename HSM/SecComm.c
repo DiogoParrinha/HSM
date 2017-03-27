@@ -21,14 +21,11 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	// TODO: something must be used to stop Man-in-the-Middle and Replay Attacks (think if the latter is possible to do)
 
 	// add entropy source
-	volatile int ret = 0;
-	if( ( ret = mbedtls_entropy_add_source(&SecComm_entropy, mbedtls_hardware_poll,
+	int ret = 0;
+	if((ret = mbedtls_entropy_add_source(&SecComm_entropy, mbedtls_hardware_poll,
 									NULL, ENTROPY_MIN_BYTES_RELEASE,
-									MBEDTLS_ENTROPY_SOURCE_STRONG ) ) != 0 )
+									MBEDTLS_ENTROPY_SOURCE_STRONG)) != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -37,9 +34,6 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 							   (const unsigned char *) pers,
 							   strlen( pers ) ) ) != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -48,9 +42,6 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	//ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_CURVE25519);
 	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -58,9 +49,6 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	ret = mbedtls_ecdh_gen_public(&ctx_srv.grp, &ctx_srv.d, &ctx_srv.Q, mbedtls_ctr_drbg_random, &SecComm_ctr_drbg);
 	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -68,9 +56,6 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	ret = mbedtls_mpi_write_binary(&ctx_srv.Q.X, srv_to_cli, 48u);
 	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -86,9 +71,6 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	ret = mbedtls_mpi_read_binary(&ctx_srv.Qp.X, cli_to_srv, 48u);
 	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -96,9 +78,6 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	ret = mbedtls_mpi_write_binary(&ctx_srv.Q.Y, srv_to_cli, 48u);
 	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -114,18 +93,12 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	ret = mbedtls_mpi_read_binary(&ctx_srv.Qp.Y, cli_to_srv, 48u);
 	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
 	ret = mbedtls_mpi_lset(&ctx_srv.Qp.Z, 1);
 	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -134,9 +107,8 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	uint8_t shared_secret[128];
 	if((ret = mbedtls_ecdh_calc_secret(&ctx_srv, &len, shared_secret, 128u, mbedtls_ctr_drbg_random, &SecComm_ctr_drbg)) != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
+		volatile int t = 0;
+		t++;
 		return FALSE;
 	}
 
@@ -167,6 +139,8 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 			drbg_handle);   // drbg_handle
 		if(status != MSS_SYS_SUCCESS)
 		{
+			volatile int t = 0;
+			t++;
 			return FALSE; // error
 		}
 	#endif
@@ -174,6 +148,8 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 	int r = UART_send(challenge, 16);
 	if(r <= 0)
 	{
+		volatile int t = 0;
+		t++;
 		return FALSE;
 	}
 
@@ -191,6 +167,8 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 	{
 		if(ver_challenge[a] != mod_challenge[a])
 		{
+			volatile int t = 0;
+			t++;
 			return FALSE;
 		}
 	}
@@ -207,11 +185,21 @@ BOOL SecComm_start(uint8_t * key)
 
 	if(!SecComm_establishSessionKey(key))
 	{
+		mbedtls_ecdh_free(&ctx_srv);
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
 		return FALSE;
 	}
 
 	if(!SecComm_validateSessionKey(key))
 	{
+		mbedtls_ecdh_free(&ctx_srv);
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
 		return FALSE;
 	}
 

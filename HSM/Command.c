@@ -83,13 +83,13 @@ void COMMAND_USER_process(uint8_t * command)
 		// New User
 
 		// Expect 32B User PIN
-		uint8_t buffer[32] = {0};
-		UART_receive(&buffer[0], 32u);
+		uint8_t buffer[PIN_SIZE] = {0};
+		UART_receive(&buffer[0], PIN_SIZE);
 
-		uint8_t U_PIN[32] = {0};
+		uint8_t U_PIN[PIN_SIZE] = {0};
 
 		// 32B => User PIN
-		memcpy(U_PIN, &buffer[0], 32u);
+		memcpy(U_PIN, &buffer[0], PIN_SIZE);
 
 		// Check if it's full
 		USER_init();
@@ -173,8 +173,9 @@ void COMMAND_USER_process(uint8_t * command)
 		// Delete User
 
 		// Expect 1B User ID
-		uint8_t buffer[1] = {0};
-		UART_receive(&buffer[0], 1);
+		// Note: buffer must have at least capacity for 1 block (because AES has 16B blocks)
+		uint8_t buffer[BLOCK_SIZE] = {0};
+		UART_receive(&buffer[0], BLOCK_SIZE);
 
 		uint8_t ID = 0;
 
@@ -238,8 +239,9 @@ void COMMAND_USER_process(uint8_t * command)
 		// Get certificate of user's public key
 
 		// Expect 1B ID
-		uint8_t buffer[1] = {0};
-		UART_receive(&buffer[0], 1u);
+		// Note: buffer must have at least capacity for 1 block (because AES has 16B blocks)
+		uint8_t buffer[BLOCK_SIZE] = {0};
+		UART_receive(&buffer[0], BLOCK_SIZE);
 
 		uint8_t U_ID = buffer[0];
 
@@ -285,13 +287,14 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 
 		memcpy(HASH, &buffer[0], HASH_SIZE);
 
+		uint8_t sig[512] = {0};
+		size_t sig_len = 0;
+
 		// Get user private key
 		USER * u = USER_get(authID);
 
 		// We have the hash
 		// Apply ECDSA
-		uint8_t sig[512] = {0};
-		size_t sig_len = 0;
 		if(!PKC_signData(u->privateKey, HASH, HASH_SIZE, &sig[0], &sig_len))
 		{
 			USER_free(u);
@@ -320,9 +323,10 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 
 		// User is requesting a hash and a signature to be verified
 
+		// Note, buffer must be multiple of BLOCK_SIZE for UART_receive
 		// Expect 1B ID + 32B hash
-		uint8_t buffer[1+HASH_SIZE+4] = {0};
-		UART_receive(&buffer[0], 1+HASH_SIZE);
+		uint8_t buffer[3*BLOCK_SIZE] = {0};
+		UART_receive(&buffer[0], 3*BLOCK_SIZE);
 
 		uint8_t U_ID = 0;
 		uint8_t HASH[HASH_SIZE] = {0};
@@ -333,9 +337,9 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 		// 32B for hash
 		memcpy(HASH, &buffer[1], HASH_SIZE);
 
-		// > 255B shouldn't happen! (unless the points of the curve are huge, e,g. > 1000 bits)
-		uint8_t signature[255];
-		uint32_t signature_len = UART_receive(&signature[0], 255);
+		// > 256B shouldn't happen! (unless the points of the curve are huge, e,g. > 1000 bits)
+		uint8_t signature[16*BLOCK_SIZE];
+		volatile uint32_t signature_len = UART_receive(&signature[0], 16*BLOCK_SIZE);
 
 		// Get user private key
 		USER_init();
@@ -386,11 +390,12 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 
 		// Admin is requesting a certificate for a public key
 
+		// Buffer size must be a multiple of BLOCK_SIZE
 		// Expect subject name + \0 or 0 (should be the same thing) | 2B key usage
-		uint8_t buffer[255+3] = {0};
-		UART_receive(&buffer[0], 255+3);
+		uint8_t buffer[17*BLOCK_SIZE] = {0};
+		UART_receive(&buffer[0], 17*BLOCK_SIZE);
 
-		uint8_t SUBJECT_NAME[256] = {0}; // subject name shouldn't go over this limit
+		uint8_t SUBJECT_NAME[1*BLOCK_SIZE] = {0}; // subject name shouldn't go over this limit
 		uint8_t KEY[ECC_PUBLIC_KEY_SIZE] = {0}; // key shouldn't go over this limit
 		uint8_t keyUsageArray[2] = {0};
 
@@ -527,8 +532,9 @@ void COMMAND_TIME_process(uint8_t * command)
 		MSS_RTC_get_calendar_count(&new_calendar_time);
 
 		// Expect 4B (32bit timestamp)
-		uint8_t buffer[4] = {0};
-		UART_receive(&buffer[0], 4u);
+		// Note: buffer must have at least capacity for 1 block (because AES has 16B blocks)
+		uint8_t buffer[BLOCK_SIZE] = {0};
+		UART_receive(&buffer[0], BLOCK_SIZE);
 
 		// Convert this back to an integer of 32bits
 		time_t timestamp = (0x000000FF & buffer[0])
@@ -538,6 +544,12 @@ void COMMAND_TIME_process(uint8_t * command)
 
 		struct tm * ptm;
 		ptm = gmtime(&timestamp);
+		if(ptm == NULL)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: no memory");
+			return;
+		}
 
 		new_calendar_time.second = ptm->tm_sec;
 		new_calendar_time.minute = ptm->tm_min;
@@ -616,8 +628,8 @@ void COMMAND_SESSION_process(uint8_t * command)
 		// login
 
 		// Expect 32B AUTH_PIN + 1B PIN
-		uint8_t buffer[PIN_SIZE+1] = {0};
-		UART_receive(&buffer[0], PIN_SIZE+1);
+		uint8_t buffer[3*BLOCK_SIZE] = {0};
+		UART_receive(&buffer[0], 3*BLOCK_SIZE);
 
 		uint8_t AUTH_PIN[PIN_SIZE] = {0};
 		uint8_t U_ID = 0;

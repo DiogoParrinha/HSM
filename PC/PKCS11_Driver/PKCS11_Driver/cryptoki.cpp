@@ -1205,10 +1205,16 @@ CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, 
 	}
 	
 	// Signature
-	if (pSignature == NULL_PTR)
+	if (pSignature == NULL_PTR || *pulSignatureLen < 512)
 	{
 		*pulSignatureLen = 512; // should handle most signatures...
 		return CKR_OK;
+	}
+
+	// Validate length
+	if (*pulSignatureLen < 512)
+	{
+		return CKR_BUFFER_TOO_SMALL;
 	}
 
 	g_sessions.at(hSession)->operation[P11_OP_SIGN] = 0;
@@ -1616,7 +1622,6 @@ CK_RV C_VerifyFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG
 	// Obtain signature
 	if (!d->verifySignature(g_sessions.at(hSession)->verifyData, g_sessions.at(hSession)->verifyData_s, pSignature, ulSignatureLen))
 	{
-
 		return CKR_SIGNATURE_INVALID;
 	}
 

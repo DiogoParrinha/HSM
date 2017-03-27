@@ -16,7 +16,8 @@
 #define ERROR_UART_INVALID_SIZE			-0x05
 #define ERROR_UART_INVALID_DATAINFO		-0x06
 #define ERROR_UART_INVALID_IV			-0x07
- 
+#define ERROR_UART_INVALID_BUFFER		-0x08
+
 class UART {
 	private:
 		void clear_variable(uint8_t *p_var, uint16_t size);

@@ -123,9 +123,18 @@ int UART_send(uint8_t *buffer, uint32_t len)
 
 		// Generate IV
 		#ifdef SECURITY_DEVICE
-			/*MSS_SYS_nrbg_instantiate
-			uint8_t puf_seed[32];
-			MSS_SYS_puf_get_random_seed(&puf_seed[0]);*/
+			// Generate 128-bit IV
+			/* Generate random bits */
+			uint8_t status = MSS_SYS_nrbg_generate(&IV[0],    // p_requested_data
+				0,              // p_additional_input
+				16,				// requested_length
+				0,              // additional_input_length
+				0,              // pr_req
+				drbg_handle);   // drbg_handle
+			if(status != MSS_SYS_SUCCESS)
+			{
+				return ERROR_UART_IV_GENERATE; // error
+			}
 		#endif
 
 		// Send IV
@@ -289,13 +298,13 @@ int UART_send(uint8_t *buffer, uint32_t len)
 BOOL UART_waitOK()
 {
 	uint16_t count = 0u;
-	
-	uint8_t ok[4];
+
+	uint8_t ok[BLOCK_SIZE];
 	memset(ok, 0, sizeof(ok));
-	
+
 	while(1)
 	{
-		//UART_receive(&ok[0], 2u);
+		//UART_receive(&ok[0], BLOCK_SIZE);
 		UART_get(&ok[0], 2u);
 		if(ok[0] != '0' || ok[1] != '1')
 		{
@@ -316,21 +325,21 @@ BOOL UART_sendOK()
 	if(UART_send(data, 2) != 2)
 	{
 		return FALSE;
-	}
+	}*/
 
-	return TRUE;*/
+	return TRUE;
 }
 
 void UART_waitCOMMAND()
 {
 	uint16_t count = 0u;
 
-	uint8_t data[7];
+	uint8_t data[BLOCK_SIZE];
 	memset(data, 0, sizeof(data));
 
 	while(1)
 	{
-		count = UART_receive(&data[0], 7u);
+		count = UART_receive(&data[0], BLOCK_SIZE);
 
 		// If not equal to COMMAND then we keep reading
 		if(data[0] != 'C' || data[1] != 'O' || data[2] != 'M' || data[3] != 'M' || data[4] != 'A' || data[5] != 'N' || data[6] != 'D')
@@ -407,6 +416,12 @@ int UART_receive(char *location, uint32_t locsize)
 	if(size > locsize)
 		size = locsize;
 
+	if (UART_usingKey)
+	{
+		if (blocks*BLOCK_SIZE > locsize)
+			return ERROR_UART_INVALID_BUFFER;
+	}
+
 	// Calculate total chunks
 	//uint32_t totalChunks = size / BLOCK_SIZE;
 	uint32_t totalChunks = blocks;
@@ -440,25 +455,39 @@ int UART_receive(char *location, uint32_t locsize)
 			uint8_t plaintext[BLOCK_SIZE];
 			mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, BLOCK_SIZE, IV, data, &plaintext[0]);
 
-			// Remove padding from message
+			// TODO: if we add the final full padding block, we must remove this if
+			// Because right now we're checking if we overlapped the size specified by the client
+			// We remove padding, otherwise we assume it's a non-final block
 			memset(data, 0, sizeof(data));
-			size_t l = 0;
-			int r = get_pkcs_padding(plaintext, BLOCK_SIZE, &l);
-			if(r == 0)
+			if(plainBytesReceived + BLOCK_SIZE > size)
 			{
-				plainBytesReceived += l;
+				// Remove padding from message
+				size_t l = 0;
+				int r = get_pkcs_padding(plaintext, BLOCK_SIZE, &l);
+				if(r == 0)
+				{
+					plainBytesReceived += l;
 
-				// l contains the actual length of this block
-				memcpy(data, plaintext, l);
+					// l contains the actual length of this block
+					memcpy(data, plaintext, l);
+				}
+				else
+				{
+					plainBytesReceived += BLOCK_SIZE;
+
+					// assume whole block
+					memcpy(data, plaintext, BLOCK_SIZE);
+				}
 			}
 			else
 			{
-				plainBytesReceived += BLOCK_SIZE;
-
-				// assume whole block
+				// Non-final block so we copy the plaintext to data
 				memcpy(data, plaintext, BLOCK_SIZE);
+				plainBytesReceived += BLOCK_SIZE;
 			}
 		}
+		else
+			plainBytesReceived += BLOCK_SIZE;
 
 		memcpy(location + chunk * BLOCK_SIZE, data, BLOCK_SIZE);
 
@@ -562,34 +591,6 @@ void UART_clear_variable(uint8_t *p_var, uint16_t size)
 		*p_var = 0x00;
 		p_var++;
 	}
-}
-
-void UART_display
-(
-	const uint8_t * in_buffer,
-	uint32_t byte_length
-)
-{
-    uint8_t display_buffer[128];
-    uint32_t inc;
-
-    if(byte_length > 8u)
-    {
-    	__printf((uint8_t*)"\r\n");
-    }
-
-    for(inc = 0; inc < byte_length; ++inc)
-    {
-        if((inc > 1u) &&(0u == (inc % 8u)))
-        {
-        	__printf((uint8_t*)"\r\n");
-        }
-        snprintf((char *)display_buffer,
-                 sizeof(display_buffer),
-                 "%02x", in_buffer[inc]);
-        __printf((uint8_t *)" 0x");
-        __printf(display_buffer);
-    }
 }
 
 uint8_t UART_getDataUART

@@ -116,10 +116,12 @@ bool HSM::init()
 	}
 
 	// Get info
+	startTimer();
 	if (!comm->checkDevice())
 	{
 		return CK_FALSE;
 	}
+	endTimer();
 
 	strcpy_bp(token.tokenInfo.manufacturerID, "INESC-ID", sizeof(token.tokenInfo.manufacturerID));
 	strcpy_bp(token.tokenInfo.model, "PKCS#11", sizeof(token.tokenInfo.model));
@@ -228,9 +230,7 @@ int HSM::startSession()
 	mbedtls_ecdh_init(&ctx_cli);
 	mbedtls_ctr_drbg_init(&ctr_drbg);
 
-	/*
-	* Initialize random number generation
-	*/
+	//Initialize random number generation
 	mbedtls_entropy_init(&entropy);
 	if ((ret = mbedtls_ctr_drbg_seed(&ctr_drbg, mbedtls_entropy_func, &entropy,
 		(const unsigned char *)pers,
@@ -240,9 +240,7 @@ int HSM::startSession()
 		return 2;
 	}
 
-	/*
-	* Client: inialize context and generate keypair
-	*/
+	//Client: inialize context and generate keypair
 	ret = mbedtls_ecp_group_load(&ctx_cli.grp, MBEDTLS_ECP_DP_SECP384R1);
 	//ret = mbedtls_ecp_group_load(&ctx_cli.grp, MBEDTLS_ECP_DP_CURVE25519);
 	if (ret != 0)
@@ -304,9 +302,7 @@ int HSM::startSession()
 		return 7;
 	}
 
-	/*
-	* Client: read peer's key and generate shared secret
-	*/
+	// Client: read peer's key and generate shared secret
 	ret = mbedtls_mpi_lset(&ctx_cli.Qp.Z, 1);
 	if (ret != 0)
 	{
@@ -334,7 +330,7 @@ int HSM::startSession()
 	comm->setKey(key, true);
 
 	// Receive challenge
-	uint8_t challenge[16];
+	uint8_t challenge[16] = { 0 };
 	comm->receive(challenge, 16);
 
 	///// Send modified challenge encrypted with session key
@@ -532,12 +528,13 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 
 	startTimer();
 
+	printf("DTSN_SIGN...");
+
 	// Calculate SHA-256 of pData
 	unsigned char digest[32] = { 0 };
 	mbedtls_sha256(pData, ulDataLen, &digest[0], 0);
 
 	comm->reqCommand();
-	printf("DTSN_SIGN...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "DTSN_SIGN");
 	comm->send(buffer, strlen((char*)buffer));
@@ -560,10 +557,15 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 	}
 
 	// Wait for actual signature
+	uint8_t tempSignature[512];
 	printf("\n\tReceiving actual signature...");
-	memset(pSignature, 0, *pulSignatureLen);
-	*pulSignatureLen = comm->receive(pSignature, *pulSignatureLen);
+	memset(pSignature, 0, 512);
+	*pulSignatureLen = comm->receive(tempSignature, 512);
 	printf("OK: %d\n", *pulSignatureLen);
+
+	// the function calling this one should make sure the buffer has space for 512B so we don't worry about that here
+	memset(pSignature, 0, *pulSignatureLen);
+	memcpy(pSignature, tempSignature, *pulSignatureLen);
 
 	printf("OK.\n");
 
@@ -1109,7 +1111,7 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	printf("\n\tReceiving signature...");
 	uint8_t signature[255];
 	memset(signature, 0, sizeof(signature));
-	uint32_t sig_len = comm->receive(&signature[0], 255);
+	uint32_t sig_len = comm->receive(&signature[0], 256);
 	printf("OK.\n");
 
 	// Append logged message + signature to file
