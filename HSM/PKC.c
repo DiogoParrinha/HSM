@@ -9,7 +9,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include "mbedtls/ecdh.h"
 #include "PKC.h"
+
+mbedtls_ecdh_context myctx_cli;
 
 BOOL PKC_genKeyPair(uint8_t * pub, uint8_t * pri)
 {
@@ -58,64 +61,41 @@ BOOL PKC_genKeyPair(uint8_t * pub, uint8_t * pri)
 		return FALSE;
 	}
 
-	/*
-	////// TEST
+    /*mbedtls_ecdh_init( &myctx_cli );
 
-	mbedtls_pk_context ctx_sign;
-	mbedtls_pk_init(&ctx_sign);
-
-	// Parse private key
-	ret = mbedtls_pk_parse_key(&ctx_sign, pri, strlen(pri)+1, NULL, 0);
+	ret = mbedtls_ecp_group_load( &myctx_cli.grp, MBEDTLS_ECP_DP_SECP384R1 );
 	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
+		volatile int t = 0;
+		t++;
 		return FALSE;
 	}
 
-	uint8_t data[32] = {
-			0x8d, 0x96, 0x9e, 0xef, 0x6e, 0xca, 0xd3, 0xc2, 0x9a, 0x3a, 0x62, 0x92, 0x80, 0xe6, 0x86, 0xcf,
-			0x0c, 0x3f, 0x5d, 0x5a, 0x86, 0xaf, 0xf3, 0xca, 0x12, 0x02, 0x0c, 0x92, 0x3a, 0xdc, 0x6c, 0x92
-	};
-
-	uint8_t signature[512];
-	size_t signature_len = 0;
-	if( ( ret = mbedtls_pk_sign(&ctx_sign, MBEDTLS_MD_SHA256, data, 32, signature, &signature_len, mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
+	ret = mbedtls_ecdh_gen_public(&myctx_cli.grp, &myctx_cli.d, &myctx_cli.Q, mbedtls_ctr_drbg_random, &ctr_drbg);
+	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
+		volatile int t = 0;
+		t++;
 		return FALSE;
 	}
 
-	mbedtls_pk_context ctx_verify;
-	mbedtls_pk_init(&ctx_verify);
-
-	// Parse public key
-	ret = mbedtls_pk_parse_public_key(&ctx_verify, pub, strlen(pub)+1);
-	if(ret != 0)
+	ret = mbedtls_mpi_write_binary( &myctx_cli.Q.X, pub, ECC_PUBLIC_KEY_SIZE );
+	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
+		volatile int t = 0;
+		t++;
 		return FALSE;
 	}
 
-	//Verify signature
-	ret = mbedtls_pk_verify(&ctx, MBEDTLS_MD_SHA256, data, 32, signature, signature_len);
-	if(ret != 0)
+	ret = mbedtls_mpi_write_binary(&myctx_cli.d, pri, ECC_PRIVATE_KEY_SIZE);
+	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
+		volatile int t = 0;
+		t++;
 		return FALSE;
 	}
 
-	mbedtls_pk_free(&ctx_sign);
-	mbedtls_pk_free(&ctx_verify);
-
-	*/
+    mbedtls_ecdh_free( &myctx_cli );*/
 
 	PKC_free(&ctx, &entropy, &ctr_drbg);
 

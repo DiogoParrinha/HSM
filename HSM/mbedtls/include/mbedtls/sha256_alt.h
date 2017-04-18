@@ -49,6 +49,7 @@ typedef struct
 {
     uint16_t current_size;      /*!< number of bytes processed  */
     unsigned char * buffer;   		/*!< data block being processed */
+    //unsigned char digest[32];
 }
 mbedtls_sha256_context;
 

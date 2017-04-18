@@ -568,8 +568,6 @@ void COMMAND_TIME_process(uint8_t * command)
 		#ifndef SECURITY_DEVICE
 			srand(timestamp);
 		#endif
-
-		free(ptm);
 	}
 }
 
@@ -695,6 +693,16 @@ void COMMAND_DEVICE_process(uint8_t * command)
 
 		// Send data
 		UART_send(HSM_SERIAL_NUMBER, strlen(HSM_SERIAL_NUMBER));
+	}
+	else if(strcmp(command, "DVC_TEST") == 0)
+	{
+		// Simply receive 4,096B
+
+		// Send SERIAL with data
+		UART_receive(&global_buffer[0], GLOBAL_BUFFER_SIZE);
+
+		// Send SUCCESS
+		UART_send("SUCCESS", 7);
 	}
 }
 

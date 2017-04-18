@@ -26,6 +26,16 @@ int main()
 	/*** USE RTC FOR TIME CONTROL ***/
 	MSS_RTC_init(MSS_RTC_CALENDAR_MODE, RTC_PRESCALER);
 
+	/*MSS_SYS_init(MSS_SYS_NO_EVENT_HANDLER);
+
+	uint8_t digest1[32];
+	uint8_t challenge[32] = {0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28};
+	mbedtls_sha256(challenge, 32, &digest1[0], 0);
+
+	uint8_t digest2[32] = {0};
+	uint8_t s = MSS_SYS_sha256(challenge, 32*8, &digest2[0]);
+	return 0;*/
+
 	/*BOOL r;
 
 	uint8_t * finalMessage;
@@ -75,7 +85,7 @@ int main()
 			MSS_RTC_clear_update_flag();
 		}
 	}*/
-	
+
 	#ifdef SECURITY_DEVICE
 		MSS_SYS_init(MSS_SYS_NO_EVENT_HANDLER);
 		
@@ -122,12 +132,6 @@ int main()
 
 		return 0;*/
 	#endif
-
-	/*uint8_t issuer_pub[512] = {0};
-	uint8_t issuer_pri[512] = {0};
-	PKC_genKeyPair(&issuer_pub[0], &issuer_pri[0]);
-
-	return 0;*/
 
 	UART_init();
 

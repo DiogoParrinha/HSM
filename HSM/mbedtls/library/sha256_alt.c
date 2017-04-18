@@ -89,15 +89,30 @@ void mbedtls_sha256_update( mbedtls_sha256_context *ctx, const unsigned char *in
     ctx->buffer = realloc(ctx->buffer, ctx->current_size+ilen);
 	if(ctx->buffer == NULL)
 	{
-		// Eventually we'll run out of memory...and the hash will fail
+		// Eventually we may run out of memory...and the hash will fail
 		// (even though these are void functions, in the end the hash will be wrong)
-		volatile t = 0;
+		// This shouldn't happen for the kind of operations we allow (the data we hash is not big enough)
+		volatile int t = 0;
 		t++;
 		return;
 	}
 
 	memcpy(ctx->buffer+ctx->current_size, input, ilen*sizeof(unsigned char));
 	ctx->current_size += ilen;
+
+    // Concatenate existing digest with new data and compute its hash
+    /*uint8_t * data = malloc(sizeof(unsigned char)*(32+ilen));
+    memcpy(data, ctx->digest, 32);
+    memcpy(&data[32], input, ilen);
+
+	uint8_t status = MSS_SYS_sha256(data, (32+ilen)*8, &ctx->digest[0]);
+	if(status != MSS_SYS_SUCCESS)
+	{
+		// we have no error handling in these function so we just set the digest to 0
+		memset(ctx->digest, 0, 32*sizeof(unsigned char));
+
+		return; // error
+	}*/
 }
 
 /*
@@ -110,15 +125,17 @@ void mbedtls_sha256_finish( mbedtls_sha256_context *ctx, unsigned char output[32
 	uint8_t status = MSS_SYS_sha256(ctx->buffer, ctx->current_size*8, &output[0]);
 	if(status != MSS_SYS_SUCCESS)
 	{
-		// we have no error handling in these function so we just set the output to 1
-		memset(output, 1, 32*sizeof(unsigned char));
+		// we have no error handling in these function so we just set the output to 0
+		memset(output, 0, 32*sizeof(unsigned char));
 
-		free(ctx->buffer); // mandatory!
+		if(ctx->buffer != NULL)
+			free(ctx->buffer); // mandatory!
 
 		return; // error
 	}
 
-    free(ctx->buffer);
+	if(ctx->buffer != NULL)
+		free(ctx->buffer);
 }
 
 #endif /* !MBEDTLS_SHA256_ALT */

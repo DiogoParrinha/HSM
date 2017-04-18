@@ -237,7 +237,10 @@
  * Uncomment a macro to enable alternate implementation of the corresponding
  * module.
  */
-#define MBEDTLS_AES_ALT
+#ifdef SF2_SECURITY_DEVICE
+	#define MBEDTLS_AES_ALT
+	#define MBEDTLS_SHA256_ALT
+#endif
 //#define MBEDTLS_ARC4_ALT
 //#define MBEDTLS_BLOWFISH_ALT
 //#define MBEDTLS_CAMELLIA_ALT
@@ -445,9 +448,10 @@
  */
 #ifndef SF2_SECURITY_DEVICE
 	#define MBEDTLS_ECP_DP_SECP192R1_ENABLED
-	#define MBEDTLS_ECP_DP_SECP224R1_ENABLED
+	/*#define MBEDTLS_ECP_DP_SECP224R1_ENABLED
 	#define MBEDTLS_ECP_DP_SECP256R1_ENABLED
-	#define MBEDTLS_ECP_DP_SECP521R1_ENABLED
+	#define MBEDTLS_ECP_DP_SECP521R1_ENABLED*/
+	#define MBEDTLS_ECP_DP_SECP384R1_ENABLED
 #else
 	#define MBEDTLS_ECP_DP_SECP384R1_ENABLED
 #endif

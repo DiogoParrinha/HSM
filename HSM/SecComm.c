@@ -40,6 +40,7 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 	// load group
 	ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_SECP384R1);
 	//ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_CURVE25519);
+	//ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_SECP192R1);
 	if( ret != 0 )
 	{
 		return FALSE;
