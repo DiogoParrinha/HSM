@@ -44,13 +44,11 @@ UART::~UART() {
 
 bool UART::init()
 {
-	printf("Linking...");
 	if (usb->connect())
 	{
 		printf("\nError: cannot connect.\n");
 		return false;
 	}
-	printf("OK.\n");
 
 	return true;
 }
@@ -59,7 +57,6 @@ bool UART::checkDevice()
 {
 	// Send 'DVC_CHECK'
 	reqCommand();
-	printf("DVC_CHECK...");
 	uint8_t buffer[4096];
 	sprintf_s((char*)buffer, sizeof(buffer), "DVC_CHECK");
 	int r = send(buffer, 9);
@@ -87,8 +84,6 @@ bool UART::checkDevice()
 	buffer[strlen(HSM_SERIAL_NUMBER)] = '\0';
 	if (strcmp((char*)data, HSM_SERIAL_NUMBER) != 0)
 		return false;
-
-	printf("OK\n");
 
 	return true;
 }

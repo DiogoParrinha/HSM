@@ -81,6 +81,11 @@ bool Device::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
 	return false;
 }
 
+bool Device::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
+{
+	return false;
+}
+
 void Device::strcpy_bp(void * destination, const char * source, size_t dest_size)
 {
 	int c = strlen(source) > dest_size ? dest_size : strlen(source);

@@ -43,6 +43,8 @@ class HSM : public Device
 		bool logsVerifyDayHash(CK_ULONG lNumber);
 		bool logsVerifyMonthHash(CK_ULONG lNumber);
 		bool logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2);
+		bool checkDevice();
+		bool sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen);
 
 		void startTimer();
 		void endTimer();

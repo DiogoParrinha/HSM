@@ -37,6 +37,7 @@ class Device
 		virtual bool logsVerifyDayHash(CK_ULONG lNumber);
 		virtual bool logsVerifyMonthHash(CK_ULONG lNumber);
 		virtual bool logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2);
+		virtual bool sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen);
 
 		void strcpy_bp(void * destination, const char * source, size_t dest_size);
 

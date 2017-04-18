@@ -974,3 +974,18 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_CertGen)
 	CK_ULONG_PTR bufSize					/* size of the buffer; if too small, it will be filled with size needed */
 );
 #endif
+
+/* HSM_C_SendSecure used for testing purposes. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_SendSecure)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession				/* the session's handle */
+);
+#endif
+
+/* HSM_C_SendPlain used for testing purposes. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_SendPlain)
+#ifdef CK_NEED_ARG_LIST
+(
+);
+#endif

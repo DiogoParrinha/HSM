@@ -17,6 +17,14 @@
 const uint8_t g_separator[] =
 "------------------------------------------------------------------------------\r\n";
 
+// Timer
+LARGE_INTEGER frequency;        // ticks per second
+LARGE_INTEGER t1, t2;           // ticks
+double elapsedTime;
+
+void startTimer();
+void endTimer();
+
 int main()
 {
 	printf("%s", g_separator);
@@ -26,6 +34,8 @@ int main()
 	getchar();
 
 	CK_ULONG r = 0;
+	double average = 0.0f;
+	int times = 0;
 
 	// Initialize
 	r = C_Initialize(NULL);
@@ -50,11 +60,60 @@ int main()
 	r = C_GetSlotInfo(0, &pInfo);
 	assert(r == CKR_OK);
 
+	// Execute test
+	/*average = 0.0f;
+	printf("\nTesting 4096B of plain text data...");
+	startTimer();
+	HSM_C_SendPlain();
+	assert(r == CKR_OK);
+	endTimer();
+	printf("OK.\n");
+	times = 4096/16; // amount of blocks sent
+	average += elapsedTime;
+	average /= times;
+	printf("Average block transfer: %lfms\n", average);*/
+
 	// Open Session
 	CK_BYTE application = 1;
 	CK_SESSION_HANDLE phSession;
 	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
 	assert(r == CKR_OK);
+
+	/*average = 0.0f;
+	times = 0;
+	printf("\nOpening sessions...");
+	for (int i = 0; i < 100; i++)
+	{
+		startTimer();
+		r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
+		assert(r == CKR_OK);
+		endTimer();
+		average += elapsedTime;
+		times++;
+
+		// close session
+		r = C_CloseSession(phSession);
+		assert(r == CKR_OK);
+	}
+	average /= times;
+	printf("OK.\n");
+	printf("Average session start: %lfms\n", average);*/
+
+	// Execute test
+	/*average = 0.0f;
+	printf("\nTesting 4096B of secure data...");
+	startTimer();
+	HSM_C_SendSecure(phSession);
+	assert(r == CKR_OK);
+	printf("OK.\n");
+	endTimer();
+	times = 4096 / 16; // amount of blocks sent
+	average += elapsedTime;
+	average /= times;
+	printf("Average block transfer: %lfms\n", average);
+
+	getchar();
+	return 0;*/
 
 	unsigned char data[128];
 
@@ -65,10 +124,12 @@ int main()
 	r = C_Login(phSession, CKU_USER, data, 33);
 	assert(r == CKR_OK);
 
+	average = 0.0f;
+	printf("\nSigning data...");
+	startTimer();
 	int i = 0;
-	for (i=0; i<10; i++)
+	for (i=0; i<100; i++)
 	{
-		printf("\n-----------------------------------\ni=%d\n", i);
 		// Sign Data
 		CK_MECHANISM sign_mechanism = {
 			CKM_ECDSA, NULL_PTR, 0
@@ -82,7 +143,7 @@ int main()
 		r = C_Sign(phSession, msg, sizeof(msg), &signature1[0], &sig1_len);
 		assert(r == CKR_OK);
 
-		r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
+		/*r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
 		assert(r == CKR_OK);
 
 		r = C_SignUpdate(phSession, msg, sizeof(msg));
@@ -94,10 +155,10 @@ int main()
 		CK_BYTE signature2[512] = { 0 };
 		CK_ULONG sig2_len = 512;
 		r = C_SignFinal(phSession, &signature2[0], &sig2_len);
-		assert(r == CKR_OK);
+		assert(r == CKR_OK);*/
 
 		// Verify signatures
-		r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
+		/*r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
 		assert(r == CKR_OK);
 
 		r = C_Verify(phSession, msg, sizeof(msg), &signature1[0], sig1_len);
@@ -113,8 +174,14 @@ int main()
 		assert(r == CKR_OK);
 
 		r = C_VerifyFinal(phSession, &signature2[0], sig2_len);
-		assert(r == CKR_OK);
+		assert(r == CKR_OK);*/
+
+		/*times++;
 	}
+	endTimer();
+	average += elapsedTime;
+	average /= times;
+	printf("Average signature: %lfms\n", average);
 
 	// Logout User
 	r = C_Logout(phSession);
@@ -237,7 +304,7 @@ int main()
 	///// Login admin and generate key pair | Get certificate of user 1 | Generate certificate for generated public key
 
 	// Login admin
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
 	data[32] = 0;
 	r = C_Login(phSession, CKU_SO, data, 33);
@@ -267,10 +334,23 @@ int main()
 		{ CKA_VALUE, priBuffer, sizeof(priBuffer) }
 	};
 
-	r = C_GenerateKeyPair(phSession, &genkey_mechanism, pubKeyTemplate, 3, priKeyTemplate, 3, &pub, &pri);
-	assert(r == CKR_OK);
+	average = 0.0f;
+	times = 0;
+	printf("\nGenerating keys...");
+	startTimer();
+	for(int i=0;i<10;i++)
+	{
+		r = C_GenerateKeyPair(phSession, &genkey_mechanism, pubKeyTemplate, 3, priKeyTemplate, 3, &pub, &pri);
+		assert(r == CKR_OK);
+		times++;
+	}
+	endTimer();
+	average += elapsedTime;
+	average /= times;
+	printf("\nAverage key generation: %lf\n", average);
 
-	memset(pubBuffer, 0, 512);
+
+	/*memset(pubBuffer, 0, 512);
 	memset(priBuffer, 0, 512);
 	r = C_GetAttributeValue(phSession, pub, pubKeyTemplate, 3);
 	assert(r == CKR_OK);
@@ -307,7 +387,7 @@ int main()
 	///// Login user 1, read file and send each line to the HSM
 
 	// Login user 1
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -316,18 +396,29 @@ int main()
 	int i = 0;
 	std::ifstream infile("messages.txt");
 	std::string line;
+
+	average = 0.0f;
+	times = 0;
+	printf("\nLogging messages...");
 	while (std::getline(infile, line))
 	{
-		printf("\ni = %d", i++);
+		//printf("\ni = %d", i++);
 		const char *pMessage = line.c_str();
+
+		startTimer();
 		HSM_C_LogAdd(phSession, (CK_UTF8CHAR_PTR)pMessage, line.length());
+		endTimer();
+		average += elapsedTime;
+		times++;
+
 		assert(r == CKR_OK);
 	}
+	average /= times;
+	printf("\nAverage log signing: %lf\n", average);
 
 	// Logout Log User
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);
-
+	assert(r == CKR_OK);*/
 
 	// close session
 	r = C_CloseSession(phSession);
@@ -342,4 +433,32 @@ int main()
 	getchar();
 
     return 0;
+}
+
+void startTimer()
+{
+#ifdef _WIN32
+	elapsedTime = 0.0f;
+	frequency.HighPart = 0;
+	frequency.LowPart = 0;
+	t1.HighPart = 0;
+	t1.LowPart = 0;
+	t2.HighPart = 0;
+	t2.LowPart = 0;
+
+	// get ticks per second
+	QueryPerformanceFrequency(&frequency);
+	// start timer
+	QueryPerformanceCounter(&t1);
+#endif
+}
+
+void endTimer()
+{
+#ifdef _WIN32
+	// stop timer
+	QueryPerformanceCounter(&t2);
+	// compute and print the elapsed time in millisec
+	elapsedTime = (t2.QuadPart - t1.QuadPart) * 1000.0 / frequency.QuadPart;
+#endif
 }
