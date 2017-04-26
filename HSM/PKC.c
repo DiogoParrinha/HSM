@@ -12,8 +12,6 @@
 #include "mbedtls/ecdh.h"
 #include "PKC.h"
 
-mbedtls_ecdh_context myctx_cli;
-
 BOOL PKC_genKeyPair(uint8_t * pub, uint8_t * pri)
 {
     mbedtls_pk_context ctx;

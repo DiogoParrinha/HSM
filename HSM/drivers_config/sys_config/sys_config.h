@@ -22,7 +22,7 @@
  * FACC_INIT (Cortex-M3 runs the FACC INIT procedure)
  * Only set to 1 for design targeting the M2S050T_ES device
  */
-#define MSS_SYS_FACC_INIT_BY_CORTEX 0
+#define MSS_SYS_FACC_INIT_BY_CORTEX         1
 
 /*==============================================================================
  * MDDR configuration
@@ -38,24 +38,13 @@
  * SERDES Interface configuration
  */
 #define MSS_SYS_SERDES_0_CONFIG_BY_CORTEX   0
-#if MSS_SYS_SERDES_0_CONFIG_BY_CORTEX
-#include "sys_config_SERDESIF_0.h"
-#endif
-
+#define SERDES_0_CFG_NB_OF_PAIRS            8u
 #define MSS_SYS_SERDES_1_CONFIG_BY_CORTEX   0
-#if MSS_SYS_SERDES_1_CONFIG_BY_CORTEX
-#include "sys_config_SERDESIF_1.h"
-#endif
-
+#define SERDES_1_CFG_NB_OF_PAIRS            8u
 #define MSS_SYS_SERDES_2_CONFIG_BY_CORTEX   0
-#if MSS_SYS_SERDES_2_CONFIG_BY_CORTEX
-#include "sys_config_SERDESIF_2.h"
-#endif
-
+#define SERDES_2_CFG_NB_OF_PAIRS            8u
 #define MSS_SYS_SERDES_3_CONFIG_BY_CORTEX   0
-#if MSS_SYS_SERDES_3_CONFIG_BY_CORTEX
-#include "sys_config_SERDESIF_3.h"
-#endif
+#define SERDES_3_CFG_NB_OF_PAIRS            8u
 
 /*==============================================================================
  * Cache configuration

@@ -12,9 +12,6 @@ mss_uart_instance_t * gp_my_uart = &g_mss_uart1;
 #else
 mss_uart_instance_t * gp_my_uart = &g_mss_uart0;
 #endif
-const uint8_t g_separator[] =
-"\r\n\
-------------------------------------------------------------------------------";
 
 void UART_init()
 {
@@ -603,8 +600,6 @@ uint8_t UART_getDataUART
     uint8_t rx_buff[1];
     uint8_t rx_size = 0u;
     uint8_t count = 0u;
-
-    __printf((uint8_t *)g_separator);
 
     /* Read the key size sent by user and store it. */
     count = 0u;

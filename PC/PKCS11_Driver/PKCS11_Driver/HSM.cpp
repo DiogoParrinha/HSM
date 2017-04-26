@@ -30,7 +30,7 @@
 
 #include <fstream>
 
-#define VERBOSE 0
+#define VERBOSE 1
 
 /*==============================================================================
 Macro

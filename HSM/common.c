@@ -207,3 +207,172 @@ int get_pkcs_padding( unsigned char *input, size_t input_len,
 
     return( -2 * ( bad != 0 ) );
 }
+
+
+/*==============================================================================
+  System Services event handler.
+ */
+void sys_services_event_handler(uint8_t opcode, uint8_t response)
+{
+	// TODO: There should be an admin command to clear the mesh and the clock flags (see tamper detection project example)
+
+    if(POR_DIGEST_ERROR_OPCODE == opcode)
+    {
+        sys_services_data_event_handler(response);
+    }
+    else if((opcode >= TAMPER_ATTEMPT_BOUNDARY_SCAN_OPCODE) && \
+	  (opcode <= TAMPER_ATTEMPT_ZEROIZATION_RECOVERY_OPCODE))
+	{
+    	// TODO: Tamper attempt event detected; enter state of failure!
+    	// Specify status so we can send a message to the PC whenever we receive a command
+	}
+	else if((opcode >= TAMPER_FAILURE_BOUNDARY_SCAN_OPCODE) && \
+		   (opcode <= TAMPER_FAILURE_ZEROIZATION_RECOVERY_OPCODE))
+	{
+		// TODO: Tamper failure event detected; enter state of failure!
+		// Specify status so we can send a message to the PC whenever we receive a command
+	}
+	else if(opcode == TAMPER_CLOCK_ERROR_DETECT_OPCODE)
+	{
+		// TODO: Tamper clock monitor error detected; enter state of failure!
+		// Specify status so we can send a message to the PC whenever we receive a command
+	}
+	else if((opcode >= TAMPER_HARDWARE_MONITOR_JTAGACTIVE_ERROR_OPCODE) && \
+			(opcode <= TAMPER_HARDWARE_MONITOR_MESHSHORT_ERROR_OPCODE))
+	{
+		// TODO: Hardware monitor error detected; enter state of failure!
+		// Specify status so we can send a message to the PC whenever we receive a command
+	}
+	else
+	{
+		// Invalid event detected
+	}
+}
+
+/*==============================================================================
+  System Services Data event handler.
+ */
+void sys_services_data_event_handler(uint8_t error_type)
+{
+    uint8_t fabric_digest_check_failure;
+    uint8_t envm0_digest_check_failure;
+    uint8_t envm1_digest_check_failure;
+    static uint8_t buffer[2];
+
+    fabric_digest_check_failure = error_type & MSS_SYS_DIGEST_CHECK_FABRIC;
+    envm0_digest_check_failure = error_type & MSS_SYS_DIGEST_CHECK_ENVM0;
+    envm1_digest_check_failure = error_type & MSS_SYS_DIGEST_CHECK_ENVM1;
+
+    if(fabric_digest_check_failure)
+    {
+    	// TODO: Enter state of failure! Specify status so we can send a message to the PC whenever we receive a command
+    }
+    if(envm0_digest_check_failure)
+    {
+    	// TODO: Enter state of failure! Specify status so we can send a message to the PC whenever we receive a command
+    }
+    if(envm1_digest_check_failure)
+    {
+    	// TODO: Enter state of failure! Specify status so we can send a message to the PC whenever we receive a command
+    }
+}
+
+
+int sys_keys_to_pem(uint8_t * private_key, uint8_t * pub_dest, uint32_t pub_size, uint8_t * pri_dest, uint32_t pri_size)
+{
+	int ret = 0;
+	mbedtls_ecp_keypair issuerPair;
+	mbedtls_ecp_keypair_init(&issuerPair);
+
+	ret = mbedtls_ecp_group_load(&issuerPair.grp, MBEDTLS_ECP_DP_SECP384R1);
+	if(ret != 0)
+	{
+		return ret;
+	}
+
+	// 384-bit values
+	uint8_t status = 0u;
+	uint8_t d[48] = {0x00u}; // m
+	memcpy(&d[0], &private_key[0], 48u);
+	uint8_t p[96] = {0x00u}; // P (x,y) -> (48B,48B)
+	uint8_t q[96] = {0x00u}; // Q (x,y) -> (48B,48B)
+
+	// Load private key
+	if((ret = mbedtls_mpi_read_binary(&issuerPair.d, d, 48)) != 0)
+	{
+		return ret;
+	}
+
+	// Get base point G for NIST elliptic curve P-384.
+	MSS_SYS_ecc_get_base_point(p);
+
+	// Compute public key
+	status = MSS_SYS_ecc_point_multiplication(&d[0], &p[0], &q[0]); // Q = d * P
+	if(status != MSS_SYS_SUCCESS)
+	{
+		return status;
+	}
+	else{
+		// X coordinate of Q
+		if((ret = mbedtls_mpi_read_binary(&issuerPair.Q.X, q, 48)) != 0)
+		{
+			return ret;
+		}
+
+		// Y coordinate of Q
+		if((ret = mbedtls_mpi_read_binary(&issuerPair.Q.Y, &q[48], 48)) != 0)
+		{
+			return ret;
+		}
+
+		// Z coordinate of R
+		if((ret = mbedtls_mpi_lset(&issuerPair.Q.Z, 1)) != 0)
+		{
+			return ret;
+		}
+	}
+
+	ret = mbedtls_ecp_check_privkey(&issuerPair.grp, &issuerPair.d);
+	if(ret != 0)
+	{
+		return ret;
+	}
+
+	ret = mbedtls_ecp_check_pubkey(&issuerPair.grp, &issuerPair.Q);
+	if(ret != 0)
+	{
+		return ret;
+	}
+
+	//// Now it's time to convert both into PEM format
+	mbedtls_pk_context * pk_ctx = (mbedtls_pk_context*)malloc(sizeof(mbedtls_pk_context));
+	mbedtls_pk_init(pk_ctx);
+	if((ret = mbedtls_pk_setup(pk_ctx, mbedtls_pk_info_from_type(MBEDTLS_PK_ECKEY))) != 0)
+	{
+		return ret;
+	}
+
+	// Set the key pair of our context
+	mbedtls_ecp_keypair * oldctx = pk_ctx->pk_ctx;
+	pk_ctx->pk_ctx = (mbedtls_ecp_keypair *)&issuerPair;
+
+	// Write a PEM string for the public key
+	ret = mbedtls_pk_write_pubkey_pem(pk_ctx, pub_dest, ECC_PUBLIC_KEY_SIZE);
+	if(ret != 0)
+	{
+		return ret;
+	}
+
+	// Write a PEM string for the private key
+	ret = mbedtls_pk_write_key_pem(pk_ctx, pri_dest, ECC_PRIVATE_KEY_SIZE);
+	if(ret != 0)
+	{
+		return ret;
+	}
+
+	pk_ctx->pk_ctx = oldctx; // we should set it back so we can free it properly below
+	mbedtls_pk_free(pk_ctx);
+	mbedtls_ecp_keypair_free(&issuerPair);
+
+	return 0;
+}

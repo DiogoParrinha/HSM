@@ -11,6 +11,10 @@
 #include "common.h"
 #include "mbedtls/pk.h"
 #include "mbedtls/x509_crt.h"
+#include "mbedtls/ecdh.h"
+
+/*mbedtls_ecdh_context myctx_cli;
+uint8_t mypri[64], mypub[64];*/
 
 #ifdef SECURITY_DEVICE
 	// Use SRAM-PUF 32-Byte generator

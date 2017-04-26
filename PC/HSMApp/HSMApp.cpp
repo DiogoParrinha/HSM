@@ -118,7 +118,7 @@ int main()
 	unsigned char data[128];
 
 	// Login User
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -128,7 +128,7 @@ int main()
 	printf("\nSigning data...");
 	startTimer();
 	int i = 0;
-	for (i=0; i<100; i++)
+	for (i=0; i<1; i++)
 	{
 		// Sign Data
 		CK_MECHANISM sign_mechanism = {
@@ -158,13 +158,13 @@ int main()
 		assert(r == CKR_OK);*/
 
 		// Verify signatures
-		/*r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
+		r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
 		assert(r == CKR_OK);
 
 		r = C_Verify(phSession, msg, sizeof(msg), &signature1[0], sig1_len);
 		assert(r == CKR_OK);
 
-		r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
+		/*r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
 		assert(r == CKR_OK);
 
 		r = C_VerifyUpdate(phSession, msg, sizeof(msg));
@@ -176,7 +176,7 @@ int main()
 		r = C_VerifyFinal(phSession, &signature2[0], sig2_len);
 		assert(r == CKR_OK);*/
 
-		/*times++;
+		times++;
 	}
 	endTimer();
 	average += elapsedTime;
@@ -185,7 +185,7 @@ int main()
 
 	// Logout User
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);*/
+	assert(r == CKR_OK);
 
 	///// ADD 7 USERS
 
@@ -304,7 +304,7 @@ int main()
 	///// Login admin and generate key pair | Get certificate of user 1 | Generate certificate for generated public key
 
 	// Login admin
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
 	data[32] = 0;
 	r = C_Login(phSession, CKU_SO, data, 33);
@@ -347,7 +347,7 @@ int main()
 	endTimer();
 	average += elapsedTime;
 	average /= times;
-	printf("\nAverage key generation: %lf\n", average);
+	printf("\nAverage key generation: %lf\n", average);*/
 
 
 	/*memset(pubBuffer, 0, 512);

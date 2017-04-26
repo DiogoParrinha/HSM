@@ -6,7 +6,7 @@
  * CMSIS function in your application code.
  *
  * SVN $Revision: 7375 $
- * SVN $Date: 2015-05-01 14:57:40 +0100 (Fri, 01 May 2015) $
+ * SVN $Date: 2015-05-01 19:27:40 +0530 (Fri, 01 May 2015) $
  */
 #include "cortex_nvic.h"
 #ifdef MSCC_NO_RELATIVE_PATHS

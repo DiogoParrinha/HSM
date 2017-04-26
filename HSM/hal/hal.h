@@ -4,7 +4,7 @@
  * Hardware abstraction layer functions.
  * 
  * SVN $Revision: 5258 $
- * SVN $Date: 2013-03-21 12:41:02 +0000 (Thu, 21 Mar 2013) $
+ * SVN $Date: 2013-03-21 18:11:02 +0530 (Thu, 21 Mar 2013) $
  */
 #ifndef HAL_H_
 #define HAL_H_

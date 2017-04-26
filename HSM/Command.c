@@ -3,10 +3,19 @@
 
 #define HSM_SERIAL_NUMBER "123456789"
 
+/*volatile uint8_t g_my_user_key[256] = {0x00};
+uint8_t* p_my_user_key = (uint8_t*)&g_my_user_key;*/
+
+BOOL inited = FALSE;
 BOOL connected = FALSE;
 BOOL loggedIn = FALSE;
 BOOL isAdmin = FALSE;
 uint8_t authID = 0;
+
+void COMMAND_inited()
+{
+	inited = TRUE;
+}
 
 // Process command
 void COMMAND_process(uint8_t * command)
@@ -700,6 +709,84 @@ void COMMAND_DEVICE_process(uint8_t * command)
 
 		// Send SERIAL with data
 		UART_receive(&global_buffer[0], GLOBAL_BUFFER_SIZE);
+
+		// Send SUCCESS
+		UART_send("SUCCESS", 7);
+	}
+	else if(strcmp(command, "DVC_INIT") == 0)
+	{
+		if(inited)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: already initialized");
+			return;
+		}
+
+		uint8_t status = 0;
+
+		MSS_SYS_puf_delete_activation_code();
+		MSS_SYS_puf_create_activation_code();
+
+		uint8_t g_my_user_key[384] = {0};
+
+		status = MSS_SYS_puf_enroll_key(2, 384 / 64, 0u, &g_my_user_key[0]);
+		if(status != MSS_SYS_SUCCESS)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: init failed 1");
+			return;
+		}
+
+		status = MSS_SYS_puf_enroll_key(3, 384 / 64, 0u, &g_my_user_key[0]);
+		if(status != MSS_SYS_SUCCESS)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: init failed 2");
+			return;
+		}
+
+		status = MSS_SYS_puf_enroll_key(4, 256 / 64, 0u, &g_my_user_key[0]);
+		if(status != MSS_SYS_SUCCESS)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: init failed 3");
+			return;
+		}
+
+		uint8_t key_numbers = 0;
+		status = MSS_SYS_puf_get_number_of_keys(&key_numbers);
+		if(key_numbers == 5)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: init failed 4");
+			return;
+		}
+
+		/*uint8_t* p_my_user_key = (uint8_t*)&g_my_user_key;
+
+		status = MSS_SYS_puf_fetch_key(2, &p_my_user_key);
+		if(status != MSS_SYS_SUCCESS)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: init failed");
+			return;
+		}
+
+		status = MSS_SYS_puf_fetch_key(3, &p_my_user_key);
+		if(status != MSS_SYS_SUCCESS)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: init failed");
+			return;
+		}
+
+		status = MSS_SYS_puf_fetch_key(4, &p_my_user_key);
+		if(status != MSS_SYS_SUCCESS)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: init failed");
+			return;
+		}*/
 
 		// Send SUCCESS
 		UART_send("SUCCESS", 7);

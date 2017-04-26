@@ -168,8 +168,6 @@ BOOL SecComm_validateSessionKey(uint8_t * key)
 	{
 		if(ver_challenge[a] != mod_challenge[a])
 		{
-			volatile int t = 0;
-			t++;
 			return FALSE;
 		}
 	}

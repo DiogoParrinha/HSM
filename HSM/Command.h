@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include "common.h"
 
+void COMMAND_inited();
 void COMMAND_USER_process(uint8_t * command);
 void COMMAND_DATASIGN_process(uint8_t * command);
 void COMMAND_CERTMGT_process(uint8_t * command);

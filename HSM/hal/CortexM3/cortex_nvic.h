@@ -6,7 +6,7 @@
  * CMSIS function in your application code.
  *
  * SVN $Revision: 5257 $
- * SVN $Date: 2013-03-21 12:24:10 +0000 (Thu, 21 Mar 2013) $
+ * SVN $Date: 2013-03-21 17:54:10 +0530 (Thu, 21 Mar 2013) $
  */
 #ifndef CORTEX_NVIC_H_
 #define CORTEX_NVIC_H_

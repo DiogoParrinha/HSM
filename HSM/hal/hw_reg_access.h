@@ -7,7 +7,7 @@
  * processor/toolchain specific HAL.
  * 
  * SVN $Revision: 5258 $
- * SVN $Date: 2013-03-21 12:41:02 +0000 (Thu, 21 Mar 2013) $
+ * SVN $Date: 2013-03-21 18:11:02 +0530 (Thu, 21 Mar 2013) $
  */
 #ifndef HW_REG_ACCESS
 #define HW_REG_ACCESS
