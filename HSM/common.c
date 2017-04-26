@@ -223,25 +223,33 @@ void sys_services_event_handler(uint8_t opcode, uint8_t response)
     else if((opcode >= TAMPER_ATTEMPT_BOUNDARY_SCAN_OPCODE) && \
 	  (opcode <= TAMPER_ATTEMPT_ZEROIZATION_RECOVERY_OPCODE))
 	{
-    	// TODO: Tamper attempt event detected; enter state of failure!
-    	// Specify status so we can send a message to the PC whenever we receive a command
+    	system_status |= STATUS_TAMPER_DETECTED;
+
+    	// Tamper attempt event detected; enter state of failure!
+    	tamper_status |= STATUS_TAMPER_EVENT_DETECTED;
 	}
 	else if((opcode >= TAMPER_FAILURE_BOUNDARY_SCAN_OPCODE) && \
 		   (opcode <= TAMPER_FAILURE_ZEROIZATION_RECOVERY_OPCODE))
 	{
-		// TODO: Tamper failure event detected; enter state of failure!
-		// Specify status so we can send a message to the PC whenever we receive a command
+		system_status |= STATUS_TAMPER_DETECTED;
+
+		// Tamper failure event detected; enter state of failure!
+		tamper_status |= STATUS_TAMPER_FAILURE_EVENT_DETECTED;
 	}
 	else if(opcode == TAMPER_CLOCK_ERROR_DETECT_OPCODE)
 	{
-		// TODO: Tamper clock monitor error detected; enter state of failure!
-		// Specify status so we can send a message to the PC whenever we receive a command
+		system_status |= STATUS_TAMPER_DETECTED;
+
+		// Tamper clock monitor error detected; enter state of failure!
+		tamper_status |= STATUS_TAMPER_CLOCK_ERROR_DETECTED;
 	}
 	else if((opcode >= TAMPER_HARDWARE_MONITOR_JTAGACTIVE_ERROR_OPCODE) && \
 			(opcode <= TAMPER_HARDWARE_MONITOR_MESHSHORT_ERROR_OPCODE))
 	{
-		// TODO: Hardware monitor error detected; enter state of failure!
-		// Specify status so we can send a message to the PC whenever we receive a command
+		system_status |= STATUS_TAMPER_DETECTED;
+
+		// Hardware monitor error detected; enter state of failure!
+		tamper_status |= STATUS_TAMPER_HARDWARE_MONITOR_ERROR_DETECTED;
 	}
 	else
 	{
@@ -265,15 +273,18 @@ void sys_services_data_event_handler(uint8_t error_type)
 
     if(fabric_digest_check_failure)
     {
-    	// TODO: Enter state of failure! Specify status so we can send a message to the PC whenever we receive a command
+    	system_status |= STATUS_POR_FAILED;
+    	tamper_status |= STATUS_POR_FABRIC_DIGEST_FAILED;
     }
     if(envm0_digest_check_failure)
     {
-    	// TODO: Enter state of failure! Specify status so we can send a message to the PC whenever we receive a command
+    	system_status |= STATUS_POR_FAILED;
+    	tamper_status |= STATUS_POR_ENVM0_DIGEST_FAILED;
     }
     if(envm1_digest_check_failure)
     {
-    	// TODO: Enter state of failure! Specify status so we can send a message to the PC whenever we receive a command
+    	system_status |= STATUS_POR_FAILED;
+    	tamper_status |= STATUS_POR_ENVM1_DIGEST_FAILED;
     }
 }
 

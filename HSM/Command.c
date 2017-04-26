@@ -3,18 +3,11 @@
 
 #define HSM_SERIAL_NUMBER "123456789"
 
-/*volatile uint8_t g_my_user_key[256] = {0x00};
-uint8_t* p_my_user_key = (uint8_t*)&g_my_user_key;*/
-
-BOOL inited = FALSE;
-BOOL connected = FALSE;
-BOOL loggedIn = FALSE;
-BOOL isAdmin = FALSE;
 uint8_t authID = 0;
 
 void COMMAND_inited()
 {
-	inited = TRUE;
+	system_status |= STATUS_INITED;
 }
 
 // Process command
@@ -22,12 +15,27 @@ void COMMAND_process(uint8_t * command)
 {
 	if(command[0] == 'U' && command[1] == 'S' && command[2] == 'E' && command[3] == 'R')
 	{
+		if(!(system_status & STATUS_INITED))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not initialized");
+			return;
+		}
+
 		COMMAND_USER_process(command);
 		return;
 	}
 	else if(command[0] == 'D' && command[1] == 'T' && command[2] == 'S' && command[3] == 'N')
 	{
-		if(!connected || !loggedIn)
+		if(!(system_status & STATUS_INITED))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not initialized");
+			return;
+		}
+
+		// DTSN commands require a secure connection and auth
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -39,7 +47,15 @@ void COMMAND_process(uint8_t * command)
 	}
 	else if(command[0] == 'C' && command[1] == 'R' && command[2] == 'T')
 	{
-		if(!connected)
+		if(!(system_status & STATUS_INITED))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not initialized");
+			return;
+		}
+
+		// CRT commands require a secure connection
+		if(!(system_status & STATUS_CONNECTED))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected");
@@ -51,7 +67,15 @@ void COMMAND_process(uint8_t * command)
 	}
 	else if(command[0] == 'L' && command[1] == 'O' && command[2] == 'G' && command[3] == 'S')
 	{
-		if(!connected || !loggedIn)
+		if(!(system_status & STATUS_INITED))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not initialized");
+			return;
+		}
+
+		// LOGS commands require a secure connection and auth
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -63,11 +87,25 @@ void COMMAND_process(uint8_t * command)
 	}
 	else if(command[0] == 'T' && command[1] == 'I' && command[2] == 'M' && command[3] == 'E')
 	{
+		if(!(system_status & STATUS_INITED))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not initialized");
+			return;
+		}
+
 		COMMAND_TIME_process(command);
 		return;
 	}
 	else if(command[0] == 'S' && command[1] == 'E' && command[2] == 'S' && command[3] == 'S')
 	{
+		if(!(system_status & STATUS_INITED))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not initialized");
+			return;
+		}
+
 		COMMAND_SESSION_process(command);
 		return;
 	}
@@ -82,7 +120,7 @@ void COMMAND_USER_process(uint8_t * command)
 {
 	if(strcmp(command, "USER_NEW") == 0)
 	{
-		if(!connected || !loggedIn || !isAdmin)
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || !(system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -128,7 +166,8 @@ void COMMAND_USER_process(uint8_t * command)
 	}
 	else if(strcmp(command, "USER_MODIFY") == 0)
 	{
-		if(!connected || !loggedIn || isAdmin) // admin can't modify PINs
+		// admin can't modify PINs
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || (system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -172,7 +211,7 @@ void COMMAND_USER_process(uint8_t * command)
 	}
 	else if(strcmp(command, "USER_DELETE") == 0)
 	{
-		if(!connected || !loggedIn || !isAdmin)
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || !(system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -202,7 +241,7 @@ void COMMAND_USER_process(uint8_t * command)
 	{
 		// Generate Key Pair and send it
 
-		if(!connected || !loggedIn || !isAdmin)
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || !(system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -279,7 +318,8 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 {
 	if(strcmp(command, "DTSN_SIGN") == 0)
 	{
-		if(!connected || !loggedIn || authID == 0) // admin (authID=0) cannot sign data because it has no generated data signing key pair
+		// admin (authID=0) cannot sign data because it has no generated data signing key pair
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || (system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -323,7 +363,7 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 	}
 	else if(strcmp(command, "DTSN_VERIFY") == 0)
 	{
-		if(!connected)
+		if(!(system_status & STATUS_CONNECTED))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -390,7 +430,8 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 {
 	if(strcmp(command, "CRT_REQUEST") == 0)
 	{
-		if(!connected || !loggedIn || !isAdmin || authID > 0)
+		// Secure connection, auth, admin
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || !(system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -430,44 +471,6 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 		uint16_t keyUsage = (0x000000FF & keyUsageArray[0])
 			| ((0x000000FF & keyUsageArray[1]) << 8);
 
-		// Get key usage
-		/*uint32_t key_usage = 0;
-		if(k > 0)
-		{
-			key_usage = buffer[k];
-		}
-
-		switch(key_usage)
-		{
-			case 0:
-				key_usage = MBEDTLS_X509_KU_DIGITAL_SIGNATURE;
-			break;
-			case 1:
-				key_usage = MBEDTLS_X509_KU_NON_REPUDIATION;
-			break;
-			case 2:
-				key_usage = MBEDTLS_X509_KU_KEY_ENCIPHERMENT;
-			break;
-			case 3:
-				key_usage = MBEDTLS_X509_KU_DATA_ENCIPHERMENT;
-			break;
-			case 4:
-				key_usage = MBEDTLS_X509_KU_KEY_AGREEMENT;
-			break;
-			case 5:
-				key_usage = MBEDTLS_X509_KU_KEY_CERT_SIGN;
-			break;
-			case 6:
-				key_usage = MBEDTLS_X509_KU_CRL_SIGN;
-			break;
-			case 7:
-				key_usage = MBEDTLS_X509_KU_ENCIPHER_ONLY;
-			break;
-			case 8:
-				key_usage = MBEDTLS_X509_KU_DECIPHER_ONLY;
-			break;
-		}*/
-
 		// Except public key now
 		UART_receive(KEY, ECC_PUBLIC_KEY_SIZE);
 
@@ -490,7 +493,8 @@ void COMMAND_LOGS_process(uint8_t * command)
 {
 	if(strcmp(command, "LOGS_ADD") == 0)
 	{
-		if(!connected || !loggedIn || isAdmin)
+		// Secure connection, logged in, not admin
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || (system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -601,11 +605,13 @@ void COMMAND_SESSION_process(uint8_t * command)
 			return;
 		}
 
-		connected = TRUE;
+		// Connected
+		system_status |= STATUS_CONNECTED;
 	}
 	else if(strcmp(command, "SESS_END") == 0)
 	{
-		if(!connected)
+		// Secure connection
+		if(!(system_status & STATUS_CONNECTED))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected");
@@ -614,20 +620,21 @@ void COMMAND_SESSION_process(uint8_t * command)
 
 		UART_disconnect();
 
-		//UART_init();
-
-		connected = FALSE;
+		// Unset connected
+		system_status &= ~STATUS_CONNECTED;
 	}
 	else if(strcmp(command, "SESS_LOGIN") == 0)
 	{
-		if(!connected)
+		// Secure connection
+		if(!(system_status & STATUS_CONNECTED))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected");
 			return;
 		}
 
-		if(loggedIn)
+		// Not logged in
+		if((system_status & STATUS_LOGGEDIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: logged in");
@@ -660,20 +667,22 @@ void COMMAND_SESSION_process(uint8_t * command)
 
 		authID = U_ID;
 
-		isAdmin = FALSE;
+		// Unset any possibility of having the current user as admin and logged in
+		// (shouldn't happen because we start fresh and when we logout we unset these)
+		system_status &= ~STATUS_ISADMIN;
+		system_status &= ~STATUS_LOGGEDIN;
 		if(U_ID == 0)
-			isAdmin = TRUE;
+			system_status |= STATUS_ISADMIN;
 
-		loggedIn = TRUE;
+		system_status |= STATUS_LOGGEDIN;
 
 		// Send SUCCESS
 		UART_send("SUCCESS", 7);
-
-		loggedIn = TRUE;
 	}
 	else if(strcmp(command, "SESS_LOGOUT") == 0)
 	{
-		if(!connected || !loggedIn)
+		// Secure connection, logged in
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -683,8 +692,8 @@ void COMMAND_SESSION_process(uint8_t * command)
 		// Logout
 
 		authID = 0; // even though UID is 0 by default (admin), nothing bad happens as long as isAdmin/loggedIn gets checked when necessary
-		isAdmin = FALSE;
-		loggedIn = FALSE;
+		system_status &= ~STATUS_ISADMIN;
+		system_status &= ~STATUS_LOGGEDIN;
 
 		// Send SUCCESS
 		UART_send("SUCCESS", 7);
@@ -715,7 +724,7 @@ void COMMAND_DEVICE_process(uint8_t * command)
 	}
 	else if(strcmp(command, "DVC_INIT") == 0)
 	{
-		if(inited)
+		if((system_status & STATUS_INITED))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: already initialized");
@@ -727,7 +736,7 @@ void COMMAND_DEVICE_process(uint8_t * command)
 		MSS_SYS_puf_delete_activation_code();
 		MSS_SYS_puf_create_activation_code();
 
-		uint8_t g_my_user_key[384] = {0};
+		uint8_t g_my_user_key[48] = {0};
 
 		status = MSS_SYS_puf_enroll_key(2, 384 / 64, 0u, &g_my_user_key[0]);
 		if(status != MSS_SYS_SUCCESS)
@@ -762,32 +771,6 @@ void COMMAND_DEVICE_process(uint8_t * command)
 			return;
 		}
 
-		/*uint8_t* p_my_user_key = (uint8_t*)&g_my_user_key;
-
-		status = MSS_SYS_puf_fetch_key(2, &p_my_user_key);
-		if(status != MSS_SYS_SUCCESS)
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: init failed");
-			return;
-		}
-
-		status = MSS_SYS_puf_fetch_key(3, &p_my_user_key);
-		if(status != MSS_SYS_SUCCESS)
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: init failed");
-			return;
-		}
-
-		status = MSS_SYS_puf_fetch_key(4, &p_my_user_key);
-		if(status != MSS_SYS_SUCCESS)
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: init failed");
-			return;
-		}*/
-
 		// Send SUCCESS
 		UART_send("SUCCESS", 7);
 	}
@@ -797,5 +780,5 @@ void COMMAND_ERROR(char * message)
 {
 	UART_send(message, strlen(message));
 	UART_disconnect();
-	connected = FALSE;
+	system_status = STATUS_DEFAULT;
 }

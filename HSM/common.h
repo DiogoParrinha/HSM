@@ -41,6 +41,36 @@ typedef uint8_t BOOL;
 #define FALSE 0
 
 /*------------------------------------------------------------------------------
+ * System Status
+ **/
+
+// System functioning statuses
+#define STATUS_DEFAULT 0x0
+#define STATUS_INITED 0x01
+#define STATUS_CONNECTED 0x02
+#define STATUS_LOGGEDIN 0x04
+#define STATUS_ISADMIN 0x08
+
+// Failure statuses
+#define STATUS_KEY_LOAD_FAILED 0x20
+#define STATUS_TAMPER_DETECTED 0x40
+#define STATUS_POR_FAILED 0x80
+
+// Tamper detection statuses
+#define STATUS_TAMPER_EVENT_DETECTED 0x01
+#define STATUS_TAMPER_FAILURE_EVENT_DETECTED 0x02
+#define STATUS_TAMPER_CLOCK_ERROR_DETECTED 0x04
+#define STATUS_TAMPER_HARDWARE_MONITOR_ERROR_DETECTED 0x08
+
+// POR Digest Check statuses
+#define STATUS_POR_FABRIC_DIGEST_FAILED 0x20
+#define STATUS_POR_ENVM0_DIGEST_FAILED 0x40
+#define STATUS_POR_ENVM1_DIGEST_FAILED 0x80
+
+uint8_t system_status;
+uint8_t tamper_status;
+
+/*------------------------------------------------------------------------------
  * Key and Sizes
  **/
 

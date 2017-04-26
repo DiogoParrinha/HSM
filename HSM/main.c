@@ -33,6 +33,9 @@ int main()
 	/*** USE RTC FOR TIME CONTROL ***/
 	MSS_RTC_init(MSS_RTC_CALENDAR_MODE, RTC_PRESCALER);
 
+	system_status = STATUS_DEFAULT;
+	tamper_status = STATUS_DEFAULT;
+
 	#ifdef SECURITY_DEVICE
 		MSS_SYS_init(sys_services_event_handler);
 
@@ -53,9 +56,8 @@ int main()
 		// Only mark as initialized if we have at least 5 keys enrolled (2 factory; 3 custom)
 		if(key_numbers == 5)
 		{
-
-
-			/*uint8_t g_my_user_key[512] = {0};
+			/*
+			uint8_t g_my_user_key[512] = {0};
 			MSS_SYS_puf_delete_activation_code();
 			MSS_SYS_puf_create_activation_code();
 
@@ -74,7 +76,6 @@ int main()
 			{
 			}*/
 
-			/// TODO: I think there's a bug here!!
 			uint8_t* p_my_user_key = (uint8_t*)&global_buffer;
 
 			status = MSS_SYS_puf_fetch_key(2, &p_my_user_key);
@@ -137,12 +138,22 @@ int main()
 		// Wait for COMMAND
 		UART_waitCOMMAND();
 
-		// Alright, client is going to issue a command
-		memset(command, 0, 64);
-		UART_receive(&command[0], 64);
+		// If we are in a state of error, we don't even read the command and process it
+		if((system_status & STATUS_TAMPER_DETECTED) || (system_status & STATUS_POR_FAILED))
+		{
+			char message[128] = {0};
+			sprintf(message, "ERROR: failure state 0x%02X", tamper_status);
+			COMMAND_ERROR(message);
+		}
+		else
+		{
+			// Alright, client is going to issue a command
+			memset(command, 0, 64);
+			UART_receive(&command[0], 64);
 
-		// Process the command
-		COMMAND_process(command);
+			// Process the command
+			COMMAND_process(command);
+		}
 	}
 
 	return 0;
