@@ -53,12 +53,11 @@ int main()
 
 		status = MSS_SYS_puf_get_number_of_keys(&key_numbers);
 
-		// Only mark as initialized if we have at least 5 keys enrolled (2 factory; 3 custom)
-		if(key_numbers == 5)
+		// Only mark as initialized if we have at least 5 keys enrolled (2 factory; 4 custom)
+		if(key_numbers == 6)
 		{
-			/*
 			uint8_t g_my_user_key[512] = {0};
-			MSS_SYS_puf_delete_activation_code();
+			/*MSS_SYS_puf_delete_activation_code();
 			MSS_SYS_puf_create_activation_code();
 
 			status = MSS_SYS_puf_enroll_key(2, 384 / 64, 0u, &g_my_user_key[0]);
@@ -71,13 +70,19 @@ int main()
 			{
 			}
 
-			status = MSS_SYS_puf_enroll_key(4, 256 / 64, 0u, &g_my_user_key[0]);
+			status = MSS_SYS_puf_enroll_key(4, 384 / 64, 0u, &g_my_user_key[0]);
+			if(status != MSS_SYS_SUCCESS)
+			{
+			}
+
+			status = MSS_SYS_puf_enroll_key(5, 256 / 64, 0u, &g_my_user_key[0]);
 			if(status != MSS_SYS_SUCCESS)
 			{
 			}*/
 
 			uint8_t* p_my_user_key = (uint8_t*)&global_buffer;
 
+			// certificates key pair
 			status = MSS_SYS_puf_fetch_key(2, &p_my_user_key);
 			if(status != MSS_SYS_SUCCESS)
 			{
@@ -94,6 +99,7 @@ int main()
 				return 3;
 			}
 
+			// logs key pair
 			status = MSS_SYS_puf_fetch_key(3, &p_my_user_key);
 			if(status != MSS_SYS_SUCCESS)
 			{
@@ -109,7 +115,24 @@ int main()
 				return 3;
 			}
 
+			// session establishment key pair
 			status = MSS_SYS_puf_fetch_key(4, &p_my_user_key);
+			if(status != MSS_SYS_SUCCESS)
+			{
+				return 2;
+			}
+
+			memset(SESS_PUBLIC_KEY, 0, ECC_PUBLIC_KEY_SIZE);
+			memset(SESS_PRIVATE_KEY, 0, ECC_PRIVATE_KEY_SIZE);
+
+			ret = sys_keys_to_pem(p_my_user_key, SESS_PUBLIC_KEY, ECC_PUBLIC_KEY_SIZE, SESS_PRIVATE_KEY, ECC_PRIVATE_KEY_SIZE);
+			if(ret != 0)
+			{
+				return 3;
+			}
+
+			// SPI flash encrypt key
+			status = MSS_SYS_puf_fetch_key(5, &p_my_user_key);
 			if(status != MSS_SYS_SUCCESS)
 			{
 				return 2;

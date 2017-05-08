@@ -15,6 +15,8 @@
 #define ERROR_UART_INVALID_SIZE			-0x05
 #define ERROR_UART_IV_GENERATE			-0x06
 #define ERROR_UART_INVALID_BUFFER		-0x07
+#define ERROR_UART_TIMER				-0x08
+#define ERROR_UART_MEMORY				-0x09
 
 /*==============================================================================
   Globlal Variables
@@ -53,6 +55,7 @@ BOOL UART_waitOK();
 BOOL UART_sendOK();
 void UART_waitCOMMAND();
 int UART_receive(char *location, uint32_t locsize);
+int UART_receive_e(char *location, uint32_t locsize);
 size_t UART_Polled_Rx(mss_uart_instance_t * this_uart, uint8_t * rx_buff, size_t buff_size);
 
 void UART_setKey(uint8_t * key);
@@ -62,6 +65,7 @@ BOOL UART_recTime();
 void UART_disconnect();
 uint8_t UART_get(uint8_t* src_ptr, uint8_t size);
 int UART_send(uint8_t *buffer, uint32_t len);
+int UART_send_e(uint8_t *buffer, uint32_t len);
 void UART_display(const uint8_t * in_buffer, uint32_t byte_length);
 
 #endif // UART_H

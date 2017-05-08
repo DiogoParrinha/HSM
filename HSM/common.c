@@ -387,3 +387,44 @@ int sys_keys_to_pem(uint8_t * private_key, uint8_t * pub_dest, uint32_t pub_size
 
 	return 0;
 }
+
+/**
+* @brief Convert date to Unix timestamp
+* @param[in] date Pointer to a structure representing the date and time
+* @return Unix timestamp
+**/
+uint32_t convertDateToUnixTime(const mss_rtc_calendar_t *date)
+{
+	volatile uint16_t y;
+	volatile uint8_t m;
+	volatile uint8_t d;
+	volatile uint32_t t;
+
+	//Year
+	y = date->year+2000; // starts at 1, while RTC works with years since 2000
+	//Month of year
+	m = date->month; // works the same way as the RTC
+	//Day of month
+	d = date->day;
+
+	//January and February are counted as months 13 and 14 of the previous year
+	if(m <= 2)
+	{
+		m += 12;
+		y -= 1;
+	}
+
+	//Convert years to days
+	t = (365 * y) + (y / 4) - (y / 100) + (y / 400);
+	//Convert months to days
+	t += (30 * m) + (3 * (m + 1) / 5) + d;
+	//Unix time starts on January 1st, 1970
+	t -= 719561;
+	//Convert days to seconds
+	t *= 86400;
+	//Add hours, minutes and seconds
+	t += (3600 * date->hour) + (60 * date->minute) + date->second;
+
+	//Return Unix time
+	return t;
+}

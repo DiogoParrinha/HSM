@@ -112,6 +112,11 @@ void UART::setKey(uint8_t * key, bool use)
 	usingKey = use;
 }
 
+void UART::useTime(bool use)
+{
+	usingTime = use;
+}
+
 void UART::disconnect()
 {
 	usb->disconnect();
@@ -157,6 +162,33 @@ uint8_t UART::get
 }
 
 int UART::send(uint8_t *buffer, uint32_t len)
+{
+	// Encapsulate data
+	uint8_t * data = (uint8_t*)malloc(sizeof(uint8_t)*(len + 4)); // timestamp goes in the last 4B
+	if (data == NULL)
+		return ERROR_UART_MEMORY;
+
+	memcpy(data, buffer, len);
+
+	// Get timestamp
+	time_t t = time(NULL);
+
+	// Place the size into an array
+	data[len] = t & 0x000000FF;
+	data[len + 1] = (t & 0x0000FF00) >> 8;
+	data[len + 2] = (t & 0x00FF0000) >> 16;
+	data[len + 3] = (t & 0xFF000000) >> 24;
+
+	int r = send_e(data, len + 4);
+	free(data);
+
+	if (r > 0)
+		r -= 4;
+
+	return r;
+}
+
+int UART::send_e(uint8_t *buffer, uint32_t len)
 {
 	// > ~4GB? fail (4*1024^3)
 	if (len >= 4294967295)
@@ -390,6 +422,50 @@ int UART::send(uint8_t *buffer, uint32_t len)
 }
 
 int UART::receive(uint8_t *location, uint32_t locsize)
+{
+	// Decapsulate data
+	uint8_t * data = (uint8_t*)malloc(sizeof(uint8_t)*(locsize + BLOCK_SIZE)); // timestamp goes in the last 4B but since we may need 16B for encryption, let's add 16B
+	if (data == NULL)
+		return ERROR_UART_MEMORY;
+	memcpy(data, location, locsize);
+
+	// Get timestamp
+	time_t t = time(NULL);
+
+	int r = receive_e(data, locsize + BLOCK_SIZE);
+	if (r <= 0)
+	{
+		free(data);
+		return r;
+	}
+
+	// Get the last 4B
+	uint32_t rec_timestamp = (0x000000FF & data[r-4])
+		| ((0x000000FF & data[r-3]) << 8)
+		| ((0x000000FF & data[r-2]) << 16)
+		| ((0x000000FF & data[r-1]) << 24);
+
+	// Difference > 10s?
+	if (usingTime)
+	{
+		if (abs(rec_timestamp - t) > 10)
+		{
+			free(data);
+			return ERROR_UART_TIMER;
+		}
+	}
+
+	r -= 4;
+
+	memset(location, 0, locsize);
+	memcpy(location, data, r); // copy r bytes from data to location
+
+	free(data);
+
+	return r;
+}
+
+int UART::receive_e(uint8_t *location, uint32_t locsize)
 {
 	mbedtls_aes_context aes_ctx;
 	mbedtls_md_context_t sha_ctx;

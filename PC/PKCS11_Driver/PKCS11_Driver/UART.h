@@ -17,6 +17,9 @@
 #define ERROR_UART_INVALID_DATAINFO		-0x06
 #define ERROR_UART_INVALID_IV			-0x07
 #define ERROR_UART_INVALID_BUFFER		-0x08
+#define ERROR_UART_TIMER				-0x09
+#define ERROR_UART_MEMORY				-0x0A
+
 
 class UART {
 	private:
@@ -32,7 +35,11 @@ class UART {
 
 		SerialPort *usb;
 		bool usingKey;
+		bool usingTime;
 		uint8_t sessionKey[32];
+
+		int receive_e(uint8_t *location, uint32_t locsize);
+		int send_e(uint8_t *buffer, uint32_t len);
 
 	public:
 		UART();
@@ -46,6 +53,7 @@ class UART {
 		bool reqCommand();
 
 		void setKey(uint8_t * key, bool use);
+		void useTime(bool use);
 		int receive(uint8_t *location, uint32_t locsize);
 		int send(uint8_t *buffer, uint32_t len);
 		void display(const uint8_t * in_buffer, uint32_t byte_length);

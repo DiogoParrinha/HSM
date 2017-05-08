@@ -105,6 +105,9 @@ uint8_t LOGS_PUBLIC_KEY[ECC_PUBLIC_KEY_SIZE];
 
 uint8_t FLASH_ENCRYPT_KEY[32];
 
+uint8_t SESS_PRIVATE_KEY[ECC_PRIVATE_KEY_SIZE];
+uint8_t SESS_PUBLIC_KEY[ECC_PUBLIC_KEY_SIZE];
+
 /*------------------------------------------------------------------------------
  * Flash
  **/
@@ -145,6 +148,7 @@ int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t 
 //uint8_t get_timestamp();
 void add_pkcs_padding(unsigned char *output, size_t output_len, size_t data_len);
 int get_pkcs_padding(unsigned char *input, size_t input_len, size_t *data_len);
+uint32_t convertDateToUnixTime(const mss_rtc_calendar_t *date);
 
 /*------------------------------------------------------------------------------
   RTC prescaler value.

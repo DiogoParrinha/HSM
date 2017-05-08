@@ -1,5 +1,6 @@
 #include "Command.h"
 #include <time.h>
+#include <sys/time.h>
 
 #define HSM_SERIAL_NUMBER "123456789"
 
@@ -571,11 +572,20 @@ void COMMAND_TIME_process(uint8_t * command)
 		new_calendar_time.hour = ptm->tm_hour;
 		new_calendar_time.day = ptm->tm_mday;
 		new_calendar_time.month = ptm->tm_mon+1; // time works with months since january (0 being jan) while RTC works with 1 to 12
-		new_calendar_time.year = ptm->tm_year-100; // time works with years since 1900, while RTC works with years since 2009
-		new_calendar_time.weekday = ptm->tm_wday+1; // time works with days since sunday 80 being sunday) while RTC works with 1-7
+		new_calendar_time.year = ptm->tm_year-100; // time works with years since 1900, while RTC works with years since 2000
+		new_calendar_time.weekday = ptm->tm_wday+1; // time works with days since Sunday 80 being sunday) while RTC works with 1-7
 		new_calendar_time.week = calculate_week(new_calendar_time.day, new_calendar_time.month,  new_calendar_time.year);
 
 		MSS_RTC_set_calendar_count(&new_calendar_time);
+
+		// Get our timestamp
+		mss_rtc_calendar_t calendar_time;
+		MSS_RTC_get_calendar_count(&calendar_time);
+
+		volatile uint32_t t = convertDateToUnixTime(&calendar_time);
+
+		volatile int a = 0;
+		a++;
 
 		// Use timestamp as random seed
 		#ifndef SECURITY_DEVICE

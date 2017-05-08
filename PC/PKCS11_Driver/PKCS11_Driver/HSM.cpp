@@ -151,7 +151,7 @@ bool HSM::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
 	{
 		printf("\nError logging in: %s\n", buffer);
-		return 3;
+		return false;
 	}
 
 	endTimer();
@@ -411,6 +411,8 @@ int HSM::startSession()
 	// Send TIME_SEND and time
 	sendTime();
 
+	comm->useTime(false);
+
 	// increase open sessions
 	openSessions++;
 
@@ -438,6 +440,7 @@ bool HSM::endSession()
 
 	uint8_t data[32] = { 0 };
 	comm->setKey(data, false);
+	comm->useTime(false);
 
 	openSessions--;
 
@@ -458,7 +461,7 @@ bool HSM::sessionLimit()
 bool HSM::sendTime()
 {
 	if (VERBOSE == 1)
-		printf("\n\tSEND_TIME...");
+		printf("\n\tTIME_SEND...");
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "TIME_SEND");
 	comm->send(buffer, strlen((char*)buffer));

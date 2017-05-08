@@ -2,6 +2,7 @@
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 #include "UART.h"
 
 /*==============================================================================
@@ -92,6 +93,36 @@ uint8_t UART_get
 }
 
 int UART_send(uint8_t *buffer, uint32_t len)
+{
+	// Encapsulate data
+	uint8_t * data = malloc(sizeof(uint8_t)*(len+4)); // timestamp goes in the last 4B
+	if(data == NULL)
+		return ERROR_UART_MEMORY;
+
+	memcpy(data, buffer, len);
+
+	// Get timestamp
+	mss_rtc_calendar_t calendar_count;
+	MSS_RTC_get_calendar_count(&calendar_count);
+
+	uint32_t t = convertDateToUnixTime(&calendar_count);
+
+	// Place the size into an array
+	data[len] = t & 0x000000FF;
+	data[len+1] = (t & 0x0000FF00) >> 8;
+	data[len+2] = (t & 0x00FF0000) >> 16;
+	data[len+3] = (t & 0xFF000000) >> 24;
+
+	int r = UART_send_e(data, len+4);
+	free(data);
+
+	if(r > 0)
+		r -= 4;
+
+	return r;
+}
+
+int UART_send_e(uint8_t *buffer, uint32_t len)
 {
 	// > ~4GB? fail (4*1024^3)
 	if (len > 4294967295)
@@ -292,66 +323,55 @@ int UART_send(uint8_t *buffer, uint32_t len)
 	return plainBytesSent;
 }
 
-BOOL UART_waitOK()
-{
-	uint16_t count = 0u;
-
-	uint8_t ok[BLOCK_SIZE];
-	memset(ok, 0, sizeof(ok));
-
-	while(1)
-	{
-		//UART_receive(&ok[0], BLOCK_SIZE);
-		UART_get(&ok[0], 2u);
-		if(ok[0] != '0' || ok[1] != '1')
-		{
-			__printf("\nError: not OK.");
-			return FALSE;
-		}
-		else
-			break;
-	}
-
-	return TRUE;
-}
-
-BOOL UART_sendOK()
-{
-	MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )"01", 2);
-	/*uint8_t data[2] = {'0','1'};
-	if(UART_send(data, 2) != 2)
-	{
-		return FALSE;
-	}*/
-
-	return TRUE;
-}
-
-void UART_waitCOMMAND()
-{
-	uint16_t count = 0u;
-
-	uint8_t data[BLOCK_SIZE];
-	memset(data, 0, sizeof(data));
-
-	while(1)
-	{
-		count = UART_receive(&data[0], BLOCK_SIZE);
-
-		// If not equal to COMMAND then we keep reading
-		if(data[0] != 'C' || data[1] != 'O' || data[2] != 'M' || data[3] != 'M' || data[4] != 'A' || data[5] != 'N' || data[6] != 'D')
-		{
-			__printf("\nError: not OK.");
-		}
-		else
-			break;
-	}
-
-	// Send OK
-	UART_sendOK();
-}
-
 int UART_receive(char *location, uint32_t locsize)
+{
+	// Decapsulate data
+	uint8_t * data = malloc(sizeof(uint8_t)*(locsize+BLOCK_SIZE)); // timestamp goes in the last 4B but since we may need 16B for encryption, let's add 16B
+	if(data == NULL)
+		return ERROR_UART_MEMORY;
+	memcpy(data, location, locsize);
+
+	// Get timestamp
+	mss_rtc_calendar_t calendar_count;
+	MSS_RTC_get_calendar_count(&calendar_count);
+
+	// Get our timestamp
+	uint32_t t = convertDateToUnixTime(&calendar_count);
+
+	int r = UART_receive_e(data, locsize+BLOCK_SIZE);
+	if(r <= 0)
+	{
+		free(data);
+		return r;
+	}
+
+	// Get the last 4B
+	uint32_t rec_timestamp = (0x000000FF & data[r-4])
+		| ((0x000000FF & data[r-3]) << 8)
+		| ((0x000000FF & data[r-2]) << 16)
+		| ((0x000000FF & data[r-1]) << 24);
+
+	// Difference > 10s?
+	if((system_status & STATUS_CONNECTED))
+	{
+		if(abs(rec_timestamp-t) > 10)
+		{
+			free(data);
+			return ERROR_UART_TIMER;
+		}
+	}
+
+	r -= 4;
+
+	memset(location, 0, locsize);
+	memcpy(location, data, r); // copy r bytes from data to location
+
+	free(data);
+
+	return r;
+}
+
+int UART_receive_e(char *location, uint32_t locsize)
 {
 	mbedtls_aes_context aes_ctx;
 	mbedtls_md_context_t sha_ctx;
@@ -557,6 +577,67 @@ int UART_receive(char *location, uint32_t locsize)
 
 	return plainBytesReceived;
 }
+
+
+BOOL UART_waitOK()
+{
+	uint16_t count = 0u;
+
+	uint8_t ok[BLOCK_SIZE];
+	memset(ok, 0, sizeof(ok));
+
+	while(1)
+	{
+		//UART_receive(&ok[0], BLOCK_SIZE);
+		UART_get(&ok[0], 2u);
+		if(ok[0] != '0' || ok[1] != '1')
+		{
+			__printf("\nError: not OK.");
+			return FALSE;
+		}
+		else
+			break;
+	}
+
+	return TRUE;
+}
+
+BOOL UART_sendOK()
+{
+	MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )"01", 2);
+	/*uint8_t data[2] = {'0','1'};
+	if(UART_send(data, 2) != 2)
+	{
+		return FALSE;
+	}*/
+
+	return TRUE;
+}
+
+void UART_waitCOMMAND()
+{
+	uint16_t count = 0u;
+
+	uint8_t data[BLOCK_SIZE];
+	memset(data, 0, sizeof(data));
+
+	while(1)
+	{
+		count = UART_receive(&data[0], BLOCK_SIZE);
+
+		// If not equal to COMMAND then we keep reading
+		if(data[0] != 'C' || data[1] != 'O' || data[2] != 'M' || data[3] != 'M' || data[4] != 'A' || data[5] != 'N' || data[6] != 'D')
+		{
+			__printf("\nError: not OK.");
+		}
+		else
+			break;
+	}
+
+	// Send OK
+	UART_sendOK();
+}
+
 
 size_t UART_Polled_Rx
 (
