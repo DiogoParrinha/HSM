@@ -5,35 +5,36 @@ void USER_init()
 {
 	SPIFLASH_init();
 
-	// TODO: we should get this list from the eNVM
 	memset(SPIFLASH_UserList, 0, FLASH_MAX_USER_BLOCKS);
+	memset(user_hashes_buffer, 0, GLOBAL_BUFFER_SIZE);
 	SPIFLASH_totalUsers = 0;
 	uint32_t i;
 
-	uint8_t temp_ciphertext[BLOCK_SIZE] = {0};
 	uint8_t temp[BLOCK_SIZE] = {0};
 	uint8_t IV[16] = {0};
 	for(i=0;i<FLASH_MAX_USER_BLOCKS;i++)
 	{
 		SPIFLASH_UserList[i] = 0;
 
-		// Read first 16B Block of each SPI Flash block
-		SPIFLASH_readBytes(i+1, temp_ciphertext, BLOCK_SIZE, FLASH_USERS_BASE_ADDRESS);
+		// Read SPI Flash Block i
+		memset(global_buffer, 0, GLOBAL_BUFFER_SIZE);
+		SPIFLASH_readBlock(i+1, global_buffer, FLASH_USERS_BASE_ADDRESS);
 
-		// Decrypt data into buffer
-		mbedtls_aes_context aes_ctx;
-		mbedtls_aes_init(&aes_ctx);
-		mbedtls_aes_setkey_dec(&aes_ctx, FLASH_ENCRYPT_KEY, 256);
-		memcpy(IV, FLASH_ENCRYPT_IV, 16);
-		mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, BLOCK_SIZE, IV, temp_ciphertext, &temp[0]);
-		mbedtls_aes_free(&aes_ctx);
+		// Calculate SHA-256 and store it in user_hashes_buffer[i*32]
+		// TODO: in theory, we shouldn't do this, because it would be in the eNVM
+		uint8_t hash[32] = {0};
+		mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE, hash, 0);
+		memcpy(&user_hashes_buffer[i*32], hash, 32);
 
-		if(temp[0] != 0x64) // 0x64 means the user exists
-			temp[1] = 0;
+		if(global_buffer[0] != 0x64) // 0x64 means the user exists
+		{
+			SPIFLASH_UserList[i] = 0;
+		}
 		else
+		{
 			SPIFLASH_totalUsers++;
-
-		SPIFLASH_UserList[i] = temp[1]; // uid is in position 1
+			SPIFLASH_UserList[i] = global_buffer[1]; // uid is in position 1
+		}
 	}
 
 	//NVM_write(0x60000000, SPIFLASH_UserList, sizeof(SPIFLASH_UserList), NVM_DO_NOT_LOCK_PAGE);
@@ -157,7 +158,10 @@ BOOL USER_add(uint8_t ID, uint8_t * plainPIN)
 
 	SPIFLASH_writeBlock(ID, global_buffer, FLASH_USERS_BASE_ADDRESS);
 
-	// TODO: Update hash in eNVM
+	// TODO: Update hash in eNVM (we do it in RAM for PoC)
+	uint8_t hash[32] = {0};
+	mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE, hash, 0);
+	memcpy(&user_hashes_buffer[(ID-1)*32], hash, 32);
 
 	free(newUser->publicKey);
 	free(newUser->privateKey);
@@ -209,7 +213,10 @@ BOOL USER_modify(USER *user)
 
 	SPIFLASH_writeBlock(user->ID, global_buffer, FLASH_USERS_BASE_ADDRESS);
 
-	// TODO: Update hash in eNVM
+	// TODO: Update hash in eNVM (we do it in RAM for PoC)
+	uint8_t hash[32] = {0};
+	mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE, hash, 0);
+	memcpy(&user_hashes_buffer[(ID-1)*32], hash, 32);
 
 	return TRUE;
 }
@@ -226,7 +233,14 @@ USER * USER_get(uint8_t ID)
 
 	SPIFLASH_readBlock(ID, global_buffer, FLASH_USERS_BASE_ADDRESS);
 
-	// TODO: Compute hash and check against eNVM's
+	// Compute hash and check against eNVM's
+	// TODO: We're currently checking against the RAM
+	uint8_t hash[32] = {0};
+	mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE, hash, 0);
+	if(memcmp(hash, &user_hashes_buffer[(ID-1)*32], 32) != 0)
+	{
+		return NULL;
+	}
 
 	// Has the user been set?
 	if(global_buffer[0] != 0x64)

@@ -140,6 +140,8 @@ uint8_t ADMIN_PIN[PIN_SIZE];
 #define GLOBAL_BUFFER_SIZE FLASH_BLOCK_SIZE*2
 uint8_t global_buffer[GLOBAL_BUFFER_SIZE]; // goes in the BSS section
 
+uint8_t user_hashes_buffer[GLOBAL_BUFFER_SIZE]; // goes in the BSS section
+
 /*------------------------------------------------------------------------------
  * Other functions
  **/
