@@ -11,6 +11,8 @@
 static uint8_t __attribute__((section(".keycode2Section"))) g_key_code[48];
 #endif
 
+USER *u;
+
 int main()
 {
     /* Release USB Controller from Reset */
@@ -54,28 +56,38 @@ int main()
 		status = MSS_SYS_puf_get_number_of_keys(&key_numbers);
 
 		// Only mark as initialized if we have at least 5 keys enrolled (2 factory; 4 custom)
-		if(key_numbers == 6)
+		if(key_numbers == 7)
 		{
-			uint8_t g_my_user_key[512] = {0};
-			/*MSS_SYS_puf_delete_activation_code();
+			/*uint8_t g_my_user_key[512] = {0};
+			MSS_SYS_puf_delete_activation_code();
 			MSS_SYS_puf_create_activation_code();
 
+			// Certs Key
 			status = MSS_SYS_puf_enroll_key(2, 384 / 64, 0u, &g_my_user_key[0]);
 			if(status != MSS_SYS_SUCCESS)
 			{
 			}
 
+			// Logs Key
 			status = MSS_SYS_puf_enroll_key(3, 384 / 64, 0u, &g_my_user_key[0]);
 			if(status != MSS_SYS_SUCCESS)
 			{
 			}
 
+			// Auth Key
 			status = MSS_SYS_puf_enroll_key(4, 384 / 64, 0u, &g_my_user_key[0]);
 			if(status != MSS_SYS_SUCCESS)
 			{
 			}
 
+			// Flash Key
 			status = MSS_SYS_puf_enroll_key(5, 256 / 64, 0u, &g_my_user_key[0]);
+			if(status != MSS_SYS_SUCCESS)
+			{
+			}
+
+			// Flash IV
+			status = MSS_SYS_puf_enroll_key(6, 128 / 64, 0u, &g_my_user_key[0]);
 			if(status != MSS_SYS_SUCCESS)
 			{
 			}*/
@@ -141,6 +153,16 @@ int main()
 			memset(FLASH_ENCRYPT_KEY, 0, 32);
 			memcpy(&FLASH_ENCRYPT_KEY[0], &p_my_user_key[0], 32u);
 
+			// SPI flash IV
+			status = MSS_SYS_puf_fetch_key(6, &p_my_user_key);
+			if(status != MSS_SYS_SUCCESS)
+			{
+				return 2;
+			}
+
+			memset(FLASH_ENCRYPT_IV, 0, 16);
+			memcpy(&FLASH_ENCRYPT_IV[0], &p_my_user_key[0], 16u);
+
 			COMMAND_inited();
 		}
 
@@ -151,6 +173,23 @@ int main()
 			return 3;
 		}
 	#endif
+
+	/*USER_init();
+
+	USER_remove(1);
+	USER_remove(2);
+	USER_remove(3);
+	USER_remove(4);
+
+	u = USER_get(1);
+	u = USER_get(2);
+	u = USER_get(3);
+	u = USER_get(4);
+
+	USER_add(1, "12345678912345678912345678900001");
+	USER_add(2, "12345678912345678912345678900002");
+	USER_add(3, "12345678912345678912345678900003");
+	USER_add(4, "12345678912345678912345678900004");*/
 
 	UART_init();
 

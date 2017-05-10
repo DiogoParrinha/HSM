@@ -10,13 +10,23 @@ void USER_init()
 	SPIFLASH_totalUsers = 0;
 	uint32_t i;
 
-	uint8_t temp[2] = {0};
+	uint8_t temp_ciphertext[BLOCK_SIZE] = {0};
+	uint8_t temp[BLOCK_SIZE] = {0};
+	uint8_t IV[16] = {0};
 	for(i=0;i<FLASH_MAX_USER_BLOCKS;i++)
 	{
 		SPIFLASH_UserList[i] = 0;
 
-		// Read first 2 bytes of each SPI Flash block
-		SPIFLASH_readBytes(i+1, temp, 2, FLASH_USERS_BASE_ADDRESS);
+		// Read first 16B Block of each SPI Flash block
+		SPIFLASH_readBytes(i+1, temp_ciphertext, BLOCK_SIZE, FLASH_USERS_BASE_ADDRESS);
+
+		// Decrypt data into buffer
+		mbedtls_aes_context aes_ctx;
+		mbedtls_aes_init(&aes_ctx);
+		mbedtls_aes_setkey_dec(&aes_ctx, FLASH_ENCRYPT_KEY, 256);
+		memcpy(IV, FLASH_ENCRYPT_IV, 16);
+		mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, BLOCK_SIZE, IV, temp_ciphertext, &temp[0]);
+		mbedtls_aes_free(&aes_ctx);
 
 		if(temp[0] != 0x64) // 0x64 means the user exists
 			temp[1] = 0;
@@ -305,8 +315,11 @@ USER * USER_get(uint8_t ID)
 void USER_remove(uint8_t ID)
 {
 	SPIFLASH_eraseBlock(ID, FLASH_USERS_BASE_ADDRESS);
-	SPIFLASH_UserList[ID-1] = 0;
-	SPIFLASH_totalUsers--;
+	if(SPIFLASH_UserList[ID-1] != 0)
+	{
+		SPIFLASH_UserList[ID-1] = 0;
+		SPIFLASH_totalUsers--;
+	}
 }
 
 // check if a plain-text PIN matches the admin pin
