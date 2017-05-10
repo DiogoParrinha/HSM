@@ -38,6 +38,10 @@ int main()
 	system_status = STATUS_DEFAULT;
 	tamper_status = STATUS_DEFAULT;
 
+	// Default admin PIN
+	// TODO: Read from eNVM
+	memcpy(ADMIN_PIN, "12345678912345678912345678912345", PIN_SIZE);
+
 	#ifdef SECURITY_DEVICE
 		MSS_SYS_init(sys_services_event_handler);
 
@@ -52,6 +56,9 @@ int main()
 		}
 
 		uint8_t key_numbers = 0u;
+
+		/*MSS_SYS_puf_delete_activation_code();
+		MSS_SYS_puf_create_activation_code();*/
 
 		status = MSS_SYS_puf_get_number_of_keys(&key_numbers);
 

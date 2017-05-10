@@ -488,6 +488,54 @@ bool HSM::sendTime()
 	return true;
 }
 
+int HSM::initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
+{
+	startTimer();
+
+	if (ulPinLen != 32) // 32B for PIN
+	{
+		return 1;
+	}
+	
+	comm->reqCommand();
+
+	if (VERBOSE == 1)
+		printf("DVC_INIT...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "DVC_INIT");
+	comm->send(buffer, strlen((char*)buffer));
+
+	// Now it expects:
+	// PIN
+	if (VERBOSE == 1)
+		printf("\n\tSending DATA...");
+	memset(buffer, 0, sizeof(buffer));
+	memcpy(buffer, pPin, 32);
+	comm->send(buffer, 32);
+	if (VERBOSE == 1)
+		printf("OK\n");
+
+	// Wait for 'SUCCESS'
+	if (VERBOSE == 1)
+		printf("\n\tReceiving SUCCESS...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 512);
+	if (VERBOSE == 1)
+		printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0 && strcmp((char*)buffer, "ALREADY_INIT") != 0)
+	{
+		printf("\nError initing in: %s\n", buffer);
+		return 2;
+	}
+
+	if (VERBOSE == 1)
+		printf("OK.\n");
+	
+	endTimer();
+
+	return 0;
+}
+
 int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 {
 	startTimer();

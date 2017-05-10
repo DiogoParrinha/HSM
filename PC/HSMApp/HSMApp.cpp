@@ -36,6 +36,7 @@ int main()
 	CK_ULONG r = 0;
 	double average = 0.0f;
 	int times = 0;
+	unsigned char data[128];
 
 	// Initialize
 	r = C_Initialize(NULL);
@@ -58,6 +59,12 @@ int main()
 	// Slot Info
 	CK_SLOT_INFO pInfo;
 	r = C_GetSlotInfo(0, &pInfo);
+	assert(r == CKR_OK);
+
+	// Init Token
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900000"); // admin
+	r = C_InitToken(0, data, 32, NULL_PTR);
 	assert(r == CKR_OK);
 
 	// Execute test
@@ -115,11 +122,9 @@ int main()
 	getchar();
 	return 0;*/
 
-	unsigned char data[128];
-
 	// Login User
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
 	assert(r == CKR_OK);
@@ -198,42 +203,42 @@ int main()
 
 	CK_BYTE userID = 0;
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
 	assert(r == CKR_OK);
 
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555002"); // user 2
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900002"); // user 2
 	userID = 0;
 	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
 	assert(r == CKR_OK);
 
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555003"); // user 3
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900003"); // user 3
 	userID = 0;
 	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
 	assert(r == CKR_OK);
 
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555004"); // user 4
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900004"); // user 4
 	userID = 0;
 	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
 	assert(r == CKR_OK);
 
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555005"); // user 5
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900005"); // user 5
 	userID = 0;
 	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
 	assert(r == CKR_OK);
 
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555006"); // user 6
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900006"); // user 6
 	userID = 0;
 	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
 	assert(r == CKR_OK);
 
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555007"); // user 7
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900007"); // user 7
 	userID = 0;
 	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
 	assert(r == CKR_OK);
@@ -256,7 +261,7 @@ int main()
 
 	CK_BYTE userID = 0;
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
 	assert(r == CKR_OK);
 
@@ -268,7 +273,7 @@ int main()
 
 	// Login user 1
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
 	assert(r == CKR_OK);
@@ -291,7 +296,7 @@ int main()
 	assert(r == CKR_OK);
 
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	r = HSM_C_UserModify(phSession, &data[0], 32);
 	assert(r == CKR_OK);
 
@@ -388,7 +393,7 @@ int main()
 
 	// Login user 1
 	/*memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555001"); // user 1
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
 	assert(r == CKR_OK);

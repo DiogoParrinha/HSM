@@ -17,6 +17,7 @@ class Device
 		virtual int startSession();
 		virtual bool endSession();
 		virtual bool sessionLimit();
+		virtual int initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen);
 		virtual int login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType);
 		virtual int logout();
 		virtual bool signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen);

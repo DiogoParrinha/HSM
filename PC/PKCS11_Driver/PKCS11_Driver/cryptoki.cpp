@@ -412,7 +412,32 @@ CK_RV C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_MECHANISM
 
 CK_RV C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_UTF8CHAR_PTR pLabel)
 {
-	return CKR_FUNCTION_NOT_SUPPORTED;
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// Get session device
+	Device* d;
+	try {
+		d = devices_list.at(slotID);
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	if (ulPinLen != 32 || pPin == NULL_PTR)
+	{
+		return CKR_PIN_INCORRECT;
+	}
+
+	if (d->initDevice(pPin, ulPinLen))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
+
+	return CKR_OK;
 }
 
 CK_RV C_InitPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)

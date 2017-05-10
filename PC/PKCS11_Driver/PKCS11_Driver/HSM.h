@@ -23,6 +23,7 @@ class HSM : public Device
 		bool endSession();
 		bool sessionLimit();
 		bool sendTime();
+		int initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen);
 		int login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType);
 		int logout();
 		bool signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen);

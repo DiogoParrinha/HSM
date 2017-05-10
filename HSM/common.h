@@ -129,9 +129,10 @@ uint8_t SESS_PUBLIC_KEY[ECC_PUBLIC_KEY_SIZE];
 /*------------------------------------------------------------------------------
  * Global PINs
  **/
+#define HASHED_PIN_SIZE (uint8_t)32
 #define PIN_SIZE (uint8_t)32
 #define ADMIN_ID (uint8_t)0
-#define ADMIN_PIN (uint8_t*)"12345678912345678912345678912345"
+uint8_t ADMIN_PIN[PIN_SIZE];
 
 /*------------------------------------------------------------------------------
  * Buffers

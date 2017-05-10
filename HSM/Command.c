@@ -737,22 +737,41 @@ void COMMAND_DEVICE_process(uint8_t * command)
 		if((system_status & STATUS_INITED))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: already initialized");
+			//COMMAND_ERROR("ERROR: init 0");
+
+			// If we're already initialized, reply back with ALREADY_INIT
+			// But we must receive incoming data first...
+
+			// Expect 32B AUTH_PIN
+			uint8_t buffer[2*BLOCK_SIZE] = {0};
+			UART_receive(&buffer[0], 2*BLOCK_SIZE);
+
+			UART_send("ALREADY_INIT", 12);
+
 			return;
 		}
 
+		// Expect 32B AUTH_PIN
+		uint8_t buffer[2*BLOCK_SIZE] = {0};
+		UART_receive(&buffer[0], 2*BLOCK_SIZE);
+
+		// 32B => ADMIN_PIN
+		// TODO: Write in eNVM
+		memcpy(ADMIN_PIN, &buffer[0], PIN_SIZE);
+
+		// Generate keys
 		uint8_t status = 0;
 
 		MSS_SYS_puf_delete_activation_code();
 		MSS_SYS_puf_create_activation_code();
 
-		uint8_t g_my_user_key[48] = {0};
+		uint8_t g_my_user_key[512] = {0};
 
 		status = MSS_SYS_puf_enroll_key(2, 384 / 64, 0u, &g_my_user_key[0]);
 		if(status != MSS_SYS_SUCCESS)
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: init failed 1");
+			COMMAND_ERROR("ERROR: init 1");
 			return;
 		}
 
@@ -760,26 +779,47 @@ void COMMAND_DEVICE_process(uint8_t * command)
 		if(status != MSS_SYS_SUCCESS)
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: init failed 2");
+			COMMAND_ERROR("ERROR: init 2");
 			return;
 		}
 
-		status = MSS_SYS_puf_enroll_key(4, 256 / 64, 0u, &g_my_user_key[0]);
+		// Auth Key
+		status = MSS_SYS_puf_enroll_key(4, 384 / 64, 0u, &g_my_user_key[0]);
 		if(status != MSS_SYS_SUCCESS)
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: init failed 3");
+			COMMAND_ERROR("ERROR: init 3");
+			return;
+		}
+
+		// SPI Flash Key
+		status = MSS_SYS_puf_enroll_key(5, 256 / 64, 0u, &g_my_user_key[0]);
+		if(status != MSS_SYS_SUCCESS)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: init 4");
+			return;
+		}
+
+		// SPI Flash IV
+		status = MSS_SYS_puf_enroll_key(6, 128 / 64, 0u, &g_my_user_key[0]);
+		if(status != MSS_SYS_SUCCESS)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: init 5");
 			return;
 		}
 
 		uint8_t key_numbers = 0;
 		status = MSS_SYS_puf_get_number_of_keys(&key_numbers);
-		if(key_numbers == 5)
+		if(key_numbers != 7)
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: init failed 4");
+			COMMAND_ERROR("ERROR: init 6");
 			return;
 		}
+
+		COMMAND_inited();
 
 		// Send SUCCESS
 		UART_send("SUCCESS", 7);
