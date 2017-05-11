@@ -216,7 +216,7 @@ BOOL USER_modify(USER *user)
 	// TODO: Update hash in eNVM (we do it in RAM for PoC)
 	uint8_t hash[32] = {0};
 	mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE, hash, 0);
-	memcpy(&user_hashes_buffer[(ID-1)*32], hash, 32);
+	memcpy(&user_hashes_buffer[(user->ID-1)*32], hash, 32);
 
 	return TRUE;
 }

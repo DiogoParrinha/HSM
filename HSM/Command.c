@@ -140,7 +140,6 @@ void COMMAND_USER_process(uint8_t * command)
 		memcpy(U_PIN, &buffer[0], PIN_SIZE);
 
 		// Check if it's full
-		USER_init();
 		if(USER_isFull())
 		{
 			// Response back with ERROR
@@ -186,7 +185,6 @@ void COMMAND_USER_process(uint8_t * command)
 		// 32B => New PIN
 		memcpy(U_PIN, &buffer[0], PIN_SIZE);
 
-		USER_init();
 		USER * u = USER_get(authID);
 		if(!u)
 		{
@@ -231,8 +229,6 @@ void COMMAND_USER_process(uint8_t * command)
 		// ID
 		ID = buffer[0];
 
-		USER_init();
-
 		USER_remove(ID);
 
 		// Send SUCCESS
@@ -241,8 +237,8 @@ void COMMAND_USER_process(uint8_t * command)
 	else if(strcmp(command, "USER_GENKEYS") == 0)
 	{
 		// Generate Key Pair and send it
-
-		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || !(system_status & STATUS_ISADMIN))
+		// Admins cannot generate key pairs
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || (system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -294,7 +290,6 @@ void COMMAND_USER_process(uint8_t * command)
 
 		uint8_t U_ID = buffer[0];
 
-		USER_init();
 		if(!USER_exists(U_ID))
 		{
 			// Respond back with ERROR
@@ -392,7 +387,6 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 		uint32_t signature_len = UART_receive(&signature[0], 16*BLOCK_SIZE);
 
 		// Get user private key
-		USER_init();
 		if(!USER_exists(U_ID))
 		{
 			// Respond back with ERROR
@@ -667,7 +661,6 @@ void COMMAND_SESSION_process(uint8_t * command)
 		U_ID = buffer[PIN_SIZE];
 
 		// Check if ID matches PIN
-		USER_init();
 		if(!USER_verify(U_ID, AUTH_PIN))
 		{
 			// Respond back with ERROR

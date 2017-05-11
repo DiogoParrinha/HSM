@@ -181,9 +181,9 @@ int main()
 		}
 	#endif
 
-	/*USER_init();
+	USER_init();
 
-	USER_remove(1);
+	/*USER_remove(1);
 	USER_remove(2);
 	USER_remove(3);
 	USER_remove(4);
@@ -205,7 +205,7 @@ int main()
 	while(1)
 	{
 		// Wait for COMMAND
-		UART_waitCOMMAND();
+		//UART_waitCOMMAND();
 
 		// If we are in a state of error, we don't even read the command and process it
 		if((system_status & STATUS_TAMPER_DETECTED) || (system_status & STATUS_POR_FAILED))
