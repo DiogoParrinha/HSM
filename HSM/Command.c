@@ -498,19 +498,25 @@ void COMMAND_LOGS_process(uint8_t * command)
 
 		// Add a new action to the log
 		// 1. Receive 'message' (null terminated string)
-		// 2. Append UID, TIME, COUNTER1, COUNTER2
-		// 3. Format: TIME: {"message", UID, TIME, COUNTER1, COUNTER2}
-		// 4. Generate signature
-		// 5. Send back final message + signature
+		// 1. Receive previous hash
+		// 3. Append UID, TIME, COUNTER1, COUNTER2
+		// 4. Format: TIME: {"message", UID, TIME, COUNTER1, COUNTER2}
+		// 5. Generate signature
+		// 6. Send back final message + signature
 
 		// Expect message (max 512B)
 		uint8_t buffer[512] = {0};
 		UART_receive(&buffer[0], 512);
 
+		// Expect previous hash (32B)
+		uint8_t prev_hash[32] = {0};
+		UART_receive(&prev_hash[0], 32);
+
 		uint8_t * finalMessage;
 		uint8_t signature[128];
 		size_t sig_len;
-		if(!LOGS_sign(buffer, strlen(buffer), 1, finalMessage, &signature[0], &sig_len))
+		uint8_t hash[32];
+		if(!LOGS_sign(buffer, strlen(buffer), 1, finalMessage, &signature[0], &sig_len, prev_hash, hash))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: signing message");
@@ -523,12 +529,11 @@ void COMMAND_LOGS_process(uint8_t * command)
 		// Send data
 		UART_send(global_buffer, strlen(global_buffer)+1); // include null character
 
-		UART_send(signature, sig_len);
+		// Send hash
+		UART_send(hash, 32);
 
-		/*// Send sha256 of signature
-		uint8_t digest[32] = {0};
-		mbedtls_sha256(signature, sig_len, digest, 0);
-		UART_send(digest, 32);*/
+		// Send signature
+		UART_send(signature, sig_len);
 	}
 }
 

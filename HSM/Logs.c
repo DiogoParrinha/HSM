@@ -7,7 +7,7 @@
 uint32_t LOGS_globalCounter1 = 0;
 uint32_t LOGS_globalCounter2 = 0;
 
-BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * finalMessage, uint8_t * signature, size_t * signature_len)
+BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * finalMessage, uint8_t * signature, size_t * signature_len, uint8_t * prev_hash, uint8_t * hash)
 {
 	if(data_len > 512)
 		return FALSE;
@@ -42,7 +42,7 @@ BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * fina
 	global_buffer[data_len+(w++)] = '"'; // separator
 	global_buffer[data_len+(w++)] = '|'; // separator
 
-	w += snprintf(global_buffer+w+data_len, GLOBAL_BUFFER_SIZE-(w+data_len), "%d-%d-2%03d,%02d:%02d:%02d",
+	w += snprintf(global_buffer+w+data_len, GLOBAL_BUFFER_SIZE-(data_len+w), "%d-%d-2%03d,%02d:%02d:%02d",
 					 (int)calendar_count.day,
 					 (int)calendar_count.month,
 					 (int)calendar_count.year,
@@ -51,17 +51,28 @@ BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * fina
 					 (int)calendar_count.second);
 
 	global_buffer[data_len+(w++)] = '|'; // separator
-	global_buffer[data_len+(w++)] = UID; // UID
+
+	w += snprintf(global_buffer+data_len+w, GLOBAL_BUFFER_SIZE-(data_len+w), "%d", UID);
+
 	global_buffer[data_len+(w++)] = '|'; // separator
 
 	// counter
-	w += snprintf(global_buffer+data_len+w, GLOBAL_BUFFER_SIZE-(data_len+w), "%10d,%10d",
-			LOGS_globalCounter1, LOGS_globalCounter2);
+	w += snprintf(global_buffer+data_len+w, GLOBAL_BUFFER_SIZE-(data_len+w), "%10d,%10d", LOGS_globalCounter1, LOGS_globalCounter2);
+
+	global_buffer[data_len+(w++)] = '|'; // separator
+
+	// prev hash goes here (base64)
+	int i = 0;
+	for(i=0;i<32;i++)
+		w += snprintf(global_buffer+data_len+w, GLOBAL_BUFFER_SIZE-(data_len+w), "%02X", prev_hash[i]);
 
 	global_buffer[data_len+(w++)] = '}'; // end
 	global_buffer[data_len+(w++)] = '\0'; // end
 
 	MSS_RTC_clear_update_flag();
+
+	// Compute SHA-256
+	mbedtls_sha256(global_buffer, data_len+w-1, &hash[0], 0);
 
 	if(!PKC_signData(LOGS_PRIVATE_KEY, global_buffer, data_len+w-1, signature, signature_len))
 	{

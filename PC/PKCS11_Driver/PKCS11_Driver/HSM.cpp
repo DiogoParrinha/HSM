@@ -5,6 +5,10 @@
 #include <stdint.h>
 
 #include <windows.h>
+#include <string>
+#include <vector>
+#include <dirent.h>
+#include <direct.h>
 #include "mbedtls/config.h"
 
 #if defined(MBEDTLS_PLATFORM_C)
@@ -787,8 +791,8 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 
 bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR privateKey, CK_OBJECT_HANDLE_PTR publicKey)
 {
-	// Not logged in? Not admin? (only the admin can generate a key pair)
-	if (!loggedIn || authID != 0)
+	// Not logged in? admin? (only users can generate and extract a key pair)
+	if (!loggedIn || authID == 0)
 	{
 		return false;
 	}
@@ -1263,6 +1267,105 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	if (!loggedIn || authID == 0)
 		return false;
 
+	// Get all folders within /logchain
+	// If any, browse the most recent (in terms of name: the name of each folder represents the year)
+	// Then get the list of folders within the year folder and choose the most recent in terms of name: represents the month number
+	// Finally, choose the most recent file (also in terms of name: it represents the day number)
+
+	char readPath[256] = { 0 };
+
+	DIR *dir;
+	struct dirent *ent;
+	if ((dir = opendir("./logchain")) == NULL)
+	{
+		if (_mkdir("./logchain") == 0)
+		{
+			printf("Directory './logchain' was successfully created\n");
+		}
+		else
+			printf("Problem creating directory './logchain'\n");
+	}
+	else
+		closedir(dir);
+
+	if ((dir = opendir("./logchain")) != NULL)
+	{
+		closedir(dir);
+
+		// Find most recent year
+		std::vector<std::string> years_folders = Device::read_directory("./logchain", true);
+		std::string year_folder = years_folders.back();
+
+		sprintf_s(readPath, 256, "./logchain/%s", year_folder.c_str());
+		printf("path1: %s\n", readPath);
+
+		// Find most recent month
+		std::vector<std::string> months_folders = Device::read_directory(readPath, true);
+		std::string month_folder = months_folders.back();
+
+		sprintf_s(readPath, 256, "%s/%s", readPath, month_folder.c_str());
+		printf("path2: %s\n", readPath);
+
+		// Find most recent day
+		std::vector<std::string> days_files = Device::read_directory(readPath, false);
+		std::string day_file = days_files.back();
+
+		sprintf_s(readPath, 256, "%s/%s", readPath, day_file.c_str());
+		printf("path3: %s\n", readPath);
+	}
+	else {
+		/* could not open directory */
+		perror("Could not open log-chain dir.");
+		return EXIT_FAILURE;
+	}
+
+	bool hasRoot = false;
+	uint8_t prevHash[32] = { 0 };
+
+	// Read the file and get the last line
+	// Extract the hash and use it as the previous hash
+	uint8_t zero[256] = { 0 };
+	if (memcmp(readPath, zero, 256) != 0)
+	{
+		std::ifstream file(readPath);
+		if (file)
+		{
+			std::string line = getLastLine(file);
+			std::cout << line << '\n';
+
+			// TODO: We need to do some string manipulation here to retrieve the base64 encoded hash
+			// Then decode it and finally we can send it!
+
+			// First find } and substring what's after + 3 chars (includes "} [")
+			unsigned first = line.find('}');
+			if (first != std::string::npos)
+			{
+				std::string last_part = line.substr(first + 3, line.length());
+
+				// Then look for ] and retrieve data until that posistion (] is an illegal base64 char so it won't appear in the middle of the block)
+				unsigned last = last_part.find(']');
+				if (last != std::string::npos)
+				{
+					std::string base64_hash = last_part.substr(0, last);
+
+					unsigned char buf[512] = { 0 };
+					sprintf_s((char*)buf, 512, base64_hash.c_str());
+					uint32_t olen = 0;
+					if (mbedtls_base64_decode(prevHash, 32, &olen, buf, base64_hash.length()) != 0)
+					{
+						return false;
+					}
+
+					hasRoot = true;
+				}
+			}
+		}
+		else
+			printf("Error opening file for reading.\n");
+	}
+
+	// If there are no existing hashes, use pMessage as the Chain-Root and therefore our hash = all 0s
+
 	startTimer();
 
 	comm->reqCommand();
@@ -1275,15 +1378,16 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	// Send message
 	if (VERBOSE == 1)
 		printf("\n\tSending message...");
-	/*sprintf_s((char*)buffer, sizeof(buffer), "rm -rf inc/data/test/lol.txt");
-	comm->send(buffer, strlen((char*)buffer));*/
 	comm->send(pMessage, lMessage);
 	if (VERBOSE == 1)
 		printf("OK\n");
 
-	// TODO: send current day hash + signature
-
-	// TODO: send current month hash + signature
+	// Send previous hash
+	if (VERBOSE == 1)
+		printf("\n\tSending previous hash...");
+	comm->send(prevHash, 32);
+	if (VERBOSE == 1)
+		printf("OK\n");
 
 	// Wait for response
 	if (VERBOSE == 1)
@@ -1305,6 +1409,15 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	if (VERBOSE == 1)
 		printf("OK.\n");
 
+	// Wait for hash
+	uint8_t hash[32];
+	if (VERBOSE == 1)
+		printf("\n\tReceiving log hash...");
+	memset(hash, 0, sizeof(hash));
+	comm->receive(&hash[0], 32);
+	if (VERBOSE == 1)
+		printf("OK.\n");
+
 	// Wait for signature
 	if (VERBOSE == 1)
 		printf("\n\tReceiving log signature...");
@@ -1317,34 +1430,70 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	}
 	if (VERBOSE == 1)
 		printf("OK.\n");
-
-	// TODO: Wait for current day hash + signature
-
-	// TODO: Wait for current month hash + signature
-
-	// Base64 encode the log signature
+	
+	// Base64 encode the log hash and signature
 	// Base64 requires 4/3 of the original size so we simply double it to avoid dynamic allocation
-	uint8_t base64[512];
-	uint32_t olen = 0;
-	if (mbedtls_base64_encode(base64, 512, &olen, signature, sig_len) != 0)
+	uint8_t base64_1[512];
+	uint32_t olen_1 = 0;
+	if (mbedtls_base64_encode(base64_1, 512, &olen_1, hash, 32) != 0)
 	{
 		return false;
 	}
 
+	uint8_t base64_2[512];
+	uint32_t olen_2 = 0;
+	if (mbedtls_base64_encode(base64_2, 512, &olen_2, signature, sig_len) != 0)
+	{
+		return false;
+	}
+
+	// Depending on the date, choose which file to write to
+	time_t t = time(NULL);
+	struct tm now;
+	localtime_s(&now, &t);
+
+	// Do we have the year X and month Y folder inside logchain?
+	char path[256];
+	sprintf_s(path, 256, "./logchain/%d", now.tm_year+1900);
+	if ((dir = opendir(path)) == NULL)
+	{
+		if (_mkdir(path) == 0)
+		{
+			printf("Directory '%s' was successfully created\n", path);
+		}
+		else
+			printf("Problem creating directory '%s'\n", path);
+	}
+	else
+		closedir(dir);
+
+	sprintf_s(path, 256, "%s/%d", path, now.tm_mon + 1);
+	if ((dir = opendir(path)) == NULL)
+	{
+		if (_mkdir(path) == 0)
+		{
+			printf("Directory '%s' was successfully created\n", path);
+		}
+		else
+			printf("Problem creating directory '%s'\n", path);
+	}
+	else
+		closedir(dir);
+
 	// Append logged message + signature to file
+	sprintf_s(path, 256, "%s/%d.txt", path, now.tm_mday);
 	std::ofstream outfile;
-	outfile.open("log.txt", std::ios_base::app);
+	outfile.open(path, std::ios_base::app);
 	outfile << buffer << " [";
-	outfile.write((char*)base64, olen);
+	outfile.write((char*)base64_1, olen_1);
+	outfile << "]";
+	outfile << " [";
+	outfile.write((char*)base64_2, olen_2);
 	outfile << "]" << std::endl;
 	outfile.close();
 	if (VERBOSE == 1)
 		printf("OK.\n");
-
-	// TODO: replace current day hash + signature
-
-	// TODO: replace current month hash + signature
-
+	
 	endTimer();
 
 	return true;

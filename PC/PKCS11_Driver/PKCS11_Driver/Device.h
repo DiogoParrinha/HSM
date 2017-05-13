@@ -6,6 +6,15 @@
 
 #include "pkcs11_common.h"
 
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <sys/types.h>
+#include <dirent.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+
 class Device
 {
 	public:
@@ -42,6 +51,8 @@ class Device
 
 		void strcpy_bp(void * destination, const char * source, size_t dest_size);
 
+		std::vector<std::string> read_directory(const std::string & path, bool folders);
+
 		int maxSlots;
 
 	protected:
@@ -54,3 +65,4 @@ class Device
 		p11_token token;
 };
 
+std::string getLastLine(std::ifstream & in);

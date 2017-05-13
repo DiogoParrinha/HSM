@@ -127,13 +127,13 @@ void UART::disconnect()
 bool UART::reqCommand()
 {
 	// Send 'COMMAND'
-	uint8_t buffer[7] = {'C','O','M','M','A','N','D'};
+	/*uint8_t buffer[7] = {'C','O','M','M','A','N','D'};
 	if(send(buffer, 7) != 7)
 	{
 		return false;
 	}
 	
-	waitOK();
+	waitOK();*/
 
 	return true;
 }

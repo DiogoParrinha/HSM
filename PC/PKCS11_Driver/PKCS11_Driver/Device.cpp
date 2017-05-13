@@ -3,6 +3,7 @@
 #include <cstring>
 #include <stdbool.h>
 #include <stdint.h>
+#include <errno.h>
 
 #include "Device.h"
 
@@ -94,4 +95,61 @@ void Device::strcpy_bp(void * destination, const char * source, size_t dest_size
 	memcpy((char *)destination, source, c);
 	dest_size -= c;
 	memset((char *)destination + c, ' ', dest_size);
+}
+
+
+// read_directory()
+//   Return an ASCII-sorted vector of filename entries in a given directory.
+//   If no path is specified, the current working directory is used.
+//
+//   Always check the value of the global 'errno' variable after using this
+//   function to see if anything went wrong. (It will be zero if all is well.)
+//
+std::vector<std::string> Device::read_directory(const std::string& path = std::string(), bool folders = true)
+{
+	std::vector <std::string> result;
+	dirent* de;
+	DIR* dp;
+	errno = 0;
+	dp = opendir(path.empty() ? "." : path.c_str());
+	if (dp)
+	{
+		while (true)
+		{
+			errno = 0;
+			de = readdir(dp);
+			if (de == NULL) break;
+
+			char p[256] = { 0 };
+			sprintf_s(p, 256, "%s/%s", path.c_str(), de->d_name);
+
+			struct stat entrystat;
+			int r = stat(p, &entrystat);
+			if (r == 0 && strcmp(de->d_name, "..") != 0 && strcmp(de->d_name, ".") != 0)
+			{
+				// Folders only?
+				if (folders == true && S_ISDIR(entrystat.st_mode))
+				{
+					result.push_back(std::string(de->d_name));
+				}
+				// Files only?
+				else if (folders == false && S_ISREG(entrystat.st_mode))
+				{
+					result.push_back(std::string(de->d_name));
+				}
+			}
+		}
+		closedir(dp);
+		std::sort(result.begin(), result.end());
+	}
+	return result;
+}
+
+std::string getLastLine(std::ifstream& in)
+{
+	std::string line;
+	while (in >> std::ws && std::getline(in, line)) // skip empty lines
+		;
+
+	return line;
 }

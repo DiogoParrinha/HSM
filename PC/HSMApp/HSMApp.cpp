@@ -81,10 +81,12 @@ int main()
 	printf("Average block transfer: %lfms\n", average);*/
 
 	// Open Session
+	printf("\nOpening session...");
 	CK_BYTE application = 1;
 	CK_SESSION_HANDLE phSession;
 	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
 	assert(r == CKR_OK);
+	printf("OK.\n");
 
 	/*average = 0.0f;
 	times = 0;
@@ -123,17 +125,17 @@ int main()
 	return 0;*/
 
 	// Login User
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
 	assert(r == CKR_OK);
 
 	average = 0.0f;
-	printf("\nSigning data...");
+	printf("\nSigning data...\n");
 	startTimer();
 	int i = 0;
-	for (i=0; i<1; i++)
+	for (i=0; i<50; i++)
 	{
 		// Sign Data
 		CK_MECHANISM sign_mechanism = {
@@ -146,7 +148,7 @@ int main()
 		CK_BYTE signature1[512] = { 0 };
 		CK_ULONG sig1_len = 512;
 		r = C_Sign(phSession, msg, sizeof(msg), &signature1[0], &sig1_len);
-		assert(r == CKR_OK);
+		assert(r == CKR_OK);*/
 
 		/*r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
 		assert(r == CKR_OK);
@@ -163,11 +165,11 @@ int main()
 		assert(r == CKR_OK);*/
 
 		// Verify signatures
-		r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
+		/*r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
 		assert(r == CKR_OK);
 
 		r = C_Verify(phSession, msg, sizeof(msg), &signature1[0], sig1_len);
-		assert(r == CKR_OK);
+		assert(r == CKR_OK);*/
 
 		/*r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
 		assert(r == CKR_OK);
@@ -181,7 +183,7 @@ int main()
 		r = C_VerifyFinal(phSession, &signature2[0], sig2_len);
 		assert(r == CKR_OK);*/
 
-		times++;
+		/*times++;
 	}
 	endTimer();
 	average += elapsedTime;
@@ -190,7 +192,7 @@ int main()
 
 	// Logout User
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);
+	assert(r == CKR_OK);*/
 
 	///// ADD 7 USERS
 
@@ -306,13 +308,13 @@ int main()
 
 
 
-	///// Login admin and generate key pair | Get certificate of user 1 | Generate certificate for generated public key
+	///// Login user and generate key pair | Get certificate of user 1 | Logout | Login admin | Generate certificate for generated public key
 
-	// Login admin
+	// Login user
 	/*memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
-	data[32] = 0;
-	r = C_Login(phSession, CKU_SO, data, 33);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
+	data[32] = 1;
+	r = C_Login(phSession, CKU_USER, data, 33);
 	assert(r == CKR_OK);
 
 	// Generate a key pair 
@@ -352,10 +354,9 @@ int main()
 	endTimer();
 	average += elapsedTime;
 	average /= times;
-	printf("\nAverage key generation: %lf\n", average);*/
+	printf("\nAverage key generation: %lf\n", average);
 
-
-	/*memset(pubBuffer, 0, 512);
+	memset(pubBuffer, 0, 512);
 	memset(priBuffer, 0, 512);
 	r = C_GetAttributeValue(phSession, pub, pubKeyTemplate, 3);
 	assert(r == CKR_OK);
@@ -367,6 +368,18 @@ int main()
 	CK_UTF8CHAR certificate[4096];
 	CK_ULONG bufSize = 4096;
 	r = HSM_C_CertGet(phSession, 1, certificate, &bufSize);
+	assert(r == CKR_OK);
+
+	// Logout user 1
+	r = C_Logout(phSession);
+	assert(r == CKR_OK);*/
+
+	/*
+	// Login admin
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
+	data[32] = 0;
+	r = C_Login(phSession, CKU_SO, data, 33);
 	assert(r == CKR_OK);
 
 	CK_BBOOL MTRUE = CK_TRUE;
@@ -387,12 +400,10 @@ int main()
 	r = C_Logout(phSession);
 	assert(r == CKR_OK);*/
 
-
-
 	///// Login user 1, read file and send each line to the HSM
 
 	// Login user 1
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -404,7 +415,7 @@ int main()
 
 	average = 0.0f;
 	times = 0;
-	printf("\nLogging messages...");
+	printf("\nLogging messages...\n");
 	while (std::getline(infile, line))
 	{
 		//printf("\ni = %d", i++);
@@ -423,7 +434,7 @@ int main()
 
 	// Logout Log User
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);*/
+	assert(r == CKR_OK);
 
 	// close session
 	r = C_CloseSession(phSession);
