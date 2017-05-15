@@ -7,6 +7,9 @@
 #include <windows.h>
 #include <string>
 #include <vector>
+#include <iostream>
+#include <fstream>
+
 #include <dirent.h>
 #include <direct.h>
 #include "mbedtls/config.h"
@@ -1275,7 +1278,6 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	char readPath[256] = { 0 };
 
 	DIR *dir;
-	struct dirent *ent;
 	if ((dir = opendir("./logchain")) == NULL)
 	{
 		if (_mkdir("./logchain") == 0)
@@ -1294,24 +1296,34 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 
 		// Find most recent year
 		std::vector<std::string> years_folders = Device::read_directory("./logchain", true);
-		std::string year_folder = years_folders.back();
+		if (!years_folders.empty())
+		{
+			std::string year_folder = years_folders.back();
 
-		sprintf_s(readPath, 256, "./logchain/%s", year_folder.c_str());
-		printf("path1: %s\n", readPath);
+			sprintf_s(readPath, 256, "./logchain/%s", year_folder.c_str());
 
-		// Find most recent month
-		std::vector<std::string> months_folders = Device::read_directory(readPath, true);
-		std::string month_folder = months_folders.back();
+			// Find most recent month
+			std::vector<std::string> months_folders = Device::read_directory(readPath, true);
+			if (!months_folders.empty())
+			{
+				std::string month_folder = months_folders.back();
 
-		sprintf_s(readPath, 256, "%s/%s", readPath, month_folder.c_str());
-		printf("path2: %s\n", readPath);
+				sprintf_s(readPath, 256, "%s/%s", readPath, month_folder.c_str());
 
-		// Find most recent day
-		std::vector<std::string> days_files = Device::read_directory(readPath, false);
-		std::string day_file = days_files.back();
+				// Find most recent day
+				std::vector<std::string> days_files = Device::read_directory(readPath, false);
+				if (!days_files.empty())
+				{
+					std::string day_file = days_files.back();
 
-		sprintf_s(readPath, 256, "%s/%s", readPath, day_file.c_str());
-		printf("path3: %s\n", readPath);
+					sprintf_s(readPath, 256, "%s/%s", readPath, day_file.c_str());
+				}
+				else
+					memset(readPath, 0, 256);
+			}
+			else
+				memset(readPath, 0, 256);
+		}
 	}
 	else {
 		/* could not open directory */
@@ -1340,7 +1352,7 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 			unsigned first = line.find('}');
 			if (first != std::string::npos)
 			{
-				std::string last_part = line.substr(first + 3, line.length());
+				std::string last_part = line.substr(first + 3);
 
 				// Then look for ] and retrieve data until that posistion (] is an illegal base64 char so it won't appear in the middle of the block)
 				unsigned last = last_part.find(']');
@@ -1499,43 +1511,223 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	return true;
 }
 
-bool HSM::logsGet(CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_ULONG_PTR logSize)
+bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash)
 {
+	char readPath[256] = { 0 };
+	sprintf_s(readPath, 256, "./logchain/%d/%d", lYear, lMonth);
+
+	// Get the selected file (if none, return false)
+	DIR *dir;
+	if ((dir = opendir(readPath)) == NULL)
+	{
+		printf("Directory '%s' does not exist.\n", readPath);
+		return false;
+	}
+	else
+		closedir(dir);
+
+	sprintf_s(readPath, 256, "%s/%d.txt", readPath, lDay);
+
+	// Check if file exists when opening it
+	std::ifstream file(readPath);
+	if (!file)
+	{
+		printf("File '%s' does not exist.\n", readPath);
+		return false;
+	}
+
+	// TODO: Request device logs public key
+	int ret = 0;
+	mbedtls_pk_context ctx;
+	mbedtls_pk_init(&ctx);
+
+	// Parse public key
+	unsigned char publicKey[512] = "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAECvRzPeCDoxu4BIQcZ8YVkmAoCytwnxHA\nNpDcy2U0qsLk/Av+S9JcLXmvrgwKCNVaqzII87H5iFheRsOdxbl0lBJ4I/raM8t5\nG/95vfumMlDmQbyBkdyJe3YxR/fYVc7L-----END PUBLIC KEY-----";
+	ret = mbedtls_pk_parse_public_key(&ctx, publicKey, strlen((char*)publicKey) + 1);
+	if (ret != 0)
+	{
+		printf("Error parsing public key.\n");
+		mbedtls_pk_free(&ctx);
+		return false;
+	}
+
+	// Start at the bottom of the file, verify the signature 
+	std::string line;
+	std::vector<std::string> v;
+
+	uint8_t hash[32] = { 0 }; // hash of log entry (computed on the fly)
+	uint8_t hash_v[32] = { 0 }; // base64 DECODED hash
+	uint8_t hash_embedded[32] = { 0 }; // the hash within the log entry that is respective to the previous line
+	uint8_t hash_prev[32] = { 0 }; // hash of the previous log entry (must match the current embedded hash)
+	uint8_t signature[512];
+	std::string message;
+
+	int l = 1;
+	while (getline(file, line))
+	{
+		// Extract message and compute hash
+		// First find } and retrieve the message
+		unsigned first = line.find('}');
+		if (first != std::string::npos)
+		{
+			message = line.substr(0, first+1);
+		}
+		else
+		{
+			printf("Invalid format 1 on line %d\n", l);
+			mbedtls_pk_free(&ctx);
+			return false;
+		}
+
+		memset(hash, 0, sizeof(hash));
+		mbedtls_sha256((unsigned char*)message.c_str(), first+1, hash, 0);
+
+		// Extract previous hash
+		std::string embedded_hash = message.substr(message.length()-65, 64);
+		char embedded_hash_char[64];
+		memcpy(embedded_hash_char, embedded_hash.c_str(), 64);
+		hex2bin(embedded_hash_char, (char*)hash_embedded, 64);
+
+		// Extract hash and compare
+		// Look for ] (] is an illegal base64 char so it won't appear in the middle of the hash block)
+		std::string last_part = line.substr(first + 3);
+		unsigned hash_separator = last_part.find(']');
+		if (hash_separator != std::string::npos)
+		{
+			std::string base64_hash = last_part.substr(0, hash_separator); // from [ to ]
+
+			unsigned char buf[512] = { 0 };
+			sprintf_s((char*)buf, 512, base64_hash.c_str());
+			uint32_t olen = 0;
+			if (mbedtls_base64_decode(hash_v, 32, &olen, buf, base64_hash.length()) != 0)
+			{
+				printf("Base64 Decode of Hash on line %d\n", l);
+				mbedtls_pk_free(&ctx);
+				return false;
+			}
+		}
+		else
+		{
+			printf("Invalid format 2 on line %d\n", l);
+			mbedtls_pk_free(&ctx);
+			return false;
+		}
+
+		// Compare both
+		if (memcmp(hash, hash_v, 32) != 0)
+		{
+			printf("Hash mismatch on line %d\n", l);
+			mbedtls_pk_free(&ctx);
+			return false;
+		}
+
+		// Extract signature
+		std::string signature_part = last_part.substr(hash_separator+3);
+		unsigned sig_separator = signature_part.find(']');
+		if (sig_separator != std::string::npos)
+		{
+			std::string base64_hash = signature_part.substr(0, sig_separator); // from [ to ]
+
+			unsigned char buf[512] = { 0 };
+			sprintf_s((char*)buf, 512, base64_hash.c_str());
+			uint32_t olen = 0;
+			if (mbedtls_base64_decode(signature, 512, &olen, buf, base64_hash.length()) != 0)
+			{
+				printf("Base64 Decode of Signature on line %d\n", l);
+				mbedtls_pk_free(&ctx);
+				return false;
+			}
+
+			// Verify signature
+			int ret = mbedtls_pk_verify(&ctx, MBEDTLS_MD_SHA256, hash, 32, signature, olen);
+			if (ret != 0)
+			{
+				printf("Signature mismatch on line %d\n", l);
+				mbedtls_pk_free(&ctx);
+				return false;
+			}
+		}
+		else
+		{
+			printf("Invalid format 3 on line %d\n", l);
+			mbedtls_pk_free(&ctx);
+			return false;
+		}
+		
+		// Verify that the embedded hash matches the previous line hash (skip first because we consider it the root of the file and we're only verifying the day)
+		if (memcmp(hash_embedded, hash_prev, 32) != 0 && l != 1)
+		{
+			printf("Embedded hash mismatch on line %d\n", l);
+			mbedtls_pk_free(&ctx);
+			return false;
+		}
+
+		// Store current hash as previous hash
+		memcpy(hash_prev, hash, 32);
+
+		l++;
+	}
+
+	mbedtls_pk_free(&ctx);
+
+	// Store hash_prev in prevHash (hash_prev will be the last hash when the loop finishes)
+	memcpy(prevHash, hash_prev, 32);
+
+	if(VERBOSE)
+		printf("File verified successfully.\n");
 	return true;
 }
 
-bool HSM::logsGetHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+bool HSM::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash)
 {
+	// Check if folder exists
+	// Return false if not
+
+	// Get max days of the month
+	// If lMonth==current_month -> max days = current_day
+	// Otherwise max days = 30 or 31
+
+	// Previous hash = 0
+	// For d=1 ; d<=max_days
+	// 1. Check if file exists (skip if not)
+	// 2. Compute logsVerifyDay for each day file
+	// 3. Previous hash will now be equal to the last hash of the processed file
+
 	return true;
 }
 
-bool HSM::logsGetDayHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+bool HSM::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash)
 {
+	// Check if folder exists
+	// Return fales if not
+
+	// Get max months of the year
+	// If lYear==current_year -> max months = current_month
+	// Otherwise max months = 12
+
+	// Previous hash = 0
+	// For m=1 ; d<=max_months
+	// 1. Check if folder exists (skip if not)
+	// 2. Compute logsVerifyMonth for each month folder
+	// 3. Previous hash will now be equal to the last hash of the processed month
+
 	return true;
 }
 
-bool HSM::logsGetMonthHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
+bool HSM::logsVerifyChain()
 {
-	return true;
-}
+	// Get the oldest year, month and day
+	// Check the first line (must be the root)
+	// Return false if embedded hash != 0 OR hash doesn't match log entry OR signature cannot be verified
 
-bool HSM::logsVerifyDay(CK_ULONG lNumber)
-{
-	return true;
-}
+	// We're here so we've validated the root
 
-bool HSM::logsVerify(CK_ULONG lNumber)
-{
-	return true;
-}
+	// Previous hash = 0
+	// For y=root_year ; d<=current_year
+	// 1. Check if folder exists (skip if not)
+	// 2. Compute logsVerifyYear for each year folder
+	// 3. Previous hash will now be equal to the last hash of the processed year
 
-bool HSM::logsVerifyDayHash(CK_ULONG lNumber)
-{
-	return true;
-}
-
-bool HSM::logsVerifyMonthHash(CK_ULONG lNumber)
-{
 	return true;
 }
 

@@ -403,7 +403,7 @@ int main()
 	///// Login user 1, read file and send each line to the HSM
 
 	// Login user 1
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -434,7 +434,22 @@ int main()
 
 	// Logout Log User
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);
+	assert(r == CKR_OK);*/
+
+	printf("\nVerify day...\n");
+
+	average = 0.0f;
+	times = 0;
+
+	startTimer();
+	r = HSM_C_LogVerifyDay(phSession, 15, 5, 2017);
+	//assert(r == CKR_OK);
+	endTimer();
+	average += elapsedTime;
+	times++;
+
+	average /= times;
+	printf("\nOK\n");
 
 	// close session
 	r = C_CloseSession(phSession);

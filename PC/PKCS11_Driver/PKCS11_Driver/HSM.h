@@ -35,14 +35,10 @@ class HSM : public Device
 		bool modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen);
 		bool deleteUser(CK_BYTE uID);
 		bool logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage);
-		bool logsGet(CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_ULONG_PTR logSize);
-		bool logsGetHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
-		bool logsGetDayHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
-		bool logsGetMonthHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
-		bool logsVerifyDay(CK_ULONG lNumber);
-		bool logsVerify(CK_ULONG lNumber);
-		bool logsVerifyDayHash(CK_ULONG lNumber);
-		bool logsVerifyMonthHash(CK_ULONG lNumber);
+		bool logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash);
+		bool logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash);
+		bool logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash);
+		bool logsVerifyChain();
 		bool logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2);
 		bool checkDevice();
 		bool sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen);

@@ -37,56 +37,13 @@ bool Device::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID) {
 bool Device::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen) { return false; }
 bool Device::deleteUser(CK_BYTE uID) { return false; }
 bool Device::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage) { return false; }
+bool Device::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash) { return false; }
+bool Device::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash) { return false; }
+bool Device::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash) { return false; }
+bool Device::logsVerifyChain() { return false; }
+bool Device::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2) { return false; }
 
-bool Device::logsGet(CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_ULONG_PTR logSize)
-{
-	return false;
-}
-
-bool Device::logsGetHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
-{
-	return false;
-}
-
-bool Device::logsGetDayHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
-{
-	return false;
-}
-
-bool Device::logsGetMonthHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize)
-{
-	return false;
-}
-
-bool Device::logsVerifyDay(CK_ULONG lNumber)
-{
-	return false;
-}
-
-bool Device::logsVerify(CK_ULONG lNumber)
-{
-	return false;
-}
-
-bool Device::logsVerifyDayHash(CK_ULONG lNumber)
-{
-	return false;
-}
-
-bool Device::logsVerifyMonthHash(CK_ULONG lNumber)
-{
-	return false;
-}
-
-bool Device::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
-{
-	return false;
-}
-
-bool Device::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
-{
-	return false;
-}
+bool Device::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen) { return false; }
 
 void Device::strcpy_bp(void * destination, const char * source, size_t dest_size)
 {
@@ -97,6 +54,8 @@ void Device::strcpy_bp(void * destination, const char * source, size_t dest_size
 	memset((char *)destination + c, ' ', dest_size);
 }
 
+
+// The functions below are not mine and were retrieved from stack overflow
 
 // read_directory()
 //   Return an ASCII-sorted vector of filename entries in a given directory.
@@ -145,11 +104,36 @@ std::vector<std::string> Device::read_directory(const std::string& path = std::s
 	return result;
 }
 
-std::string getLastLine(std::ifstream& in)
+std::string Device::getLastLine(std::ifstream& in)
 {
 	std::string line;
 	while (in >> std::ws && std::getline(in, line)) // skip empty lines
 		;
 
 	return line;
+}
+
+int Device::char2int(char input)
+{
+	if (input >= '0' && input <= '9')
+		return input - '0';
+	if (input >= 'A' && input <= 'F')
+		return input - 'A' + 10;
+	if (input >= 'a' && input <= 'f')
+		return input - 'a' + 10;
+	throw std::invalid_argument("Invalid input string");
+}
+
+// This function assumes src to be a zero terminated sanitized string with
+// an even number of [0-9a-f] characters, and target to be sufficiently large
+// len -> len of source
+void Device::hex2bin(const char* src, char* target, int len)
+{
+	while (len > 0)
+	{
+		*(target++) = char2int(*src) * 16 + char2int(src[1]);
+		src += 2;
+
+		len -= 2;
+	}
 }

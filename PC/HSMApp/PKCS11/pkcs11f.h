@@ -941,6 +941,44 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_UserDelete)
 );
 #endif
 
+/* HSM_C_LogVerifyDay adds a message to the log. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_LogVerifyDay)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession,	/* the session's handle */
+	CK_ULONG lDay, /* the day to be verified */
+	CK_ULONG lMonth, /* the month to be verified */
+	CK_ULONG lYear /* the year to be verified */
+);
+#endif
+
+/* HSM_C_LogVerifyMonth adds a message to the log. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_LogVerifyMonth)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession,	/* the session's handle */
+	CK_ULONG lMonth, /* the month to be verified */
+	CK_ULONG lYear /* the year to be verified */
+);
+#endif
+
+/* HSM_C_LogVerifyYear adds a message to the log. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_LogVerifyYear)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession,	/* the session's handle */
+	CK_ULONG lYear /* the year to be verified */
+);
+#endif
+
+/* HSM_C_LogVerifyChain adds a message to the log. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_LogVerifyChain)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession	/* the session's handle */
+);
+#endif
+
 /* HSM_C_LogAdd adds a message to the log. */
 CK_PKCS11_FUNCTION_INFO(HSM_C_LogAdd)
 #ifdef CK_NEED_ARG_LIST

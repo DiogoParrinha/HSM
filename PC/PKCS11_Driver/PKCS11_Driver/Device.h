@@ -38,20 +38,22 @@ class Device
 		virtual bool modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen);
 		virtual bool deleteUser(CK_BYTE uID);
 		virtual bool logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage);
-		virtual bool logsGet(CK_ULONG lNumber, CK_UTF8CHAR_PTR pLog, CK_ULONG_PTR logSize);
-		virtual bool logsGetHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
-		virtual bool logsGetDayHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
-		virtual bool logsGetMonthHash(CK_ULONG lNumber, CK_UTF8CHAR_PTR pHash, CK_ULONG_PTR hashSize);
-		virtual bool logsVerifyDay(CK_ULONG lNumber);
-		virtual bool logsVerify(CK_ULONG lNumber);
-		virtual bool logsVerifyDayHash(CK_ULONG lNumber);
-		virtual bool logsVerifyMonthHash(CK_ULONG lNumber);
+		virtual bool logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash);
+		virtual bool logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash);
+		virtual bool logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash);
+		virtual bool logsVerifyChain();
 		virtual bool logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2);
 		virtual bool sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen);
 
 		void strcpy_bp(void * destination, const char * source, size_t dest_size);
 
 		std::vector<std::string> read_directory(const std::string & path, bool folders);
+
+		std::string getLastLine(std::ifstream & in);
+
+		int char2int(char input);
+
+		void hex2bin(const char * src, char * target, int len);
 
 		int maxSlots;
 
