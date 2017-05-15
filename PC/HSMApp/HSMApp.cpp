@@ -13,6 +13,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <ctime>
 
 const uint8_t g_separator[] =
 "------------------------------------------------------------------------------\r\n";
@@ -81,7 +82,7 @@ int main()
 	printf("Average block transfer: %lfms\n", average);*/
 
 	// Open Session
-	printf("\nOpening session...");
+	printf("\nOpening session...\n");
 	CK_BYTE application = 1;
 	CK_SESSION_HANDLE phSession;
 	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
@@ -428,6 +429,8 @@ int main()
 		times++;
 
 		assert(r == CKR_OK);
+
+		i++;
 	}
 	average /= times;
 	printf("\nAverage log signing: %lf\n", average);
@@ -436,11 +439,37 @@ int main()
 	r = C_Logout(phSession);
 	assert(r == CKR_OK);*/
 
-	printf("\nVerify day...\n");
+	//////// Get device logs public key certificate
+
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
+	data[32] = 1;
+	r = C_Login(phSession, CKU_USER, data, 33);
+	assert(r == CKR_OK);
+
+	CK_UTF8CHAR certificate[4096];
+	CK_ULONG bufSize = 4096;
+	r = HSM_C_CertGet(phSession, -1, certificate, &bufSize);
+	assert(r == CKR_OK);
+
+	r = HSM_C_CertGet(phSession, -2, certificate, &bufSize);
+	assert(r == CKR_OK);
+
+	r = HSM_C_CertGet(phSession, -3, certificate, &bufSize);
+	assert(r == CKR_OK);
+
+	// Logout user 1
+	r = C_Logout(phSession);
+	assert(r == CKR_OK);
+
+	// close session
+	r = C_CloseSession(phSession);
+	assert(r == CKR_OK);
+
+	/*printf("\nVerify day...\n");
 
 	average = 0.0f;
 	times = 0;
-
 	startTimer();
 	r = HSM_C_LogVerifyDay(phSession, 15, 5, 2017);
 	//assert(r == CKR_OK);
@@ -451,10 +480,48 @@ int main()
 	average /= times;
 	printf("\nOK\n");
 
-	// close session
-	r = C_CloseSession(phSession);
-	assert(r == CKR_OK);
+	printf("\nVerify month...\n");
 
+	average = 0.0f;
+	times = 0;
+	startTimer();
+	r = HSM_C_LogVerifyMonth(phSession, 5, 2017);
+	//assert(r == CKR_OK);
+	endTimer();
+	average += elapsedTime;
+	times++;
+
+	average /= times;
+	printf("\nOK\n");*/
+	
+	/*printf("\nVerify year...\n");
+
+	average = 0.0f;
+	times = 0;
+	startTimer();
+	r = HSM_C_LogVerifyYear(phSession, 2016);
+	//assert(r == CKR_OK);
+	endTimer();
+	average += elapsedTime;
+	times++;
+
+	average /= times;
+	printf("\nOK\n");*/
+
+	printf("\nVerify chain...\n");
+
+	average = 0.0f;
+	times = 0;
+	startTimer();
+	r = HSM_C_LogVerifyChain(0);
+	//assert(r == CKR_OK);
+	endTimer();
+	average += elapsedTime;
+	times++;
+
+	average /= times;
+	printf("\nOK\n");
+	
 	// Finalize
 	r = C_Finalize(NULL);
 	assert(r == CKR_OK);

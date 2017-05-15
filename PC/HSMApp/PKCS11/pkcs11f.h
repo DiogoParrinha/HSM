@@ -975,7 +975,7 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_LogVerifyYear)
 CK_PKCS11_FUNCTION_INFO(HSM_C_LogVerifyChain)
 #ifdef CK_NEED_ARG_LIST
 (
-	CK_SESSION_HANDLE hSession	/* the session's handle */
+	CK_SLOT_ID slotID	/* the session's handle */
 );
 #endif
 
@@ -994,7 +994,7 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_CertGet)
 #ifdef CK_NEED_ARG_LIST
 (
 	CK_SESSION_HANDLE hSession,		/* the session's handle */
-	CK_BYTE pUid,					/* the user ID*/
+	CK_LONG pUid,					/* the user ID*/
 	CK_UTF8CHAR_PTR certificate,	/* will hold the certificate in PEM format */
 	CK_ULONG_PTR bufSize			/* size of the buffer; if too small, it will be filled with size needed */
 );

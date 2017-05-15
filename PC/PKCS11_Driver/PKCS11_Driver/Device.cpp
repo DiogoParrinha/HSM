@@ -31,15 +31,15 @@ int Device::logout() { return 0; }
 bool Device::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen) { return false; }
 bool Device::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG pulSignatureLen) { return false; }
 bool Device::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR privateKey, CK_OBJECT_HANDLE_PTR publicKey) { return false; }
-bool Device::getCertificate(CK_BYTE uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR bufSize) { return false; }
+bool Device::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR bufSize) { return false; }
 bool Device::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, CK_UTF8CHAR_PTR publicKey, CK_UTF8CHAR_PTR certificate, CK_ULONG_PTR bufSize) { return false;  }
 bool Device::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID) { return false; }
 bool Device::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen) { return false; }
 bool Device::deleteUser(CK_BYTE uID) { return false; }
 bool Device::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage) { return false; }
-bool Device::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash) { return false; }
-bool Device::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash) { return false; }
-bool Device::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash) { return false; }
+bool Device::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain) { return false; }
+bool Device::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain) { return false; }
+bool Device::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain) { return false; }
 bool Device::logsVerifyChain() { return false; }
 bool Device::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2) { return false; }
 
@@ -99,7 +99,19 @@ std::vector<std::string> Device::read_directory(const std::string& path = std::s
 			}
 		}
 		closedir(dp);
-		std::sort(result.begin(), result.end());
+
+		// sort using a custom function object
+		struct {
+			bool operator()(std::string a, std::string b) const
+			{
+				int vA = atoi(a.c_str());
+				int vB = atoi(b.c_str());
+
+				return vA < vB;
+			}
+		} sortByNumber;
+
+		std::sort(result.begin(), result.end(), sortByNumber);
 	}
 	return result;
 }

@@ -36,6 +36,7 @@
 #include "UART.h"
 
 #include <fstream>
+#include <ctime>
 
 #define VERBOSE 1
 
@@ -69,6 +70,8 @@ Macro
 
 uint8_t buffer[4096];
 
+mbedtls_x509_crt *logs_cert;
+
 HSM::HSM()
 {
 	comm = new UART();
@@ -82,10 +85,15 @@ HSM::HSM()
 
 	memset(serialNumber, 0, 128);
 	memcpy(serialNumber, HSM_SERIAL_NUMBER, strlen(HSM_SERIAL_NUMBER));
+
+	logs_cert = NULL;
 }
 
 HSM::~HSM()
 {
+	if(logs_cert != NULL)
+		free(logs_cert);
+
 	comm->disconnect();
 }
 
@@ -902,66 +910,263 @@ bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR priva
 	return true;
 }
 
-bool HSM::getCertificate(CK_BYTE uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR bufSize)
+bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR bufSize)
 {
-	if (uid <= 0)
+	if (uid == 0)
 		return false;
 
 	startTimer();
 
-	comm->reqCommand();
-	if (VERBOSE == 1)
-		printf("USER_CERT...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "USER_CERT");
-	comm->send(buffer, strlen((char*)buffer));
-
-	// Now it expects:
-	// 1B ID
-	if (VERBOSE == 1)
-		printf("\n\tSending DATA...");
-	memset(buffer, 0, sizeof(buffer));
-	buffer[0] = uid;
-	comm->send(buffer, 1);
-	if (VERBOSE == 1)
-		printf("OK\n");
-
-	// Wait for 'SUCCESS'
-	if (VERBOSE == 1)
-		printf("\n\tReceiving SUCCESS...");
-	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	if (uid > 0)
 	{
-		return false;
+		comm->reqCommand();
+		if (VERBOSE == 1)
+			printf("USER_CERT...");
+		memset(buffer, 0, sizeof(buffer));
+		sprintf_s((char*)buffer, sizeof(buffer), "USER_CERT");
+		comm->send(buffer, strlen((char*)buffer));
+
+		// Now it expects:
+		// 1B ID
+		if (VERBOSE == 1)
+			printf("\n\tSending DATA...");
+		memset(buffer, 0, sizeof(buffer));
+		buffer[0] = (CK_BYTE)uid;
+		comm->send(buffer, 1);
+		if (VERBOSE == 1)
+			printf("OK\n");
+
+		// Wait for 'SUCCESS'
+		if (VERBOSE == 1)
+			printf("\n\tReceiving SUCCESS...");
+		memset(buffer, 0, sizeof(buffer));
+		comm->receive(&buffer[0], 4096);
+		if (VERBOSE == 1)
+			printf("OK: %s\n", buffer);
+		if (strcmp((char*)buffer, "SUCCESS") != 0)
+		{
+			return false;
+		}
+
+		// Wait for actual certificate
+		if (VERBOSE == 1)
+			printf("\n\tReceiving certificate content...");
+		memset(buffer, 0, sizeof(buffer));
+		comm->receive(&buffer[0], 4096);
+		if (VERBOSE == 1)
+			printf("OK.\n");
+
+		mbedtls_x509_crt crt;
+		mbedtls_x509_crt_init(&crt);
+		int r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
+		if (r != 0)
+			return false;
+
+		if (*bufSize < strlen((char*)buffer) + 1 || certificate == NULL)
+		{
+			*bufSize = strlen((char*)buffer) + 1;
+			return false;
+		}
+
+		memcpy(certificate, buffer, strlen((char*)buffer) + 1);
+
+		if (VERBOSE == 1)
+			printf("OK.\n");
 	}
-
-	// Wait for actual certificate
-	if (VERBOSE == 1)
-		printf("\n\tReceiving certificate content...");
-	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
-	if (VERBOSE == 1)
-		printf("OK.\n");
-
-	mbedtls_x509_crt crt;
-	mbedtls_x509_crt_init(&crt);
-	int r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer)+1);
-	if (r != 0)
-		return false;
-
-	if (*bufSize < strlen((char*)buffer) + 1 || certificate == NULL)
+	else if (uid == -1)
 	{
-		*bufSize = strlen((char*)buffer) + 1;
-		return false;
+		// Logs Certificate
+
+		comm->reqCommand();
+		if (VERBOSE == 1)
+			printf("CRT_GET_LOGS...");
+		memset(buffer, 0, sizeof(buffer));
+		sprintf_s((char*)buffer, sizeof(buffer), "CRT_GET_LOGS");
+		comm->send(buffer, strlen((char*)buffer));
+
+		// Wait for 'SUCCESS'
+		if (VERBOSE == 1)
+			printf("\n\tReceiving SUCCESS...");
+		memset(buffer, 0, sizeof(buffer));
+		comm->receive(&buffer[0], 4096);
+		if (VERBOSE == 1)
+			printf("OK: %s\n", buffer);
+		if (strcmp((char*)buffer, "SUCCESS") != 0)
+		{
+			return false;
+		}
+
+		// Wait for actual certificate
+		if (VERBOSE == 1)
+			printf("\n\tReceiving certificate content...");
+		memset(buffer, 0, sizeof(buffer));
+		comm->receive(&buffer[0], 4096);
+		if (VERBOSE == 1)
+			printf("OK.\n");
+
+		mbedtls_x509_crt crt;
+		mbedtls_x509_crt_init(&crt);
+		int r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
+		if (r != 0)
+			return false;
+
+		if (*bufSize < strlen((char*)buffer) + 1 || certificate == NULL)
+		{
+			*bufSize = strlen((char*)buffer) + 1;
+			return false;
+		}
+
+		DIR *dir;
+		if ((dir = opendir("./certs")) == NULL)
+		{
+			if (_mkdir("./certs") == 0)
+			{
+				printf("Directory './certs' was successfully created\n");
+			}
+			else
+				printf("Problem creating directory './certs'\n");
+		}
+		else
+			closedir(dir);
+
+		std::ofstream outfile;
+		outfile.open("./certs/logs.crt", std::ofstream::out | std::ofstream::trunc);
+		outfile.write((char*)buffer, strlen((char*)buffer) + 1);
+		outfile.close();
+
+		if (VERBOSE == 1)
+			printf("OK.\n");
 	}
+	else if (uid == -2)
+	{
+		// Session Certificate
 
-	memcpy(certificate, buffer, strlen((char*)buffer) + 1);
+		comm->reqCommand();
+		if (VERBOSE == 1)
+			printf("CRT_GET_SESSION...");
+		memset(buffer, 0, sizeof(buffer));
+		sprintf_s((char*)buffer, sizeof(buffer), "CRT_GET_SESSION");
+		comm->send(buffer, strlen((char*)buffer));
 
-	if (VERBOSE == 1)
-		printf("OK.\n");
+		// Wait for 'SUCCESS'
+		if (VERBOSE == 1)
+			printf("\n\tReceiving SUCCESS...");
+		memset(buffer, 0, sizeof(buffer));
+		comm->receive(&buffer[0], 4096);
+		if (VERBOSE == 1)
+			printf("OK: %s\n", buffer);
+		if (strcmp((char*)buffer, "SUCCESS") != 0)
+		{
+			return false;
+		}
+
+		// Wait for actual certificate
+		if (VERBOSE == 1)
+			printf("\n\tReceiving certificate content...");
+		memset(buffer, 0, sizeof(buffer));
+		comm->receive(&buffer[0], 4096);
+		if (VERBOSE == 1)
+			printf("OK.\n");
+
+		mbedtls_x509_crt crt;
+		mbedtls_x509_crt_init(&crt);
+		int r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
+		if (r != 0)
+			return false;
+
+		if (*bufSize < strlen((char*)buffer) + 1 || certificate == NULL)
+		{
+			*bufSize = strlen((char*)buffer) + 1;
+			return false;
+		}
+
+		DIR *dir;
+		if ((dir = opendir("./certs")) == NULL)
+		{
+			if (_mkdir("./certs") == 0)
+			{
+				printf("Directory './certs' was successfully created\n");
+			}
+			else
+				printf("Problem creating directory './certs'\n");
+		}
+		else
+			closedir(dir);
+
+		std::ofstream outfile;
+		outfile.open("./certs/session.crt", std::ofstream::out | std::ofstream::trunc);
+		outfile.write((char*)buffer, strlen((char*)buffer) + 1);
+		outfile.close();
+
+		if (VERBOSE == 1)
+			printf("OK.\n");
+	}
+	else if (uid == -3)
+	{
+		// Issuer Certificate
+
+		comm->reqCommand();
+		if (VERBOSE == 1)
+			printf("CRT_GET_ISSUER...");
+		memset(buffer, 0, sizeof(buffer));
+		sprintf_s((char*)buffer, sizeof(buffer), "CRT_GET_ISSUER");
+		comm->send(buffer, strlen((char*)buffer));
+
+		// Wait for 'SUCCESS'
+		if (VERBOSE == 1)
+			printf("\n\tReceiving SUCCESS...");
+		memset(buffer, 0, sizeof(buffer));
+		comm->receive(&buffer[0], 4096);
+		if (VERBOSE == 1)
+			printf("OK: %s\n", buffer);
+		if (strcmp((char*)buffer, "SUCCESS") != 0)
+		{
+			return false;
+		}
+
+		// Wait for actual certificate
+		if (VERBOSE == 1)
+			printf("\n\tReceiving certificate content...");
+		memset(buffer, 0, sizeof(buffer));
+		comm->receive(&buffer[0], 4096);
+		if (VERBOSE == 1)
+			printf("OK.\n");
+
+		mbedtls_x509_crt crt;
+		mbedtls_x509_crt_init(&crt);
+		int r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
+		if (r != 0)
+			return false;
+
+		if (*bufSize < strlen((char*)buffer) + 1 || certificate == NULL)
+		{
+			*bufSize = strlen((char*)buffer) + 1;
+			return false;
+		}
+
+		DIR *dir;
+		if ((dir = opendir("./certs")) == NULL)
+		{
+			if (_mkdir("./certs") == 0)
+			{
+				printf("Directory './certs' was successfully created\n");
+			}
+			else
+				printf("Problem creating directory './certs'\n");
+		}
+		else
+			closedir(dir);
+
+		std::ofstream outfile;
+		outfile.open("./certs/issuer.crt", std::ofstream::out | std::ofstream::trunc);
+		outfile.write((char*)buffer, strlen((char*)buffer) + 1);
+		outfile.close();
+
+		if (VERBOSE == 1)
+			printf("OK.\n");
+	}
+	else
+		return false;
 
 	endTimer();
 
@@ -1336,17 +1541,14 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 
 	// Read the file and get the last line
 	// Extract the hash and use it as the previous hash
-	uint8_t zero[256] = { 0 };
 	if (memcmp(readPath, zero, 256) != 0)
 	{
 		std::ifstream file(readPath);
 		if (file)
 		{
 			std::string line = getLastLine(file);
-			std::cout << line << '\n';
-
-			// TODO: We need to do some string manipulation here to retrieve the base64 encoded hash
-			// Then decode it and finally we can send it!
+			file.close();
+			//std::cout << line << '\n';
 
 			// First find } and substring what's after + 3 chars (includes "} [")
 			unsigned first = line.find('}');
@@ -1460,7 +1662,24 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	}
 
 	// Depending on the date, choose which file to write to
-	time_t t = time(NULL);
+	//time_t t = time(NULL);
+
+	/* Code below is used for fake date/time testing */
+	static time_t static_time, t;
+	static int iteration;
+	if (static_time == 0)
+	{
+		static_time = 1421331322;
+		t = static_time;
+	}
+
+	if (iteration % 5 == 0)
+	{
+		t += 60 * 60 * 24 * 4;
+	}
+	iteration++;
+	/* end of test code */
+
 	struct tm now;
 	localtime_s(&now, &t);
 
@@ -1511,8 +1730,9 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	return true;
 }
 
-bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash)
+bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain)
 {
+	int ret = 0;
 	char readPath[256] = { 0 };
 	sprintf_s(readPath, 256, "./logchain/%d/%d", lYear, lMonth);
 
@@ -1536,19 +1756,27 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		return false;
 	}
 
-	// TODO: Request device logs public key
-	int ret = 0;
-	mbedtls_pk_context ctx;
-	mbedtls_pk_init(&ctx);
-
-	// Parse public key
-	unsigned char publicKey[512] = "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAECvRzPeCDoxu4BIQcZ8YVkmAoCytwnxHA\nNpDcy2U0qsLk/Av+S9JcLXmvrgwKCNVaqzII87H5iFheRsOdxbl0lBJ4I/raM8t5\nG/95vfumMlDmQbyBkdyJe3YxR/fYVc7L-----END PUBLIC KEY-----";
-	ret = mbedtls_pk_parse_public_key(&ctx, publicKey, strlen((char*)publicKey) + 1);
-	if (ret != 0)
+	// Use device logs public key
+	if (logs_cert == NULL)
 	{
-		printf("Error parsing public key.\n");
-		mbedtls_pk_free(&ctx);
-		return false;
+		// Read certificate file ./certs/logs.cert
+		logs_cert = (mbedtls_x509_crt*)malloc(sizeof(mbedtls_x509_crt));
+		if (logs_cert == NULL)
+			return false;
+
+		mbedtls_x509_crt_init(logs_cert);
+		mbedtls_pk_init(&logs_cert->pk);
+
+		ret = mbedtls_x509_crt_parse_file(logs_cert, "././certs/logs.crt");
+		if (ret != 0)
+		{
+			// certificate is missing, can't validate chain
+			printf("Error parsing public key certificate.\n");
+			free(logs_cert);
+			logs_cert = NULL;
+			file.close();
+			return false;
+		}
 	}
 
 	// Start at the bottom of the file, verify the signature 
@@ -1561,6 +1789,10 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 	uint8_t hash_prev[32] = { 0 }; // hash of the previous log entry (must match the current embedded hash)
 	uint8_t signature[512];
 	std::string message;
+
+	// Copy prevHash to hash_prev
+	if(prevHash != NULL_PTR)
+		memcpy(hash_prev, prevHash, 32);
 
 	int l = 1;
 	while (getline(file, line))
@@ -1575,7 +1807,7 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		else
 		{
 			printf("Invalid format 1 on line %d\n", l);
-			mbedtls_pk_free(&ctx);
+			file.close();
 			return false;
 		}
 
@@ -1602,14 +1834,14 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 			if (mbedtls_base64_decode(hash_v, 32, &olen, buf, base64_hash.length()) != 0)
 			{
 				printf("Base64 Decode of Hash on line %d\n", l);
-				mbedtls_pk_free(&ctx);
+				file.close();
 				return false;
 			}
 		}
 		else
 		{
 			printf("Invalid format 2 on line %d\n", l);
-			mbedtls_pk_free(&ctx);
+			file.close();
 			return false;
 		}
 
@@ -1617,12 +1849,12 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		if (memcmp(hash, hash_v, 32) != 0)
 		{
 			printf("Hash mismatch on line %d\n", l);
-			mbedtls_pk_free(&ctx);
+			file.close();
 			return false;
 		}
 
 		// Extract signature
-		std::string signature_part = last_part.substr(hash_separator+3);
+		std::string signature_part = last_part.substr(hash_separator + 3);
 		unsigned sig_separator = signature_part.find(']');
 		if (sig_separator != std::string::npos)
 		{
@@ -1634,31 +1866,42 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 			if (mbedtls_base64_decode(signature, 512, &olen, buf, base64_hash.length()) != 0)
 			{
 				printf("Base64 Decode of Signature on line %d\n", l);
-				mbedtls_pk_free(&ctx);
+				file.close();
 				return false;
 			}
 
 			// Verify signature
-			int ret = mbedtls_pk_verify(&ctx, MBEDTLS_MD_SHA256, hash, 32, signature, olen);
+			int ret = mbedtls_pk_verify(&logs_cert->pk, MBEDTLS_MD_SHA256, hash, 32, signature, olen);
 			if (ret != 0)
 			{
 				printf("Signature mismatch on line %d\n", l);
-				mbedtls_pk_free(&ctx);
+				file.close();
 				return false;
 			}
 		}
 		else
 		{
 			printf("Invalid format 3 on line %d\n", l);
-			mbedtls_pk_free(&ctx);
+			file.close();
 			return false;
 		}
-		
-		// Verify that the embedded hash matches the previous line hash (skip first because we consider it the root of the file and we're only verifying the day)
-		if (memcmp(hash_embedded, hash_prev, 32) != 0 && l != 1)
+
+		// Verify that the embedded hash matches the previous line hash
+		// 1. Skip first because we consider it the root of the file and we're only verifying the day
+		// 2. Or don't skip if we have a previous hash as an argument
+		if (memcmp(hash_embedded, hash_prev, 32) != 0
+			&& 
+				(
+					l != 1 // line != 1 so not a problem
+					||
+					(l == 1 && prevHash != NULL_PTR && fullChain == CK_TRUE) // we're doing a full-chain verification: ignore if prevHash == NULL but otherwise we will verify embedded hash against prevHash (should be 0000)
+					||
+					(l == 1 && memcmp(hash_prev, zero, 32) != 0 && fullChain == false) // we're not doing a full-chain verification: ignore if prevHash == 0000000
+				)
+			)
 		{
 			printf("Embedded hash mismatch on line %d\n", l);
-			mbedtls_pk_free(&ctx);
+			file.close();
 			return false;
 		}
 
@@ -1668,49 +1911,167 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		l++;
 	}
 
-	mbedtls_pk_free(&ctx);
+	file.close();
 
 	// Store hash_prev in prevHash (hash_prev will be the last hash when the loop finishes)
-	memcpy(prevHash, hash_prev, 32);
+	if(prevHash != NULL_PTR)
+		memcpy(prevHash, hash_prev, 32);
 
-	if(VERBOSE)
-		printf("File verified successfully.\n");
+	/*if (VERBOSE)
+		printf("Day %d verified successfully.\n", lDay);*/
 	return true;
 }
 
-bool HSM::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash)
+bool HSM::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain)
 {
 	// Check if folder exists
 	// Return false if not
+	char readPath[256] = { 0 };
+	sprintf_s(readPath, 256, "./logchain/%d/%d", lYear, lMonth);
+
+	DIR *dir;
+	if ((dir = opendir(readPath)) == NULL)
+	{
+		printf("Directory '%s' does not exist.\n", readPath);
+		return false;
+	}
+	else
+		closedir(dir);
 
 	// Get max days of the month
 	// If lMonth==current_month -> max days = current_day
-	// Otherwise max days = 30 or 31
+	// Otherwise max days = 29
+
+	time_t theTime = time(NULL);
+	struct tm aTime;
+	localtime_s(&aTime, &theTime);
+
+	int max_days = 0;
+	if (aTime.tm_mon == lMonth && (aTime.tm_year + 1900) == lYear)
+	{
+		max_days = aTime.tm_mday;
+	}
+	else
+	{
+		int month = aTime.tm_mon + 1; // Month is 0-11 so we add 1
+		int year = aTime.tm_year + 1900; // Years since 1900
+		if (month == 4 || month == 6 || month == 9 || month == 11)
+			max_days = 30;
+		else if (month == 02)
+		{
+			bool leapyear = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+
+			if (leapyear == 0)
+				max_days = 29;
+			else
+				max_days = 28;
+		}
+		else
+			max_days = 31;
+	}
 
 	// Previous hash = 0
 	// For d=1 ; d<=max_days
 	// 1. Check if file exists (skip if not)
 	// 2. Compute logsVerifyDay for each day file
 	// 3. Previous hash will now be equal to the last hash of the processed file
+	uint8_t prev_hash[32] = {0};
+	if (prevHash != NULL_PTR)
+		memcpy(prev_hash, prevHash, 32); // use previous hash if any
 
+	for (int d = 1; d <= max_days; d++)
+	{
+		struct stat s;
+		sprintf_s(readPath, 256, "./logchain/%d/%d/%d.txt", lYear, lMonth, d);
+
+		if ((stat(readPath, &s) != 0))
+		{
+			//printf("Skipping %s because it does not exist.\n", readPath);
+			continue; // file doesn't exist
+		}
+
+		bool r = logsVerifyDay(d, lMonth, lYear, &prev_hash[0], fullChain);
+		if (r == false)
+		{
+			printf("\nError verifying day %d\n", d);
+			return false;
+		}
+	}
+
+	// Store prev_hash in prevHash (prev_hash will be the last hash when the loop finishes)
+	if (prevHash != NULL_PTR)
+		memcpy(prevHash, prev_hash, 32);
+
+	/*if (VERBOSE)
+		printf("Month %d verified successfully.\n", lMonth);*/
 	return true;
 }
 
-bool HSM::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash)
+bool HSM::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain)
 {
 	// Check if folder exists
-	// Return fales if not
+	// Return false if not
+	char readPath[256] = { 0 };
+	sprintf_s(readPath, 256, "./logchain/%d", lYear);
+
+	DIR *dir;
+	if ((dir = opendir(readPath)) == NULL)
+	{
+		printf("Directory '%s' does not exist.\n", readPath);
+		return false;
+	}
+	else
+		closedir(dir);
 
 	// Get max months of the year
 	// If lYear==current_year -> max months = current_month
 	// Otherwise max months = 12
+	time_t theTime = time(NULL);
+	struct tm aTime;
+	localtime_s(&aTime, &theTime);
+
+	int max_months = 0;
+	if (aTime.tm_year + 1900 == lYear)
+	{
+		max_months = aTime.tm_mon;
+	}
+	else
+		max_months = 12;
 
 	// Previous hash = 0
-	// For m=1 ; d<=max_months
+	// For m=1 ; m<=max_months
 	// 1. Check if folder exists (skip if not)
 	// 2. Compute logsVerifyMonth for each month folder
 	// 3. Previous hash will now be equal to the last hash of the processed month
+	uint8_t prev_hash[32] = { 0 };
+	if (prevHash != NULL_PTR)
+		memcpy(prev_hash, prevHash, 32); // use previous hash if any
 
+	for (int m = 1; m <= max_months; m++)
+	{
+		struct stat s;
+		sprintf_s(readPath, 256, "./logchain/%d/%d", lYear, m);
+
+		if ((stat(readPath, &s) != 0) || !(s.st_mode & S_IFDIR))
+		{
+			//printf("Skipping %s because it does not exist.\n", readPath);
+			continue; // file doesn't exist
+		}
+
+		bool r = logsVerifyMonth(m, lYear, &prev_hash[0], fullChain);
+		if (r == false)
+		{
+			printf("\nError verifying month %d\n", m);
+			return false;
+		}
+	}
+
+	// Store prev_hash in prevHash (prev_hash will be the last hash when the loop finishes)
+	if (prevHash != NULL_PTR)
+		memcpy(prevHash, prev_hash, 32);
+
+	/*if (VERBOSE)
+		printf("Year %d verified successfully.\n", lYear);*/
 	return true;
 }
 
@@ -1719,15 +2080,223 @@ bool HSM::logsVerifyChain()
 	// Get the oldest year, month and day
 	// Check the first line (must be the root)
 	// Return false if embedded hash != 0 OR hash doesn't match log entry OR signature cannot be verified
+	char readPath[256] = { 0 };
+	int start_year = 0;
+	int ret = 0;
+	std::vector<std::string> years_folders = Device::read_directory("./logchain", true);
+	if (!years_folders.empty())
+	{
+		std::string year_folder = years_folders.front();
+
+		sprintf_s(readPath, 256, "./logchain/%s", year_folder.c_str());
+		start_year = atoi(year_folder.c_str());
+
+		// Find most recent month
+		std::vector<std::string> months_folders = Device::read_directory(readPath, true);
+		if (!months_folders.empty())
+		{
+			std::string month_folder = months_folders.front();
+
+			sprintf_s(readPath, 256, "%s/%s", readPath, month_folder.c_str());
+
+			// Find most recent day
+			std::vector<std::string> days_files = Device::read_directory(readPath, false);
+			if (!days_files.empty())
+			{
+				std::string day_file = days_files.front();
+
+				sprintf_s(readPath, 256, "%s/%s", readPath, day_file.c_str());
+			}
+			else
+				memset(readPath, 0, 256);
+		}
+		else
+			memset(readPath, 0, 256);
+	}
+
+	printf("\nRoot file: %s\n", readPath);
+
+	if (memcmp(readPath, zero, 256) == 0)
+	{
+		printf("There is not chain to verify.");
+		return false;
+	}
+
+	// Use device logs public key
+	if (logs_cert == NULL)
+	{
+		// Read certificate file ./certs/logs.cert
+		logs_cert = (mbedtls_x509_crt*)malloc(sizeof(mbedtls_x509_crt));
+		if (logs_cert == NULL)
+			return false;
+
+		mbedtls_x509_crt_init(logs_cert);
+		mbedtls_pk_init(&logs_cert->pk);
+
+		ret = mbedtls_x509_crt_parse_file(logs_cert, "./certs/logs.crt");
+		if (ret != 0)
+		{
+			// certificate is missing, can't validate chain
+			printf("Error parsing public key certificate.\n");
+			free(logs_cert);
+			logs_cert = NULL;
+			return false;
+		}
+	}
+
+	// Read first line and extract hash
+	// Validate signature
+	std::ifstream file(readPath);
+	if (file)
+	{
+		std::string line;
+		getline(file, line);
+		file.close();
+		std::cout << "Root:" << line << '\n';
+
+		std::string message;
+		uint8_t hash[32];
+		uint8_t hash_embedded[32];
+		uint8_t hash_v[32];
+		uint8_t signature[512];
+
+		// Extract message and compute hash
+		// First find } and retrieve the message
+		unsigned first = line.find('}');
+		if (first != std::string::npos)
+		{
+			message = line.substr(0, first + 1);
+		}
+		else
+		{
+			printf("Invalid format 1 on root-line\n");
+			file.close();
+			return false;
+		}
+
+		memset(hash, 0, sizeof(hash));
+		mbedtls_sha256((unsigned char*)message.c_str(), first + 1, hash, 0);
+
+		// Extract previous hash
+		std::string embedded_hash = message.substr(message.length() - 65, 64);
+		char embedded_hash_char[64];
+		memcpy(embedded_hash_char, embedded_hash.c_str(), 64);
+		hex2bin(embedded_hash_char, (char*)hash_embedded, 64);
+
+		// Extract hash and compare
+		// Look for ] (] is an illegal base64 char so it won't appear in the middle of the hash block)
+		std::string last_part = line.substr(first + 3);
+		unsigned hash_separator = last_part.find(']');
+		if (hash_separator != std::string::npos)
+		{
+			std::string base64_hash = last_part.substr(0, hash_separator); // from [ to ]
+
+			unsigned char buf[512] = { 0 };
+			sprintf_s((char*)buf, 512, base64_hash.c_str());
+			uint32_t olen = 0;
+			if (mbedtls_base64_decode(hash_v, 32, &olen, buf, base64_hash.length()) != 0)
+			{
+				printf("Base64 Decode of Hash on root-line\n");
+				file.close();
+				return false;
+			}
+		}
+		else
+		{
+			printf("Invalid format 2 on root-line\n");
+			file.close();
+			return false;
+		}
+
+		// Compare both
+		if (memcmp(hash, hash_v, 32) != 0)
+		{
+			printf("Hash mismatch on root-line\n");
+			file.close();
+			return false;
+		}
+
+		// Extract signature
+		std::string signature_part = last_part.substr(hash_separator + 3);
+		unsigned sig_separator = signature_part.find(']');
+		if (sig_separator != std::string::npos)
+		{
+			std::string base64_hash = signature_part.substr(0, sig_separator); // from [ to ]
+
+			unsigned char buf[512] = { 0 };
+			sprintf_s((char*)buf, 512, base64_hash.c_str());
+			uint32_t olen = 0;
+			if (mbedtls_base64_decode(signature, 512, &olen, buf, base64_hash.length()) != 0)
+			{
+				printf("Base64 Decode of Signature on root-line\n");
+				file.close();
+				return false;
+			}
+
+			// Verify signature
+			/*mbedtls_pk_context ctx;
+			unsigned char publicKey[512] = "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE5erxxyo1ohdYGDSPxfp9g7cbkKBNXw/E\nRWD5c5djszLc4EDwaP1fBTufLx3e7txW9N7nuCraHuh9AbGNJQnhIiqc9RarNWe1\nfpBdC+KLYp0wxx7yhUYLckNUtH0CeRcP\n-----END PUBLIC KEY-----";
+			mbedtls_pk_init(&ctx);
+			ret = mbedtls_pk_parse_public_key(&ctx, publicKey, strlen((char*)publicKey) + 1);
+			if (ret != 0)
+			{
+				return false;
+			}
+
+			mbedtls_ecp_keypair * p1 = mbedtls_pk_ec(ctx);
+			mbedtls_ecp_keypair * p2 = mbedtls_pk_ec(logs_cert->pk);*/
+
+			ret = mbedtls_pk_verify(&logs_cert->pk, MBEDTLS_MD_SHA256, hash, 32, signature, olen);
+			if (ret != 0)
+			{
+				printf("Signature mismatch on root-line\n");
+				file.close();
+				return false;
+			}
+		}
+		else
+		{
+			printf("Invalid format 3 on root-line\n");
+			file.close();
+			return false;
+		}
+	}
+
+	return true;
 
 	// We're here so we've validated the root
+
+	time_t theTime = time(NULL);
+	struct tm aTime;
+	localtime_s(&aTime, &theTime);
 
 	// Previous hash = 0
 	// For y=root_year ; d<=current_year
 	// 1. Check if folder exists (skip if not)
 	// 2. Compute logsVerifyYear for each year folder
 	// 3. Previous hash will now be equal to the last hash of the processed year
+	uint8_t prev_hash[32] = { 0 };
+	for (int y = start_year; y <= 1900+aTime.tm_year; y++)
+	{
+		struct stat s;
+		sprintf_s(readPath, 256, "./logchain/%d", y);
 
+		if ((stat(readPath, &s) != 0) || !(s.st_mode & S_IFDIR))
+		{
+			//printf("Skipping %s because it does not exist.\n", readPath);
+			continue; // file doesn't exist
+		}
+
+		bool r = logsVerifyYear(y, &prev_hash[0], CK_TRUE);
+		if (r == false)
+		{
+			printf("\nError verifying year %d\n", y);
+			return false;
+		}
+	}
+
+	if (VERBOSE)
+		printf("Chain verified successfully.\n");
 	return true;
 }
 

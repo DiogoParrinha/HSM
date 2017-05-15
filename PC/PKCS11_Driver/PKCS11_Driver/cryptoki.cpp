@@ -2119,7 +2119,7 @@ CK_RV HSM_C_LogVerifyDay(CK_SESSION_HANDLE hSession, CK_ULONG lDay, CK_ULONG lMo
 	localtime_s(&aTime, &theTime);
 	int month = aTime.tm_mon + 1; // Month is 0-11 so we add 1
 	int year = aTime.tm_year + 1900; // Years since 1900
-	uint32_t max_days = 0;
+	int max_days = 0;
 	if (month == 4 || month == 6 || month == 9 || month == 11)
 		max_days = 30;
 	else if (month == 02)
@@ -2129,7 +2129,7 @@ CK_RV HSM_C_LogVerifyDay(CK_SESSION_HANDLE hSession, CK_ULONG lDay, CK_ULONG lMo
 		if (leapyear == 0)
 			max_days = 29;
 		else
-			max_days = 29;
+			max_days = 28;
 	}
 	else
 		max_days = 31;
@@ -2140,7 +2140,7 @@ CK_RV HSM_C_LogVerifyDay(CK_SESSION_HANDLE hSession, CK_ULONG lDay, CK_ULONG lMo
 		return ERROR_BAD_ARGUMENTS;
 	}
 
-	// Verify day
+	// Verify year
 	if (lYear < 2000 || lYear > (aTime.tm_year+1900))
 	{
 		return ERROR_BAD_ARGUMENTS;
@@ -2152,7 +2152,7 @@ CK_RV HSM_C_LogVerifyDay(CK_SESSION_HANDLE hSession, CK_ULONG lDay, CK_ULONG lMo
 		return ERROR_BAD_ARGUMENTS;
 	}
 
-	if (!d->logsVerifyDay(lDay, lMonth, lYear))
+	if (!d->logsVerifyDay(lDay, lMonth, lYear, NULL_PTR, CK_FALSE))
 	{
 		return CKR_FUNCTION_FAILED;
 	}
@@ -2206,18 +2206,18 @@ CK_RV HSM_C_LogVerifyMonth(CK_SESSION_HANDLE hSession, CK_ULONG lMonth, CK_ULONG
 	localtime_s(&aTime, &theTime);
 
 	// Verify month
-	if (lMonth <= 0 || lMonth > 12)
+	if (lMonth < 1 || lMonth > 12)
 	{
 		return ERROR_BAD_ARGUMENTS;
 	}
 
 	// Verify year
-	if (lYear <= 0 || lYear > 12)
+	if (lYear < 2000 || lYear >(aTime.tm_year + 1900))
 	{
 		return ERROR_BAD_ARGUMENTS;
 	}
 
-	if (!d->logsVerifyMonth(lMonth, lYear))
+	if (!d->logsVerifyMonth(lMonth, lYear, NULL_PTR, CK_FALSE))
 	{
 		return CKR_FUNCTION_FAILED;
 	}
@@ -2272,12 +2272,12 @@ CK_RV HSM_C_LogVerifyYear(CK_SESSION_HANDLE hSession, CK_ULONG lYear)
 	localtime_s(&aTime, &theTime);
 
 	// Verify year
-	if (lYear <= 0 || lYear > 12)
+	if (lYear < 2000 || lYear >(aTime.tm_year + 1900))
 	{
 		return ERROR_BAD_ARGUMENTS;
 	}
 
-	if (!d->logsVerifyYear(lYear))
+	if (!d->logsVerifyYear(lYear, NULL_PTR, CK_FALSE))
 	{
 		return CKR_FUNCTION_FAILED;
 	}
@@ -2286,43 +2286,20 @@ CK_RV HSM_C_LogVerifyYear(CK_SESSION_HANDLE hSession, CK_ULONG lYear)
 }
 
 // HSM_C_LogVerifyChain
-CK_RV HSM_C_LogVerifyChain(CK_SESSION_HANDLE hSession)
+CK_RV HSM_C_LogVerifyChain(CK_SLOT_ID slotID)
 {
 	if (!g_init)
 	{
 		return CKR_CRYPTOKI_NOT_INITIALIZED;
 	}
 
-	// We accept handle=0
-	/*if (hSession == NULL_PTR)
-	{
-	return CKR_SESSION_HANDLE_INVALID;
-	}*/
-
-	// Get session
-	CK_SESSION_INFO_PTR s;
+	// Get device
+	Device* d;
 	try {
-		s = g_sessions.at(hSession)->session;
+		d = devices_list.at(slotID);
 	}
 	catch (const std::out_of_range&) {
 		// 'out of range' error
-		return CKR_SESSION_HANDLE_INVALID;
-	}
-
-	// Get device
-	Device* d;
-	if (s != NULL_PTR)
-	{
-		try {
-			d = devices_list.at(s->slotID);
-		}
-		catch (const std::out_of_range&) {
-			// 'out of range' error
-			return CKR_SESSION_HANDLE_INVALID;
-		}
-	}
-	else
-	{
 		return CKR_SESSION_HANDLE_INVALID;
 	}
 
@@ -2434,7 +2411,7 @@ CK_RV HSM_C_CertGen(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR publicKeyTempla
 }
 
 // HSM_C_CertGet
-CK_RV HSM_C_CertGet(CK_SESSION_HANDLE hSession, CK_BYTE pUid, CK_UTF8CHAR_PTR certificate, CK_ULONG_PTR bufSize)
+CK_RV HSM_C_CertGet(CK_SESSION_HANDLE hSession, CK_LONG pUid, CK_UTF8CHAR_PTR certificate, CK_ULONG_PTR bufSize)
 {
 	if (!g_init)
 	{
@@ -2468,7 +2445,7 @@ CK_RV HSM_C_CertGet(CK_SESSION_HANDLE hSession, CK_BYTE pUid, CK_UTF8CHAR_PTR ce
 		return CKR_SESSION_HANDLE_INVALID;
 	}
 
-	if (pUid <= 0)
+	if (pUid == 0) // can be negative for device certificates
 		return ERROR_BAD_ARGUMENTS;
 
 	if (!d->getCertificate(pUid, &certificate, bufSize))
