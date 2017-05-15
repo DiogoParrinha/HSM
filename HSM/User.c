@@ -37,6 +37,8 @@ void USER_init()
 		}
 	}
 
+	return;
+
 	//NVM_write(0x60000000, SPIFLASH_UserList, sizeof(SPIFLASH_UserList), NVM_DO_NOT_LOCK_PAGE);
 }
 

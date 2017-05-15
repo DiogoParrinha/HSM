@@ -48,9 +48,6 @@ BOOL UART_usingKey;
  */
 void __printf(char *s);
 void UART_clear_variable(uint8_t *p_var, uint16_t size);
-uint8_t UART_convert_ascii_to_hex(uint8_t* arr, uint32_t length);
-uint8_t UART_validate_input(uint8_t ascii_input);
-uint8_t UART_getDataUART(uint8_t* src_ptr, uint8_t size);
 BOOL UART_waitOK();
 BOOL UART_sendOK();
 void UART_waitCOMMAND();
@@ -63,7 +60,7 @@ void UART_init();
 void UART_connect();
 BOOL UART_recTime();
 void UART_disconnect();
-uint8_t UART_get(uint8_t* src_ptr, uint8_t size);
+uint32_t UART_get(uint8_t* src_ptr, uint8_t size);
 int UART_send(uint8_t *buffer, uint32_t len);
 int UART_send_e(uint8_t *buffer, uint32_t len);
 void UART_display(const uint8_t * in_buffer, uint32_t byte_length);

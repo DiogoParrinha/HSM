@@ -200,6 +200,8 @@ int main()
 
 	UART_init();
 
+	MSS_RTC_start();
+
 	/*** Receive commands ***/
 	uint8_t command[64];
 	while(1)
@@ -218,7 +220,11 @@ int main()
 		{
 			// Alright, client is going to issue a command
 			memset(command, 0, 64);
-			UART_receive(&command[0], 64);
+			int r = UART_receive(&command[0], 64);
+			if(r < 0) // an error occurred while expecting a command, disconnect with the PC
+			{
+				UART_disconnect();
+			}
 
 			// Process the command
 			COMMAND_process(command);

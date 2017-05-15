@@ -440,7 +440,7 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 		uint8_t buffer[17*BLOCK_SIZE] = {0};
 		UART_receive(&buffer[0], 17*BLOCK_SIZE);
 
-		uint8_t SUBJECT_NAME[1*BLOCK_SIZE] = {0}; // subject name shouldn't go over this limit
+		uint8_t SUBJECT_NAME[16*BLOCK_SIZE] = {0}; // subject name shouldn't go over this limit
 		uint8_t KEY[ECC_PUBLIC_KEY_SIZE] = {0}; // key shouldn't go over this limit
 		uint8_t keyUsageArray[2] = {0};
 
@@ -470,6 +470,84 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 		UART_receive(KEY, ECC_PUBLIC_KEY_SIZE);
 
 		if(!PKC_createCertificate(KEY, SUBJECT_NAME, keyUsage, &global_buffer[0], GLOBAL_BUFFER_SIZE))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: generating certificate");
+			return;
+		}
+
+		// Send SUCCESS with Certificate
+		UART_send("SUCCESS", 7);
+
+		// Send certificate
+		UART_send(global_buffer, strlen(global_buffer)+1);
+	}
+	else if(strcmp(command, "CRT_GET_LOGS") == 0)
+	{
+		// Secure connection, auth
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected/auth");
+			return;
+		}
+
+		uint8_t SUBJECT_NAME[16*BLOCK_SIZE] = "CN=HSM, O=HSM, C=PT"; // subject name shouldn't go over this limit
+		uint16_t keyUsage = MBEDTLS_X509_KU_DIGITAL_SIGNATURE;
+
+		if(!PKC_createCertificate(LOGS_PUBLIC_KEY, SUBJECT_NAME, keyUsage, &global_buffer[0], GLOBAL_BUFFER_SIZE))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: generating certificate");
+			return;
+		}
+
+		// Send SUCCESS with Certificate
+		UART_send("SUCCESS", 7);
+
+		// Send certificate
+		UART_send(global_buffer, strlen(global_buffer)+1);
+	}
+	else if(strcmp(command, "CRT_GET_SESSION") == 0)
+	{
+		// Secure connection, auth
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected/auth");
+			return;
+		}
+
+		uint8_t SUBJECT_NAME[16*BLOCK_SIZE] = "CN=HSM, O=HSM, C=PT"; // subject name shouldn't go over this limit
+		uint16_t keyUsage = MBEDTLS_X509_KU_DIGITAL_SIGNATURE;
+
+		if(!PKC_createCertificate(SESS_PUBLIC_KEY, SUBJECT_NAME, keyUsage, &global_buffer[0], GLOBAL_BUFFER_SIZE))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: generating certificate");
+			return;
+		}
+
+		// Send SUCCESS with Certificate
+		UART_send("SUCCESS", 7);
+
+		// Send certificate
+		UART_send(global_buffer, strlen(global_buffer)+1);
+	}
+	else if(strcmp(command, "CRT_GET_ISSUER") == 0)
+	{
+		// Secure connection, auth
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected/auth");
+			return;
+		}
+
+		uint8_t SUBJECT_NAME[16*BLOCK_SIZE] = "CN=HSM, O=HSM, C=PT"; // subject name shouldn't go over this limit
+		uint16_t keyUsage = MBEDTLS_X509_KU_DIGITAL_SIGNATURE;
+
+		if(!PKC_createCertificate(ISSUER_PUBLIC_KEY, SUBJECT_NAME, keyUsage, &global_buffer[0], GLOBAL_BUFFER_SIZE))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: generating certificate");
