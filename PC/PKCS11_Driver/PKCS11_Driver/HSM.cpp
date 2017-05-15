@@ -1662,10 +1662,10 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	}
 
 	// Depending on the date, choose which file to write to
-	//time_t t = time(NULL);
+	time_t t = time(NULL);
 
 	/* Code below is used for fake date/time testing */
-	static time_t static_time, t;
+	/*static time_t static_time, t;
 	static int iteration;
 	if (static_time == 0)
 	{
@@ -1677,7 +1677,7 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	{
 		t += 60 * 60 * 24 * 4;
 	}
-	iteration++;
+	iteration++;*/
 	/* end of test code */
 
 	struct tm now;
@@ -2262,7 +2262,7 @@ bool HSM::logsVerifyChain()
 		}
 	}
 
-	return true;
+	//return true;
 
 	// We're here so we've validated the root
 
