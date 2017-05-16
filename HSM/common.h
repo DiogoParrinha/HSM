@@ -70,6 +70,9 @@ typedef uint8_t BOOL;
 uint8_t system_status;
 uint8_t tamper_status;
 
+uint32_t LOGS_globalCounter1;
+uint32_t LOGS_globalCounter2;
+
 /*------------------------------------------------------------------------------
  * Key and Sizes
  **/

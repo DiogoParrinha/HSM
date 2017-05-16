@@ -2286,7 +2286,7 @@ CK_RV HSM_C_LogVerifyYear(CK_SESSION_HANDLE hSession, CK_ULONG lYear)
 }
 
 // HSM_C_LogVerifyChain
-CK_RV HSM_C_LogVerifyChain(CK_SLOT_ID slotID)
+CK_RV HSM_C_LogVerifyChain(CK_SLOT_ID slotID, CK_ULONG counter1, CK_ULONG counter2)
 {
 	if (!g_init)
 	{
@@ -2303,7 +2303,7 @@ CK_RV HSM_C_LogVerifyChain(CK_SLOT_ID slotID)
 		return CKR_SESSION_HANDLE_INVALID;
 	}
 
-	if (!d->logsVerifyChain())
+	if (!d->logsVerifyChain(counter1, counter2))
 	{
 		return CKR_FUNCTION_FAILED;
 	}

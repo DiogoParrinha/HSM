@@ -1,0 +1,14 @@
+## Set OpenSSL Config path
+set OPENSSL_CONF=C:\OpenSSL-Win32\bin\openssl.cfg
+
+## Create timestamp request
+openssl ts -query -data "./nonce.txt" -cert -sha256 -no_nonce -out request.tsq
+
+## Request timestamp
+curl -s -S -H “Content-Type: application/timestamp-query” --data-binary @request.tsq “http://tsa.safecreative.org/” -o response.tsr
+
+## Verify
+openssl ts -verify -in response.tsr -data "./nonce.txt" -CAfile SafeCreative_TSA.cer
+
+## Detailed info
+openssl ts -reply -in response.tsr -text

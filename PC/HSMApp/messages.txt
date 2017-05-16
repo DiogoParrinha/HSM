@@ -363,3 +363,638 @@ Mar 13 09:03:45 mybb-plugins saslauthd[146]: do_auth         : auth failure: [us
 Mar 13 09:05:01 mybb-plugins systemd: Started Session 13620096 of user root.
 Mar 13 09:05:01 mybb-plugins systemd: Starting Session 13620096 of user root.
 Mar 13 09:05:02 mybb-plugins su: (to postgres) root on none
+Mar 13 09:05:17 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=temp] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:06:37 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=sicurezza] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:07:11 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=eve] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:07:14 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=xerox@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 09:10:01 mybb-plugins systemd: Started Session 13620264 of user root.
+Mar 13 09:10:01 mybb-plugins systemd: Starting Session 13620264 of user root.
+Mar 13 09:10:02 mybb-plugins su: (to postgres) root on none
+Mar 13 09:10:24 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=siteadmin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:10:38 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=event] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:12:06 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=training] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:14:05 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=exam] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:14:20 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=smile] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:15:01 mybb-plugins systemd: Started Session 13620448 of user root.
+Mar 13 09:15:01 mybb-plugins systemd: Starting Session 13620448 of user root.
+Mar 13 09:15:01 mybb-plugins systemd: Started Session 13620447 of user root.
+Mar 13 09:15:01 mybb-plugins systemd: Starting Session 13620447 of user root.
+Mar 13 09:15:02 mybb-plugins su: (to postgres) root on none
+Mar 13 09:17:33 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=exchange] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:18:09 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=statement] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:19:05 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=scan] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:19:47 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=admin@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 09:20:01 mybb-plugins systemd: Started Session 13620653 of user root.
+Mar 13 09:20:01 mybb-plugins systemd: Starting Session 13620653 of user root.
+Mar 13 09:20:03 mybb-plugins su: (to postgres) root on none
+Mar 13 09:20:15 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=admin@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 09:20:59 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=exim] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:22:00 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=susana] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:22:01 mybb-plugins systemd: Started Session 13620724 of user root.
+Mar 13 09:22:01 mybb-plugins systemd: Starting Session 13620724 of user root.
+Mar 13 09:24:23 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=exmerge] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:25:01 mybb-plugins systemd: Started Session 13620823 of user root.
+Mar 13 09:25:01 mybb-plugins systemd: Starting Session 13620823 of user root.
+Mar 13 09:25:03 mybb-plugins su: (to postgres) root on none
+Mar 13 09:25:48 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=symmetry] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:26:06 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=user] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:27:47 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=expert] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:29:29 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=travel] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:30:01 mybb-plugins systemd: Started Session 13621001 of user root.
+Mar 13 09:30:01 mybb-plugins systemd: Starting Session 13621001 of user root.
+Mar 13 09:30:01 mybb-plugins systemd: Started Session 13621000 of user root.
+Mar 13 09:30:01 mybb-plugins systemd: Starting Session 13621000 of user root.
+Mar 13 09:30:02 mybb-plugins su: (to postgres) root on none
+Mar 13 09:31:13 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=export] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:32:24 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=support@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 09:33:01 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=shipping] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:33:16 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=unknown] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:34:39 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=extrne] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:35:01 mybb-plugins systemd: Started Session 13621218 of user root.
+Mar 13 09:35:01 mybb-plugins systemd: Starting Session 13621218 of user root.
+Mar 13 09:35:03 mybb-plugins su: (to postgres) root on none
+Mar 13 09:37:07 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=upgrade] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:38:09 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=ezlife] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:40:01 mybb-plugins systemd: Started Session 13621397 of user root.
+Mar 13 09:40:01 mybb-plugins systemd: Starting Session 13621397 of user root.
+Mar 13 09:40:02 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=testuser] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:40:03 mybb-plugins su: (to postgres) root on none
+Mar 13 09:40:57 mybb-plugins freshclam[1788]: ClamAV update process started at Mon Mar 13 09:40:57 2017
+Mar 13 09:40:57 mybb-plugins freshclam[1788]: main.cvd is up to date (version: 57, sigs: 4218790, f-level: 60, builder: amishhammer)
+Mar 13 09:40:57 mybb-plugins freshclam[1788]: daily.cld is up to date (version: 23199, sigs: 1782182, f-level: 63, builder: neo)
+Mar 13 09:40:57 mybb-plugins freshclam[1788]: bytecode.cld is up to date (version: 291, sigs: 55, f-level: 63, builder: neo)
+Mar 13 09:41:03 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=vera] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:41:33 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fabian] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:44:53 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=verhaal] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:44:57 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=factor] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:44:59 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=postmaster@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 09:45:01 mybb-plugins systemd: Started Session 13621586 of user root.
+Mar 13 09:45:01 mybb-plugins systemd: Starting Session 13621586 of user root.
+Mar 13 09:45:01 mybb-plugins systemd: Started Session 13621587 of user root.
+Mar 13 09:45:01 mybb-plugins systemd: Starting Session 13621587 of user root.
+Mar 13 09:45:02 mybb-plugins su: (to postgres) root on none
+Mar 13 09:46:58 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=info] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:48:24 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=facturacion] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:48:49 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=wave] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:50:01 mybb-plugins systemd: Started Session 13621772 of user root.
+Mar 13 09:50:01 mybb-plugins systemd: Starting Session 13621772 of user root.
+Mar 13 09:50:02 mybb-plugins su: (to postgres) root on none
+Mar 13 09:51:38 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=admin@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 09:51:49 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=facturation] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:52:30 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=wing] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:53:50 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=ftpuser] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:55:01 mybb-plugins systemd: Started Session 13621958 of user root.
+Mar 13 09:55:01 mybb-plugins systemd: Starting Session 13621958 of user root.
+Mar 13 09:55:03 mybb-plugins su: (to postgres) root on none
+Mar 13 09:55:17 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=fail] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:56:22 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=www-data] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 09:57:34 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=webmaster@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 09:58:47 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=faith] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:00:01 mybb-plugins systemd: Started Session 13622168 of user root.
+Mar 13 10:00:01 mybb-plugins systemd: Starting Session 13622168 of user root.
+Mar 13 10:00:01 mybb-plugins systemd: Started Session 13622169 of user root.
+Mar 13 10:00:01 mybb-plugins systemd: Starting Session 13622169 of user root.
+Mar 13 10:00:03 mybb-plugins su: (to postgres) root on none
+Mar 13 10:00:12 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=zamora] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:00:46 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=besadmin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:02:14 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=family] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:04:00 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=zb] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:05:01 mybb-plugins systemd: Started Session 13622349 of user root.
+Mar 13 10:05:01 mybb-plugins systemd: Starting Session 13622349 of user root.
+Mar 13 10:05:01 mybb-plugins su: (to postgres) root on none
+Mar 13 10:05:43 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=fan] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:07:42 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=zoe] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:07:48 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=reception] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:09:11 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=faq] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:10:01 mybb-plugins systemd: Started Session 13622542 of user root.
+Mar 13 10:10:01 mybb-plugins systemd: Starting Session 13622542 of user root.
+Mar 13 10:10:03 mybb-plugins su: (to postgres) root on none
+Mar 13 10:10:08 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=info@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 10:11:32 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=abby] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:12:37 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=farias] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:14:42 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=scans] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:15:01 mybb-plugins systemd: Started Session 13622736 of user root.
+Mar 13 10:15:01 mybb-plugins systemd: Starting Session 13622736 of user root.
+Mar 13 10:15:01 mybb-plugins systemd: Started Session 13622735 of user root.
+Mar 13 10:15:01 mybb-plugins systemd: Starting Session 13622735 of user root.
+Mar 13 10:15:02 mybb-plugins su: (to postgres) root on none
+Mar 13 10:15:20 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=about] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:16:05 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fax] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:19:15 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=abra] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:19:30 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=faye] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:20:01 mybb-plugins systemd: Started Session 13622922 of user root.
+Mar 13 10:20:01 mybb-plugins systemd: Starting Session 13622922 of user root.
+Mar 13 10:20:02 mybb-plugins su: (to postgres) root on none
+Mar 13 10:21:34 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=tester] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:22:01 mybb-plugins systemd: Started Session 13622999 of user root.
+Mar 13 10:22:01 mybb-plugins systemd: Starting Session 13622999 of user root.
+Mar 13 10:22:40 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=sales@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 10:22:55 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=fc] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:22:57 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=admin@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 10:23:00 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=access] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:25:01 mybb-plugins systemd: Started Session 13623101 of user root.
+Mar 13 10:25:01 mybb-plugins systemd: Starting Session 13623101 of user root.
+Mar 13 10:25:02 mybb-plugins su: (to postgres) root on none
+Mar 13 10:26:25 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=feed] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:26:54 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=africa] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:28:26 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=admin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:29:52 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=feedback] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:30:01 mybb-plugins systemd: Started Session 13623328 of user root.
+Mar 13 10:30:01 mybb-plugins systemd: Starting Session 13623328 of user root.
+Mar 13 10:30:01 mybb-plugins systemd: Started Session 13623329 of user root.
+Mar 13 10:30:02 mybb-plugins systemd: Starting Session 13623329 of user root.
+Mar 13 10:30:03 mybb-plugins su: (to postgres) root on none
+Mar 13 10:30:37 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=aguilera] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:33:18 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=feeling] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:34:27 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=albarran] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:35:01 mybb-plugins systemd: Started Session 13623490 of user root.
+Mar 13 10:35:01 mybb-plugins systemd: Starting Session 13623490 of user root.
+Mar 13 10:35:01 mybb-plugins su: (to postgres) root on none
+Mar 13 10:35:12 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=fax@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 10:35:23 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=conference] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:36:44 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=felicia] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:38:15 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=alicia] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:40:01 mybb-plugins systemd: Started Session 13623710 of user root.
+Mar 13 10:40:01 mybb-plugins systemd: Starting Session 13623710 of user root.
+Mar 13 10:40:03 mybb-plugins su: (to postgres) root on none
+Mar 13 10:40:08 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=felipe] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:42:04 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=alton] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:42:17 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=webmaster] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:43:38 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=felix] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:45:01 mybb-plugins systemd: Started Session 13623875 of user root.
+Mar 13 10:45:01 mybb-plugins systemd: Starting Session 13623875 of user root.
+Mar 13 10:45:01 mybb-plugins systemd: Started Session 13623874 of user root.
+Mar 13 10:45:01 mybb-plugins systemd: Starting Session 13623874 of user root.
+Mar 13 10:45:01 mybb-plugins su: (to postgres) root on none
+Mar 13 10:45:49 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=alyssa] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:47:05 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fernando] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:47:47 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=test@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 10:49:19 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=public] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:49:39 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=amador] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:50:01 mybb-plugins systemd: Started Session 13624053 of user root.
+Mar 13 10:50:01 mybb-plugins systemd: Starting Session 13624053 of user root.
+Mar 13 10:50:02 mybb-plugins su: (to postgres) root on none
+Mar 13 10:50:30 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=ferreira] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:53:28 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=amaya] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:53:59 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fill] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:54:22 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=admin@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 10:55:01 mybb-plugins systemd: Started Session 13624253 of user root.
+Mar 13 10:55:01 mybb-plugins systemd: Starting Session 13624253 of user root.
+Mar 13 10:55:03 mybb-plugins su: (to postgres) root on none
+Mar 13 10:56:28 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=user1] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:57:18 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=andreia] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 10:57:25 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=film] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:00:01 mybb-plugins systemd: Started Session 13624439 of user root.
+Mar 13 11:00:01 mybb-plugins systemd: Starting Session 13624439 of user root.
+Mar 13 11:00:01 mybb-plugins systemd: Started Session 13624440 of user root.
+Mar 13 11:00:01 mybb-plugins systemd: Starting Session 13624440 of user root.
+Mar 13 11:00:02 mybb-plugins su: (to postgres) root on none
+Mar 13 11:00:09 mybb-plugins named[6081]: client 192.26.136.242#41692 (satellite.cs.washington.edu): query (cache) 'satellite.cs.washington.edu/A/IN' denied
+Mar 13 11:00:21 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=spam@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 11:00:52 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=filter] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:01:04 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=andria] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:03:21 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=demo] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:04:22 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=fin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:04:56 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=angeles] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:05:01 mybb-plugins systemd: Started Session 13624668 of user root.
+Mar 13 11:05:01 mybb-plugins systemd: Starting Session 13624668 of user root.
+Mar 13 11:05:03 mybb-plugins su: (to postgres) root on none
+Mar 13 11:07:48 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=finance] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:08:41 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=anon] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:10:01 mybb-plugins systemd: Started Session 13624855 of user root.
+Mar 13 11:10:01 mybb-plugins systemd: Starting Session 13624855 of user root.
+Mar 13 11:10:03 mybb-plugins su: (to postgres) root on none
+Mar 13 11:10:17 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=voicemail] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:11:17 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=finanzas] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:12:29 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=archivos] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:12:57 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=accounts@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 11:14:41 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=fiona] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:15:01 mybb-plugins systemd: Started Session 13625054 of user root.
+Mar 13 11:15:01 mybb-plugins systemd: Starting Session 13625054 of user root.
+Mar 13 11:15:01 mybb-plugins systemd: Started Session 13625055 of user root.
+Mar 13 11:15:01 mybb-plugins systemd: Starting Session 13625055 of user root.
+Mar 13 11:15:03 mybb-plugins su: (to postgres) root on none
+Mar 13 11:16:16 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=aspect] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:17:09 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=student] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:18:09 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fire] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:20:01 mybb-plugins systemd: Started Session 13625234 of user root.
+Mar 13 11:20:01 mybb-plugins systemd: Starting Session 13625234 of user root.
+Mar 13 11:20:02 mybb-plugins su: (to postgres) root on none
+Mar 13 11:20:05 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=barrie] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:21:39 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fischer] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:22:01 mybb-plugins systemd: Started Session 13625298 of user root.
+Mar 13 11:22:01 mybb-plugins systemd: Starting Session 13625298 of user root.
+Mar 13 11:23:53 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=bear] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:24:11 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=postmaster] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:25:01 mybb-plugins systemd: Started Session 13625409 of user root.
+Mar 13 11:25:01 mybb-plugins systemd: Starting Session 13625409 of user root.
+Mar 13 11:25:03 mybb-plugins su: (to postgres) root on none
+Mar 13 11:25:05 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=fisher] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:25:33 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=demo@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 11:25:48 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=admin@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 11:27:36 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=beer] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:28:32 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=flora] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:30:01 mybb-plugins systemd: Started Session 13625609 of user root.
+Mar 13 11:30:01 mybb-plugins systemd: Starting Session 13625609 of user root.
+Mar 13 11:30:01 mybb-plugins systemd: Started Session 13625610 of user root.
+Mar 13 11:30:01 mybb-plugins systemd: Starting Session 13625610 of user root.
+Mar 13 11:30:02 mybb-plugins su: (to postgres) root on none
+Mar 13 11:31:01 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=aaa] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:31:22 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=benita] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:31:59 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=florence] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:35:01 mybb-plugins systemd: Started Session 13625787 of user root.
+Mar 13 11:35:01 mybb-plugins systemd: Starting Session 13625787 of user root.
+Mar 13 11:35:02 mybb-plugins su: (to postgres) root on none
+Mar 13 11:35:14 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=beryl] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:35:25 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=flow] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:37:25 mybb-plugins named[6081]: client 104.131.24.95#5555 (commerce.gov): query (cache) 'commerce.gov/ANY/IN' denied
+Mar 13 11:37:57 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=test3] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:38:08 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=service@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 11:38:55 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=flower] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:39:00 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=bianco] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:40:01 mybb-plugins systemd: Started Session 13625995 of user root.
+Mar 13 11:40:01 mybb-plugins systemd: Starting Session 13625995 of user root.
+Mar 13 11:40:03 mybb-plugins su: (to postgres) root on none
+Mar 13 11:42:24 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=forest] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:42:52 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=bkupexec] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:44:52 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=daniele] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:45:01 mybb-plugins systemd: Started Session 13626167 of user root.
+Mar 13 11:45:01 mybb-plugins systemd: Starting Session 13626167 of user root.
+Mar 13 11:45:01 mybb-plugins systemd: Started Session 13626166 of user root.
+Mar 13 11:45:01 mybb-plugins systemd: Starting Session 13626166 of user root.
+Mar 13 11:45:02 mybb-plugins su: (to postgres) root on none
+Mar 13 11:45:51 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=form] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:46:38 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=blue] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:49:19 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=formacion] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:50:01 mybb-plugins systemd: Started Session 13626376 of user root.
+Mar 13 11:50:01 mybb-plugins systemd: Starting Session 13626376 of user root.
+Mar 13 11:50:03 mybb-plugins su: (to postgres) root on none
+Mar 13 11:50:23 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=bradley] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:50:42 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=support@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 11:51:56 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=fax] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:52:47 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=formation] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:54:17 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=brandy] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:55:01 mybb-plugins systemd: Started Session 13626560 of user root.
+Mar 13 11:55:01 mybb-plugins systemd: Starting Session 13626560 of user root.
+Mar 13 11:55:03 mybb-plugins su: (to postgres) root on none
+Mar 13 11:56:17 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=formazione] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:57:11 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=admin@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 11:58:02 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=brigit] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:58:48 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=warehouse] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 11:59:45 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=forrest] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:00:01 mybb-plugins systemd: Started Session 13626724 of user root.
+Mar 13 12:00:01 mybb-plugins systemd: Starting Session 13626724 of user root.
+Mar 13 12:00:01 mybb-plugins systemd: Started Session 13626722 of user root.
+Mar 13 12:00:01 mybb-plugins systemd: Starting Session 13626722 of user root.
+Mar 13 12:00:01 mybb-plugins systemd: Started Session 13626723 of user root.
+Mar 13 12:00:01 mybb-plugins systemd: Starting Session 13626723 of user root.
+Mar 13 12:00:02 mybb-plugins su: (to postgres) root on none
+Mar 13 12:01:51 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=brittany] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:03:11 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=forum] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:03:19 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=abuse@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 12:05:01 mybb-plugins systemd: Started Session 13626953 of user root.
+Mar 13 12:05:01 mybb-plugins systemd: Starting Session 13626953 of user root.
+Mar 13 12:05:02 mybb-plugins su: (to postgres) root on none
+Mar 13 12:05:35 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=brittney] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:05:48 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=ldap] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:06:42 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fotocopiadora] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:09:20 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=cache] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:10:01 mybb-plugins systemd: Started Session 13627132 of user root.
+Mar 13 12:10:01 mybb-plugins systemd: Starting Session 13627132 of user root.
+Mar 13 12:10:03 mybb-plugins su: (to postgres) root on none
+Mar 13 12:10:12 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fox] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:12:55 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=print] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:13:12 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=cailin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:13:42 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=frances] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:15:01 mybb-plugins systemd: Started Session 13627344 of user root.
+Mar 13 12:15:01 mybb-plugins systemd: Starting Session 13627344 of user root.
+Mar 13 12:15:01 mybb-plugins systemd: Started Session 13627345 of user root.
+Mar 13 12:15:01 mybb-plugins systemd: Starting Session 13627345 of user root.
+Mar 13 12:15:03 mybb-plugins su: (to postgres) root on none
+Mar 13 12:15:55 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=backup@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 12:17:03 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=campaign] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:17:13 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=francesca] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:19:56 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=sales] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:20:01 mybb-plugins systemd: Started Session 13627527 of user root.
+Mar 13 12:20:01 mybb-plugins systemd: Starting Session 13627527 of user root.
+Mar 13 12:20:02 mybb-plugins su: (to postgres) root on none
+Mar 13 12:20:39 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=francesco] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:20:58 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=casper] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:22:01 mybb-plugins systemd: Started Session 13627592 of user root.
+Mar 13 12:22:01 mybb-plugins systemd: Starting Session 13627592 of user root.
+Mar 13 12:24:09 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=francis] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:24:42 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=catalin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:25:01 mybb-plugins systemd: Started Session 13627695 of user root.
+Mar 13 12:25:01 mybb-plugins systemd: Starting Session 13627695 of user root.
+Mar 13 12:25:02 mybb-plugins su: (to postgres) root on none
+Mar 13 12:26:34 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:26:38 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:26:42 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:26:45 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:26:47 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=backup] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:26:49 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:26:53 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:26:57 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:27:00 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:27:07 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:27:11 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:27:17 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:27:21 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:27:25 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:27:34 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:27:37 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=francisco] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:27:37 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:27:41 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:27:45 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:27:48 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:27:55 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:27:58 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:28:02 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:28:08 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:28:12 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:28:19 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:28:22 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:28:26 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:28:30 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=catalina] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:28:30 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:28:36 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:28:40 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:28:41 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=admin@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 12:28:45 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=camera@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 12:28:47 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:28:50 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:28:54 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:28:58 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:29:01 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:29:05 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:29:09 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:29:13 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:29:16 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:29:20 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:29:24 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:29:27 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:29:31 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:29:37 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:29:41 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:29:47 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:29:54 mybb-plugins saslauthd[145]: do_request      : NULL password received
+Mar 13 12:29:57 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:30:02 mybb-plugins systemd: Started Session 13627918 of user root.
+Mar 13 12:30:02 mybb-plugins systemd: Starting Session 13627918 of user root.
+Mar 13 12:30:02 mybb-plugins systemd: Started Session 13627919 of user root.
+Mar 13 12:30:02 mybb-plugins systemd: Starting Session 13627919 of user root.
+Mar 13 12:30:03 mybb-plugins su: (to postgres) root on none
+Mar 13 12:30:04 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:30:08 mybb-plugins saslauthd[146]: do_request      : NULL password received
+Mar 13 12:30:17 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=manager] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:30:23 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=justin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:30:29 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=contact] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:30:34 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=root] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:30:40 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=tomcat] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:30:49 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=daemon] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:30:55 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fax] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:31:01 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=www] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:31:06 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=franco] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:31:07 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=postmaster] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:31:12 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=postfix] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:31:20 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=data] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:31:27 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=mike] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:31:32 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=postgres] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:31:38 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=order] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:31:44 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=smtp] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:31:50 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=administrator] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:31:56 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=company] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:32:02 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=michael] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:32:13 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=mail] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:32:20 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=champion] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:32:21 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=tester] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:32:27 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=robert] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:32:33 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=oracle] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:32:40 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=abuse] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:32:47 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=temp] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:32:52 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=backup] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:32:59 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=spam] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:33:04 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=user] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:33:10 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=office] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:33:16 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=support] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:33:24 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=news] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:33:33 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=system] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:33:38 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=service] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:33:47 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=testing] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:33:51 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=xerox] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:33:52 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=steven] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:33:58 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=ftp] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:34:06 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=student] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:34:11 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=webmaster] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:34:17 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=alex] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:34:23 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=admin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:34:30 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=pop3] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:34:35 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=frank] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:34:36 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=sales] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:34:42 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=test] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:34:47 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=billing] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:34:54 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=guest] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:35:01 mybb-plugins systemd: Started Session 13628077 of user root.
+Mar 13 12:35:01 mybb-plugins systemd: Starting Session 13628077 of user root.
+Mar 13 12:35:01 mybb-plugins su: (to postgres) root on none
+Mar 13 12:35:03 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=newsletter] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:35:11 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=customers] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:35:18 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=marketing] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:35:26 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=info] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:35:34 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=mysql] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:35:39 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=manager] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:35:45 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=justin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:35:54 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=contact] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:36:02 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=root] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:36:10 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=chandra] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:36:12 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=tomcat] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:36:19 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=daemon] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:36:26 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fax] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:36:40 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=www] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:36:42 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=postmaster] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:36:48 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=postfix] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:36:54 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=data] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:37:06 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=mike] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:37:17 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=postgres] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:37:24 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=order] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:37:32 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=smtp] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:37:39 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=administrator] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:37:44 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=company] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:37:51 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=michael] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:37:56 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=mail] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:38:03 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=frankie] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:38:03 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=tester] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:38:08 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=robert] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:38:14 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=oracle] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:38:22 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=abuse] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:38:28 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=temp] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:38:37 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=backup] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:38:46 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=spam] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:38:52 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=user] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:38:57 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=office] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:39:04 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=support] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:39:12 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=news] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:39:18 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=system] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:39:24 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=service] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:39:29 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=testing] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:39:36 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=steven] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:39:41 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=ftp] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:39:47 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=student] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:39:55 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=chart] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:39:56 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=webmaster] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:40:01 mybb-plugins systemd: Started Session 13628272 of user root.
+Mar 13 12:40:01 mybb-plugins systemd: Starting Session 13628272 of user root.
+Mar 13 12:40:02 mybb-plugins su: (to postgres) root on none
+Mar 13 12:40:03 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=alex] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:40:09 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=admin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:40:14 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=pop3] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:40:23 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=sales] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:40:33 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=test] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:40:44 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=billing] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:40:47 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=archive] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:40:57 mybb-plugins freshclam[6434]: ClamAV update process started at Mon Mar 13 12:40:57 2017
+Mar 13 12:40:57 mybb-plugins freshclam[6434]: main.cvd is up to date (version: 57, sigs: 4218790, f-level: 60, builder: amishhammer)
+Mar 13 12:41:00 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=newsletter] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:41:17 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=marketing] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:41:23 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=info] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:41:25 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=canon@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 12:41:27 mybb-plugins freshclam[6434]: nonblock_connect: connect timing out (30 secs)
+Mar 13 12:41:27 mybb-plugins freshclam[6434]: Can't connect to port 80 of host database.clamav.net (IP: 209.198.147.20)
+Mar 13 12:41:27 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=franky] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:41:29 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=mysql] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:41:42 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=manager] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:41:47 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=justin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:41:53 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=contact] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:41:57 mybb-plugins freshclam[6434]: nonblock_connect: connect timing out (30 secs)
+Mar 13 12:41:57 mybb-plugins freshclam[6434]: Can't connect to port 80 of host database.clamav.net (IP: 64.6.100.177)
+Mar 13 12:41:57 mybb-plugins freshclam[6434]: Trying host database.clamav.net (104.131.196.175)...
+Mar 13 12:42:00 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=root] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:42:05 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=tomcat] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:42:13 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=daemon] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:42:18 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fax] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:42:24 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=www] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:42:27 mybb-plugins freshclam[6434]: nonblock_connect: connect timing out (30 secs)
+Mar 13 12:42:27 mybb-plugins freshclam[6434]: Can't connect to port 80 of host database.clamav.net (IP: 104.131.196.175)
+Mar 13 12:42:27 mybb-plugins freshclam[6434]: Trying host database.clamav.net (194.186.47.19)...
+Mar 13 12:42:30 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=postmaster] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:42:31 mybb-plugins freshclam[6434]: getfile: daily-23200.cdiff not found on database.clamav.net (IP: 194.186.47.19)
+Mar 13 12:42:31 mybb-plugins freshclam[6434]: getpatch: Can't download daily-23200.cdiff from database.clamav.net
+Mar 13 12:42:31 mybb-plugins freshclam[6434]: Downloading daily-23200.cdiff [100%]
+Mar 13 12:42:33 mybb-plugins freshclam[6434]: daily.cld updated (version: 23200, sigs: 1782369, f-level: 63, builder: neo)
+Mar 13 12:42:33 mybb-plugins freshclam[6434]: bytecode.cld is up to date (version: 291, sigs: 55, f-level: 63, builder: neo)
+Mar 13 12:42:36 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=postfix] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:42:36 mybb-plugins freshclam[6434]: Database updated (6001214 signatures) from database.clamav.net (IP: 69.12.162.28)
+Mar 13 12:42:42 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=data] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:42:51 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=mike] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:42:57 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=postgres] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:43:02 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=order] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:43:08 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=smtp] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:43:14 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=administrator] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:43:19 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=company] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:43:28 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=michael] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:43:34 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=mail] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:43:42 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=tester] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:43:43 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=chemical] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:43:48 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=robert] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:43:54 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=oracle] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:44:00 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=abuse] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:44:57 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fred] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:45:01 mybb-plugins systemd: Started Session 13628475 of user root.
+Mar 13 12:45:01 mybb-plugins systemd: Starting Session 13628475 of user root.
+Mar 13 12:45:01 mybb-plugins systemd: Started Session 13628476 of user root.
+Mar 13 12:45:01 mybb-plugins systemd: Starting Session 13628476 of user root.
+Mar 13 12:45:03 mybb-plugins su: (to postgres) root on none
+Mar 13 12:47:29 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=cifuentes] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:47:43 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=test1] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:48:24 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=freddie] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:50:01 mybb-plugins systemd: Started Session 13628676 of user root.
+Mar 13 12:50:01 mybb-plugins systemd: Starting Session 13628676 of user root.
+Mar 13 12:50:04 mybb-plugins su: (to postgres) root on none
+Mar 13 12:51:22 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=cindi] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:51:56 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=freddy] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:54:03 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=conference@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 12:54:51 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=exmerge] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:55:01 mybb-plugins systemd: Started Session 13628832 of user root.
+Mar 13 12:55:01 mybb-plugins systemd: Starting Session 13628832 of user root.
+Mar 13 12:55:01 mybb-plugins su: (to postgres) root on none
+Mar 13 12:55:19 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=clarke] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:55:21 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=frederick] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:58:49 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fredrick] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 12:59:01 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=clinton] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:00:01 mybb-plugins systemd: Started Session 13629046 of user root.
+Mar 13 13:00:01 mybb-plugins systemd: Starting Session 13629046 of user root.
+Mar 13 13:00:01 mybb-plugins systemd: Started Session 13629045 of user root.
+Mar 13 13:00:01 mybb-plugins systemd: Starting Session 13629045 of user root.
+Mar 13 13:00:03 mybb-plugins su: (to postgres) root on none
+Mar 13 13:00:14 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=admin@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 13:01:51 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=marketing] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:02:20 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=front] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:02:45 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=clock] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:05:01 mybb-plugins systemd: Started Session 13629371 of user root.
+Mar 13 13:05:01 mybb-plugins systemd: Starting Session 13629371 of user root.
+Mar 13 13:05:04 mybb-plugins su: (to postgres) root on none
+Mar 13 13:05:49 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=frontdesk] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:06:32 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=code] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:06:49 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=connect@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 13:08:52 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=toshiba] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:09:18 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=fruit] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:10:01 mybb-plugins systemd: Started Session 13629548 of user root.
+Mar 13 13:10:01 mybb-plugins systemd: Starting Session 13629548 of user root.
+Mar 13 13:10:03 mybb-plugins su: (to postgres) root on none
+Mar 13 13:10:25 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=committee] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:12:47 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=ftp] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:14:11 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=connolly] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:15:01 mybb-plugins systemd: Started Session 13629734 of user root.
+Mar 13 13:15:01 mybb-plugins systemd: Starting Session 13629734 of user root.
+Mar 13 13:15:01 mybb-plugins systemd: Started Session 13629733 of user root.
+Mar 13 13:15:01 mybb-plugins systemd: Starting Session 13629733 of user root.
+Mar 13 13:15:03 mybb-plugins su: (to postgres) root on none
+Mar 13 13:15:48 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=spam] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:16:12 mybb-plugins named[6081]: client 52.91.152.188#65089 (www.yahoo.com): query (cache) 'www.yahoo.com/A/IN' denied
+Mar 13 13:16:16 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=ftpadmin] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:17:57 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=connor] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:19:30 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=copier@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 13:19:44 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=ftproot] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:20:01 mybb-plugins systemd: Started Session 13629916 of user root.
+Mar 13 13:20:01 mybb-plugins systemd: Starting Session 13629916 of user root.
+Mar 13 13:20:03 mybb-plugins su: (to postgres) root on none
+Mar 13 13:21:41 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=consola] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:22:01 mybb-plugins systemd: Started Session 13629999 of user root.
+Mar 13 13:22:01 mybb-plugins systemd: Starting Session 13629999 of user root.
+Mar 13 13:22:48 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=office] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:23:21 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=ftpuser] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:25:01 mybb-plugins systemd: Started Session 13630099 of user root.
+Mar 13 13:25:01 mybb-plugins systemd: Starting Session 13630099 of user root.
+Mar 13 13:25:01 mybb-plugins su: (to postgres) root on none
+Mar 13 13:25:30 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=contactenos] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:26:41 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=funding] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:29:20 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=controller] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:29:48 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=audit] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:30:01 mybb-plugins systemd: Started Session 13630287 of user root.
+Mar 13 13:30:01 mybb-plugins systemd: Starting Session 13630287 of user root.
+Mar 13 13:30:01 mybb-plugins systemd: Started Session 13630288 of user root.
+Mar 13 13:30:01 mybb-plugins systemd: Starting Session 13630288 of user root.
+Mar 13 13:30:03 mybb-plugins su: (to postgres) root on none
+Mar 13 13:30:10 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=gabi] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:32:01 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=admin@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 13:32:17 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=general@mybb-plugins.localdomain] [service=smtp] [realm=mybb-plugins.localdomain] [mech=pam] [reason=PAM auth error]
+Mar 13 13:33:16 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=cook] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:33:40 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=gabriel] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:35:01 mybb-plugins systemd: Started Session 13630494 of user root.
+Mar 13 13:35:01 mybb-plugins systemd: Starting Session 13630494 of user root.
+Mar 13 13:35:02 mybb-plugins su: (to postgres) root on none
+Mar 13 13:36:44 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=auditor] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:37:02 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=cooper] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:37:09 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=gabriela] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:40:01 mybb-plugins systemd: Started Session 13630686 of user root.
+Mar 13 13:40:01 mybb-plugins systemd: Starting Session 13630686 of user root.
+Mar 13 13:40:04 mybb-plugins su: (to postgres) root on none
+Mar 13 13:40:41 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=gabrielle] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:40:50 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=crawford] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:43:47 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=canon] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:44:09 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=gaby] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:44:40 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=curry] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 13:45:01 mybb-plugins systemd: Started Session 13630882 of user root.
+Mar 13 13:45:01 mybb-plugins systemd: Starting Session 13630882 of user root.
+Mar 13 13:45:01 mybb-plugins systemd: Started Session 13630883 of user root.
+Mar 13 13:45:01 mybb-plugins systemd: Starting Session 13630883 of user root.

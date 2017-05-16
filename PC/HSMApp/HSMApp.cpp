@@ -249,7 +249,6 @@ int main()
 	// Logout Admin
 	r = C_Logout(phSession);
 	assert(r == CKR_OK);*/
-
 	/////// Delete User 1 and Add Back
 
 	// Login admin
@@ -404,7 +403,7 @@ int main()
 	///// Login user 1, read file and send each line to the HSM
 
 	// Login user 1
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -437,11 +436,11 @@ int main()
 
 	// Logout Log User
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);*/
+	assert(r == CKR_OK);
 
 	//////// Get device logs public key certificate
 
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -460,7 +459,10 @@ int main()
 
 	// Logout user 1
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);
+	assert(r == CKR_OK);*/
+
+	CK_ULONG lNumber1, lNumber2;
+	r = HSM_C_LogCounter(phSession, &lNumber1, &lNumber2);
 
 	// close session
 	r = C_CloseSession(phSession);
@@ -513,7 +515,7 @@ int main()
 	average = 0.0f;
 	times = 0;
 	startTimer();
-	r = HSM_C_LogVerifyChain(0);
+	r = HSM_C_LogVerifyChain(0, lNumber1, lNumber2);
 	//assert(r == CKR_OK);
 	endTimer();
 	average += elapsedTime;

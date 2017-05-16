@@ -40,7 +40,7 @@ bool Device::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage) { return false
 bool Device::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain) { return false; }
 bool Device::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain) { return false; }
 bool Device::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain) { return false; }
-bool Device::logsVerifyChain() { return false; }
+bool Device::logsVerifyChain(CK_ULONG lNumber1, CK_ULONG lNumber2) { return false; }
 bool Device::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2) { return false; }
 
 bool Device::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen) { return false; }

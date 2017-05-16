@@ -9,6 +9,10 @@ uint8_t authID = 0;
 void COMMAND_inited()
 {
 	system_status |= STATUS_INITED;
+
+	// Up to 18446744073709551616 entries
+	LOGS_globalCounter1 = 0;
+	LOGS_globalCounter2 = 0;
 }
 
 // Process command
@@ -75,8 +79,8 @@ void COMMAND_process(uint8_t * command)
 			return;
 		}
 
-		// LOGS commands require a secure connection and auth
-		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
+		// LOGS commands require a secure connection
+		if(!(system_status & STATUS_CONNECTED))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: not connected/auth");
@@ -608,10 +612,29 @@ void COMMAND_LOGS_process(uint8_t * command)
 		UART_send(global_buffer, strlen(global_buffer)+1); // include null character
 
 		// Send hash
-		UART_send(hash, 32);
+		//UART_send(hash, 32);
 
 		// Send signature
 		UART_send(signature, sig_len);
+	}
+	else if(strcmp(command, "LOGS_COUNTERS") == 0)
+	{
+		// Secure connection
+		if(!(system_status & STATUS_CONNECTED))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: not connected/auth");
+			return;
+		}
+
+		uint8_t buffer[128] = {0};
+		snprintf(buffer, 128, "%d %d", LOGS_globalCounter1, LOGS_globalCounter2);
+
+		// Send SUCCESS with counters
+		UART_send("SUCCESS", 7);
+
+		// Send counters
+		UART_send(buffer, strlen(buffer)+1); // include null character
 	}
 }
 

@@ -38,13 +38,10 @@ class HSM : public Device
 		bool logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain);
 		bool logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain);
 		bool logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain);
-		bool logsVerifyChain();
+		bool logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2);
 		bool logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2);
 		bool checkDevice();
 		bool sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen);
-
-		void startTimer();
-		void endTimer();
 
 	private:
 		UART* comm;
@@ -53,7 +50,13 @@ class HSM : public Device
 		// Timer
 		LARGE_INTEGER frequency;        // ticks per second
 		LARGE_INTEGER t1, t2;           // ticks
-		double elapsedTime;
+		double elapsedEntries;
+
+		// Log-Chain
+		uint32_t elpased; // how many messages were logged since the last signature generation
+		uint32_t max_elapsed;
+		bool delayed;
+		std::string lastMessage;
 
 		uint8_t zero[512];
 };

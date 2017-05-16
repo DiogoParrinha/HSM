@@ -24,7 +24,6 @@ void USER_init()
 		// TODO: in theory, we shouldn't do this, because it would be in the eNVM
 		uint8_t hash[32] = {0};
 		mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE, hash, 0);
-		memcpy(&user_hashes_buffer[i*32], hash, 32);
 
 		if(global_buffer[0] != 0x64) // 0x64 means the user exists
 		{
@@ -32,6 +31,7 @@ void USER_init()
 		}
 		else
 		{
+			memcpy(&user_hashes_buffer[i*32], hash, 32);
 			SPIFLASH_totalUsers++;
 			SPIFLASH_UserList[i] = global_buffer[1]; // uid is in position 1
 		}

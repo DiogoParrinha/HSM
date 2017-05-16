@@ -9,6 +9,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #include <dirent.h>
 #include <direct.h>
@@ -87,6 +88,8 @@ HSM::HSM()
 	memcpy(serialNumber, HSM_SERIAL_NUMBER, strlen(HSM_SERIAL_NUMBER));
 
 	logs_cert = NULL;
+	delayed = true;
+	max_elapsed = 3;
 }
 
 HSM::~HSM()
@@ -97,40 +100,6 @@ HSM::~HSM()
 	comm->disconnect();
 }
 
-void HSM::startTimer()
-{
-	/*
-#ifdef _WIN32
-	elapsedTime = 0.0f;
-	frequency.HighPart = 0;
-	frequency.LowPart = 0;
-	t1.HighPart = 0;
-	t1.LowPart = 0;
-	t2.HighPart = 0;
-	t2.LowPart = 0;
-
-	// get ticks per second
-	QueryPerformanceFrequency(&frequency);
-	// start timer
-	QueryPerformanceCounter(&t1);
-#endif
-	*/
-}
-
-void HSM::endTimer()
-{
-	/*
-#ifdef _WIN32
-	// stop timer
-	QueryPerformanceCounter(&t2);
-	// compute and print the elapsed time in millisec
-	elapsedTime = (t2.QuadPart - t1.QuadPart) * 1000.0 / frequency.QuadPart;
-	if(VERBOSE == 1)
-		printf("%lf ms.\n", elapsedTime);
-#endif
-	*/
-}
-
 bool HSM::checkDevice()
 {
 	return comm->checkDevice();
@@ -138,8 +107,6 @@ bool HSM::checkDevice()
 
 bool HSM::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 {
-	startTimer();
-
 	if (VERBOSE == 1)
 		printf("DVC_TEST...");
 
@@ -169,7 +136,7 @@ bool HSM::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 		return false;
 	}
 
-	endTimer();
+
 
 	return true;
 }
@@ -187,7 +154,7 @@ bool HSM::init()
 		printf("OK.\n");
 
 	// Get info
-	startTimer();
+
 	if (VERBOSE == 1)
 		printf("DVC_CHECK...");
 	if (!checkDevice())
@@ -196,7 +163,7 @@ bool HSM::init()
 	}
 	if (VERBOSE == 1)
 		printf("OK\n");
-	endTimer();
+
 
 	strcpy_bp(token.tokenInfo.manufacturerID, "INESC-ID", sizeof(token.tokenInfo.manufacturerID));
 	strcpy_bp(token.tokenInfo.model, "PKCS#11", sizeof(token.tokenInfo.model));
@@ -276,7 +243,7 @@ int HSM::startSession()
 	if (sessionLimit())
 		return 1;
 
-	startTimer();
+
 
 	comm->reqCommand();
 
@@ -434,14 +401,14 @@ int HSM::startSession()
 	if (VERBOSE == 1)
 		printf("OK.\n");
 
-	endTimer();
+
 
 	return 0;
 }
 
 bool HSM::endSession()
 {
-	startTimer();
+
 
 	comm->reqCommand();
 
@@ -459,7 +426,7 @@ bool HSM::endSession()
 
 	openSessions--;
 
-	endTimer();
+
 
 	return true;
 }
@@ -505,7 +472,7 @@ bool HSM::sendTime()
 
 int HSM::initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 {
-	startTimer();
+
 
 	if (ulPinLen != 32) // 32B for PIN
 	{
@@ -546,14 +513,14 @@ int HSM::initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 	if (VERBOSE == 1)
 		printf("OK.\n");
 	
-	endTimer();
+
 
 	return 0;
 }
 
 int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 {
-	startTimer();
+
 
 	// According to the standard, an application only needs to login once for the same token
 	// Because all sessions with a token share the same login state
@@ -614,7 +581,7 @@ int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 	authID = pPin[32];
 	loggedIn = true;
 
-	endTimer();
+
 
 	return 0;
 }
@@ -627,7 +594,7 @@ int HSM::logout()
 		return 1;
 	}
 
-	startTimer();
+
 
 	comm->reqCommand();
 
@@ -657,7 +624,7 @@ int HSM::logout()
 	isAdmin = false;
 	loggedIn = false;
 
-	endTimer();
+
 
 	return 0;
 }
@@ -670,7 +637,7 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 		return false;
 	}
 
-	startTimer();
+
 
 	if (VERBOSE == 1)
 		printf("DTSN_SIGN...");
@@ -721,7 +688,7 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 	if (VERBOSE == 1)
 		printf("OK.\n");
 
-	endTimer();
+
 
 	return true;
 }
@@ -740,7 +707,7 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	if (loggedIn && authID == 0)
 		return false;
 	
-	startTimer();
+
 
 	// Calculate SHA-256 of data
 	unsigned char digest[32] = { 0 };
@@ -795,7 +762,7 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	if (VERBOSE == 1)
 		printf("OK.\n");
 
-	endTimer();
+
 
 	return true;
 }
@@ -808,7 +775,7 @@ bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR priva
 		return false;
 	}
 
-	startTimer();
+
 
 	comm->reqCommand();
 	if (VERBOSE == 1)
@@ -905,7 +872,7 @@ bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR priva
 	if (VERBOSE == 1)
 		printf("OK.\n");
 
-	endTimer();
+
 
 	return true;
 }
@@ -915,7 +882,7 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 	if (uid == 0)
 		return false;
 
-	startTimer();
+
 
 	if (uid > 0)
 	{
@@ -1168,7 +1135,7 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 	else
 		return false;
 
-	endTimer();
+
 
 	return true;
 }
@@ -1178,7 +1145,7 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	if (!loggedIn || !isAdmin)
 		return false;
 
-	startTimer();
+
 
 	// Parse Public Key (must be in PEM format)
 	mbedtls_pk_context ctx_pub;
@@ -1307,7 +1274,7 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 
 	mbedtls_pk_free(&ctx_pub);
 
-	endTimer();
+
 
 	return true;
 }
@@ -1320,7 +1287,7 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 	if (ulPinLen != 32)
 		return false;
 
-	startTimer();
+
 
 	comm->reqCommand();
 	if (VERBOSE == 1)
@@ -1366,7 +1333,7 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 
 	*uID = buffer[0];
 
-	endTimer();
+
 
 	return true;
 }
@@ -1379,7 +1346,7 @@ bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 	if (ulPinLen != 32)
 		return false;
 
-	startTimer();
+
 
 	comm->reqCommand();
 	if (VERBOSE == 1)
@@ -1413,7 +1380,7 @@ bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 	if (VERBOSE == 1)
 		printf("OK.\n");
 
-	endTimer();
+
 
 	return true;
 }
@@ -1426,7 +1393,7 @@ bool HSM::deleteUser(CK_BYTE uID)
 	if (uID <= 0 || uID > 255)
 		return false;
 
-	startTimer();
+
 
 	comm->reqCommand();
 	if (VERBOSE == 1)
@@ -1460,7 +1427,7 @@ bool HSM::deleteUser(CK_BYTE uID)
 	if (VERBOSE == 1)
 		printf("OK.\n");
 
-	endTimer();
+
 
 	return true;
 }
@@ -1580,92 +1547,14 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 
 	// If there are no existing hashes, use pMessage as the Chain-Root and therefore our hash = all 0s
 
-	startTimer();
-
-	comm->reqCommand();
-	if (VERBOSE == 1)
-		printf("LOGS_ADD...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "LOGS_ADD");
-	comm->send(buffer, strlen((char*)buffer));
-	
-	// Send message
-	if (VERBOSE == 1)
-		printf("\n\tSending message...");
-	comm->send(pMessage, lMessage);
-	if (VERBOSE == 1)
-		printf("OK\n");
-
-	// Send previous hash
-	if (VERBOSE == 1)
-		printf("\n\tSending previous hash...");
-	comm->send(prevHash, 32);
-	if (VERBOSE == 1)
-		printf("OK\n");
-
-	// Wait for response
-	if (VERBOSE == 1)
-		printf("\n\tReceiving response...");
-	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-	{
-		return false;
-	}
-
-	// Wait for logged message
-	if (VERBOSE == 1)
-		printf("\n\tReceiving logged message...");
-	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
-	if (VERBOSE == 1)
-		printf("OK.\n");
-
-	// Wait for hash
-	uint8_t hash[32];
-	if (VERBOSE == 1)
-		printf("\n\tReceiving log hash...");
-	memset(hash, 0, sizeof(hash));
-	comm->receive(&hash[0], 32);
-	if (VERBOSE == 1)
-		printf("OK.\n");
-
-	// Wait for signature
-	if (VERBOSE == 1)
-		printf("\n\tReceiving log signature...");
-	uint8_t signature[256];
-	memset(signature, 0, sizeof(signature));
-	uint32_t sig_len = comm->receive(&signature[0], 256);
-	if(sig_len <= 0)
-	{
-		return false;
-	}
-	if (VERBOSE == 1)
-		printf("OK.\n");
-	
-	// Base64 encode the log hash and signature
-	// Base64 requires 4/3 of the original size so we simply double it to avoid dynamic allocation
-	uint8_t base64_1[512];
-	uint32_t olen_1 = 0;
-	if (mbedtls_base64_encode(base64_1, 512, &olen_1, hash, 32) != 0)
-	{
-		return false;
-	}
-
-	uint8_t base64_2[512];
+	uint8_t base64_2[512] = { 0 };
 	uint32_t olen_2 = 0;
-	if (mbedtls_base64_encode(base64_2, 512, &olen_2, signature, sig_len) != 0)
-	{
-		return false;
-	}
 
 	// Depending on the date, choose which file to write to
-	time_t t = time(NULL);
+	//time_t t = time(NULL);
 
 	/* Code below is used for fake date/time testing */
-	/*static time_t static_time, t;
+	static time_t static_time, t;
 	static int iteration;
 	if (static_time == 0)
 	{
@@ -1675,13 +1564,124 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 
 	if (iteration % 5 == 0)
 	{
-		t += 60 * 60 * 24 * 4;
+		t += 60 * 60 * 24 * 2;
 	}
-	iteration++;*/
+	iteration++;
 	/* end of test code */
 
 	struct tm now;
 	localtime_s(&now, &t);
+
+	elpased++;
+
+	if (elpased == 1)
+	{
+		comm->reqCommand();
+		if (VERBOSE == 1)
+			printf("LOGS_ADD...");
+		memset(buffer, 0, sizeof(buffer));
+		sprintf_s((char*)buffer, sizeof(buffer), "LOGS_ADD");
+		comm->send(buffer, strlen((char*)buffer));
+
+		// Send message
+		if (VERBOSE == 1)
+			printf("\n\tSending message...");
+		comm->send(pMessage, lMessage);
+		if (VERBOSE == 1)
+			printf("OK\n");
+
+		// Send previous hash
+		if (VERBOSE == 1)
+			printf("\n\tSending previous hash...");
+		comm->send(prevHash, 32);
+		if (VERBOSE == 1)
+			printf("OK\n");
+
+		// Wait for response
+		if (VERBOSE == 1)
+			printf("\n\tReceiving response...");
+		memset(buffer, 0, sizeof(buffer));
+		comm->receive(&buffer[0], 4096);
+		if (VERBOSE == 1)
+			printf("OK: %s\n", buffer);
+		if (strcmp((char*)buffer, "SUCCESS") != 0)
+		{
+			return false;
+		}
+
+		// Wait for logged message
+		if (VERBOSE == 1)
+			printf("\n\tReceiving logged message...");
+		memset(buffer, 0, sizeof(buffer));
+		comm->receive(&buffer[0], 4096);
+		if (VERBOSE == 1)
+			printf("OK.\n");
+
+		// Wait for hash
+		/*uint8_t hash[32];
+		if (VERBOSE == 1)
+			printf("\n\tReceiving log hash...");
+		memset(hash, 0, sizeof(hash));
+		comm->receive(&hash[0], 32);
+		if (VERBOSE == 1)
+			printf("OK.\n");*/
+
+			// Wait for signature
+		if (VERBOSE == 1)
+			printf("\n\tReceiving log signature...");
+		uint8_t signature[256];
+		memset(signature, 0, sizeof(signature));
+		uint32_t sig_len = comm->receive(&signature[0], 256);
+		if (sig_len <= 0)
+		{
+			return false;
+		}
+		if (VERBOSE == 1)
+			printf("OK.\n");
+
+		if (mbedtls_base64_encode(base64_2, 512, &olen_2, signature, sig_len) != 0)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		memset(buffer, 0, 4096);
+		int w = snprintf((char*)buffer, 4096, "%d-%d-%03d,%02d:%02d:%02d:{%s|%d-%d-%03d,%02d:%02d:%02d|%d|-,-|", 
+			(int)now.tm_mday,
+			(int)now.tm_mon+1,
+			(int)now.tm_year+1900,
+			(int)now.tm_hour,
+			(int)now.tm_min,
+			(int)now.tm_sec,
+			pMessage,
+			(int)now.tm_mday,
+			(int)now.tm_mon + 1,
+			(int)now.tm_year + 1900,
+			(int)now.tm_hour,
+			(int)now.tm_min,
+			(int)now.tm_sec,
+			authID);
+
+		// prev hash goes here (base64)
+		int i = 0;
+		for (i = 0; i<32; i++)
+			w += snprintf((char*)buffer+w, 4096-w, "%02X", prevHash[i]);
+
+		buffer[w] = '}';
+	}
+
+	// Base64 encode the log hash and signature
+	// Base64 requires 4/3 of the original size so we simply double it to avoid dynamic allocation
+	uint8_t hash[32] = { 0 };
+	mbedtls_sha256(&buffer[0], strlen((char*)buffer), hash, 0);
+
+	uint8_t base64_1[512];
+	uint32_t olen_1 = 0;
+	if (mbedtls_base64_encode(base64_1, 512, &olen_1, hash, 32) != 0)
+	{
+		return false;
+	}
 
 	// Do we have the year X and month Y folder inside logchain?
 	char path[256];
@@ -1724,8 +1724,9 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	outfile.close();
 	if (VERBOSE == 1)
 		printf("OK.\n");
-	
-	endTimer();
+
+	if (elpased == max_elapsed+1) // +1 because we generate signatures when elapsed=1
+		elpased = 0;
 
 	return true;
 }
@@ -1858,26 +1859,35 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		unsigned sig_separator = signature_part.find(']');
 		if (sig_separator != std::string::npos)
 		{
-			std::string base64_hash = signature_part.substr(0, sig_separator); // from [ to ]
+			std::string base64_sig = signature_part.substr(0, sig_separator); // from [ to ]
 
-			unsigned char buf[512] = { 0 };
-			sprintf_s((char*)buf, 512, base64_hash.c_str());
-			uint32_t olen = 0;
-			if (mbedtls_base64_decode(signature, 512, &olen, buf, base64_hash.length()) != 0)
+			// Only verify signature if we have one
+			if (base64_sig.length() > 0)
 			{
-				printf("Base64 Decode of Signature on line %d\n", l);
-				file.close();
-				return false;
-			}
+				unsigned char buf[512] = { 0 };
+				sprintf_s((char*)buf, 512, base64_sig.c_str());
+				uint32_t olen = 0;
+				if (mbedtls_base64_decode(signature, 512, &olen, buf, base64_sig.length()) != 0)
+				{
+					printf("Base64 Decode of Signature on line %d\n", l);
+					file.close();
+					return false;
+				}
 
-			// Verify signature
-			int ret = mbedtls_pk_verify(&logs_cert->pk, MBEDTLS_MD_SHA256, hash, 32, signature, olen);
-			if (ret != 0)
-			{
-				printf("Signature mismatch on line %d\n", l);
-				file.close();
-				return false;
+				// Verify signature
+				int ret = mbedtls_pk_verify(&logs_cert->pk, MBEDTLS_MD_SHA256, hash, 32, signature, olen);
+				if (ret != 0)
+				{
+					printf("Signature mismatch on line %d\n", l);
+					file.close();
+					return false;
+				}
+
+				// Update lastMessage because we did a signature verification and this is the one that will be verified in the end of the chain verification
+				lastMessage = message.c_str();
 			}
+			else
+				printf("Skipping signature verification on line %d\n", l);
 		}
 		else
 		{
@@ -1896,7 +1906,7 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 					||
 					(l == 1 && prevHash != NULL_PTR && fullChain == CK_TRUE) // we're doing a full-chain verification: ignore if prevHash == NULL but otherwise we will verify embedded hash against prevHash (should be 0000)
 					||
-					(l == 1 && memcmp(hash_prev, zero, 32) != 0 && fullChain == false) // we're not doing a full-chain verification: ignore if prevHash == 0000000
+					(l == 1 && memcmp(hash_prev, zero, 32) != 0 && fullChain == CK_FALSE) // we're not doing a full-chain verification: ignore if prevHash == 0000000
 				)
 			)
 		{
@@ -1917,8 +1927,8 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 	if(prevHash != NULL_PTR)
 		memcpy(prevHash, hash_prev, 32);
 
-	/*if (VERBOSE)
-		printf("Day %d verified successfully.\n", lDay);*/
+	if (VERBOSE)
+		printf("Day %d verified successfully.\n", lDay);
 	return true;
 }
 
@@ -1947,7 +1957,7 @@ bool HSM::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevH
 	localtime_s(&aTime, &theTime);
 
 	int max_days = 0;
-	if (aTime.tm_mon == lMonth && (aTime.tm_year + 1900) == lYear)
+	if (aTime.tm_mon+1 == lMonth && (aTime.tm_year + 1900) == lYear)
 	{
 		max_days = aTime.tm_mday;
 	}
@@ -1983,7 +1993,7 @@ bool HSM::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevH
 	{
 		struct stat s;
 		sprintf_s(readPath, 256, "./logchain/%d/%d/%d.txt", lYear, lMonth, d);
-
+		
 		if ((stat(readPath, &s) != 0))
 		{
 			//printf("Skipping %s because it does not exist.\n", readPath);
@@ -2002,8 +2012,8 @@ bool HSM::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevH
 	if (prevHash != NULL_PTR)
 		memcpy(prevHash, prev_hash, 32);
 
-	/*if (VERBOSE)
-		printf("Month %d verified successfully.\n", lMonth);*/
+	if (VERBOSE)
+		printf("Month %d verified successfully.\n", lMonth);
 	return true;
 }
 
@@ -2033,7 +2043,7 @@ bool HSM::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL full
 	int max_months = 0;
 	if (aTime.tm_year + 1900 == lYear)
 	{
-		max_months = aTime.tm_mon;
+		max_months = aTime.tm_mon + 1;
 	}
 	else
 		max_months = 12;
@@ -2070,13 +2080,15 @@ bool HSM::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL full
 	if (prevHash != NULL_PTR)
 		memcpy(prevHash, prev_hash, 32);
 
-	/*if (VERBOSE)
-		printf("Year %d verified successfully.\n", lYear);*/
+	if (VERBOSE)
+		printf("Year %d verified successfully.\n", lYear);
 	return true;
 }
 
-bool HSM::logsVerifyChain()
+bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 {
+	// TODO: This function must receive the latest counters
+
 	// Get the oldest year, month and day
 	// Check the first line (must be the root)
 	// Return false if embedded hash != 0 OR hash doesn't match log entry OR signature cannot be verified
@@ -2295,6 +2307,31 @@ bool HSM::logsVerifyChain()
 		}
 	}
 
+	// Verify that the last line counters match the internal counters (receive counters from parameters)
+	// Remove }
+	// Remove embedded hash
+	// Remove |
+	// Subtract 10+1+10
+	// We've got the position where the counters start
+	// Remove spaces and replace , with space
+	// Use stringstream to take out the counters
+	// Compare
+
+	// Extract message and compute hash
+	// First find } and retrieve the message
+	std::string counters = lastMessage.substr(lastMessage.length()-1-64-1-21, 21);
+	counters.erase(10, 1);
+
+	std::stringstream s(counters);
+	int c1, c2;
+	s >> c1 >> c2;
+
+	if (c1 != counter1 || c2 != counter2)
+	{
+		printf("Last counter does not match internal counter.\n");
+		return false;
+	}
+
 	if (VERBOSE)
 		printf("Chain verified successfully.\n");
 	return true;
@@ -2302,5 +2339,36 @@ bool HSM::logsVerifyChain()
 
 bool HSM::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
 {
+	comm->reqCommand();
+	if (VERBOSE == 1)
+		printf("LOGS_COUNTERS...");
+	memset(buffer, 0, sizeof(buffer));
+	sprintf_s((char*)buffer, sizeof(buffer), "LOGS_COUNTERS");
+	comm->send(buffer, strlen((char*)buffer));
+
+	// Wait for 'SUCCESS'
+	if (VERBOSE == 1)
+		printf("\n\tReceiving SUCCESS...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	if (VERBOSE == 1)
+		printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		return false;
+	}
+
+	// Wait for counters
+	if (VERBOSE == 1)
+		printf("\n\tReceiving counters...");
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 4096);
+	if (VERBOSE == 1)
+		printf("OK.\n");
+
+	// Counters come in format: %d %d so we can use a stringstream to do it
+	std::stringstream s((char*)buffer);
+	s >> *lNumber1 >> *lNumber2;
+
 	return true;
 }

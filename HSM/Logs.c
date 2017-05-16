@@ -3,10 +3,6 @@
 
 //uint32_t LOGS_todaysCount = 0; // 0 - 4294967295
 
-// Up to 18446744073709551616 entries
-uint32_t LOGS_globalCounter1 = 0;
-uint32_t LOGS_globalCounter2 = 0;
-
 BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * finalMessage, uint8_t * signature, size_t * signature_len, uint8_t * prev_hash, uint8_t * hash)
 {
 	if(data_len > 512)

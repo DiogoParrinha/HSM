@@ -975,7 +975,9 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_LogVerifyYear)
 CK_PKCS11_FUNCTION_INFO(HSM_C_LogVerifyChain)
 #ifdef CK_NEED_ARG_LIST
 (
-	CK_SLOT_ID slotID	/* the session's handle */
+	CK_SLOT_ID slotID,	/* the session's handle */
+	CK_ULONG lNumber1,
+	CK_ULONG lNumber2
 );
 #endif
 
@@ -1010,6 +1012,16 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_CertGen)
 	CK_UTF8CHAR_PTR publicKey,				/* public key in PEM format */
 	CK_UTF8CHAR_PTR certificate,			/* will hold the certificate in PEM format */
 	CK_ULONG_PTR bufSize					/* size of the buffer; if too small, it will be filled with size needed */
+);
+#endif
+
+/* HSM_C_LogCounter Gets log-chain device counters. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_LogCounter)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession,				/* the session's handle */
+	CK_ULONG_PTR lNumber1,
+	CK_ULONG_PTR lNumber2
 );
 #endif
 

@@ -41,7 +41,7 @@ class Device
 		virtual bool logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain);
 		virtual bool logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain);
 		virtual bool logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain);
-		virtual bool logsVerifyChain();
+		virtual bool logsVerifyChain(CK_ULONG lNumber1, CK_ULONG lNumber2);
 		virtual bool logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2);
 		virtual bool sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen);
 
