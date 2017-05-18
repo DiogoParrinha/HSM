@@ -2445,10 +2445,38 @@ CK_RV HSM_C_CertGet(CK_SESSION_HANDLE hSession, CK_LONG pUid, CK_UTF8CHAR_PTR ce
 		return CKR_SESSION_HANDLE_INVALID;
 	}
 
-	if (pUid == 0) // can be negative for device certificates
+	if (pUid <= 0)
 		return ERROR_BAD_ARGUMENTS;
 
 	if (!d->getCertificate(pUid, &certificate, bufSize))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
+
+	return CKR_OK;
+}
+
+CK_RV HSM_C_CertDevice(CK_SLOT_ID slotID, CK_LONG pId, CK_UTF8CHAR_PTR certificate, CK_ULONG_PTR bufSize)
+{
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// Get device
+	Device* d;
+	try {
+		d = devices_list.at(slotID);
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	if (pId >= 0) // negative for device certificates
+		return ERROR_BAD_ARGUMENTS;
+
+	if (!d->getCertificate(pId, &certificate, bufSize))
 	{
 		return CKR_FUNCTION_FAILED;
 	}

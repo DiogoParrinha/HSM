@@ -42,6 +42,7 @@ class HSM : public Device
 		bool logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2);
 		bool checkDevice();
 		bool sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen);
+		void randomArray(CK_BYTE_PTR pData, CK_ULONG ulDataLen);
 
 	private:
 		UART* comm;

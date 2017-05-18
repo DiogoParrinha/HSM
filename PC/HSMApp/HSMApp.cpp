@@ -68,6 +68,19 @@ int main()
 	r = C_InitToken(0, data, 32, NULL_PTR);
 	assert(r == CKR_OK);
 
+	//////// Get device certificates
+
+	/*CK_UTF8CHAR certificate[4096];
+	CK_ULONG bufSize = 4096;
+	r = HSM_C_CertDevice(0, -1, certificate, &bufSize);
+	assert(r == CKR_OK);
+
+	r = HSM_C_CertDevice(0, -2, certificate, &bufSize);
+	assert(r == CKR_OK);
+
+	r = HSM_C_CertDevice(0, -3, certificate, &bufSize);
+	assert(r == CKR_OK);*/
+
 	// Execute test
 	/*average = 0.0f;
 	printf("\nTesting 4096B of plain text data...");
@@ -311,7 +324,7 @@ int main()
 	///// Login user and generate key pair | Get certificate of user 1 | Logout | Login admin | Generate certificate for generated public key
 
 	// Login user
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -372,7 +385,7 @@ int main()
 
 	// Logout user 1
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);*/
+	assert(r == CKR_OK);
 
 	/*
 	// Login admin
@@ -403,7 +416,7 @@ int main()
 	///// Login user 1, read file and send each line to the HSM
 
 	// Login user 1
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -435,29 +448,6 @@ int main()
 	printf("\nAverage log signing: %lf\n", average);
 
 	// Logout Log User
-	r = C_Logout(phSession);
-	assert(r == CKR_OK);
-
-	//////// Get device logs public key certificate
-
-	/*memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
-	data[32] = 1;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	assert(r == CKR_OK);
-
-	CK_UTF8CHAR certificate[4096];
-	CK_ULONG bufSize = 4096;
-	r = HSM_C_CertGet(phSession, -1, certificate, &bufSize);
-	assert(r == CKR_OK);
-
-	r = HSM_C_CertGet(phSession, -2, certificate, &bufSize);
-	assert(r == CKR_OK);
-
-	r = HSM_C_CertGet(phSession, -3, certificate, &bufSize);
-	assert(r == CKR_OK);
-
-	// Logout user 1
 	r = C_Logout(phSession);
 	assert(r == CKR_OK);*/
 
@@ -510,7 +500,7 @@ int main()
 	average /= times;
 	printf("\nOK\n");*/
 
-	printf("\nVerify chain...\n");
+	/*printf("\nVerify chain...\n");
 
 	average = 0.0f;
 	times = 0;
@@ -522,7 +512,7 @@ int main()
 	times++;
 
 	average /= times;
-	printf("\nOK\n");
+	printf("\nOK\n");*/
 	
 	// Finalize
 	r = C_Finalize(NULL);

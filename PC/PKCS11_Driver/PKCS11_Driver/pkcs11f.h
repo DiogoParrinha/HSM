@@ -1002,6 +1002,17 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_CertGet)
 );
 #endif
 
+/* HSM_C_CertDevice gets a device's public key certificate. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_CertDevice)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SLOT_ID slotID,		/* the session's handle */
+	CK_LONG pId,					/* the cert ID*/
+	CK_UTF8CHAR_PTR certificate,	/* will hold the certificate in PEM format */
+	CK_ULONG_PTR bufSize			/* size of the buffer; if too small, it will be filled with size needed */
+);
+#endif
+
 /* HSM_C_CertGen generates a certificate for a given public key. */
 CK_PKCS11_FUNCTION_INFO(HSM_C_CertGen)
 #ifdef CK_NEED_ARG_LIST

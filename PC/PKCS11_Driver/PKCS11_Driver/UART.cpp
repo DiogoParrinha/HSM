@@ -28,8 +28,11 @@ FILE *fpIn;
 
 UART::UART() {
 	usb = new SerialPort();
+
 	usingKey = false;
 	memset(sessionKey, 0, 32);
+	memset(hmacKey, 0, 32);
+
 	fopen_s(&fpIn, "./logIn.txt", "w+");
 }
  
@@ -106,9 +109,10 @@ bool UART::connect()
 	return true;
 }
 
-void UART::setKey(uint8_t * key, bool use)
+void UART::setKey(uint8_t * sessKey, uint8_t * hKey, bool use)
 {
-	memcpy(sessionKey, key, 32);
+	memcpy(sessionKey, sessKey, 32);
+	memcpy(hmacKey, hKey, 32);
 	usingKey = use;
 }
 
@@ -237,7 +241,7 @@ int UART::send_e(uint8_t *buffer, uint32_t len)
 			return ERROR_UART_HMAC_SETUP;
 		}
 
-		mbedtls_md_hmac_starts(&sha_ctx, sessionKey, 32);
+		mbedtls_md_hmac_starts(&sha_ctx, hmacKey, 32);
 		mbedtls_md_hmac_update(&sha_ctx, IV, BLOCK_SIZE);
 	}
 
@@ -496,7 +500,7 @@ int UART::receive_e(uint8_t *location, uint32_t locsize)
 			return ERROR_UART_HMAC_SETUP;
 		}
 
-		mbedtls_md_hmac_starts(&sha_ctx, sessionKey, 32);
+		mbedtls_md_hmac_starts(&sha_ctx, hmacKey, 32);
 		mbedtls_md_hmac_update(&sha_ctx, IV, BLOCK_SIZE);
 	}
 

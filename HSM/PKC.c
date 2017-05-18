@@ -22,9 +22,6 @@ BOOL PKC_genKeyPair(uint8_t * pub, uint8_t * pri)
     int ret = PKC_init(&ctx, &entropy, &ctr_drbg, pers, TRUE);
     if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
 		return FALSE;
 	}
 
@@ -33,9 +30,6 @@ BOOL PKC_genKeyPair(uint8_t * pub, uint8_t * pri)
     ret = mbedtls_ecp_gen_key(MBEDTLS_ECP_DP_SECP384R1, mbedtls_pk_ec(ctx), mbedtls_ctr_drbg_random, &ctr_drbg);
 	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
 		return FALSE;
 	}
 
@@ -43,9 +37,6 @@ BOOL PKC_genKeyPair(uint8_t * pub, uint8_t * pri)
 	ret = mbedtls_pk_write_pubkey_pem(&ctx, pub, ECC_PUBLIC_KEY_SIZE);
 	if(ret != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
 		return FALSE;
 	}
 
@@ -53,9 +44,6 @@ BOOL PKC_genKeyPair(uint8_t * pub, uint8_t * pri)
     ret = mbedtls_pk_write_key_pem(&ctx, pri, ECC_PRIVATE_KEY_SIZE);
 	if(ret != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
 		return FALSE;
 	}
 
@@ -110,9 +98,6 @@ uint8_t PKC_signData(uint8_t * private, uint8_t * data, size_t data_len, uint8_t
     int ret = PKC_init(&ctx, &entropy, &ctr_drbg, pers, FALSE);
     if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
 		return 1;
 	}
 
@@ -120,18 +105,12 @@ uint8_t PKC_signData(uint8_t * private, uint8_t * data, size_t data_len, uint8_t
     ret = mbedtls_pk_parse_key(&ctx, private, strlen(private)+1, NULL, 0);
 	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
 		return 2;
 	}
 
 	if( ( ret = mbedtls_pk_sign(&ctx, MBEDTLS_MD_SHA256, data, 32, signature, signature_len,
 	                         mbedtls_ctr_drbg_random, &ctr_drbg ) ) != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
 		return 3;
 	}
 
@@ -150,9 +129,6 @@ int PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint8
     int ret = PKC_init(&ctx, &entropy, &ctr_drbg, pers, FALSE);
     if(ret != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
 		return 1;
 	}
 
@@ -160,9 +136,6 @@ int PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint8
 	ret = mbedtls_pk_parse_public_key(&ctx, public, strlen(public)+1);
 	if(ret != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
 		return 2;
 	}
 
@@ -170,9 +143,6 @@ int PKC_verifySignature(uint8_t * public, uint8_t * data, size_t data_len, uint8
 	ret = mbedtls_pk_verify(&ctx, MBEDTLS_MD_SHA256, data, 32, signature, signature_len);
 	if(ret != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret );
-		__printf(error);
 		return 3;
 	}
 
@@ -201,9 +171,6 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key
     int ret = PKC_init(&issuer_key, &entropy, &ctr_drbg, pers, FALSE);
     if(ret != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -211,9 +178,6 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key
 	ret = mbedtls_pk_parse_key(&issuer_key, ISSUER_PRIVATE_KEY, strlen(ISSUER_PRIVATE_KEY)+1, NULL, 0);
 	if(ret != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -221,9 +185,6 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key
 	ret = mbedtls_pk_parse_public_key(&subject_key, public, strlen(public)+1);
 	if(ret != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -234,26 +195,17 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key
 	// Set subject and issuer names
 	if((ret = mbedtls_x509write_crt_set_subject_name(&crt, subject_name)) != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
 	if((ret = mbedtls_x509write_crt_set_issuer_name(&crt, "CN=HSM-INESC,C=PT")) != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
 	// TODO: Get next serial to use (last serial is stored in the first sector of SPI Flash) - it's "1" for now
 	if((ret = mbedtls_mpi_read_string(&serial, 10, "1")) != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -261,9 +213,6 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key
     ret = mbedtls_x509write_crt_set_serial(&crt, &serial);
     if(ret != 0)
     {
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
     }
 
@@ -271,9 +220,6 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key
     ret = mbedtls_x509write_crt_set_validity(&crt, "20010101000000", "20301231235959");
     if(ret != 0)
     {
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
     }
 
@@ -281,9 +227,6 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key
 	ret = mbedtls_x509write_crt_set_basic_constraints(&crt, 0, -1);
 	if(ret != 0)
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -291,9 +234,6 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key
 	ret = mbedtls_x509write_crt_set_key_usage(&crt, key_usage);
 	if( ret != 0 )
 	{
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 
@@ -301,9 +241,6 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key
     memset(certificate, 0, bufsize);
     if((ret = mbedtls_x509write_crt_pem(&crt, certificate, bufsize, mbedtls_ctr_drbg_random, &ctr_drbg)) < 0)
     {
-		char error[10];
-		sprintf(error, "E: %d", ret);
-		__printf(error);
 		return FALSE;
 	}
 

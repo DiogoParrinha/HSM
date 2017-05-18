@@ -56,10 +56,10 @@ extern "C" {
  *
  * \returns        0 on success, or a MBEDTLS_ERR_XXX code if verification fails.
  */
-int mbedtls_pkcs5_pbes2( const mbedtls_asn1_buf *pbe_params, int mode,
+/*int mbedtls_pkcs5_pbes2( const mbedtls_asn1_buf *pbe_params, int mode,
                  const unsigned char *pwd,  size_t pwdlen,
                  const unsigned char *data, size_t datalen,
-                 unsigned char *output );
+                 unsigned char *output );*/
 
 /**
  * \brief          PKCS#5 PBKDF2 using HMAC

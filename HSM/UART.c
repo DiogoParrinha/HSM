@@ -54,12 +54,14 @@ BOOL UART_recTime()
 void UART_disconnect()
 {
 	memset(UART_sessionKey, 0, 32);
+	memset(UART_hmacKey, 0, 32);
 	UART_usingKey = FALSE;
 }
 
-void UART_setKey(uint8_t * key)
+void UART_setKey(uint8_t * sessKey, uint8_t * hmacKey)
 {
-	memcpy(UART_sessionKey, key, 32);
+	memcpy(UART_sessionKey, sessKey, 32);
+	memcpy(UART_hmacKey, hmacKey, 32);
 	UART_usingKey = TRUE;
 }
 
@@ -169,7 +171,7 @@ int UART_send_e(uint8_t *buffer, uint32_t len)
 			return ERROR_UART_HMAC_SETUP;
 		}
 
-		mbedtls_md_hmac_starts(&sha_ctx, UART_sessionKey, 32);
+		mbedtls_md_hmac_starts(&sha_ctx, UART_hmacKey, 32);
 		mbedtls_md_hmac_update(&sha_ctx, IV, BLOCK_SIZE);
 	}
 
@@ -391,7 +393,7 @@ int UART_receive_e(char *location, uint32_t locsize)
 			return ERROR_UART_HMAC_SETUP;
 		}
 
-		mbedtls_md_hmac_starts(&sha_ctx, UART_sessionKey, 32);
+		mbedtls_md_hmac_starts(&sha_ctx, UART_hmacKey, 32);
 		mbedtls_md_hmac_update(&sha_ctx, IV, BLOCK_SIZE);
 	}
 

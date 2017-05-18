@@ -9,19 +9,25 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include "mbedtls/pkcs5.h"
 #include "SecComm.h"
 
-BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
+mbedtls_ecp_keypair * temp_pair;
+
+////// Perform ECIES: ECDH + KDF (PKCS#5) + AES-256
+BOOL SecComm()
 {
+	int ret = 0;
+
 	const char pers[] = "ecdh";
 
-	mbedtls_md_context_t sha_ctx;
-	mbedtls_md_init(&sha_ctx);
+	mbedtls_entropy_context SecComm_entropy;
+	mbedtls_ctr_drbg_context SecComm_ctr_drbg;
 
-	// TODO: something must be used to stop Man-in-the-Middle and Replay Attacks (think if the latter is possible to do)
+	mbedtls_ctr_drbg_init(&SecComm_ctr_drbg);
+	mbedtls_entropy_init(&SecComm_entropy);
 
 	// add entropy source
-	int ret = 0;
 	if((ret = mbedtls_entropy_add_source(&SecComm_entropy, mbedtls_hardware_poll,
 									NULL, ENTROPY_MIN_BYTES_RELEASE,
 									MBEDTLS_ENTROPY_SOURCE_STRONG)) != 0)
@@ -34,178 +40,281 @@ BOOL SecComm_establishSessionKey(uint8_t * sessionKey)
 							   (const unsigned char *) pers,
 							   strlen( pers ) ) ) != 0 )
 	{
+		mbedtls_entropy_free(&SecComm_entropy);
+
 		return FALSE;
 	}
 
-	// load group
-	ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_SECP384R1);
-	//ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_CURVE25519);
-	//ret = mbedtls_ecp_group_load(&ctx_srv.grp, MBEDTLS_ECP_DP_SECP192R1);
-	if( ret != 0 )
+	mbedtls_ecdh_context ctx_srv;
+	mbedtls_ecdh_init(&ctx_srv);
+
+	////// Parse private and public and transform them into ec key pairs
+	mbedtls_pk_context pk_ctx_pri;
+	mbedtls_pk_init(&pk_ctx_pri);
+
+	// Parse private key
+	ret = mbedtls_pk_parse_key(&pk_ctx_pri, SESS_PRIVATE_KEY, strlen(SESS_PRIVATE_KEY)+1, NULL, 0);
+	if(ret != 0)
 	{
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
+		mbedtls_ecdh_free(&ctx_srv);
+		mbedtls_pk_free(&pk_ctx_pri);
+
 		return FALSE;
 	}
 
-	// generate key pair
-	ret = mbedtls_ecdh_gen_public(&ctx_srv.grp, &ctx_srv.d, &ctx_srv.Q, mbedtls_ctr_drbg_random, &SecComm_ctr_drbg);
-	if( ret != 0 )
-	{
-		return FALSE;
-	}
+	// pk -> ec pair
+	temp_pair = mbedtls_pk_ec(pk_ctx_pri);
 
-	// write public key X into srv_to_cli (unsigned binary data)
-	ret = mbedtls_mpi_write_binary(&ctx_srv.Q.X, srv_to_cli, 48u);
-	if( ret != 0 )
-	{
-		return FALSE;
-	}
+	// grp
+	ctx_srv.grp = temp_pair->grp;
 
-	UART_sendOK();
+	// private
+	mbedtls_mpi oldD = ctx_srv.d;
+	ctx_srv.d = temp_pair->d;
 
-	// write client's public key into cli_to_srv (unsigned binary data)
-	UART_receive(&cli_to_srv[0], 48u);
+	temp_pair = NULL;
 
-	// send our srv_to_cli
-	UART_send(srv_to_cli, 48u);
+	///// Receive ciphertext + IV/salt + public key + HMAC(C | IV | P)
+
+	UART_sendOK(); //  confirmation to receive
+
+	uint8_t ciphertext[32] = {0};
+	UART_receive(&ciphertext[0], 32u); // ciphertext
+
+	uint8_t salt_IV[16] = {0};
+	UART_receive(&salt_IV[0], 16u); // salt / IV
+
+	uint8_t cli_pub_x[48] = {0};
+	UART_receive(&cli_pub_x[0], 48u); // public key X
+
+	uint8_t cli_pub_y[48] = {0};
+	UART_receive(&cli_pub_y[0], 48u); // public key Y
+
+	uint8_t recHMAC[32] = {0};
+	UART_receive(&recHMAC[0], 32u); // HMAC
+
+	//// Compute shared secret
 
 	// store client's public key X into ctx_srv public key
-	ret = mbedtls_mpi_read_binary(&ctx_srv.Qp.X, cli_to_srv, 48u);
+	ret = mbedtls_mpi_read_binary(&ctx_srv.Qp.X, cli_pub_x, 48u);
 	if( ret != 0 )
 	{
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
+		mbedtls_pk_free(&pk_ctx_pri);
+		ctx_srv.d = oldD;
+		mbedtls_ecdh_free(&ctx_srv);
+
 		return FALSE;
 	}
-
-	// write public key Y into srv_to_cli (unsigned binary data)
-	ret = mbedtls_mpi_write_binary(&ctx_srv.Q.Y, srv_to_cli, 48u);
-	if( ret != 0 )
-	{
-		return FALSE;
-	}
-
-	UART_sendOK();
-
-	// write client's public key into cli_to_srv (unsigned binary data)
-	UART_receive(&cli_to_srv[0], 48u);
-
-	// send our srv_to_cli
-	UART_send(srv_to_cli, 48u);
 
 	// store client's public key Y into ctx_srv public key
-	ret = mbedtls_mpi_read_binary(&ctx_srv.Qp.Y, cli_to_srv, 48u);
+	ret = mbedtls_mpi_read_binary(&ctx_srv.Qp.Y, cli_pub_y, 48u);
 	if( ret != 0 )
 	{
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
+		mbedtls_pk_free(&pk_ctx_pri);
+		ctx_srv.d = oldD;
+		mbedtls_ecdh_free(&ctx_srv);
+
 		return FALSE;
 	}
 
 	ret = mbedtls_mpi_lset(&ctx_srv.Qp.Z, 1);
 	if( ret != 0 )
 	{
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
+		mbedtls_pk_free(&pk_ctx_pri);
+		ctx_srv.d = oldD;
+		mbedtls_ecdh_free(&ctx_srv);
+
 		return FALSE;
 	}
 
 	// compute shared secret
 	int len = 0;
-	uint8_t shared_secret[128];
+	uint8_t shared_secret[128] = {0};
 	if((ret = mbedtls_ecdh_calc_secret(&ctx_srv, &len, shared_secret, 128u, mbedtls_ctr_drbg_random, &SecComm_ctr_drbg)) != 0)
 	{
-		volatile int t = 0;
-		t++;
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
+		mbedtls_pk_free(&pk_ctx_pri);
+		ctx_srv.d = oldD;
+		mbedtls_ecdh_free(&ctx_srv);
+
 		return FALSE;
 	}
 
-	// calculate SHA-256
-	mbedtls_sha256(shared_secret, len, sessionKey, 0);
+	///// PKCS#5 Key derivation to obtain sessionKey and HMAC Key
 
+	const mbedtls_md_info_t *md_info;
+	mbedtls_md_type_t md_type = MBEDTLS_MD_SHA256;
+	mbedtls_md_context_t md_ctx;
+	mbedtls_md_init( &md_ctx );
+	uint8_t expandedKey[64] = {0};
+
+	md_info = mbedtls_md_info_from_type( md_type );
+	if( md_info == NULL )
+	{
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
+		mbedtls_pk_free(&pk_ctx_pri);
+		ctx_srv.d = oldD;
+		mbedtls_ecdh_free(&ctx_srv);
+
+		mbedtls_md_free(&md_ctx);
+
+		return FALSE;
+	}
+
+	if( ( ret = mbedtls_md_setup( &md_ctx, md_info, 1 ) ) != 0 )
+	{
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
+		mbedtls_pk_free(&pk_ctx_pri);
+		ctx_srv.d = oldD;
+		mbedtls_ecdh_free(&ctx_srv);
+
+		mbedtls_md_free(&md_ctx);
+
+		return FALSE;
+	}
+
+	ret = mbedtls_pkcs5_pbkdf2_hmac(&md_ctx, shared_secret, len, salt_IV, 16, 1, 64, expandedKey);
+	if(ret != 0)
+	{
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
+		mbedtls_pk_free(&pk_ctx_pri);
+		ctx_srv.d = oldD;
+		mbedtls_ecdh_free(&ctx_srv);
+
+		mbedtls_md_free(&md_ctx);
+
+		return FALSE;
+	}
+	mbedtls_md_free(&md_ctx);
+
+	uint8_t sessKey[32] = {0}, hmacKey[32] = {0};
+	memcpy(&sessKey[0], expandedKey, 32);
+	memcpy(&hmacKey[0], &expandedKey[32], 32);
+
+	///// Compute HMAC and verify it (we only have the HMAC key now!)
+
+	mbedtls_md_context_t sha_ctx;
+	uint8_t HMAC[32] = { 0 };
+	mbedtls_md_init(&sha_ctx);
+
+	ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
+	if (ret != 0)
+	{
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
+		mbedtls_pk_free(&pk_ctx_pri);
+		ctx_srv.d = oldD;
+		mbedtls_ecdh_free(&ctx_srv);
+
+		mbedtls_md_free(&sha_ctx);
+
+		return FALSE;
+	}
+
+	mbedtls_md_hmac_starts(&sha_ctx, hmacKey, 32);
+
+	mbedtls_md_hmac_update(&sha_ctx, ciphertext, 32); // ciphertext
+	mbedtls_md_hmac_update(&sha_ctx, salt_IV, 16); // salt / IV
+	mbedtls_md_hmac_update(&sha_ctx, cli_pub_x, 48); // public key X
+	mbedtls_md_hmac_update(&sha_ctx, cli_pub_y, 48); // public key Y
+	mbedtls_md_hmac_finish(&sha_ctx, HMAC);
 	mbedtls_md_free(&sha_ctx);
 
-	return TRUE;
-}
+	// Compare HMACs
+	unsigned char diff = 0;
+	for (int i = 0; i < 32; i++)
+		diff |= HMAC[i] ^ recHMAC[i]; // XOR = 1 if one is different from the other
 
-BOOL SecComm_validateSessionKey(uint8_t * key)
-{
-	int a = 0;
-
-	// Set session key
-	UART_setKey(key);
-
-	uint8_t challenge[16] = {0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28};
-	#ifdef SECURITY_DEVICE
-		// Generate 128-bit challenge
-		/* Generate random bits */
-		uint8_t status = MSS_SYS_nrbg_generate(&challenge[0],    // p_requested_data
-			0,              // p_additional_input
-			16,				// requested_length
-			0,              // additional_input_length
-			0,              // pr_req
-			drbg_handle);   // drbg_handle
-		if(status != MSS_SYS_SUCCESS)
-		{
-			volatile int t = 0;
-			t++;
-			return FALSE; // error
-		}
-	#endif
-	
-	int r = UART_send(challenge, 16);
-	if(r <= 0)
+	if (diff != 0)
 	{
-		volatile int t = 0;
-		t++;
+		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+		mbedtls_entropy_free(&SecComm_entropy);
+
+		mbedtls_pk_free(&pk_ctx_pri);
+		ctx_srv.d = oldD;
+		mbedtls_ecdh_free(&ctx_srv);
+
 		return FALSE;
 	}
 
-	// Expect modified challenge
-	// (challenge mod 6)
-	uint8_t mod_challenge[16];
-	for (a = 0; a < 16; a++)
+	//// Decrypt ciphertext
+	mbedtls_aes_context aes_ctx;
+	mbedtls_aes_init(&aes_ctx);
+	mbedtls_aes_setkey_dec(&aes_ctx, sessKey, 256);
+	uint8_t plaintext[32];
+	memset(plaintext, 0, 32);
+	uint8_t IV_copy[16] = { 0 };
+	memcpy(IV_copy, salt_IV, 16);
+	mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, 32, IV_copy, ciphertext, &plaintext[0]);
+	mbedtls_aes_free(&aes_ctx);
+
+	//// Modify nonce
+	// (plaintext mod 6)
+	uint8_t mod_nonce[32];
+	int a = 0;
+	for (a = 0; a < 32; a++)
 	{
-		mod_challenge[a] = challenge[a] % 6; // TODO: challenge[a] mod 6 for now...
+		mod_nonce[a] = plaintext[a] % 6; // TODO: plaintext[a] mod 6 for now...
 	}
 
-	uint8_t ver_challenge[16] = {0};
-	UART_receive(&ver_challenge[0], 16);
-	for(a=0;a<16;a++)
+	//// Send modified nonce using normal secure comm
+	UART_setKey(sessKey, hmacKey);
+	UART_send(mod_nonce, 32u);
+
+	//// Expect a new modified nonce to confirm the other party has the session key
+	for (a = 0; a < 32; a++)
 	{
-		if(ver_challenge[a] != mod_challenge[a])
+		mod_nonce[a] = mod_nonce[a] % 16; // TODO: mod_nonce[a] mod 16 for now...
+	}
+
+	uint8_t ver_challenge[32] = {0};
+	UART_receive(&ver_challenge[0], 32);
+	for(a=0;a<32;a++)
+	{
+		if(ver_challenge[a] != mod_nonce[a])
 		{
+			mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
+			mbedtls_entropy_free(&SecComm_entropy);
+
+			mbedtls_pk_free(&pk_ctx_pri);
+			ctx_srv.d = oldD;
+			mbedtls_ecdh_free(&ctx_srv);
+
 			return FALSE;
 		}
 	}
 
-	return TRUE;
-}
+	// Send SUCCESS
+	UART_send("SUCCESS", 7);
 
-BOOL SecComm_start(uint8_t * key)
-{
-	mbedtls_ecdh_init(&ctx_cli);
-	mbedtls_ecdh_init(&ctx_srv);
-	mbedtls_ctr_drbg_init(&SecComm_ctr_drbg);
-	mbedtls_entropy_init(&SecComm_entropy);
-
-	if(!SecComm_establishSessionKey(key))
-	{
-		mbedtls_ecdh_free(&ctx_srv);
-		mbedtls_ecdh_free(&ctx_cli);
-		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
-		mbedtls_entropy_free(&SecComm_entropy);
-
-		return FALSE;
-	}
-
-	if(!SecComm_validateSessionKey(key))
-	{
-		mbedtls_ecdh_free(&ctx_srv);
-		mbedtls_ecdh_free(&ctx_cli);
-		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
-		mbedtls_entropy_free(&SecComm_entropy);
-
-		return FALSE;
-	}
-
-	mbedtls_ecdh_free(&ctx_srv);
-	mbedtls_ecdh_free(&ctx_cli);
 	mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
 	mbedtls_entropy_free(&SecComm_entropy);
+
+	// The actual values (mbedtls_mpi) of Q and d contain pointers to mbedtls_mpi_uint so this is freed here only
+	mbedtls_pk_free(&pk_ctx_pri);
+	ctx_srv.d = oldD;
+	mbedtls_ecdh_free(&ctx_srv);
 
 	return TRUE;
 }

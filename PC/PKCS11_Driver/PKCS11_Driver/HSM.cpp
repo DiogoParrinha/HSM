@@ -32,6 +32,7 @@
 #include "mbedtls/x509_crt.h"
 #include "mbedtls/md5.h"
 #include "mbedtls/base64.h"
+#include "mbedtls/pkcs5.h"
 
 #include "HSM.h"
 #include "UART.h"
@@ -76,6 +77,8 @@ mbedtls_x509_crt *logs_cert;
 HSM::HSM()
 {
 	comm = new UART();
+
+	srand((unsigned int)time(NULL));
 
 	loggedIn = false;
 	isAdmin = false;
@@ -139,6 +142,17 @@ bool HSM::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 
 
 	return true;
+}
+
+void HSM::randomArray(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
+{
+	if (pData == NULL)
+		return;
+
+	for (uint32_t i = 0; i < ulDataLen; i++)
+	{
+		pData[i] = rand();
+	}
 }
 
 bool HSM::init()
@@ -243,8 +257,6 @@ int HSM::startSession()
 	if (sessionLimit())
 		return 1;
 
-
-
 	comm->reqCommand();
 
 	if (VERBOSE == 1)
@@ -258,17 +270,8 @@ int HSM::startSession()
 	mbedtls_ecdh_context ctx_cli;
 	mbedtls_entropy_context entropy;
 	mbedtls_ctr_drbg_context ctr_drbg;
-	unsigned char cli_to_srv[48], srv_to_cli[48];
+	unsigned char cli_pub_x[48], cli_pub_y[48];
 	const char pers[] = "ecdh";
-
-	mbedtls_aes_context aes_ctx;
-	mbedtls_md_context_t sha_ctx;
-
-	mbedtls_aes_init(&aes_ctx);
-	mbedtls_md_init(&sha_ctx);
-
-	unsigned char aes_output[128];
-	memset(aes_output, 0, 128);
 
 	mbedtls_ecdh_init(&ctx_cli);
 	mbedtls_ctr_drbg_init(&ctr_drbg);
@@ -279,6 +282,10 @@ int HSM::startSession()
 		(const unsigned char *)pers,
 		sizeof pers)) != 0)
 	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+
 		mbedtls_printf(" failed\n  ! mbedtls_ctr_drbg_seed returned %d\n", ret);
 		return 2;
 	}
@@ -288,6 +295,10 @@ int HSM::startSession()
 	//ret = mbedtls_ecp_group_load(&ctx_cli.grp, MBEDTLS_ECP_DP_SECP192R1);
 	if (ret != 0)
 	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+
 		mbedtls_printf(" failed\n  ! mbedtls_ecp_group_load returned %d\n", ret);
 		return 3;
 	}
@@ -295,97 +306,266 @@ int HSM::startSession()
 	ret = mbedtls_ecdh_gen_public(&ctx_cli.grp, &ctx_cli.d, &ctx_cli.Q, mbedtls_ctr_drbg_random, &ctr_drbg);
 	if (ret != 0)
 	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+
 		mbedtls_printf(" failed\n  ! mbedtls_ecdh_gen_public returned %d\n", ret);
 		return 4;
 	}
 
-	ret = mbedtls_mpi_write_binary(&ctx_cli.Q.X, cli_to_srv, 48);
+	ret = mbedtls_mpi_write_binary(&ctx_cli.Q.X, cli_pub_x, 48);
 	if (ret != 0)
 	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+
 		mbedtls_printf(" failed\n  ! mbedtls_mpi_write_binary returned %d\n", ret);
 		return 5;
 	}
 
-	// wait for "OK" because the device takes longer to do this than the computer
-	comm->waitOK();
-
-	// send 48B public key
-	comm->send(cli_to_srv, 48);
-
-	// get 48B public key
-	comm->receive(&srv_to_cli[0], 48);
-
-	ret = mbedtls_mpi_read_binary(&ctx_cli.Qp.X, srv_to_cli, 48);
+	ret = mbedtls_mpi_write_binary(&ctx_cli.Q.Y, cli_pub_y, 48);
 	if (ret != 0)
 	{
-		mbedtls_printf(" failed\n  ! mbedtls_mpi_read_binary returned %d\n", ret);
-		return 7;
-	}
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
 
-	ret = mbedtls_mpi_write_binary(&ctx_cli.Q.Y, cli_to_srv, 48);
-	if (ret != 0)
-	{
 		mbedtls_printf(" failed\n  ! mbedtls_mpi_write_binary returned %d\n", ret);
-		return 5;
+		return 6;
 	}
-
-	// wait for "OK" because the device takes longer to do this than the computer
-	comm->waitOK();
-
-	// send 48B public key
-	comm->send(cli_to_srv, 48);
-
-	// get 48B public key
-	comm->receive(&srv_to_cli[0], 48);
-
-	ret = mbedtls_mpi_read_binary(&ctx_cli.Qp.Y, srv_to_cli, 48);
-	if (ret != 0)
+	
+	///////// Read public key certificate file ./certs/session.crt
+	mbedtls_x509_crt *session_cert = (mbedtls_x509_crt*)malloc(sizeof(mbedtls_x509_crt));
+	if (session_cert == NULL)
 	{
-		mbedtls_printf(" failed\n  ! mbedtls_mpi_read_binary returned %d\n", ret);
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+
+		mbedtls_printf("Not enough memory for session.cert\n");
 		return 7;
 	}
+
+	mbedtls_x509_crt_init(session_cert);
+	mbedtls_pk_init(&session_cert->pk);
+
+	ret = mbedtls_x509_crt_parse_file(session_cert, "././certs/session.crt");
+	if (ret != 0)
+	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+		mbedtls_x509_crt_free(session_cert);
+
+		// certificate is missing, can't validate chain
+		mbedtls_printf("Error parsing public key certificate.\n");
+		
+		return 8;
+	}
+
+	mbedtls_ecp_keypair * temp_pair = mbedtls_pk_ec(session_cert->pk);
+	mbedtls_ecp_point oldQ = ctx_cli.Qp;
+	ctx_cli.Qp = temp_pair->Q;
 
 	// Client: read peer's key and generate shared secret
 	ret = mbedtls_mpi_lset(&ctx_cli.Qp.Z, 1);
 	if (ret != 0)
 	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+		mbedtls_x509_crt_free(session_cert);
+
 		mbedtls_printf(" failed\n  ! mbedtls_mpi_lset returned %d\n", ret);
-		return 6;
+		return 9;
 	}
 
 	size_t len = 0;
-	unsigned char buffer[BUFSIZE];
+	unsigned char shared_secret[128] = { 0 };
 
 	if ((ret = mbedtls_ecdh_calc_secret(&ctx_cli,
 		&len,
-		buffer,
-		BUFSIZE,
+		shared_secret,
+		128,
 		mbedtls_ctr_drbg_random, &ctr_drbg)) != 0)
 	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+		mbedtls_x509_crt_free(session_cert);
+
 		mbedtls_printf(" failed\n  ! mbedtls_ecdh_calc_secret returned %d\n", ret);
-		return 8;
+		return 10;
 	}
 
-	unsigned char key[32] = { 0 };
-	mbedtls_sha256(buffer, len, key, 0);
+	mbedtls_x509_crt_free(session_cert);
+	ctx_cli.Qp = oldQ;
+
+	/////// PKCS#5 Key derivation to obtain sessionKey and HMAC Key
+
+	// Generate random 16B IV/Salt
+	uint8_t salt_IV[16] = { 0 };
+	randomArray(salt_IV, 16);
+
+	const mbedtls_md_info_t *md_info;
+	mbedtls_md_type_t md_type = MBEDTLS_MD_SHA256;
+	mbedtls_md_context_t md_ctx;
+	mbedtls_md_init(&md_ctx);
+	uint8_t expandedKey[64] = { 0 };
+
+	md_info = mbedtls_md_info_from_type(md_type);
+	if (md_info == NULL)
+	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+		mbedtls_md_free(&md_ctx);
+
+		return 11;
+	}
+
+	if ((ret = mbedtls_md_setup(&md_ctx, md_info, 1)) != 0)
+	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+		mbedtls_md_free(&md_ctx);
+
+		return 12;
+	}
+
+	ret = mbedtls_pkcs5_pbkdf2_hmac(&md_ctx, shared_secret, len, salt_IV, 16, 1, 64, expandedKey);
+	if (ret != 0)
+	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+		mbedtls_md_free(&md_ctx);
+
+		return 13;
+	}
+	mbedtls_md_free(&md_ctx);
+
+	uint8_t UART_sessionKey[32] = { 0 }, UART_hmacKey[32] = { 0 };
+	memcpy(&UART_sessionKey[0], expandedKey, 32);
+	memcpy(&UART_hmacKey[0], &expandedKey[32], 32);
+
+	/////// Time to send CIPHERTEXT | IV | PUBLIC_KEY/cli_pub_x,cli_pub_y | HMAC(C|IV|P)
+
+	mbedtls_md_context_t sha_ctx;
+	uint8_t HMAC[32] = { 0 };
+	mbedtls_md_init(&sha_ctx);
+
+	ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
+	if (ret != 0)
+	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+		mbedtls_md_free(&sha_ctx);
+
+		return 14;
+	}
+
+	mbedtls_md_hmac_starts(&sha_ctx, UART_hmacKey, 32);
+
+	// Generate nonce (256-bit)
+	uint8_t nonce[32] = { 0 };
+	randomArray(nonce, 32);
+
+	// Encrypt nonce
+	mbedtls_aes_context aes_ctx;
+	mbedtls_aes_init(&aes_ctx);
+	mbedtls_aes_setkey_enc(&aes_ctx, UART_sessionKey, 256);
+	uint8_t ciphertext[32];
+	memset(ciphertext, 0, 32);
+	uint8_t IV_copy[16] = { 0 };
+	memcpy(IV_copy, salt_IV, 16);
+	mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, 32, IV_copy, nonce, &ciphertext[0]);
+	mbedtls_aes_free(&aes_ctx);
+
+	// Compute HMAC of C|IV|P
+	mbedtls_md_hmac_update(&sha_ctx, ciphertext, 32); // ciphertext
+	mbedtls_md_hmac_update(&sha_ctx, salt_IV, 16); // salt / IV
+	mbedtls_md_hmac_update(&sha_ctx, cli_pub_x, 48); // public key X
+	mbedtls_md_hmac_update(&sha_ctx, cli_pub_y, 48); // public key Y
+	mbedtls_md_hmac_finish(&sha_ctx, HMAC);
+	mbedtls_md_free(&sha_ctx);
+
+	// wait for "OK" to proceed only when the device chooses to
+	comm->waitOK();
+
+	// send ciphertext
+	comm->send(ciphertext, 32);
+
+	// send IV
+	comm->send(salt_IV, 16);
+
+	// send 48B public key X
+	comm->send(cli_pub_x, 48);
+
+	// send 48B public key Y
+	comm->send(cli_pub_y, 48);
+
+	// send HMAC
+	comm->send(HMAC, 32);
+
+	mbedtls_aes_free(&aes_ctx);
+
+	/////// Wait for modified nonce through secure session now
 	
 	// Set AES key
-	comm->setKey(key, true);
+	comm->setKey(UART_sessionKey, UART_hmacKey, true);
 
-	// Receive challenge
-	uint8_t challenge[16] = { 0 };
-	comm->receive(challenge, 16);
+	// Receive modified nonce
+	uint8_t rec_nonce[32] = { 0 };
+	ret = comm->receive(rec_nonce, 32);
 
-	///// Send modified challenge encrypted with session key
-
-	uint8_t mod_challenge[16];
-	for (int a = 0; a < 16; a++)
+	uint8_t mod_nonce[32];
+	for (int a = 0; a < 32; a++)
 	{
-		mod_challenge[a] = challenge[a] % 6; // plaintext[a] mod 6 for now...
+		mod_nonce[a] = nonce[a] % 6; // nonce[a] mod 6 for now...
 	}
 
-	comm->send(mod_challenge, 16);
+	for (int a = 0; a <32; a++)
+	{
+		if (rec_nonce[a] != mod_nonce[a])
+		{
+			mbedtls_ecdh_free(&ctx_cli);
+			mbedtls_ctr_drbg_free(&ctr_drbg);
+			mbedtls_entropy_free(&entropy);
 
+			mbedtls_printf("Received nonce does not match modified nonce.\n");
+			return 15;
+		}
+	}
+
+	///// Send modified nonce encrypted with session key
+
+	uint8_t new_mod_nonce[32];
+	for (int a = 0; a < 32; a++)
+	{
+		new_mod_nonce[a] = rec_nonce[a] % 16; // rec_nonce[a] mod 16 for now...
+	}
+
+	comm->send(new_mod_nonce, 32);
+
+	///// Wait for SUCCESS
+	memset(buffer, 0, sizeof(buffer));
+	comm->receive(&buffer[0], 512);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		mbedtls_ecdh_free(&ctx_cli);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+
+		mbedtls_printf("Not SUCCESS at sess start.\n");
+
+		return 16;
+	}
+	
 	mbedtls_ecdh_free(&ctx_cli);
 	mbedtls_ctr_drbg_free(&ctr_drbg);
 	mbedtls_entropy_free(&entropy);
@@ -400,9 +580,7 @@ int HSM::startSession()
 
 	if (VERBOSE == 1)
 		printf("OK.\n");
-
-
-
+	
 	return 0;
 }
 
@@ -421,7 +599,7 @@ bool HSM::endSession()
 		printf("OK.\n");
 
 	uint8_t data[32] = { 0 };
-	comm->setKey(data, false);
+	comm->setKey(data, data, false);
 	comm->useTime(false);
 
 	openSessions--;
@@ -1773,7 +1951,7 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		{
 			// certificate is missing, can't validate chain
 			printf("Error parsing public key certificate.\n");
-			free(logs_cert);
+			mbedtls_x509_crt_free(logs_cert);
 			logs_cert = NULL;
 			file.close();
 			return false;
@@ -2087,8 +2265,6 @@ bool HSM::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL full
 
 bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 {
-	// TODO: This function must receive the latest counters
-
 	// Get the oldest year, month and day
 	// Check the first line (must be the root)
 	// Return false if embedded hash != 0 OR hash doesn't match log entry OR signature cannot be verified

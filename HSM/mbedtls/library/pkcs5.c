@@ -38,9 +38,9 @@
 #if defined(MBEDTLS_PKCS5_C)
 
 #include "mbedtls/pkcs5.h"
-#include "mbedtls/asn1.h"
-#include "mbedtls/cipher.h"
-#include "mbedtls/oid.h"
+//#include "mbedtls/asn1.h"
+//#include "mbedtls/cipher.h"
+//#include "mbedtls/oid.h"
 
 #include <string.h>
 
@@ -51,7 +51,9 @@
 #define mbedtls_printf printf
 #endif
 
-static int pkcs5_parse_pbkdf2_params( const mbedtls_asn1_buf *params,
+// COMENTED BECAUSE WE DON'T USE PKBES2
+
+/*static int pkcs5_parse_pbkdf2_params( const mbedtls_asn1_buf *params,
                                       mbedtls_asn1_buf *salt, int *iterations,
                                       int *keylen, mbedtls_md_type_t *md_type )
 {
@@ -63,15 +65,13 @@ static int pkcs5_parse_pbkdf2_params( const mbedtls_asn1_buf *params,
     if( params->tag != ( MBEDTLS_ASN1_CONSTRUCTED | MBEDTLS_ASN1_SEQUENCE ) )
         return( MBEDTLS_ERR_PKCS5_INVALID_FORMAT +
                 MBEDTLS_ERR_ASN1_UNEXPECTED_TAG );
-    /*
-     *  PBKDF2-params ::= SEQUENCE {
-     *    salt              OCTET STRING,
-     *    iterationCount    INTEGER,
-     *    keyLength         INTEGER OPTIONAL
-     *    prf               AlgorithmIdentifier DEFAULT algid-hmacWithSHA1
-     *  }
-     *
-     */
+    // PBKDF2-params ::= SEQUENCE {
+    //    salt              OCTET STRING,
+    //    iterationCount    INTEGER,
+    //    keyLength         INTEGER OPTIONAL
+    //    prf               AlgorithmIdentifier DEFAULT algid-hmacWithSHA1
+    //  }
+
     if( ( ret = mbedtls_asn1_get_tag( &p, end, &salt->len, MBEDTLS_ASN1_OCTET_STRING ) ) != 0 )
         return( MBEDTLS_ERR_PKCS5_INVALID_FORMAT + ret );
 
@@ -129,12 +129,11 @@ int mbedtls_pkcs5_pbes2( const mbedtls_asn1_buf *pbe_params, int mode,
     p = pbe_params->p;
     end = p + pbe_params->len;
 
-    /*
-     *  PBES2-params ::= SEQUENCE {
-     *    keyDerivationFunc AlgorithmIdentifier {{PBES2-KDFs}},
-     *    encryptionScheme AlgorithmIdentifier {{PBES2-Encs}}
-     *  }
-     */
+    // PBES2-params ::= SEQUENCE {
+    // keyDerivationFunc AlgorithmIdentifier {{PBES2-KDFs}},
+    // encryptionScheme AlgorithmIdentifier {{PBES2-Encs}}
+    // }
+
     if( pbe_params->tag != ( MBEDTLS_ASN1_CONSTRUCTED | MBEDTLS_ASN1_SEQUENCE ) )
         return( MBEDTLS_ERR_PKCS5_INVALID_FORMAT +
                 MBEDTLS_ERR_ASN1_UNEXPECTED_TAG );
@@ -171,10 +170,8 @@ int mbedtls_pkcs5_pbes2( const mbedtls_asn1_buf *pbe_params, int mode,
     if( cipher_info == NULL )
         return( MBEDTLS_ERR_PKCS5_FEATURE_UNAVAILABLE );
 
-    /*
-     * The value of keylen from pkcs5_parse_pbkdf2_params() is ignored
-     * since it is optional and we don't know if it was set or not
-     */
+    //The value of keylen from pkcs5_parse_pbkdf2_params() is ignored
+    //since it is optional and we don't know if it was set or not
     keylen = cipher_info->key_bitlen / 8;
 
     if( enc_scheme_params.tag != MBEDTLS_ASN1_OCTET_STRING ||
@@ -212,7 +209,7 @@ exit:
     mbedtls_cipher_free( &cipher_ctx );
 
     return( ret );
-}
+}*/
 
 int mbedtls_pkcs5_pbkdf2_hmac( mbedtls_md_context_t *ctx, const unsigned char *password,
                        size_t plen, const unsigned char *salt, size_t slen,

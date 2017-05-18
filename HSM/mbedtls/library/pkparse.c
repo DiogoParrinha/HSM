@@ -1026,7 +1026,8 @@ static int pk_parse_key_pkcs8_encrypted_der(
     }
     else
 #endif /* MBEDTLS_PKCS12_C */
-#if defined(MBEDTLS_PKCS5_C)
+    	/// COMMENTED BELOW BECAUSE WE DON'T USE PBES2
+/*#if defined(MBEDTLS_PKCS5_C)
     if( MBEDTLS_OID_CMP( MBEDTLS_OID_PKCS5_PBES2, &pbe_alg_oid ) == 0 )
     {
         if( ( ret = mbedtls_pkcs5_pbes2( &pbe_params, MBEDTLS_PKCS5_DECRYPT, pwd, pwdlen,
@@ -1041,7 +1042,7 @@ static int pk_parse_key_pkcs8_encrypted_der(
         decrypted = 1;
     }
     else
-#endif /* MBEDTLS_PKCS5_C */
+#endif*/ /* MBEDTLS_PKCS5_C */
     {
         ((void) pwd);
     }

@@ -11,8 +11,6 @@
 static uint8_t __attribute__((section(".keycode2Section"))) g_key_code[48];
 #endif
 
-USER *u;
-
 int main()
 {
     /* Release USB Controller from Reset */

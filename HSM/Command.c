@@ -59,14 +59,6 @@ void COMMAND_process(uint8_t * command)
 			return;
 		}
 
-		// CRT commands require a secure connection
-		if(!(system_status & STATUS_CONNECTED))
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected");
-			return;
-		}
-
 		COMMAND_CERTMGT_process(command);
 		return;
 	}
@@ -488,14 +480,6 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 	}
 	else if(strcmp(command, "CRT_GET_LOGS") == 0)
 	{
-		// Secure connection, auth
-		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
-			return;
-		}
-
 		uint8_t SUBJECT_NAME[16*BLOCK_SIZE] = "CN=HSM, O=HSM, C=PT"; // subject name shouldn't go over this limit
 		uint16_t keyUsage = MBEDTLS_X509_KU_DIGITAL_SIGNATURE;
 
@@ -514,14 +498,6 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 	}
 	else if(strcmp(command, "CRT_GET_SESSION") == 0)
 	{
-		// Secure connection, auth
-		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
-			return;
-		}
-
 		uint8_t SUBJECT_NAME[16*BLOCK_SIZE] = "CN=HSM, O=HSM, C=PT"; // subject name shouldn't go over this limit
 		uint16_t keyUsage = MBEDTLS_X509_KU_DIGITAL_SIGNATURE;
 
@@ -540,14 +516,6 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 	}
 	else if(strcmp(command, "CRT_GET_ISSUER") == 0)
 	{
-		// Secure connection, auth
-		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
-			return;
-		}
-
 		uint8_t SUBJECT_NAME[16*BLOCK_SIZE] = "CN=HSM, O=HSM, C=PT"; // subject name shouldn't go over this limit
 		uint16_t keyUsage = MBEDTLS_X509_KU_DIGITAL_SIGNATURE;
 
@@ -700,8 +668,7 @@ void COMMAND_SESSION_process(uint8_t * command)
 	{
 		UART_connect();
 
-		char key[32] = {0};
-		if(!SecComm_start(&key[0]))
+		if(!SecComm())
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: init sec comm");

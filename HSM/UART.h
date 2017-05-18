@@ -22,6 +22,7 @@
   Globlal Variables
  */
 uint8_t UART_sessionKey[32]; // 256-bit key
+uint8_t UART_hmacKey[32]; // 256-bit key
 BOOL UART_usingKey;
 
 /*==============================================================================
@@ -55,7 +56,7 @@ int UART_receive(char *location, uint32_t locsize);
 int UART_receive_e(char *location, uint32_t locsize);
 size_t UART_Polled_Rx(mss_uart_instance_t * this_uart, uint8_t * rx_buff, size_t buff_size);
 
-void UART_setKey(uint8_t * key);
+void UART_setKey(uint8_t * sessKey, uint8_t * hmacKey);
 void UART_init();
 void UART_connect();
 BOOL UART_recTime();

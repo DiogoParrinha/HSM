@@ -37,6 +37,7 @@ class UART {
 		bool usingKey;
 		bool usingTime;
 		uint8_t sessionKey[32];
+		uint8_t hmacKey[32];
 
 		int receive_e(uint8_t *location, uint32_t locsize);
 		int send_e(uint8_t *buffer, uint32_t len);
@@ -52,7 +53,7 @@ class UART {
 
 		bool reqCommand();
 
-		void setKey(uint8_t * key, bool use);
+		void setKey(uint8_t * sessKey, uint8_t * hmacKey, bool use);
 		void useTime(bool use);
 		int receive(uint8_t *location, uint32_t locsize);
 		int send(uint8_t *buffer, uint32_t len);

@@ -11,13 +11,6 @@
 #include "common.h"
 #include "mbedtls/ecdh.h"
 
-mbedtls_ecdh_context ctx_cli, ctx_srv;
-unsigned char srv_to_cli[48], cli_to_srv[48];
-mbedtls_entropy_context SecComm_entropy;
-mbedtls_ctr_drbg_context SecComm_ctr_drbg;
-
-BOOL SecComm_establishSessionKey(uint8_t * sessionKey);
-BOOL SecComm_validateSessionKey(uint8_t * key);
-BOOL SecComm_start(uint8_t * key);
+BOOL SecComm();
 
 #endif /* SECCOMM_H_ */
