@@ -10,10 +10,18 @@
 #include <string.h>
 #include <stdbool.h>
 
+
+#include <direct.h>  
+#include <stdlib.h>  
+#include <stdio.h>
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include <ctime>
+#include <locale>
+#include <iomanip>
+
 
 const uint8_t g_separator[] =
 "------------------------------------------------------------------------------\r\n";
@@ -25,6 +33,7 @@ double elapsedTime;
 
 void startTimer();
 void endTimer();
+uint32_t STS_getTime();
 
 int main()
 {
@@ -33,6 +42,10 @@ int main()
 	printf("\tPress ENTER to initiate communication.\r\n");
 	printf("%s", g_separator);
 	getchar();
+
+	uint32_t t = STS_getTime();
+
+	return 0;
 
 	CK_ULONG r = 0;
 	double average = 0.0f;
@@ -551,4 +564,114 @@ void endTimer()
 	// compute and print the elapsed time in millisec
 	elapsedTime = (t2.QuadPart - t1.QuadPart) * 1000.0 / frequency.QuadPart;
 #endif
+}
+
+uint32_t STS_getTime()
+{
+	// Execute sts.bat
+	char buffer[256];
+
+	// Get the current working directory:   
+	if ((_getcwd(buffer, 256)) == NULL)
+		return 0;
+
+	if (strcat_s(buffer, 256, "\\sts.bat\"") != 0)
+		return 0;
+
+	STARTUPINFO si;
+	PROCESS_INFORMATION pi;
+
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
+	ZeroMemory(&pi, sizeof(pi));
+
+	wchar_t cmdline[512] = L"cmd.exe /C \"";
+
+	size_t origsize = strlen(buffer) + 1;
+	size_t convertedChars = 0;
+	wchar_t wcstring[1024];
+	mbstowcs_s(&convertedChars, wcstring, origsize, buffer, _TRUNCATE);
+	wcscat_s(wcstring, L" (wchar_t *)");
+
+	wcscat_s(cmdline, wcstring);
+
+	// Start the child process. 
+	if (!CreateProcess(NULL,   // No module name (use command line)
+		cmdline,        // Command line
+		NULL,           // Process handle not inheritable
+		NULL,           // Thread handle not inheritable
+		FALSE,          // Set handle inheritance to FALSE
+		0,              // No creation flags
+		NULL,           // Use parent's environment block
+		NULL,           // Use parent's starting directory 
+		&si,            // Pointer to STARTUPINFO structure
+		&pi)           // Pointer to PROCESS_INFORMATION structure
+		)
+	{
+		printf("CreateProcess failed (%d).\n", GetLastError());
+		return 0;
+	}
+
+	// Wait until child process exits.
+	WaitForSingleObject(pi.hProcess, INFINITE);
+
+	// Close process and thread handles. 
+	CloseHandle(pi.hProcess);
+	CloseHandle(pi.hThread);
+
+	// Open ./verify.txt
+	// Check if file exists when opening it
+	std::ifstream file("./timestamp/verify.txt");
+	if (!file)
+	{
+		printf("Simple Time Service: could not get timestamp [1].");
+		return false;
+	}
+
+	// Read line by line until we find "Time stamp:"
+	uint32_t time = 0;
+	std::string line;
+	std::string message_head;
+	std::string message_content;
+	while (getline(file, line))
+	{
+		unsigned sep = line.find(':');
+		if (sep != std::string::npos)
+		{
+			message_head = line.substr(0, sep + 1);
+
+			// Do we have 'Time stamp:' in the head?
+			if (message_head.compare("Time stamp:") == 0)
+			{
+				// We've got ourselves the time stamp line
+				message_content = line.substr(sep + 2, line.length() - (sep + 2));
+
+				// Convert to UNIX timestamp
+				std::tm t = {};
+				std::istringstream ss(message_content);
+				ss >> std::get_time(&t, "%b %d %H:%M:%S %Y");
+				if (ss.fail()) {
+					std::cout << "Parse failed\n";
+				}
+				else {
+					std::cout << std::put_time(&t, "%c %Z") << '\n';
+				}
+
+				std::time_t result = std::mktime(&t);
+				std::cout << result << " seconds since the Epoch\n";
+
+				time = result;
+
+				break;
+			}
+		}
+		else
+		{
+			// Not our line for sure
+		}
+	}
+
+	file.close();
+
+	return time;
 }
