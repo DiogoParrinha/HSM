@@ -610,21 +610,80 @@ void COMMAND_TIME_process(uint8_t * command)
 {
 	if(strcmp(command, "TIME_SEND") == 0)
 	{
-		// Receive the current timestamp
+		// Generate 512-bit nonce and send it
+		uint8_t nonce[64] = {0};
+		#ifdef SECURITY_DEVICE
+			/* Generate random bits */
+			uint8_t status = MSS_SYS_nrbg_generate(&nonce[0],    // p_requested_data
+				0,              // p_additional_input
+				64,				// requested_length
+				0,              // additional_input_length
+				0,              // pr_req
+				drbg_handle);   // drbg_handle
+			if(status != MSS_SYS_SUCCESS)
+			{
+				// Respond back with ERROR
+				COMMAND_ERROR("ERROR: no random");
+				return;
+			}
+		#endif
 
-		mss_rtc_calendar_t new_calendar_time;
+		// Start counting time (> 5s difference reject timestamp)
+		mss_rtc_calendar_t new_calendar_time, diff_calendar_time;
+		MSS_RTC_get_calendar_count(&new_calendar_time);
+		UART_send(nonce, 64);
+
+		// Wait for signed nonce + timestamp (64B + 4B) + signature
+		uint8_t data[16*BLOCK_SIZE] = {0};
+		uint32_t signature_len = UART_receive(&data[0], 16*BLOCK_SIZE) - 68;
+
+		uint8_t hash[32] = {0};
+		mbedtls_sha256(data, 68, hash, 0);
+
+		uint8_t signature[8*BLOCK_SIZE] = {0};
+		memcpy(signature, &data[68], signature_len);
+
+		// Check time difference
+		MSS_RTC_get_calendar_count(&diff_calendar_time);
+		uint32_t time1 = convertDateToUnixTime(&new_calendar_time);
+		uint32_t time2 = convertDateToUnixTime(&diff_calendar_time);
+
+		// Same minute?
+		if(time2-time1 > 5)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: too long");
+			return;
+		}
+
+		// Verify signature of its hash
+		uint8_t res = PKC_verifySignature(STS_PUBLIC_KEY, hash, 32, signature, signature_len);
+		if(res == 1)
+		{
+			// Respond back with ERROR
+			UART_send("SIG_ERROR", 9);
+			return;
+		}
+		else if(res == 2)
+		{
+			UART_send("PUBLIC_KEY_ERROR", 16);
+			return;
+		}
+		else if(res == 3)
+		{
+			UART_send("INCORRECT", 9);
+			return;
+		}
+
 		MSS_RTC_get_calendar_count(&new_calendar_time);
 
-		// Expect 4B (32bit timestamp)
-		// Note: buffer must have at least capacity for 1 block (because AES has 16B blocks)
-		uint8_t buffer[BLOCK_SIZE] = {0};
-		UART_receive(&buffer[0], BLOCK_SIZE);
-
 		// Convert this back to an integer of 32bits
-		time_t timestamp = (0x000000FF & buffer[0])
-			| ((0x000000FF & buffer[1]) << 8)
-			| ((0x000000FF & buffer[2]) << 16)
-			| ((0x000000FF & buffer[3]) << 24);
+		time_t timestamp = (0x000000FF & data[64])
+			| ((0x000000FF & data[65]) << 8)
+			| ((0x000000FF & data[66]) << 16)
+			| ((0x000000FF & data[67]) << 24);
+
+		last_timestamp = timestamp; // last timestamp received!
 
 		struct tm * ptm;
 		ptm = gmtime(&timestamp);
@@ -650,15 +709,18 @@ void COMMAND_TIME_process(uint8_t * command)
 		mss_rtc_calendar_t calendar_time;
 		MSS_RTC_get_calendar_count(&calendar_time);
 
-		volatile uint32_t t = convertDateToUnixTime(&calendar_time);
+		/*volatile uint32_t t = convertDateToUnixTime(&calendar_time);
 
 		volatile int a = 0;
-		a++;
+		a++;*/
 
 		// Use timestamp as random seed
 		#ifndef SECURITY_DEVICE
 			srand(timestamp);
 		#endif
+
+		// Send SUCCESS
+		UART_send("SUCCESS", 7);
 	}
 }
 
@@ -675,12 +737,12 @@ void COMMAND_SESSION_process(uint8_t * command)
 			return;
 		}
 
-		if(!UART_recTime())
+		/*if(!UART_recTime())
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: time error");
 			return;
-		}
+		}*/
 
 		// Connected
 		system_status |= STATUS_CONNECTED;

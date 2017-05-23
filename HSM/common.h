@@ -33,6 +33,7 @@
 #include "mbedtls/entropy.h"
 #include "mbedtls/ctr_drbg.h"
 
+#define CHECK_TIME_PACKETS 0
 //#define DEBUG_MODE 1
 void __printf(char *s);
 
@@ -72,6 +73,7 @@ uint8_t tamper_status;
 
 uint32_t LOGS_globalCounter1;
 uint32_t LOGS_globalCounter2;
+uint32_t last_timestamp;
 
 /*------------------------------------------------------------------------------
  * Key and Sizes
@@ -111,6 +113,8 @@ uint8_t FLASH_ENCRYPT_IV[16];
 
 uint8_t SESS_PRIVATE_KEY[ECC_PRIVATE_KEY_SIZE];
 uint8_t SESS_PUBLIC_KEY[ECC_PUBLIC_KEY_SIZE];
+
+#define STS_PUBLIC_KEY "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAELROom/+aALEPQp6puthlq/D1x3MmW0An\nqU52N0qxwvjj0tU9F7bDNkwH7WbY7mvDlgK0pdZkx+IcIOIXyJYI0dZf5ZHyj9ei\nrwDY+JYXywh7bY7wdFXoakIooEeobVWy\n-----END PUBLIC KEY-----\n"
 
 /*------------------------------------------------------------------------------
  * Flash

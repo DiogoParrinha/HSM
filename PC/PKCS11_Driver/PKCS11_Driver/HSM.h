@@ -43,6 +43,8 @@ class HSM : public Device
 		bool checkDevice();
 		bool sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen);
 		void randomArray(CK_BYTE_PTR pData, CK_ULONG ulDataLen);
+		bool execCmd(char * pCmd);
+		bool processResult();
 
 	private:
 		UART* comm;

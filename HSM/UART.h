@@ -17,6 +17,7 @@
 #define ERROR_UART_INVALID_BUFFER		-0x07
 #define ERROR_UART_TIMER				-0x08
 #define ERROR_UART_MEMORY				-0x09
+#define ERROR_UART_OK					-0x0A
 
 /*==============================================================================
   Globlal Variables

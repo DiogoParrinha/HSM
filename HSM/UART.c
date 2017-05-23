@@ -157,7 +157,8 @@ int UART_send_e(uint8_t *buffer, uint32_t len)
 		// Send IV
 		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )IV, BLOCK_SIZE);
 		// Wait for OK
-		UART_waitOK();
+		if(!UART_waitOK())
+			return ERROR_UART_OK;
 
 		// Setup HMAC
 		ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
@@ -206,7 +207,8 @@ int UART_send_e(uint8_t *buffer, uint32_t len)
 	memcpy(dataInfo+4, total_blocks, 4);
 	MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )dataInfo, 8);
 	// Wait for OK
-	UART_waitOK();
+	if(!UART_waitOK())
+		return ERROR_UART_OK;
 
 	// Add dataInfo to HMAC
 	if(UART_usingKey)
@@ -241,7 +243,8 @@ int UART_send_e(uint8_t *buffer, uint32_t len)
 		bytes += BLOCK_SIZE;
 		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )data, BLOCK_SIZE);
 		// Wait for OK
-		UART_waitOK();
+		if(!UART_waitOK())
+			return ERROR_UART_OK;
 	}
 
 	// Anything left to send? (last block may not be 16B)
@@ -288,7 +291,8 @@ int UART_send_e(uint8_t *buffer, uint32_t len)
 		bytes += remaining;
 		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )data, remaining);
 		// Wait for OK
-		UART_waitOK();
+		if(!UART_waitOK())
+			return ERROR_UART_OK;
 	}
 
 	// Send HMAC
@@ -300,10 +304,12 @@ int UART_send_e(uint8_t *buffer, uint32_t len)
 		// Send two blocks of 16B
 		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )HMAC, BLOCK_SIZE);
 		// Wait for OK
-		UART_waitOK();
+		if(!UART_waitOK())
+			return ERROR_UART_OK;
 		MSS_UART_polled_tx(gp_my_uart, (const uint8_t * )HMAC+BLOCK_SIZE, BLOCK_SIZE);
 		// Wait for OK
-		UART_waitOK();
+		if(!UART_waitOK())
+			return ERROR_UART_OK;
 
 		mbedtls_aes_free( &aes_ctx );
 		mbedtls_md_free( &sha_ctx );
@@ -341,7 +347,7 @@ int UART_receive(char *location, uint32_t locsize)
 		| ((0x000000FF & data[r-1]) << 24);
 
 	// Difference > 10s?
-	if((system_status & STATUS_CONNECTED))
+	if((system_status & STATUS_CONNECTED) && CHECK_TIME_PACKETS == 1)
 	{
 		if(abs(rec_timestamp-t) > 10)
 		{

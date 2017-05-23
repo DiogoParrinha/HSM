@@ -56,41 +56,6 @@ bool UART::init()
 	return true;
 }
 
-bool UART::checkDevice()
-{
-	// Send 'DVC_CHECK'
-	reqCommand();
-	uint8_t buffer[4096];
-	sprintf_s((char*)buffer, sizeof(buffer), "DVC_CHECK");
-	int r = send(buffer, 9);
-	if (r != 9)
-	{
-		return false;
-	}
-
-	// Expect SUCCESS
-	memset(buffer, 0, sizeof(buffer));
-	r = receive(&buffer[0], 4096);
-	if (r != 7)
-		return false;
-	buffer[7] = '\0';
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-		return false;
-
-	// Expect HSM_SERIAL_NUMBER
-	uint8_t data[128] = { 0 };
-	r = receive(&data[0], 128);
-	if (r != strlen(HSM_SERIAL_NUMBER))
-	{
-		return false;
-	}
-	buffer[strlen(HSM_SERIAL_NUMBER)] = '\0';
-	if (strcmp((char*)data, HSM_SERIAL_NUMBER) != 0)
-		return false;
-
-	return true;
-}
-
 bool UART::connect()
 {
 	// Send 'Connected'
@@ -103,7 +68,8 @@ bool UART::connect()
 		return false;
 	}
 
-	waitOK();
+	if (!waitOK())
+		return false;
 	printf("OK\n");
 
 	return true;
@@ -204,7 +170,7 @@ int UART::send_e(uint8_t *buffer, uint32_t len)
 	int ret = 0;
 	mbedtls_aes_context aes_ctx;
 	mbedtls_md_context_t sha_ctx;
-	uint8_t IV[16] = { 0x72, 0x88, 0xd4, 0x11, 0x94, 0xea, 0xf7, 0x1c, 0x31, 0xac, 0xc3, 0x8c, 0xc7, 0xdc, 0x82, 0x4b };
+	uint8_t IV[16] = {0};
 	uint8_t HMAC[32] = { 0 };
 	unsigned char data[BLOCK_SIZE];
 
@@ -218,7 +184,8 @@ int UART::send_e(uint8_t *buffer, uint32_t len)
 		// Set AES key
 		mbedtls_aes_setkey_enc(&aes_ctx, sessionKey, 256);
 
-		// TODO: Generate IV
+		// Generate IV
+		randomArray(IV, 16);
 
 		// Send IV
 		if(usb->sendArray(IV, BLOCK_SIZE) != BLOCK_SIZE)
@@ -227,7 +194,8 @@ int UART::send_e(uint8_t *buffer, uint32_t len)
 		}
 
 		// Wait for OK
-		waitOK();
+		if (!waitOK())
+			return false;
 
 		// Setup HMAC
 		ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
@@ -287,7 +255,8 @@ int UART::send_e(uint8_t *buffer, uint32_t len)
 		return ERROR_UART_INVALID_DATAINFO;
 	}
 	// Wait for OK
-	waitOK();
+	if (!waitOK())
+		return false;
 
 	// Add dataInfo to HMAC
 	if (usingKey)
@@ -334,7 +303,8 @@ int UART::send_e(uint8_t *buffer, uint32_t len)
 		plainBytesSent += BLOCK_SIZE;
 
 		// Wait for OK
-		waitOK();
+		if (!waitOK())
+			return false;
 	}
 
 	// Anything left to sent? (last block may not be 16B)
@@ -389,7 +359,8 @@ int UART::send_e(uint8_t *buffer, uint32_t len)
 		bytes += bw;
 
 		// Wait for OK
-		waitOK();
+		if (!waitOK())
+			return false;
 	}
 
 	// Send HMAC
@@ -407,7 +378,9 @@ int UART::send_e(uint8_t *buffer, uint32_t len)
 			return ERROR_UART_BLOCK_SIZE_INVALID;
 		}
 		// Wait for OK
-		waitOK();
+		if (!waitOK())
+			return false;
+
 		if ((usb->sendArray(HMAC+ BLOCK_SIZE, BLOCK_SIZE)) != BLOCK_SIZE)
 		{
 			mbedtls_aes_free(&aes_ctx);
@@ -416,7 +389,8 @@ int UART::send_e(uint8_t *buffer, uint32_t len)
 			return ERROR_UART_BLOCK_SIZE_INVALID;
 		}
 		// Wait for OK
-		waitOK();
+		if (!waitOK())
+			return false;
 
 		mbedtls_aes_free(&aes_ctx);
 		mbedtls_md_free(&sha_ctx);
@@ -489,7 +463,8 @@ int UART::receive_e(uint8_t *location, uint32_t locsize)
 
 		// Expect IV (16B)
 		get(&IV[0], 16u);
-		sendOK();
+		if (!sendOK())
+			return false;
 
 		// Setup HMAC
 		int ret = mbedtls_md_setup(&sha_ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
@@ -510,7 +485,8 @@ int UART::receive_e(uint8_t *location, uint32_t locsize)
 	uint8_t dataArray[8];
 	get(&dataArray[0], 8u);
 	// Send OK
-	sendOK();
+	if (!sendOK())
+		return false;
 
 	// Add dataInfo to HMAC
 	if (usingKey)
@@ -613,7 +589,8 @@ int UART::receive_e(uint8_t *location, uint32_t locsize)
 		bytes += BLOCK_SIZE;
 
 		// Wait for OK
-		sendOK();
+		if (!sendOK())
+			return false;
 	}
 
 	if (usingKey)
@@ -627,10 +604,12 @@ int UART::receive_e(uint8_t *location, uint32_t locsize)
 		uint8_t recHMAC[32];
 		get(&recHMAC[0], 16u);
 		// Send OK
-		sendOK();
+		if (!sendOK())
+			return false;
 		get(&recHMAC[16], 16u);
 		// Send OK
-		sendOK();
+		if (!sendOK())
+			return false;
 
 		// Compare HMACs
 		unsigned char diff = 0;
@@ -672,7 +651,8 @@ int UART::receive_e(uint8_t *location, uint32_t locsize)
 			bytes += remaining;
 
 			// Send OK
-			sendOK();
+			if (!sendOK())
+				return false;
 		}
 	}
 
@@ -952,4 +932,15 @@ int UART::get_pkcs_padding(unsigned char *input, size_t input_len, size_t *data_
 		bad |= (input[i] ^ padding_len) * (i >= pad_idx);
 
 	return(-2 * (bad != 0));
+}
+
+void UART::randomArray(uint8_t* pData, uint32_t ulDataLen)
+{
+	if (pData == NULL)
+		return;
+
+	for (uint32_t i = 0; i < ulDataLen; i++)
+	{
+		pData[i] = rand();
+	}
 }

@@ -35,6 +35,7 @@ int main()
 
 	system_status = STATUS_DEFAULT;
 	tamper_status = STATUS_DEFAULT;
+	last_timestamp = 0;
 
 	// Default admin PIN
 	// TODO: Read from eNVM
@@ -46,7 +47,7 @@ int main()
 		MSS_SYS_nrbg_reset();
 
 		// Instantiate RNG
-		volatile uint8_t status;
+		uint8_t status;
 		status = MSS_SYS_nrbg_instantiate(0, 0, &drbg_handle);
 		if(status != MSS_SYS_SUCCESS)
 		{
@@ -187,30 +188,62 @@ int main()
 
 	/*** Receive commands ***/
 	uint8_t command[64];
+	uint32_t current_timestamp = 0;
 	while(1)
 	{
 		// Wait for COMMAND
 		//UART_waitCOMMAND();
 
-		// If we are in a state of error, we don't even read the command and process it
-		if((system_status & STATUS_TAMPER_DETECTED) || (system_status & STATUS_POR_FAILED))
+		// Alright, client is going to issue a command
+		memset(command, 0, 64);
+		int r = UART_receive(&command[0], 64);
+		if(r < 0) // an error occurred while expecting a command, disconnect with the PC
 		{
 			char message[128] = {0};
-			sprintf(message, "ERROR: failure state 0x%02X", tamper_status);
+			sprintf(message, "ERROR_UART_0x%02X", r);
 			COMMAND_ERROR(message);
+
+			UART_disconnect();
 		}
 		else
 		{
-			// Alright, client is going to issue a command
-			memset(command, 0, 64);
-			int r = UART_receive(&command[0], 64);
-			if(r < 0) // an error occurred while expecting a command, disconnect with the PC
+			// If we are in a state of error...
+			if((system_status & STATUS_TAMPER_DETECTED) || (system_status & STATUS_POR_FAILED))
 			{
-				UART_disconnect();
+				char message[128] = {0};
+				sprintf(message, "ERROR_FAILURE_0x%02X", tamper_status);
+				COMMAND_ERROR(message);
 			}
+			else
+			{
+				// Skip timestamp check for DVC_INIT, DVC_CHECK, TIME_SEND, DVC_TEST
+				if(strcmp(command, "DVC_INIT") == 0 || strcmp(command, "DVC_CHECK") == 0 || strcmp(command, "TIME_SEND") == 0 || strcmp(command, "DVC_TEST") == 0)
+				{
+					UART_send("CONTINUE", 8);
 
-			// Process the command
-			COMMAND_process(command);
+					// Process the command
+					COMMAND_process(command);
+				}
+				else
+				{
+					// Last timestamp was sent over 24h ago?
+					mss_rtc_calendar_t cal_time;
+					MSS_RTC_get_calendar_count(&cal_time);
+					current_timestamp = convertDateToUnixTime(&cal_time);
+					if(last_timestamp == 0 || last_timestamp < current_timestamp-24*60*60)
+					{
+						// Do not process command, request timestamp
+						UART_send("ERROR_NEW_TIME", 14);
+					}
+					else
+					{
+						UART_send("CONTINUE", 8);
+
+						// Process the command
+						COMMAND_process(command);
+					}
+				}
+			}
 		}
 	}
 

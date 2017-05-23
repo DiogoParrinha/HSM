@@ -14,11 +14,12 @@
 #define ERROR_UART_HMAC_MISMATCH 		-0x03
 #define ERROR_UART_BLOCK_SIZE_INVALID	-0x04
 #define ERROR_UART_INVALID_SIZE			-0x05
-#define ERROR_UART_INVALID_DATAINFO		-0x06
-#define ERROR_UART_INVALID_IV			-0x07
-#define ERROR_UART_INVALID_BUFFER		-0x08
-#define ERROR_UART_TIMER				-0x09
-#define ERROR_UART_MEMORY				-0x0A
+#define ERROR_UART_INVALID_IV			-0x06
+#define ERROR_UART_INVALID_BUFFER		-0x07
+#define ERROR_UART_TIMER				-0x08
+#define ERROR_UART_MEMORY				-0x09
+#define ERROR_UART_OK					-0x0A
+#define ERROR_UART_INVALID_DATAINFO		-0x0B
 
 
 class UART {
@@ -32,6 +33,8 @@ class UART {
 		void printBits(size_t const size, void const * const ptr);
 		void add_pkcs_padding(unsigned char *output, size_t output_len, size_t data_len);
 		int get_pkcs_padding(unsigned char *input, size_t input_len, size_t *data_len);
+
+		void randomArray(uint8_t * pData, uint32_t ulDataLen);
 
 		SerialPort *usb;
 		bool usingKey;
@@ -49,7 +52,6 @@ class UART {
 		bool init();
 		bool connect();
 		void disconnect();
-		bool checkDevice();
 
 		bool reqCommand();
 

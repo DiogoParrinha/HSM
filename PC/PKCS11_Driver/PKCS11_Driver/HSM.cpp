@@ -39,6 +39,8 @@
 
 #include <fstream>
 #include <ctime>
+#include <locale>
+#include <iomanip>
 
 #define VERBOSE 1
 
@@ -74,6 +76,9 @@ uint8_t buffer[4096];
 
 mbedtls_x509_crt *logs_cert;
 
+int STS_requestTime(uint8_t nonce[64], uint8_t * response); // receive 512-bit nonce
+uint32_t STS_getTime();
+
 HSM::HSM()
 {
 	comm = new UART();
@@ -103,11 +108,6 @@ HSM::~HSM()
 	comm->disconnect();
 }
 
-bool HSM::checkDevice()
-{
-	return comm->checkDevice();
-}
-
 bool HSM::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 {
 	if (VERBOSE == 1)
@@ -116,13 +116,23 @@ bool HSM::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 	comm->reqCommand();
 	memset(buffer, 0, sizeof(buffer));
 	sprintf_s((char*)buffer, sizeof(buffer), "DVC_TEST");
-	comm->send(buffer, strlen((char*)buffer));
+	int r = comm->send(buffer, strlen((char*)buffer));
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 
 	// Now it expects:
 	// 32B_HASH
 	if (VERBOSE == 1)
 		printf("\n\tSending DATA...");
-	comm->send(pData, ulDataLen);
+	r = comm->send(pData, ulDataLen);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 	if (VERBOSE == 1)
 		printf("OK\n");
 
@@ -130,7 +140,12 @@ bool HSM::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 	if (VERBOSE == 1)
 		printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 512);
+	r = comm->receive(&buffer[0], 512);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -168,16 +183,10 @@ bool HSM::init()
 		printf("OK.\n");
 
 	// Get info
-
-	if (VERBOSE == 1)
-		printf("DVC_CHECK...");
 	if (!checkDevice())
 	{
 		return CK_FALSE;
 	}
-	if (VERBOSE == 1)
-		printf("OK\n");
-
 
 	strcpy_bp(token.tokenInfo.manufacturerID, "INESC-ID", sizeof(token.tokenInfo.manufacturerID));
 	strcpy_bp(token.tokenInfo.model, "PKCS#11", sizeof(token.tokenInfo.model));
@@ -257,13 +266,9 @@ int HSM::startSession()
 	if (sessionLimit())
 		return 1;
 
-	comm->reqCommand();
-
-	if (VERBOSE == 1)
-		printf("SESS_START...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "SESS_START");
-	comm->send(buffer, strlen((char*)buffer));
+	// Exec command 
+	if (!execCmd("SESS_START"))
+		return false;
 	
 	// Initiate secure comm
 	int ret;
@@ -498,19 +503,44 @@ int HSM::startSession()
 	comm->waitOK();
 
 	// send ciphertext
-	comm->send(ciphertext, 32);
+	int r = comm->send(ciphertext, 32);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 
 	// send IV
-	comm->send(salt_IV, 16);
+	r = comm->send(salt_IV, 16);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 
 	// send 48B public key X
-	comm->send(cli_pub_x, 48);
+	r = comm->send(cli_pub_x, 48);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 
 	// send 48B public key Y
-	comm->send(cli_pub_y, 48);
+	r = comm->send(cli_pub_y, 48);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 
 	// send HMAC
-	comm->send(HMAC, 32);
+	r = comm->send(HMAC, 32);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 
 	mbedtls_aes_free(&aes_ctx);
 
@@ -522,6 +552,11 @@ int HSM::startSession()
 	// Receive modified nonce
 	uint8_t rec_nonce[32] = { 0 };
 	ret = comm->receive(rec_nonce, 32);
+	if (ret <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", ret);
+		return false;
+	}
 
 	uint8_t mod_nonce[32];
 	for (int a = 0; a < 32; a++)
@@ -550,11 +585,22 @@ int HSM::startSession()
 		new_mod_nonce[a] = rec_nonce[a] % 16; // rec_nonce[a] mod 16 for now...
 	}
 
-	comm->send(new_mod_nonce, 32);
+	r = comm->send(new_mod_nonce, 32);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 
 	///// Wait for SUCCESS
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 512);
+	r = comm->receive(&buffer[0], 512);
+	if (ret <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
 	{
 		mbedtls_ecdh_free(&ctx_cli);
@@ -570,11 +616,6 @@ int HSM::startSession()
 	mbedtls_ctr_drbg_free(&ctr_drbg);
 	mbedtls_entropy_free(&entropy);
 
-	// Send TIME_SEND and time
-	sendTime();
-
-	comm->useTime(false);
-
 	// increase open sessions
 	openSessions++;
 
@@ -586,25 +627,16 @@ int HSM::startSession()
 
 bool HSM::endSession()
 {
-
-
 	comm->reqCommand();
 
-	if (VERBOSE == 1)
-		printf("SESS_END command...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "SESS_END");
-	comm->send(buffer, strlen((char*)buffer));
-	if (VERBOSE == 1)
-		printf("OK.\n");
+	// Exec command 
+	if (!execCmd("SESS_END"))
+		return false;
 
 	uint8_t data[32] = { 0 };
 	comm->setKey(data, data, false);
-	comm->useTime(false);
 
 	openSessions--;
-
-
 
 	return true;
 }
@@ -620,50 +652,105 @@ bool HSM::sessionLimit()
 
 bool HSM::sendTime()
 {
-	if (VERBOSE == 1)
-		printf("\n\tTIME_SEND...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "TIME_SEND");
-	comm->send(buffer, strlen((char*)buffer));
+	comm->reqCommand();
+
+	// Exec command 
+	if (!execCmd("TIME_SEND"))
+		return false;
+
+	// Expect 512-bit nonce
+	uint8_t nonce[64] = { 0 };
+	int r = comm->receive(nonce, 64);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
+	// Request timestamp + signature
+	uint8_t result[512] = { 0 };
+	int len = STS_requestTime(nonce, result);
+	if (len < 0)
+		return false;
 
 	// Now it expects a timestamp
 	if (VERBOSE == 1)
 		printf("\n\t\tSending DATA...");
-	memset(buffer, 0, sizeof(buffer));
-	uint32_t t = (uint32_t)time(NULL);
+	r = comm->send(result, len);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 	if (VERBOSE == 1)
 		printf("OK.\n");
 
-	// Place the size into an array
-	unsigned char timestamp[4];
-	timestamp[0] = t & 0x000000FF;
-	timestamp[1] = (t & 0x0000FF00) >> 8;
-	timestamp[2] = (t & 0x00FF0000) >> 16;
-	timestamp[3] = (t & 0xFF000000) >> 24;
-	comm->send(timestamp, 4);
+	if (!processResult())
+		return false;
 
 	if (VERBOSE == 1)
-		printf("\tOK.\n");
+		printf("OK.\n");
 
+	// TODO should be uncommented in production (i.e. when we want to really get real timestamps from TSA)
+	//comm->useTime(true);
+
+	return true;
+}
+
+bool HSM::checkDevice()
+{
+	// Exec command 
+	if (!execCmd("DVC_CHECK"))
+		return false;
+
+	// Expect SUCCESS
+	memset(buffer, 0, sizeof(buffer));
+	int r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
+	buffer[7] = '\0';
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		printf("NOT SUCCESS\n");
+		return false;
+	}
+
+	// Expect HSM_SERIAL_NUMBER
+	uint8_t data[128] = { 0 };
+	r = comm->receive(&data[0], 128);
+	if (r != strlen(HSM_SERIAL_NUMBER))
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
+	data[strlen(HSM_SERIAL_NUMBER)] = '\0';
+	if (strcmp((char*)data, HSM_SERIAL_NUMBER) != 0)
+	{
+		printf("INVALID SERIAL NUMBER\n");
+		return false;
+	}
+
+	if (VERBOSE == 1)
+		printf("OK.\n");
+	
 	return true;
 }
 
 int HSM::initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 {
-
-
 	if (ulPinLen != 32) // 32B for PIN
 	{
 		return 1;
 	}
-	
-	comm->reqCommand();
 
-	if (VERBOSE == 1)
-		printf("DVC_INIT...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "DVC_INIT");
-	comm->send(buffer, strlen((char*)buffer));
+	// Exec command 
+	if (!execCmd("DVC_INIT"))
+		return false;
 
 	// Now it expects:
 	// PIN
@@ -671,7 +758,12 @@ int HSM::initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 		printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	memcpy(buffer, pPin, 32);
-	comm->send(buffer, 32);
+	int r = comm->send(buffer, 32);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 	if (VERBOSE == 1)
 		printf("OK\n");
 
@@ -679,7 +771,12 @@ int HSM::initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 	if (VERBOSE == 1)
 		printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 512);
+	r = comm->receive(&buffer[0], 512);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0 && strcmp((char*)buffer, "ALREADY_INIT") != 0)
@@ -690,16 +787,12 @@ int HSM::initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 
 	if (VERBOSE == 1)
 		printf("OK.\n");
-	
-
 
 	return 0;
 }
 
 int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 {
-
-
 	// According to the standard, an application only needs to login once for the same token
 	// Because all sessions with a token share the same login state
 	if (loggedIn)
@@ -719,11 +812,9 @@ int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 	
 	comm->reqCommand();
 
-	if (VERBOSE == 1)
-		printf("SESS_LOGIN...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "SESS_LOGIN");
-	comm->send(buffer, strlen((char*)buffer));
+	// Exec command 
+	if (!execCmd("SESS_LOGIN"))
+		return false;
 
 	// Now it expects:
 	// PIN | ID
@@ -732,7 +823,13 @@ int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 	memset(buffer, 0, sizeof(buffer));
 	memcpy(buffer, pPin, 32);
 	buffer[32] = pPin[32]; // ID
-	comm->send(buffer, 33);
+	int r = comm->send(buffer, 33);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK\n");
 
@@ -740,7 +837,13 @@ int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 	if (VERBOSE == 1)
 		printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 512);
+	r = comm->receive(&buffer[0], 512);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if(strcmp((char*)buffer, "SUCCESS") != 0)
@@ -759,8 +862,6 @@ int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 	authID = pPin[32];
 	loggedIn = true;
 
-
-
 	return 0;
 }
 
@@ -772,21 +873,21 @@ int HSM::logout()
 		return 1;
 	}
 
-
-
-	comm->reqCommand();
-
-	if (VERBOSE == 1)
-		printf("SESS_LOGOUT...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "SESS_LOGOUT");
-	comm->send(buffer, strlen((char*)buffer));
+	// Exec command 
+	if (!execCmd("SESS_LOGOUT"))
+		return false;
 
 	// Wait for 'SUCCESS'
 	if (VERBOSE == 1)
 		printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 512);
+	int r = comm->receive(&buffer[0], 512);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -815,25 +916,25 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 		return false;
 	}
 
-
-
-	if (VERBOSE == 1)
-		printf("DTSN_SIGN...");
+	// Exec command 
+	if (!execCmd("DTSN_SIGN"))
+		return false;
 
 	// Calculate SHA-256 of pData
 	unsigned char digest[32] = { 0 };
 	mbedtls_sha256(pData, ulDataLen, &digest[0], 0);
 
-	comm->reqCommand();
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "DTSN_SIGN");
-	comm->send(buffer, strlen((char*)buffer));
-
 	// Now it expects:
 	// 32B_HASH
 	if (VERBOSE == 1)
 		printf("\n\tSending DATA...");
-	comm->send(digest, 32);
+	int r = comm->send(digest, 32);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK\n");
 
@@ -841,7 +942,13 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 	if (VERBOSE == 1)
 		printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 512);
+	r = comm->receive(&buffer[0], 512);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -856,6 +963,12 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 		printf("\n\tReceiving actual signature...");
 	memset(pSignature, 0, 256);
 	*pulSignatureLen = comm->receive(tempSignature, 256);
+	if (*pulSignatureLen <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", *pulSignatureLen);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK: %d\n", *pulSignatureLen);
 
@@ -885,8 +998,6 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	if (loggedIn && authID == 0)
 		return false;
 	
-
-
 	// Calculate SHA-256 of data
 	unsigned char digest[32] = { 0 };
 	if (loggedIn)
@@ -894,12 +1005,9 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	else
 		mbedtls_sha256(&pData[1], ulDataLen, digest, 0); // message starts at index 1
 
-	comm->reqCommand();
-	if (VERBOSE == 1)
-		printf("DTSN_VERIFY...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "DTSN_VERIFY");
-	comm->send(buffer, strlen((char*)buffer));
+														 // Exec command 
+	if (!execCmd("DTSN_VERIFY"))
+		return false;
 
 	// Now it expects:
 	// 1B ID | 32B_HASH | 1B SIGNATURE SIZE
@@ -914,14 +1022,26 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 
 	memcpy(&buffer[1], digest, 32);
 	buffer[33] = (uint8_t)pulSignatureLen; // won't be bigger than 255 because we check at the beginning
-	comm->send(buffer, 32+1);
+	int r = comm->send(buffer, 32+1);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK\n");
 
 	// Send signature
 	if (VERBOSE == 1)
 		printf("\n\tSending SIGNATURE...");
-	comm->send(pSignature, pulSignatureLen);
+	r = comm->send(pSignature, pulSignatureLen);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK\n");
 
@@ -929,7 +1049,13 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	if (VERBOSE == 1)
 		printf("\n\tReceiving response...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
+	r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -939,8 +1065,6 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 
 	if (VERBOSE == 1)
 		printf("OK.\n");
-
-
 
 	return true;
 }
@@ -953,20 +1077,20 @@ bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR priva
 		return false;
 	}
 
-
-
-	comm->reqCommand();
-	if (VERBOSE == 1)
-		printf("USER_GENKEYS...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "USER_GENKEYS");
-	comm->send(buffer, strlen((char*)buffer));
+	if (!execCmd("USER_GENKEYS"))
+		return false;
 
 	// Wait for 'SUCCESS'
 	if (VERBOSE == 1)
 		printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
+	int r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -974,15 +1098,20 @@ bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR priva
 		return false;
 	}
 
-	int r = 0;
-
 	// Wait for both keys
 	uint8_t pubBuffer[512] = { 0 };
 	if ((r = comm->receive(&pubBuffer[0], 512)) <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
 		return false;
+	}
+
 	uint8_t priBuffer[512] = { 0 };
 	if ((r = comm->receive(&priBuffer[0], 512)) <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
 		return false;
+	}
 
 	// Parse keys
 	mbedtls_pk_context ctx_pri, ctx_pub;
@@ -1050,8 +1179,6 @@ bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR priva
 	if (VERBOSE == 1)
 		printf("OK.\n");
 
-
-
 	return true;
 }
 
@@ -1060,16 +1187,10 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 	if (uid == 0)
 		return false;
 
-
-
 	if (uid > 0)
 	{
-		comm->reqCommand();
-		if (VERBOSE == 1)
-			printf("USER_CERT...");
-		memset(buffer, 0, sizeof(buffer));
-		sprintf_s((char*)buffer, sizeof(buffer), "USER_CERT");
-		comm->send(buffer, strlen((char*)buffer));
+		if (!execCmd("USER_CERT"))
+			return false;
 
 		// Now it expects:
 		// 1B ID
@@ -1077,7 +1198,13 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 			printf("\n\tSending DATA...");
 		memset(buffer, 0, sizeof(buffer));
 		buffer[0] = (CK_BYTE)uid;
-		comm->send(buffer, 1);
+		int r = comm->send(buffer, 1);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
+
 		if (VERBOSE == 1)
 			printf("OK\n");
 
@@ -1085,7 +1212,12 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 		if (VERBOSE == 1)
 			printf("\n\tReceiving SUCCESS...");
 		memset(buffer, 0, sizeof(buffer));
-		comm->receive(&buffer[0], 4096);
+		r = comm->receive(&buffer[0], 4096);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
 		if (VERBOSE == 1)
 			printf("OK: %s\n", buffer);
 		if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -1097,13 +1229,18 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 		if (VERBOSE == 1)
 			printf("\n\tReceiving certificate content...");
 		memset(buffer, 0, sizeof(buffer));
-		comm->receive(&buffer[0], 4096);
+		r = comm->receive(&buffer[0], 4096);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
 		if (VERBOSE == 1)
 			printf("OK.\n");
 
 		mbedtls_x509_crt crt;
 		mbedtls_x509_crt_init(&crt);
-		int r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
+		r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
 		if (r != 0)
 			return false;
 
@@ -1122,18 +1259,19 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 	{
 		// Logs Certificate
 
-		comm->reqCommand();
-		if (VERBOSE == 1)
-			printf("CRT_GET_LOGS...");
-		memset(buffer, 0, sizeof(buffer));
-		sprintf_s((char*)buffer, sizeof(buffer), "CRT_GET_LOGS");
-		comm->send(buffer, strlen((char*)buffer));
+		if (!execCmd("CRT_GET_LOGS"))
+			return false;
 
 		// Wait for 'SUCCESS'
 		if (VERBOSE == 1)
 			printf("\n\tReceiving SUCCESS...");
 		memset(buffer, 0, sizeof(buffer));
-		comm->receive(&buffer[0], 4096);
+		int r = comm->receive(&buffer[0], 4096);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
 		if (VERBOSE == 1)
 			printf("OK: %s\n", buffer);
 		if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -1145,13 +1283,18 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 		if (VERBOSE == 1)
 			printf("\n\tReceiving certificate content...");
 		memset(buffer, 0, sizeof(buffer));
-		comm->receive(&buffer[0], 4096);
+		r = comm->receive(&buffer[0], 4096);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
 		if (VERBOSE == 1)
 			printf("OK.\n");
 
 		mbedtls_x509_crt crt;
 		mbedtls_x509_crt_init(&crt);
-		int r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
+		r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
 		if (r != 0)
 			return false;
 
@@ -1186,18 +1329,19 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 	{
 		// Session Certificate
 
-		comm->reqCommand();
-		if (VERBOSE == 1)
-			printf("CRT_GET_SESSION...");
-		memset(buffer, 0, sizeof(buffer));
-		sprintf_s((char*)buffer, sizeof(buffer), "CRT_GET_SESSION");
-		comm->send(buffer, strlen((char*)buffer));
+		if (!execCmd("CRT_GET_SESSION"))
+			return false;
 
 		// Wait for 'SUCCESS'
 		if (VERBOSE == 1)
 			printf("\n\tReceiving SUCCESS...");
 		memset(buffer, 0, sizeof(buffer));
-		comm->receive(&buffer[0], 4096);
+		int r = comm->receive(&buffer[0], 4096);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
 		if (VERBOSE == 1)
 			printf("OK: %s\n", buffer);
 		if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -1209,13 +1353,18 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 		if (VERBOSE == 1)
 			printf("\n\tReceiving certificate content...");
 		memset(buffer, 0, sizeof(buffer));
-		comm->receive(&buffer[0], 4096);
+		r = comm->receive(&buffer[0], 4096);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
 		if (VERBOSE == 1)
 			printf("OK.\n");
 
 		mbedtls_x509_crt crt;
 		mbedtls_x509_crt_init(&crt);
-		int r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
+		r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
 		if (r != 0)
 			return false;
 
@@ -1250,18 +1399,19 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 	{
 		// Issuer Certificate
 
-		comm->reqCommand();
-		if (VERBOSE == 1)
-			printf("CRT_GET_ISSUER...");
-		memset(buffer, 0, sizeof(buffer));
-		sprintf_s((char*)buffer, sizeof(buffer), "CRT_GET_ISSUER");
-		comm->send(buffer, strlen((char*)buffer));
+		if (!execCmd("CRT_GET_ISSUER"))
+			return false;
 
 		// Wait for 'SUCCESS'
 		if (VERBOSE == 1)
 			printf("\n\tReceiving SUCCESS...");
 		memset(buffer, 0, sizeof(buffer));
-		comm->receive(&buffer[0], 4096);
+		int r = comm->receive(&buffer[0], 4096);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
 		if (VERBOSE == 1)
 			printf("OK: %s\n", buffer);
 		if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -1273,13 +1423,18 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 		if (VERBOSE == 1)
 			printf("\n\tReceiving certificate content...");
 		memset(buffer, 0, sizeof(buffer));
-		comm->receive(&buffer[0], 4096);
+		r = comm->receive(&buffer[0], 4096);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
 		if (VERBOSE == 1)
 			printf("OK.\n");
 
 		mbedtls_x509_crt crt;
 		mbedtls_x509_crt_init(&crt);
-		int r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
+		r = mbedtls_x509_crt_parse(&crt, buffer, strlen((char*)buffer) + 1);
 		if (r != 0)
 			return false;
 
@@ -1313,8 +1468,6 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 	else
 		return false;
 
-
-
 	return true;
 }
 
@@ -1322,8 +1475,6 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 {
 	if (!loggedIn || !isAdmin)
 		return false;
-
-
 
 	// Parse Public Key (must be in PEM format)
 	mbedtls_pk_context ctx_pub;
@@ -1394,12 +1545,8 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	keyUsageArray[0] = keyUsage & 0x000000FF;
 	keyUsageArray[1] = (keyUsage & 0x0000FF00) >> 8;
 
-	comm->reqCommand();
-	if (VERBOSE == 1)
-		printf("CRT_REQUEST command...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "CRT_REQUEST");
-	comm->send(buffer, strlen((char*)buffer));
+	if (!execCmd("CRT_REQUEST"))
+		return false;
 
 	// Now it expects:
 	// subject name + \0 or 0 (should be the same thing) | 1B for key usage
@@ -1410,7 +1557,13 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	buffer[strlen((char*)subjectName)] = '\0';
 	buffer[strlen((char*)subjectName) + 1] = keyUsageArray[0];
 	buffer[strlen((char*)subjectName) + 2] = keyUsageArray[1];
-	comm->send(buffer, strlen((char*)subjectName) + 1 + 2); // +1 because of \0 at the end of subject name and +2 because of key usage
+	int r = comm->send(buffer, strlen((char*)subjectName) + 1 + 2); // +1 because of \0 at the end of subject name and +2 because of key usage
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK\n");
 
@@ -1419,7 +1572,13 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 		printf("\n\tSending public key...");
 	memset(buffer, 0, sizeof(buffer));
 	memcpy(buffer, publicKey, strlen((char*)publicKey)*sizeof(CK_UTF8CHAR));
-	comm->send(buffer, strlen((char*)buffer)+1);
+	r = comm->send(buffer, strlen((char*)buffer)+1);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK\n");
 
@@ -1427,7 +1586,12 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	if (VERBOSE == 1)
 		printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
+	r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -1440,7 +1604,12 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	if (VERBOSE == 1)
 		printf("\n\tReceiving certificate content...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
+	r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 	if (VERBOSE == 1)
 		printf("OK.\n");
 
@@ -1451,8 +1620,6 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	memcpy(certificate, buffer, strlen((char*)buffer) + 1);
 
 	mbedtls_pk_free(&ctx_pub);
-
-
 
 	return true;
 }
@@ -1465,14 +1632,8 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 	if (ulPinLen != 32)
 		return false;
 
-
-
-	comm->reqCommand();
-	if (VERBOSE == 1)
-		printf("USER_NEW...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "USER_NEW");
-	comm->send(buffer, strlen((char*)buffer));
+	if (!execCmd("USER_NEW"))
+		return false;
 
 	// Now it expects:
 	// USER_PIN
@@ -1480,7 +1641,13 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 		printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	memcpy((char*)buffer, pPin, ulPinLen*sizeof(CK_UTF8CHAR));
-	comm->send(buffer, strlen((char*)buffer));
+	int r = comm->send(buffer, strlen((char*)buffer));
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK\n");
 
@@ -1488,7 +1655,12 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 	if (VERBOSE == 1)
 		printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
+	r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -1500,7 +1672,12 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 	if (VERBOSE == 1)
 		printf("\n\tReceiving ID...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
+	r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
 	if (VERBOSE == 1)
 		printf("OK: %d\n", buffer[0]);
 	if (buffer[0] <= 0 || buffer[0] > 255)
@@ -1510,8 +1687,6 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 		printf("OK.\n");
 
 	*uID = buffer[0];
-
-
 
 	return true;
 }
@@ -1524,14 +1699,8 @@ bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 	if (ulPinLen != 32)
 		return false;
 
-
-
-	comm->reqCommand();
-	if (VERBOSE == 1)
-		printf("USER_MODIFY...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "USER_MODIFY");
-	comm->send(buffer, strlen((char*)buffer));
+	if (!execCmd("USER_MODIFY"))
+		return false;
 
 	// Now it expects:
 	// USER_PIN
@@ -1539,7 +1708,13 @@ bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 		printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	memcpy((char*)buffer, pPin, ulPinLen * sizeof(CK_UTF8CHAR));
-	comm->send(buffer, strlen((char*)buffer));
+	int r = comm->send(buffer, strlen((char*)buffer));
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK\n");
 
@@ -1547,7 +1722,13 @@ bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 	if (VERBOSE == 1)
 		printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
+	r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -1571,14 +1752,8 @@ bool HSM::deleteUser(CK_BYTE uID)
 	if (uID <= 0 || uID > 255)
 		return false;
 
-
-
-	comm->reqCommand();
-	if (VERBOSE == 1)
-		printf("USER_DELETE...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "USER_DELETE");
-	comm->send(buffer, strlen((char*)buffer));
+	if (!execCmd("USER_DELETE"))
+		return false;
 
 	// Now it expects:
 	// USER_ID
@@ -1586,7 +1761,13 @@ bool HSM::deleteUser(CK_BYTE uID)
 		printf("\n\tSending DATA...");
 	memset(buffer, 0, sizeof(buffer));
 	buffer[0] = uID;
-	comm->send(buffer, 1);
+	int r = comm->send(buffer, 1);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK\n");
 
@@ -1594,7 +1775,13 @@ bool HSM::deleteUser(CK_BYTE uID)
 	if (VERBOSE == 1)
 		printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
+	r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -1604,8 +1791,6 @@ bool HSM::deleteUser(CK_BYTE uID)
 
 	if (VERBOSE == 1)
 		printf("OK.\n");
-
-
 
 	return true;
 }
@@ -1754,24 +1939,32 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 
 	if (elpased == 1)
 	{
-		comm->reqCommand();
-		if (VERBOSE == 1)
-			printf("LOGS_ADD...");
-		memset(buffer, 0, sizeof(buffer));
-		sprintf_s((char*)buffer, sizeof(buffer), "LOGS_ADD");
-		comm->send(buffer, strlen((char*)buffer));
+		if (!execCmd("LOGS_ADD"))
+			return false;
 
 		// Send message
 		if (VERBOSE == 1)
 			printf("\n\tSending message...");
-		comm->send(pMessage, lMessage);
+		int r = comm->send(pMessage, lMessage);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
+
 		if (VERBOSE == 1)
 			printf("OK\n");
 
 		// Send previous hash
 		if (VERBOSE == 1)
 			printf("\n\tSending previous hash...");
-		comm->send(prevHash, 32);
+		r = comm->send(prevHash, 32);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
+
 		if (VERBOSE == 1)
 			printf("OK\n");
 
@@ -1779,7 +1972,13 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 		if (VERBOSE == 1)
 			printf("\n\tReceiving response...");
 		memset(buffer, 0, sizeof(buffer));
-		comm->receive(&buffer[0], 4096);
+		r = comm->receive(&buffer[0], 4096);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
+
 		if (VERBOSE == 1)
 			printf("OK: %s\n", buffer);
 		if (strcmp((char*)buffer, "SUCCESS") != 0)
@@ -1791,7 +1990,13 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 		if (VERBOSE == 1)
 			printf("\n\tReceiving logged message...");
 		memset(buffer, 0, sizeof(buffer));
-		comm->receive(&buffer[0], 4096);
+		r = comm->receive(&buffer[0], 4096);
+		if (r <= 0)
+		{
+			printf("UART ERROR: 0x%02X\n", r);
+			return false;
+		}
+
 		if (VERBOSE == 1)
 			printf("OK.\n");
 
@@ -1812,8 +2017,10 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 		uint32_t sig_len = comm->receive(&signature[0], 256);
 		if (sig_len <= 0)
 		{
+			printf("UART ERROR: 0x%02X\n", sig_len);
 			return false;
 		}
+
 		if (VERBOSE == 1)
 			printf("OK.\n");
 
@@ -2515,30 +2722,24 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 
 bool HSM::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
 {
-	comm->reqCommand();
-	if (VERBOSE == 1)
-		printf("LOGS_COUNTERS...");
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "LOGS_COUNTERS");
-	comm->send(buffer, strlen((char*)buffer));
-
-	// Wait for 'SUCCESS'
-	if (VERBOSE == 1)
-		printf("\n\tReceiving SUCCESS...");
-	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-	{
+	// Exec command 
+	if (!execCmd("LOGS_COUNTERS"))
 		return false;
-	}
+
+	if (!processResult())
+		return false;
 
 	// Wait for counters
 	if (VERBOSE == 1)
 		printf("\n\tReceiving counters...");
 	memset(buffer, 0, sizeof(buffer));
-	comm->receive(&buffer[0], 4096);
+	int r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
 	if (VERBOSE == 1)
 		printf("OK.\n");
 
@@ -2548,3 +2749,321 @@ bool HSM::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
 
 	return true;
 }
+
+bool HSM::execCmd(char * pCmd)
+{
+	if (strlen(pCmd) > 64)
+	{
+		printf("\nERROR: Command length > 64B\n");
+		return false;
+	}
+
+	comm->reqCommand();
+	if (VERBOSE == 1)
+		printf("%s...", pCmd);
+	int r = comm->send((uint8_t*)pCmd, strlen((char*)pCmd));
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
+	// Expect CONTINUE, otherwise we have an error
+	uint8_t response[256] = { 0 };
+	memset(response, 0, sizeof(response));
+	r = comm->receive(&response[0], 256);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+	
+	if (strcmp((char*)response, "CONTINUE") != 0)
+	{
+		printf("\nDEVICE ERROR [1]: %s\n", response);
+
+		if (strcmp((char*)response, "ERROR_NEW_TIME") == 0)
+		{
+			if (!sendTime())
+			{
+				printf("\nUPDATE TIME FAILED\n");
+				return false;
+			}
+
+			comm->reqCommand();
+			if (VERBOSE == 1)
+				printf("%s...", pCmd);
+			int r = comm->send((uint8_t*)pCmd, strlen((char*)pCmd));
+			if (r <= 0)
+			{
+				printf("UART ERROR: 0x%02X\n", r);
+				return false;
+			}
+
+			// Expect CONTINUE, otherwise we have an error
+			memset(response, 0, sizeof(response));
+			r = comm->receive(&response[0], 256);
+			if (r <= 0)
+			{
+				printf("UART ERROR: 0x%02X\n", r);
+				return false;
+			}
+
+			if (strcmp((char*)response, "CONTINUE") != 0)
+			{
+				// Fail completely
+				printf("\nDEVICE ERROR [2]: %s\n", response);
+				return false;
+			}
+		}
+		else
+		{
+			// Tamper detection error most likely
+			printf("\nDEVICE TAMPER ERROR [3]: %s\n", response);
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool HSM::processResult()
+{
+	uint8_t res[4096] = { 0 };
+
+	// Wait for 'SUCCESS'
+	if (VERBOSE == 1)
+		printf("\n\tReceiving SUCCESS...");
+	int r = comm->receive(&res[0], 4096);
+	if (r <= 0)
+	{
+		printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
+	if (VERBOSE == 1)
+		printf("RES: %s\n", res);
+	if (strcmp((char*)res, "SUCCESS") != 0)
+	{
+		// TODO: I need to modify all error messages in the device code so that we can properly process them here
+
+		printf("\nERROR HANDLING TODO\n");
+		return false;
+	}
+
+	if (VERBOSE == 1)
+		printf("OK\n");
+
+	return true;
+}
+
+/***********************/
+/**Simple Time Service**/
+/***********************/
+#define STS_PRIVATE_KEY "-----BEGIN EC PRIVATE KEY-----\nMIGlAgEBBDEA7NnOz61bZhEdNmeHO7DrJV+Z06B+2iIsboHKZgvf8GVDkgK1X/aR\nKvbXlNCtY+/ooAcGBSuBBAAioWQDYgAELROom/+aALEPQp6puthlq/D1x3MmW0An\nqU52N0qxwvjj0tU9F7bDNkwH7WbY7mvDlgK0pdZkx+IcIOIXyJYI0dZf5ZHyj9ei\nrwDY+JYXywh7bY7wdFXoakIooEeobVWy\n-----END EC PRIVATE KEY-----\n"
+#define STS_PUBLIC_KEY "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAELROom/+aALEPQp6puthlq/D1x3MmW0An\nqU52N0qxwvjj0tU9F7bDNkwH7WbY7mvDlgK0pdZkx+IcIOIXyJYI0dZf5ZHyj9ei\nrwDY+JYXywh7bY7wdFXoakIooEeobVWy\n-----END PUBLIC KEY-----\n"
+
+int STS_requestTime(uint8_t nonce[64], uint8_t * response)
+{
+	uint32_t time = STS_getTime();
+
+	uint8_t hash[32] = { 0 };
+	uint8_t in[68]; // 64 nonce | 4B timestamp
+
+	// nonce
+	memcpy(in, nonce, 64);
+
+	// timestamp
+	in[64] = time & 0x000000FF;
+	in[65] = (time & 0x0000FF00) >> 8;
+	in[66] = (time & 0x00FF0000) >> 16;
+	in[67] = (time & 0xFF000000) >> 24;
+
+	// hash of concatenation
+	mbedtls_sha256(in, 68, hash, 0);
+
+	mbedtls_pk_context ctx;
+	mbedtls_entropy_context entropy;
+	mbedtls_ctr_drbg_context ctr_drbg;
+	const char *pers = "ecdsa";
+
+	mbedtls_pk_init(&ctx);
+	mbedtls_ctr_drbg_init(&ctr_drbg);
+	mbedtls_entropy_init(&entropy);
+
+	int ret = 0;
+
+	if ((ret = mbedtls_ctr_drbg_seed(&ctr_drbg, mbedtls_entropy_func, &entropy,
+		(const unsigned char *)pers,
+		strlen(pers))) != 0)
+	{
+		return -1;
+	}
+
+	// Parse private key
+	ret = mbedtls_pk_parse_key(&ctx, (uint8_t*)STS_PRIVATE_KEY, strlen(STS_PRIVATE_KEY) + 1, NULL, 0);
+	if (ret != 0)
+	{
+		mbedtls_pk_free(&ctx);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+		return -2;
+	}
+
+	uint8_t signature[128] = { 0 };
+	uint32_t signature_len = 0;
+	if ((ret = mbedtls_pk_sign(&ctx, MBEDTLS_MD_SHA256, hash, 32, signature, &signature_len,
+		mbedtls_ctr_drbg_random, &ctr_drbg)) != 0)
+	{
+		mbedtls_pk_free(&ctx);
+		mbedtls_ctr_drbg_free(&ctr_drbg);
+		mbedtls_entropy_free(&entropy);
+		return -3;
+	}
+
+	/*mbedtls_pk_context ctxv;
+	mbedtls_pk_init(&ctxv);
+
+	// Parse public key
+	ret = mbedtls_pk_parse_public_key(&ctxv, (uint8_t*)STS_PUBLIC_KEY, strlen(STS_PUBLIC_KEY) + 1);
+	if (ret != 0)
+	{
+	mbedtls_pk_free(&ctx);
+	mbedtls_pk_free(&ctxv);
+	mbedtls_ctr_drbg_free(&ctr_drbg);
+	mbedtls_entropy_free(&entropy);
+	return -4;
+	}
+
+	//Verify signature
+	ret = mbedtls_pk_verify(&ctxv, MBEDTLS_MD_SHA256, hash, 32, signature, signature_len);
+	if (ret != 0)
+	{
+	mbedtls_pk_free(&ctx);
+	mbedtls_pk_free(&ctxv);
+	mbedtls_ctr_drbg_free(&ctr_drbg);
+	mbedtls_entropy_free(&entropy);
+	return -5;
+	}
+	mbedtls_pk_free(&ctxv);*/
+
+	mbedtls_pk_free(&ctx);
+	mbedtls_ctr_drbg_free(&ctr_drbg);
+	mbedtls_entropy_free(&entropy);
+
+	memcpy(response, in, 68);
+	memcpy(&response[68], signature, signature_len);
+
+	return 64 + 4 + signature_len; // nonce + timestamp + sig
+}
+
+uint32_t STS_getTime()
+{
+	// Execute sts.bat
+	char buffer[256];
+
+	// Get the current working directory:   
+	if ((_getcwd(buffer, 256)) == NULL)
+		return 0;
+
+	if (strcat_s(buffer, 256, "\\sts.bat\"") != 0)
+		return 0;
+
+	STARTUPINFO si;
+	PROCESS_INFORMATION pi;
+
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
+	ZeroMemory(&pi, sizeof(pi));
+
+	wchar_t cmdline[512] = L"cmd.exe /C \"";
+
+	size_t origsize = strlen(buffer) + 1;
+	size_t convertedChars = 0;
+	wchar_t wcstring[1024];
+	mbstowcs_s(&convertedChars, wcstring, origsize, buffer, _TRUNCATE);
+	wcscat_s(wcstring, L" (wchar_t *)");
+
+	wcscat_s(cmdline, wcstring);
+
+	// Start the child process. 
+	if (!CreateProcess(NULL,   // No module name (use command line)
+		cmdline,        // Command line
+		NULL,           // Process handle not inheritable
+		NULL,           // Thread handle not inheritable
+		FALSE,          // Set handle inheritance to FALSE
+		0,              // No creation flags
+		NULL,           // Use parent's environment block
+		NULL,           // Use parent's starting directory 
+		&si,            // Pointer to STARTUPINFO structure
+		&pi)           // Pointer to PROCESS_INFORMATION structure
+		)
+	{
+		printf("CreateProcess failed (%d).\n", GetLastError());
+		return 0;
+	}
+
+	// Wait until child process exits.
+	WaitForSingleObject(pi.hProcess, INFINITE);
+
+	// Close process and thread handles. 
+	CloseHandle(pi.hProcess);
+	CloseHandle(pi.hThread);
+
+	// Open ./verify.txt
+	// Check if file exists when opening it
+	std::ifstream file("./timestamp/verify.txt");
+	if (!file)
+	{
+		printf("Simple Time Service: could not get timestamp [1].");
+		return false;
+	}
+
+	// Read line by line until we find "Time stamp:"
+	uint32_t time = 0;
+	std::string line;
+	std::string message_head;
+	std::string message_content;
+	while (getline(file, line))
+	{
+		unsigned sep = line.find(':');
+		if (sep != std::string::npos)
+		{
+			message_head = line.substr(0, sep + 1);
+
+			// Do we have 'Time stamp:' in the head?
+			if (message_head.compare("Time stamp:") == 0)
+			{
+				// We've got ourselves the time stamp line
+				message_content = line.substr(sep + 2, line.length() - (sep + 2));
+
+				// Convert to UNIX timestamp
+				std::tm t = {};
+				std::istringstream ss(message_content);
+				ss >> std::get_time(&t, "%b %d %H:%M:%S %Y");
+				if (ss.fail()) {
+					std::cout << "Parse failed\n";
+				}
+				else {
+					std::cout << std::put_time(&t, "%c %Z") << '\n';
+				}
+
+				std::time_t result = std::mktime(&t) + 60*60; // TODO: maybe try to convert GMT to our timezone (which is +1 but could be anything else)
+				std::cout << result << " seconds since the Epoch\n";
+
+				time = (uint32_t)result;
+
+				break;
+			}
+		}
+		else
+		{
+			// Not our line for sure
+		}
+	}
+
+	file.close();
+
+	return time;
+}
+
