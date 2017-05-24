@@ -119,7 +119,8 @@ bool HSM::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 	int r = comm->send(buffer, strlen((char*)buffer));
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -130,31 +131,15 @@ bool HSM::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 	r = comm->send(pData, ulDataLen);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 	if (VERBOSE == 1)
 		printf("OK\n");
 
-	// Wait for 'SUCCESS'
-	if (VERBOSE == 1)
-		printf("\n\tReceiving SUCCESS...");
-	memset(buffer, 0, sizeof(buffer));
-	r = comm->receive(&buffer[0], 512);
-	if (r <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
+	if (!processResult())
 		return false;
-	}
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-	{
-		printf("\nError logging in: %s\n", buffer);
-		return false;
-	}
-
-
 
 	return true;
 }
@@ -291,7 +276,8 @@ int HSM::startSession()
 		mbedtls_ctr_drbg_free(&ctr_drbg);
 		mbedtls_entropy_free(&entropy);
 
-		mbedtls_printf(" failed\n  ! mbedtls_ctr_drbg_seed returned %d\n", ret);
+		if (VERBOSE == 1)
+			printf(" failed\n  ! mbedtls_ctr_drbg_seed returned %d\n", ret);
 		return 2;
 	}
 
@@ -304,7 +290,8 @@ int HSM::startSession()
 		mbedtls_ctr_drbg_free(&ctr_drbg);
 		mbedtls_entropy_free(&entropy);
 
-		mbedtls_printf(" failed\n  ! mbedtls_ecp_group_load returned %d\n", ret);
+		if (VERBOSE == 1)
+			printf(" failed\n  ! mbedtls_ecp_group_load returned %d\n", ret);
 		return 3;
 	}
 
@@ -315,7 +302,8 @@ int HSM::startSession()
 		mbedtls_ctr_drbg_free(&ctr_drbg);
 		mbedtls_entropy_free(&entropy);
 
-		mbedtls_printf(" failed\n  ! mbedtls_ecdh_gen_public returned %d\n", ret);
+		if (VERBOSE == 1)
+			printf(" failed\n  ! mbedtls_ecdh_gen_public returned %d\n", ret);
 		return 4;
 	}
 
@@ -326,7 +314,8 @@ int HSM::startSession()
 		mbedtls_ctr_drbg_free(&ctr_drbg);
 		mbedtls_entropy_free(&entropy);
 
-		mbedtls_printf(" failed\n  ! mbedtls_mpi_write_binary returned %d\n", ret);
+		if (VERBOSE == 1)
+			printf(" failed\n  ! mbedtls_mpi_write_binary returned %d\n", ret);
 		return 5;
 	}
 
@@ -337,7 +326,8 @@ int HSM::startSession()
 		mbedtls_ctr_drbg_free(&ctr_drbg);
 		mbedtls_entropy_free(&entropy);
 
-		mbedtls_printf(" failed\n  ! mbedtls_mpi_write_binary returned %d\n", ret);
+		if (VERBOSE == 1)
+			printf(" failed\n  ! mbedtls_mpi_write_binary returned %d\n", ret);
 		return 6;
 	}
 	
@@ -349,7 +339,8 @@ int HSM::startSession()
 		mbedtls_ctr_drbg_free(&ctr_drbg);
 		mbedtls_entropy_free(&entropy);
 
-		mbedtls_printf("Not enough memory for session.cert\n");
+		if (VERBOSE == 1)
+			printf("Not enough memory for session.cert\n");
 		return 7;
 	}
 
@@ -365,7 +356,8 @@ int HSM::startSession()
 		mbedtls_x509_crt_free(session_cert);
 
 		// certificate is missing, can't validate chain
-		mbedtls_printf("Error parsing public key certificate.\n");
+		if (VERBOSE == 1)
+			printf("Error parsing public key certificate.\n");
 		
 		return 8;
 	}
@@ -383,7 +375,8 @@ int HSM::startSession()
 		mbedtls_entropy_free(&entropy);
 		mbedtls_x509_crt_free(session_cert);
 
-		mbedtls_printf(" failed\n  ! mbedtls_mpi_lset returned %d\n", ret);
+		if (VERBOSE == 1)
+			printf(" failed\n  ! mbedtls_mpi_lset returned %d\n", ret);
 		return 9;
 	}
 
@@ -401,7 +394,8 @@ int HSM::startSession()
 		mbedtls_entropy_free(&entropy);
 		mbedtls_x509_crt_free(session_cert);
 
-		mbedtls_printf(" failed\n  ! mbedtls_ecdh_calc_secret returned %d\n", ret);
+		if (VERBOSE == 1)
+			printf(" failed\n  ! mbedtls_ecdh_calc_secret returned %d\n", ret);
 		return 10;
 	}
 
@@ -506,7 +500,8 @@ int HSM::startSession()
 	int r = comm->send(ciphertext, 32);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -514,7 +509,8 @@ int HSM::startSession()
 	r = comm->send(salt_IV, 16);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -522,7 +518,8 @@ int HSM::startSession()
 	r = comm->send(cli_pub_x, 48);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -530,7 +527,8 @@ int HSM::startSession()
 	r = comm->send(cli_pub_y, 48);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -538,7 +536,8 @@ int HSM::startSession()
 	r = comm->send(HMAC, 32);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -554,7 +553,8 @@ int HSM::startSession()
 	ret = comm->receive(rec_nonce, 32);
 	if (ret <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", ret);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", ret);
 		return false;
 	}
 
@@ -572,7 +572,8 @@ int HSM::startSession()
 			mbedtls_ctr_drbg_free(&ctr_drbg);
 			mbedtls_entropy_free(&entropy);
 
-			mbedtls_printf("Received nonce does not match modified nonce.\n");
+			if (VERBOSE == 1)
+				printf("Received nonce does not match modified nonce.\n");
 			return 15;
 		}
 	}
@@ -588,26 +589,20 @@ int HSM::startSession()
 	r = comm->send(new_mod_nonce, 32);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
 	///// Wait for SUCCESS
-	memset(buffer, 0, sizeof(buffer));
-	r = comm->receive(&buffer[0], 512);
-	if (ret <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
-		return false;
-	}
-
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	if (!processResult())
 	{
 		mbedtls_ecdh_free(&ctx_cli);
 		mbedtls_ctr_drbg_free(&ctr_drbg);
 		mbedtls_entropy_free(&entropy);
 
-		mbedtls_printf("Not SUCCESS at sess start.\n");
+		if (VERBOSE == 1)
+			printf("Not SUCCESS at sess start.\n");
 
 		return 16;
 	}
@@ -663,7 +658,8 @@ bool HSM::sendTime()
 	int r = comm->receive(nonce, 64);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -679,7 +675,8 @@ bool HSM::sendTime()
 	r = comm->send(result, len);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 	if (VERBOSE == 1)
@@ -703,35 +700,25 @@ bool HSM::checkDevice()
 	if (!execCmd("DVC_CHECK"))
 		return false;
 
-	// Expect SUCCESS
-	memset(buffer, 0, sizeof(buffer));
-	int r = comm->receive(&buffer[0], 4096);
-	if (r <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
+	// Wait for 'SUCCESS'
+	if (!processResult())
 		return false;
-	}
-
-	buffer[7] = '\0';
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-	{
-		printf("NOT SUCCESS\n");
-		return false;
-	}
 
 	// Expect HSM_SERIAL_NUMBER
 	uint8_t data[128] = { 0 };
-	r = comm->receive(&data[0], 128);
+	int r = comm->receive(&data[0], 128);
 	if (r != strlen(HSM_SERIAL_NUMBER))
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
 	data[strlen(HSM_SERIAL_NUMBER)] = '\0';
 	if (strcmp((char*)data, HSM_SERIAL_NUMBER) != 0)
 	{
-		printf("INVALID SERIAL NUMBER\n");
+		if (VERBOSE == 1)
+			printf("INVALID SERIAL NUMBER\n");
 		return false;
 	}
 
@@ -767,21 +754,23 @@ int HSM::initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 	if (VERBOSE == 1)
 		printf("OK\n");
 
-	// Wait for 'SUCCESS'
+	// Wait for 'SUCCESS' (different from processResult)
 	if (VERBOSE == 1)
 		printf("\n\tReceiving SUCCESS...");
 	memset(buffer, 0, sizeof(buffer));
 	r = comm->receive(&buffer[0], 512);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 	if (VERBOSE == 1)
 		printf("OK: %s\n", buffer);
 	if (strcmp((char*)buffer, "SUCCESS") != 0 && strcmp((char*)buffer, "ALREADY_INIT") != 0)
 	{
-		printf("\nError initing in: %s\n", buffer);
+		if (VERBOSE == 1)
+			printf("\nError initing in: %s\n", buffer);
 		return 2;
 	}
 
@@ -826,34 +815,17 @@ int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 	int r = comm->send(buffer, 33);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
-		return false;
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
+		return 3;
 	}
 
 	if (VERBOSE == 1)
 		printf("OK\n");
 
 	// Wait for 'SUCCESS'
-	if (VERBOSE == 1)
-		printf("\n\tReceiving SUCCESS...");
-	memset(buffer, 0, sizeof(buffer));
-	r = comm->receive(&buffer[0], 512);
-	if (r <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
-		return false;
-	}
-
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if(strcmp((char*)buffer, "SUCCESS") != 0)
-	{
-		printf("\nError logging in: %s\n", buffer);
-		return 3;
-	}
-
-	if (VERBOSE == 1)
-		printf("OK.\n");
+	if (!processResult())
+		return 4;
 
 	isAdmin = false;
 	if (userType == CKU_SO)
@@ -875,26 +847,11 @@ int HSM::logout()
 
 	// Exec command 
 	if (!execCmd("SESS_LOGOUT"))
-		return false;
+		return 2;
 
 	// Wait for 'SUCCESS'
-	if (VERBOSE == 1)
-		printf("\n\tReceiving SUCCESS...");
-	memset(buffer, 0, sizeof(buffer));
-	int r = comm->receive(&buffer[0], 512);
-	if (r <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
-		return false;
-	}
-
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-	{
-		printf("\nError logging out: %s\n", buffer);
+	if (!processResult())
 		return 3;
-	}
 
 	if (VERBOSE == 1)
 		printf("OK.\n");
@@ -902,9 +859,7 @@ int HSM::logout()
 	authID = 0;
 	isAdmin = false;
 	loggedIn = false;
-
-
-
+	
 	return 0;
 }
 
@@ -931,31 +886,17 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 	int r = comm->send(digest, 32);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
 	if (VERBOSE == 1)
 		printf("OK\n");
 
-	// Wait for 'SIGNATURE'
-	if (VERBOSE == 1)
-		printf("\n\tReceiving SUCCESS...");
-	memset(buffer, 0, sizeof(buffer));
-	r = comm->receive(&buffer[0], 512);
-	if (r <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
+	// Wait for 'SUCCESS'
+	if (!processResult())
 		return false;
-	}
-
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-	{
-		printf("\nError: %s\n", buffer);
-		return false;
-	}
 
 	// Wait for actual signature
 	uint8_t tempSignature[256];
@@ -978,8 +919,6 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 
 	if (VERBOSE == 1)
 		printf("OK.\n");
-
-
 
 	return true;
 }
@@ -1025,7 +964,8 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	int r = comm->send(buffer, 32+1);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -1038,33 +978,17 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	r = comm->send(pSignature, pulSignatureLen);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
 	if (VERBOSE == 1)
 		printf("OK\n");
 
-	// Wait for response
-	if (VERBOSE == 1)
-		printf("\n\tReceiving response...");
-	memset(buffer, 0, sizeof(buffer));
-	r = comm->receive(&buffer[0], 4096);
-	if (r <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
+	// Wait for 'SUCCESS'
+	if (!processResult())
 		return false;
-	}
-
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-	{
-		return false;
-	}
-
-	if (VERBOSE == 1)
-		printf("OK.\n");
 
 	return true;
 }
@@ -1081,35 +1005,24 @@ bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR priva
 		return false;
 
 	// Wait for 'SUCCESS'
-	if (VERBOSE == 1)
-		printf("\n\tReceiving SUCCESS...");
-	memset(buffer, 0, sizeof(buffer));
-	int r = comm->receive(&buffer[0], 4096);
-	if (r <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
+	if (!processResult())
 		return false;
-	}
-
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-	{
-		return false;
-	}
 
 	// Wait for both keys
 	uint8_t pubBuffer[512] = { 0 };
+	int r = 0;
 	if ((r = comm->receive(&pubBuffer[0], 512)) <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
 	uint8_t priBuffer[512] = { 0 };
 	if ((r = comm->receive(&priBuffer[0], 512)) <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -1201,7 +1114,8 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 		int r = comm->send(buffer, 1);
 		if (r <= 0)
 		{
-			printf("UART ERROR: 0x%02X\n", r);
+			if (VERBOSE == 1)
+				printf("UART ERROR: 0x%02X\n", r);
 			return false;
 		}
 
@@ -1209,21 +1123,8 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 			printf("OK\n");
 
 		// Wait for 'SUCCESS'
-		if (VERBOSE == 1)
-			printf("\n\tReceiving SUCCESS...");
-		memset(buffer, 0, sizeof(buffer));
-		r = comm->receive(&buffer[0], 4096);
-		if (r <= 0)
-		{
-			printf("UART ERROR: 0x%02X\n", r);
+		if (!processResult())
 			return false;
-		}
-		if (VERBOSE == 1)
-			printf("OK: %s\n", buffer);
-		if (strcmp((char*)buffer, "SUCCESS") != 0)
-		{
-			return false;
-		}
 
 		// Wait for actual certificate
 		if (VERBOSE == 1)
@@ -1232,7 +1133,8 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 		r = comm->receive(&buffer[0], 4096);
 		if (r <= 0)
 		{
-			printf("UART ERROR: 0x%02X\n", r);
+			if (VERBOSE == 1)
+				printf("UART ERROR: 0x%02X\n", r);
 			return false;
 		}
 		if (VERBOSE == 1)
@@ -1263,30 +1165,18 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 			return false;
 
 		// Wait for 'SUCCESS'
-		if (VERBOSE == 1)
-			printf("\n\tReceiving SUCCESS...");
-		memset(buffer, 0, sizeof(buffer));
-		int r = comm->receive(&buffer[0], 4096);
-		if (r <= 0)
-		{
-			printf("UART ERROR: 0x%02X\n", r);
+		if (!processResult())
 			return false;
-		}
-		if (VERBOSE == 1)
-			printf("OK: %s\n", buffer);
-		if (strcmp((char*)buffer, "SUCCESS") != 0)
-		{
-			return false;
-		}
 
 		// Wait for actual certificate
 		if (VERBOSE == 1)
 			printf("\n\tReceiving certificate content...");
 		memset(buffer, 0, sizeof(buffer));
-		r = comm->receive(&buffer[0], 4096);
+		int r = comm->receive(&buffer[0], 4096);
 		if (r <= 0)
 		{
-			printf("UART ERROR: 0x%02X\n", r);
+			if (VERBOSE == 1)
+				printf("UART ERROR: 0x%02X\n", r);
 			return false;
 		}
 		if (VERBOSE == 1)
@@ -1309,10 +1199,14 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 		{
 			if (_mkdir("./certs") == 0)
 			{
-				printf("Directory './certs' was successfully created\n");
+				if (VERBOSE == 1)
+					printf("Directory './certs' was successfully created\n");
 			}
-			else
-				printf("Problem creating directory './certs'\n");
+			else {
+				if (VERBOSE == 1)
+					printf("Problem creating directory './certs'\n");
+				return false;
+			}
 		}
 		else
 			closedir(dir);
@@ -1333,30 +1227,18 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 			return false;
 
 		// Wait for 'SUCCESS'
-		if (VERBOSE == 1)
-			printf("\n\tReceiving SUCCESS...");
-		memset(buffer, 0, sizeof(buffer));
-		int r = comm->receive(&buffer[0], 4096);
-		if (r <= 0)
-		{
-			printf("UART ERROR: 0x%02X\n", r);
+		if (!processResult())
 			return false;
-		}
-		if (VERBOSE == 1)
-			printf("OK: %s\n", buffer);
-		if (strcmp((char*)buffer, "SUCCESS") != 0)
-		{
-			return false;
-		}
 
 		// Wait for actual certificate
 		if (VERBOSE == 1)
 			printf("\n\tReceiving certificate content...");
 		memset(buffer, 0, sizeof(buffer));
-		r = comm->receive(&buffer[0], 4096);
+		int r = comm->receive(&buffer[0], 4096);
 		if (r <= 0)
 		{
-			printf("UART ERROR: 0x%02X\n", r);
+			if (VERBOSE == 1)
+				printf("UART ERROR: 0x%02X\n", r);
 			return false;
 		}
 		if (VERBOSE == 1)
@@ -1379,10 +1261,14 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 		{
 			if (_mkdir("./certs") == 0)
 			{
-				printf("Directory './certs' was successfully created\n");
+				if (VERBOSE == 1)
+					printf("Directory './certs' was successfully created\n");
 			}
-			else
-				printf("Problem creating directory './certs'\n");
+			else {
+				if (VERBOSE == 1)
+					printf("Problem creating directory './certs'\n");
+				return false;
+			}
 		}
 		else
 			closedir(dir);
@@ -1403,30 +1289,18 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 			return false;
 
 		// Wait for 'SUCCESS'
-		if (VERBOSE == 1)
-			printf("\n\tReceiving SUCCESS...");
-		memset(buffer, 0, sizeof(buffer));
-		int r = comm->receive(&buffer[0], 4096);
-		if (r <= 0)
-		{
-			printf("UART ERROR: 0x%02X\n", r);
+		if (!processResult())
 			return false;
-		}
-		if (VERBOSE == 1)
-			printf("OK: %s\n", buffer);
-		if (strcmp((char*)buffer, "SUCCESS") != 0)
-		{
-			return false;
-		}
 
 		// Wait for actual certificate
 		if (VERBOSE == 1)
 			printf("\n\tReceiving certificate content...");
 		memset(buffer, 0, sizeof(buffer));
-		r = comm->receive(&buffer[0], 4096);
+		int r = comm->receive(&buffer[0], 4096);
 		if (r <= 0)
 		{
-			printf("UART ERROR: 0x%02X\n", r);
+			if (VERBOSE == 1)
+				printf("UART ERROR: 0x%02X\n", r);
 			return false;
 		}
 		if (VERBOSE == 1)
@@ -1449,10 +1323,14 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 		{
 			if (_mkdir("./certs") == 0)
 			{
-				printf("Directory './certs' was successfully created\n");
+				if (VERBOSE == 1)
+					printf("Directory './certs' was successfully created\n");
 			}
-			else
-				printf("Problem creating directory './certs'\n");
+			else {
+				if (VERBOSE == 1)
+					printf("Problem creating directory './certs'\n");
+				return false;
+			}
 		}
 		else
 			closedir(dir);
@@ -1560,7 +1438,8 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	int r = comm->send(buffer, strlen((char*)subjectName) + 1 + 2); // +1 because of \0 at the end of subject name and +2 because of key usage
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -1575,7 +1454,8 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	r = comm->send(buffer, strlen((char*)buffer)+1);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -1583,18 +1463,7 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 		printf("OK\n");
 
 	// Wait for 'SUCCESS'
-	if (VERBOSE == 1)
-		printf("\n\tReceiving SUCCESS...");
-	memset(buffer, 0, sizeof(buffer));
-	r = comm->receive(&buffer[0], 4096);
-	if (r <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
-		return false;
-	}
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	if (!processResult())
 	{
 		mbedtls_pk_free(&ctx_pub);
 		return false;
@@ -1607,7 +1476,9 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 	r = comm->receive(&buffer[0], 4096);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
+		mbedtls_pk_free(&ctx_pub);
 		return false;
 	}
 	if (VERBOSE == 1)
@@ -1644,7 +1515,8 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 	int r = comm->send(buffer, strlen((char*)buffer));
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -1652,21 +1524,8 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 		printf("OK\n");
 
 	// Wait for 'SUCCESS'
-	if (VERBOSE == 1)
-		printf("\n\tReceiving SUCCESS...");
-	memset(buffer, 0, sizeof(buffer));
-	r = comm->receive(&buffer[0], 4096);
-	if (r <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
+	if (!processResult())
 		return false;
-	}
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-	{
-		return false;
-	}
 
 	// Wait for ID (1B)
 	if (VERBOSE == 1)
@@ -1675,7 +1534,8 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 	r = comm->receive(&buffer[0], 4096);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 	if (VERBOSE == 1)
@@ -1711,7 +1571,8 @@ bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 	int r = comm->send(buffer, strlen((char*)buffer));
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -1719,27 +1580,8 @@ bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 		printf("OK\n");
 
 	// Wait for 'SUCCESS'
-	if (VERBOSE == 1)
-		printf("\n\tReceiving SUCCESS...");
-	memset(buffer, 0, sizeof(buffer));
-	r = comm->receive(&buffer[0], 4096);
-	if (r <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
+	if (!processResult())
 		return false;
-	}
-
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-	{
-		return false;
-	}
-
-	if (VERBOSE == 1)
-		printf("OK.\n");
-
-
 
 	return true;
 }
@@ -1764,7 +1606,8 @@ bool HSM::deleteUser(CK_BYTE uID)
 	int r = comm->send(buffer, 1);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -1772,25 +1615,8 @@ bool HSM::deleteUser(CK_BYTE uID)
 		printf("OK\n");
 
 	// Wait for 'SUCCESS'
-	if (VERBOSE == 1)
-		printf("\n\tReceiving SUCCESS...");
-	memset(buffer, 0, sizeof(buffer));
-	r = comm->receive(&buffer[0], 4096);
-	if (r <= 0)
-	{
-		printf("UART ERROR: 0x%02X\n", r);
+	if (!processResult())
 		return false;
-	}
-
-	if (VERBOSE == 1)
-		printf("OK: %s\n", buffer);
-	if (strcmp((char*)buffer, "SUCCESS") != 0)
-	{
-		return false;
-	}
-
-	if (VERBOSE == 1)
-		printf("OK.\n");
 
 	return true;
 }
@@ -1817,10 +1643,14 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	{
 		if (_mkdir("./logchain") == 0)
 		{
-			printf("Directory './logchain' was successfully created\n");
+			if (VERBOSE == 1)
+				printf("Directory './logchain' was successfully created\n");
 		}
-		else
-			printf("Problem creating directory './logchain'\n");
+		else {
+			if (VERBOSE == 1)
+				printf("Problem creating directory './logchain'\n");
+			return false;
+		}
 	}
 	else
 		closedir(dir);
@@ -1905,7 +1735,8 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 			}
 		}
 		else
-			printf("Error opening file for reading.\n");
+			if (VERBOSE == 1)
+				printf("Error opening file for reading.\n");
 	}
 
 	// If there are no existing hashes, use pMessage as the Chain-Root and therefore our hash = all 0s
@@ -1948,7 +1779,8 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 		int r = comm->send(pMessage, lMessage);
 		if (r <= 0)
 		{
-			printf("UART ERROR: 0x%02X\n", r);
+			if (VERBOSE == 1)
+				printf("UART ERROR: 0x%02X\n", r);
 			return false;
 		}
 
@@ -1961,7 +1793,8 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 		r = comm->send(prevHash, 32);
 		if (r <= 0)
 		{
-			printf("UART ERROR: 0x%02X\n", r);
+			if (VERBOSE == 1)
+				printf("UART ERROR: 0x%02X\n", r);
 			return false;
 		}
 
@@ -1975,7 +1808,8 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 		r = comm->receive(&buffer[0], 4096);
 		if (r <= 0)
 		{
-			printf("UART ERROR: 0x%02X\n", r);
+			if (VERBOSE == 1)
+				printf("UART ERROR: 0x%02X\n", r);
 			return false;
 		}
 
@@ -1993,7 +1827,8 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 		r = comm->receive(&buffer[0], 4096);
 		if (r <= 0)
 		{
-			printf("UART ERROR: 0x%02X\n", r);
+			if (VERBOSE == 1)
+				printf("UART ERROR: 0x%02X\n", r);
 			return false;
 		}
 
@@ -2017,7 +1852,8 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 		uint32_t sig_len = comm->receive(&signature[0], 256);
 		if (sig_len <= 0)
 		{
-			printf("UART ERROR: 0x%02X\n", sig_len);
+			if (VERBOSE == 1)
+				printf("UART ERROR: 0x%02X\n", sig_len);
 			return false;
 		}
 
@@ -2075,10 +1911,14 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	{
 		if (_mkdir(path) == 0)
 		{
-			printf("Directory '%s' was successfully created\n", path);
+			if (VERBOSE == 1)
+				printf("Directory '%s' was successfully created\n", path);
 		}
-		else
-			printf("Problem creating directory '%s'\n", path);
+		else {
+			if (VERBOSE == 1)
+				printf("Problem creating directory %s\n", path);
+			return false;
+		}
 	}
 	else
 		closedir(dir);
@@ -2088,10 +1928,14 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	{
 		if (_mkdir(path) == 0)
 		{
-			printf("Directory '%s' was successfully created\n", path);
+			if (VERBOSE == 1)
+				printf("Directory '%s' was successfully created\n", path);
 		}
-		else
-			printf("Problem creating directory '%s'\n", path);
+		else {
+			if (VERBOSE == 1)
+				printf("Problem creating directory %s\n", path);
+			return false;
+		}
 	}
 	else
 		closedir(dir);
@@ -2126,7 +1970,8 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 	DIR *dir;
 	if ((dir = opendir(readPath)) == NULL)
 	{
-		printf("Directory '%s' does not exist.\n", readPath);
+		if (VERBOSE == 1)
+			printf("Directory '%s' does not exist.\n", readPath);
 		return false;
 	}
 	else
@@ -2138,7 +1983,8 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 	std::ifstream file(readPath);
 	if (!file)
 	{
-		printf("File '%s' does not exist.\n", readPath);
+		if (VERBOSE == 1)
+			printf("File '%s' does not exist.\n", readPath);
 		return false;
 	}
 
@@ -2157,7 +2003,8 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		if (ret != 0)
 		{
 			// certificate is missing, can't validate chain
-			printf("Error parsing public key certificate.\n");
+			if (VERBOSE == 1)
+				printf("Error parsing public key certificate.\n");
 			mbedtls_x509_crt_free(logs_cert);
 			logs_cert = NULL;
 			file.close();
@@ -2192,7 +2039,8 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		}
 		else
 		{
-			printf("Invalid format 1 on line %d\n", l);
+			if (VERBOSE == 1)
+				printf("Invalid format 1 on line %d\n", l);
 			file.close();
 			return false;
 		}
@@ -2226,7 +2074,8 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		}
 		else
 		{
-			printf("Invalid format 2 on line %d\n", l);
+			if (VERBOSE == 1)
+				printf("Invalid format 2 on line %d\n", l);
 			file.close();
 			return false;
 		}
@@ -2234,7 +2083,8 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		// Compare both
 		if (memcmp(hash, hash_v, 32) != 0)
 		{
-			printf("Hash mismatch on line %d\n", l);
+			if (VERBOSE == 1)
+				printf("Hash mismatch on line %d\n", l);
 			file.close();
 			return false;
 		}
@@ -2254,7 +2104,8 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 				uint32_t olen = 0;
 				if (mbedtls_base64_decode(signature, 512, &olen, buf, base64_sig.length()) != 0)
 				{
-					printf("Base64 Decode of Signature on line %d\n", l);
+					if (VERBOSE == 1)
+						printf("Base64 Decode of Signature on line %d\n", l);
 					file.close();
 					return false;
 				}
@@ -2263,7 +2114,8 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 				int ret = mbedtls_pk_verify(&logs_cert->pk, MBEDTLS_MD_SHA256, hash, 32, signature, olen);
 				if (ret != 0)
 				{
-					printf("Signature mismatch on line %d\n", l);
+					if (VERBOSE == 1)
+						printf("Signature mismatch on line %d\n", l);
 					file.close();
 					return false;
 				}
@@ -2272,11 +2124,13 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 				lastMessage = message.c_str();
 			}
 			else
-				printf("Skipping signature verification on line %d\n", l);
+				if (VERBOSE == 1)
+					printf("Skipping signature verification on line %d\n", l);
 		}
 		else
 		{
-			printf("Invalid format 3 on line %d\n", l);
+			if (VERBOSE == 1)
+				printf("Invalid format 3 on line %d\n", l);
 			file.close();
 			return false;
 		}
@@ -2295,7 +2149,8 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 				)
 			)
 		{
-			printf("Embedded hash mismatch on line %d\n", l);
+			if (VERBOSE == 1)
+				printf("Embedded hash mismatch on line %d\n", l);
 			file.close();
 			return false;
 		}
@@ -2327,7 +2182,8 @@ bool HSM::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevH
 	DIR *dir;
 	if ((dir = opendir(readPath)) == NULL)
 	{
-		printf("Directory '%s' does not exist.\n", readPath);
+		if (VERBOSE == 1)
+			printf("Directory '%s' does not exist.\n", readPath);
 		return false;
 	}
 	else
@@ -2388,7 +2244,8 @@ bool HSM::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevH
 		bool r = logsVerifyDay(d, lMonth, lYear, &prev_hash[0], fullChain);
 		if (r == false)
 		{
-			printf("\nError verifying day %d\n", d);
+			if (VERBOSE == 1)
+				printf("\nError verifying day %d\n", d);
 			return false;
 		}
 	}
@@ -2412,7 +2269,8 @@ bool HSM::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL full
 	DIR *dir;
 	if ((dir = opendir(readPath)) == NULL)
 	{
-		printf("Directory '%s' does not exist.\n", readPath);
+		if (VERBOSE == 1)
+			printf("Directory '%s' does not exist.\n", readPath);
 		return false;
 	}
 	else
@@ -2456,7 +2314,8 @@ bool HSM::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL full
 		bool r = logsVerifyMonth(m, lYear, &prev_hash[0], fullChain);
 		if (r == false)
 		{
-			printf("\nError verifying month %d\n", m);
+			if (VERBOSE == 1)
+				printf("\nError verifying month %d\n", m);
 			return false;
 		}
 	}
@@ -2509,11 +2368,13 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 			memset(readPath, 0, 256);
 	}
 
-	printf("\nRoot file: %s\n", readPath);
+	if (VERBOSE == 1)
+		printf("\nRoot file: %s\n", readPath);
 
 	if (memcmp(readPath, zero, 256) == 0)
 	{
-		printf("There is not chain to verify.");
+		if (VERBOSE == 1)
+			printf("There is no chain to verify.");
 		return false;
 	}
 
@@ -2532,7 +2393,8 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 		if (ret != 0)
 		{
 			// certificate is missing, can't validate chain
-			printf("Error parsing public key certificate.\n");
+			if (VERBOSE == 1)
+				printf("Error parsing public key certificate.\n");
 			free(logs_cert);
 			logs_cert = NULL;
 			return false;
@@ -2564,7 +2426,8 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 		}
 		else
 		{
-			printf("Invalid format 1 on root-line\n");
+			if (VERBOSE == 1)
+				printf("Invalid format 1 on root-line\n");
 			file.close();
 			return false;
 		}
@@ -2591,14 +2454,16 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 			uint32_t olen = 0;
 			if (mbedtls_base64_decode(hash_v, 32, &olen, buf, base64_hash.length()) != 0)
 			{
-				printf("Base64 Decode of Hash on root-line\n");
+				if (VERBOSE == 1)
+					printf("Base64 Decode of Hash on root-line\n");
 				file.close();
 				return false;
 			}
 		}
 		else
 		{
-			printf("Invalid format 2 on root-line\n");
+			if (VERBOSE == 1)
+				printf("Invalid format 2 on root-line\n");
 			file.close();
 			return false;
 		}
@@ -2606,7 +2471,8 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 		// Compare both
 		if (memcmp(hash, hash_v, 32) != 0)
 		{
-			printf("Hash mismatch on root-line\n");
+			if (VERBOSE == 1)
+				printf("Hash mismatch on root-line\n");
 			file.close();
 			return false;
 		}
@@ -2623,7 +2489,8 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 			uint32_t olen = 0;
 			if (mbedtls_base64_decode(signature, 512, &olen, buf, base64_hash.length()) != 0)
 			{
-				printf("Base64 Decode of Signature on root-line\n");
+				if (VERBOSE == 1)
+					printf("Base64 Decode of Signature on root-line\n");
 				file.close();
 				return false;
 			}
@@ -2644,14 +2511,16 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 			ret = mbedtls_pk_verify(&logs_cert->pk, MBEDTLS_MD_SHA256, hash, 32, signature, olen);
 			if (ret != 0)
 			{
-				printf("Signature mismatch on root-line\n");
+				if (VERBOSE == 1)
+					printf("Signature mismatch on root-line\n");
 				file.close();
 				return false;
 			}
 		}
 		else
 		{
-			printf("Invalid format 3 on root-line\n");
+			if (VERBOSE == 1)
+				printf("Invalid format 3 on root-line\n");
 			file.close();
 			return false;
 		}
@@ -2685,7 +2554,8 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 		bool r = logsVerifyYear(y, &prev_hash[0], CK_TRUE);
 		if (r == false)
 		{
-			printf("\nError verifying year %d\n", y);
+			if (VERBOSE == 1)
+				printf("\nError verifying year %d\n", y);
 			return false;
 		}
 	}
@@ -2711,7 +2581,8 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 
 	if (c1 != counter1 || c2 != counter2)
 	{
-		printf("Last counter does not match internal counter.\n");
+		if (VERBOSE == 1)
+			printf("Last counter does not match internal counter.\n");
 		return false;
 	}
 
@@ -2736,7 +2607,8 @@ bool HSM::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
 	int r = comm->receive(&buffer[0], 4096);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -2754,7 +2626,8 @@ bool HSM::execCmd(char * pCmd)
 {
 	if (strlen(pCmd) > 64)
 	{
-		printf("\nERROR: Command length > 64B\n");
+		if (VERBOSE == 1)
+			printf("\nERROR: Command length > 64B\n");
 		return false;
 	}
 
@@ -2764,7 +2637,8 @@ bool HSM::execCmd(char * pCmd)
 	int r = comm->send((uint8_t*)pCmd, strlen((char*)pCmd));
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -2774,19 +2648,22 @@ bool HSM::execCmd(char * pCmd)
 	r = comm->receive(&response[0], 256);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 	
 	if (strcmp((char*)response, "CONTINUE") != 0)
 	{
-		printf("\nDEVICE ERROR [1]: %s\n", response);
+		if (VERBOSE == 1)
+			printf("\nDEVICE ERROR [1]: %s\n", response);
 
 		if (strcmp((char*)response, "ERROR_NEW_TIME") == 0)
 		{
 			if (!sendTime())
 			{
-				printf("\nUPDATE TIME FAILED\n");
+				if (VERBOSE == 1)
+					printf("\nUPDATE TIME FAILED\n");
 				return false;
 			}
 
@@ -2796,7 +2673,8 @@ bool HSM::execCmd(char * pCmd)
 			int r = comm->send((uint8_t*)pCmd, strlen((char*)pCmd));
 			if (r <= 0)
 			{
-				printf("UART ERROR: 0x%02X\n", r);
+				if (VERBOSE == 1)
+					printf("UART ERROR: 0x%02X\n", r);
 				return false;
 			}
 
@@ -2805,21 +2683,24 @@ bool HSM::execCmd(char * pCmd)
 			r = comm->receive(&response[0], 256);
 			if (r <= 0)
 			{
-				printf("UART ERROR: 0x%02X\n", r);
+				if (VERBOSE == 1)
+					printf("UART ERROR: 0x%02X\n", r);
 				return false;
 			}
 
 			if (strcmp((char*)response, "CONTINUE") != 0)
 			{
 				// Fail completely
-				printf("\nDEVICE ERROR [2]: %s\n", response);
+				if (VERBOSE == 1)
+					printf("\nDEVICE ERROR [2]: %s\n", response);
 				return false;
 			}
 		}
 		else
 		{
 			// Tamper detection error most likely
-			printf("\nDEVICE TAMPER ERROR [3]: %s\n", response);
+			if (VERBOSE == 1)
+				printf("\nDEVICE TAMPER ERROR [3]: %s\n", response);
 			return false;
 		}
 	}
@@ -2837,7 +2718,8 @@ bool HSM::processResult()
 	int r = comm->receive(&res[0], 4096);
 	if (r <= 0)
 	{
-		printf("UART ERROR: 0x%02X\n", r);
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
 		return false;
 	}
 
@@ -2847,7 +2729,8 @@ bool HSM::processResult()
 	{
 		// TODO: I need to modify all error messages in the device code so that we can properly process them here
 
-		printf("\nERROR HANDLING TODO\n");
+		if (VERBOSE == 1)
+			printf("\nERROR: %s\n", res);
 		return false;
 	}
 

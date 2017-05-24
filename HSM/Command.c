@@ -758,9 +758,6 @@ void COMMAND_SESSION_process(uint8_t * command)
 		}
 
 		UART_disconnect();
-
-		// Unset connected
-		system_status &= ~STATUS_CONNECTED;
 	}
 	else if(strcmp(command, "SESS_LOGIN") == 0)
 	{
@@ -958,5 +955,4 @@ void COMMAND_ERROR(char * message)
 {
 	UART_send(message, strlen(message));
 	UART_disconnect();
-	system_status = STATUS_DEFAULT;
 }

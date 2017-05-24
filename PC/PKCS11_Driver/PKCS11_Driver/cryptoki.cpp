@@ -2352,7 +2352,7 @@ CK_RV HSM_C_LogCounter(CK_SESSION_HANDLE hSession, CK_ULONG_PTR lNumber1, CK_ULO
 		return CKR_SESSION_HANDLE_INVALID;
 	}
 
-	if (d->logsGetCounter(lNumber1, lNumber2))
+	if (!d->logsGetCounter(lNumber1, lNumber2))
 	{
 		return CKR_FUNCTION_FAILED;
 	}

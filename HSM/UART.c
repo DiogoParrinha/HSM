@@ -56,6 +56,9 @@ void UART_disconnect()
 	memset(UART_sessionKey, 0, 32);
 	memset(UART_hmacKey, 0, 32);
 	UART_usingKey = FALSE;
+	system_status &= ~STATUS_ISADMIN;
+	system_status &= ~STATUS_LOGGEDIN;
+	system_status &= ~STATUS_CONNECTED;
 }
 
 void UART_setKey(uint8_t * sessKey, uint8_t * hmacKey)
@@ -384,7 +387,9 @@ int UART_receive_e(char *location, uint32_t locsize)
 		mbedtls_aes_setkey_dec(&aes_ctx, UART_sessionKey, 256);
 
 		// Expect IV (16B)
-		UART_get(&IV[0], 16u);
+		if(UART_get(&IV[0], 16u) != 16)
+			return ERROR_UART_RESPTIME;
+
 		UART_sendOK();
 
 		// Setup HMAC
@@ -407,7 +412,8 @@ int UART_receive_e(char *location, uint32_t locsize)
 	// We are supposed to receive 4B
 	// Size is split among 4B (up to ~4GB (4*1024^3))
 	uint8_t dataArray[8];
-	UART_get(&dataArray[0], 8u);
+	if(UART_get(&dataArray[0], 8u) != 8)
+		return ERROR_UART_RESPTIME;
 	// Send OK
 	UART_sendOK();
 
@@ -456,7 +462,8 @@ int UART_receive_e(char *location, uint32_t locsize)
 		memset(data, 0, sizeof(data));
 
 		// Read chunk
-		UART_get(data, BLOCK_SIZE);
+		if(UART_get(data, BLOCK_SIZE) != BLOCK_SIZE)
+			return ERROR_UART_RESPTIME;
 
 		if(UART_usingKey)
 		{
@@ -518,10 +525,14 @@ int UART_receive_e(char *location, uint32_t locsize)
 		// HMAC(IV || dataInfo || C)
 		// Compare HMACs
 		uint8_t recHMAC[32];
-		UART_get(&recHMAC[0], 16u);
+		if(UART_get(&recHMAC[0], 16u) != 16)
+			return ERROR_UART_RESPTIME;
+
 		// Send OK
 		UART_sendOK();
-		UART_get(&recHMAC[16], 16u);
+		if(UART_get(&recHMAC[16], 16u) != 16)
+			return ERROR_UART_RESPTIME;
+
 		// Send OK
 		UART_sendOK();
 
@@ -557,7 +568,8 @@ int UART_receive_e(char *location, uint32_t locsize)
 			memset(data, 0, sizeof(data));
 
 			// Read remaining data
-			UART_get(data, remaining);
+			if(UART_get(data, remaining) != remaining)
+					return ERROR_UART_RESPTIME;
 
 			memcpy(location + chunk * BLOCK_SIZE, data, remaining);
 
@@ -584,7 +596,9 @@ BOOL UART_waitOK()
 	while(1)
 	{
 		//UART_receive(&ok[0], BLOCK_SIZE);
-		UART_get(&ok[0], 2u);
+		if(UART_get(&ok[0], 2u) != 2)
+			return FALSE;
+
 		if(ok[0] != '0' || ok[1] != '1')
 		{
 			__printf("\nError: not OK.");
@@ -645,39 +659,50 @@ size_t UART_Polled_Rx
 
 	mss_rtc_calendar_t calendar_count1;
 	mss_rtc_calendar_t calendar_count2;
-
-	MSS_RTC_get_calendar_count(&calendar_count1);
-	uint32_t time_base = convertDateToUnixTime(&calendar_count1);
-	uint32_t new_time = 0;
+	uint32_t time1 = 0, time2 = 0;
 
 	while( rx_size < buff_size )
 	{
-		/*MSS_RTC_get_calendar_count(&calendar_count2);
-		new_time = convertDateToUnixTime(&calendar_count2);
-
-		// Same minute?
-		if(calendar_count2.minute == calendar_count1.minute)
+		if(rx_size == 1)
 		{
-			if(calendar_count2.second-calendar_count1.second > 10)
+			// We've received the first byte, set the timer
+			MSS_RTC_get_calendar_count(&calendar_count1);
+			time1 = convertDateToUnixTime(&calendar_count1);
+		}
+
+		if(time1 > 0)
+		{
+			MSS_RTC_get_calendar_count(&calendar_count2);
+			time2 = convertDateToUnixTime(&calendar_count2);
+
+			// 10s passed?
+			if(time2-time1 > 10)
 			{
 				rx_size = 0;
 				break;
 			}
 		}
-		else
-		{
-			// Add 60s to the second (it's an 8-bit counter so we can count up to 255, no problem)
-			if((calendar_count2.second+60)-calendar_count1.second > 10)
-			{
-				rx_size = 0;
-				break;
-			}
-		}*/
 
 		while ( ((this_uart->hw_reg->LSR) & 0x1) != 0U  )
 		{
 			rx_buff[rx_size] = this_uart->hw_reg->RBR;
 			++rx_size;
+		}
+	}
+
+	// We may have loaded all bytes at once (or for example 1B)
+	// set timer and then 9s and then we read all bytes at the same time and more than 10s passed
+	// but we won't check the timer because we quit the loop
+	if(time1 > 0)
+	{
+		MSS_RTC_get_calendar_count(&calendar_count2);
+		time2 = convertDateToUnixTime(&calendar_count2);
+
+		// 10s passed?
+		if(time2-time1 > 10)
+		{
+			rx_size = 0;
+			memset(rx_buff, 0, buff_size);
 		}
 	}
 
