@@ -1,0 +1,56 @@
+Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
+
+Date      :  Tue May 23 16:24:05 2017
+Project   :  D:\LiberoProjects\sha256_project
+Component :  sha256_system_sb
+Family    :  SmartFusion2
+
+
+HDL source files for all Synthesis and Simulation tools:
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/COREAHBLSRAM/2.0.113/rtl/vhdl/core/AHBLSramIf.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/COREAHBLSRAM/2.0.113/rtl/vhdl/core/XHDL_misc.vhdl
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/COREAHBLSRAM/2.0.113/rtl/vhdl/core/XHDL_std_logic.vhdl
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/COREAHBLSRAM/2.0.113/rtl/vhdl/core/XHDL_std_ulogic.vhdl
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/components.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_addrdec.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_defaultslavesm.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_masterstage.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_matrix4x16.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_pkg.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_slavearbiter.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_slavestage.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreResetP/7.1.100/rtl/vhdl/core/coreresetp.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreResetP/7.1.100/rtl/vhdl/core/coreresetp_pcie_hotreset.vhd
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb/CCC_0/sha256_system_sb_CCC_0_FCCC.vhd
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb/COREAHBLSRAM_0_0/rtl/vhdl/core/CoreAHBLSRAM.vhd
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb/COREAHBLSRAM_0_0/rtl/vhdl/core/SramCtrlIf.vhd
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb/COREAHBLSRAM_0_0/rtl/vhdl/core/lsram_2048to139264x8.vhd
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb/COREAHBLSRAM_0_0/rtl/vhdl/core/usram_128to9216x8.vhd
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb/FABOSC_0/sha256_system_sb_FABOSC_0_OSC.vhd
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb/sha256_system_sb.vhd
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb_MSS/sha256_system_sb_MSS.vhd
+
+HDL source files for Synopsys SynplifyPro Synthesis tool:
+    D:/LiberoProjects/sha256_project/component/Actel/SgCore/OSC/2.0.101/osc_comps.vhd
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb_MSS/sha256_system_sb_MSS_syn.vhd
+
+HDL source files for Mentor Precision Synthesis tool:
+    D:/LiberoProjects/sha256_project/component/Actel/SgCore/OSC/2.0.101/osc_comps_pre.vhd
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb_MSS/sha256_system_sb_MSS_pre.vhd
+
+Stimulus files for all Simulation tools:
+    D:/LiberoProjects/sha256_project/component/Actel/SmartFusion2MSS/MSS/1.1.400/peripheral_init.bfm
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb/subsystem.bfm
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb_MSS/CM3_compile_bfm.tcl
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb_MSS/test.bfm
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb_MSS/user.bfm
+
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/COREAHBLSRAM/2.0.113/coreparameters.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/COREAHBLSRAM/2.0.113/rtl/vhdl/test/user/XHDL_misc.vhd
+    D:/LiberoProjects/sha256_project/component/Actel/DirectCore/COREAHBLSRAM/2.0.113/rtl/vhdl/test/user/XHDL_std_logic.vhd
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb/COREAHBLSRAM_0_0/rtl/vhdl/test/user/testbench.vhd
+
+Firmware files for all Software IDE tools:
+    D:/LiberoProjects/sha256_project/component/work/sha256_system_sb_MSS/sys_config_mss_clocks.h
+

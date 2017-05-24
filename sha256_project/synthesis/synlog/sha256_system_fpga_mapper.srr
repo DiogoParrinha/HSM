@@ -1,0 +1,639 @@
+Synopsys Generic Technology Mapper, Version mapact, Build 1659R, Built Dec 10 2015 09:44:42
+Copyright (C) 1994-2015, Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use, reproduction, or distribution of this software is strictly prohibited.
+Product Version J-2015.03M-SP1-2
+
+Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 99MB peak: 100MB)
+
+@N: MF248 |Running in 64-bit mode.
+@N: MF667 |Clock conversion disabled 
+
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 99MB peak: 101MB)
+
+
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 99MB peak: 101MB)
+
+
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 101MB peak: 101MB)
+
+
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 101MB peak: 103MB)
+
+
+
+Starting Optimization and Mapping (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 137MB peak: 139MB)
+
+@W: MO171 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":781:8:781:9|Sequential instance sha256_system_sb_0.CORERESETP_0.sm1_areset_n_q1 reduced to a combinational gate by constant propagation 
+@W: MO171 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":781:8:781:9|Sequential instance sha256_system_sb_0.CORERESETP_0.sm1_areset_n_clk_base reduced to a combinational gate by constant propagation 
+@W: MO171 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1331:8:1331:9|Sequential instance sha256_system_sb_0.CORERESETP_0.RESET_N_F2M_int reduced to a combinational gate by constant propagation 
+
+Available hyper_sources - for debug and ip models
+	None Found
+
+
+Finished RTL optimizations (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:01s; Memory used current: 136MB peak: 139MB)
+
+Encoding state machine FSM[0:2] (view:work.AHB_slave_dummy(behaviour))
+original code -> new code
+   00 -> 00
+   01 -> 01
+   10 -> 10
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[1] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[2] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[3] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[4] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[5] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[6] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[7] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[8] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[1] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[2] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[3] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[4] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[5] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[6] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[7] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[8] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[20] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[21] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[22] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[23] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[28] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[29] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[30] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[31] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@W: MO160 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":305:8:305:9|Register bit CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[16] is always 0, optimizing ...
+@W: MO160 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Register bit CoreAHBLite_0.matrix4x16.masterstage_0.regHSIZE[2] is always 0, optimizing ...
+Encoding state machine arbRegSMCurrentState[0:15] (view:coreahblite_lib.COREAHBLITE_SLAVEARBITER(coreahblite_slavearbiter_arch))
+original code -> new code
+   0000 -> 0000000000000001
+   0001 -> 0000000000000010
+   0010 -> 0000000000000100
+   0011 -> 0000000000001000
+   0100 -> 0000000000010000
+   0101 -> 0000000000100000
+   0110 -> 0000000001000000
+   0111 -> 0000000010000000
+   1000 -> 0000000100000000
+   1001 -> 0000001000000000
+   1010 -> 0000010000000000
+   1011 -> 0000100000000000
+   1100 -> 0001000000000000
+   1101 -> 0010000000000000
+   1110 -> 0100000000000000
+   1111 -> 1000000000000000
+@W: MO160 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[3] is always 0, optimizing ...
+@W: MO160 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[7] is always 0, optimizing ...
+@W: MO160 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[11] is always 0, optimizing ...
+Encoding state machine ahbcurr_state[0:2] (view:coreahblsram_lib.AHBLSramIf(translated))
+original code -> new code
+   00 -> 00
+   01 -> 01
+   10 -> 10
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblsram\2.0.113\rtl\vhdl\core\ahblsramif.vhd":186:6:186:7|Removing sequential instance HADDR_d[13] of view:PrimLib.dffr(prim) in hierarchy view:coreahblsram_lib.AHBLSramIf(translated) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblsram\2.0.113\rtl\vhdl\core\ahblsramif.vhd":186:6:186:7|Removing sequential instance HADDR_d[14] of view:PrimLib.dffr(prim) in hierarchy view:coreahblsram_lib.AHBLSramIf(translated) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblsram\2.0.113\rtl\vhdl\core\ahblsramif.vhd":186:6:186:7|Removing sequential instance HADDR_d[15] of view:PrimLib.dffr(prim) in hierarchy view:coreahblsram_lib.AHBLSramIf(translated) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblsram\2.0.113\rtl\vhdl\core\ahblsramif.vhd":186:6:186:7|Removing sequential instance HADDR_d[16] of view:PrimLib.dffr(prim) in hierarchy view:coreahblsram_lib.AHBLSramIf(translated) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblsram\2.0.113\rtl\vhdl\core\ahblsramif.vhd":186:6:186:7|Removing sequential instance HADDR_d[17] of view:PrimLib.dffr(prim) in hierarchy view:coreahblsram_lib.AHBLSramIf(translated) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblsram\2.0.113\rtl\vhdl\core\ahblsramif.vhd":186:6:186:7|Removing sequential instance HADDR_d[18] of view:PrimLib.dffr(prim) in hierarchy view:coreahblsram_lib.AHBLSramIf(translated) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblsram\2.0.113\rtl\vhdl\core\ahblsramif.vhd":186:6:186:7|Removing sequential instance HADDR_d[19] of view:PrimLib.dffr(prim) in hierarchy view:coreahblsram_lib.AHBLSramIf(translated) because there are no references to its outputs 
+Encoding state machine sramcurr_state[0:2] (view:coreahblsram_lib.sha256_system_sb_COREAHBLSRAM_0_0_SramCtrlIf(translated))
+original code -> new code
+   00 -> 00
+   01 -> 01
+   10 -> 10
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblsram\2.0.113\rtl\vhdl\core\ahblsramif.vhd":186:6:186:7|Removing sequential instance COREAHBLSRAM_0_0.U_AHBLSramIf.HSIZE_d[2] in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[19] in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[18] in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[17] in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[16] in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[15] in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[14] in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"d:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[13] in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+
+Finished factoring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 143MB peak: 144MB)
+
+
+Finished gated-clock and generated-clock conversion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:02s; Memory used current: 141MB peak: 144MB)
+
+
+Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 141MB peak: 144MB)
+
+
+Starting Early Timing Optimization (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 141MB peak: 144MB)
+
+
+Finished Early Timing Optimization (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 142MB peak: 144MB)
+
+
+Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 141MB peak: 144MB)
+
+
+Finished preparing to map (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 141MB peak: 144MB)
+
+
+Finished technology mapping (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:05s; Memory used current: 155MB peak: 157MB)
+
+Pass		 CPU time		Worst Slack		Luts / Registers
+------------------------------------------------------------
+   1		0h:00m:05s		    -5.10ns		 333 /       242
+   2		0h:00m:05s		    -5.09ns		 327 /       242
+
+
+
+   3		0h:00m:06s		    -5.03ns		 339 /       242
+
+
+   4		0h:00m:06s		    -5.03ns		 339 /       242
+@N: FP130 |Promoting Net sha256_system_sb_0.MSS_READY on CLKINT  I_138 
+
+Added 0 Buffers
+Added 0 Cells via replication
+	Added 0 Sequential Cells via replication
+	Added 0 Combinational Cells via replication
+
+Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:06s; CPU Time elapsed 0h:00m:06s; Memory used current: 156MB peak: 157MB)
+
+
+Finished restoring hierarchy (Real Time elapsed 0h:00m:06s; CPU Time elapsed 0h:00m:06s; Memory used current: 156MB peak: 157MB)
+
+
+
+#### START OF CLOCK OPTIMIZATION REPORT #####[
+
+Clock optimization not enabled
+1 non-gated/non-generated clock tree(s) driving 251 clock pin(s) of sequential element(s)
+0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
+0 instances converted, 0 sequential instances remain driven by gated/generated clocks
+
+========================================================= Non-Gated/Non-Generated Clocks =========================================================
+Clock Tree ID     Driving Element                       Drive Element Type     Fanout     Sample Instance                                         
+--------------------------------------------------------------------------------------------------------------------------------------------------
+@K:CKID0001       sha256_system_sb_0.CCC_0.GL0_INST     CLKINT                 251        sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST
+==================================================================================================================================================
+
+
+##### END OF CLOCK OPTIMIZATION REPORT ######]
+
+
+Start Writing Netlists (Real Time elapsed 0h:00m:07s; CPU Time elapsed 0h:00m:07s; Memory used current: 128MB peak: 157MB)
+
+Writing Analyst data base D:\LiberoProjects\sha256_project\synthesis\synwork\sha256_system_m.srm
+
+Finished Writing Netlist Databases (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 154MB peak: 157MB)
+
+Writing EDIF Netlist and constraint files
+@N: BW103 |Synopsys Constraint File time units using default value of 1ns 
+@N: BW107 |Synopsys Constraint File capacitance units using default value of 1pF 
+J-2015.03M-SP1-2
+
+Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:09s; CPU Time elapsed 0h:00m:09s; Memory used current: 155MB peak: 157MB)
+
+
+Start final timing analysis (Real Time elapsed 0h:00m:09s; CPU Time elapsed 0h:00m:09s; Memory used current: 154MB peak: 157MB)
+
+@W: MT246 :"d:\liberoprojects\sha256_project\component\work\sha256_system_sb\ccc_0\sha256_system_sb_ccc_0_fccc.vhd":106:4:106:11|Blackbox CCC is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results) 
+@W: MT420 |Found inferred clock sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock with period 10.00ns. Please declare a user-defined clock on object "n:sha256_system_sb_0.CCC_0.GL0_net"
+
+
+
+@S |##### START OF TIMING REPORT #####[
+# Timing Report written on Tue May 23 16:25:25 2017
+#
+
+
+Top view:               sha256_system
+Requested Frequency:    100.0 MHz
+Wire load mode:         top
+Paths requested:        5
+Constraint File(s):    D:\LiberoProjects\sha256_project\designer\sha256_system\synthesis.fdc
+                       
+@N: MT320 |Timing report estimates place and route data. Please look at the place and route timing report for final timing.
+
+@N: MT322 |Clock constraints cover only FF-to-FF paths associated with the clock.
+
+
+
+Performance Summary 
+*******************
+
+
+Worst slack in design: -3.757
+
+                                                       Requested     Estimated     Requested     Estimated                Clock        Clock              
+Starting Clock                                         Frequency     Frequency     Period        Period        Slack      Type         Group              
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     72.7 MHz      10.000        13.757        -3.757     inferred     Inferred_clkgroup_0
+System                                                 100.0 MHz     895.2 MHz     10.000        1.117         8.883      system       system_clkgroup    
+==========================================================================================================================================================
+
+
+
+
+
+Clock Relationships
+*******************
+
+Clocks                                                                                                  |    rise  to  rise    |    fall  to  fall   |    rise  to  fall   |    fall  to  rise 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Starting                                            Ending                                              |  constraint  slack   |  constraint  slack  |  constraint  slack  |  constraint  slack
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+System                                              System                                              |  10.000      8.883   |  No paths    -      |  No paths    -      |  No paths    -    
+sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  10.000      -3.757  |  No paths    -      |  No paths    -      |  No paths    -    
+===============================================================================================================================================================================================
+ Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
+       'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
+
+
+
+Interface Information 
+*********************
+
+No IO constraint found
+
+
+
+====================================
+Detailed Report for Clock: sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                                                                             Starting                                                                                                                                        Arrival           
+Instance                                                                     Reference                                              Type        Pin                Net                                                       Time        Slack 
+                                                                             Clock                                                                                                                                                             
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[24]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[24]     6.872       -3.757
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[26]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[26]     6.858       -3.596
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_SIZE[0]      sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HSIZE[0]      6.942       -3.437
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[25]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[25]     6.881       -3.329
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_SIZE[1]      sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HSIZE[1]      6.942       -3.275
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[27]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[27]     6.892       -2.856
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_TRANS1       sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HTRANS[1]     6.880       -2.734
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_WRITE        sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HWRITE        7.009       -2.284
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[1]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  xhdl1222[1]                                               0.108       -0.904
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[0]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  xhdl1222[0]                                               0.108       -0.901
+===============================================================================================================================================================================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                                                                                                    Starting                                                                                                                     Required           
+Instance                                                                                            Reference                                              Type        Pin          Net                                          Time         Slack 
+                                                                                                    Clock                                                                                                                                           
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_2.block1                                  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     RAM1K18     A_WEN[0]     sram_wen_mem[2]                              9.529        -3.757
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_3.block1                                  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     RAM1K18     A_WEN[0]     sram_wen_mem[3]                              9.529        -3.757
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_1.block1                                  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     RAM1K18     A_WEN[0]     sram_wen_mem[1]                              9.529        -3.595
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_0.block1                                  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     RAM1K18     A_WEN[0]     sram_wen_mem[0]                              9.529        -3.595
+AHB_slave_dummy_0.lsram_raddr[0]                                                                    sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         D            sha256_system_sb_0_AMBA_SLAVE_0_HADDR[2]     9.745        -2.397
+AHB_slave_dummy_0.lsram_waddr[0]                                                                    sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         D            sha256_system_sb_0_AMBA_SLAVE_0_HADDR[2]     9.745        -2.397
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[14]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         D            N_106_i_0                                    9.745        -2.384
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_1.slave_arbiter.arbRegSMCurrentState[14]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         D            N_106_i_0                                    9.745        -2.384
+AHB_slave_dummy_0.hwrite_r                                                                          sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         EN           FSM_ns[0]                                    9.662        -2.374
+AHB_slave_dummy_0.write_en                                                                          sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         EN           un1_lsram_waddr_0_sqmuxa_0                   9.662        -2.356
+====================================================================================================================================================================================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      10.000
+    - Setup time:                            0.471
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.529
+
+    - Propagation time:                      13.286
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -3.757
+
+    Number of logic level(s):                5
+    Starting point:                          sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[24]
+    Ending point:                            sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_3.block1 / A_WEN[0]
+    The start point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
+    The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin A_CLK
+
+Instance / Net                                                                                                                    Pin                Pin               Arrival     No. of    
+Name                                                                                                                  Type        Name               Dir     Delay     Time        Fan Out(s)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                                                              MSS_060     F_HM0_ADDR[24]     Out     6.872     6.872       -         
+sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[24]                                                                 Net         -                  -       1.123     -           2         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_1_m3[24]                                    CFG3        B                  In      -         7.995       -         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_1_m3[24]                                    CFG3        Y                  Out     0.165     8.159       -         
+N_113                                                                                                                 Net         -                  -       0.993     -           23        
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_i_a2_0_RNIKTJG2[0]     CFG3        C                  In      -         9.152       -         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_i_a2_0_RNIKTJG2[0]     CFG3        Y                  Out     0.226     9.378       -         
+g0_1                                                                                                                  Net         -                  -       0.745     -           5         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_AHBLSramIf.HSIZE_d_RNI5M656[0]                                                  CFG4        C                  In      -         10.123      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_AHBLSramIf.HSIZE_d_RNI5M656[0]                                                  CFG4        Y                  Out     0.210     10.333      -         
+ahbsram_size[0]                                                                                                       Net         -                  -       0.715     -           4         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.g0_5                                                                 CFG4        B                  In      -         11.048      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.g0_5                                                                 CFG4        Y                  Out     0.165     11.212      -         
+g0_5                                                                                                                  Net         -                  -       0.630     -           2         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_3.block1_RNO                                                CFG4        D                  In      -         11.842      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_3.block1_RNO                                                CFG4        Y                  Out     0.326     12.169      -         
+sram_wen_mem[3]                                                                                                       Net         -                  -       1.117     -           1         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_3.block1                                                    RAM1K18     A_WEN[0]           In      -         13.286      -         
+=============================================================================================================================================================================================
+Total path delay (propagation time + setup) of 13.757 is 8.434(61.3%) logic and 5.323(38.7%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+Path information for path number 2: 
+      Requested Period:                      10.000
+    - Setup time:                            0.471
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.529
+
+    - Propagation time:                      13.286
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -3.757
+
+    Number of logic level(s):                5
+    Starting point:                          sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[24]
+    Ending point:                            sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_2.block1 / A_WEN[0]
+    The start point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
+    The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin A_CLK
+
+Instance / Net                                                                                                                    Pin                Pin               Arrival     No. of    
+Name                                                                                                                  Type        Name               Dir     Delay     Time        Fan Out(s)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                                                              MSS_060     F_HM0_ADDR[24]     Out     6.872     6.872       -         
+sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[24]                                                                 Net         -                  -       1.123     -           2         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_1_m3[24]                                    CFG3        B                  In      -         7.995       -         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_1_m3[24]                                    CFG3        Y                  Out     0.165     8.159       -         
+N_113                                                                                                                 Net         -                  -       0.993     -           23        
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_i_a2_0_RNIKTJG2[0]     CFG3        C                  In      -         9.152       -         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_i_a2_0_RNIKTJG2[0]     CFG3        Y                  Out     0.226     9.378       -         
+g0_1                                                                                                                  Net         -                  -       0.745     -           5         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_AHBLSramIf.HSIZE_d_RNI5M656[0]                                                  CFG4        C                  In      -         10.123      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_AHBLSramIf.HSIZE_d_RNI5M656[0]                                                  CFG4        Y                  Out     0.210     10.333      -         
+ahbsram_size[0]                                                                                                       Net         -                  -       0.715     -           4         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.g0_5                                                                 CFG4        B                  In      -         11.048      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.g0_5                                                                 CFG4        Y                  Out     0.165     11.212      -         
+g0_5                                                                                                                  Net         -                  -       0.630     -           2         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_2.block1_RNO                                                CFG4        D                  In      -         11.842      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_2.block1_RNO                                                CFG4        Y                  Out     0.326     12.169      -         
+sram_wen_mem[2]                                                                                                       Net         -                  -       1.117     -           1         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_2.block1                                                    RAM1K18     A_WEN[0]           In      -         13.286      -         
+=============================================================================================================================================================================================
+Total path delay (propagation time + setup) of 13.757 is 8.434(61.3%) logic and 5.323(38.7%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+Path information for path number 3: 
+      Requested Period:                      10.000
+    - Setup time:                            0.471
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.529
+
+    - Propagation time:                      13.125
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -3.596
+
+    Number of logic level(s):                5
+    Starting point:                          sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[26]
+    Ending point:                            sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_3.block1 / A_WEN[0]
+    The start point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
+    The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin A_CLK
+
+Instance / Net                                                                                                                    Pin                Pin               Arrival     No. of    
+Name                                                                                                                  Type        Name               Dir     Delay     Time        Fan Out(s)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                                                              MSS_060     F_HM0_ADDR[26]     Out     6.858     6.858       -         
+sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[26]                                                                 Net         -                  -       1.129     -           4         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m3[26]                                      CFG3        B                  In      -         7.987       -         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m3[26]                                      CFG3        Y                  Out     0.165     8.151       -         
+N_112                                                                                                                 Net         -                  -       0.923     -           16        
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_i_a2_0_RNIKTJG2[0]     CFG3        B                  In      -         9.074       -         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_i_a2_0_RNIKTJG2[0]     CFG3        Y                  Out     0.143     9.218       -         
+g0_1                                                                                                                  Net         -                  -       0.745     -           5         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_AHBLSramIf.HSIZE_d_RNI5M656[0]                                                  CFG4        C                  In      -         9.963       -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_AHBLSramIf.HSIZE_d_RNI5M656[0]                                                  CFG4        Y                  Out     0.210     10.172      -         
+ahbsram_size[0]                                                                                                       Net         -                  -       0.715     -           4         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.g0_5                                                                 CFG4        B                  In      -         10.887      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.g0_5                                                                 CFG4        Y                  Out     0.165     11.052      -         
+g0_5                                                                                                                  Net         -                  -       0.630     -           2         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_3.block1_RNO                                                CFG4        D                  In      -         11.682      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_3.block1_RNO                                                CFG4        Y                  Out     0.326     12.008      -         
+sram_wen_mem[3]                                                                                                       Net         -                  -       1.117     -           1         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_3.block1                                                    RAM1K18     A_WEN[0]           In      -         13.125      -         
+=============================================================================================================================================================================================
+Total path delay (propagation time + setup) of 13.596 is 8.338(61.3%) logic and 5.259(38.7%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+Path information for path number 4: 
+      Requested Period:                      10.000
+    - Setup time:                            0.471
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.529
+
+    - Propagation time:                      13.125
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -3.596
+
+    Number of logic level(s):                5
+    Starting point:                          sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[26]
+    Ending point:                            sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_2.block1 / A_WEN[0]
+    The start point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
+    The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin A_CLK
+
+Instance / Net                                                                                                                    Pin                Pin               Arrival     No. of    
+Name                                                                                                                  Type        Name               Dir     Delay     Time        Fan Out(s)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                                                              MSS_060     F_HM0_ADDR[26]     Out     6.858     6.858       -         
+sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[26]                                                                 Net         -                  -       1.129     -           4         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m3[26]                                      CFG3        B                  In      -         7.987       -         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m3[26]                                      CFG3        Y                  Out     0.165     8.151       -         
+N_112                                                                                                                 Net         -                  -       0.923     -           16        
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_i_a2_0_RNIKTJG2[0]     CFG3        B                  In      -         9.074       -         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_i_a2_0_RNIKTJG2[0]     CFG3        Y                  Out     0.143     9.218       -         
+g0_1                                                                                                                  Net         -                  -       0.745     -           5         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_AHBLSramIf.HSIZE_d_RNI5M656[0]                                                  CFG4        C                  In      -         9.963       -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_AHBLSramIf.HSIZE_d_RNI5M656[0]                                                  CFG4        Y                  Out     0.210     10.172      -         
+ahbsram_size[0]                                                                                                       Net         -                  -       0.715     -           4         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.g0_5                                                                 CFG4        B                  In      -         10.887      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.g0_5                                                                 CFG4        Y                  Out     0.165     11.052      -         
+g0_5                                                                                                                  Net         -                  -       0.630     -           2         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_2.block1_RNO                                                CFG4        D                  In      -         11.682      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_2.block1_RNO                                                CFG4        Y                  Out     0.326     12.008      -         
+sram_wen_mem[2]                                                                                                       Net         -                  -       1.117     -           1         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_2.block1                                                    RAM1K18     A_WEN[0]           In      -         13.125      -         
+=============================================================================================================================================================================================
+Total path delay (propagation time + setup) of 13.596 is 8.338(61.3%) logic and 5.259(38.7%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+Path information for path number 5: 
+      Requested Period:                      10.000
+    - Setup time:                            0.471
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.529
+
+    - Propagation time:                      13.124
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -3.595
+
+    Number of logic level(s):                5
+    Starting point:                          sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[24]
+    Ending point:                            sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_1.block1 / A_WEN[0]
+    The start point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
+    The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin A_CLK
+
+Instance / Net                                                                                                                    Pin                Pin               Arrival     No. of    
+Name                                                                                                                  Type        Name               Dir     Delay     Time        Fan Out(s)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                                                              MSS_060     F_HM0_ADDR[24]     Out     6.872     6.872       -         
+sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[24]                                                                 Net         -                  -       1.123     -           2         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_1_m3[24]                                    CFG3        B                  In      -         7.995       -         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_1_m3[24]                                    CFG3        Y                  Out     0.165     8.159       -         
+N_113                                                                                                                 Net         -                  -       0.993     -           23        
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_i_a2_0_RNIKTJG2[0]     CFG3        C                  In      -         9.152       -         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_i_a2_0_RNIKTJG2[0]     CFG3        Y                  Out     0.226     9.378       -         
+g0_1                                                                                                                  Net         -                  -       0.745     -           5         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_AHBLSramIf.HSIZE_d_RNI5M656[0]                                                  CFG4        C                  In      -         10.123      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_AHBLSramIf.HSIZE_d_RNI5M656[0]                                                  CFG4        Y                  Out     0.210     10.333      -         
+ahbsram_size[0]                                                                                                       Net         -                  -       0.715     -           4         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.g0_3                                                                 CFG4        B                  In      -         11.048      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.g0_3                                                                 CFG4        Y                  Out     0.165     11.212      -         
+g0_1                                                                                                                  Net         -                  -       0.630     -           2         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_1.block1_RNO                                                CFG4        B                  In      -         11.842      -         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_1.block1_RNO                                                CFG4        Y                  Out     0.165     12.007      -         
+sram_wen_mem[1]                                                                                                       Net         -                  -       1.117     -           1         
+sha256_system_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_1.block1                                                    RAM1K18     A_WEN[0]           In      -         13.124      -         
+=============================================================================================================================================================================================
+Total path delay (propagation time + setup) of 13.595 is 8.272(60.8%) logic and 5.323(39.2%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+
+
+====================================
+Detailed Report for Clock: System
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                                                 Starting                                                                                           Arrival          
+Instance                                         Reference     Type               Pin        Net                                                    Time        Slack
+                                                 Clock                                                                                                               
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ     System        RCOSC_25_50MHZ     CLKOUT     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000       8.883
+=====================================================================================================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                                      Starting                                                                                         Required          
+Instance                              Reference     Type     Pin                Net                                                    Time         Slack
+                                      Clock                                                                                                              
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.CCC_0.CCC_INST     System        CCC      RCOSC_25_50MHZ     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     10.000       8.883
+=========================================================================================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      10.000
+    - Setup time:                            0.000
+    + Clock delay at ending point:           0.000 (ideal)
+    + Estimated clock delay at ending point: 0.000
+    = Required time:                         10.000
+
+    - Propagation time:                      1.117
+    - Clock delay at starting point:         0.000 (ideal)
+    - Estimated clock delay at start point:  -0.000
+    = Slack (non-critical) :                 8.883
+
+    Number of logic level(s):                0
+    Starting point:                          sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ / CLKOUT
+    Ending point:                            sha256_system_sb_0.CCC_0.CCC_INST / RCOSC_25_50MHZ
+    The start point is clocked by            System [rising]
+    The end   point is clocked by            System [rising]
+
+Instance / Net                                                            Pin                Pin               Arrival     No. of    
+Name                                                   Type               Name               Dir     Delay     Time        Fan Out(s)
+-------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ           RCOSC_25_50MHZ     CLKOUT             Out     0.000     0.000       -         
+FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     Net                -                  -       1.117     -           1         
+sha256_system_sb_0.CCC_0.CCC_INST                      CCC                RCOSC_25_50MHZ     In      -         1.117       -         
+=====================================================================================================================================
+Total path delay (propagation time + setup) of 1.117 is 0.000(0.0%) logic and 1.117(100.0%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+
+##### END OF TIMING REPORT #####]
+
+
+Finished final timing analysis (Real Time elapsed 0h:00m:09s; CPU Time elapsed 0h:00m:09s; Memory used current: 155MB peak: 157MB)
+
+
+Finished timing report (Real Time elapsed 0h:00m:09s; CPU Time elapsed 0h:00m:09s; Memory used current: 155MB peak: 157MB)
+
+---------------------------------------
+Resource Usage Report for sha256_system 
+
+Mapping to part: m2s060tfbga484std
+Cell usage:
+CCC             1 use
+CLKINT          2 uses
+MSS_060         1 use
+RCOSC_25_50MHZ  1 use
+SYSRESET        1 use
+CFG1           3 uses
+CFG2           102 uses
+CFG3           101 uses
+CFG4           133 uses
+
+
+Sequential Cells: 
+SLE            242 uses
+
+DSP Blocks:    0
+
+I/O ports: 2
+I/O primitives: 1
+OUTBUF         1 use
+
+
+Global Clock Buffers: 2
+
+
+RAM/ROM usage summary
+Block Rams (RAM1K18) : 4
+
+Total LUTs:    339
+
+Extra resources required for RAM and MACC interface logic during P&R:
+
+RAM64x18 Interface Logic : SLEs = 0; LUTs = 0;
+RAM1K18  Interface Logic : SLEs = 144; LUTs = 144;
+MACC     Interface Logic : SLEs = 0; LUTs = 0;
+
+Total number of SLEs after P&R:  242 + 0 + 144 + 0 = 386;
+Total number of LUTs after P&R:  339 + 0 + 144 + 0 = 483;
+
+Mapper successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:10s; CPU Time elapsed 0h:00m:10s; Memory used current: 52MB peak: 157MB)
+
+Process took 0h:00m:10s realtime, 0h:00m:10s cputime
+# Tue May 23 16:25:25 2017
+
+###########################################################]
