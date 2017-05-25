@@ -730,19 +730,18 @@ void COMMAND_SESSION_process(uint8_t * command)
 	{
 		UART_connect();
 
-		if(!SecComm())
+		if(SECURE_SESSION == 1)
 		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: init sec comm");
-			return;
+			if(!SecComm())
+			{
+				// Respond back with ERROR
+				COMMAND_ERROR("ERROR: init sec comm");
+				return;
+			}
 		}
 
-		/*if(!UART_recTime())
-		{
-			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: time error");
-			return;
-		}*/
+		// Send SUCCESS
+		UART_send("SUCCESS", 7);
 
 		// Connected
 		system_status |= STATUS_CONNECTED;
@@ -880,9 +879,25 @@ void COMMAND_DEVICE_process(uint8_t * command)
 		uint8_t buffer[2*BLOCK_SIZE] = {0};
 		UART_receive(&buffer[0], 2*BLOCK_SIZE);
 
-		// 32B => ADMIN_PIN
-		// TODO: Write in eNVM
+		// 32B => ADMIN_PIN (copy to RAM)
 		memcpy(ADMIN_PIN, &buffer[0], PIN_SIZE);
+
+		// Write to eNVM
+		if(USE_ENVM)
+		{
+			// Convert to hex
+			uint8_t hexPIN[64] = {0};
+			bin2hex(ADMIN_PIN, 32, hexPIN);
+
+			// Update eNVM
+			nvm_status_t status = NVM_write(0x0020000, hexPIN, 64, NVM_DO_NOT_LOCK_PAGE);
+			if(status != NVM_SUCCESS)
+			{
+				// Respond back with ERROR
+				COMMAND_ERROR("ERROR: eNVM write");
+				return;
+			}
+		}
 
 		// Generate keys
 		uint8_t status = 0;

@@ -305,9 +305,6 @@ BOOL SecComm()
 		}
 	}
 
-	// Send SUCCESS
-	UART_send("SUCCESS", 7);
-
 	mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
 	mbedtls_entropy_free(&SecComm_entropy);
 

@@ -1,0 +1,165 @@
+#OPTIONS:"|-layerid|0|-orig_srs|E:\\LiberoProjects\\CertificationSystem_M2S090TS\\synthesis\\synwork\\CertificationSystem_comp.srs|-top|work.CertificationSystem|-prodtype|synplify_pro|-infer_seqShift|-primux|-dspmac|-pqdpadd|-fixsmult|-sdff_counter|-divnmod|-nram|-encrypt|-pro|-lite|-ui|-fid2|-ram|-sharing|on|-ll|2000|-autosm|-vhdl2008|-ignore_undefined_lib|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLSRAM_LIB|-lib|COREAHBLSRAM_LIB|-lib|COREAHBLSRAM_LIB|-lib|COREAHBLSRAM_LIB|-lib|COREAHBLSRAM_LIB|-lib|COREAHBLSRAM_LIB|-lib|work|-lib|work|-lib|COREAHBLITE_LIB|-lib|work|-lib|work"
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\bin64\\c_vhdl.exe":1449218126
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\location.map":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\std.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd\\snps_haps_pkg.vhd":1449218132
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\std1164.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\std_textio.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\numeric.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd\\umr_capim.vhd":1449218132
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\arith.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\unsigned.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd\\hyperents.vhd":1449218132
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\work\\CertificationSystem_sb\\CCC_0\\CertificationSystem_sb_CCC_0_FCCC.vhd":1492552176
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\generic\\smartfusion2.vhd":1449218130
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\SgCore\\OSC\\2.0.101\\osc_comps.vhd":1476047286
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\CoreResetP\\7.1.100\\rtl\\vhdl\\core\\coreresetp_pcie_hotreset.vhd":1476047285
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_addrdec.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_defaultslavesm.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_slavearbiter.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_pkg.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\work\\CertificationSystem_sb\\COREAHBLSRAM_0_0\\rtl\\vhdl\\core\\AHBLSramIf.vhd":1492552177
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\misc.vhd":1449218134
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\work\\CertificationSystem_sb\\COREAHBLSRAM_0_0\\rtl\\vhdl\\core\\lsram_2048to139264x8.vhd":1492552177
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\work\\CertificationSystem_sb\\COREAHBLSRAM_0_0\\rtl\\vhdl\\core\\usram_128to9216x8.vhd":1492552177
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\COREAHBLSRAM\\2.2.104\\rtl\\vhdl\\core\\coreahblsram_pkg.vhd":1487961980
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\work\\CertificationSystem_sb_MSS\\CertificationSystem_sb_MSS_syn.vhd":1495723123
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\components.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\work\\CertificationSystem_sb\\FABOSC_0\\CertificationSystem_sb_FABOSC_0_OSC.vhd":1492552179
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\CoreResetP\\7.1.100\\rtl\\vhdl\\core\\coreresetp.vhd":1476047285
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_masterstage.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_slavestage.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_matrix4x16.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\work\\CertificationSystem_sb\\COREAHBLSRAM_0_0\\rtl\\vhdl\\core\\SramCtrlIf.vhd":1492552177
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\work\\CertificationSystem_sb\\COREAHBLSRAM_0_0\\rtl\\vhdl\\core\\CoreAHBLSRAM.vhd":1492552177
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\work\\CertificationSystem_sb_MSS\\CertificationSystem_sb_MSS.vhd":1495723123
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\work\\CertificationSystem_sb\\CertificationSystem_sb.vhd":1492552179
+#CUR:"E:\\LiberoProjects\\CertificationSystem_M2S090TS\\component\\work\\CertificationSystem\\CertificationSystem.vhd":1487963376
+0			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\CCC_0\CertificationSystem_sb_CCC_0_FCCC.vhd" vhdl
+1			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd" vhdl
+2			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.vhd" vhdl
+3			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp_pcie_hotreset.vhd" vhdl
+4			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd" vhdl
+5			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd" vhdl
+6			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_defaultslavesm.vhd" vhdl
+7			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd" vhdl
+8			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd" vhdl
+9			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd" vhdl
+10			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd" vhdl
+11			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_pkg.vhd" vhdl
+12			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd" vhdl
+13			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\AHBLSramIf.vhd" vhdl
+14			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd" vhdl
+15			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\usram_128to9216x8.vhd" vhdl
+16			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd" vhdl
+17			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\core\coreahblsram_pkg.vhd" vhdl
+18			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd" vhdl
+19			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS_syn.vhd" vhdl
+20			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.vhd" vhdl
+21			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\components.vhd" vhdl
+22			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\CertificationSystem_sb.vhd" vhdl
+23			"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem\CertificationSystem.vhd" vhdl
+#Dependency Lists(Uses List)
+0 -1
+1 -1
+2 1
+3 -1
+4 3
+5 -1
+6 -1
+7 6 5
+8 -1
+9 8
+10 9 7
+11 -1
+12 11 10
+13 -1
+14 -1
+15 -1
+16 15 14
+17 -1
+18 17 16 13
+19 -1
+20 19
+21 -1
+22 21 2 4 18 12 20 0
+23 22
+#Dependency Lists(Users Of)
+0 22
+1 2
+2 22
+3 4
+4 22
+5 7
+6 7
+7 10
+8 9
+9 10
+10 12
+11 12
+12 22
+13 18
+14 16
+15 16
+16 18
+17 18
+18 22
+19 20
+20 22
+21 22
+22 23
+23 -1
+#Design Unit to File Association
+module work certificationsystem 23
+arch work certificationsystem rtl 23
+module work certificationsystem_sb 22
+arch work certificationsystem_sb rtl 22
+module work certificationsystem_sb_mss 20
+arch work certificationsystem_sb_mss rtl 20
+module work mss_075 19
+arch work mss_075 def_arch 19
+module coreahblsram_lib certificationsystem_sb_coreahblsram_0_0_coreahblsram 18
+arch coreahblsram_lib certificationsystem_sb_coreahblsram_0_0_coreahblsram translated 18
+module coreahblsram_lib certificationsystem_sb_coreahblsram_0_0_sramctrlif 16
+arch coreahblsram_lib certificationsystem_sb_coreahblsram_0_0_sramctrlif translated 16
+module coreahblsram_lib certificationsystem_sb_coreahblsram_0_0_usram_128to9216x8 15
+arch coreahblsram_lib certificationsystem_sb_coreahblsram_0_0_usram_128to9216x8 translated 15
+module coreahblsram_lib certificationsystem_sb_coreahblsram_0_0_lsram_2048to139264x8 14
+arch coreahblsram_lib certificationsystem_sb_coreahblsram_0_0_lsram_2048to139264x8 translated 14
+module coreahblsram_lib certificationsystem_sb_coreahblsram_0_0_ahblsramif 13
+arch coreahblsram_lib certificationsystem_sb_coreahblsram_0_0_ahblsramif translated 13
+module coreahblite_lib coreahblite 12
+arch coreahblite_lib coreahblite coreahblite_arch 12
+module coreahblite_lib coreahblite_matrix4x16 10
+arch coreahblite_lib coreahblite_matrix4x16 coreahblite_matrix4x16_arch 10
+module coreahblite_lib coreahblite_slavestage 9
+arch coreahblite_lib coreahblite_slavestage trans 9
+module coreahblite_lib coreahblite_slavearbiter 8
+arch coreahblite_lib coreahblite_slavearbiter coreahblite_slavearbiter_arch 8
+module coreahblite_lib coreahblite_masterstage 7
+arch coreahblite_lib coreahblite_masterstage coreahblite_masterstage_arch 7
+module coreahblite_lib coreahblite_defaultslavesm 6
+arch coreahblite_lib coreahblite_defaultslavesm coreahblite_defaultslavesm_arch 6
+module coreahblite_lib coreahblite_addrdec 5
+arch coreahblite_lib coreahblite_addrdec coreahblite_addrdec_arch 5
+module work coreresetp 4
+arch work coreresetp rtl 4
+module work coreresetp_pcie_hotreset 3
+arch work coreresetp_pcie_hotreset rtl 3
+module work certificationsystem_sb_fabosc_0_osc 2
+arch work certificationsystem_sb_fabosc_0_osc def_arch 2
+module work rcosc_1mhz 1
+arch work rcosc_1mhz def_arch 1
+module work rcosc_25_50mhz 1
+arch work rcosc_25_50mhz def_arch 1
+module work xtlosc 1
+arch work xtlosc def_arch 1
+module work rcosc_1mhz_fab 1
+arch work rcosc_1mhz_fab def_arch 1
+module work rcosc_25_50mhz_fab 1
+arch work rcosc_25_50mhz_fab def_arch 1
+module work xtlosc_fab 1
+arch work xtlosc_fab def_arch 1
+module work certificationsystem_sb_ccc_0_fccc 0
+arch work certificationsystem_sb_ccc_0_fccc def_arch 0

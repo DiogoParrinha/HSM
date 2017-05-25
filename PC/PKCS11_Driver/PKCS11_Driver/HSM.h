@@ -8,6 +8,9 @@
 #include "Device.h"
 #include "UART.h"
 
+#define CHECK_TIME_PACKETS 0
+#define SECURE_SESSION 0
+
 class HSM : public Device
 {
 	public:

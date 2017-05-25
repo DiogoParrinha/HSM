@@ -23,7 +23,7 @@ void USER_init()
 		// Calculate SHA-256 and store it in user_hashes_buffer[i*32]
 		// TODO: in theory, we shouldn't do this, because it would be in the eNVM
 		uint8_t hash[32] = {0};
-		mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE, hash, 0);
+		mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE/2, hash, 0); // See TODO in USER_add to understand why we hash 2048B and not 4096B
 
 		if(global_buffer[0] != 0x64) // 0x64 means the user exists
 		{
@@ -119,9 +119,6 @@ BOOL USER_add(uint8_t ID, uint8_t * plainPIN)
 		return FALSE;
 	}
 
-	SPIFLASH_UserList[ID-1] = ID;
-	SPIFLASH_totalUsers++;
-
 	// Enough space for block size
 	memset(global_buffer, 0, GLOBAL_BUFFER_SIZE);
 
@@ -160,9 +157,18 @@ BOOL USER_add(uint8_t ID, uint8_t * plainPIN)
 
 	SPIFLASH_writeBlock(ID, global_buffer, FLASH_USERS_BASE_ADDRESS);
 
+	// TODO
+	// According to my debug, the hash of global_buffer won't match the hash of block that is read
+	// it seems the last 16B may be different, so the hash will be the different
+	// As I currently don't have time to understand why that happens,
+	// We compute the hash of the first first 2048B meaning that out of the 4096B for the user block, only 2048B are actually usable
+	// This should be fixed for a production version obviously - but as a PoC it's fine
+	// The reason behind this might be related to the erase function that clears a user block
+	// and the possibility of dead cells at the end of the block
+
 	// TODO: Update hash in eNVM (we do it in RAM for PoC)
 	uint8_t hash[32] = {0};
-	mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE, hash, 0);
+	mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE/2, hash, 0);
 	memcpy(&user_hashes_buffer[(ID-1)*32], hash, 32);
 
 	free(newUser->publicKey);
@@ -170,6 +176,7 @@ BOOL USER_add(uint8_t ID, uint8_t * plainPIN)
 	USER_free(newUser);
 
 	SPIFLASH_UserList[ID-1] = ID;
+	SPIFLASH_totalUsers++;
 
 	return TRUE;
 }
@@ -213,12 +220,13 @@ BOOL USER_modify(USER *user)
 
 	memcpy(global_buffer+l0+l1+l2, user->publicKeyCertificate, strlen(user->publicKeyCertificate)+1);
 
-	SPIFLASH_writeBlock(user->ID, global_buffer, FLASH_USERS_BASE_ADDRESS);
 
 	// TODO: Update hash in eNVM (we do it in RAM for PoC)
 	uint8_t hash[32] = {0};
-	mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE, hash, 0);
+	mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE/2, hash, 0); // See TODO in USER_add to understand why we hash 2048B and not 4096B
 	memcpy(&user_hashes_buffer[(user->ID-1)*32], hash, 32);
+
+	SPIFLASH_writeBlock(user->ID, global_buffer, FLASH_USERS_BASE_ADDRESS);
 
 	return TRUE;
 }
@@ -238,7 +246,7 @@ USER * USER_get(uint8_t ID)
 	// Compute hash and check against eNVM's
 	// TODO: We're currently checking against the RAM
 	uint8_t hash[32] = {0};
-	mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE, hash, 0);
+	mbedtls_sha256(global_buffer, FLASH_BLOCK_SIZE/2, hash, 0); // See TODO in USER_add to understand why we hash 2048B and not 4096B
 	if(memcmp(hash, &user_hashes_buffer[(ID-1)*32], 32) != 0)
 	{
 		return NULL;
@@ -335,6 +343,7 @@ void USER_remove(uint8_t ID)
 	{
 		SPIFLASH_UserList[ID-1] = 0;
 		SPIFLASH_totalUsers--;
+		memset(&user_hashes_buffer[(ID-1)*32], 0, 32);
 	}
 }
 

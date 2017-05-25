@@ -33,18 +33,24 @@ void SPIFLASH_readBlock(uint8_t ID, uint8_t * buffer, uint32_t base_addr)
 	uint32_t addr = base_addr+(ID-1)*FLASH_BLOCK_SIZE;
 
 	memset(buffer, 0, FLASH_BLOCK_SIZE);
-
-	// Read FLASH_BLOCK_SIZE bytes into second part of the global buffer (the first is being used by an outer function for sure)
-	FLASH_read(addr, &global_buffer[FLASH_BLOCK_SIZE], FLASH_BLOCK_SIZE);
+	memset(&global_buffer[FLASH_BLOCK_SIZE], 0, FLASH_BLOCK_SIZE);
 
 	// Decrypt data into buffer
-	mbedtls_aes_context aes_ctx;
-	mbedtls_aes_init(&aes_ctx);
-	mbedtls_aes_setkey_dec(&aes_ctx, FLASH_ENCRYPT_KEY, 256);
-	char IV[16] = {0};
-	memcpy(IV, FLASH_ENCRYPT_IV, 16);
-	mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, FLASH_BLOCK_SIZE, IV, &global_buffer[FLASH_BLOCK_SIZE], &buffer[0]);
-	mbedtls_aes_free(&aes_ctx);
+	if(ENCRYPT_SPI_FLASH == 1)
+	{
+		// Read FLASH_BLOCK_SIZE bytes into second part of the global buffer (the first is being used by an outer function for sure)
+		FLASH_read(addr, &global_buffer[FLASH_BLOCK_SIZE], FLASH_BLOCK_SIZE);
+
+		mbedtls_aes_context aes_ctx;
+		mbedtls_aes_init(&aes_ctx);
+		mbedtls_aes_setkey_dec(&aes_ctx, FLASH_ENCRYPT_KEY, 256);
+		char IV[16] = {0};
+		memcpy(IV, FLASH_ENCRYPT_IV, 16);
+		mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, FLASH_BLOCK_SIZE, IV, &global_buffer[FLASH_BLOCK_SIZE], &buffer[0]);
+		mbedtls_aes_free(&aes_ctx);
+	}
+	else
+		FLASH_read(addr, &global_buffer[0], FLASH_BLOCK_SIZE);
 }
 
 // Store all registered users in SPI Flash
@@ -58,21 +64,29 @@ void SPIFLASH_writeBlock(uint8_t ID, uint8_t * buffer, uint32_t base_addr)
 	// Flash the buffer (chunks of 256B)
 	uint32_t chunks = FLASH_BLOCK_SIZE/256;
 
-	// Encrypt data into the second part of the global buffer (the first is being used by an outter function for sure)
-	mbedtls_aes_context aes_ctx;
-	mbedtls_aes_init(&aes_ctx);
-	mbedtls_aes_setkey_enc(&aes_ctx, FLASH_ENCRYPT_KEY, 256);
-	char IV[16] = {0};
-		memcpy(IV, FLASH_ENCRYPT_IV, 16);
-	mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, FLASH_BLOCK_SIZE, IV, buffer, &global_buffer[FLASH_BLOCK_SIZE]);
-	mbedtls_aes_free(&aes_ctx);
+	if(ENCRYPT_SPI_FLASH == 1)
+	{
+		// Encrypt data into the second part of the global buffer (the first is being used by an outter function for sure)
+		mbedtls_aes_context aes_ctx;
+		mbedtls_aes_init(&aes_ctx);
+		mbedtls_aes_setkey_enc(&aes_ctx, FLASH_ENCRYPT_KEY, 256);
+		char IV[16] = {0};
+			memcpy(IV, FLASH_ENCRYPT_IV, 16);
+		mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, FLASH_BLOCK_SIZE, IV, buffer, &global_buffer[FLASH_BLOCK_SIZE]);
+		mbedtls_aes_free(&aes_ctx);
 
-	uint32_t c=0;
+		FLASH_program(addr, &global_buffer[FLASH_BLOCK_SIZE], FLASH_BLOCK_SIZE);
+	}
+	else
+		FLASH_program(addr, global_buffer, FLASH_BLOCK_SIZE);
+
+	/*uint32_t c=0;
 	uint32_t bytes = 0;
 	for(c=0;c<chunks;c++)
 	{
 		FLASH_program(addr+256*c, global_buffer+FLASH_BLOCK_SIZE+256*c, 256);
-	}
+	}*/
+
 }
 
 BOOL SPIFLASH_eraseBlock(uint8_t ID, uint32_t base_addr)

@@ -8,12 +8,10 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
-// comment to use M2S060
-#define SECURITY_DEVICE 1
-
 #include "drivers/mss_uart/mss_uart.h"
 #include "drivers/mss_gpio/mss_gpio.h"
 #include "drivers/mss_rtc/mss_rtc.h"
+#include "drivers/mss_nvm/mss_nvm.h"
 #include "drivers/mss_sys_services/mss_sys_services.h"
 
 //#include "micro-ecc/uECC.h"
@@ -33,13 +31,24 @@
 #include "mbedtls/entropy.h"
 #include "mbedtls/ctr_drbg.h"
 
-#define CHECK_TIME_PACKETS 0
 //#define DEBUG_MODE 1
 void __printf(char *s);
 
 typedef uint8_t BOOL;
 #define TRUE 1
 #define FALSE 0
+
+/*------------------------------------------------------------------------------
+ * Configuration
+ **/
+#define CHECK_TIME_PACKETS 0
+#define SECURE_SESSION 0
+
+// comment to use M2S060
+#define SECURITY_DEVICE 1
+
+#define ENCRYPT_SPI_FLASH 1
+#define USE_ENVM 1
 
 /*------------------------------------------------------------------------------
  * System Status
@@ -160,6 +169,8 @@ int mbedtls_hardware_poll(void *data, unsigned char *output, size_t len, size_t 
 void add_pkcs_padding(unsigned char *output, size_t output_len, size_t data_len);
 int get_pkcs_padding(unsigned char *input, size_t input_len, size_t *data_len);
 uint32_t convertDateToUnixTime(const mss_rtc_calendar_t *date);
+void bin2hex(const unsigned char *old, const size_t oldlen, uint8_t * dest);
+void hex2bin(const char* src, char* target, int len);
 
 /*------------------------------------------------------------------------------
   RTC prescaler value.

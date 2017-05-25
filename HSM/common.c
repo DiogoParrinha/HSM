@@ -428,3 +428,40 @@ uint32_t convertDateToUnixTime(const mss_rtc_calendar_t *date)
 	//Return Unix time
 	return t;
 }
+
+// Source: https://stackoverflow.com/questions/17261798/converting-a-hex-string-to-a-byte-array
+int char2int(char input)
+{
+	if (input >= '0' && input <= '9')
+		return input - '0';
+	if (input >= 'A' && input <= 'F')
+		return input - 'A' + 10;
+	if (input >= 'a' && input <= 'f')
+		return input - 'a' + 10;
+}
+
+// modified
+void hex2bin(const char* src, char* target, int len)
+{
+	while (len > 0)
+	{
+		*(target++) = char2int(*src) * 16 + char2int(src[1]);
+		src += 2;
+
+		len -= 2;
+	}
+}
+
+// Source: https://gist.github.com/ircmaxell/c26ff31a80ac69b1349a
+char hexconvtab[] = "0123456789abcdef";
+
+// modified
+void bin2hex(const unsigned char *old, const size_t oldlen, uint8_t * dest)
+{
+    size_t i, j;
+
+    for (i = j = 0; i < oldlen; i++) {
+    	dest[j++] = hexconvtab[old[i] >> 4];
+    	dest[j++] = hexconvtab[old[i] & 15];
+    }
+}

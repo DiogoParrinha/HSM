@@ -1,0 +1,15 @@
+Detailed Resource Usage
+Module Name,Fabric 4LUT,Fabric DFF,Interface 4LUT,Interface DFF,Single-Ended I/O,LSRAM 18K,PLLs and CCCs,Chip Globals,MSS,10/100/1000 Ethernet,RCOSC_50MHZ
+CertificationSystem_sb_0/CCC_0/Primitives,0,0,0,0,0,0,1,1,0,0,0
+CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/Primitives,25,28,0,0,0,0,0,0,0,0,0
+CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_SramCtrlIf/Primitives,14,36,0,0,0,0,0,0,0,0,0
+CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_SramCtrlIf/S0.byte_0/Primitives,812,0,0,0,0,0,0,0,0,0,0
+CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_SramCtrlIf/S0_byte_0/Primitives,0,0,1152,1152,0,32,0,0,0,0,0
+CertificationSystem_sb_0/CORERESETP_0/Primitives,2,9,0,0,0,0,0,1,0,0,0
+CertificationSystem_sb_0/CertificationSystem_sb_MSS_0/Primitives,32,0,0,0,6,0,0,0,1,0,0
+CertificationSystem_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/Primitives,74,37,0,0,0,0,0,0,0,0,0
+CertificationSystem_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/default_slave_sm/Primitives,7,1,0,0,0,0,0,0,0,0,0
+CertificationSystem_sb_0/CoreAHBLite_0/matrix4x16/slavestage_3/Primitives,33,1,0,0,0,0,0,0,0,0,0
+CertificationSystem_sb_0/CoreAHBLite_0/matrix4x16/slavestage_3/slave_arbiter/Primitives,11,3,0,0,0,0,0,0,0,0,0
+CertificationSystem_sb_0/FABOSC_0/Primitives,0,0,0,0,0,0,0,0,0,0,1
+Primitives/Primitives,1,0,0,0,1,0,0,0,0,0,0

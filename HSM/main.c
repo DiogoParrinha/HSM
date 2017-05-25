@@ -52,8 +52,39 @@ int main()
 	last_timestamp = 0;
 
 	// Default admin PIN
-	// TODO: Read from eNVM
-	memcpy(ADMIN_PIN, "12345678912345678912345678912345", PIN_SIZE);
+	memcpy(ADMIN_PIN, "00000000000000000000000000000000", PIN_SIZE);
+	if(USE_ENVM)
+	{
+		// Copy from eNVM (0x0020000)
+		uint8_t hexPIN[64] = {0};
+		memcpy(hexPIN, (void*)0x0020000, 64);
+		hex2bin(hexPIN, (char*)ADMIN_PIN, 64);
+	}
+
+	// Write to eNVM (THIS IS A TEST)
+	/*if(USE_ENVM)
+	{
+		// Update eNVM
+		memcpy(ADMIN_PIN, "12345678912345678912345678912345", PIN_SIZE);
+		uint8_t hexPIN[64] = {0};
+
+		bin2hex(ADMIN_PIN, 32, hexPIN);
+
+		nvm_status_t status = NVM_write(0x0020000, hexPIN, 64, NVM_DO_NOT_LOCK_PAGE);
+		if(status != NVM_SUCCESS)
+		{
+			volatile int t = 0;
+			t++;
+		}
+	}
+
+	if(USE_ENVM)
+	{
+		// Copy from eNVM (0x0020000)
+		uint8_t hexPIN[64] = {0};
+		memcpy(hexPIN, (void*)0x0020000, 64);
+		hex2bin(hexPIN, (char*)ADMIN_PIN, 64);
+	}*/
 
 	#ifdef SECURITY_DEVICE
 		MSS_SYS_init(sys_services_event_handler);
@@ -195,6 +226,13 @@ int main()
 	#endif
 
 	USER_init();
+	/*USER_remove(1);
+	USER_remove(2);
+	USER_remove(3);
+	USER_remove(4);
+	USER_remove(5);
+	USER_remove(6);
+	USER_remove(7);*/
 
 	UART_init();
 

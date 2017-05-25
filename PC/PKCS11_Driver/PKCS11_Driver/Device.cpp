@@ -125,6 +125,7 @@ std::string Device::getLastLine(std::ifstream& in)
 	return line;
 }
 
+///// Source: https://stackoverflow.com/questions/17261798/converting-a-hex-string-to-a-byte-array
 int Device::char2int(char input)
 {
 	if (input >= '0' && input <= '9')

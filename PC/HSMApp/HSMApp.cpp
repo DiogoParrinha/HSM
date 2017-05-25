@@ -299,20 +299,40 @@ int main()
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
 	data[32] = 0;
 	r = C_Login(phSession, CKU_SO, data, 33);
-	assert(r == CKR_OK);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
 
 	r = HSM_C_UserDelete(phSession, 1);
-	assert(r == CKR_OK);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_UserDelete Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
 
 	CK_BYTE userID = 0;
 	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
-	assert(r == CKR_OK);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_UserAdd Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
 
 	// Logout Admin
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);*/
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		getchar();
+		return 1;
+	}*/
 
 	/////// Login with user 1 and modify pin; Logout user 1 and login again with new PIN; Modify PIN and Logout
 

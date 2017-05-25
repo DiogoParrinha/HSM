@@ -1,0 +1,59 @@
+@N|Running in 64-bit mode
+@N|Running in 64-bit mode
+@N: CD720 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\std.vhd":146:18:146:21|Setting time resolution to ns
+@N:"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem\CertificationSystem.vhd":17:7:17:25|Top entity is set to CertificationSystem.
+@N: CD231 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\std1164.vhd":890:16:890:17|Using onehot encoding for type mvl9plus ('U'="1000000000")
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem\CertificationSystem.vhd":17:7:17:25|Synthesizing work.certificationsystem.rtl 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\CertificationSystem_sb.vhd":22:7:22:28|Synthesizing work.certificationsystem_sb.rtl 
+@N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":786:10:786:17|Synthesizing smartfusion2.sysreset.syn_black_box 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.vhd":8:7:8:41|Synthesizing work.certificationsystem_sb_fabosc_0_osc.def_arch 
+@N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":562:10:562:15|Synthesizing smartfusion2.clkint.syn_black_box 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd":19:7:19:20|Synthesizing work.rcosc_25_50mhz.def_arch 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd":79:7:79:24|Synthesizing work.rcosc_25_50mhz_fab.def_arch 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":27:7:27:16|Synthesizing work.coreresetp.rtl 
+@N: CL177 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":1331:8:1331:9|Sharing sequential element M3_RESET_N_int.
+@N: CL177 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif2_spll_lock_q1.
+@N: CL177 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif1_spll_lock_q1.
+@N: CL177 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif0_spll_lock_q1.
+@N: CL177 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element fpll_lock_q1.
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd":24:7:24:58|Synthesizing coreahblsram_lib.certificationsystem_sb_coreahblsram_0_0_coreahblsram.translated 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":23:7:23:56|Synthesizing coreahblsram_lib.certificationsystem_sb_coreahblsram_0_0_sramctrlif.translated 
+@N: CD364 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":380:13:380:31|Removed redundant assignment
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":24:7:24:66|Synthesizing coreahblsram_lib.certificationsystem_sb_coreahblsram_0_0_lsram_2048to139264x8.translated 
+@N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":588:10:588:16|Synthesizing smartfusion2.ram1k18.syn_black_box 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\AHBLSramIf.vhd":23:7:23:56|Synthesizing coreahblsram_lib.certificationsystem_sb_coreahblsram_0_0_ahblsramif.translated 
+@N: CD364 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\AHBLSramIf.vhd":276:17:276:21|Removed redundant assignment
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd":27:7:27:17|Synthesizing coreahblite_lib.coreahblite.coreahblite_arch 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":25:7:25:28|Synthesizing coreahblite_lib.coreahblite_matrix4x16.coreahblite_matrix4x16_arch 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":24:7:24:28|Synthesizing coreahblite_lib.coreahblite_slavestage.trans 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":22:7:22:30|Synthesizing coreahblite_lib.coreahblite_slavearbiter.coreahblite_slavearbiter_arch 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":24:7:24:29|Synthesizing coreahblite_lib.coreahblite_masterstage.coreahblite_masterstage_arch 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_defaultslavesm.vhd":22:7:22:32|Synthesizing coreahblite_lib.coreahblite_defaultslavesm.coreahblite_defaultslavesm_arch 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd":50:7:50:25|Synthesizing coreahblite_lib.coreahblite_addrdec.coreahblite_addrdec_arch 
+@N: CL177 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":644:8:644:9|Sharing sequential element addrRegSMCurrentState.
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":24:7:24:29|Synthesizing coreahblite_lib.coreahblite_masterstage.coreahblite_masterstage_arch 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd":50:7:50:25|Synthesizing coreahblite_lib.coreahblite_addrdec.coreahblite_addrdec_arch 
+@N: CL177 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":644:8:644:9|Sharing sequential element addrRegSMCurrentState.
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.vhd":17:7:17:32|Synthesizing work.certificationsystem_sb_mss.rtl 
+@N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":403:10:403:14|Synthesizing smartfusion2.inbuf.syn_black_box 
+@N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":423:10:423:16|Synthesizing smartfusion2.tribuff.syn_black_box 
+@N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":434:10:434:14|Synthesizing smartfusion2.bibuf.syn_black_box 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS_syn.vhd":10:7:10:13|Synthesizing work.mss_075.def_arch 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\CCC_0\CertificationSystem_sb_CCC_0_FCCC.vhd":8:7:8:39|Synthesizing work.certificationsystem_sb_ccc_0_fccc.def_arch 
+@N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":794:10:794:12|Synthesizing smartfusion2.ccc.syn_black_box 
+@N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":576:10:576:12|Synthesizing smartfusion2.gnd.syn_black_box 
+@N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":582:10:582:12|Synthesizing smartfusion2.vcc.syn_black_box 
+@N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Trying to extract state machine for register arbRegSMCurrentState
+@N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\AHBLSramIf.vhd":172:6:172:7|Trying to extract state machine for register ahbcurr_state
+@N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":179:6:179:7|Trying to extract state machine for register sramcurr_state
+@N: CL177 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif0_spll_lock_q2.
+@N: CL177 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element fpll_lock_q2.
+@N: CL177 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif1_spll_lock_q2.
+@N: CL177 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif2_spll_lock_q2.
+@N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":1311:8:1311:9|Trying to extract state machine for register sdif3_state
+@N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":1252:8:1252:9|Trying to extract state machine for register sdif2_state
+@N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":1193:8:1193:9|Trying to extract state machine for register sdif1_state
+@N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":1134:8:1134:9|Trying to extract state machine for register sdif0_state
+@N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":1059:8:1059:9|Trying to extract state machine for register sm0_state
+@N|Running in 64-bit mode
+
