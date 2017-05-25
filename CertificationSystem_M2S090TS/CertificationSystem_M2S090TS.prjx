@@ -321,109 +321,109 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS\1.1.400\MSS.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961996"
+TIME="1495723123"
 SIZE="526"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CCC\1.0.100\MSS_CCC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="253"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CC\1.0.100\MSS_CC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="252"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CFGM\1.1.100\MSS_CFGM.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CM3\1.0.200\MSS_CM3.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="253"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_DDRB\1.0.200\MSS_DDRB.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_DMA\1.0.100\MSS_DMA.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="253"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_EDAC\1.0.101\MSS_EDAC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_ENVM\1.0.101\MSS_ENVM.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_FIC32\1.0.100\MSS_FIC32.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="255"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_GPIO\1.0.100\MSS_GPIO.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_INTR\1.0.100\MSS_INTR.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_MMUART\1.0.100\MSS_MMUART.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="256"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_RESET\1.0.100\MSS_RESET.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="255"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_RTC\1.0.201\MSS_RTC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="253"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SECURITY\1.0.100\MSS_SECURITY.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="258"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SPI\1.0.100\MSS_SPI.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="253"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SWITCH\1.0.101\MSS_SWITCH.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961991"
+TIME="1495723117"
 SIZE="256"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
@@ -541,19 +541,19 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487961997"
+TIME="1495723124"
 SIZE="17985"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.vhd,hdl"
 STATE="utd"
-TIME="1487961997"
+TIME="1495723123"
 SIZE="101702"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS_pre.vhd,hdl"
 STATE="utd"
-TIME="1487961996"
+TIME="1495723123"
 SIZE="78813"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 BEGIN_USE_CONSTRAINT
@@ -565,7 +565,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS_syn.vhd,hdl"
 STATE="utd"
-TIME="1487961996"
+TIME="1495723123"
 SIZE="78788"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 BEGIN_USE_CONSTRAINT
@@ -599,7 +599,7 @@ PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf
 ENDFILE
 VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
 STATE="utd"
-TIME="1487961996"
+TIME="1495723123"
 SIZE="500"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
@@ -648,7 +648,7 @@ PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.c
 ENDFILE
 VALUE "<project>\simulation\test.bfm,sim"
 STATE="utd"
-TIME="1487961996"
+TIME="1495723123"
 SIZE="734"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
@@ -837,12 +837,6 @@ ENDLIST
 LIST CertificationSystem_sb
 VALUE "<project>\simulation\subsystem.bfm,sim"
 ENDLIST
-LIST CertificationSystem_sb_MSS
-VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
-VALUE "<project>\simulation\user.bfm,sim"
-VALUE "<project>\simulation\test.bfm,sim"
-VALUE "<project>\simulation\peripheral_init.bfm,sim"
-ENDLIST
 LIST CoreAHBLite
 VALUE "<project>\simulation\bfmtovec_compile.tcl,sim"
 VALUE "<project>\simulation\coreahblite_usertb_include.bfm,sim"
@@ -866,6 +860,12 @@ VALUE "<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\corepara
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
 VALUE "<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
+ENDLIST
+LIST CertificationSystem_sb_MSS
+VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
+VALUE "<project>\simulation\user.bfm,sim"
+VALUE "<project>\simulation\test.bfm,sim"
+VALUE "<project>\simulation\peripheral_init.bfm,sim"
 ENDLIST
 ENDLIST
 LIST SimulationOptions
@@ -933,8 +933,8 @@ NAME="Synplify Pro ME"
 FUNCTION="Synthesis"
 TOOL="Synplify Pro ME"
 LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Synplify\\bin\synplify_pro.exe"
-PARAM=""
-BATCH=0
+PARAM="-licensetype synplifypro_actel -batch -log synplify.log"
+BATCH=1
 LICENSE=""
 IS32BIT="1"
 EndProfile
@@ -1025,8 +1025,14 @@ LIST UserCustomizedFileList
 ENDLIST
 LIST OpenedFileList
 ORIENTATION;HORIZONTAL
+Reports;Reports;0
+ReportsCurrentItem;Run PROGRAM Action:CertificationSystem_PROGRAM.log
 StartPage;StartPage;0
-ACTIVEVIEW;StartPage
+SmartDesign;CertificationSystem;0
+Constraint Manager;Constraint Manager;0
+SmartDesign;CertificationSystem_sb;0
+SmartDesign;CertificationSystem_sb_MSS;0
+ACTIVEVIEW;Reports
 ENDLIST
 LIST ModuleSubBlockList
 LIST "CertificationSystem::work","component\work\CertificationSystem\CertificationSystem.vhd","TRUE","FALSE"
@@ -1035,10 +1041,10 @@ ENDLIST
 LIST "CertificationSystem_sb::work","component\work\CertificationSystem_sb\CertificationSystem_sb.vhd","TRUE","FALSE"
 SUBBLOCK "CertificationSystem_sb_CCC_0_FCCC::work","component\work\CertificationSystem_sb\CCC_0\CertificationSystem_sb_CCC_0_FCCC.vhd","FALSE","FALSE"
 SUBBLOCK "CertificationSystem_sb_FABOSC_0_OSC::work","component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.vhd","FALSE","FALSE"
-SUBBLOCK "CertificationSystem_sb_MSS::work","component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.vhd","TRUE","FALSE"
 SUBBLOCK "CoreResetP::work","component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd","FALSE","FALSE"
 SUBBLOCK "CoreAHBLite::COREAHBLITE_LIB::components","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd","FALSE","FALSE"
 SUBBLOCK "CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM::COREAHBLSRAM_LIB","component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd","FALSE","FALSE"
+SUBBLOCK "CertificationSystem_sb_MSS::work","component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.vhd","TRUE","FALSE"
 ENDLIST
 LIST "CertificationSystem_sb_CCC_0_FCCC::work","component\work\CertificationSystem_sb\CCC_0\CertificationSystem_sb_CCC_0_FCCC.vhd","FALSE","FALSE"
 ENDLIST
