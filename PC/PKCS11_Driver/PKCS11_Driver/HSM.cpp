@@ -1867,15 +1867,17 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	}
 	else
 	{
+		// base64 encode the message
+		uint8_t base64_0[1024] = { 0 };
+		size_t olen_0 = 0;
+		if (mbedtls_base64_encode(base64_0, 1023, &olen_0, pMessage, lMessage) != 0) // 1023 because we want the last char to be \0
+		{
+			return false;
+		}
+
 		memset(buffer, 0, 4096);
-		int w = snprintf((char*)buffer, 4096, "%d-%d-%03d,%02d:%02d:%02d:{%s|%d-%d-%03d,%02d:%02d:%02d|%d|-,-|", 
-			(int)now.tm_mday,
-			(int)now.tm_mon+1,
-			(int)now.tm_year+1900,
-			(int)now.tm_hour,
-			(int)now.tm_min,
-			(int)now.tm_sec,
-			pMessage,
+		int w = snprintf((char*)buffer, 4096, "{%s|%d-%d-%03d,%02d:%02d:%02d|%d|-,-|",
+			base64_0,
 			(int)now.tm_mday,
 			(int)now.tm_mon + 1,
 			(int)now.tm_year + 1900,
@@ -1886,8 +1888,8 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 
 		// prev hash goes here (base64)
 		int i = 0;
-		for (i = 0; i<32; i++)
-			w += snprintf((char*)buffer+w, 4096-w, "%02X", prevHash[i]);
+		for (i = 0; i < 32; i++)
+			w += snprintf((char*)buffer + w, 4096 - w, "%02X", prevHash[i]);
 
 		buffer[w] = '}';
 	}
@@ -1906,7 +1908,7 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 
 	// Do we have the year X and month Y folder inside logchain?
 	char path[256];
-	sprintf_s(path, 256, "./logchain/%d", now.tm_year+1900);
+	sprintf_s(path, 256, "./logchain/%d", now.tm_year + 1900);
 	if ((dir = opendir(path)) == NULL)
 	{
 		if (_mkdir(path) == 0)
@@ -1940,10 +1942,21 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	else
 		closedir(dir);
 
+	// date,time:
+	uint8_t datetime[30] = { 0 };
+	int w = snprintf((char*)datetime, 30, "%d-%d-%03d,%02d:%02d:%02d",
+		(int)now.tm_mday,
+		(int)now.tm_mon + 1,
+		(int)now.tm_year + 1900,
+		(int)now.tm_hour,
+		(int)now.tm_min,
+		(int)now.tm_sec);
+
 	// Append logged message + signature to file
 	sprintf_s(path, 256, "%s/%d.txt", path, now.tm_mday);
 	std::ofstream outfile;
 	outfile.open(path, std::ios_base::app);
+	outfile << datetime << ":";
 	outfile << buffer << " [";
 	outfile.write((char*)base64_1, olen_1);
 	outfile << "]";
@@ -2031,32 +2044,42 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 	while (getline(file, line))
 	{
 		// Extract message and compute hash
-		// First find } and retrieve the message
-		unsigned first = line.find('}');
-		if (first != std::string::npos)
+		// First find {
+		unsigned first = line.find('{');
+		if (first == std::string::npos)
 		{
-			message = line.substr(0, first+1);
+			if (VERBOSE == 1)
+				printf("Invalid format 1_1 on root-line\n");
+			file.close();
+			return false;
+		}
+
+		// Then find } and retrieve the message
+		unsigned second = line.find('}');
+		if (second != std::string::npos)
+		{
+			message = line.substr(first, second + 1 - first);
 		}
 		else
 		{
 			if (VERBOSE == 1)
-				printf("Invalid format 1 on line %d\n", l);
+				printf("Invalid format 1_2 on root-line\n");
 			file.close();
 			return false;
 		}
 
 		memset(hash, 0, sizeof(hash));
-		mbedtls_sha256((unsigned char*)message.c_str(), first+1, hash, 0);
+		mbedtls_sha256((unsigned char*)message.c_str(), message.length(), hash, 0);
 
 		// Extract previous hash
-		std::string embedded_hash = message.substr(message.length()-65, 64);
+		std::string embedded_hash = message.substr(message.length() - 65, 64);
 		char embedded_hash_char[64];
 		memcpy(embedded_hash_char, embedded_hash.c_str(), 64);
 		hex2bin(embedded_hash_char, (char*)hash_embedded, 64);
 
 		// Extract hash and compare
 		// Look for ] (] is an illegal base64 char so it won't appear in the middle of the hash block)
-		std::string last_part = line.substr(first + 3);
+		std::string last_part = line.substr(second + 3);
 		unsigned hash_separator = last_part.find(']');
 		if (hash_separator != std::string::npos)
 		{
@@ -2418,22 +2441,32 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 		uint8_t signature[512];
 
 		// Extract message and compute hash
-		// First find } and retrieve the message
-		unsigned first = line.find('}');
-		if (first != std::string::npos)
+		// First find {
+		unsigned first = line.find('{');
+		if (first == std::string::npos)
 		{
-			message = line.substr(0, first + 1);
+			if (VERBOSE == 1)
+				printf("Invalid format 1_1 on root-line\n");
+			file.close();
+			return false;
+		}
+
+		// Then find } and retrieve the message
+		unsigned second = line.find('}');
+		if (second != std::string::npos)
+		{
+			message = line.substr(first, second + 1 - first);
 		}
 		else
 		{
 			if (VERBOSE == 1)
-				printf("Invalid format 1 on root-line\n");
+				printf("Invalid format 1_2 on root-line\n");
 			file.close();
 			return false;
 		}
 
 		memset(hash, 0, sizeof(hash));
-		mbedtls_sha256((unsigned char*)message.c_str(), first + 1, hash, 0);
+		mbedtls_sha256((unsigned char*)message.c_str(), message.length(), hash, 0);
 
 		// Extract previous hash
 		std::string embedded_hash = message.substr(message.length() - 65, 64);
@@ -2443,7 +2476,7 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 
 		// Extract hash and compare
 		// Look for ] (] is an illegal base64 char so it won't appear in the middle of the hash block)
-		std::string last_part = line.substr(first + 3);
+		std::string last_part = line.substr(second + 3);
 		unsigned hash_separator = last_part.find(']');
 		if (hash_separator != std::string::npos)
 		{
@@ -2482,12 +2515,12 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 		unsigned sig_separator = signature_part.find(']');
 		if (sig_separator != std::string::npos)
 		{
-			std::string base64_hash = signature_part.substr(0, sig_separator); // from [ to ]
+			std::string base64_sig = signature_part.substr(0, sig_separator); // from [ to ]
 
 			unsigned char buf[512] = { 0 };
-			sprintf_s((char*)buf, 512, base64_hash.c_str());
+			sprintf_s((char*)buf, 512, base64_sig.c_str());
 			uint32_t olen = 0;
-			if (mbedtls_base64_decode(signature, 512, &olen, buf, base64_hash.length()) != 0)
+			if (mbedtls_base64_decode(signature, 512, &olen, buf, base64_sig.length()) != 0)
 			{
 				if (VERBOSE == 1)
 					printf("Base64 Decode of Signature on root-line\n");

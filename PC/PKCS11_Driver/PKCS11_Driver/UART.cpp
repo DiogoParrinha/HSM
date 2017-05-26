@@ -24,7 +24,7 @@
 
 #define BLOCK_SIZE 16
 
-FILE *fpIn;
+//FILE *fpIn;
 
 UART::UART() {
 	usb = new SerialPort();
@@ -33,11 +33,11 @@ UART::UART() {
 	memset(sessionKey, 0, 32);
 	memset(hmacKey, 0, 32);
 
-	fopen_s(&fpIn, "./logIn.txt", "w+");
+	//fopen_s(&fpIn, "./logIn.txt", "w+");
 }
  
 UART::~UART() {
-	fclose(fpIn);
+	//fclose(fpIn);
 
 	if (usb!=NULL)
 		disconnect();
@@ -91,7 +91,7 @@ void UART::disconnect()
 {
 	usb->disconnect();
 
-	fclose(fpIn);
+	//fclose(fpIn);
 }
 
 bool UART::reqCommand()
@@ -746,8 +746,8 @@ size_t UART::getDataUART
 		}
 	}
 
-	fwrite("\n", sizeof(char), 1, fpIn);
-	fwrite(rx_buff, sizeof(char), rx_size, fpIn);
+	/*fwrite("\n", sizeof(char), 1, fpIn);
+	fwrite(rx_buff, sizeof(char), rx_size, fpIn);*/
 
 	return rx_size;
 }

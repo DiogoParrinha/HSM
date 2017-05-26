@@ -2,7 +2,7 @@
 #include "SerialPort.h"
 #include <cstdio>
 
-FILE *fpOut;
+//FILE *fpOut;
 
 SerialPort::SerialPort() {
 	serialPortHandle = INVALID_HANDLE_VALUE;
@@ -17,7 +17,7 @@ SerialPort::~SerialPort() {
  
 int SerialPort::connect() {
 
-	fopen_s(&fpOut, "./logOut.txt", "w+");
+	//fopen_s(&fpOut, "./logOut.txt", "w+");
 
 	return connect(L"COM7");
 }
@@ -69,7 +69,7 @@ int SerialPort::connect( wchar_t* device) {
  
 void SerialPort::disconnect(void) {
 
-	fclose(fpOut);
+	//fclose(fpOut);
 
 	// Purge data in the buffer
 	/*PurgeComm(serialPortHandle, PURGE_TXABORT);
@@ -91,8 +91,8 @@ int SerialPort::sendArray(unsigned char *buffer, int len) {
 	if (serialPortHandle!=INVALID_HANDLE_VALUE)
 		WriteFile(serialPortHandle, buffer, len, &result, NULL);
 
-	fwrite("\n", sizeof(char), 1, fpOut);
-	fwrite(buffer, sizeof(char), len, fpOut);
+	/*fwrite("\n", sizeof(char), 1, fpOut);
+	fwrite(buffer, sizeof(char), len, fpOut);*/
 	 
 	return result;
 }

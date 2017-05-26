@@ -401,7 +401,7 @@ int main()
 	///// Sign and Verify
 
 	// Login User
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -538,12 +538,12 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}
+	}*/
 
 	///// Login user and generate key pair | Get certificate of user 1 | Logout | Login admin | Generate certificate for generated public key
 
 	// Login user
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -674,18 +674,22 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}
+	}*/
 
 	///// Login user 1, read file and send each line to the HSM
 
 	// Login user 1
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
-	assert(r == CKR_OK);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
 
-	int i = 0;
 	std::ifstream infile("messages.txt");
 	std::string line;
 
@@ -694,7 +698,6 @@ int main()
 	printf("\nLogging messages...\n");
 	while (std::getline(infile, line))
 	{
-		//printf("\ni = %d", i++);
 		const char *pMessage = line.c_str();
 
 		startTimer();
@@ -703,16 +706,26 @@ int main()
 		average += elapsedTime;
 		times++;
 
-		assert(r == CKR_OK);
-
-		i++;
+		if (r != CKR_OK)
+		{
+			printf("HSM_C_LogAdd Failed: %d\n", r);
+			getchar();
+			return 1;
+		}
 	}
 	average /= times;
 	printf("\nAverage log signing: %lf\n", average);
 
 	// Logout Log User
 	r = C_Logout(phSession);
-	assert(r == CKR_OK);*/
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+
+	///// Get log-chain counters
 
 	CK_ULONG lNumber1, lNumber2;
 	r = HSM_C_LogCounter(phSession, &lNumber1, &lNumber2);
@@ -731,6 +744,8 @@ int main()
 		getchar();
 		return 1;
 	}
+
+	///// Run verifications
 
 	/*printf("\nVerify day...\n");
 
@@ -774,7 +789,7 @@ int main()
 	average /= times;
 	printf("\nOK\n");*/
 
-	/*printf("\nVerify chain...\n");
+	printf("\nVerify chain...\n");
 
 	average = 0.0f;
 	times = 0;
@@ -786,7 +801,7 @@ int main()
 	times++;
 
 	average /= times;
-	printf("\nOK\n");*/
+	printf("\nOK\n");
 	
 	// Finalize
 	r = C_Finalize(NULL);
