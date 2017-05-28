@@ -51,9 +51,6 @@
     <ClInclude Include="HSM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Device.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -288,9 +285,6 @@
       <Filter>Source Files\mbedTLS</Filter>
     </ClCompile>
     <ClCompile Include="cryptoki.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Device.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include <cstring>
 #include <stdbool.h>
 #include <stdint.h>
+#include <algorithm>
 
 #include <windows.h>
 #include <string>
@@ -97,7 +98,6 @@ HSM::HSM()
 
 	logs_cert = NULL;
 	delayed = true;
-	max_elapsed = 3;
 }
 
 HSM::~HSM()
@@ -1621,7 +1621,210 @@ bool HSM::deleteUser(CK_BYTE uID)
 	return true;
 }
 
-bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
+// Message must not only contain ASCII characters! 
+bool HSM::logsInit(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_UTF8CHAR_PTR lHash)
+{
+	// we only accept messages with a maximum of 512 bytes
+	if (lMessage > 512)
+		return false;
+
+	// not a valid user (must be admin)
+	if (!loggedIn || authID != 0)
+		return false;
+
+	uint8_t base64_2[512] = { 0 };
+	uint32_t olen_2 = 0;
+
+	// Depending on the date, choose which file to write to
+	//time_t t = time(NULL);
+
+	/* Code below is used for fake date/time testing */
+	static time_t static_time, t;
+	static int iteration;
+	if (static_time == 0)
+	{
+		static_time = 1421331320;
+		t = static_time;
+	}
+
+	if (iteration % 5 == 0)
+	{
+		t += 60 * 60 * 24 * 2;
+	}
+	iteration++;
+	/* end of test code */
+
+	struct tm now;
+	localtime_s(&now, &t);
+
+
+	// Run LOGS_INIT command
+
+	if (!execCmd("LOGS_INIT"))
+		return false;
+
+	// Send message
+	if (VERBOSE == 1)
+		printf("\n\tSending message...");
+	int r = comm->send(pMessage, lMessage);
+	if (r <= 0)
+	{
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
+	if (VERBOSE == 1)
+		printf("OK\n");
+
+	// Send init hash
+	if (VERBOSE == 1)
+		printf("\n\tSending init hash...");
+	r = comm->send(lHash, 32);
+	if (r <= 0)
+	{
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
+	if (VERBOSE == 1)
+		printf("OK\n");
+
+	// Wait for response
+	if (VERBOSE == 1)
+		printf("\n\tReceiving response...");
+	memset(buffer, 0, sizeof(buffer));
+	r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
+	if (VERBOSE == 1)
+		printf("OK: %s\n", buffer);
+	if (strcmp((char*)buffer, "SUCCESS") != 0)
+	{
+		return false;
+	}
+
+	// Wait for logged message
+	if (VERBOSE == 1)
+		printf("\n\tReceiving logged message...");
+	memset(buffer, 0, sizeof(buffer));
+	r = comm->receive(&buffer[0], 4096);
+	if (r <= 0)
+	{
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", r);
+		return false;
+	}
+
+	if (VERBOSE == 1)
+		printf("OK.\n");
+
+	// Wait for signature
+	if (VERBOSE == 1)
+		printf("\n\tReceiving log signature...");
+	uint8_t signature[256];
+	memset(signature, 0, sizeof(signature));
+	uint32_t sig_len = comm->receive(&signature[0], 256);
+	if (sig_len <= 0)
+	{
+		if (VERBOSE == 1)
+			printf("UART ERROR: 0x%02X\n", sig_len);
+		return false;
+	}
+
+	if (VERBOSE == 1)
+		printf("OK.\n");
+
+	if (mbedtls_base64_encode(base64_2, 512, &olen_2, signature, sig_len) != 0)
+	{
+		return false;
+	}
+
+	// Base64 encode the log hash and signature
+	// Base64 requires 4/3 of the original size so we simply double it to avoid dynamic allocation
+	uint8_t hash[32] = { 0 };
+	mbedtls_sha256(&buffer[0], strlen((char*)buffer), hash, 0);
+
+	uint8_t base64_1[512];
+	uint32_t olen_1 = 0;
+	if (mbedtls_base64_encode(base64_1, 512, &olen_1, hash, 32) != 0)
+	{
+		return false;
+	}
+
+	// Do we have the year X and month Y folder inside logchain?
+	DIR *dir;
+	char path[256];
+	sprintf_s(path, 256, "./logchain/%d", now.tm_year + 1900);
+	if ((dir = opendir(path)) == NULL)
+	{
+		if (_mkdir(path) == 0)
+		{
+			if (VERBOSE == 1)
+				printf("Directory '%s' was successfully created\n", path);
+		}
+		else {
+			if (VERBOSE == 1)
+				printf("Problem creating directory %s\n", path);
+			return false;
+		}
+	}
+	else
+		closedir(dir);
+
+	sprintf_s(path, 256, "%s/%d", path, now.tm_mon + 1);
+	if ((dir = opendir(path)) == NULL)
+	{
+		if (_mkdir(path) == 0)
+		{
+			if (VERBOSE == 1)
+				printf("Directory '%s' was successfully created\n", path);
+		}
+		else {
+			if (VERBOSE == 1)
+				printf("Problem creating directory %s\n", path);
+			return false;
+		}
+	}
+	else
+		closedir(dir);
+
+	// date,time:
+	uint8_t datetime[30] = { 0 };
+	int w = snprintf((char*)datetime, 30, "%d-%d-%03d,%02d:%02d:%02d",
+		(int)now.tm_mday,
+		(int)now.tm_mon + 1,
+		(int)now.tm_year + 1900,
+		(int)now.tm_hour,
+		(int)now.tm_min,
+		(int)now.tm_sec);
+
+	// Append logged message + signature to file
+	sprintf_s(path, 256, "%s/%d.txt", path, now.tm_mday);
+	std::ofstream outfile;
+	outfile.open(path, std::ios_base::app);
+	outfile << datetime << ":";
+	outfile << buffer << " [";
+	outfile.write((char*)base64_1, olen_1);
+	outfile << "]";
+	outfile << " [";
+	outfile.write((char*)base64_2, olen_2);
+	outfile << "]" << std::endl;
+	outfile.close();
+	if (VERBOSE == 1)
+		printf("OK.\n");
+
+	return true;
+}
+
+
+bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_BBOOL sign)
 {
 	// we only accept messages with a maximum of 512 bytes
 	if (lMessage > 512)
@@ -1660,7 +1863,7 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 		closedir(dir);
 
 		// Find most recent year
-		std::vector<std::string> years_folders = Device::read_directory("./logchain", true);
+		std::vector<std::string> years_folders = read_directory("./logchain", true);
 		if (!years_folders.empty())
 		{
 			std::string year_folder = years_folders.back();
@@ -1668,7 +1871,7 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 			sprintf_s(readPath, 256, "./logchain/%s", year_folder.c_str());
 
 			// Find most recent month
-			std::vector<std::string> months_folders = Device::read_directory(readPath, true);
+			std::vector<std::string> months_folders = read_directory(readPath, true);
 			if (!months_folders.empty())
 			{
 				std::string month_folder = months_folders.back();
@@ -1676,7 +1879,7 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 				sprintf_s(readPath, 256, "%s/%s", readPath, month_folder.c_str());
 
 				// Find most recent day
-				std::vector<std::string> days_files = Device::read_directory(readPath, false);
+				std::vector<std::string> days_files = read_directory(readPath, false);
 				if (!days_files.empty())
 				{
 					std::string day_file = days_files.back();
@@ -1766,9 +1969,7 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	struct tm now;
 	localtime_s(&now, &t);
 
-	elpased++;
-
-	if (elpased == 1)
+	if (sign == CK_TRUE)
 	{
 		if (!execCmd("LOGS_ADD"))
 			return false;
@@ -1966,9 +2167,6 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
 	outfile.close();
 	if (VERBOSE == 1)
 		printf("OK.\n");
-
-	if (elpased == max_elapsed+1) // +1 because we generate signatures when elapsed=1
-		elpased = 0;
 
 	return true;
 }
@@ -2352,7 +2550,7 @@ bool HSM::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL full
 	return true;
 }
 
-bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
+bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2, CK_UTF8CHAR_PTR hash_init)
 {
 	// Get the oldest year, month and day
 	// Check the first line (must be the root)
@@ -2360,7 +2558,7 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 	char readPath[256] = { 0 };
 	int start_year = 0;
 	int ret = 0;
-	std::vector<std::string> years_folders = Device::read_directory("./logchain", true);
+	std::vector<std::string> years_folders = read_directory("./logchain", true);
 	if (!years_folders.empty())
 	{
 		std::string year_folder = years_folders.front();
@@ -2369,7 +2567,7 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 		start_year = atoi(year_folder.c_str());
 
 		// Find most recent month
-		std::vector<std::string> months_folders = Device::read_directory(readPath, true);
+		std::vector<std::string> months_folders = read_directory(readPath, true);
 		if (!months_folders.empty())
 		{
 			std::string month_folder = months_folders.front();
@@ -2377,7 +2575,7 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 			sprintf_s(readPath, 256, "%s/%s", readPath, month_folder.c_str());
 
 			// Find most recent day
-			std::vector<std::string> days_files = Device::read_directory(readPath, false);
+			std::vector<std::string> days_files = read_directory(readPath, false);
 			if (!days_files.empty())
 			{
 				std::string day_file = days_files.front();
@@ -2424,9 +2622,10 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 		}
 	}
 
+	/// NOTE: Commented code below shouldn't be needed because we pass the prevHash as the chain-hash and the verifyDay will use it for the first file (root)
 	// Read first line and extract hash
 	// Validate signature
-	std::ifstream file(readPath);
+	/*std::ifstream file(readPath);
 	if (file)
 	{
 		std::string line;
@@ -2528,19 +2727,6 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 				return false;
 			}
 
-			// Verify signature
-			/*mbedtls_pk_context ctx;
-			unsigned char publicKey[512] = "-----BEGIN PUBLIC KEY-----\nMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAE5erxxyo1ohdYGDSPxfp9g7cbkKBNXw/E\nRWD5c5djszLc4EDwaP1fBTufLx3e7txW9N7nuCraHuh9AbGNJQnhIiqc9RarNWe1\nfpBdC+KLYp0wxx7yhUYLckNUtH0CeRcP\n-----END PUBLIC KEY-----";
-			mbedtls_pk_init(&ctx);
-			ret = mbedtls_pk_parse_public_key(&ctx, publicKey, strlen((char*)publicKey) + 1);
-			if (ret != 0)
-			{
-				return false;
-			}
-
-			mbedtls_ecp_keypair * p1 = mbedtls_pk_ec(ctx);
-			mbedtls_ecp_keypair * p2 = mbedtls_pk_ec(logs_cert->pk);*/
-
 			ret = mbedtls_pk_verify(&logs_cert->pk, MBEDTLS_MD_SHA256, hash, 32, signature, olen);
 			if (ret != 0)
 			{
@@ -2559,9 +2745,7 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 		}
 	}
 
-	//return true;
-
-	// We're here so we've validated the root
+	*/
 
 	time_t theTime = time(NULL);
 	struct tm aTime;
@@ -2573,6 +2757,7 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2)
 	// 2. Compute logsVerifyYear for each year folder
 	// 3. Previous hash will now be equal to the last hash of the processed year
 	uint8_t prev_hash[32] = { 0 };
+	memcpy(prev_hash, hash_init, 32);
 	for (int y = start_year; y <= 1900+aTime.tm_year; y++)
 	{
 		struct stat s;
@@ -2772,6 +2957,113 @@ bool HSM::processResult()
 
 	return true;
 }
+
+
+// The functions below are not mine and were retrieved from stack overflow
+
+// read_directory()
+//   Return an ASCII-sorted vector of filename entries in a given directory.
+//   If no path is specified, the current working directory is used.
+//
+//   Always check the value of the global 'errno' variable after using this
+//   function to see if anything went wrong. (It will be zero if all is well.)
+//
+std::vector<std::string> HSM::read_directory(const std::string& path = std::string(), bool folders = true)
+{
+	std::vector <std::string> result;
+	dirent* de;
+	DIR* dp;
+	errno = 0;
+	dp = opendir(path.empty() ? "." : path.c_str());
+	if (dp)
+	{
+		while (true)
+		{
+			errno = 0;
+			de = readdir(dp);
+			if (de == NULL) break;
+
+			char p[256] = { 0 };
+			sprintf_s(p, 256, "%s/%s", path.c_str(), de->d_name);
+
+			struct stat entrystat;
+			int r = stat(p, &entrystat);
+			if (r == 0 && strcmp(de->d_name, "..") != 0 && strcmp(de->d_name, ".") != 0)
+			{
+				// Folders only?
+				if (folders == true && S_ISDIR(entrystat.st_mode))
+				{
+					result.push_back(std::string(de->d_name));
+				}
+				// Files only?
+				else if (folders == false && S_ISREG(entrystat.st_mode))
+				{
+					result.push_back(std::string(de->d_name));
+				}
+			}
+		}
+		closedir(dp);
+
+		// sort using a custom function object
+		struct {
+			bool operator()(std::string a, std::string b) const
+			{
+				int vA = atoi(a.c_str());
+				int vB = atoi(b.c_str());
+
+				return vA < vB;
+			}
+		} sortByNumber;
+
+		std::sort(result.begin(), result.end(), sortByNumber);
+	}
+	return result;
+}
+
+std::string HSM::getLastLine(std::ifstream& in)
+{
+	std::string line;
+	while (in >> std::ws && std::getline(in, line)) // skip empty lines
+		;
+
+	return line;
+}
+
+///// Source: https://stackoverflow.com/questions/17261798/converting-a-hex-string-to-a-byte-array
+int HSM::char2int(char input)
+{
+	if (input >= '0' && input <= '9')
+		return input - '0';
+	if (input >= 'A' && input <= 'F')
+		return input - 'A' + 10;
+	if (input >= 'a' && input <= 'f')
+		return input - 'a' + 10;
+	throw std::invalid_argument("Invalid input string");
+}
+
+// This function assumes src to be a zero terminated sanitized string with
+// an even number of [0-9a-f] characters, and target to be sufficiently large
+// len -> len of source
+void HSM::hex2bin(const char* src, char* target, int len)
+{
+	while (len > 0)
+	{
+		*(target++) = char2int(*src) * 16 + char2int(src[1]);
+		src += 2;
+
+		len -= 2;
+	}
+}
+
+void HSM::strcpy_bp(void * destination, const char * source, size_t dest_size)
+{
+	int c = strlen(source) > dest_size ? dest_size : strlen(source);
+
+	memcpy((char *)destination, source, c);
+	dest_size -= c;
+	memset((char *)destination + c, ' ', dest_size);
+}
+
 
 /***********************/
 /**Simple Time Service**/

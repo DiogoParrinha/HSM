@@ -104,7 +104,7 @@ bool g_init = CK_FALSE;
 
 p11_slot g_slots[MAX_SLOTS];
 
-std::vector<Device*> devices_list; // the index represents the slotID (so the same device pointer may be in multiple indexes)
+std::vector<HSM*> devices_list; // the index represents the slotID (so the same device pointer may be in multiple indexes)
 std::vector<p11_session*> g_sessions;
 
 /********************************
@@ -418,7 +418,7 @@ CK_RV C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK
 	}
 
 	// Get session device
-	Device* d;
+	HSM* d;
 	try {
 		d = devices_list.at(slotID);
 	}
@@ -538,7 +538,7 @@ CK_RV C_CloseSession(CK_SESSION_HANDLE hSession)
 	
 	if (s != NULL_PTR)
 	{
-		Device* d;
+		HSM* d;
 		try {
 			d = devices_list.at(s->slotID);
 		}
@@ -640,7 +640,7 @@ CK_RV C_Login(CK_SESSION_HANDLE hSession, CK_USER_TYPE userType, CK_UTF8CHAR_PTR
 	}
 
 	// Get session device
-	Device* d;
+	HSM* d;
 	try {
 		d = devices_list.at(s->slotID);
 	}
@@ -691,7 +691,7 @@ CK_RV C_Logout(CK_SESSION_HANDLE hSession)
 	}
 
 	// Get session device
-	Device* d;
+	HSM* d;
 	try {
 		d = devices_list.at(s->slotID);
 	}
@@ -748,7 +748,7 @@ CK_RV C_CreateObject(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, CK_
 	}
 
 	// Get session device
-	Device* d;
+	HSM* d;
 	try {
 		d = devices_list.at(s->slotID);
 	}
@@ -856,7 +856,7 @@ CK_RV C_DestroyObject(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject)
 	}
 
 	// Get session device
-	Device* d;
+	HSM* d;
 	try {
 		d = devices_list.at(s->slotID);
 	}
@@ -915,7 +915,7 @@ CK_RV C_GetAttributeValue(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, 
 	}
 
 	// Get session device
-	Device* d;
+	HSM* d;
 	try {
 		d = devices_list.at(s->slotID);
 	}
@@ -1143,7 +1143,7 @@ CK_RV C_SignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJ
 	// Get device
 	if (s != NULL_PTR)
 	{
-		Device* d;
+		HSM* d;
 		try {
 			d = devices_list.at(s->slotID);
 		}
@@ -1202,7 +1202,7 @@ CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, 
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -1286,7 +1286,7 @@ CK_RV C_SignUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPar
 	// Get device
 	if (s != NULL_PTR)
 	{
-		Device* d;
+		HSM* d;
 		try {
 			d = devices_list.at(s->slotID);
 		}
@@ -1348,7 +1348,7 @@ CK_RV C_SignFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG_P
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -1432,7 +1432,7 @@ CK_RV C_VerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_O
 	// Get device
 	if (s != NULL_PTR)
 	{
-		Device* d;
+		HSM* d;
 		try {
 			d = devices_list.at(s->slotID);
 		}
@@ -1491,7 +1491,7 @@ CK_RV C_Verify(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -1561,7 +1561,7 @@ CK_RV C_VerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulP
 	// Get device
 	if (s != NULL_PTR)
 	{
-		Device* d;
+		HSM* d;
 		try {
 			d = devices_list.at(s->slotID);
 		}
@@ -1623,7 +1623,7 @@ CK_RV C_VerifyFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -1743,7 +1743,7 @@ CK_RV C_GenerateKeyPair(CK_SESSION_HANDLE hSession,
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -1887,7 +1887,7 @@ CK_RV HSM_C_UserAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG u
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -1941,7 +1941,7 @@ CK_RV HSM_C_UserModify(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULON
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -1995,7 +1995,7 @@ CK_RV HSM_C_UserDelete(CK_SESSION_HANDLE hSession, CK_BYTE pUid)
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -2025,7 +2025,61 @@ CK_RV HSM_C_UserDelete(CK_SESSION_HANDLE hSession, CK_BYTE pUid)
 }
 
 // HSM_C_LogAdd
-CK_RV HSM_C_LogAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage)
+CK_RV HSM_C_LogInit(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_UTF8CHAR_PTR pHash, CK_ULONG lHash)
+{
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	// We accept handle=0
+	/*if (hSession == NULL_PTR)
+	{
+	return CKR_SESSION_HANDLE_INVALID;
+	}*/
+
+	// Get session
+	CK_SESSION_INFO_PTR s;
+	try {
+		s = g_sessions.at(hSession)->session;
+	}
+	catch (const std::out_of_range&) {
+		// 'out of range' error
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	// Get device
+	HSM* d;
+	if (s != NULL_PTR)
+	{
+		try {
+			d = devices_list.at(s->slotID);
+		}
+		catch (const std::out_of_range&) {
+			// 'out of range' error
+			return CKR_SESSION_HANDLE_INVALID;
+		}
+	}
+	else
+	{
+		return CKR_SESSION_HANDLE_INVALID;
+	}
+
+	if (lHash != 32)
+	{
+		return ERROR_BAD_ARGUMENTS;
+	}
+
+	if (!d->logsInit(pMessage, lMessage, pHash))
+	{
+		return CKR_FUNCTION_FAILED;
+	}
+
+	return CKR_OK;
+}
+
+// HSM_C_LogAdd
+CK_RV HSM_C_LogAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_BBOOL bSign)
 {
 	if (!g_init)
 	{
@@ -2049,7 +2103,7 @@ CK_RV HSM_C_LogAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pMessage, CK_ULON
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -2065,7 +2119,7 @@ CK_RV HSM_C_LogAdd(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pMessage, CK_ULON
 		return CKR_SESSION_HANDLE_INVALID;
 	}
 
-	if (d->logsAdd(pMessage, lMessage))
+	if (!d->logsAdd(pMessage, lMessage, bSign))
 	{
 		return CKR_FUNCTION_FAILED;
 	}
@@ -2098,7 +2152,7 @@ CK_RV HSM_C_LogVerifyDay(CK_SESSION_HANDLE hSession, CK_ULONG lDay, CK_ULONG lMo
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -2185,7 +2239,7 @@ CK_RV HSM_C_LogVerifyMonth(CK_SESSION_HANDLE hSession, CK_ULONG lMonth, CK_ULONG
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -2251,7 +2305,7 @@ CK_RV HSM_C_LogVerifyYear(CK_SESSION_HANDLE hSession, CK_ULONG lYear)
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -2286,7 +2340,7 @@ CK_RV HSM_C_LogVerifyYear(CK_SESSION_HANDLE hSession, CK_ULONG lYear)
 }
 
 // HSM_C_LogVerifyChain
-CK_RV HSM_C_LogVerifyChain(CK_SLOT_ID slotID, CK_ULONG counter1, CK_ULONG counter2)
+CK_RV HSM_C_LogVerifyChain(CK_SLOT_ID slotID, CK_ULONG counter1, CK_ULONG counter2, CK_UTF8CHAR_PTR hash_init)
 {
 	if (!g_init)
 	{
@@ -2294,7 +2348,7 @@ CK_RV HSM_C_LogVerifyChain(CK_SLOT_ID slotID, CK_ULONG counter1, CK_ULONG counte
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	try {
 		d = devices_list.at(slotID);
 	}
@@ -2303,7 +2357,7 @@ CK_RV HSM_C_LogVerifyChain(CK_SLOT_ID slotID, CK_ULONG counter1, CK_ULONG counte
 		return CKR_SESSION_HANDLE_INVALID;
 	}
 
-	if (!d->logsVerifyChain(counter1, counter2))
+	if (!d->logsVerifyChain(counter1, counter2, hash_init))
 	{
 		return CKR_FUNCTION_FAILED;
 	}
@@ -2336,7 +2390,7 @@ CK_RV HSM_C_LogCounter(CK_SESSION_HANDLE hSession, CK_ULONG_PTR lNumber1, CK_ULO
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -2380,7 +2434,7 @@ CK_RV HSM_C_CertGen(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR publicKeyTempla
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -2429,7 +2483,7 @@ CK_RV HSM_C_CertGet(CK_SESSION_HANDLE hSession, CK_LONG pUid, CK_UTF8CHAR_PTR ce
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -2464,7 +2518,7 @@ CK_RV HSM_C_CertDevice(CK_SLOT_ID slotID, CK_LONG pId, CK_UTF8CHAR_PTR certifica
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	try {
 		d = devices_list.at(slotID);
 	}
@@ -2503,7 +2557,7 @@ CK_RV HSM_C_SendSecure(CK_SESSION_HANDLE hSession)
 	}
 
 	// Get device
-	Device* d;
+	HSM* d;
 	if (s != NULL_PTR)
 	{
 		try {
@@ -2535,7 +2589,7 @@ CK_RV HSM_C_SendPlain()
 	}
 	
 	// Get device
-	Device* d;
+	HSM* d;
 	try {
 		d = devices_list.at(0);
 	}

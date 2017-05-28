@@ -977,9 +977,22 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_LogVerifyChain)
 (
 	CK_SLOT_ID slotID,	/* the session's handle */
 	CK_ULONG lNumber1,
-	CK_ULONG lNumber2
+	CK_ULONG lNumber2,
+	CK_UTF8CHAR_PTR hash_init
 );
 #endif
+/* HSM_C_LogAdd adds a message to the log. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_LogInit)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession,	/* the session's handle */
+	CK_UTF8CHAR_PTR pMessage,	/* the message to add */
+	CK_ULONG lMessage,			/* length of message */
+	CK_UTF8CHAR_PTR pHash,		/* init hash */
+	CK_ULONG lHash				/* length of init hash (must be 32B...) */
+);
+#endif
+
 
 /* HSM_C_LogAdd adds a message to the log. */
 CK_PKCS11_FUNCTION_INFO(HSM_C_LogAdd)
@@ -987,7 +1000,8 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_LogAdd)
 (
 	CK_SESSION_HANDLE hSession,	/* the session's handle */
 	CK_UTF8CHAR_PTR pMessage,	/* the message to add */
-	CK_ULONG lMessage			/* length of message */
+	CK_ULONG lMessage,			/* length of message */
+	CK_BBOOL bSign				/* whether or not to sign */
 );
 #endif
 

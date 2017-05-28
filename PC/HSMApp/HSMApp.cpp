@@ -676,10 +676,37 @@ int main()
 		return 1;
 	}*/
 
+	///// Login admin to create log-chain root
+
+	/*memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
+	data[32] = 0;
+	r = C_Login(phSession, CKU_SO, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+
+	// Create log-chain root
+	uint8_t hash[32] = { 0x6f, 0x4e, 0xce, 0x48, 0xaf, 0x1d, 0x8d, 0x1f, 0xff, 0xce, 0x45, 0x65, 0x2b, 0x19, 0x02, 0xb4, 0x05, 0x06, 0x04, 0xe6, 0x67, 0xa0, 0xa3, 0xf3, 0x98, 0x56, 0x96, 0x80, 0x3a, 0xfe, 0xf1, 0x56 };
+	uint8_t rootmsg[] = "Log-Chain 1 Root";
+	r = HSM_C_LogInit(phSession, rootmsg, strlen((char*)rootmsg)+1, hash, 32);
+
+	// Logout Log User
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		getchar();
+		return 1;
+	}*/
+
 	///// Login user 1, read file and send each line to the HSM
 
 	// Login user 1
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -701,7 +728,7 @@ int main()
 		const char *pMessage = line.c_str();
 
 		startTimer();
-		HSM_C_LogAdd(phSession, (CK_UTF8CHAR_PTR)pMessage, line.length());
+		r = HSM_C_LogAdd(phSession, (CK_UTF8CHAR_PTR)pMessage, line.length(), CK_TRUE);
 		endTimer();
 		average += elapsedTime;
 		times++;
@@ -723,7 +750,7 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}
+	}*/
 
 	///// Get log-chain counters
 
@@ -773,9 +800,9 @@ int main()
 	times++;
 
 	average /= times;
-	printf("\nOK\n");*/
+	printf("\nOK\n");
 	
-	/*printf("\nVerify year...\n");
+	printf("\nVerify year...\n");
 
 	average = 0.0f;
 	times = 0;
@@ -789,12 +816,13 @@ int main()
 	average /= times;
 	printf("\nOK\n");*/
 
-	printf("\nVerify chain...\n");
+	/*printf("\nVerify chain...\n");
 
+	uint8_t hash_v[32] = { 0x6f, 0x4e, 0xce, 0x48, 0xaf, 0x1d, 0x8d, 0x1f, 0xff, 0xce, 0x45, 0x65, 0x2b, 0x19, 0x02, 0xb4, 0x05, 0x06, 0x04, 0xe6, 0x67, 0xa0, 0xa3, 0xf3, 0x98, 0x56, 0x96, 0x80, 0x3a, 0xfe, 0xf1, 0x56 };
 	average = 0.0f;
 	times = 0;
 	startTimer();
-	r = HSM_C_LogVerifyChain(0, lNumber1, lNumber2);
+	r = HSM_C_LogVerifyChain(0, lNumber1, lNumber2, hash_v);
 	//assert(r == CKR_OK);
 	endTimer();
 	average += elapsedTime;
@@ -810,7 +838,7 @@ int main()
 		printf("C_Finalize Failed: %d\n", r);
 		getchar();
 		return 1;
-	}
+	}*/
 
 	printf("\nPress ENTER to continue.\n");
 

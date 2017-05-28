@@ -147,7 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cryptoki.h" />
-    <ClInclude Include="Device.h" />
     <ClInclude Include="HSM.h" />
     <ClInclude Include="pkcs11.h" />
     <ClInclude Include="pkcs11f.h" />
@@ -160,9 +159,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cryptoki.cpp" />
-    <ClCompile Include="Device.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
