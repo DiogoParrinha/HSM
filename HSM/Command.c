@@ -43,7 +43,7 @@ void COMMAND_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 
@@ -75,7 +75,7 @@ void COMMAND_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 
@@ -120,7 +120,7 @@ void COMMAND_USER_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || !(system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 
@@ -166,7 +166,7 @@ void COMMAND_USER_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || (system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 
@@ -209,7 +209,7 @@ void COMMAND_USER_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || !(system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 
@@ -237,7 +237,7 @@ void COMMAND_USER_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || (system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 
@@ -314,7 +314,7 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || (system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 
@@ -358,7 +358,7 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 
@@ -425,7 +425,7 @@ void COMMAND_CERTMGT_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || !(system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 
@@ -542,7 +542,7 @@ void COMMAND_LOGS_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || (system_status & STATUS_ISADMIN))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 
@@ -550,7 +550,7 @@ void COMMAND_LOGS_process(uint8_t * command)
 		// 1. Receive 'message' (null terminated string)
 		// 1. Receive previous hash
 		// 3. Append UID, TIME, COUNTER1, COUNTER2
-		// 4. Format: TIME: {"message", UID, TIME, COUNTER1, COUNTER2}
+		// 4. Format: {"message"|UID|TIME|COUNTER1, COUNTER2}
 		// 5. Generate signature
 		// 6. Send back final message + signature
 
@@ -566,7 +566,7 @@ void COMMAND_LOGS_process(uint8_t * command)
 		uint8_t signature[128];
 		size_t sig_len;
 		uint8_t hash[32];
-		if(!LOGS_sign(buffer, strlen(buffer), 1, finalMessage, &signature[0], &sig_len, prev_hash, hash))
+		if(!LOGS_sign(buffer, strlen(buffer), 1, &signature[0], &sig_len, prev_hash, hash))
 		{
 			// Respond back with ERROR
 			COMMAND_ERROR("ERROR: signing message");
@@ -579,8 +579,57 @@ void COMMAND_LOGS_process(uint8_t * command)
 		// Send data
 		UART_send(global_buffer, strlen(global_buffer)+1); // include null character
 
-		// Send hash
-		//UART_send(hash, 32);
+		// Send signature
+		UART_send(signature, sig_len);
+	}
+	else if(strcmp(command, "LOGS_INIT") == 0)
+	{
+		// Secure connection, logged in, must be admin
+		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN) || !(system_status & STATUS_ISADMIN))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
+			return;
+		}
+
+		// If counter > 0 -> FAIL
+		if(LOGS_globalCounter1 > 0 || LOGS_globalCounter2 > 0)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR_LOGS_INIT");
+			return;
+		}
+
+		// Add a new action to the log
+		// 1. Receive 'message' (null terminated string)
+		// 2. Append TIME
+		// 3. Format: {hash_init|message|TIME}
+		// 4. Generate signature
+		// 5. Send back final message + signature
+
+		// Expect message (max 512B)
+		uint8_t buffer[512] = {0};
+		UART_receive(&buffer[0], 512);
+
+		// Expect init hash (32B)
+		uint8_t init_hash[32] = {0};
+		UART_receive(&init_hash[0], 32);
+
+		uint8_t signature[128];
+		size_t sig_len;
+		uint8_t hash[32];
+		if(!LOGS_init(buffer, strlen(buffer), 1, &signature[0], &sig_len, init_hash, hash))
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: signing message");
+			return;
+		}
+
+		// Send SUCCESS with data + signature
+		UART_send("SUCCESS", 7);
+
+		// Send data
+		UART_send(global_buffer, strlen(global_buffer)+1); // include null character
 
 		// Send signature
 		UART_send(signature, sig_len);
@@ -591,7 +640,7 @@ void COMMAND_LOGS_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 
@@ -819,7 +868,7 @@ void COMMAND_SESSION_process(uint8_t * command)
 		if(!(system_status & STATUS_CONNECTED) || !(system_status & STATUS_LOGGEDIN))
 		{
 			// Respond back with ERROR
-			COMMAND_ERROR("ERROR: not connected/auth");
+			COMMAND_ERROR("ERROR_CONNECT_AUTH");
 			return;
 		}
 

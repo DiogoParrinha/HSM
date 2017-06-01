@@ -26,6 +26,7 @@ BOOL LOGS_add(uint8_t * hash);
 */
 
 /* Message cannot be longer than 512B */
-BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * finalMessage, uint8_t * signature, size_t * signature_len, uint8_t * prev_hash, uint8_t * hash);
+BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * signature, size_t * signature_len, uint8_t * prev_hash, uint8_t * hash);
+BOOL LOGS_init(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * signature, size_t * signature_len, uint8_t * init_hash, uint8_t * hash);
 
 #endif // LOGS_H
