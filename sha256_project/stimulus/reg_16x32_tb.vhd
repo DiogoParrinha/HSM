@@ -45,6 +45,7 @@ architecture behavioral of reg_16x32_tb is
     signal wen : std_logic := '0';
     signal ren : std_logic := '0';
     signal data_out : std_logic_vector(31 downto 0) := (others => '0');
+    signal data_out_ready : std_logic := '0';
 
 
     component reg_16x32
@@ -60,7 +61,8 @@ architecture behavioral of reg_16x32_tb is
             ren : in std_logic;
 
             -- Outputs
-            data_out : out std_logic_vector(31 downto 0)
+            data_out : out std_logic_vector(31 downto 0);
+            data_out_ready : OUT std_logic
 
             -- Inouts
 
@@ -86,7 +88,8 @@ begin
             ren => ren,
 
             -- Outputs
-            data_out => data_out
+            data_out => data_out,
+            data_out_ready => data_out_ready
         );
 
     -- Stimulus process

@@ -20,14 +20,12 @@ if {[file exists COREAHBLSRAM_LIB/_info]} {
 }
 vmap COREAHBLSRAM_LIB "COREAHBLSRAM_LIB"
 
-vcom -2008 -explicit  -work presynth "${PROJECT_DIR}/hdl/mux_9_1.vhd"
-vcom -2008 -explicit  -work presynth "${PROJECT_DIR}/hdl/reg_1x32.vhd"
-vcom -2008 -explicit  -work presynth "${PROJECT_DIR}/component/work/reg9_1x32/reg9_1x32.vhd"
+vcom -2008 -explicit  -work presynth "${PROJECT_DIR}/hdl/reg_2x32.vhd"
 vcom -2008 -explicit  -work COREAHBLITE_LIB "${PROJECT_DIR}/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/components.vhd"
 vcom -2008 -explicit  -work COREAHBLITE_LIB "${PROJECT_DIR}/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_addrdec.vhd"
 vcom -2008 -explicit  -work COREAHBLITE_LIB "${PROJECT_DIR}/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_pkg.vhd"
-vcom -2008 -explicit  -work presynth "${PROJECT_DIR}/stimulus/reg_9_1x32.vhd"
+vcom -2008 -explicit  -work presynth "${PROJECT_DIR}/stimulus/reg_16x32_tb.vhd"
 
-vsim -L SmartFusion2 -L presynth -L COREAHBLITE_LIB -L COREAHBLSRAM_LIB  -t 1fs presynth.reg_9_1x32
-add wave /reg_9_1x32/*
+vsim -L SmartFusion2 -L presynth -L COREAHBLITE_LIB -L COREAHBLSRAM_LIB  -t 1fs presynth.reg_16x32_tb
+add wave /reg_16x32_tb/*
 run 1000ns

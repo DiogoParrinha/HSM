@@ -3178,7 +3178,7 @@
 </row>
 <row>
  <cell>GPIO2_USAGE</cell>
- <cell>USAGE_OUTPUT</cell>
+ <cell>USAGE_INPUT</cell>
 </row>
 <row>
  <cell>GPIO3_FAB_CAPT</cell>
@@ -3644,8 +3644,8 @@
  <cell>-</cell>
 </row>
 <row>
- <cell>GPIO_2_M2F</cell>
- <cell>OUT</cell>
+ <cell>GPIO_2_F2M</cell>
+ <cell>IN</cell>
  <cell>-</cell>
 </row>
 </table>

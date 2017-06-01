@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by Microsemi SmartDesign Thu Jun 01 19:53:48 2017
+-- Created by Microsemi SmartDesign Thu Jun 01 22:20:28 2017
 -- Parameters for CoreAHBLite
 ----------------------------------------------------------------------
 

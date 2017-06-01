@@ -29,7 +29,8 @@ port (
     raddr_in : IN std_logic_vector(3 downto 0);
     wen : IN std_logic;
     ren : IN std_logic;
-    data_out : OUT std_logic_vector(31 downto 0)
+    data_out : OUT std_logic_vector(31 downto 0);
+    data_out_ready : OUT std_logic
 );
 end reg_16x32;
 architecture architecture_reg_16x32 of reg_16x32 is
@@ -45,6 +46,8 @@ architecture architecture_reg_16x32 of reg_16x32 is
 
     signal raddr_pos : std_logic_vector(3 downto 0);
     signal ren_pos : std_logic;
+
+    signal d_out_ready : std_logic;
 
 begin
 
@@ -80,11 +83,15 @@ begin
 
             ren_pos <= '0';
             raddr_pos <= (others => '0');
+            data_out_ready <= '0';
         else
             ren_pos <= ren;
             if(ren='1') then 
                 raddr_pos <= raddr_in;
+                data_out_ready <= '1';
             elsif(wen='1') then
+                data_out_ready <= '0';
+
                 if (waddr_in="1111") then
                     line7(63 downto 32) <= data_in;
                 elsif (waddr_in="1110") then

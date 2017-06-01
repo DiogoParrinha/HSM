@@ -34,6 +34,9 @@ port (
     read_addr : OUT std_logic_vector(3 downto 0);  -- selects the register to read from
     read_data : IN std_logic_vector(31 downto 0); -- the output at the selected register
 
+    data_received : IN std_logic;
+    wait_data : OUT std_logic;
+
     -- SHA-256 Core inputs
     ce_i : out std_logic := 'U';                                     -- core clock enable
     -- input data
@@ -43,6 +46,7 @@ port (
     start_i : out std_logic := 'U';                                  -- reset the engine and start a new hash
     end_i : out std_logic := 'U';                                    -- marks end of last block data input
     -- handshake
+    di_req_o : out std_logic;                                       -- requests data input for next word
     di_wr_i : out std_logic := 'U'                                  -- high for di_i valid, low for hold
 );
 end sha256_controller;
