@@ -1,0 +1,149 @@
+#defaultlanguage:vhdl
+#OPTIONS:"|-layerid|0|-orig_srs|E:\\LiberoProjects\\sha256_project\\synthesis\\synwork\\sha256_system_comp.srs|-top|work.sha256_system|-prodtype|synplify_pro|-infer_seqShift|-primux|-dspmac|-pqdpadd|-fixsmult|-sdff_counter|-divnmod|-nram|-encrypt|-pro|-lite|-ui|-fid2|-ram|-sharing|on|-ll|2000|-autosm|-vhdl2008|-ignore_undefined_lib|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|work|-lib|work"
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\bin64\\c_vhdl.exe":1449218126
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\location.map":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\std.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd\\snps_haps_pkg.vhd":1449218132
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\std1164.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\std_textio.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\numeric.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd\\umr_capim.vhd":1449218132
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\arith.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\unsigned.vhd":1449218134
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd\\hyperents.vhd":1449218132
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\AHB_slave_dummy.vhd":1495667537
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\reg_2x32.vhd":1496311743
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreResetP\\7.1.100\\rtl\\vhdl\\core\\coreresetp_pcie_hotreset.vhd":1476047285
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system_sb\\CCC_0\\sha256_system_sb_CCC_0_FCCC.vhd":1496059855
+#CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\generic\\smartfusion2.vhd":1449218130
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\SgCore\\OSC\\2.0.101\\osc_comps.vhd":1476047286
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system_sb_MSS\\sha256_system_sb_MSS_syn.vhd":1496059852
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_addrdec.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_defaultslavesm.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_slavearbiter.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_pkg.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\components.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreResetP\\7.1.100\\rtl\\vhdl\\core\\coreresetp.vhd":1476047285
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system_sb\\FABOSC_0\\sha256_system_sb_FABOSC_0_OSC.vhd":1496059858
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system_sb_MSS\\sha256_system_sb_MSS.vhd":1496059852
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_masterstage.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_slavestage.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_matrix4x16.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite.vhd":1487266713
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system_sb\\sha256_system_sb.vhd":1496059858
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system\\sha256_system.vhd":1496312140
+0 "E:\LiberoProjects\sha256_project\hdl\AHB_slave_dummy.vhd" vhdl
+1 "E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd" vhdl
+2 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp_pcie_hotreset.vhd" vhdl
+3 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd" vhdl
+4 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd" vhdl
+5 "E:\LiberoProjects\sha256_project\component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd" vhdl
+6 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd" vhdl
+7 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_syn.vhd" vhdl
+8 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd" vhdl
+9 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd" vhdl
+10 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_defaultslavesm.vhd" vhdl
+11 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd" vhdl
+12 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd" vhdl
+13 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd" vhdl
+14 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd" vhdl
+15 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_pkg.vhd" vhdl
+16 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd" vhdl
+17 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\components.vhd" vhdl
+18 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd" vhdl
+19 "E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd" vhdl
+
+# Dependency Lists (Uses list)
+0 -1
+1 -1
+2 -1
+3 2 
+4 -1
+5 -1
+6 5 
+7 -1
+8 7 
+9 -1
+10 -1
+11 9 10 
+12 -1
+13 12 
+14 11 13 
+15 -1
+16 14 15 
+17 -1
+18 4 16 3 6 8 17 
+19 0 1 18 
+
+# Dependency Lists (Users Of)
+0 19 
+1 19 
+2 3 
+3 18 
+4 18 
+5 6 
+6 18 
+7 8 
+8 18 
+9 11 
+10 11 
+11 14 
+12 13 
+13 14 
+14 16 
+15 16 
+16 18 
+17 18 
+18 19 
+19 -1
+
+# Design Unit to File Association
+arch work ahb_slave_dummy behaviour 0
+module work ahb_slave_dummy 0
+arch work reg_8x32 architecture_reg_8x32 1
+module work reg_8x32 1
+arch work coreresetp_pcie_hotreset rtl 2
+module work coreresetp_pcie_hotreset 2
+arch work coreresetp rtl 3
+module work coreresetp 3
+arch work sha256_system_sb_ccc_0_fccc def_arch 4
+module work sha256_system_sb_ccc_0_fccc 4
+arch work xtlosc_fab def_arch 5
+module work xtlosc_fab 5
+arch work rcosc_25_50mhz_fab def_arch 5
+module work rcosc_25_50mhz_fab 5
+arch work rcosc_1mhz_fab def_arch 5
+module work rcosc_1mhz_fab 5
+arch work xtlosc def_arch 5
+module work xtlosc 5
+arch work rcosc_25_50mhz def_arch 5
+module work rcosc_25_50mhz 5
+arch work rcosc_1mhz def_arch 5
+module work rcosc_1mhz 5
+arch work sha256_system_sb_fabosc_0_osc def_arch 6
+module work sha256_system_sb_fabosc_0_osc 6
+arch work mss_060 def_arch 7
+module work mss_060 7
+arch work sha256_system_sb_mss rtl 8
+module work sha256_system_sb_mss 8
+arch coreahblite_lib coreahblite_addrdec coreahblite_addrdec_arch 9
+module coreahblite_lib coreahblite_addrdec 9
+arch coreahblite_lib coreahblite_defaultslavesm coreahblite_defaultslavesm_arch 10
+module coreahblite_lib coreahblite_defaultslavesm 10
+arch coreahblite_lib coreahblite_masterstage coreahblite_masterstage_arch 11
+module coreahblite_lib coreahblite_masterstage 11
+arch coreahblite_lib coreahblite_slavearbiter coreahblite_slavearbiter_arch 12
+module coreahblite_lib coreahblite_slavearbiter 12
+arch coreahblite_lib coreahblite_slavestage trans 13
+module coreahblite_lib coreahblite_slavestage 13
+arch coreahblite_lib coreahblite_matrix4x16 coreahblite_matrix4x16_arch 14
+module coreahblite_lib coreahblite_matrix4x16 14
+arch coreahblite_lib coreahblite coreahblite_arch 16
+module coreahblite_lib coreahblite 16
+arch work sha256_system_sb rtl 18
+module work sha256_system_sb 18
+arch work sha256_system rtl 19
+module work sha256_system 19
+
+
+# Configuration files used

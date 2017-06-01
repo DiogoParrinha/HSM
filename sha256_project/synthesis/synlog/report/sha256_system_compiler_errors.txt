@@ -1,0 +1,2 @@
+@E: CD297 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":74:16:74:24|Width mismatch, location has width 3, value 4
+

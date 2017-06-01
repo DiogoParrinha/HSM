@@ -1,0 +1,458 @@
+Synopsys Generic Technology Mapper, Version mapact, Build 1659R, Built Dec 10 2015 09:44:42
+Copyright (C) 1994-2015, Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use, reproduction, or distribution of this software is strictly prohibited.
+Product Version J-2015.03M-SP1-2
+
+Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 99MB peak: 100MB)
+
+@N: MF248 |Running in 64-bit mode.
+@N: MF667 |Clock conversion disabled 
+
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 99MB peak: 101MB)
+
+
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 99MB peak: 101MB)
+
+
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 101MB peak: 101MB)
+
+
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 101MB peak: 103MB)
+
+
+
+Starting Optimization and Mapping (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 136MB peak: 139MB)
+
+@W: MO171 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":781:8:781:9|Sequential instance sha256_system_sb_0.CORERESETP_0.sm1_areset_n_q1 reduced to a combinational gate by constant propagation 
+@W: MO171 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":781:8:781:9|Sequential instance sha256_system_sb_0.CORERESETP_0.sm1_areset_n_clk_base reduced to a combinational gate by constant propagation 
+@W: MO171 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1331:8:1331:9|Sequential instance sha256_system_sb_0.CORERESETP_0.RESET_N_F2M_int reduced to a combinational gate by constant propagation 
+
+Available hyper_sources - for debug and ip models
+	None Found
+
+
+Finished RTL optimizations (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 136MB peak: 139MB)
+
+Encoding state machine FSM[0:2] (view:work.AHB_slave_dummy(behaviour))
+original code -> new code
+   00 -> 00
+   01 -> 01
+   10 -> 10
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[4] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[5] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[6] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[7] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[8] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[4] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[5] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[6] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[7] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[8] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[0] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[1] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[11] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[12] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[13] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[14] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[15] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[16] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[17] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[18] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[19] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[20] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[21] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[22] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[23] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[28] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[29] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[30] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[31] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
+@W: MO160 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":305:8:305:9|Register bit CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[16] is always 0, optimizing ...
+@W: BN132 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[26],  because it is equivalent to instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[24]
+@W: BN132 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[27],  because it is equivalent to instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[24]
+@W: BN132 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[25],  because it is equivalent to instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[24]
+Encoding state machine arbRegSMCurrentState[0:15] (view:coreahblite_lib.COREAHBLITE_SLAVEARBITER_0(coreahblite_slavearbiter_arch))
+original code -> new code
+   0000 -> 0000000000000001
+   0001 -> 0000000000000010
+   0010 -> 0000000000000100
+   0011 -> 0000000000001000
+   0100 -> 0000000000010000
+   0101 -> 0000000000100000
+   0110 -> 0000000001000000
+   0111 -> 0000000010000000
+   1000 -> 0000000100000000
+   1001 -> 0000001000000000
+   1010 -> 0000010000000000
+   1011 -> 0000100000000000
+   1100 -> 0001000000000000
+   1101 -> 0010000000000000
+   1110 -> 0100000000000000
+   1111 -> 1000000000000000
+@W: MO160 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[3] is always 0, optimizing ...
+@W: MO160 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[7] is always 0, optimizing ...
+@W: MO160 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[11] is always 0, optimizing ...
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[24] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[10] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[9] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[8] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[7] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[6] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+
+Finished factoring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 149MB peak: 150MB)
+
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[13] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[12] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+
+Finished gated-clock and generated-clock conversion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 142MB peak: 150MB)
+
+
+Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 143MB peak: 150MB)
+
+
+Starting Early Timing Optimization (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 144MB peak: 150MB)
+
+
+Finished Early Timing Optimization (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 145MB peak: 150MB)
+
+
+Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 144MB peak: 150MB)
+
+
+Finished preparing to map (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 143MB peak: 150MB)
+
+
+Finished technology mapping (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 154MB peak: 157MB)
+
+Pass		 CPU time		Worst Slack		Luts / Registers
+------------------------------------------------------------
+   1		0h:00m:02s		    -0.37ns		 863 /       387
+   2		0h:00m:02s		    -0.37ns		 763 /       387
+   3		0h:00m:02s		    -0.37ns		 763 /       387
+@N: FX271 :"e:\liberoprojects\sha256_project\hdl\reg_2x32.vhd":62:4:62:5|Instance "reg_2x32_0.raddr_pos[3]" with 65 loads replicated 3 times to improve timing 
+Timing driven replication report
+Added 3 Registers via timing driven replication
+Added 0 LUTs via timing driven replication
+
+
+
+   4		0h:00m:02s		    -0.03ns		 764 /       390
+
+
+   5		0h:00m:02s		    -0.03ns		 764 /       390
+@N: FP130 |Promoting Net sha256_system_sb_0.MSS_READY on CLKINT  I_141 
+@N: FP130 |Promoting Net sha256_system_sb_0_POWER_ON_RESET_N on CLKINT  I_142 
+
+Added 0 Buffers
+Added 0 Cells via replication
+	Added 0 Sequential Cells via replication
+	Added 0 Combinational Cells via replication
+
+Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 155MB peak: 157MB)
+
+
+Finished restoring hierarchy (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 155MB peak: 157MB)
+
+
+
+#### START OF CLOCK OPTIMIZATION REPORT #####[
+
+Clock optimization not enabled
+1 non-gated/non-generated clock tree(s) driving 391 clock pin(s) of sequential element(s)
+0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
+0 instances converted, 0 sequential instances remain driven by gated/generated clocks
+
+========================================================= Non-Gated/Non-Generated Clocks =========================================================
+Clock Tree ID     Driving Element                       Drive Element Type     Fanout     Sample Instance                                         
+--------------------------------------------------------------------------------------------------------------------------------------------------
+@K:CKID0001       sha256_system_sb_0.CCC_0.GL0_INST     CLKINT                 391        sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST
+==================================================================================================================================================
+
+
+##### END OF CLOCK OPTIMIZATION REPORT ######]
+
+
+Start Writing Netlists (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 126MB peak: 157MB)
+
+Writing Analyst data base E:\LiberoProjects\sha256_project\synthesis\synwork\sha256_system_m.srm
+
+Finished Writing Netlist Databases (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 153MB peak: 157MB)
+
+Writing EDIF Netlist and constraint files
+@N: BW103 |Synopsys Constraint File time units using default value of 1ns 
+@N: BW107 |Synopsys Constraint File capacitance units using default value of 1pF 
+J-2015.03M-SP1-2
+
+Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 154MB peak: 157MB)
+
+
+Start final timing analysis (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 153MB peak: 157MB)
+
+@W: MT246 :"e:\liberoprojects\sha256_project\component\work\sha256_system_sb\ccc_0\sha256_system_sb_ccc_0_fccc.vhd":106:4:106:11|Blackbox CCC is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results) 
+@W: MT420 |Found inferred clock sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock with period 10.00ns. Please declare a user-defined clock on object "n:sha256_system_sb_0.CCC_0.GL0_net"
+
+
+
+@S |##### START OF TIMING REPORT #####[
+# Timing Report written on Thu Jun 01 11:16:31 2017
+#
+
+
+Top view:               sha256_system
+Requested Frequency:    100.0 MHz
+Wire load mode:         top
+Paths requested:        5
+Constraint File(s):    E:\LiberoProjects\sha256_project\designer\sha256_system\synthesis.fdc
+                       
+@N: MT320 |Timing report estimates place and route data. Please look at the place and route timing report for final timing.
+
+@N: MT322 |Clock constraints cover only FF-to-FF paths associated with the clock.
+
+
+
+Performance Summary 
+*******************
+
+
+Worst slack in design: 0.664
+
+                                                       Requested     Estimated      Requested     Estimated               Clock        Clock              
+Starting Clock                                         Frequency     Frequency      Period        Period        Slack     Type         Group              
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     107.1 MHz      10.000        9.336         0.664     inferred     Inferred_clkgroup_0
+System                                                 100.0 MHz     1029.4 MHz     10.000        0.971         9.029     system       system_clkgroup    
+==========================================================================================================================================================
+
+
+
+
+
+Clock Relationships
+*******************
+
+Clocks                                                                                                  |    rise  to  rise   |    fall  to  fall   |    rise  to  fall   |    fall  to  rise 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Starting                                            Ending                                              |  constraint  slack  |  constraint  slack  |  constraint  slack  |  constraint  slack
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+System                                              System                                              |  10.000      9.029  |  No paths    -      |  No paths    -      |  No paths    -    
+sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  10.000      0.664  |  No paths    -      |  No paths    -      |  No paths    -    
+==============================================================================================================================================================================================
+ Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
+       'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
+
+
+
+Interface Information 
+*********************
+
+No IO constraint found
+
+
+
+====================================
+Detailed Report for Clock: sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                                                                              Starting                                                                                                                                        Arrival          
+Instance                                                                      Reference                                              Type        Pin                Net                                                       Time        Slack
+                                                                              Clock                                                                                                                                                            
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                      sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[25]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[25]     5.952       0.664
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                      sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[27]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[27]     5.961       0.724
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                      sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[24]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[24]     5.945       0.764
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                      sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[26]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[26]     5.932       0.770
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                      sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_WRITE        sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HWRITE        6.063       0.846
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                      sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_TRANS1       sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HTRANS[1]     5.952       0.878
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[11]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  SDATASELInt[11]                                           0.094       1.604
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[2]      sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  SDATASELInt[2]                                            0.094       1.645
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[1]      sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  SDATASELInt[1]                                            0.094       1.664
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[13]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  SDATASELInt[13]                                           0.094       1.687
+===============================================================================================================================================================================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                                                                                                    Starting                                                                              Required          
+Instance                                                                                            Reference                                              Type     Pin     Net           Time         Slack
+                                                                                                    Clock                                                                                                   
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+AHB_slave_dummy_0.read_en                                                                           sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_65          9.707        0.664
+AHB_slave_dummy_0.ready                                                                             sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_65          9.707        0.664
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[15]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       N_104_i_0     9.778        0.693
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[2]                               sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_36_i_0      9.707        0.718
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[3]                               sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_36_i_0      9.707        0.718
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[4]                               sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_36_i_0      9.707        0.718
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[5]                               sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_36_i_0      9.707        0.718
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHTRANS                                 sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_36_i_0      9.707        0.718
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHWRITE                                 sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_36_i_0      9.707        0.718
+AHB_slave_dummy_0.lsram_raddr[0]                                                                    sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_290         9.707        0.770
+============================================================================================================================================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      10.000
+    - Setup time:                            0.293
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.707
+
+    - Propagation time:                      9.042
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     0.664
+
+    Number of logic level(s):                3
+    Starting point:                          sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[25]
+    Ending point:                            AHB_slave_dummy_0.read_en / EN
+    The start point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
+    The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
+
+Instance / Net                                                                                                                Pin                Pin               Arrival     No. of    
+Name                                                                                                              Type        Name               Dir     Delay     Time        Fan Out(s)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                                                          MSS_060     F_HM0_ADDR[25]     Out     5.952     5.952       -         
+sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[25]                                                             Net         -                  -       0.992     -           17        
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_a2_0_i_0_o2[5]     CFG4        D                  In      -         6.944       -         
+sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_ns_a2_0_i_0_o2[5]     CFG4        Y                  Out     0.236     7.180       -         
+N_208                                                                                                             Net         -                  -       0.812     -           17        
+AHB_slave_dummy_0.un1_lsram_raddr_1_sqmuxa_i_i_0_1                                                                CFG4        B                  In      -         7.992       -         
+AHB_slave_dummy_0.un1_lsram_raddr_1_sqmuxa_i_i_0_1                                                                CFG4        Y                  Out     0.125     8.116       -         
+un1_lsram_raddr_1_sqmuxa_i_i_0_1                                                                                  Net         -                  -       0.483     -           1         
+AHB_slave_dummy_0.un1_lsram_raddr_1_sqmuxa_i_i_0                                                                  CFG4        C                  In      -         8.600       -         
+AHB_slave_dummy_0.un1_lsram_raddr_1_sqmuxa_i_i_0                                                                  CFG4        Y                  Out     0.182     8.782       -         
+N_65                                                                                                              Net         -                  -       0.260     -           2         
+AHB_slave_dummy_0.read_en                                                                                         SLE         EN                 In      -         9.042       -         
+=========================================================================================================================================================================================
+Total path delay (propagation time + setup) of 9.336 is 6.788(72.7%) logic and 2.547(27.3%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+
+
+====================================
+Detailed Report for Clock: System
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                                                 Starting                                                                                           Arrival          
+Instance                                         Reference     Type               Pin        Net                                                    Time        Slack
+                                                 Clock                                                                                                               
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ     System        RCOSC_25_50MHZ     CLKOUT     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000       9.029
+=====================================================================================================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                                      Starting                                                                                         Required          
+Instance                              Reference     Type     Pin                Net                                                    Time         Slack
+                                      Clock                                                                                                              
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.CCC_0.CCC_INST     System        CCC      RCOSC_25_50MHZ     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     10.000       9.029
+=========================================================================================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      10.000
+    - Setup time:                            0.000
+    + Clock delay at ending point:           0.000 (ideal)
+    + Estimated clock delay at ending point: 0.000
+    = Required time:                         10.000
+
+    - Propagation time:                      0.971
+    - Clock delay at starting point:         0.000 (ideal)
+    - Estimated clock delay at start point:  -0.000
+    = Slack (non-critical) :                 9.029
+
+    Number of logic level(s):                0
+    Starting point:                          sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ / CLKOUT
+    Ending point:                            sha256_system_sb_0.CCC_0.CCC_INST / RCOSC_25_50MHZ
+    The start point is clocked by            System [rising]
+    The end   point is clocked by            System [rising]
+
+Instance / Net                                                            Pin                Pin               Arrival     No. of    
+Name                                                   Type               Name               Dir     Delay     Time        Fan Out(s)
+-------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ           RCOSC_25_50MHZ     CLKOUT             Out     0.000     0.000       -         
+FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     Net                -                  -       0.971     -           1         
+sha256_system_sb_0.CCC_0.CCC_INST                      CCC                RCOSC_25_50MHZ     In      -         0.971       -         
+=====================================================================================================================================
+Total path delay (propagation time + setup) of 0.971 is 0.000(0.0%) logic and 0.971(100.0%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+
+##### END OF TIMING REPORT #####]
+
+
+Finished final timing analysis (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 153MB peak: 157MB)
+
+
+Finished timing report (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 153MB peak: 157MB)
+
+---------------------------------------
+Resource Usage Report for sha256_system 
+
+Mapping to part: m2s060fbga484-1
+Cell usage:
+CCC             1 use
+CLKINT          3 uses
+MSS_060         1 use
+RCOSC_25_50MHZ  1 use
+SYSRESET        1 use
+CFG1           1 use
+CFG2           63 uses
+CFG3           164 uses
+CFG4           532 uses
+
+
+Sequential Cells: 
+SLE            390 uses
+
+DSP Blocks:    0
+
+I/O ports: 4
+I/O primitives: 3
+OUTBUF         3 uses
+
+
+Global Clock Buffers: 3
+
+
+Total LUTs:    760
+
+Extra resources required for RAM and MACC interface logic during P&R:
+
+RAM64x18 Interface Logic : SLEs = 0; LUTs = 0;
+RAM1K18  Interface Logic : SLEs = 0; LUTs = 0;
+MACC     Interface Logic : SLEs = 0; LUTs = 0;
+
+Total number of SLEs after P&R:  390 + 0 + 0 + 0 = 390;
+Total number of LUTs after P&R:  760 + 0 + 0 + 0 = 760;
+
+Mapper successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 52MB peak: 157MB)
+
+Process took 0h:00m:04s realtime, 0h:00m:04s cputime
+# Thu Jun 01 11:16:31 2017
+
+###########################################################]

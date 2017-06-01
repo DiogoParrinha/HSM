@@ -1,0 +1,16 @@
+
+. Module name, SLE, CFG, ARI1, BUFFER, MACC, RAM1K18, RAM64X18, GLOBAL, IO
+. sha256_system, 390, 760, 0, 0, 0, 0, 0, 3, 3
+.	. AHB_slave_dummy, 14, 24, 0, 0, 0, 0, 0, 0, 0
+.	. reg_8x32, 328, 564, 0, 0, 0, 0, 0, 0, 0
+.	. sha256_system_sb, 48, 172, 0, 0, 0, 0, 0, 3, 0
+.	.	. CoreAHBLite, 39, 137, 0, 0, 0, 0, 0, 0, 0
+.	.	.	. COREAHBLITE_MATRIX4X16, 39, 137, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	. COREAHBLITE_MASTERSTAGE_2_1_0_1_0, 24, 70, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	.	. COREAHBLITE_DEFAULTSLAVESM_0, 1, 8, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	. COREAHBLITE_SLAVESTAGE_1, 15, 67, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	.	. COREAHBLITE_SLAVEARBITER_0, 11, 30, 0, 0, 0, 0, 0, 0, 0
+.	.	. CoreResetP, 9, 2, 0, 0, 0, 0, 0, 1, 0
+.	.	. sha256_system_sb_CCC_0_FCCC, 0, 0, 0, 0, 0, 0, 0, 1, 0
+.	.	. sha256_system_sb_FABOSC_0_OSC, 0, 0, 0, 0, 0, 0, 0, 0, 0
+.	.	. sha256_system_sb_MSS, 0, 33, 0, 0, 0, 0, 0, 0, 0

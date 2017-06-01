@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<?xml-stylesheet href="rptstyle.xsl" type="text/xsl" ?>
+<doc>
+<text>SmartTime Version 11.7.1.14</text>
+<text>Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
+Date: Thu Jun 01 11:18:00 2017 </text>
+<table>
+<header>
+</header>
+<row>
+ <cell>Design</cell>
+ <cell>sha256_system</cell>
+</row>
+<row>
+ <cell>Family</cell>
+ <cell>SmartFusion2</cell>
+</row>
+<row>
+ <cell>Die</cell>
+ <cell>M2S060</cell>
+</row>
+<row>
+ <cell>Package</cell>
+ <cell>484 FBGA</cell>
+</row>
+<row>
+ <cell>Temperature Range</cell>
+ <cell>0 - 85 C</cell>
+</row>
+<row>
+ <cell>Voltage Range</cell>
+ <cell>1.14 - 1.26 V</cell>
+</row>
+<row>
+ <cell>Speed Grade</cell>
+ <cell>-1</cell>
+</row>
+</table>
+<text></text>
+<text></text>
+<section>
+<name>Coverage Summary</name>
+<text></text>
+<table>
+<header>
+ <cell>Type of check</cell>
+ <cell>Constrained</cell>
+ <cell>UnConstrained</cell>
+ <cell>Total</cell>
+</header>
+<row>
+ <cell>Setup</cell>
+ <cell>            0</cell>
+ <cell>         1112</cell>
+ <cell>         1112</cell>
+</row>
+<row>
+ <cell>Recovery</cell>
+ <cell>            0</cell>
+ <cell>           62</cell>
+ <cell>           62</cell>
+</row>
+<row>
+ <cell>Output Setup</cell>
+ <cell>            0</cell>
+ <cell>            3</cell>
+ <cell>            3</cell>
+</row>
+<row>
+ <cell>Total Setup</cell>
+ <cell>            0</cell>
+ <cell>         1177</cell>
+ <cell>         1177</cell>
+</row>
+<separator/>
+<row>
+ <cell>Hold</cell>
+ <cell>            0</cell>
+ <cell>         1112</cell>
+ <cell>         1112</cell>
+</row>
+<row>
+ <cell>Removal</cell>
+ <cell>            0</cell>
+ <cell>           62</cell>
+ <cell>           62</cell>
+</row>
+<row>
+ <cell>Output Hold</cell>
+ <cell>            0</cell>
+ <cell>            3</cell>
+ <cell>            3</cell>
+</row>
+<row>
+ <cell>Total Hold</cell>
+ <cell>            0</cell>
+ <cell>         1177</cell>
+ <cell>         1177</cell>
+</row>
+</table>
+<section>
+<name>Clock domain: </name>
+<text>sha256_system_sb_0/CCC_0/CCC_INST/INST_CCC_IP:GL0</text>
+<text></text>
+<table>
+<header>
+ <cell>Type of check</cell>
+ <cell>Constrained</cell>
+ <cell>UnConstrained</cell>
+ <cell>Total</cell>
+</header>
+<row>
+ <cell>Setup</cell>
+ <cell>            0</cell>
+ <cell>         1112</cell>
+ <cell>         1112</cell>
+</row>
+<row>
+ <cell>Recovery</cell>
+ <cell>            0</cell>
+ <cell>           62</cell>
+ <cell>           62</cell>
+</row>
+<row>
+ <cell>Output Setup</cell>
+ <cell>            0</cell>
+ <cell>            3</cell>
+ <cell>            3</cell>
+</row>
+<row>
+ <cell>Total Setup</cell>
+ <cell>            0</cell>
+ <cell>         1177</cell>
+ <cell>         1177</cell>
+</row>
+<separator/>
+<row>
+ <cell>Hold</cell>
+ <cell>            0</cell>
+ <cell>         1112</cell>
+ <cell>         1112</cell>
+</row>
+<row>
+ <cell>Removal</cell>
+ <cell>            0</cell>
+ <cell>           62</cell>
+ <cell>           62</cell>
+</row>
+<row>
+ <cell>Output Hold</cell>
+ <cell>            0</cell>
+ <cell>            3</cell>
+ <cell>            3</cell>
+</row>
+<row>
+ <cell>Total Hold</cell>
+ <cell>            0</cell>
+ <cell>         1177</cell>
+ <cell>         1177</cell>
+</row>
+</table>
+<section>
+<name>Enhancement Suggestions</name>
+<text></text>
+<text> - Clock constraint is missing </text>
+<text></text>
+<text> - Max output delay constraint missing on  ports:</text>
+<text>   </text>
+<list>
+ <item>GPIO_0_M2F</item>
+ <item>GPIO_1_M2F</item>
+ <item>GPIO_2_M2F</item>
+</list>
+<text></text>
+<text> - Min output delay constraint missing on  ports:</text>
+<text>   </text>
+<list>
+ <item>GPIO_0_M2F</item>
+ <item>GPIO_1_M2F</item>
+ <item>GPIO_2_M2F</item>
+</list>
+<text></text>
+<text></text>
+<text> - Setup uncconstrained for the following pins(first one hundred):</text>
+<text>   </text>
+<list>
+ <item>AHB_slave_dummy_0/FSM[0]:D</item>
+ <item>AHB_slave_dummy_0/FSM[1]:D</item>
+ <item>AHB_slave_dummy_0/hwrite_r:D</item>
+ <item>AHB_slave_dummy_0/hwrite_r:EN</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[0]:D</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[0]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[1]:D</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[1]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[2]:D</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[2]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[3]:D</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[3]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[0]:D</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[0]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[1]:D</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[1]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[2]:D</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[2]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[3]:D</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[3]:EN</item>
+ <item>AHB_slave_dummy_0/read_en:D</item>
+ <item>AHB_slave_dummy_0/read_en:EN</item>
+ <item>AHB_slave_dummy_0/ready:D</item>
+ <item>AHB_slave_dummy_0/ready:EN</item>
+ <item>AHB_slave_dummy_0/write_en:D</item>
+ <item>AHB_slave_dummy_0/write_en:EN</item>
+ <item>reg_2x32_0/line0[0]:D</item>
+ <item>reg_2x32_0/line0[0]:EN</item>
+ <item>reg_2x32_0/line0[0]:SLn</item>
+ <item>reg_2x32_0/line0[10]:D</item>
+ <item>reg_2x32_0/line0[10]:EN</item>
+ <item>reg_2x32_0/line0[10]:SLn</item>
+ <item>reg_2x32_0/line0[11]:D</item>
+ <item>reg_2x32_0/line0[11]:EN</item>
+ <item>reg_2x32_0/line0[11]:SLn</item>
+ <item>reg_2x32_0/line0[12]:D</item>
+ <item>reg_2x32_0/line0[12]:EN</item>
+ <item>reg_2x32_0/line0[12]:SLn</item>
+ <item>reg_2x32_0/line0[13]:D</item>
+ <item>reg_2x32_0/line0[13]:EN</item>
+ <item>reg_2x32_0/line0[13]:SLn</item>
+ <item>reg_2x32_0/line0[14]:D</item>
+ <item>reg_2x32_0/line0[14]:EN</item>
+ <item>reg_2x32_0/line0[14]:SLn</item>
+ <item>reg_2x32_0/line0[15]:D</item>
+ <item>reg_2x32_0/line0[15]:EN</item>
+ <item>reg_2x32_0/line0[15]:SLn</item>
+ <item>reg_2x32_0/line0[16]:D</item>
+ <item>reg_2x32_0/line0[16]:EN</item>
+ <item>reg_2x32_0/line0[16]:SLn</item>
+ <item>reg_2x32_0/line0[17]:D</item>
+ <item>reg_2x32_0/line0[17]:EN</item>
+ <item>reg_2x32_0/line0[17]:SLn</item>
+ <item>reg_2x32_0/line0[18]:D</item>
+ <item>reg_2x32_0/line0[18]:EN</item>
+ <item>reg_2x32_0/line0[18]:SLn</item>
+ <item>reg_2x32_0/line0[19]:D</item>
+ <item>reg_2x32_0/line0[19]:EN</item>
+ <item>reg_2x32_0/line0[19]:SLn</item>
+ <item>reg_2x32_0/line0[1]:D</item>
+ <item>reg_2x32_0/line0[1]:EN</item>
+ <item>reg_2x32_0/line0[1]:SLn</item>
+ <item>reg_2x32_0/line0[20]:D</item>
+ <item>reg_2x32_0/line0[20]:EN</item>
+ <item>reg_2x32_0/line0[20]:SLn</item>
+ <item>reg_2x32_0/line0[21]:D</item>
+ <item>reg_2x32_0/line0[21]:EN</item>
+ <item>reg_2x32_0/line0[21]:SLn</item>
+ <item>reg_2x32_0/line0[22]:D</item>
+ <item>reg_2x32_0/line0[22]:EN</item>
+ <item>reg_2x32_0/line0[22]:SLn</item>
+ <item>reg_2x32_0/line0[23]:D</item>
+ <item>reg_2x32_0/line0[23]:EN</item>
+ <item>reg_2x32_0/line0[23]:SLn</item>
+ <item>reg_2x32_0/line0[24]:D</item>
+ <item>reg_2x32_0/line0[24]:EN</item>
+ <item>reg_2x32_0/line0[24]:SLn</item>
+ <item>reg_2x32_0/line0[25]:D</item>
+ <item>reg_2x32_0/line0[25]:EN</item>
+ <item>reg_2x32_0/line0[25]:SLn</item>
+ <item>reg_2x32_0/line0[26]:D</item>
+ <item>reg_2x32_0/line0[26]:EN</item>
+ <item>reg_2x32_0/line0[26]:SLn</item>
+ <item>reg_2x32_0/line0[27]:D</item>
+ <item>reg_2x32_0/line0[27]:EN</item>
+ <item>reg_2x32_0/line0[27]:SLn</item>
+ <item>reg_2x32_0/line0[28]:D</item>
+ <item>reg_2x32_0/line0[28]:EN</item>
+ <item>reg_2x32_0/line0[28]:SLn</item>
+ <item>reg_2x32_0/line0[29]:D</item>
+ <item>reg_2x32_0/line0[29]:EN</item>
+ <item>reg_2x32_0/line0[29]:SLn</item>
+ <item>reg_2x32_0/line0[2]:D</item>
+ <item>reg_2x32_0/line0[2]:EN</item>
+ <item>reg_2x32_0/line0[2]:SLn</item>
+ <item>reg_2x32_0/line0[30]:D</item>
+ <item>reg_2x32_0/line0[30]:EN</item>
+ <item>reg_2x32_0/line0[30]:SLn</item>
+ <item>reg_2x32_0/line0[31]:D</item>
+ <item>reg_2x32_0/line0[31]:EN</item>
+</list>
+<text></text>
+<text> - Recovery uncconstrained for the following pins:</text>
+<text>   </text>
+<list>
+ <item>AHB_slave_dummy_0/FSM[0]:ALn</item>
+ <item>AHB_slave_dummy_0/FSM[1]:ALn</item>
+ <item>AHB_slave_dummy_0/hwrite_r:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[0]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[1]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[2]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[3]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[0]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[1]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[2]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[3]:ALn</item>
+ <item>AHB_slave_dummy_0/read_en:ALn</item>
+ <item>AHB_slave_dummy_0/ready:ALn</item>
+ <item>AHB_slave_dummy_0/write_en:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/FIC_2_APB_M_PRESET_N_clk_base:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/FIC_2_APB_M_PRESET_N_q1:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/POWER_ON_RESET_N_clk_base:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/POWER_ON_RESET_N_q1:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/RESET_N_M2F_clk_base:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/RESET_N_M2F_q1:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/mss_ready_select:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/mss_ready_state:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[0]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[10]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[11]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[12]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[13]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[14]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[15]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[1]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[2]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[3]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[4]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[5]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[6]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[7]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[8]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[9]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/default_slave_sm/defSlaveSMCurrentState:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/masterRegAddrSel:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[2]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[3]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[4]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[5]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHTRANS:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHWRITE:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/masterDataInProg[0]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/masterDataInProg[1]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/masterDataInProg[2]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/masterDataInProg[3]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[0]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[10]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[14]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[15]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[1]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[2]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[4]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[5]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[6]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[8]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[9]:ALn</item>
+</list>
+<text></text>
+<text> - Hold uncconstrained for the following pins(first one hundred):</text>
+<text>   </text>
+<list>
+ <item>AHB_slave_dummy_0/FSM[0]:D</item>
+ <item>AHB_slave_dummy_0/FSM[1]:D</item>
+ <item>AHB_slave_dummy_0/hwrite_r:D</item>
+ <item>AHB_slave_dummy_0/hwrite_r:EN</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[0]:D</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[0]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[1]:D</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[1]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[2]:D</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[2]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[3]:D</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[3]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[0]:D</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[0]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[1]:D</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[1]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[2]:D</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[2]:EN</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[3]:D</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[3]:EN</item>
+ <item>AHB_slave_dummy_0/read_en:D</item>
+ <item>AHB_slave_dummy_0/read_en:EN</item>
+ <item>AHB_slave_dummy_0/ready:D</item>
+ <item>AHB_slave_dummy_0/ready:EN</item>
+ <item>AHB_slave_dummy_0/write_en:D</item>
+ <item>AHB_slave_dummy_0/write_en:EN</item>
+ <item>reg_2x32_0/line0[0]:D</item>
+ <item>reg_2x32_0/line0[0]:EN</item>
+ <item>reg_2x32_0/line0[0]:SLn</item>
+ <item>reg_2x32_0/line0[10]:D</item>
+ <item>reg_2x32_0/line0[10]:EN</item>
+ <item>reg_2x32_0/line0[10]:SLn</item>
+ <item>reg_2x32_0/line0[11]:D</item>
+ <item>reg_2x32_0/line0[11]:EN</item>
+ <item>reg_2x32_0/line0[11]:SLn</item>
+ <item>reg_2x32_0/line0[12]:D</item>
+ <item>reg_2x32_0/line0[12]:EN</item>
+ <item>reg_2x32_0/line0[12]:SLn</item>
+ <item>reg_2x32_0/line0[13]:D</item>
+ <item>reg_2x32_0/line0[13]:EN</item>
+ <item>reg_2x32_0/line0[13]:SLn</item>
+ <item>reg_2x32_0/line0[14]:D</item>
+ <item>reg_2x32_0/line0[14]:EN</item>
+ <item>reg_2x32_0/line0[14]:SLn</item>
+ <item>reg_2x32_0/line0[15]:D</item>
+ <item>reg_2x32_0/line0[15]:EN</item>
+ <item>reg_2x32_0/line0[15]:SLn</item>
+ <item>reg_2x32_0/line0[16]:D</item>
+ <item>reg_2x32_0/line0[16]:EN</item>
+ <item>reg_2x32_0/line0[16]:SLn</item>
+ <item>reg_2x32_0/line0[17]:D</item>
+ <item>reg_2x32_0/line0[17]:EN</item>
+ <item>reg_2x32_0/line0[17]:SLn</item>
+ <item>reg_2x32_0/line0[18]:D</item>
+ <item>reg_2x32_0/line0[18]:EN</item>
+ <item>reg_2x32_0/line0[18]:SLn</item>
+ <item>reg_2x32_0/line0[19]:D</item>
+ <item>reg_2x32_0/line0[19]:EN</item>
+ <item>reg_2x32_0/line0[19]:SLn</item>
+ <item>reg_2x32_0/line0[1]:D</item>
+ <item>reg_2x32_0/line0[1]:EN</item>
+ <item>reg_2x32_0/line0[1]:SLn</item>
+ <item>reg_2x32_0/line0[20]:D</item>
+ <item>reg_2x32_0/line0[20]:EN</item>
+ <item>reg_2x32_0/line0[20]:SLn</item>
+ <item>reg_2x32_0/line0[21]:D</item>
+ <item>reg_2x32_0/line0[21]:EN</item>
+ <item>reg_2x32_0/line0[21]:SLn</item>
+ <item>reg_2x32_0/line0[22]:D</item>
+ <item>reg_2x32_0/line0[22]:EN</item>
+ <item>reg_2x32_0/line0[22]:SLn</item>
+ <item>reg_2x32_0/line0[23]:D</item>
+ <item>reg_2x32_0/line0[23]:EN</item>
+ <item>reg_2x32_0/line0[23]:SLn</item>
+ <item>reg_2x32_0/line0[24]:D</item>
+ <item>reg_2x32_0/line0[24]:EN</item>
+ <item>reg_2x32_0/line0[24]:SLn</item>
+ <item>reg_2x32_0/line0[25]:D</item>
+ <item>reg_2x32_0/line0[25]:EN</item>
+ <item>reg_2x32_0/line0[25]:SLn</item>
+ <item>reg_2x32_0/line0[26]:D</item>
+ <item>reg_2x32_0/line0[26]:EN</item>
+ <item>reg_2x32_0/line0[26]:SLn</item>
+ <item>reg_2x32_0/line0[27]:D</item>
+ <item>reg_2x32_0/line0[27]:EN</item>
+ <item>reg_2x32_0/line0[27]:SLn</item>
+ <item>reg_2x32_0/line0[28]:D</item>
+ <item>reg_2x32_0/line0[28]:EN</item>
+ <item>reg_2x32_0/line0[28]:SLn</item>
+ <item>reg_2x32_0/line0[29]:D</item>
+ <item>reg_2x32_0/line0[29]:EN</item>
+ <item>reg_2x32_0/line0[29]:SLn</item>
+ <item>reg_2x32_0/line0[2]:D</item>
+ <item>reg_2x32_0/line0[2]:EN</item>
+ <item>reg_2x32_0/line0[2]:SLn</item>
+ <item>reg_2x32_0/line0[30]:D</item>
+ <item>reg_2x32_0/line0[30]:EN</item>
+ <item>reg_2x32_0/line0[30]:SLn</item>
+ <item>reg_2x32_0/line0[31]:D</item>
+ <item>reg_2x32_0/line0[31]:EN</item>
+</list>
+<text></text>
+<text> - Removal uncconstrained for the following pins:</text>
+<text>   </text>
+<list>
+ <item>AHB_slave_dummy_0/FSM[0]:ALn</item>
+ <item>AHB_slave_dummy_0/FSM[1]:ALn</item>
+ <item>AHB_slave_dummy_0/hwrite_r:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[0]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[1]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[2]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_raddr[3]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[0]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[1]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[2]:ALn</item>
+ <item>AHB_slave_dummy_0/lsram_waddr[3]:ALn</item>
+ <item>AHB_slave_dummy_0/read_en:ALn</item>
+ <item>AHB_slave_dummy_0/ready:ALn</item>
+ <item>AHB_slave_dummy_0/write_en:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/FIC_2_APB_M_PRESET_N_clk_base:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/FIC_2_APB_M_PRESET_N_q1:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/POWER_ON_RESET_N_clk_base:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/POWER_ON_RESET_N_q1:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/RESET_N_M2F_clk_base:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/RESET_N_M2F_q1:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/mss_ready_select:ALn</item>
+ <item>sha256_system_sb_0/CORERESETP_0/mss_ready_state:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[0]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[10]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[11]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[12]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[13]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[14]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[15]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[1]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[2]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[3]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[4]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[5]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[6]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[7]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[8]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[9]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/default_slave_sm/defSlaveSMCurrentState:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/masterRegAddrSel:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[2]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[3]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[4]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[5]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHTRANS:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHWRITE:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/masterDataInProg[0]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/masterDataInProg[1]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/masterDataInProg[2]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/masterDataInProg[3]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[0]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[10]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[14]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[15]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[1]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[2]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[4]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[5]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[6]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[8]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[9]:ALn</item>
+</list>
+<text></text>
+</section>
+</section>
+<section>
+<name>Clock domain: </name>
+<text>sha256_system_sb_0/FABOSC_0/I_RCOSC_25_50MHZ:CLKOUT</text>
+<text></text>
+<table>
+<header>
+ <cell>Type of check</cell>
+ <cell>Constrained</cell>
+ <cell>UnConstrained</cell>
+ <cell>Total</cell>
+</header>
+<row>
+ <cell>Setup</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+</row>
+<row>
+ <cell>Recovery</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+</row>
+<row>
+ <cell>Output Setup</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+</row>
+<row>
+ <cell>Total Setup</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+</row>
+<separator/>
+<row>
+ <cell>Hold</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+</row>
+<row>
+ <cell>Removal</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+</row>
+<row>
+ <cell>Output Hold</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+</row>
+<row>
+ <cell>Total Hold</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+</row>
+</table>
+</section>
+<section>
+<name>Input to Output</name>
+<table>
+<header>
+ <cell>Type of check</cell>
+ <cell>Constrained</cell>
+ <cell>UnConstrained</cell>
+ <cell>Total</cell>
+</header>
+<row>
+ <cell>Output Setup</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+</row>
+<separator/>
+<row>
+ <cell>Output Hold</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+ <cell>            0</cell>
+</row>
+</table>
+</section>
+</section>
+</doc>

@@ -1,0 +1,14 @@
+Detailed Resource Usage
+Module Name,Fabric 4LUT,Fabric DFF,Single-Ended I/O,PLLs and CCCs,Chip Globals,MSS,10/100/1000 Ethernet,RCOSC_50MHZ
+AHB_slave_dummy_0/Primitives,24,14,0,0,0,0,0,0
+Primitives/Primitives,0,0,3,0,0,0,0,0
+reg_2x32_0/Primitives,564,328,0,0,0,0,0,0
+sha256_system_sb_0/CCC_0/Primitives,0,0,0,1,1,0,0,0
+sha256_system_sb_0/CORERESETP_0/Primitives,2,9,0,0,1,0,0,0
+sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/Primitives,62,23,0,0,0,0,0,0
+sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/default_slave_sm/Primitives,8,1,0,0,0,0,0,0
+sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/Primitives,37,4,0,0,0,0,0,0
+sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/Primitives,30,11,0,0,0,0,0,0
+sha256_system_sb_0/FABOSC_0/Primitives,0,0,0,0,0,0,0,1
+sha256_system_sb_0/Primitives,0,0,0,0,1,0,0,0
+sha256_system_sb_0/sha256_system_sb_MSS_0/Primitives,33,0,0,0,0,1,0,0

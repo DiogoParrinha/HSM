@@ -1,0 +1,1085 @@
+KEY LIBERO "11.7"
+KEY CAPTURE "11.7.1.14"
+KEY DEFAULT_IMPORT_LOC "C:\Actelprj\A3P_Verilog_labs\lab2"
+KEY DEFAULT_OPEN_LOC ""
+KEY ProjectID "0"
+KEY HDLTechnology "VHDL"
+KEY VERILOGMODE "VERILOG2001"
+KEY VHDLMODE "VHDL2008"
+KEY UseConstraintFlowTechnology "TRUE"
+KEY VendorTechnology_Family "SmartFusion2"
+KEY VendorTechnology_Die "PA4M6000_N"
+KEY VendorTechnology_Package "fg484"
+KEY VendorTechnology_Speed "-1"
+KEY VendorTechnology_DieVoltage "1.2"
+KEY VendorTechnology_PART_RANGE "COM"
+KEY VendorTechnology_DSW_VCCA_VOLTAGE_RAMP_RATE "100_MS"
+KEY VendorTechnology_IO_DEFT_STD "LVCMOS25"
+KEY VendorTechnology_OPCONR ""
+KEY VendorTechnology_PLL_SUPPLY "PLL_SUPPLY_33"
+KEY VendorTechnology_RAD_EXPOSURE ""
+KEY VendorTechnology_RESERVEMIGRATIONPINS "1"
+KEY VendorTechnology_RESTRICTPROBEPINS "1"
+KEY VendorTechnology_RESTRICTSPIPINS "0"
+KEY VendorTechnology_SYSTEM_CONTROLLER_SUSPEND_MODE "0"
+KEY VendorTechnology_TARGETDEVICESFORMIGRATION "PA4M6000_N"
+KEY VendorTechnology_TEMPR "COM"
+KEY VendorTechnology_UNUSED_MSS_IO_RESISTOR_PULL "None"
+KEY VendorTechnology_VCCI_1.2_VOLTR "COM"
+KEY VendorTechnology_VCCI_1.5_VOLTR "COM"
+KEY VendorTechnology_VCCI_1.8_VOLTR "COM"
+KEY VendorTechnology_VCCI_2.5_VOLTR "COM"
+KEY VendorTechnology_VCCI_3.3_VOLTR "COM"
+KEY VendorTechnology_VOLTR "COM"
+KEY ProjectLocation "E:\LiberoProjects\sha256_project"
+KEY ProjectDescription ""
+KEY Pa4PeripheralNewSeq "GOOD"
+KEY SimulationType "VHDL"
+KEY Vendor "Actel"
+KEY ActiveRoot "sha256_system::work"
+LIST REVISIONS
+VALUE="Impl1",NUM=1
+CURREV=1
+ENDLIST
+LIST LIBRARIES
+COREAHBLITE_LIB
+COREAHBLSRAM_LIB
+ENDLIST
+LIST LIBRARY_COREAHBLITE_LIB
+ALIAS=..\component\Actel\DirectCore\CoreAHBLite\5.2.100\mti\user_vhdl\COREAHBLITE_LIB
+COMPILE_OPTION=REFRESH_AND_COMPILE
+CUSTOMPATH=false
+ENDLIST
+LIST LIBRARY_COREAHBLSRAM_LIB
+ALIAS=COREAHBLSRAM_LIB
+COMPILE_OPTION=COMPILE
+CUSTOMPATH=false
+ENDLIST
+LIST FileManager
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059856"
+SIZE="5025"
+PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\coreparameters.vhd,tb_hdl"
+STATE="utd"
+TIME="1496059856"
+SIZE="4492"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\mti\scripts\wave_user.do,do"
+STATE="utd"
+TIME="1487266713"
+SIZE="912"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbl.vhd,tb_hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="8290"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd,tb_hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="2348"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslaveext.vhd,tb_hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="22169"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_main.vhd,tb_hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="82848"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_package.vhd,tb_hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="45675"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\misc.vhd,tb_hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="12780"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\textio.vhd,tb_hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="23829"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\components.vhd,hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="18793"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd,hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="62288"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd,hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="11199"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_defaultslavesm.vhd,hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="2760"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd,hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="30586"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd,hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="426134"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_pkg.vhd,hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="425"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd,hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="17249"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd,hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="12256"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
+STATE="utd"
+TIME="1487266713"
+SIZE="68292"
+LIBRARY="COREAHBLITE_LIB"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+MODULE_UNDER_TEST="testbench"
+SIMULATION_TIME="-all"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
+STATE="utd"
+TIME="1496059230"
+SIZE="803"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+STATE="utd"
+TIME="1487266714"
+SIZE="3586"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+STATE="utd"
+TIME="1487266714"
+SIZE="14493"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreResetP\7.1.100\CoreResetP.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059856"
+SIZE="582"
+PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd,hdl"
+STATE="utd"
+TIME="1476047285"
+SIZE="75054"
+PARENT="<project>\component\Actel\DirectCore\CoreResetP\7.1.100\CoreResetP.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp_pcie_hotreset.vhd,hdl"
+STATE="utd"
+TIME="1476047285"
+SIZE="9297"
+PARENT="<project>\component\Actel\DirectCore\CoreResetP\7.1.100\CoreResetP.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\SgCore\FCCC\2.0.200\FCCC.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059856"
+SIZE="241"
+PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SgCore\OSC\2.0.101\OSC.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059858"
+SIZE="682"
+PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd,hdl"
+STATE="utd"
+TIME="1476047286"
+SIZE="2164"
+PARENT="<project>\component\Actel\SgCore\OSC\2.0.101\OSC.cxf"
+BEGIN_USE_CONSTRAINT
+TOOL_CONSTRAINT_TYPE="ideSYNTHESIS"
+TOOL_CONSTRAINT_USE="SYNPLIFY7_EXT"
+END_USE_CONSTRAINT
+USE_FOR_ANY_TOOL="FALSE"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\SgCore\OSC\2.0.101\osc_comps_pre.vhd,hdl"
+STATE="utd"
+TIME="1476047286"
+SIZE="2108"
+PARENT="<project>\component\Actel\SgCore\OSC\2.0.101\OSC.cxf"
+BEGIN_USE_CONSTRAINT
+TOOL_CONSTRAINT_TYPE="ideSYNTHESIS"
+TOOL_CONSTRAINT_USE="PRECISION_EXT"
+END_USE_CONSTRAINT
+USE_FOR_ANY_TOOL="FALSE"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS\1.1.400\MSS.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059852"
+SIZE="526"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CCC\1.0.100\MSS_CCC.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="253"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CC\1.0.100\MSS_CC.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="252"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CFGM\1.1.100\MSS_CFGM.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="254"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CM3\1.0.200\MSS_CM3.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="253"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_DDRB\1.0.200\MSS_DDRB.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="254"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_EDAC\1.0.101\MSS_EDAC.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="254"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_ENVM\1.0.101\MSS_ENVM.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="254"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_FIC32\1.0.100\MSS_FIC32.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="255"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_GPIO\1.0.100\MSS_GPIO.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="254"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_INTR\1.0.100\MSS_INTR.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="254"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_RESET\1.0.100\MSS_RESET.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="255"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SECURITY\1.0.100\MSS_SECURITY.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="258"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SWITCH\1.0.101\MSS_SWITCH.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059847"
+SIZE="256"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\component\work\reg9_1x32\reg9_1x32.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496317100"
+SIZE="4041"
+ENDFILE
+VALUE "<project>\component\work\reg9_1x32\reg9_1x32.vhd,hdl"
+STATE="utd"
+TIME="1496317099"
+SIZE="7210"
+PARENT="<project>\component\work\reg9_1x32\reg9_1x32.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system\sha256_system.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496342478"
+SIZE="3578"
+ENDFILE
+VALUE "<project>\component\work\sha256_system\sha256_system.vhd,hdl"
+STATE="utd"
+TIME="1496342476"
+SIZE="20798"
+PARENT="<project>\component\work\sha256_system\sha256_system.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059855"
+SIZE="716"
+PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd,hdl"
+STATE="utd"
+TIME="1496059855"
+SIZE="5590"
+PARENT="<project>\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059858"
+SIZE="480"
+PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd,hdl"
+STATE="utd"
+TIME="1496059858"
+SIZE="1598"
+PARENT="<project>\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\sha256_system_sb.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059860"
+SIZE="10506"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\sha256_system_sb.vhd,hdl"
+STATE="utd"
+TIME="1496059858"
+SIZE="52442"
+PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496059853"
+SIZE="15814"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd,hdl"
+STATE="utd"
+TIME="1496059852"
+SIZE="96689"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_pre.vhd,hdl"
+STATE="utd"
+TIME="1496059852"
+SIZE="79486"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+BEGIN_USE_CONSTRAINT
+TOOL_CONSTRAINT_TYPE="ideSYNTHESIS"
+TOOL_CONSTRAINT_USE="PRECISION_EXT"
+END_USE_CONSTRAINT
+USE_FOR_ANY_TOOL="FALSE"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_syn.vhd,hdl"
+STATE="utd"
+TIME="1496059852"
+SIZE="79461"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+BEGIN_USE_CONSTRAINT
+TOOL_CONSTRAINT_TYPE="ideSYNTHESIS"
+TOOL_CONSTRAINT_USE="SYNPLIFY7_EXT"
+END_USE_CONSTRAINT
+USE_FOR_ANY_TOOL="FALSE"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\constraint\io\user.pdc,io_pdc"
+STATE="utd"
+TIME="1496056591"
+SIZE="777"
+IS_TARGET="TRUE"
+ENDFILE
+VALUE "<project>\designer\impl1\sha256_system.ide_des,ide_des"
+STATE="utd"
+TIME="1496056591"
+SIZE="422"
+ENDFILE
+VALUE "<project>\hdl\AHB_slave_dummy.vhd,hdl"
+STATE="utd"
+TIME="1495667537"
+SIZE="5462"
+ENDFILE
+VALUE "<project>\hdl\gv_sha256.vhd,hdl"
+STATE="utd"
+TIME="1496305835"
+SIZE="15799"
+ENDFILE
+VALUE "<project>\hdl\mux_9_1.vhd,hdl"
+STATE="utd"
+TIME="1496317010"
+SIZE="1584"
+ENDFILE
+VALUE "<project>\hdl\reg_16x32.vhd,hdl"
+STATE="utd"
+TIME="1496342035"
+SIZE="1782"
+ENDFILE
+VALUE "<project>\hdl\reg_1x32.vhd,hdl"
+STATE="utd"
+TIME="1496315767"
+SIZE="1419"
+ENDFILE
+VALUE "<project>\hdl\reg_2x32.vhd,hdl"
+STATE="utd"
+TIME="1496341776"
+SIZE="4555"
+ENDFILE
+VALUE "<project>\hdl\reg_9x32.vhd,hdl"
+STATE="utd"
+TIME="1496314088"
+SIZE="3974"
+ENDFILE
+VALUE "<project>\hdl\sha256_control.vhd,hdl"
+STATE="utd"
+TIME="1496305835"
+SIZE="50019"
+ENDFILE
+VALUE "<project>\hdl\sha256_controller.vhd,hdl"
+STATE="utd"
+TIME="1496342465"
+SIZE="2355"
+ENDFILE
+VALUE "<project>\hdl\sha256_hash_core.vhd,hdl"
+STATE="utd"
+TIME="1496305835"
+SIZE="11274"
+ENDFILE
+VALUE "<project>\hdl\sha256_Ki_rom.vhd,hdl"
+STATE="utd"
+TIME="1496305835"
+SIZE="4675"
+ENDFILE
+VALUE "<project>\hdl\sha256_Kt_rom.vhd,hdl"
+STATE="utd"
+TIME="1496305835"
+SIZE="8203"
+ENDFILE
+VALUE "<project>\hdl\sha256_msg_sch.vhd,hdl"
+STATE="utd"
+TIME="1496305835"
+SIZE="10108"
+ENDFILE
+VALUE "<project>\hdl\sha256_padding.vhd,hdl"
+STATE="utd"
+TIME="1496305835"
+SIZE="9487"
+ENDFILE
+VALUE "<project>\hdl\sha256_regs.vhd,hdl"
+STATE="utd"
+TIME="1496305835"
+SIZE="10723"
+ENDFILE
+VALUE "<project>\hdl\zero_concat.vhd,hdl"
+STATE="utd"
+TIME="1496340037"
+SIZE="895"
+ENDFILE
+VALUE "<project>\simulation\bfmtovec_compile.tcl,sim"
+STATE="utd"
+TIME="1487266713"
+SIZE="1462"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+ENDFILE
+VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
+STATE="utd"
+TIME="1496059852"
+SIZE="500"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master0.bfm,sim"
+STATE="utd"
+TIME="1495667537"
+SIZE="25928"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+ENDFILE
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master1.bfm,sim"
+STATE="utd"
+TIME="1495667537"
+SIZE="6200"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+ENDFILE
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master2.bfm,sim"
+STATE="utd"
+TIME="1495667537"
+SIZE="6200"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+ENDFILE
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master3.bfm,sim"
+STATE="utd"
+TIME="1495667537"
+SIZE="6200"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+ENDFILE
+VALUE "<project>\simulation\coreahblite_usertb_include.bfm,sim"
+STATE="utd"
+TIME="1495667537"
+SIZE="12178"
+PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
+ENDFILE
+VALUE "<project>\simulation\peripheral_init.bfm,sim"
+STATE="utd"
+TIME="1475082705"
+SIZE="8450"
+PARENT="<project>\component\Actel\SmartFusion2MSS\MSS\1.1.400\MSS.cxf"
+ENDFILE
+VALUE "<project>\simulation\run.do,do"
+STATE="utd"
+TIME="1496309328"
+SIZE="2079"
+ENDFILE
+VALUE "<project>\simulation\sha256_core_tb_presynth_simulation.log,log"
+STATE="utd"
+TIME="1496061904"
+SIZE="49489"
+ENDFILE
+VALUE "<project>\simulation\subsystem.bfm,sim"
+STATE="utd"
+TIME="1496342477"
+SIZE="797"
+PARENT="<project>\component\work\sha256_system\sha256_system.cxf"
+PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
+ENDFILE
+VALUE "<project>\simulation\test.bfm,sim"
+STATE="utd"
+TIME="1496059852"
+SIZE="734"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\simulation\testbench_presynth_simulation.log,log"
+STATE="utd"
+TIME="1496310084"
+SIZE="12041"
+ENDFILE
+VALUE "<project>\simulation\user.bfm,sim"
+STATE="utd"
+TIME="1495667537"
+SIZE="555"
+PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
+ENDFILE
+VALUE "<project>\stimulus\sh256_tb.vhd,tb_hdl"
+STATE="utd"
+TIME="1496309307"
+SIZE="66550"
+ENDFILE
+VALUE "<project>\synthesis\sha256_system.edn,syn_edn"
+STATE="ood"
+TIME="1496312191"
+SIZE="969309"
+ENDFILE
+VALUE "<project>\synthesis\sha256_system.so,so"
+STATE="utd"
+TIME="1496312191"
+SIZE="228"
+ENDFILE
+VALUE "<project>\synthesis\sha256_system.vhd,syn_hdl"
+STATE="ood"
+TIME="1496312197"
+SIZE="609534"
+ENDFILE
+VALUE "<project>\synthesis\sha256_system_sdc.sdc,syn_sdc"
+STATE="ood"
+TIME="1496312191"
+SIZE="962"
+ENDFILE
+VALUE "<project>\synthesis\sha256_system_syn.prj,prj"
+STATE="utd"
+TIME="1496312191"
+SIZE="4354"
+ENDFILE
+VALUE "<project>\synthesis\synwork\layer0.so,so"
+STATE="utd"
+TIME="1496311696"
+SIZE="159"
+ENDFILE
+ENDLIST
+LIST UsedFile
+ENDLIST
+LIST NewModulesInfo
+LIST "sha256_system::work"
+FILE "<project>\component\work\sha256_system\sha256_system.vhd,hdl"
+LIST Other_Association
+VALUE "<project>\simulation\subsystem.bfm,sim"
+ENDLIST
+ENDLIST
+LIST "sha256_system_sb::work"
+FILE "<project>\component\work\sha256_system_sb\sha256_system_sb.vhd,hdl"
+LIST Other_Association
+VALUE "<project>\simulation\subsystem.bfm,sim"
+VALUE "<project>\simulation\bfmtovec_compile.tcl,sim"
+VALUE "<project>\simulation\coreahblite_usertb_include.bfm,sim"
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master0.bfm,sim"
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master1.bfm,sim"
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master2.bfm,sim"
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master3.bfm,sim"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\textio.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_package.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_main.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbl.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslaveext.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\mti\scripts\wave_user.do,do"
+ENDLIST
+LIST AssociatedStimulus
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+ENDLIST
+LIST ProjectState5.1
+LIST Impl1
+ideSTIMULUS=StateSuccess
+LIST FlowOptions
+UsePhySynth=FALSE
+UseSynth=TRUE
+ENDLIST
+Used_File_List
+ENDUsed_File_List
+ENDLIST
+ENDLIST
+ENDLIST
+LIST "sha256_system_sb_MSS::work"
+FILE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd,hdl"
+LIST Other_Association
+VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
+VALUE "<project>\simulation\user.bfm,sim"
+VALUE "<project>\simulation\test.bfm,sim"
+VALUE "<project>\simulation\peripheral_init.bfm,sim"
+ENDLIST
+ENDLIST
+ENDLIST
+LIST AssociatedStimulus
+LIST sha256_system_sb
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+ENDLIST
+ENDLIST
+LIST Other_Association
+LIST sha256_system
+VALUE "<project>\simulation\subsystem.bfm,sim"
+ENDLIST
+LIST sha256_system_sb
+VALUE "<project>\simulation\subsystem.bfm,sim"
+VALUE "<project>\simulation\bfmtovec_compile.tcl,sim"
+VALUE "<project>\simulation\coreahblite_usertb_include.bfm,sim"
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master0.bfm,sim"
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master1.bfm,sim"
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master2.bfm,sim"
+VALUE "<project>\simulation\coreahblite_usertb_ahb_master3.bfm,sim"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\textio.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_package.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_main.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbl.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslaveext.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\mti\scripts\wave_user.do,do"
+ENDLIST
+LIST sha256_system_sb_MSS
+VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
+VALUE "<project>\simulation\user.bfm,sim"
+VALUE "<project>\simulation\test.bfm,sim"
+VALUE "<project>\simulation\peripheral_init.bfm,sim"
+ENDLIST
+ENDLIST
+LIST SimulationOptions
+UseAutomaticDoFile=true
+IncludeWaveDo=false
+Type=max
+RunTime=1000ns
+Resolution=1fs
+VsimOpt=
+EntityName=testbench
+TopInstanceName=<top>_0
+DoFileName=
+DoFileName2=wave.do
+DoFileParams=
+DisplayDUTWave=false
+LogAllSignals=false
+DisablePulseFiltering=false
+DumpVCD=false
+VCDFileName=power.vcd
+VHDL2008=false
+Verilog2001=false
+SystemVerilog=false
+TimeUnit=1
+TimeUnitBase=ns
+Precision=100
+PrecisionBase=ps
+ENDLIST
+LIST ModelSimLibPath
+UseCustomPath=FALSE
+LibraryPath=
+ENDLIST
+LIST GlobalFlowOptions
+GenerateHDLAfterSynthesis=FALSE
+GenerateHDLAfterPhySynthesis=FALSE
+RunDRCAfterSynthesis=FALSE
+AutoCheckConstraints=TRUE
+UpdateModelSimIni=TRUE
+NoIOMode=FALSE
+PeriInitStandalone=FALSE
+EnableViewDraw=FALSE
+UpdateViewDrawIni=TRUE
+GenerateHDLFromSchematic=TRUE
+VmNetlistFlowOn=FALSE
+EnableDesignSeparationOn=FALSE
+EnableSETMitigationOn=FALSE
+DisplayFanoutLimit=10
+AbortFlowOnPDCErrorsOn=TRUE
+AbortFlowOnSDCErrorsOn=TRUE
+FlashProInputFile=pdb
+SmartGenCompileReport=T
+ENDLIST
+LIST PhySynthesisOptions
+ENDLIST
+LIST Profiles
+NAME="SoftConsole"
+FUNCTION="SoftwareIDE"
+TOOL="SoftConsole"
+LOCATION="eclipse.exe"
+PARAM=""
+BATCH=0
+LICENSE=""
+IS32BIT="1"
+EndProfile
+NAME="Synplify Pro ME"
+FUNCTION="Synthesis"
+TOOL="Synplify Pro ME"
+LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Synplify\\bin\synplify_pro.exe"
+PARAM=""
+BATCH=0
+LICENSE=""
+IS32BIT="1"
+EndProfile
+NAME="ModelSim ME"
+FUNCTION="Simulation"
+TOOL="ModelSim"
+LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Model\\win32acoem\modelsim.exe"
+PARAM=""
+BATCH=0
+LICENSE=""
+IS32BIT="1"
+EndProfile
+NAME="FlashPro"
+FUNCTION="Program"
+TOOL="FlashPro"
+LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Designer\\bin\flashpro.exe"
+PARAM=""
+BATCH=0
+LICENSE=""
+IS32BIT="1"
+EndProfile
+NAME="Identify Debugger"
+FUNCTION="IdentifyDebugger"
+TOOL="Identify Debugger"
+LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Identify\\bin\identify_debugger.exe"
+PARAM=""
+BATCH=0
+LICENSE=""
+IS32BIT="1"
+EndProfile
+ENDLIST
+LIST ProjectState5.1
+LIST "sha256_system_sb::work"
+LIST Impl1
+ideSTIMULUS=StateSuccess
+LIST FlowOptions
+UsePhySynth=FALSE
+UseSynth=TRUE
+ENDLIST
+Used_File_List
+ENDUsed_File_List
+ENDLIST
+ENDLIST
+ENDLIST
+LIST ExcludePackageForSimulation
+ENDLIST
+LIST ExcludePackageForSynthesis
+ENDLIST
+LIST IncludeModuleForSimulation
+ENDLIST
+LIST CDBOrder
+ENDLIST
+LIST UserCustomizedFileList
+ENDLIST
+LIST OpenedFileList
+ORIENTATION;HORIZONTAL
+StartPage;StartPage;0
+ACTIVEVIEW;StartPage
+ENDLIST
+LIST ModuleSubBlockList
+LIST "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
+ENDLIST
+LIST "CoreResetP::work","component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd","FALSE","FALSE"
+SUBBLOCK "coreresetp_pcie_hotreset::work","component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp_pcie_hotreset.vhd","FALSE","FALSE"
+ENDLIST
+LIST "coreresetp_pcie_hotreset::work","component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp_pcie_hotreset.vhd","FALSE","FALSE"
+ENDLIST
+LIST "gv_sha256::work","hdl\gv_sha256.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_control::work","hdl\sha256_control.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_hash_core::work","hdl\sha256_hash_core.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_ki_rom::work","hdl\sha256_Ki_rom.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_kt_rom::work","hdl\sha256_Kt_rom.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_msg_sch::work","hdl\sha256_msg_sch.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_padding::work","hdl\sha256_padding.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_regs::work","hdl\sha256_regs.vhd","FALSE","FALSE"
+ENDLIST
+LIST "MSS_060::work","component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_syn.vhd","FALSE","FALSE"
+ENDLIST
+LIST "mux_9_1::work","hdl\mux_9_1.vhd","FALSE","FALSE"
+ENDLIST
+LIST "RCOSC_1MHZ::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
+ENDLIST
+LIST "RCOSC_1MHZ_FAB::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
+ENDLIST
+LIST "RCOSC_25_50MHZ::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
+ENDLIST
+LIST "RCOSC_25_50MHZ_FAB::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
+ENDLIST
+LIST "reg9_1x32::work","component\work\reg9_1x32\reg9_1x32.vhd","TRUE","FALSE"
+SUBBLOCK "mux_9_1::work","hdl\mux_9_1.vhd","FALSE","FALSE"
+SUBBLOCK "reg_1x32::work","hdl\reg_1x32.vhd","FALSE","FALSE"
+ENDLIST
+LIST "reg_16x32::work","hdl\reg_2x32.vhd","FALSE","FALSE"
+ENDLIST
+LIST "reg_1x32::work","hdl\reg_1x32.vhd","FALSE","FALSE"
+ENDLIST
+LIST "reg_2x32::work","hdl\reg_16x32.vhd","FALSE","FALSE"
+ENDLIST
+LIST "reg_9x32::work","hdl\reg_9x32.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_control::work","hdl\sha256_control.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_controller::work","hdl\sha256_controller.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_hash_core::work","hdl\sha256_hash_core.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_ki_rom::work","hdl\sha256_Ki_rom.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_kt_rom::work","hdl\sha256_Kt_rom.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_msg_sch::work","hdl\sha256_msg_sch.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_padding::work","hdl\sha256_padding.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_regs::work","hdl\sha256_regs.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_system::work","component\work\sha256_system\sha256_system.vhd","TRUE","FALSE"
+SUBBLOCK "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
+SUBBLOCK "gv_sha256::work","hdl\gv_sha256.vhd","FALSE","FALSE"
+SUBBLOCK "reg9_1x32::work","component\work\reg9_1x32\reg9_1x32.vhd","TRUE","FALSE"
+SUBBLOCK "reg_16x32::work","hdl\reg_2x32.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_controller::work","hdl\sha256_controller.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_system_sb::work","component\work\sha256_system_sb\sha256_system_sb.vhd","TRUE","FALSE"
+SUBBLOCK "zero_concat::work","hdl\zero_concat.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_system_sb::work","component\work\sha256_system_sb\sha256_system_sb.vhd","TRUE","FALSE"
+SUBBLOCK "CoreResetP::work","component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_system_sb_CCC_0_FCCC::work","component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_system_sb_FABOSC_0_OSC::work","component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_system_sb_MSS::work","component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd","TRUE","FALSE"
+SUBBLOCK "CoreAHBLite::COREAHBLITE_LIB::components","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_system_sb_CCC_0_FCCC::work","component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_system_sb_FABOSC_0_OSC::work","component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd","FALSE","FALSE"
+SUBBLOCK "RCOSC_25_50MHZ::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
+SUBBLOCK "RCOSC_25_50MHZ_FAB::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_system_sb_MSS::work","component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd","TRUE","FALSE"
+SUBBLOCK "MSS_060::work","component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_syn.vhd","FALSE","FALSE"
+ENDLIST
+LIST "XTLOSC::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
+ENDLIST
+LIST "XTLOSC_FAB::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
+ENDLIST
+LIST "zero_concat::work","hdl\zero_concat.vhd","FALSE","FALSE"
+ENDLIST
+LIST "coreparameters::work","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd","FALSE","TRUE"
+ENDLIST
+LIST "testbench::work","stimulus\sh256_tb.vhd","FALSE","TRUE"
+SUBBLOCK "gv_sha256::work","hdl\gv_sha256.vhd","FALSE","FALSE"
+ENDLIST
+LIST "xhdl_misc::work","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd","FALSE","TRUE"
+ENDLIST
+LIST "xhdl_std_logic::work","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd","FALSE","TRUE"
+ENDLIST
+LIST "components::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\components.vhd","FALSE","FALSE"
+SUBBLOCK "CoreAHBLite::COREAHBLITE_LIB::components","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd","FALSE","FALSE"
+ENDLIST
+LIST "CoreAHBLite::COREAHBLITE_LIB::components","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd","FALSE","FALSE"
+SUBBLOCK "COREAHBLITE_MATRIX4X16::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd","FALSE","FALSE"
+ENDLIST
+LIST "COREAHBLITE_ADDRDEC::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd","FALSE","FALSE"
+ENDLIST
+LIST "COREAHBLITE_DEFAULTSLAVESM::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_defaultslavesm.vhd","FALSE","FALSE"
+ENDLIST
+LIST "COREAHBLITE_MASTERSTAGE::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd","FALSE","FALSE"
+SUBBLOCK "COREAHBLITE_ADDRDEC::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd","FALSE","FALSE"
+SUBBLOCK "COREAHBLITE_DEFAULTSLAVESM::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_defaultslavesm.vhd","FALSE","FALSE"
+ENDLIST
+LIST "COREAHBLITE_MATRIX4X16::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd","FALSE","FALSE"
+SUBBLOCK "COREAHBLITE_MASTERSTAGE::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd","FALSE","FALSE"
+SUBBLOCK "COREAHBLITE_SLAVESTAGE::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd","FALSE","FALSE"
+ENDLIST
+LIST "coreahblite_pkg::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_pkg.vhd","FALSE","FALSE"
+ENDLIST
+LIST "COREAHBLITE_SLAVEARBITER::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd","FALSE","FALSE"
+ENDLIST
+LIST "COREAHBLITE_SLAVESTAGE::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd","FALSE","FALSE"
+SUBBLOCK "COREAHBLITE_SLAVEARBITER::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd","FALSE","FALSE"
+ENDLIST
+LIST "coreahblite_support::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd","FALSE","FALSE"
+ENDLIST
+LIST "bfM_Ahbl::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbl.vhd","FALSE","TRUE"
+SUBBLOCK "bfm_Main::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_main.vhd","FALSE","TRUE"
+ENDLIST
+LIST "bfM_ahblAPB::COREAHBLITE_LIB","","FALSE","FALSE"
+ENDLIST
+LIST "BFM_ahbSLAve::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd","FALSE","TRUE"
+SUBBLOCK "Bfm_aHBSlavEEXt::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslaveext.vhd","FALSE","TRUE"
+ENDLIST
+LIST "Bfm_aHBSlavEEXt::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslaveext.vhd","FALSE","TRUE"
+ENDLIST
+LIST "bfm_APb::COREAHBLITE_LIB","","FALSE","FALSE"
+ENDLIST
+LIST "Bfm_aPB2apb::COREAHBLITE_LIB","","FALSE","FALSE"
+ENDLIST
+LIST "BFM_apbSLAve::COREAHBLITE_LIB","","FALSE","FALSE"
+ENDLIST
+LIST "BFm_apBSLaveEXT::COREAHBLITE_LIB","","FALSE","FALSE"
+ENDLIST
+LIST "bfm_Main::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_main.vhd","FALSE","TRUE"
+ENDLIST
+LIST "bfm_misc::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\misc.vhd","FALSE","TRUE"
+ENDLIST
+LIST "bfM_packAGE::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_package.vhd","FALSE","TRUE"
+SUBBLOCK "BFMA1i1lI::COREAHBLITE_LIB","","FALSE","FALSE"
+SUBBLOCK "BFM_ahbSLAve::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd","FALSE","TRUE"
+SUBBLOCK "BFM_apbSLAve::COREAHBLITE_LIB","","FALSE","FALSE"
+SUBBLOCK "BFm_apBSLaveEXT::COREAHBLITE_LIB","","FALSE","FALSE"
+SUBBLOCK "Bfm_aHBSlavEEXt::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslaveext.vhd","FALSE","TRUE"
+SUBBLOCK "Bfm_aPB2apb::COREAHBLITE_LIB","","FALSE","FALSE"
+SUBBLOCK "bfM_Ahbl::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbl.vhd","FALSE","TRUE"
+SUBBLOCK "bfM_ahblAPB::COREAHBLITE_LIB","","FALSE","FALSE"
+SUBBLOCK "bfm_APb::COREAHBLITE_LIB","","FALSE","FALSE"
+SUBBLOCK "bfm_Main::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_main.vhd","FALSE","TRUE"
+ENDLIST
+LIST "bfm_textio::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\textio.vhd","FALSE","TRUE"
+ENDLIST
+LIST "bfm_textio_test::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\textio.vhd","FALSE","TRUE"
+ENDLIST
+LIST "BFMA1i1lI::COREAHBLITE_LIB","","FALSE","FALSE"
+ENDLIST
+LIST "coreparameters::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\coreparameters.vhd","FALSE","TRUE"
+ENDLIST
+LIST "testbench::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\user\testbench.vhd","FALSE","TRUE"
+SUBBLOCK "bfM_Ahbl::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbl.vhd","FALSE","TRUE"
+SUBBLOCK "BFM_ahbSLAve::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd","FALSE","TRUE"
+SUBBLOCK "CoreAHBLite::COREAHBLITE_LIB::components","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd","FALSE","FALSE"
+ENDLIST
+ENDLIST
+LIST ActiveTestBenchList
+ENDLIST
+LIST IOTabList
+VALUE "constraint\io\user.pdc"
+ENDLIST
+LIST FPTabList
+ENDLIST
+LIST TimingTabList
+ENDLIST
+LIST FDCTabList
+ENDLIST

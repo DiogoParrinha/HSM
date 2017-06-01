@@ -1,0 +1,188 @@
+Resource Report
+Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
+Date: Thu Jun 01 11:16:41 2017
+
+Device Selection
++--------------------------------+----------------+
+| Family                         | SmartFusion2   |
+| Device                         | M2S060         |
+| Package                        | 484 FBGA       |
+| Speed Grade                    | -1             |
+| Temp                           | 0:25:85        |
+| Voltage                        | 1.26:1.20:1.14 |
+| Core Voltage                   | 1.2V           |
+| Ramp Rate                      | 100ms Minimum  |
+| System Controller Suspend Mode | No             |
+| PLL Supply Voltage             | 3.3V           |
+| Default I/O technology         | LVCMOS 2.5V    |
+| Restrict Probe Pins            | Yes            |
+| Restrict SPI Pins              | No             |
++--------------------------------+----------------+
+
+Source Files
++---------+--------------------------------------------------------------+
+| Topcell | sha256_system                                                |
+| Format  | EDIF                                                         |
+| Source  | E:\LiberoProjects\sha256_project\synthesis\sha256_system.edn |
++---------+--------------------------------------------------------------+
+
+Options
++----------------------------------------------------+-------+
+| Enable Single Event Transient mitigation           | false |
+| Enable Design Separation Methodology               | false |
+| Limit the number of high fanout nets to display to | 10    |
++----------------------------------------------------+-------+
+
+Resource Usage
++---------------------------+------+-------+------------+
+| Type                      | Used | Total | Percentage |
++---------------------------+------+-------+------------+
+| 4LUT                      | 760  | 56520 | 1.34       |
+| DFF                       | 390  | 56520 | 0.69       |
+| I/O Register              | 0    | 801   | 0.00       |
+| User I/O                  | 3    | 267   | 1.12       |
+| -- Single-ended I/O       | 3    | 267   | 1.12       |
+| -- Differential I/O Pairs | 0    | 133   | 0.00       |
+| RAM64x18                  | 0    | 72    | 0.00       |
+| RAM1K18                   | 0    | 69    | 0.00       |
+| MACC                      | 0    | 72    | 0.00       |
+| Chip Globals              | 3    | 16    | 18.75      |
+| CCC                       | 1    | 6     | 16.67      |
+| RCOSC_25_50MHZ            | 1    | 1     | 100.00     |
+| RCOSC_1MHZ                | 0    | 1     | 0.00       |
+| XTLOSC                    | 0    | 1     | 0.00       |
+| MSS                       | 1    | 1     | 100.00     |
++---------------------------+------+-------+------------+
+
+Detailed Logic Resource Usage
++--------------------------+------+-----+
+| Type                     | 4LUT | DFF |
++--------------------------+------+-----+
+| Fabric Logic             | 760  | 390 |
+| RAM64x18 Interface Logic | 0    | 0   |
+| RAM1K18 Interface Logic  | 0    | 0   |
+| MACC Interface Logic     | 0    | 0   |
+| Total Used               | 760  | 390 |
++--------------------------+------+-----+
+
+MSS Resource Usage
++---------------+------+-------+
+| Type          | Used | Total |
++---------------+------+-------+
+| Cortex-M3*    | 1    | 1     |
+| eNVM (256KB)* | 1    | 1     |
+| eSRAM*        | 2    | 2     |
+| TIMER*        | 2    | 2     |
+| CAN           | 0    | 1     |
+| SPI           | 0    | 2     |
+| I2C           | 0    | 2     |
+| UART          | 0    | 2     |
+| USB           | 0    | 1     |
+| MAC           | 0    | 1     |
+| MDDR          | 0    | 1     |
+| HPDMA         | 0    | 1     |
+| PDMA          | 0    | 1     |
++---------------+------+-------+
+
+* These resources are always marked as used when you are using the MSS
+
+I/O Function
++-------------------------------+--------------+-------------+-----------------+
+| Type                          | w/o register | w/ register | w/ DDR register |
++-------------------------------+--------------+-------------+-----------------+
+| Input I/O                     | 0            | 0           | 0               |
+| Output I/O                    | 3            | 0           | 0               |
+| Bidirectional I/O             | 0            | 0           | 0               |
+| Differential Input I/O Pairs  | 0            | 0           | 0               |
+| Differential Output I/O Pairs | 0            | 0           | 0               |
++-------------------------------+--------------+-------------+-----------------+
+
+I/O Technology
++--------------+--------+------+-------+--------+---------------+
+| I/O Standard | Vddi   | Vref | Input | Output | Bidirectional |
++--------------+--------+------+-------+--------+---------------+
+| LVCMOS25     |  2.50v |  N/A |  0    |  3     |  0            |
++--------------+--------+------+-------+--------+---------------+
+
+I/O Placement
++----------+-------+------------+
+| Type     | Count | Percentage |
++----------+-------+------------+
+| Locked   |  0    | 0.00%      |
+| Placed   |  0    | 0.00%      |
+| UnPlaced |  3    | 100.00%    |
++----------+-------+------------+
+
+Nets assigned to chip global resources
++--------+---------+----------------------------------------------------------------------------+
+| Fanout | Type    | Name                                                                       |
++--------+---------+----------------------------------------------------------------------------+
+| 391    | INT_NET | Net   : sha256_system_sb_0_FIC_0_CLK                                       |
+|        |         | Driver: sha256_system_sb_0/CCC_0/GL0_INST/U0_RGB1                          |
+|        |         | Source: NETLIST                                                            |
+| 39     | INT_NET | Net   : sha256_system_sb_0/MSS_READY                                       |
+|        |         | Driver: sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIFQTF/U0_RGB1 |
+|        |         | Source: NETLIST                                                            |
+| 16     | INT_NET | Net   : sha256_system_sb_0_POWER_ON_RESET_N                                |
+|        |         | Driver: sha256_system_sb_0/SYSRESET_POR_RNI03O8/U0_RGB1                    |
+|        |         | Source: NETLIST                                                            |
++--------+---------+----------------------------------------------------------------------------+
+
+Nets assigned to row global resources
++--------+------+------+
+| Fanout | Type | Name |
++--------+------+------+
++--------+------+------+
+
+High fanout nets
++--------+---------+------------------------------------------+
+| Fanout | Type    | Name                                     |
++--------+---------+------------------------------------------+
+| 336    | INT_NET | Net   : sha256_system_sb_0/SYSRESET_POR  |
+|        |         | Driver: sha256_system_sb_0/SYSRESET_POR  |
+| 263    | INT_NET | Net   : waddr_in_net_0[3]                |
+|        |         | Driver: AHB_slave_dummy_0/lsram_waddr[3] |
+| 258    | INT_NET | Net   : waddr_in_net_0[0]                |
+|        |         | Driver: AHB_slave_dummy_0/lsram_waddr[0] |
+| 98     | INT_NET | Net   : reg_2x32_0/raddr_pos[0]          |
+|        |         | Driver: reg_2x32_0/raddr_pos[0]          |
+| 64     | INT_NET | Net   : reg_2x32_0/line3_or[0]           |
+|        |         | Driver: reg_2x32_0/line3_or[0]           |
+| 64     | INT_NET | Net   : reg_2x32_0/un1_wen_19_or         |
+|        |         | Driver: reg_2x32_0/un1_wen_19_or_0       |
+| 64     | INT_NET | Net   : reg_2x32_0/un1_wen_20_or         |
+|        |         | Driver: reg_2x32_0/un1_wen_20_or_0       |
+| 64     | INT_NET | Net   : reg_2x32_0/un1_wen_4_or          |
+|        |         | Driver: reg_2x32_0/un1_wen_4_or_0        |
+| 64     | INT_NET | Net   : reg_2x32_0/un1_wen_7_or          |
+|        |         | Driver: reg_2x32_0/un30_wen_0_x2_RNIL99T |
+| 64     | INT_NET | Net   : reg_2x32_0/un5_wen               |
+|        |         | Driver: reg_2x32_0/un5_wen_0_a2          |
++--------+---------+------------------------------------------+
+
+High fanout nets (through buffer trees)
++--------+---------+------------------------------------------+
+| Fanout | Type    | Name                                     |
++--------+---------+------------------------------------------+
+| 336    | INT_NET | Net   : sha256_system_sb_0/SYSRESET_POR  |
+|        |         | Driver: sha256_system_sb_0/SYSRESET_POR  |
+| 263    | INT_NET | Net   : waddr_in_net_0[3]                |
+|        |         | Driver: AHB_slave_dummy_0/lsram_waddr[3] |
+| 258    | INT_NET | Net   : waddr_in_net_0[0]                |
+|        |         | Driver: AHB_slave_dummy_0/lsram_waddr[0] |
+| 98     | INT_NET | Net   : reg_2x32_0/raddr_pos[0]          |
+|        |         | Driver: reg_2x32_0/raddr_pos[0]          |
+| 64     | INT_NET | Net   : reg_2x32_0/line3_or[0]           |
+|        |         | Driver: reg_2x32_0/line3_or[0]           |
+| 64     | INT_NET | Net   : reg_2x32_0/un1_wen_19_or         |
+|        |         | Driver: reg_2x32_0/un1_wen_19_or_0       |
+| 64     | INT_NET | Net   : reg_2x32_0/un1_wen_20_or         |
+|        |         | Driver: reg_2x32_0/un1_wen_20_or_0       |
+| 64     | INT_NET | Net   : reg_2x32_0/un1_wen_4_or          |
+|        |         | Driver: reg_2x32_0/un1_wen_4_or_0        |
+| 64     | INT_NET | Net   : reg_2x32_0/un1_wen_7_or          |
+|        |         | Driver: reg_2x32_0/un30_wen_0_x2_RNIL99T |
+| 64     | INT_NET | Net   : reg_2x32_0/un5_wen               |
+|        |         | Driver: reg_2x32_0/un5_wen_0_a2          |
++--------+---------+------------------------------------------+
+

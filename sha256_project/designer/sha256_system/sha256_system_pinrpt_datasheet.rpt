@@ -1,0 +1,17 @@
+*****************************************************************
+Pin Report - Date: Thu Jun 01 11:17:52 2017 Pinchecksum: NOT-AVAILABLE
+Product: Designer
+Release: v11.7 SP1.1
+Version: 11.7.1.14
+Design Name: sha256_system
+Family: SmartFusion2
+Die: M2S060
+Package: 484 FBGA
+*****************************************************************
+
+Port       |Pin |Fixed |Function               |Bank     |I/O Std   |Direction                      |I/O state in Flash*Freeze mode |Resistor Pull                      |I/O available in Flash*Freeze mode |Schmitt Trigger |Odt_Static    |Odt Imp (Ohm)  |Low Power Exit |Input Delay |Slew         |Pre-Emphasis      |Output Drive (mA) |Output Load (pF) |
+-----------|----|------|-----------------------|---------|----------|-------------------------------|-------------------------------|-----------------------------------|-----------------------------------|----------------|--------------|---------------|---------------|------------|-------------|------------------|------------------|-----------------|
+DEVRST_N    R15  Fixed  DEVRST_N                ---       
+GPIO_0_M2F  P1   Yes    MSIOD157PB8             Bank8     LVCMOS25   Output                          TRISTATE                        None                                No                                  ---              ---            ---             ---             ---          SLOW          ---                4                  5                 
+GPIO_1_M2F  E19  No     DDRIO51PB1/MDDR_ADDR12  Bank1     LVCMOS25   Output                          TRISTATE                        None                                No                                  ---              ---            ---             ---             ---          SLOW          ---                4                  5                 
+GPIO_2_M2F  D18  No     DDRIO50PB1/MDDR_ADDR14  Bank1     LVCMOS25   Output                          TRISTATE                        None                                No                                  ---              ---            ---             ---             ---          SLOW          ---                4                  5                 
