@@ -3190,7 +3190,7 @@
 </row>
 <row>
  <cell>GPIO3_USAGE</cell>
- <cell>USAGE_INPUT</cell>
+ <cell>USAGE_OUTPUT</cell>
 </row>
 <row>
  <cell>GPIO4_FAB_CAPT</cell>
@@ -3198,11 +3198,11 @@
 </row>
 <row>
  <cell>GPIO4_TYPE</cell>
- <cell>CONNECTION_IOA</cell>
+ <cell>CONNECTION_FABRICA</cell>
 </row>
 <row>
  <cell>GPIO4_USAGE</cell>
- <cell>NOT_USED</cell>
+ <cell>USAGE_INPUT</cell>
 </row>
 <row>
  <cell>GPIO5_FAB_CAPT</cell>
@@ -3649,7 +3649,12 @@
  <cell>-</cell>
 </row>
 <row>
- <cell>GPIO_3_F2M</cell>
+ <cell>GPIO_3_M2F</cell>
+ <cell>OUT</cell>
+ <cell>-</cell>
+</row>
+<row>
+ <cell>GPIO_4_F2M</cell>
  <cell>IN</cell>
  <cell>-</cell>
 </row>

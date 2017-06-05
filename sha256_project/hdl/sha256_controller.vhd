@@ -37,6 +37,7 @@ port (
 
     data_ready : IN std_logic;
     last_block : IN std_logic;
+    first_block : IN std_logic;
 
     --wait_data : OUT std_logic;
     clk : in std_logic := 'U';                                       -- system clock
@@ -65,6 +66,9 @@ architecture architecture_sha256_controller of sha256_controller is
     signal sel_di : std_logic;
     signal start_counting : std_logic;
     signal extra_add : std_logic := '0';
+    signal restart : std_logic := '0';
+    signal new_block : std_logic := '0';
+    signal blocks_counter : std_logic_vector(31 downto 0);
 begin
 
     PROCESS (clk, RST_N)
@@ -80,11 +84,7 @@ begin
                         state <= wait_data;
                     END IF;
                 WHEN init_block=>
-                    IF di_req_i = '0' THEN
-                        state <= process_wait;
-                    ELSE
-                        state <= process_word;
-                    END IF;
+                    state <= process_wait;
                 WHEN process_word=>
                     IF counter = "1111" THEN
                         state <= end_block;
@@ -102,7 +102,7 @@ begin
                 WHEN end_block=>
                     state <= wait_finish;
                 WHEN wait_finish=>
-                    IF di_valid_i = '1' THEN
+                    IF (di_req_i = '1' or di_valid_i = '1') THEN
                         state <= wait_data;
                     ELSE
                         state <= wait_finish;
@@ -111,7 +111,7 @@ begin
         END IF;
     END PROCESS;
 
-    PROCESS (state, last_block, di_req_i)
+    PROCESS (state, last_block, di_req_i, blocks_counter)
     BEGIN
         CASE state IS
             WHEN wait_data =>
@@ -123,15 +123,21 @@ begin
                 sel_di <= '0';
                 start_counting <= '0';
                 extra_add <= '0';
+                restart <= '1';
+                new_block <= '0';
             WHEN init_block =>
                 ce_o <= '1';
-                start_o <= '1';
+                if(blocks_counter = 0) then
+                    start_o <= '1';
+                end if;
                 end_o <= '0';
                 di_wr_o <= '0';
                 sel_di <= '1';
                 bytes_o <= "00";
                 start_counting <= '0';
                 extra_add <= '0';
+                new_block <= '1';
+                restart <= '0';
             WHEN process_word =>
                 ce_o <= '1';
                 start_o <= '0';
@@ -141,6 +147,7 @@ begin
                 sel_di <= '1';
                 start_counting <= '1';
                 extra_add <= '0';
+                new_block <= '0';
             WHEN process_wait =>
                 di_wr_o <= '0';
                 sel_di <= '0';
@@ -149,24 +156,38 @@ begin
                 if(di_req_i = '1' and counter = 0) then
                     extra_add <= '1';
                 end if;
+                new_block <= '0';
             WHEN end_block =>
                 if(last_block = '1') then
                     end_o <= '1';
                 end if;
                 start_counting <= '1';
                 extra_add <= '0';
+                new_block <= '0';
             WHEN wait_finish =>
                 di_wr_o <= '0';
                 end_o <= '0';
                 sel_di <= '0';  
                 start_counting <= '0';
                 extra_add <= '0';
+                new_block <= '0';
         END CASE;
     END PROCESS;
 
-    process(clk, RST_N, start_counting, extra_add)
+    process(clk, RST_N, first_block, new_block)
         begin
-        if RST_N = '0' then
+        if RST_N = '0' or first_block = '1' then
+            blocks_counter <= (others => '0');
+        elsif (clk='1' and clk'event) then
+            if(new_block = '1') then
+                blocks_counter <= blocks_counter + 1;
+            end if;
+        end if;
+    end process;
+
+    process(clk, RST_N, start_counting, extra_add, restart)
+        begin
+        if RST_N = '0' or restart = '1' then
             counter <= (others => '0');
         elsif (clk='1' and clk'event) then
             if(counter = "1111") then

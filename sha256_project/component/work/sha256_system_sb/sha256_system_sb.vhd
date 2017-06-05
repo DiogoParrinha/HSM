@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Mon Jun 05 17:37:31 2017
+-- Created by SmartDesign Mon Jun 05 18:41:41 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ entity sha256_system_sb is
         AMBA_SLAVE_0_HRESP_S0     : in  std_logic_vector(1 downto 0);
         DEVRST_N                  : in  std_logic;
         FAB_RESET_N               : in  std_logic;
-        GPIO_3_F2M                : in  std_logic;
+        GPIO_4_F2M                : in  std_logic;
         -- Outputs
         AMBA_SLAVE_0_HADDR_S0     : out std_logic_vector(31 downto 0);
         AMBA_SLAVE_0_HBURST_S0    : out std_logic_vector(2 downto 0);
@@ -43,6 +43,7 @@ entity sha256_system_sb is
         GPIO_0_M2F                : out std_logic;
         GPIO_1_M2F                : out std_logic;
         GPIO_2_M2F                : out std_logic;
+        GPIO_3_M2F                : out std_logic;
         INIT_DONE                 : out std_logic;
         MSS_READY                 : out std_logic;
         POWER_ON_RESET_N          : out std_logic
@@ -192,7 +193,7 @@ component sha256_system_sb_MSS
         FIC_2_APB_M_PRDATA     : in  std_logic_vector(31 downto 0);
         FIC_2_APB_M_PREADY     : in  std_logic;
         FIC_2_APB_M_PSLVERR    : in  std_logic;
-        GPIO_3_F2M             : in  std_logic;
+        GPIO_4_F2M             : in  std_logic;
         MCCC_CLK_BASE          : in  std_logic;
         MCCC_CLK_BASE_PLL_LOCK : in  std_logic;
         MSS_RESET_N_F2M        : in  std_logic;
@@ -212,6 +213,7 @@ component sha256_system_sb_MSS
         GPIO_0_M2F             : out std_logic;
         GPIO_1_M2F             : out std_logic;
         GPIO_2_M2F             : out std_logic;
+        GPIO_3_M2F             : out std_logic;
         MSS_RESET_N_M2F        : out std_logic
         );
 end component;
@@ -246,6 +248,7 @@ signal FIC_0_LOCK_net_0                                   : std_logic;
 signal GPIO_0_M2F_net_0                                   : std_logic;
 signal GPIO_1_M2F_net_0                                   : std_logic;
 signal GPIO_2_M2F_net_0                                   : std_logic;
+signal GPIO_3_M2F_net_0                                   : std_logic;
 signal INIT_DONE_net_0                                    : std_logic;
 signal MSS_READY_net_0                                    : std_logic;
 signal POWER_ON_RESET_N_net_0                             : std_logic;
@@ -275,6 +278,7 @@ signal MSS_READY_net_1                                    : std_logic;
 signal GPIO_0_M2F_net_1                                   : std_logic;
 signal GPIO_1_M2F_net_1                                   : std_logic;
 signal GPIO_2_M2F_net_1                                   : std_logic;
+signal GPIO_3_M2F_net_1                                   : std_logic;
 ----------------------------------------------------------------------
 -- TiedOff Signals
 ----------------------------------------------------------------------
@@ -456,6 +460,8 @@ begin
  GPIO_1_M2F                          <= GPIO_1_M2F_net_1;
  GPIO_2_M2F_net_1                    <= GPIO_2_M2F_net_0;
  GPIO_2_M2F                          <= GPIO_2_M2F_net_1;
+ GPIO_3_M2F_net_1                    <= GPIO_3_M2F_net_0;
+ GPIO_3_M2F                          <= GPIO_3_M2F_net_1;
 ----------------------------------------------------------------------
 -- Bus Interface Nets Assignments - Unequal Pin Widths
 ----------------------------------------------------------------------
@@ -957,7 +963,7 @@ sha256_system_sb_MSS_0 : sha256_system_sb_MSS
         MCCC_CLK_BASE          => FIC_0_CLK_net_0,
         MCCC_CLK_BASE_PLL_LOCK => FIC_0_LOCK_net_0,
         MSS_RESET_N_F2M        => CORERESETP_0_RESET_N_F2M,
-        GPIO_3_F2M             => GPIO_3_F2M,
+        GPIO_4_F2M             => GPIO_4_F2M,
         FIC_0_AHB_M_HREADY     => sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HREADY,
         FIC_0_AHB_M_HRESP      => sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HRESP_0,
         FIC_2_APB_M_PREADY     => VCC_net, -- tied to '1' from definition
@@ -969,6 +975,7 @@ sha256_system_sb_MSS_0 : sha256_system_sb_MSS
         GPIO_0_M2F             => GPIO_0_M2F_net_0,
         GPIO_1_M2F             => GPIO_1_M2F_net_0,
         GPIO_2_M2F             => GPIO_2_M2F_net_0,
+        GPIO_3_M2F             => GPIO_3_M2F_net_0,
         FIC_0_AHB_M_HWRITE     => sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HWRITE,
         FIC_2_APB_M_PRESET_N   => sha256_system_sb_MSS_TMP_0_FIC_2_APB_M_PRESET_N,
         FIC_2_APB_M_PCLK       => OPEN,
