@@ -16,11 +16,4 @@
     <detail>Floating output bus pin AHB_slave_dummy_0:lsram_raddr[8:0]</detail>
     <crossprobe>liberoaction://cross_probe/smartdesign/sha256_system/pins/AHB_slave_dummy_0:lsram_raddr</crossprobe>
   </drc>
-  <drc>
-    <status>C:\Microsemi\Libero_SoC_v11.7\Designer/data/drcreport\warn.png</status>
-    <StatusMessage>Warning</StatusMessage>
-    <message>Floating Driver</message>
-    <detail>Floating output pin sha256_controller_0:wait_data</detail>
-    <crossprobe>liberoaction://cross_probe/smartdesign/sha256_system/pins/sha256_controller_0:wait_data</crossprobe>
-  </drc>
 </drcreport>

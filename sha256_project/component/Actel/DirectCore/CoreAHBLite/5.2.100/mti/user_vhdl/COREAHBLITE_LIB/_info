@@ -1,343 +1,497 @@
 m255
 K3
+z0
 13
 cModel Technology
 Z0 dc:\svn\hoppin\IP\soft\DirectCores\CoreAHBLite\trunk\mti\user_vhdl
 Ebfm_ahbl
-Z1 w1295277819
-Z2 DPx4 work 8 bfm_misc 0 22 `ohCNTePc>Cnk2kM>6oY41
-Z3 DPx4 work 10 bfm_textio 0 22 RV=OB7zag[JX54elRA6O=0
-Z4 DPx4 work 11 bfm_package 0 22 _R::i7lmiJ`z@g01V6h<o0
-Z5 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
-Z6 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
-Z7 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
-Z8 dc:\svn\hoppin\IP\soft\DirectCores\CoreAHBLite\trunk\mti\user_vhdl
-Z9 8../../rtl/vhdl/amba_bfm/bfm_ahbl.vhd
-Z10 F../../rtl/vhdl/amba_bfm/bfm_ahbl.vhd
+Z1 DPx4 work 8 bfm_misc 0 22 `ohCNTePc>Cnk2kM>6oY41
+Z2 DPx4 work 10 bfm_textio 0 22 RV=OB7zag[JX54elRA6O=0
+Z3 DPx4 work 11 bfm_package 0 22 _R::i7lmiJ`z@g01V6h<o0
+Z4 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z5 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z6 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+32
+Z7 !s110 1487266713
+!i10b 1
+Z8 OW;C;10.4c;61
+Z9 w1295277819
+R0
+Z10 8../../rtl/vhdl/amba_bfm/bfm_ahbl.vhd
+Z11 F../../rtl/vhdl/amba_bfm/bfm_ahbl.vhd
 l0
 L15
 V[=ahC?5dA1;Q8aD4kDYo^1
-Z11 OW;C;10.1c;51
-32
 Z12 !s108 1382542429.214000
 Z13 !s90 -work|COREAHBLITE_LIB|../../rtl/vhdl/amba_bfm/bfm_ahbl.vhd|
 Z14 !s107 ../../rtl/vhdl/amba_bfm/bfm_ahbl.vhd|
 Z15 o-work COREAHBLITE_LIB -O0
 Z16 tExplicit 1
 !s100 =7akl2m=hgKH:>E3=]b3W2
-!i10b 1
 Abfma1i10i
+R1
 R2
 R3
 R4
 R5
 R6
-R7
 DEx4 work 8 bfm_ahbl 0 22 [=ahC?5dA1;Q8aD4kDYo^1
+32
+R7
+!i10b 1
+R8
 l159
 L149
 VVRUgWMOG0LE8gRQafO@JP3
-R11
-32
 R12
 R13
 R14
 R15
 R16
 !s100 c?TczVRgPOS1Q3`SPLSZQ3
-!i10b 1
 Ebfm_ahbslave
-R1
-R4
 R3
 R2
-R5
-R7
+R1
+R4
 R6
+R5
+32
+R7
+!i10b 1
 R8
+R9
+R0
 Z17 8../../rtl/vhdl/amba_bfm/bfm_ahbslave.vhd
 Z18 F../../rtl/vhdl/amba_bfm/bfm_ahbslave.vhd
 l0
 L17
 Vz9SbBA;Ma_SBP=I=VNUdz3
 !s100 7Jc7<^KRSRfY3W:IBVaJL0
-R11
-32
-!i10b 1
 Z19 !s108 1382542429.855000
 Z20 !s90 -work|COREAHBLITE_LIB|../../rtl/vhdl/amba_bfm/bfm_ahbslave.vhd|
 Z21 !s107 ../../rtl/vhdl/amba_bfm/bfm_ahbslave.vhd|
 R15
 R16
 Abfma1io1ol
-R4
 R3
 R2
-R5
-R7
+R1
+R4
 R6
+R5
 DEx4 work 12 bfm_ahbslave 0 22 z9SbBA;Ma_SBP=I=VNUdz3
+32
+R7
+!i10b 1
+R8
 l53
 L41
 VYL__HlUi`oGYmzXZa<Q=@0
 !s100 OES_IYbZA8KW_zIB9UJg@3
-R11
-32
-!i10b 1
 R19
 R20
 R21
 R15
 R16
 Ebfm_ahbslaveext
-R1
-R4
 R3
 R2
-R5
-R7
+R1
+R4
 R6
+R5
+32
+R7
+!i10b 1
 R8
+R9
+R0
 Z22 8../../rtl/vhdl/amba_bfm/bfm_ahbslaveext.vhd
 Z23 F../../rtl/vhdl/amba_bfm/bfm_ahbslaveext.vhd
 l0
 L17
 VZePSTQ2806X[>dBLS5X;20
-R11
-32
 Z24 !s108 1382542429.449000
 Z25 !s90 -work|COREAHBLITE_LIB|../../rtl/vhdl/amba_bfm/bfm_ahbslaveext.vhd|
 Z26 !s107 ../../rtl/vhdl/amba_bfm/bfm_ahbslaveext.vhd|
 R15
 R16
 !s100 7AFc3Aoo;cX8CTC1KjaZ71
-!i10b 1
 Abfma1io1ol
-R4
 R3
 R2
-R5
-R7
+R1
+R4
 R6
+R5
 DEx4 work 15 bfm_ahbslaveext 0 22 ZePSTQ2806X[>dBLS5X;20
+32
+R7
+!i10b 1
+R8
 l96
 L50
 VKaEgS5=;W5__d:z4I<;T13
-R11
-32
 R24
 R25
 R26
 R15
 R16
 !s100 ^5ijWFh9QXOhQzWK?97d00
-!i10b 1
 Ebfm_main
-R1
-R4
-R2
 R3
+R1
+R2
+R4
 R5
 R6
+32
 R7
+!i10b 1
 R8
+R9
+R0
 Z27 8../../rtl/vhdl/amba_bfm/bfm_main.vhd
 Z28 F../../rtl/vhdl/amba_bfm/bfm_main.vhd
 l0
 L18
 VW4lZS[S9NmLgibCH?7h<A0
-R11
-32
 Z29 !s108 1382542428.855000
 Z30 !s90 -work|COREAHBLITE_LIB|../../rtl/vhdl/amba_bfm/bfm_main.vhd|
 Z31 !s107 ../../rtl/vhdl/amba_bfm/bfm_main.vhd|
 R15
 R16
 !s100 FNQbdbNFSJdFmch@n:QS50
-!i10b 1
 Abfma1i10i
-R4
-R2
 R3
+R1
+R2
+R4
 R5
 R6
-R7
 DEx4 work 8 bfm_main 0 22 W4lZS[S9NmLgibCH?7h<A0
+32
+R7
+!i10b 1
+R8
 l294
 L162
 Vh?O3R[IcJS^Q<]0_XKeVP2
-R11
-32
 R29
 R30
 R31
 R15
 R16
 !s100 TL40X_zN`E?mHjF;i33Ad0
-!i10b 1
 Pbfm_misc
-R5
-R7
+R4
 R6
-R1
+R5
+32
+b1
+R7
+!i10b 1
 R8
+R9
+R0
 Z32 8../../rtl/vhdl/amba_bfm/misc.vhd
 Z33 F../../rtl/vhdl/amba_bfm/misc.vhd
 l0
 L40
 V`ohCNTePc>Cnk2kM>6oY41
-R11
-32
-b1
 Z34 !s108 1382542428.027000
 Z35 !s90 -work|COREAHBLITE_LIB|../../rtl/vhdl/amba_bfm/misc.vhd|
 Z36 !s107 ../../rtl/vhdl/amba_bfm/misc.vhd|
 R15
 R16
 !s100 Q^2EHb7E[agBGk6;`Z@H42
-!i10b 1
 Bbody
-R2
-R5
-R7
+R1
+R4
 R6
+R5
+32
+R7
+!i10b 1
+R8
 l0
 L110
 VoV01fm:Na`hcEjnPW?IU42
-R11
-32
 R34
 R35
 R36
 R15
 R16
-nbody
+Z37 nbody
 !s100 ;FD;8?zFa8@K=d7^22>AP0
-!i10b 1
 Pbfm_package
+R1
 R2
-R3
+R4
 R5
 R6
+32
+b1
 R7
-R1
+!i10b 1
 R8
-Z37 8../../rtl/vhdl/amba_bfm/bfm_package.vhd
-Z38 F../../rtl/vhdl/amba_bfm/bfm_package.vhd
+R9
+R0
+Z38 8../../rtl/vhdl/amba_bfm/bfm_package.vhd
+Z39 F../../rtl/vhdl/amba_bfm/bfm_package.vhd
 l0
 L16
 V_R::i7lmiJ`z@g01V6h<o0
-R11
-32
-b1
-Z39 !s108 1382542428.574000
-Z40 !s90 -work|COREAHBLITE_LIB|../../rtl/vhdl/amba_bfm/bfm_package.vhd|
-Z41 !s107 ../../rtl/vhdl/amba_bfm/bfm_package.vhd|
+Z40 !s108 1382542428.574000
+Z41 !s90 -work|COREAHBLITE_LIB|../../rtl/vhdl/amba_bfm/bfm_package.vhd|
+Z42 !s107 ../../rtl/vhdl/amba_bfm/bfm_package.vhd|
 R15
 R16
 !s100 hN699>E@]Uh4jRQHQ0CZ43
-!i10b 1
 Bbody
-R4
-R2
 R3
+R1
+R2
+R4
 R5
 R6
+32
 R7
+!i10b 1
+R8
 l0
 L1106
 VQ@PPC<6zfEZZjNBOI]z`j2
-R11
-32
-R39
 R40
 R41
+R42
 R15
 R16
-nbody
+R37
 !s100 R:l8A67j]o@<DCn3hAVI=1
-!i10b 1
 Pbfm_textio
+R4
 R5
-R6
-R2
-R7
 R1
+R6
+32
+b1
+R7
+!i10b 1
 R8
-Z42 8../../rtl/vhdl/amba_bfm/textio.vhd
-Z43 F../../rtl/vhdl/amba_bfm/textio.vhd
+R9
+R0
+Z43 8../../rtl/vhdl/amba_bfm/textio.vhd
+Z44 F../../rtl/vhdl/amba_bfm/textio.vhd
 l0
 L109
 VRV=OB7zag[JX54elRA6O=0
-R11
-32
-b1
-Z44 !s108 1382542428.277000
-Z45 !s90 -work|COREAHBLITE_LIB|../../rtl/vhdl/amba_bfm/textio.vhd|
-Z46 !s107 ../../rtl/vhdl/amba_bfm/textio.vhd|
+Z45 !s108 1382542428.277000
+Z46 !s90 -work|COREAHBLITE_LIB|../../rtl/vhdl/amba_bfm/textio.vhd|
+Z47 !s107 ../../rtl/vhdl/amba_bfm/textio.vhd|
 R15
 R16
 !s100 L8nkTc8;kgfA6>EPlKXSc1
-!i10b 1
 Bbody
-R3
-R5
-R6
 R2
+R4
+R5
+R1
+R6
+32
 R7
+!i10b 1
+R8
 l0
 L165
 VPbR`N`^e6;8Ogl;G1oGJg0
-R11
-32
-R44
 R45
 R46
+R47
 R15
 R16
-nbody
+R37
 !s100 5ch0c`7B5?B^RELWiMAbi2
-!i10b 1
 Ebfm_textio_test
+R4
 R1
-R5
 R2
-R3
-Z47 DPx4 ieee 15 std_logic_arith 0 22 4`Y?g_lkdn;7UL9IiJck01
-R7
+Z48 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
 R6
+R5
+32
+R7
+!i10b 1
 R8
-R42
+R9
+R0
 R43
+R44
 l0
 L702
 Va?K7bk?g[[QzYC@=l7@]K3
-R11
-32
-R44
 R45
 R46
+R47
 R15
 R16
 !s100 9n]Kj5KEcZ@lPhn[O88L83
-!i10b 1
 Atb
-R5
+R4
+R1
 R2
-R3
-R47
-R7
+R48
 R6
+R5
 DEx4 work 15 bfm_textio_test 0 22 a?K7bk?g[[QzYC@=l7@]K3
+32
+R7
+!i10b 1
+R8
 l707
 L706
 Vj8fHJ2:j>G^C<CS5CKUIO0
-R11
-32
-R44
 R45
 R46
+R47
 R15
 R16
 !s100 UKC[[OJK5IGFn`R_;Ld1c0
+Pcomponents
+R6
+R5
+Z49 w1487266713
+Z50 dE:/LiberoProjects/sha256_project/simulation
+8E:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/components.vhd
+FE:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/components.vhd
+l0
+L21
+V90HBg_OW8`>J51Mf6D;WX1
+!s100 ak`=7CYZ[hBFAFVQAH2>H2
+R8
+33
+Z51 !s110 1496673595
 !i10b 1
+!s108 1496673594.000000
+!s90 -reportprogress|300|-2008|-explicit|-work|COREAHBLITE_LIB|E:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/components.vhd|
+!s107 E:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/components.vhd|
+!i113 1
+Z52 o-2008 -explicit -work COREAHBLITE_LIB -O0
+Ecoreahblite_addrdec
+R49
+Z53 DPx4 work 19 coreahblite_support 0 22 ^Wk>CXc@Ak`_7]PYZ42:@1
+R4
+R6
+R5
+R50
+Z54 8E:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_addrdec.vhd
+Z55 FE:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_addrdec.vhd
+l0
+L50
+VN?YY@g?TnAUXM`ZJbcKke1
+!s100 bO7e3gAe8cXe@aH7Xh=RU1
+R8
+33
+R51
+!i10b 1
+Z56 !s108 1496673595.000000
+Z57 !s90 -reportprogress|300|-2008|-explicit|-work|COREAHBLITE_LIB|E:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_addrdec.vhd|
+Z58 !s107 E:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_addrdec.vhd|
+!i113 1
+R52
+Acoreahblite_addrdec_arch
+R53
+R4
+R6
+R5
+DEx4 work 19 coreahblite_addrdec 0 22 N?YY@g?TnAUXM`ZJbcKke1
+l102
+L66
+V1O15l@NciMdnLY5bdLHE32
+!s100 jgoYdD9bAJXof]V0]ja553
+R8
+33
+R51
+!i10b 1
+R56
+R57
+R58
+!i113 1
+R52
+Pcoreahblite_pkg
+R49
+R50
+Z59 8E:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_pkg.vhd
+Z60 FE:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_pkg.vhd
+l0
+L1
+Vh[KPOaQ:TUzSAnQKJX>mz0
+!s100 nU9GGTJ0QQ7loB^6AoB0E0
+R8
+33
+b1
+R51
+!i10b 1
+R56
+Z61 !s90 -reportprogress|300|-2008|-explicit|-work|COREAHBLITE_LIB|E:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_pkg.vhd|
+Z62 !s107 E:/LiberoProjects/sha256_project/component/Actel/DirectCore/CoreAHBLite/5.2.100/rtl/vhdl/core/coreahblite_pkg.vhd|
+!i113 1
+R52
+Bbody
+Z63 DPx4 work 15 coreahblite_pkg 0 22 h[KPOaQ:TUzSAnQKJX>mz0
+l0
+L5
+Z64 VYS_X=>]20c1DHC6l27l7z1
+Z65 !s100 jmWKP9giYlThNXWLH0z4I3
+R8
+33
+R51
+!i10b 1
+R56
+R61
+R62
+!i113 1
+R52
+R37
+Pcoreahblite_support
+R4
+R6
+R5
+R49
+R50
+R54
+R55
+l0
+L25
+V^Wk>CXc@Ak`_7]PYZ42:@1
+!s100 c_1WJS_fE69?]1GM_7BO80
+R8
+33
+b1
+R51
+!i10b 1
+R56
+R57
+R58
+!i113 1
+R52
+Bbody
+R53
+R4
+R6
+R5
+l0
+L29
+VOGD5fDjA@7mcYBA62ZceD2
+!s100 E>=Sg[b6F1D9Rm?J:iR1L0
+R8
+33
+R51
+!i10b 1
+R56
+R57
+R58
+!i113 1
+R52
+R37

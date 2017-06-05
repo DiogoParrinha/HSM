@@ -1,0 +1,11 @@
+Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
+
+Date      :  Mon Jun 05 15:03:44 2017
+Project   :  E:\LiberoProjects\sha256_project
+Component :  SHA256_BLOCK
+Family    :  SmartFusion2
+
+
+HDL source files for all Synthesis and Simulation tools:
+    E:/LiberoProjects/sha256_project/component/work/SHA256_BLOCK/SHA256_BLOCK.vhd
+

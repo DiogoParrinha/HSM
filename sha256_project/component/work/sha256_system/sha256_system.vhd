@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Thu Jun 01 22:25:56 2017
+-- Created by SmartDesign Mon Jun 05 11:38:30 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -32,32 +32,6 @@ architecture RTL of sha256_system is
 ----------------------------------------------------------------------
 -- AHB_slave_dummy
 -- using entity instantiation for component AHB_slave_dummy
--- gv_sha256
-component gv_sha256
-    -- Port list
-    port(
-        -- Inputs
-        bytes_i    : in  std_logic_vector(1 downto 0);
-        ce_i       : in  std_logic;
-        clk_i      : in  std_logic;
-        di_i       : in  std_logic_vector(31 downto 0);
-        di_wr_i    : in  std_logic;
-        end_i      : in  std_logic;
-        start_i    : in  std_logic;
-        -- Outputs
-        H0_o       : out std_logic_vector(31 downto 0);
-        H1_o       : out std_logic_vector(31 downto 0);
-        H2_o       : out std_logic_vector(31 downto 0);
-        H3_o       : out std_logic_vector(31 downto 0);
-        H4_o       : out std_logic_vector(31 downto 0);
-        H5_o       : out std_logic_vector(31 downto 0);
-        H6_o       : out std_logic_vector(31 downto 0);
-        H7_o       : out std_logic_vector(31 downto 0);
-        di_req_o   : out std_logic;
-        do_valid_o : out std_logic;
-        error_o    : out std_logic
-        );
-end component;
 -- reg9_1x32
 component reg9_1x32
     -- Port list
@@ -81,40 +55,29 @@ component reg9_1x32
         data_out  : out std_logic_vector(31 downto 0)
         );
 end component;
--- reg_16x32
-component reg_16x32
+-- SHA256_BLOCK
+component SHA256_BLOCK
     -- Port list
     port(
         -- Inputs
-        CLK            : in  std_logic;
-        RST_N          : in  std_logic;
-        data_in        : in  std_logic_vector(31 downto 0);
-        raddr_in       : in  std_logic_vector(3 downto 0);
-        ren            : in  std_logic;
-        waddr_in       : in  std_logic_vector(3 downto 0);
-        wen            : in  std_logic;
+        CLK        : in  std_logic;
+        RST_N      : in  std_logic;
+        data_in    : in  std_logic_vector(31 downto 0);
+        ren        : in  std_logic;
+        waddr_in   : in  std_logic_vector(3 downto 0);
+        wen        : in  std_logic;
         -- Outputs
-        data_out       : out std_logic_vector(31 downto 0);
-        data_out_ready : out std_logic
-        );
-end component;
--- sha256_controller
-component sha256_controller
-    -- Port list
-    port(
-        -- Inputs
-        data_received : in  std_logic;
-        read_data     : in  std_logic_vector(31 downto 0);
-        -- Outputs
-        bytes_i       : out std_logic_vector(1 downto 0);
-        ce_i          : out std_logic;
-        di_i          : out std_logic_vector(31 downto 0);
-        di_req_o      : out std_logic;
-        di_wr_i       : out std_logic;
-        end_i         : out std_logic;
-        read_addr     : out std_logic_vector(3 downto 0);
-        start_i       : out std_logic;
-        wait_data     : out std_logic
+        H0_o       : out std_logic_vector(31 downto 0);
+        H1_o       : out std_logic_vector(31 downto 0);
+        H2_o       : out std_logic_vector(31 downto 0);
+        H3_o       : out std_logic_vector(31 downto 0);
+        H4_o       : out std_logic_vector(31 downto 0);
+        H5_o       : out std_logic_vector(31 downto 0);
+        H6_o       : out std_logic_vector(31 downto 0);
+        H7_o       : out std_logic_vector(31 downto 0);
+        di_req_o   : out std_logic;
+        do_valid_o : out std_logic;
+        error_o    : out std_logic
         );
 end component;
 -- sha256_system_sb
@@ -175,29 +138,18 @@ signal AHB_slave_dummy_0_mem_wdata               : std_logic_vector(31 downto 0)
 signal AHB_slave_dummy_0_read_en                 : std_logic;
 signal AHB_slave_dummy_0_write_en                : std_logic;
 signal GPIO_0_M2F_net_0                          : std_logic;
-signal gv_sha256_0_di_req_o                      : std_logic;
-signal gv_sha256_0_do_valid_o                    : std_logic;
-signal gv_sha256_0_error_o                       : std_logic;
-signal gv_sha256_0_H0_o                          : std_logic_vector(31 downto 0);
-signal gv_sha256_0_H1_o                          : std_logic_vector(31 downto 0);
-signal gv_sha256_0_H2_o                          : std_logic_vector(31 downto 0);
-signal gv_sha256_0_H3_o                          : std_logic_vector(31 downto 0);
-signal gv_sha256_0_H4_o                          : std_logic_vector(31 downto 0);
-signal gv_sha256_0_H5_o                          : std_logic_vector(31 downto 0);
-signal gv_sha256_0_H6_o                          : std_logic_vector(31 downto 0);
-signal gv_sha256_0_H7_o                          : std_logic_vector(31 downto 0);
 signal reg9_1x32_0_data_out                      : std_logic_vector(31 downto 0);
-signal reg_2x32_0_data_out                       : std_logic_vector(31 downto 0);
-signal reg_16x32_0_data_out_ready                : std_logic;
-signal sha256_controller_0_bytes_i               : std_logic_vector(1 downto 0);
-signal sha256_controller_0_ce_i                  : std_logic;
-signal sha256_controller_0_di_i                  : std_logic_vector(31 downto 0);
-signal sha256_controller_0_di_req_o              : std_logic;
-signal sha256_controller_0_di_wr_i               : std_logic;
-signal sha256_controller_0_end_i                 : std_logic;
-signal sha256_controller_0_read_addr_0           : std_logic_vector(3 downto 0);
-signal sha256_controller_0_start_i               : std_logic;
-signal sha256_controller_0_wait_data             : std_logic;
+signal SHA256_BLOCK_0_di_req_o                   : std_logic;
+signal SHA256_BLOCK_0_do_valid_o                 : std_logic;
+signal SHA256_BLOCK_0_error_o                    : std_logic;
+signal SHA256_BLOCK_0_H0_o                       : std_logic_vector(31 downto 0);
+signal SHA256_BLOCK_0_H1_o                       : std_logic_vector(31 downto 0);
+signal SHA256_BLOCK_0_H2_o                       : std_logic_vector(31 downto 0);
+signal SHA256_BLOCK_0_H3_o                       : std_logic_vector(31 downto 0);
+signal SHA256_BLOCK_0_H4_o                       : std_logic_vector(31 downto 0);
+signal SHA256_BLOCK_0_H5_o                       : std_logic_vector(31 downto 0);
+signal SHA256_BLOCK_0_H6_o                       : std_logic_vector(31 downto 0);
+signal SHA256_BLOCK_0_H7_o                       : std_logic_vector(31 downto 0);
 signal sha256_system_sb_0_AMBA_SLAVE_0_HADDR     : std_logic_vector(31 downto 0);
 signal sha256_system_sb_0_AMBA_SLAVE_0_HBURST    : std_logic_vector(2 downto 0);
 signal sha256_system_sb_0_AMBA_SLAVE_0_HMASTLOCK : std_logic;
@@ -310,119 +262,86 @@ AHB_slave_dummy_0 : entity work.AHB_slave_dummy
         lsram_raddr => lsram_raddr_net_0,
         mem_wdata   => AHB_slave_dummy_0_mem_wdata 
         );
--- gv_sha256_0
-gv_sha256_0 : gv_sha256
-    port map( 
-        -- Inputs
-        clk_i      => sha256_system_sb_0_FIC_0_CLK,
-        ce_i       => sha256_controller_0_ce_i,
-        start_i    => sha256_controller_0_start_i,
-        end_i      => sha256_controller_0_end_i,
-        di_wr_i    => sha256_controller_0_di_wr_i,
-        di_i       => sha256_controller_0_di_i,
-        bytes_i    => sha256_controller_0_bytes_i,
-        -- Outputs
-        di_req_o   => gv_sha256_0_di_req_o,
-        error_o    => gv_sha256_0_error_o,
-        do_valid_o => gv_sha256_0_do_valid_o,
-        H0_o       => gv_sha256_0_H0_o,
-        H1_o       => gv_sha256_0_H1_o,
-        H2_o       => gv_sha256_0_H2_o,
-        H3_o       => gv_sha256_0_H3_o,
-        H4_o       => gv_sha256_0_H4_o,
-        H5_o       => gv_sha256_0_H5_o,
-        H6_o       => gv_sha256_0_H6_o,
-        H7_o       => gv_sha256_0_H7_o 
-        );
 -- reg9_1x32_0
 reg9_1x32_0 : reg9_1x32
     port map( 
         -- Inputs
         CLK       => sha256_system_sb_0_FIC_0_CLK,
         RST_N     => sha256_system_sb_0_POWER_ON_RESET_N,
-        wen       => gv_sha256_0_do_valid_o,
+        wen       => SHA256_BLOCK_0_do_valid_o,
         ren       => AHB_slave_dummy_0_read_en,
-        data_in_2 => gv_sha256_0_H2_o,
+        data_in_2 => SHA256_BLOCK_0_H2_o,
         data_in_8 => zero_concat_0_s_32bit,
-        data_in_1 => gv_sha256_0_H1_o,
-        data_in_5 => gv_sha256_0_H5_o,
-        data_in_0 => gv_sha256_0_H0_o,
-        data_in_3 => gv_sha256_0_H3_o,
-        data_in_4 => gv_sha256_0_H4_o,
-        data_in_6 => gv_sha256_0_H6_o,
-        data_in_7 => gv_sha256_0_H7_o,
+        data_in_1 => SHA256_BLOCK_0_H1_o,
+        data_in_5 => SHA256_BLOCK_0_H5_o,
+        data_in_0 => SHA256_BLOCK_0_H0_o,
+        data_in_3 => SHA256_BLOCK_0_H3_o,
+        data_in_4 => SHA256_BLOCK_0_H4_o,
+        data_in_6 => SHA256_BLOCK_0_H6_o,
+        data_in_7 => SHA256_BLOCK_0_H7_o,
         sel       => sel_net_0,
         -- Outputs
         data_out  => reg9_1x32_0_data_out 
         );
--- reg_16x32_0
-reg_16x32_0 : reg_16x32
+-- SHA256_BLOCK_0
+SHA256_BLOCK_0 : SHA256_BLOCK
     port map( 
         -- Inputs
-        CLK            => sha256_system_sb_0_FIC_0_CLK,
-        RST_N          => sha256_system_sb_0_POWER_ON_RESET_N,
-        data_in        => AHB_slave_dummy_0_mem_wdata,
-        waddr_in       => waddr_in_net_0,
-        raddr_in       => sha256_controller_0_read_addr_0,
-        wen            => AHB_slave_dummy_0_write_en,
-        ren            => sha256_system_sb_0_GPIO_1_M2F,
+        CLK        => sha256_system_sb_0_FIC_0_CLK,
+        RST_N      => sha256_system_sb_0_POWER_ON_RESET_N,
+        data_in    => AHB_slave_dummy_0_mem_wdata,
+        waddr_in   => waddr_in_net_0,
+        wen        => AHB_slave_dummy_0_write_en,
+        ren        => sha256_system_sb_0_GPIO_1_M2F,
         -- Outputs
-        data_out       => reg_2x32_0_data_out,
-        data_out_ready => reg_16x32_0_data_out_ready 
-        );
--- sha256_controller_0
-sha256_controller_0 : sha256_controller
-    port map( 
-        -- Inputs
-        read_data     => reg_2x32_0_data_out,
-        data_received => reg_16x32_0_data_out_ready,
-        -- Outputs
-        read_addr     => sha256_controller_0_read_addr_0,
-        wait_data     => sha256_controller_0_wait_data,
-        ce_i          => sha256_controller_0_ce_i,
-        di_i          => sha256_controller_0_di_i,
-        bytes_i       => sha256_controller_0_bytes_i,
-        start_i       => sha256_controller_0_start_i,
-        end_i         => sha256_controller_0_end_i,
-        di_req_o      => sha256_controller_0_di_req_o,
-        di_wr_i       => sha256_controller_0_di_wr_i 
+        H0_o       => SHA256_BLOCK_0_H0_o,
+        H1_o       => SHA256_BLOCK_0_H1_o,
+        H2_o       => SHA256_BLOCK_0_H2_o,
+        H3_o       => SHA256_BLOCK_0_H3_o,
+        H4_o       => SHA256_BLOCK_0_H4_o,
+        H5_o       => SHA256_BLOCK_0_H5_o,
+        H6_o       => SHA256_BLOCK_0_H6_o,
+        H7_o       => SHA256_BLOCK_0_H7_o,
+        do_valid_o => SHA256_BLOCK_0_do_valid_o,
+        error_o    => SHA256_BLOCK_0_error_o,
+        di_req_o   => SHA256_BLOCK_0_di_req_o 
         );
 -- sha256_system_sb_0
 sha256_system_sb_0 : sha256_system_sb
     port map( 
         -- Inputs
         FAB_RESET_N                       => VCC_net,
-        AMBA_SLAVE_0_HRDATA_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HRDATA,
         AMBA_SLAVE_0_HREADYOUT_S0         => sha256_system_sb_0_AMBA_SLAVE_0_HREADYOUT,
-        AMBA_SLAVE_0_HRESP_S0(1 downto 0) => sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0,
         DEVRST_N                          => DEVRST_N,
-        GPIO_2_F2M                        => sha256_controller_0_di_req_o,
+        GPIO_2_F2M                        => SHA256_BLOCK_0_do_valid_o,
+        AMBA_SLAVE_0_HRDATA_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HRDATA,
+        AMBA_SLAVE_0_HRESP_S0(1 downto 0) => sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0,
         -- Outputs
         POWER_ON_RESET_N                  => sha256_system_sb_0_POWER_ON_RESET_N,
         INIT_DONE                         => OPEN,
-        AMBA_SLAVE_0_HADDR_S0             => sha256_system_sb_0_AMBA_SLAVE_0_HADDR,
-        AMBA_SLAVE_0_HTRANS_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HTRANS,
         AMBA_SLAVE_0_HWRITE_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HWRITE,
-        AMBA_SLAVE_0_HSIZE_S0             => sha256_system_sb_0_AMBA_SLAVE_0_HSIZE,
-        AMBA_SLAVE_0_HWDATA_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HWDATA,
         AMBA_SLAVE_0_HSEL_S0              => sha256_system_sb_0_AMBA_SLAVE_0_HSELx,
         AMBA_SLAVE_0_HREADY_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HREADY,
         AMBA_SLAVE_0_HMASTLOCK_S0         => sha256_system_sb_0_AMBA_SLAVE_0_HMASTLOCK,
-        AMBA_SLAVE_0_HBURST_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HBURST,
-        AMBA_SLAVE_0_HPROT_S0             => sha256_system_sb_0_AMBA_SLAVE_0_HPROT,
         FIC_0_CLK                         => sha256_system_sb_0_FIC_0_CLK,
         FIC_0_LOCK                        => OPEN,
         MSS_READY                         => OPEN,
         GPIO_0_M2F                        => GPIO_0_M2F_net_0,
-        GPIO_1_M2F                        => sha256_system_sb_0_GPIO_1_M2F 
+        GPIO_1_M2F                        => sha256_system_sb_0_GPIO_1_M2F,
+        AMBA_SLAVE_0_HADDR_S0             => sha256_system_sb_0_AMBA_SLAVE_0_HADDR,
+        AMBA_SLAVE_0_HTRANS_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HTRANS,
+        AMBA_SLAVE_0_HSIZE_S0             => sha256_system_sb_0_AMBA_SLAVE_0_HSIZE,
+        AMBA_SLAVE_0_HWDATA_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HWDATA,
+        AMBA_SLAVE_0_HBURST_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HBURST,
+        AMBA_SLAVE_0_HPROT_S0             => sha256_system_sb_0_AMBA_SLAVE_0_HPROT 
         );
 -- zero_concat_0
 zero_concat_0 : zero_concat
     port map( 
         -- Inputs
-        s1      => gv_sha256_0_do_valid_o,
-        s2      => gv_sha256_0_di_req_o,
-        s3      => gv_sha256_0_error_o,
+        s1      => SHA256_BLOCK_0_do_valid_o,
+        s2      => SHA256_BLOCK_0_di_req_o,
+        s3      => SHA256_BLOCK_0_error_o,
         -- Outputs
         s_32bit => zero_concat_0_s_32bit 
         );

@@ -28,34 +28,154 @@
 library IEEE;
 
 use IEEE.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
 
 entity sha256_controller is
 port (
     read_addr : OUT std_logic_vector(3 downto 0);  -- selects the register to read from
     read_data : IN std_logic_vector(31 downto 0); -- the output at the selected register
 
-    data_received : IN std_logic;
-    wait_data : OUT std_logic;
+    data_ready : IN std_logic;
+    --wait_data : OUT std_logic;
+    clk : in std_logic := 'U';                                       -- system clock
+    RST_N : IN std_logic;
 
     -- SHA-256 Core inputs
-    ce_i : out std_logic := 'U';                                     -- core clock enable
+    ce_o : out std_logic := 'U';                                     -- core clock enable
     -- input data
-    di_i : out std_logic_vector (31 downto 0) := (others => 'U');    -- big endian input message words
-    bytes_i : out std_logic_vector (1 downto 0) := (others => 'U');  -- valid bytes in input word
+    di_o : out std_logic_vector (31 downto 0) := (others => 'U');    -- big endian input message words
+    bytes_o : out std_logic_vector (1 downto 0) := (others => 'U');  -- valid bytes in input word
     -- start/end commands
-    start_i : out std_logic := 'U';                                  -- reset the engine and start a new hash
-    end_i : out std_logic := 'U';                                    -- marks end of last block data input
+    start_o : out std_logic := 'U';                                  -- reset the engine and start a new hash
+    end_o : out std_logic := 'U';                                    -- marks end of last block data input
     -- handshake
-    di_req_o : out std_logic;                                       -- requests data input for next word
-    di_wr_i : out std_logic := 'U'                                  -- high for di_i valid, low for hold
+    di_req_i : in std_logic;                                         -- requests data input for next word
+    di_wr_o : out std_logic := 'U';                                   -- high for di_i valid, low for hold
+    di_valid_i : in std_logic                                       -- requests data input for next word
 );
 end sha256_controller;
 architecture architecture_sha256_controller of sha256_controller is
-   -- signal, component etc. declarations
-	signal signal_name1 : std_logic; -- example
-	signal signal_name2 : std_logic_vector(1 downto 0) ; -- example
+
+    TYPE STATE_TYPE IS (wait_data, init_block, process_word, process_wait, end_block, wait_finish);
+
+	signal counter : std_logic_vector(3 downto 0);
+    signal state : STATE_TYPE;
+    signal sel_di : std_logic;
+    signal start_counting : std_logic;
 
 begin
+
+    PROCESS (clk, RST_N)
+    BEGIN
+        IF RST_N = '0' THEN
+            state <= wait_data;
+        ELSIF (clk'EVENT AND clk = '1') THEN
+            CASE state IS
+                WHEN wait_data=>
+                    IF data_ready = '1' THEN
+                        state <= init_block;
+                    ELSE
+                        state <= wait_data;
+                    END IF;
+                WHEN init_block=>
+                    IF di_req_i = '0' THEN
+                        state <= process_wait;
+                    ELSE
+                        state <= process_word;
+                    END IF;
+                WHEN process_word=>
+                    IF counter = "1110" THEN -- the last one is processed in the end_block state
+                        state <= end_block;
+                    ELSIF di_req_i = '0' THEN
+                        state <= process_wait;
+                    ELSE
+                        state <= process_word;
+                    END IF;
+                WHEN process_wait=>
+                    IF di_req_i = '1' THEN
+                        state <= process_word;
+                    ELSE
+                        state <= process_wait;
+                    END IF;
+                WHEN end_block=>
+                    state <= wait_finish;
+                WHEN wait_finish=>
+                    IF di_valid_i = '1' THEN
+                        state <= wait_data;
+                    ELSE
+                        state <= wait_finish;
+                    END IF;
+            END CASE;
+        END IF;
+    END PROCESS;
+
+    PROCESS (state)
+    BEGIN
+        CASE state IS
+            WHEN wait_data =>
+                ce_o <= '0';
+                start_o <= '0';
+                end_o <= '0';
+                di_wr_o <= '0';
+                bytes_o <= "00";
+                sel_di <= '0';
+                start_counting <= '0';
+            WHEN init_block =>
+                ce_o <= '1';
+                start_o <= '1';
+                end_o <= '0';
+                di_wr_o <= '0';
+                sel_di <= '1';
+                bytes_o <= "00";
+                start_counting <= '0';
+            WHEN process_word =>
+                ce_o <= '1';
+                start_o <= '0';
+                end_o <= '0';
+                di_wr_o <= '1';
+                bytes_o <= "00";
+                sel_di <= '1';
+                start_counting <= '1';
+            WHEN process_wait =>
+                di_wr_o <= '0';
+                sel_di <= '0';
+                start_o <= '0';
+                start_counting <= '0';
+            WHEN end_block =>
+                end_o <= '1';
+                start_counting <= '1';
+            WHEN wait_finish =>
+                di_wr_o <= '0';
+                end_o <= '0';
+                sel_di <= '0';  
+                start_counting <= '0';
+        END CASE;
+    END PROCESS;
+
+
+    process(clk, RST_N, start_counting)
+        begin
+        if RST_N = '0' then
+            counter <= (others => '0');
+        elsif (clk='1' and clk'event) then
+            if(counter = "1111") then
+                counter <= "0000";
+            elsif(start_counting = '1') then
+                counter <= counter + 1;
+            else
+                counter <= counter;
+            end if;
+        end if;
+    end process;
+
+    -- read address
+    read_addr <= counter;
+
+    -- output word
+    di_o <=
+        X"00000000" when (sel_di = '0') else
+        read_data when (sel_di = '1') else
+        (others => 'X');
 
    -- architecture body
 end architecture_sha256_controller;
