@@ -34,6 +34,7 @@ architecture behavioral of SHA256_BLOCK_tb is
     signal ren : std_logic;
     signal data_in : std_logic_vector(31 downto 0);
     signal waddr_in : std_logic_vector(3 downto 0);
+    signal last_block : std_logic;
 
             -- Outputs
     signal do_valid_o : std_logic;
@@ -58,6 +59,7 @@ architecture behavioral of SHA256_BLOCK_tb is
             RST_N : in std_logic;
             data_in : in std_logic_vector(31 downto 0);
             waddr_in : in std_logic_vector(3 downto 0);
+            last_block : in std_logic;
 
             -- Outputs
             do_valid_o : out std_logic;
@@ -91,6 +93,7 @@ begin
             RST_N => RST_N,
             data_in => data_in,
             waddr_in => waddr_in,
+            last_block => last_block,
 
             -- Outputs
             do_valid_o => do_valid_o,
@@ -124,7 +127,7 @@ begin
         wen <= '1';
 
         waddr_in <= "0000";
-        data_in <= X"00000000";
+        data_in <= X"00000001";
         wait for clk_period;
 
         waddr_in <= "0001";
@@ -185,6 +188,7 @@ begin
 
         waddr_in <= "1111";
         data_in <= X"00000000";
+        last_block <= '1';
         wait for clk_period;
 
         -- Active read for the registers bank

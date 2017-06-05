@@ -41,7 +41,7 @@ begin
 data_out <= line(31 downto 0) when ren_pos='1' else
             (others => '0');
 
-process(CLK)
+process(CLK, RST_N)
 begin
     if rising_edge(CLK) then
         if RST_N='0' then

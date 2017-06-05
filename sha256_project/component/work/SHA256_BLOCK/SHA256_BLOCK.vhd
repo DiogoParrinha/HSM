@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Mon Jun 05 15:03:44 2017
+-- Created by SmartDesign Mon Jun 05 17:48:20 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -21,6 +21,7 @@ entity SHA256_BLOCK is
         CLK        : in  std_logic;
         RST_N      : in  std_logic;
         data_in    : in  std_logic_vector(31 downto 0);
+        last_block : in  std_logic;
         ren        : in  std_logic;
         waddr_in   : in  std_logic_vector(3 downto 0);
         wen        : in  std_logic;
@@ -98,6 +99,7 @@ component sha256_controller
         data_ready : in  std_logic;
         di_req_i   : in  std_logic;
         di_valid_i : in  std_logic;
+        last_block : in  std_logic;
         read_data  : in  std_logic_vector(31 downto 0);
         -- Outputs
         bytes_o    : out std_logic_vector(1 downto 0);
@@ -218,6 +220,7 @@ sha256_controller_0 : sha256_controller
         -- Inputs
         read_data  => reg_16x32_0_data_out,
         data_ready => reg_16x32_0_data_out_ready,
+        last_block => last_block,
         clk        => CLK,
         RST_N      => RST_N,
         di_req_i   => di_req_o_net_0,

@@ -36,6 +36,8 @@ port (
     read_data : IN std_logic_vector(31 downto 0); -- the output at the selected register
 
     data_ready : IN std_logic;
+    last_block : IN std_logic;
+
     --wait_data : OUT std_logic;
     clk : in std_logic := 'U';                                       -- system clock
     RST_N : IN std_logic;
@@ -62,7 +64,7 @@ architecture architecture_sha256_controller of sha256_controller is
     signal state : STATE_TYPE;
     signal sel_di : std_logic;
     signal start_counting : std_logic;
-
+    signal extra_add : std_logic := '0';
 begin
 
     PROCESS (clk, RST_N)
@@ -84,7 +86,7 @@ begin
                         state <= process_word;
                     END IF;
                 WHEN process_word=>
-                    IF counter = "1110" THEN -- the last one is processed in the end_block state
+                    IF counter = "1111" THEN
                         state <= end_block;
                     ELSIF di_req_i = '0' THEN
                         state <= process_wait;
@@ -109,7 +111,7 @@ begin
         END IF;
     END PROCESS;
 
-    PROCESS (state)
+    PROCESS (state, last_block, di_req_i)
     BEGIN
         CASE state IS
             WHEN wait_data =>
@@ -120,6 +122,7 @@ begin
                 bytes_o <= "00";
                 sel_di <= '0';
                 start_counting <= '0';
+                extra_add <= '0';
             WHEN init_block =>
                 ce_o <= '1';
                 start_o <= '1';
@@ -128,6 +131,7 @@ begin
                 sel_di <= '1';
                 bytes_o <= "00";
                 start_counting <= '0';
+                extra_add <= '0';
             WHEN process_word =>
                 ce_o <= '1';
                 start_o <= '0';
@@ -136,24 +140,31 @@ begin
                 bytes_o <= "00";
                 sel_di <= '1';
                 start_counting <= '1';
+                extra_add <= '0';
             WHEN process_wait =>
                 di_wr_o <= '0';
                 sel_di <= '0';
                 start_o <= '0';
                 start_counting <= '0';
+                if(di_req_i = '1' and counter = 0) then
+                    extra_add <= '1';
+                end if;
             WHEN end_block =>
-                end_o <= '1';
+                if(last_block = '1') then
+                    end_o <= '1';
+                end if;
                 start_counting <= '1';
+                extra_add <= '0';
             WHEN wait_finish =>
                 di_wr_o <= '0';
                 end_o <= '0';
                 sel_di <= '0';  
                 start_counting <= '0';
+                extra_add <= '0';
         END CASE;
     END PROCESS;
 
-
-    process(clk, RST_N, start_counting)
+    process(clk, RST_N, start_counting, extra_add)
         begin
         if RST_N = '0' then
             counter <= (others => '0');
@@ -163,7 +174,7 @@ begin
             elsif(start_counting = '1') then
                 counter <= counter + 1;
             else
-                counter <= counter;
+                counter <= counter + extra_add;
             end if;
         end if;
     end process;
