@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Mon Jun 05 23:02:44 2017
+-- Created by SmartDesign Tue Jun 06 20:14:37 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -18,26 +18,26 @@ entity SHA256_BLOCK is
     -- Port list
     port(
         -- Inputs
-        CLK         : in  std_logic;
-        RST_N       : in  std_logic;
-        data_in     : in  std_logic_vector(31 downto 0);
-        first_block : in  std_logic;
-        last_block  : in  std_logic;
-        ren         : in  std_logic;
-        waddr_in    : in  std_logic_vector(3 downto 0);
-        wen         : in  std_logic;
+        CLK            : in  std_logic;
+        RST_N          : in  std_logic;
+        data_in        : in  std_logic_vector(31 downto 0);
+        ren            : in  std_logic;
+        waddr_in       : in  std_logic_vector(4 downto 0);
+        wen            : in  std_logic;
         -- Outputs
-        H0_o        : out std_logic_vector(31 downto 0);
-        H1_o        : out std_logic_vector(31 downto 0);
-        H2_o        : out std_logic_vector(31 downto 0);
-        H3_o        : out std_logic_vector(31 downto 0);
-        H4_o        : out std_logic_vector(31 downto 0);
-        H5_o        : out std_logic_vector(31 downto 0);
-        H6_o        : out std_logic_vector(31 downto 0);
-        H7_o        : out std_logic_vector(31 downto 0);
-        di_req_o    : out std_logic;
-        do_valid_o  : out std_logic;
-        error_o     : out std_logic
+        H0_o           : out std_logic_vector(31 downto 0);
+        H1_o           : out std_logic_vector(31 downto 0);
+        H2_o           : out std_logic_vector(31 downto 0);
+        H3_o           : out std_logic_vector(31 downto 0);
+        H4_o           : out std_logic_vector(31 downto 0);
+        H5_o           : out std_logic_vector(31 downto 0);
+        H6_o           : out std_logic_vector(31 downto 0);
+        H7_o           : out std_logic_vector(31 downto 0);
+        data_available : out std_logic;
+        data_out_ready : out std_logic;
+        di_req_o       : out std_logic;
+        do_valid_o     : out std_logic;
+        error_o        : out std_logic
         );
 end SHA256_BLOCK;
 ----------------------------------------------------------------------
@@ -84,8 +84,8 @@ component limiter_1cycle
         sig_1cycle  : out std_logic
         );
 end component;
--- reg_16x32
-component reg_16x32
+-- reg_17x32
+component reg_17x32
     -- Port list
     port(
         -- Inputs
@@ -94,11 +94,14 @@ component reg_16x32
         data_in        : in  std_logic_vector(31 downto 0);
         raddr_in       : in  std_logic_vector(3 downto 0);
         ren            : in  std_logic;
-        waddr_in       : in  std_logic_vector(3 downto 0);
+        waddr_in       : in  std_logic_vector(4 downto 0);
         wen            : in  std_logic;
         -- Outputs
+        data_available : out std_logic;
         data_out       : out std_logic_vector(31 downto 0);
-        data_out_ready : out std_logic
+        data_out_ready : out std_logic;
+        first_block    : out std_logic;
+        last_block     : out std_logic
         );
 end component;
 -- sha256_controller
@@ -127,6 +130,8 @@ end component;
 ----------------------------------------------------------------------
 -- Signal declarations
 ----------------------------------------------------------------------
+signal data_available_net_0          : std_logic;
+signal data_out_ready_net_0          : std_logic;
 signal di_req_o_net_0                : std_logic;
 signal do_valid_o_net_0              : std_logic;
 signal error_o_net_0                 : std_logic;
@@ -141,7 +146,8 @@ signal H7_o_net_0                    : std_logic_vector(31 downto 0);
 signal limiter_1cycle_0_sig_1cycle   : std_logic;
 signal limiter_1cycle_1_sig_1cycle   : std_logic;
 signal reg_16x32_0_data_out          : std_logic_vector(31 downto 0);
-signal reg_16x32_0_data_out_ready    : std_logic;
+signal reg_17x32_0_first_block       : std_logic;
+signal reg_17x32_0_last_block        : std_logic;
 signal sha256_controller_0_bytes_o   : std_logic_vector(1 downto 0);
 signal sha256_controller_0_ce_o      : std_logic;
 signal sha256_controller_0_di_o      : std_logic_vector(31 downto 0);
@@ -152,6 +158,7 @@ signal sha256_controller_0_start_o   : std_logic;
 signal do_valid_o_net_1              : std_logic;
 signal error_o_net_1                 : std_logic;
 signal di_req_o_net_1                : std_logic;
+signal data_out_ready_net_1          : std_logic;
 signal H0_o_net_1                    : std_logic_vector(31 downto 0);
 signal H1_o_net_1                    : std_logic_vector(31 downto 0);
 signal H2_o_net_1                    : std_logic_vector(31 downto 0);
@@ -160,33 +167,38 @@ signal H4_o_net_1                    : std_logic_vector(31 downto 0);
 signal H5_o_net_1                    : std_logic_vector(31 downto 0);
 signal H6_o_net_1                    : std_logic_vector(31 downto 0);
 signal H7_o_net_1                    : std_logic_vector(31 downto 0);
+signal data_available_net_1          : std_logic;
 
 begin
 ----------------------------------------------------------------------
 -- Top level output port assignments
 ----------------------------------------------------------------------
- do_valid_o_net_1  <= do_valid_o_net_0;
- do_valid_o        <= do_valid_o_net_1;
- error_o_net_1     <= error_o_net_0;
- error_o           <= error_o_net_1;
- di_req_o_net_1    <= di_req_o_net_0;
- di_req_o          <= di_req_o_net_1;
- H0_o_net_1        <= H0_o_net_0;
- H0_o(31 downto 0) <= H0_o_net_1;
- H1_o_net_1        <= H1_o_net_0;
- H1_o(31 downto 0) <= H1_o_net_1;
- H2_o_net_1        <= H2_o_net_0;
- H2_o(31 downto 0) <= H2_o_net_1;
- H3_o_net_1        <= H3_o_net_0;
- H3_o(31 downto 0) <= H3_o_net_1;
- H4_o_net_1        <= H4_o_net_0;
- H4_o(31 downto 0) <= H4_o_net_1;
- H5_o_net_1        <= H5_o_net_0;
- H5_o(31 downto 0) <= H5_o_net_1;
- H6_o_net_1        <= H6_o_net_0;
- H6_o(31 downto 0) <= H6_o_net_1;
- H7_o_net_1        <= H7_o_net_0;
- H7_o(31 downto 0) <= H7_o_net_1;
+ do_valid_o_net_1     <= do_valid_o_net_0;
+ do_valid_o           <= do_valid_o_net_1;
+ error_o_net_1        <= error_o_net_0;
+ error_o              <= error_o_net_1;
+ di_req_o_net_1       <= di_req_o_net_0;
+ di_req_o             <= di_req_o_net_1;
+ data_out_ready_net_1 <= data_out_ready_net_0;
+ data_out_ready       <= data_out_ready_net_1;
+ H0_o_net_1           <= H0_o_net_0;
+ H0_o(31 downto 0)    <= H0_o_net_1;
+ H1_o_net_1           <= H1_o_net_0;
+ H1_o(31 downto 0)    <= H1_o_net_1;
+ H2_o_net_1           <= H2_o_net_0;
+ H2_o(31 downto 0)    <= H2_o_net_1;
+ H3_o_net_1           <= H3_o_net_0;
+ H3_o(31 downto 0)    <= H3_o_net_1;
+ H4_o_net_1           <= H4_o_net_0;
+ H4_o(31 downto 0)    <= H4_o_net_1;
+ H5_o_net_1           <= H5_o_net_0;
+ H5_o(31 downto 0)    <= H5_o_net_1;
+ H6_o_net_1           <= H6_o_net_0;
+ H6_o(31 downto 0)    <= H6_o_net_1;
+ H7_o_net_1           <= H7_o_net_0;
+ H7_o(31 downto 0)    <= H7_o_net_1;
+ data_available_net_1 <= data_available_net_0;
+ data_available       <= data_available_net_1;
 ----------------------------------------------------------------------
 -- Component instances
 ----------------------------------------------------------------------
@@ -214,45 +226,48 @@ gv_sha256_0 : gv_sha256
         H6_o       => H6_o_net_0,
         H7_o       => H7_o_net_0 
         );
--- limiter_1cycle_0
-limiter_1cycle_0 : limiter_1cycle
+-- limiter_1cycle_first
+limiter_1cycle_first : limiter_1cycle
     port map( 
         -- Inputs
         CLK         => CLK,
-        sig_xcycles => reg_16x32_0_data_out_ready,
-        -- Outputs
-        sig_1cycle  => limiter_1cycle_0_sig_1cycle 
-        );
--- limiter_1cycle_1
-limiter_1cycle_1 : limiter_1cycle
-    port map( 
-        -- Inputs
-        CLK         => CLK,
-        sig_xcycles => first_block,
+        sig_xcycles => reg_17x32_0_first_block,
         -- Outputs
         sig_1cycle  => limiter_1cycle_1_sig_1cycle 
         );
--- reg_16x32_0
-reg_16x32_0 : reg_16x32
+-- limiter_1cycle_ready
+limiter_1cycle_ready : limiter_1cycle
+    port map( 
+        -- Inputs
+        CLK         => CLK,
+        sig_xcycles => data_out_ready_net_0,
+        -- Outputs
+        sig_1cycle  => limiter_1cycle_0_sig_1cycle 
+        );
+-- reg_17x32_0
+reg_17x32_0 : reg_17x32
     port map( 
         -- Inputs
         CLK            => CLK,
         RST_N          => RST_N,
-        wen            => wen,
-        ren            => ren,
         data_in        => data_in,
         waddr_in       => waddr_in,
         raddr_in       => sha256_controller_0_read_addr,
+        wen            => wen,
+        ren            => ren,
         -- Outputs
-        data_out_ready => reg_16x32_0_data_out_ready,
-        data_out       => reg_16x32_0_data_out 
+        data_out       => reg_16x32_0_data_out,
+        data_out_ready => data_out_ready_net_0,
+        data_available => data_available_net_0,
+        first_block    => reg_17x32_0_first_block,
+        last_block     => reg_17x32_0_last_block 
         );
 -- sha256_controller_0
 sha256_controller_0 : sha256_controller
     port map( 
         -- Inputs
         data_ready  => limiter_1cycle_0_sig_1cycle,
-        last_block  => last_block,
+        last_block  => reg_17x32_0_last_block,
         first_block => limiter_1cycle_1_sig_1cycle,
         clk         => CLK,
         RST_N       => RST_N,

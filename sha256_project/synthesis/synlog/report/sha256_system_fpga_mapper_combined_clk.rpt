@@ -3,26 +3,25 @@
 #### START OF CLOCK OPTIMIZATION REPORT #####[
 
 Clock optimization not enabled
-1 non-gated/non-generated clock tree(s) driving 1994 clock pin(s) of sequential element(s)
-7 gated/generated clock tree(s) driving 40 clock pin(s) of sequential element(s)
-0 instances converted, 40 sequential instances remain driven by gated/generated clocks
+1 non-gated/non-generated clock tree(s) driving 2010 clock pin(s) of sequential element(s)
+6 gated/generated clock tree(s) driving 8 clock pin(s) of sequential element(s)
+0 instances converted, 8 sequential instances remain driven by gated/generated clocks
 
 ========================================================= Non-Gated/Non-Generated Clocks =========================================================
 Clock Tree ID     Driving Element                       Drive Element Type     Fanout     Sample Instance                                         
 --------------------------------------------------------------------------------------------------------------------------------------------------
-@K:CKID0008       sha256_system_sb_0.CCC_0.GL0_INST     CLKINT                 1994       sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST
+@K:CKID0007       sha256_system_sb_0.CCC_0.GL0_INST     CLKINT                 2010       sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST
 ==================================================================================================================================================
-================================================================================================== Gated/Generated Clocks ===================================================================================================
-Clock Tree ID     Driving Element                                                 Drive Element Type     Fanout     Sample Instance                                   Explanation                                            
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@K:CKID0001       SHA256_BLOCK_0.sha256_controller_0.state_RNI2IR5[0]             CFG3                   2          SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]     No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0002       SHA256_BLOCK_0.sha256_controller_0.end_o_RNO                    CFG3                   1          SHA256_BLOCK_0.sha256_controller_0.end_o          No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0003       SHA256_BLOCK_0.reg_16x32_0.ren_pos                              SLE                    32         SHA256_BLOCK_0.reg_16x32_0.data_out[0]            No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0004       SHA256_BLOCK_0.sha256_controller_0.state[1]                     SLE                    2          SHA256_BLOCK_0.sha256_controller_0.di_wr_o        No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0005       SHA256_BLOCK_0.sha256_controller_0.state[4]                     SLE                    1          SHA256_BLOCK_0.sha256_controller_0.restart        No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0006       SHA256_BLOCK_0.sha256_controller_0.start_o_RNO                  CFG4                   1          SHA256_BLOCK_0.sha256_controller_0.start_o        No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0007       SHA256_BLOCK_0.sha256_controller_0.un1_extra_add_1_sqmuxa_0     CFG4                   1          SHA256_BLOCK_0.sha256_controller_0.extra_add      No gated clock conversion method for cell cell:ACG4.SLE
-=============================================================================================================================================================================================================================
+================================================================================================================== Gated/Generated Clocks ===================================================================================================================
+Clock Tree ID     Driving Element                                                                 Drive Element Type     Fanout     Sample Instance                                                   Explanation                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@K:CKID0001       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state_RNIJQ1B1[0]            CFG3                   2          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]     No gated clock conversion method for cell cell:ACG4.SLE
+@K:CKID0002       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.end_o_RNO                    CFG3                   1          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.end_o          No gated clock conversion method for cell cell:ACG4.SLE
+@K:CKID0003       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state[1]                     SLE                    2          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.sel_di         No gated clock conversion method for cell cell:ACG4.SLE
+@K:CKID0004       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state[4]                     SLE                    1          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.restart        No gated clock conversion method for cell cell:ACG4.SLE
+@K:CKID0005       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o_RNO                  CFG4                   1          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o        No gated clock conversion method for cell cell:ACG4.SLE
+@K:CKID0006       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_extra_add_1_sqmuxa_0     CFG4                   1          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add      No gated clock conversion method for cell cell:ACG4.SLE
+=============================================================================================================================================================================================================================================================
 
 
 ##### END OF CLOCK OPTIMIZATION REPORT ######]

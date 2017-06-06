@@ -1,8 +1,7 @@
-CKID0001:@|S:SHA256_BLOCK_0.sha256_controller_0.state_RNI2IR5[0]@|E:SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]@|F:@syn_sample_clock_path==CKID0001@|M:ClockId0001 
-CKID0002:@|S:SHA256_BLOCK_0.sha256_controller_0.end_o_RNO@|E:SHA256_BLOCK_0.sha256_controller_0.end_o@|F:@syn_sample_clock_path1==CKID0002@|M:ClockId0002 
-CKID0003:@|S:SHA256_BLOCK_0.reg_16x32_0.ren_pos@|E:SHA256_BLOCK_0.reg_16x32_0.data_out[0]@|F:@syn_sample_clock_path==CKID0003@|M:ClockId0003 
-CKID0004:@|S:SHA256_BLOCK_0.sha256_controller_0.state[1]@|E:SHA256_BLOCK_0.sha256_controller_0.di_wr_o@|F:@syn_sample_clock_path2==CKID0004@|M:ClockId0004 
-CKID0005:@|S:SHA256_BLOCK_0.sha256_controller_0.state[4]@|E:SHA256_BLOCK_0.sha256_controller_0.restart@|F:@syn_sample_clock_path==CKID0005@|M:ClockId0005 
-CKID0006:@|S:SHA256_BLOCK_0.sha256_controller_0.start_o_RNO@|E:SHA256_BLOCK_0.sha256_controller_0.start_o@|F:@syn_sample_clock_path==CKID0006@|M:ClockId0006 
-CKID0007:@|S:SHA256_BLOCK_0.sha256_controller_0.un1_extra_add_1_sqmuxa_0@|E:SHA256_BLOCK_0.sha256_controller_0.extra_add@|F:@syn_sample_clock_path==CKID0007@|M:ClockId0007 
-CKID0008:@|S:sha256_system_sb_0.CCC_0.GL0_INST@|E:sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST@|F:@syn_sample_clock_path==CKID0008@|M:ClockId0008 
+CKID0001:@|S:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state_RNIJQ1B1[0]@|E:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]@|F:@syn_sample_clock_path==CKID0001@|M:ClockId0001 
+CKID0002:@|S:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.end_o_RNO@|E:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.end_o@|F:@syn_sample_clock_path1==CKID0002@|M:ClockId0002 
+CKID0003:@|S:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state[1]@|E:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.sel_di@|F:@syn_sample_clock_path2==CKID0003@|M:ClockId0003 
+CKID0004:@|S:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state[4]@|E:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.restart@|F:@syn_sample_clock_path==CKID0004@|M:ClockId0004 
+CKID0005:@|S:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o_RNO@|E:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o@|F:@syn_sample_clock_path==CKID0005@|M:ClockId0005 
+CKID0006:@|S:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_extra_add_1_sqmuxa_0@|E:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add@|F:@syn_sample_clock_path==CKID0006@|M:ClockId0006 
+CKID0007:@|S:sha256_system_sb_0.CCC_0.GL0_INST@|E:sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST@|F:@syn_sample_clock_path==CKID0007@|M:ClockId0007 

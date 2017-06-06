@@ -33,9 +33,7 @@ architecture behavioral of SHA256_BLOCK_tb is
     signal wen : std_logic;
     signal ren : std_logic;
     signal data_in : std_logic_vector(31 downto 0);
-    signal waddr_in : std_logic_vector(3 downto 0);
-    signal last_block : std_logic;
-    signal first_block : std_logic;
+    signal waddr_in : std_logic_vector(4 downto 0);
 
             -- Outputs
     signal do_valid_o : std_logic;
@@ -59,9 +57,7 @@ architecture behavioral of SHA256_BLOCK_tb is
             clk : in std_logic;
             RST_N : in std_logic;
             data_in : in std_logic_vector(31 downto 0);
-            waddr_in : in std_logic_vector(3 downto 0);
-            last_block : in std_logic;
-            first_block : in std_logic;
+            waddr_in : in std_logic_vector(4 downto 0);
 
             -- Outputs
             do_valid_o : out std_logic;
@@ -95,8 +91,6 @@ begin
             RST_N => RST_N,
             data_in => data_in,
             waddr_in => waddr_in,
-            last_block => last_block,
-            first_block => first_block,
 
             -- Outputs
             do_valid_o => do_valid_o,
@@ -119,7 +113,6 @@ begin
         -- hold reset state for 4 clocks ns.      
         ren <= '0';
         wen <= '0';
-        last_block <= '0';
         RST_N <= '0';
 
         wait for (4*clk_period);
@@ -127,72 +120,76 @@ begin
         RST_N <= '1';
 
         -- Write to each of the 16 registers
-        first_block <= '1';
         ren <= '0';
         wen <= '1';
 
-        waddr_in <= "0000";
+        waddr_in <= "00000";
         data_in <= X"00000001";
         wait for clk_period;
 
-        waddr_in <= "0001";
+        waddr_in <= "00001";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0010";
+        waddr_in <= "00010";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0011";
+        waddr_in <= "00011";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0100";
+        waddr_in <= "00100";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0101";
+        waddr_in <= "00101";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0110";
+        waddr_in <= "00110";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0111";
+        waddr_in <= "00111";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1000";
+        waddr_in <= "01000";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1001";
+        waddr_in <= "01001";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1010";
+        waddr_in <= "01010";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1011";
+        waddr_in <= "01011";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1100";
+        waddr_in <= "01100";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1101";
+        waddr_in <= "01101";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1110";
+        waddr_in <= "01110";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1111";
+        waddr_in <= "01111";
         data_in <= X"00000000";
+        wait for clk_period;
+
+        -- last register contains the active bit for first block
+        waddr_in <= "10000";
+        data_in <= X"00000001";
         wait for clk_period;
 
         wen <= '0';
@@ -214,71 +211,74 @@ begin
 
         -- Write to each of the 16 registers
         wen <= '1';
-        first_block <= '0';
 
-        waddr_in <= "0000";
+        waddr_in <= "00000";
         data_in <= X"00000002";
         wait for clk_period;
 
-        waddr_in <= "0001";
+        waddr_in <= "00001";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0010";
+        waddr_in <= "00010";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0011";
+        waddr_in <= "00011";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0100";
+        waddr_in <= "00100";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0101";
+        waddr_in <= "00101";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0110";
+        waddr_in <= "00110";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0111";
+        waddr_in <= "00111";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1000";
+        waddr_in <= "01000";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1001";
+        waddr_in <= "01001";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1010";
+        waddr_in <= "01010";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1011";
+        waddr_in <= "01011";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1100";
+        waddr_in <= "01100";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1101";
+        waddr_in <= "01101";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1110";
+        waddr_in <= "01110";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1111";
+        waddr_in <= "01111";
         data_in <= X"00000000";
-        last_block <= '1';
+        wait for clk_period;
+
+        -- last register contains the active bit for last block
+        waddr_in <= "10000";
+        data_in <= X"00000002";
         wait for clk_period;
 
         wait for clk_period;
@@ -298,8 +298,6 @@ begin
         ren <= '0';
 
         wait for (65*clk_period);
-
-        last_block <= '0';
 
         if do_valid_o = '0' then
             wait until do_valid_o = '1';
@@ -308,76 +306,78 @@ begin
         --------- NEW TEST
 
         -- Write to each of the 16 registers
-        first_block <= '1';
         ren <= '0';
         wen <= '1';
 
-        waddr_in <= "0000";
+        waddr_in <= "00000";
         data_in <= X"00000002";
         wait for clk_period;
 
-        waddr_in <= "0001";
+        waddr_in <= "00001";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0010";
+        waddr_in <= "00010";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0011";
+        waddr_in <= "00011";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0100";
+        waddr_in <= "00100";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0101";
+        waddr_in <= "00101";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0110";
+        waddr_in <= "00110";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "0111";
+        waddr_in <= "00111";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1000";
+        waddr_in <= "01000";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1001";
+        waddr_in <= "01001";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1010";
+        waddr_in <= "01010";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1011";
+        waddr_in <= "01011";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1100";
+        waddr_in <= "01100";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1101";
+        waddr_in <= "01101";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1110";
+        waddr_in <= "01110";
         data_in <= X"00000000";
         wait for clk_period;
 
-        waddr_in <= "1111";
+        waddr_in <= "01111";
         data_in <= X"00000000";
-        last_block <= '1';
         wait for clk_period;
 
+        -- last register contains the active bit for first and last block
+        waddr_in <= "10000";
+        data_in <= X"00000003";
         wait for clk_period;
+
         wen <= '0';
 
         -- Active read for the registers bank
@@ -394,8 +394,6 @@ begin
         ren <= '0';
 
         wait for (65*clk_period);
-
-        last_block <= '0';
 
         wait;
     end process;

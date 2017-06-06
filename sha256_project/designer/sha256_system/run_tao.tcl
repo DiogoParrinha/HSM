@@ -12,6 +12,7 @@ read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\component\Actel\Dire
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp_pcie_hotreset.vhd}
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\component\work\reg9_1x32\reg9_1x32.vhd}
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd}
+read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\component\work\SHA256_Module\SHA256_Module.vhd}
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd}
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd}
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd}

@@ -33,6 +33,6 @@ architecture architecture_zero_concat of zero_concat is
 
 begin
 
-   s_32bit <= "00000000000000000000000000000" & s1 & s2 & s3;
+   s_32bit <= "00000000000000000000000000000" & s3 & s2 & s1;
 
 end architecture_zero_concat;

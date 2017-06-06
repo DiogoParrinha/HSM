@@ -15,13 +15,46 @@ Copyright (C) 1994-2015 Synopsys, Inc. This software and the associated document
 
 @N: CD720 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\std.vhd":146:18:146:21|Setting time resolution to ns
 @N:"E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd":17:7:17:19|Top entity is set to sha256_system.
-Options changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\zero_concat.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\sha256_hash_core.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\sha256_Ki_rom.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\sha256_Kt_rom.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\sha256_padding.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\sha256_regs.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp_pcie_hotreset.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd changed - recompiling
+File C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_syn.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_defaultslavesm.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_pkg.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\components.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\reg9_1x32\reg9_1x32.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\SHA256_Module\SHA256_Module.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd changed - recompiling
 VHDL syntax check successful!
-Options changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd changed - recompiling
 @N: CD231 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\std1164.vhd":890:16:890:17|Using onehot encoding for type mvl9plus ('U'="1000000000")
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd":17:7:17:19|Synthesizing work.sha256_system.rtl 
-@N: CD630 :"E:\LiberoProjects\sha256_project\hdl\zero_concat.vhd":23:7:23:17|Synthesizing work.zero_concat.architecture_zero_concat 
-Post processing for work.zero_concat.architecture_zero_concat
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd":20:7:20:22|Synthesizing work.sha256_system_sb.rtl 
 @N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":786:10:786:17|Synthesizing smartfusion2.sysreset.syn_black_box 
 Post processing for smartfusion2.sysreset.syn_black_box
@@ -190,6 +223,9 @@ Post processing for smartfusion2.gnd.syn_black_box
 Post processing for smartfusion2.vcc.syn_black_box
 Post processing for work.sha256_system_sb_ccc_0_fccc.def_arch
 Post processing for work.sha256_system_sb.rtl
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\SHA256_Module\SHA256_Module.vhd":17:7:17:19|Synthesizing work.sha256_module.rtl 
+@N: CD630 :"E:\LiberoProjects\sha256_project\hdl\zero_concat.vhd":23:7:23:17|Synthesizing work.zero_concat.architecture_zero_concat 
+Post processing for work.zero_concat.architecture_zero_concat
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd":17:7:17:18|Synthesizing work.sha256_block.rtl 
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":33:7:33:23|Synthesizing work.sha256_controller.architecture_sha256_controller 
 @N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":62:20:62:21|Using onehot encoding for type state_type (wait_data="100000")
@@ -205,9 +241,9 @@ Post processing for work.sha256_controller.architecture_sha256_controller
 @W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":116:8:116:11|Latch generated from process for signal ce_o; possible missing assignment in an if or case statement.
 @W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Latch generated from process for signal sel_di; possible missing assignment in an if or case statement.
 @W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Latch generated from process for signal di_wr_o; possible missing assignment in an if or case statement.
-@N: CD630 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":23:7:23:15|Synthesizing work.reg_16x32.architecture_reg_16x32 
-@W: CD638 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":50:11:50:21|Signal d_out_ready is undriven 
-Post processing for work.reg_16x32.architecture_reg_16x32
+@N: CD630 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":23:7:23:15|Synthesizing work.reg_17x32.architecture_reg_17x32 
+Post processing for work.reg_17x32.architecture_reg_17x32
+@W: CL271 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":79:4:79:5|Pruning bits 63 to 2 of line8_6(63 downto 0) -- not in use ... 
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd":22:7:22:20|Synthesizing work.limiter_1cycle.architecture_limiter_1cycle 
 Post processing for work.limiter_1cycle.architecture_limiter_1cycle
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd":80:7:80:15|Synthesizing work.gv_sha256.rtl 
@@ -239,6 +275,7 @@ Post processing for work.reg_1x32.architecture_reg_1x32
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\mux_9_1.vhd":23:7:23:13|Synthesizing work.mux_9_1.architecture_mux_9_1 
 Post processing for work.mux_9_1.architecture_mux_9_1
 Post processing for work.reg9_1x32.rtl
+Post processing for work.sha256_module.rtl
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\AHB_slave_dummy.vhd":10:7:10:21|Synthesizing work.ahb_slave_dummy.behaviour 
 @W: CD604 :"E:\LiberoProjects\sha256_project\hdl\AHB_slave_dummy.vhd":128:16:128:29|OTHERS clause is not synthesized 
 Post processing for work.ahb_slave_dummy.behaviour
@@ -524,10 +561,10 @@ State machine has 7 reachable states with original encodings of:
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":191:4:191:26|Input SOFT_SDIF0_1_CORE_RESET is unused
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd":10:10:10:12|Input XTL is unused
 
-At c_vhdl Exit (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:03s; Memory used current: 118MB peak: 124MB)
+At c_vhdl Exit (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 123MB peak: 124MB)
 
-Process took 0h:00m:04s realtime, 0h:00m:03s cputime
-# Mon Jun 05 21:49:16 2017
+Process took 0h:00m:03s realtime, 0h:00m:03s cputime
+# Tue Jun 06 20:32:38 2017
 
 ###########################################################]
 Synopsys Netlist Linker, version comp201503sp1p1, Build 240R, built Dec  1 2015
@@ -537,7 +574,7 @@ File E:\LiberoProjects\sha256_project\synthesis\synwork\layer0.srs changed - rec
 At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 78MB peak: 79MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Mon Jun 05 21:49:16 2017
+# Tue Jun 06 20:32:38 2017
 
 ###########################################################]
 @END
@@ -545,7 +582,7 @@ Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 At c_hdl Exit (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 3MB peak: 4MB)
 
 Process took 0h:00m:04s realtime, 0h:00m:04s cputime
-# Mon Jun 05 21:49:17 2017
+# Tue Jun 06 20:32:38 2017
 
 ###########################################################]
 Synopsys Netlist Linker, version comp201503sp1p1, Build 240R, built Dec  1 2015
@@ -555,7 +592,7 @@ File E:\LiberoProjects\sha256_project\synthesis\synwork\sha256_system_comp.srs c
 At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 86MB peak: 87MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Mon Jun 05 21:49:18 2017
+# Tue Jun 06 20:32:40 2017
 
 ###########################################################]
 Pre-mapping Report
@@ -581,7 +618,7 @@ Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0
 Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 122MB peak: 124MB)
 
 
-Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 122MB peak: 125MB)
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 122MB peak: 124MB)
 
 @W: BN132 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":5322:4:5322:16|Removing user instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_16,  because it is equivalent to instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_15
 @W: BN132 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":5268:4:5268:16|Removing user instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_15,  because it is equivalent to instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_14
@@ -685,10 +722,10 @@ Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":735:8:735:9|Removing sequential instance SDIF2_PERST_N_q1 of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":719:8:719:9|Removing sequential instance SDIF1_PERST_N_q1 of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":703:8:703:9|Removing sequential instance SDIF0_PERST_N_q1 of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
-@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":116:8:116:11|Net SHA256_BLOCK_0.sha256_controller_0.un1_state_1 appears to be an unidentified clock source. Assuming default frequency. 
-@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Net SHA256_BLOCK_0.sha256_controller_0.un1_state_3 appears to be an unidentified clock source. Assuming default frequency. 
-@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":156:19:156:48|Net SHA256_BLOCK_0.sha256_controller_0.extra_add_1_sqmuxa appears to be an unidentified clock source. Assuming default frequency. 
-@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Net SHA256_BLOCK_0.sha256_controller_0.un1_state_5 appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":116:8:116:11|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_1 appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_3 appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":156:19:156:48|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add_1_sqmuxa appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_5 appears to be an unidentified clock source. Assuming default frequency. 
 syn_allowed_resources : blockrams=69  set on top level netlist sha256_system
 
 Finished netlist restructuring (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 152MB peak: 154MB)
@@ -702,26 +739,24 @@ Start                                                  Requested     Requested  
 Clock                                                  Frequency     Period        Type         Group              
 -------------------------------------------------------------------------------------------------------------------
 System                                                 100.0 MHz     10.000        system       system_clkgroup    
-reg_16x32|ren_pos_inferred_clock                       100.0 MHz     10.000        inferred     Inferred_clkgroup_3
 sha256_controller|state_inferred_clock[1]              100.0 MHz     10.000        inferred     Inferred_clkgroup_1
 sha256_controller|state_inferred_clock[4]              100.0 MHz     10.000        inferred     Inferred_clkgroup_2
 sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     10.000        inferred     Inferred_clkgroup_0
 ===================================================================================================================
 
-@W: MT532 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Found signal identified as System clock which controls 1 sequential elements including SHA256_BLOCK_0.sha256_controller_0.extra_add.  Using this clock, which has no specified timing constraint, can adversely impact design performance. 
-@W: MT530 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Found inferred clock sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock which controls 2074 sequential elements including AHB_slave_dummy_0.ready. This clock has no specified timing constraint which may adversely impact design performance. 
-@W: MT530 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Found inferred clock sha256_controller|state_inferred_clock[1] which controls 8 sequential elements including SHA256_BLOCK_0.sha256_controller_0.start_o. This clock has no specified timing constraint which may adversely impact design performance. 
-@W: MT530 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Found inferred clock sha256_controller|state_inferred_clock[4] which controls 3 sequential elements including SHA256_BLOCK_0.sha256_controller_0.start_o. This clock has no specified timing constraint which may adversely impact design performance. 
-@W: MT530 :"e:\liberoprojects\sha256_project\hdl\reg_2x32.vhd":54:9:54:10|Found inferred clock reg_16x32|ren_pos_inferred_clock which controls 32 sequential elements including SHA256_BLOCK_0.reg_16x32_0.data_out[31:0]. This clock has no specified timing constraint which may adversely impact design performance. 
+@W: MT532 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Found signal identified as System clock which controls 1 sequential elements including SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add.  Using this clock, which has no specified timing constraint, can adversely impact design performance. 
+@W: MT530 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Found inferred clock sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock which controls 2076 sequential elements including AHB_slave_dummy_0.ready. This clock has no specified timing constraint which may adversely impact design performance. 
+@W: MT530 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Found inferred clock sha256_controller|state_inferred_clock[1] which controls 8 sequential elements including SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o. This clock has no specified timing constraint which may adversely impact design performance. 
+@W: MT530 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Found inferred clock sha256_controller|state_inferred_clock[4] which controls 3 sequential elements including SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o. This clock has no specified timing constraint which may adversely impact design performance. 
 
 Finished Pre Mapping Phase.
 @N: BN225 |Writing default property annotation file E:\LiberoProjects\sha256_project\synthesis\sha256_system.sap.
 Pre-mapping successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 82MB peak: 154MB)
+At Mapper Exit (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 81MB peak: 154MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Mon Jun 05 21:49:20 2017
+# Tue Jun 06 20:32:42 2017
 
 ###########################################################]
 Map & Optimize Report
@@ -753,19 +788,19 @@ Starting Optimization and Mapping (Real Time elapsed 0h:00m:00s; CPU Time elapse
 @W: MO171 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":781:8:781:9|Sequential instance sha256_system_sb_0.CORERESETP_0.sm1_areset_n_q1 reduced to a combinational gate by constant propagation 
 @W: MO171 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":781:8:781:9|Sequential instance sha256_system_sb_0.CORERESETP_0.sm1_areset_n_clk_base reduced to a combinational gate by constant propagation 
 @W: MO171 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1331:8:1331:9|Sequential instance sha256_system_sb_0.CORERESETP_0.RESET_N_F2M_int reduced to a combinational gate by constant propagation 
-@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.ren_pos,  because it is equivalent to instance reg9_1x32_0.reg_1x32_7.ren_pos
-@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_7.ren_pos,  because it is equivalent to instance reg9_1x32_0.reg_1x32_6.ren_pos
-@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_6.ren_pos,  because it is equivalent to instance reg9_1x32_0.reg_1x32_5.ren_pos
-@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_5.ren_pos,  because it is equivalent to instance reg9_1x32_0.reg_1x32_4.ren_pos
-@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_4.ren_pos,  because it is equivalent to instance reg9_1x32_0.reg_1x32_3.ren_pos
-@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_3.ren_pos,  because it is equivalent to instance reg9_1x32_0.reg_1x32_2.ren_pos
-@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_2.ren_pos,  because it is equivalent to instance reg9_1x32_0.reg_1x32_1.ren_pos
-@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_1.ren_pos,  because it is equivalent to instance reg9_1x32_0.reg_1x32_0.ren_pos
+@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_7.ren_pos
+@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_7.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_6.ren_pos
+@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_6.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_5.ren_pos
+@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_5.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_4.ren_pos
+@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_4.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_3.ren_pos
+@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_3.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_2.ren_pos
+@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_2.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_1.ren_pos
+@W: BN132 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_1.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_0.ren_pos
 
 Available hyper_sources - for debug and ip models
 	None Found
 
-@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":156:19:156:48|Net SHA256_BLOCK_0.sha256_controller_0.extra_add_1_sqmuxa appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":156:19:156:48|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add_1_sqmuxa appears to be an unidentified clock source. Assuming default frequency. 
 
 Finished RTL optimizations (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 141MB peak: 144MB)
 
@@ -774,7 +809,6 @@ original code -> new code
    00 -> 00
    01 -> 01
    10 -> 10
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[4] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[5] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[6] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[7] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
@@ -814,7 +848,7 @@ original code -> new code
    010000 -> 010000
    100000 -> 100000
 @N:"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":179:8:179:9|Found counter in view:work.sha256_controller(architecture_sha256_controller) inst blocks_counter[31:0]
-@W: BN132 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":56:31:56:33|Removing sequential instance SHA256_BLOCK_0.sha256_controller_0.bytes_o[1],  because it is equivalent to instance SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]
+@W: BN132 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":56:31:56:33|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_o[1],  because it is equivalent to instance SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[0] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[1] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[11] of view:PrimLib.dffr(prim) in hierarchy view:work.sha256_system_sb(rtl) because there are no references to its outputs 
@@ -857,202 +891,193 @@ original code -> new code
 @W: MO160 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[3] is always 0, optimizing ...
 @W: MO160 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[7] is always 0, optimizing ...
 @W: MO160 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[11] is always 0, optimizing ...
-Auto Dissolve of SHA256_BLOCK_0.reg_16x32_0 (inst of view:work.reg_16x32(architecture_reg_16x32))
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[24] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[10] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[9] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[8] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[7] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[6] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[24] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
 
-Finished factoring (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 161MB peak: 163MB)
+Finished factoring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 156MB peak: 156MB)
 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[1] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[0] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[9] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[8] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[5] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[4] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[13] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[12] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":122:8:122:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.masterDataInProg[3] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":122:8:122:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.masterDataInProg[1] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":122:8:122:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.masterDataInProg[2] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[31] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[31] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[30] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[30] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[29] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[29] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[28] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[28] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[27] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[27] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[26] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[26] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[25] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[25] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[24] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[24] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[23] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[23] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[22] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[22] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[21] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[21] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[20] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[20] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[19] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[19] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[18] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[18] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[17] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[17] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[16] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[16] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[15] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[15] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[14] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[14] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[13] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[13] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[12] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[12] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[11] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[11] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[10] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[10] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[9] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[9] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[8] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[8] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[7] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[7] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[6] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[6] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[5] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[5] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[4] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[4] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
-@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance reg9_1x32_0.reg_1x32_8.line[3] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register reg9_1x32_0.reg_1x32_8.line[3] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[31] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[31] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[30] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[30] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[29] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[29] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[28] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[28] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[27] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[27] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[26] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[26] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[25] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[25] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[24] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[24] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[23] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[23] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[22] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[22] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[21] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[21] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[20] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[20] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[19] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[19] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[18] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[18] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[17] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[17] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[16] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[16] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[15] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[15] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[14] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[14] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[13] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[13] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[12] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[12] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[11] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[11] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[10] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[10] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[9] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[9] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[8] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[8] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[7] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[7] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[6] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[6] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[5] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[5] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[4] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[4] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
+@N: BN362 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[3] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
+@A: BN291 :"e:\liberoprojects\sha256_project\hdl\reg_1x32.vhd":46:4:46:5|Boundary register SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[3] packed into a complex cell. To disable register packing, set syn_keep=1 on net between register and complex cell. 
 
-Finished gated-clock and generated-clock conversion (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 154MB peak: 163MB)
+Finished gated-clock and generated-clock conversion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 152MB peak: 157MB)
 
 
-Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 153MB peak: 163MB)
-
-@N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[6] in hierarchy view:work.sha256_system(rtl) because there are no references to its outputs 
-
-Starting Early Timing Optimization (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 154MB peak: 163MB)
+Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:01s; Memory used current: 154MB peak: 161MB)
 
 
-Finished Early Timing Optimization (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 154MB peak: 163MB)
+Starting Early Timing Optimization (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 155MB peak: 161MB)
 
 
-Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 153MB peak: 163MB)
-
-@N: MO106 :"e:\liberoprojects\sha256_project\hdl\sha256_kt_rom.vhd":78:14:78:15|Found ROM, 'SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_kt_rom.next_rout[31:0]', 63 words by 32 bits 
-
-Finished preparing to map (Real Time elapsed 0h:00m:06s; CPU Time elapsed 0h:00m:06s; Memory used current: 155MB peak: 163MB)
+Finished Early Timing Optimization (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:03s; Memory used current: 156MB peak: 161MB)
 
 
-Finished technology mapping (Real Time elapsed 0h:00m:07s; CPU Time elapsed 0h:00m:07s; Memory used current: 171MB peak: 175MB)
+Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 155MB peak: 161MB)
+
+@N: MO106 :"e:\liberoprojects\sha256_project\hdl\sha256_kt_rom.vhd":78:14:78:15|Found ROM, 'SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_kt_rom.next_rout[31:0]', 63 words by 32 bits 
+
+Finished preparing to map (Real Time elapsed 0h:00m:05s; CPU Time elapsed 0h:00m:05s; Memory used current: 156MB peak: 161MB)
+
+
+Finished technology mapping (Real Time elapsed 0h:00m:06s; CPU Time elapsed 0h:00m:06s; Memory used current: 177MB peak: 181MB)
 
 Pass		 CPU time		Worst Slack		Luts / Registers
 ------------------------------------------------------------
-   1		0h:00m:07s		    -4.93ns		2702 /      1978
-   2		0h:00m:08s		    -4.93ns		2135 /      1978
-@N: FX271 :"e:\liberoprojects\sha256_project\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[1]" with 126 loads replicated 3 times to improve timing 
-@N: FX271 :"e:\liberoprojects\sha256_project\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[2]" with 121 loads replicated 3 times to improve timing 
-@N: FX271 :"e:\liberoprojects\sha256_project\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[0]" with 137 loads replicated 3 times to improve timing 
-@N: FX271 :"e:\liberoprojects\sha256_project\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[4]" with 140 loads replicated 3 times to improve timing 
-@N: FX271 :"e:\liberoprojects\sha256_project\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[3]" with 92 loads replicated 3 times to improve timing 
+   1		0h:00m:06s		    -4.93ns		2728 /      1988
+   2		0h:00m:06s		    -4.93ns		2161 /      1988
+@N: FX271 :"e:\liberoprojects\sha256_project\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[0]" with 139 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\sha256_project\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[2]" with 123 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\sha256_project\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[1]" with 127 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\sha256_project\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[3]" with 93 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\sha256_project\hdl\reg_2x32.vhd":79:4:79:5|Instance "SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.raddr_pos[2]" with 256 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\sha256_project\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[4]" with 147 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\sha256_project\hdl\reg_2x32.vhd":79:4:79:5|Instance "SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.raddr_pos[3]" with 128 loads replicated 3 times to improve timing 
 Timing driven replication report
-Added 15 Registers via timing driven replication
+Added 21 Registers via timing driven replication
 Added 0 LUTs via timing driven replication
 
 
 
-   3		0h:00m:09s		    -4.93ns		2096 /      1993
+   3		0h:00m:07s		    -4.93ns		2125 /      2009
 
 
-   4		0h:00m:09s		    -4.93ns		2096 /      1993
-@N: FP130 |Promoting Net SHA256_BLOCK_0.sha256_controller_0.un2_rst_n_i on CLKINT  I_970 
-@N: FP130 |Promoting Net SHA256_BLOCK_0.reg_16x32_0.ren_pos on CLKINT  I_971 
-@N: FP130 |Promoting Net sha256_system_sb_0.MSS_READY on CLKINT  I_972 
-@N: FP130 |Promoting Net sha256_system_sb_0_POWER_ON_RESET_N on CLKINT  I_973 
-@N: FP130 |Promoting Net SHA256_BLOCK_0.sha256_controller_0.state_i_1[1] on CLKINT  I_974 
+   4		0h:00m:07s		    -4.93ns		2125 /      2009
+@N: FP130 |Promoting Net sha256_system_sb_0.MSS_READY on CLKINT  I_935 
+@N: FP130 |Promoting Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un2_rst_n_i on CLKINT  I_936 
+@N: FP130 |Promoting Net sha256_system_sb_0_POWER_ON_RESET_N on CLKINT  I_937 
+@N: FP130 |Promoting Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state_i_1[1] on CLKINT  I_938 
 
 Added 0 Buffers
 Added 0 Cells via replication
 	Added 0 Sequential Cells via replication
 	Added 0 Combinational Cells via replication
 
-Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:10s; CPU Time elapsed 0h:00m:10s; Memory used current: 178MB peak: 180MB)
+Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 183MB peak: 186MB)
 
 
-Finished restoring hierarchy (Real Time elapsed 0h:00m:10s; CPU Time elapsed 0h:00m:10s; Memory used current: 180MB peak: 180MB)
+Finished restoring hierarchy (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 185MB peak: 186MB)
 
 
 
 #### START OF CLOCK OPTIMIZATION REPORT #####[
 
 Clock optimization not enabled
-1 non-gated/non-generated clock tree(s) driving 1994 clock pin(s) of sequential element(s)
-7 gated/generated clock tree(s) driving 40 clock pin(s) of sequential element(s)
-0 instances converted, 40 sequential instances remain driven by gated/generated clocks
+1 non-gated/non-generated clock tree(s) driving 2010 clock pin(s) of sequential element(s)
+6 gated/generated clock tree(s) driving 8 clock pin(s) of sequential element(s)
+0 instances converted, 8 sequential instances remain driven by gated/generated clocks
 
 ========================================================= Non-Gated/Non-Generated Clocks =========================================================
 Clock Tree ID     Driving Element                       Drive Element Type     Fanout     Sample Instance                                         
 --------------------------------------------------------------------------------------------------------------------------------------------------
-@K:CKID0008       sha256_system_sb_0.CCC_0.GL0_INST     CLKINT                 1994       sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST
+@K:CKID0007       sha256_system_sb_0.CCC_0.GL0_INST     CLKINT                 2010       sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST
 ==================================================================================================================================================
-================================================================================================== Gated/Generated Clocks ===================================================================================================
-Clock Tree ID     Driving Element                                                 Drive Element Type     Fanout     Sample Instance                                   Explanation                                            
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-@K:CKID0001       SHA256_BLOCK_0.sha256_controller_0.state_RNI2IR5[0]             CFG3                   2          SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]     No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0002       SHA256_BLOCK_0.sha256_controller_0.end_o_RNO                    CFG3                   1          SHA256_BLOCK_0.sha256_controller_0.end_o          No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0003       SHA256_BLOCK_0.reg_16x32_0.ren_pos                              SLE                    32         SHA256_BLOCK_0.reg_16x32_0.data_out[0]            No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0004       SHA256_BLOCK_0.sha256_controller_0.state[1]                     SLE                    2          SHA256_BLOCK_0.sha256_controller_0.di_wr_o        No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0005       SHA256_BLOCK_0.sha256_controller_0.state[4]                     SLE                    1          SHA256_BLOCK_0.sha256_controller_0.restart        No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0006       SHA256_BLOCK_0.sha256_controller_0.start_o_RNO                  CFG4                   1          SHA256_BLOCK_0.sha256_controller_0.start_o        No gated clock conversion method for cell cell:ACG4.SLE
-@K:CKID0007       SHA256_BLOCK_0.sha256_controller_0.un1_extra_add_1_sqmuxa_0     CFG4                   1          SHA256_BLOCK_0.sha256_controller_0.extra_add      No gated clock conversion method for cell cell:ACG4.SLE
-=============================================================================================================================================================================================================================
+================================================================================================================== Gated/Generated Clocks ===================================================================================================================
+Clock Tree ID     Driving Element                                                                 Drive Element Type     Fanout     Sample Instance                                                   Explanation                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@K:CKID0001       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state_RNIJQ1B1[0]            CFG3                   2          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]     No gated clock conversion method for cell cell:ACG4.SLE
+@K:CKID0002       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.end_o_RNO                    CFG3                   1          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.end_o          No gated clock conversion method for cell cell:ACG4.SLE
+@K:CKID0003       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state[1]                     SLE                    2          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.sel_di         No gated clock conversion method for cell cell:ACG4.SLE
+@K:CKID0004       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state[4]                     SLE                    1          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.restart        No gated clock conversion method for cell cell:ACG4.SLE
+@K:CKID0005       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o_RNO                  CFG4                   1          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o        No gated clock conversion method for cell cell:ACG4.SLE
+@K:CKID0006       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_extra_add_1_sqmuxa_0     CFG4                   1          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add      No gated clock conversion method for cell cell:ACG4.SLE
+=============================================================================================================================================================================================================================================================
 
 
 ##### END OF CLOCK OPTIMIZATION REPORT ######]
 
 
-Start Writing Netlists (Real Time elapsed 0h:00m:11s; CPU Time elapsed 0h:00m:10s; Memory used current: 141MB peak: 181MB)
+Start Writing Netlists (Real Time elapsed 0h:00m:09s; CPU Time elapsed 0h:00m:09s; Memory used current: 147MB peak: 186MB)
 
 Writing Analyst data base E:\LiberoProjects\sha256_project\synthesis\synwork\sha256_system_m.srm
-@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Net SHA256_BLOCK_0.sha256_controller_0.un1_extra_add_1_sqmuxa_0 appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_extra_add_1_sqmuxa_0 appears to be an unidentified clock source. Assuming default frequency. 
 
-Finished Writing Netlist Databases (Real Time elapsed 0h:00m:12s; CPU Time elapsed 0h:00m:11s; Memory used current: 175MB peak: 181MB)
+Finished Writing Netlist Databases (Real Time elapsed 0h:00m:10s; CPU Time elapsed 0h:00m:09s; Memory used current: 182MB peak: 186MB)
 
 Writing EDIF Netlist and constraint files
-@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Net SHA256_BLOCK_0.sha256_controller_0.un1_extra_add_1_sqmuxa_0 appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_extra_add_1_sqmuxa_0 appears to be an unidentified clock source. Assuming default frequency. 
 @N: BW103 |Synopsys Constraint File time units using default value of 1ns 
 @N: BW107 |Synopsys Constraint File capacitance units using default value of 1pF 
 J-2015.03M-SP1-2
 
-Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:12s; Memory used current: 177MB peak: 181MB)
+Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:11s; CPU Time elapsed 0h:00m:10s; Memory used current: 183MB peak: 186MB)
 
 
-Start final timing analysis (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 173MB peak: 181MB)
+Start final timing analysis (Real Time elapsed 0h:00m:11s; CPU Time elapsed 0h:00m:11s; Memory used current: 179MB peak: 186MB)
 
 @W: MT246 :"e:\liberoprojects\sha256_project\component\work\sha256_system_sb\ccc_0\sha256_system_sb_ccc_0_fccc.vhd":106:4:106:11|Blackbox CCC is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results) 
 @W: MT420 |Found inferred clock sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock with period 10.00ns. Please declare a user-defined clock on object "n:sha256_system_sb_0.CCC_0.GL0_net"
 
-@W: MT420 |Found inferred clock sha256_controller|state_inferred_clock[4] with period 10.00ns. Please declare a user-defined clock on object "n:SHA256_BLOCK_0.sha256_controller_0.state[4]"
+@W: MT420 |Found inferred clock sha256_controller|state_inferred_clock[4] with period 10.00ns. Please declare a user-defined clock on object "n:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state[4]"
 
-@W: MT420 |Found inferred clock sha256_controller|state_inferred_clock[1] with period 10.00ns. Please declare a user-defined clock on object "n:SHA256_BLOCK_0.sha256_controller_0.state[1]"
-
-@W: MT420 |Found inferred clock reg_16x32|ren_pos_inferred_clock with period 10.00ns. Please declare a user-defined clock on object "n:SHA256_BLOCK_0.reg_16x32_0.ren_pos"
+@W: MT420 |Found inferred clock sha256_controller|state_inferred_clock[1] with period 10.00ns. Please declare a user-defined clock on object "n:SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.state[1]"
 
 
 
 @S |##### START OF TIMING REPORT #####[
-# Timing Report written on Mon Jun 05 21:49:34 2017
+# Timing Report written on Tue Jun 06 20:32:53 2017
 #
 
 
@@ -1072,17 +1097,16 @@ Performance Summary
 *******************
 
 
-Worst slack in design: -0.239
+Worst slack in design: 0.225
 
-                                                       Requested     Estimated      Requested     Estimated                Clock        Clock              
-Starting Clock                                         Frequency     Frequency      Period        Period        Slack      Type         Group              
------------------------------------------------------------------------------------------------------------------------------------------------------------
-reg_16x32|ren_pos_inferred_clock                       100.0 MHz     NA             10.000        NA            NA         inferred     Inferred_clkgroup_3
-sha256_controller|state_inferred_clock[1]              100.0 MHz     NA             10.000        NA            NA         inferred     Inferred_clkgroup_1
-sha256_controller|state_inferred_clock[4]              100.0 MHz     NA             10.000        NA            NA         inferred     Inferred_clkgroup_2
-sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     97.7 MHz       10.000        10.239        -0.239     inferred     Inferred_clkgroup_0
-System                                                 100.0 MHz     1029.4 MHz     10.000        0.971         9.029      system       system_clkgroup    
-===========================================================================================================================================================
+                                                       Requested     Estimated      Requested     Estimated               Clock        Clock              
+Starting Clock                                         Frequency     Frequency      Period        Period        Slack     Type         Group              
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_controller|state_inferred_clock[1]              100.0 MHz     NA             10.000        NA            NA        inferred     Inferred_clkgroup_1
+sha256_controller|state_inferred_clock[4]              100.0 MHz     NA             10.000        NA            NA        inferred     Inferred_clkgroup_2
+sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     102.3 MHz      10.000        9.775         0.225     inferred     Inferred_clkgroup_0
+System                                                 100.0 MHz     1029.4 MHz     10.000        0.971         9.029     system       system_clkgroup    
+==========================================================================================================================================================
 @N: MT582 |Estimated period and frequency not reported for given clock unless the clock has at least one timing path which is not a false or a max delay path and that does not have excessive slack
 
 
@@ -1092,21 +1116,19 @@ System                                                 100.0 MHz     1029.4 MHz 
 Clock Relationships
 *******************
 
-Clocks                                                                                                  |    rise  to  rise    |    fall  to  fall   |    rise  to  fall   |    fall  to  rise 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Starting                                            Ending                                              |  constraint  slack   |  constraint  slack  |  constraint  slack  |  constraint  slack
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-System                                              System                                              |  10.000      9.029   |  No paths    -      |  No paths    -      |  No paths    -    
-System                                              sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  10.000      8.516   |  No paths    -      |  No paths    -      |  No paths    -    
-sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  System                                              |  10.000      8.875   |  No paths    -      |  No paths    -      |  No paths    -    
-sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  10.000      -0.239  |  No paths    -      |  No paths    -      |  No paths    -    
-sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  sha256_controller|state_inferred_clock[1]           |  No paths    -       |  No paths    -      |  Diff grp    -      |  No paths    -    
-sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  sha256_controller|state_inferred_clock[4]           |  No paths    -       |  No paths    -      |  Diff grp    -      |  No paths    -    
-sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  reg_16x32|ren_pos_inferred_clock                    |  Diff grp    -       |  No paths    -      |  No paths    -      |  No paths    -    
-sha256_controller|state_inferred_clock[1]           sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  No paths    -       |  No paths    -      |  No paths    -      |  Diff grp    -    
-sha256_controller|state_inferred_clock[4]           sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  No paths    -       |  No paths    -      |  No paths    -      |  Diff grp    -    
-reg_16x32|ren_pos_inferred_clock                    sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  Diff grp    -       |  No paths    -      |  No paths    -      |  No paths    -    
-===============================================================================================================================================================================================
+Clocks                                                                                                  |    rise  to  rise   |    fall  to  fall   |    rise  to  fall   |    fall  to  rise 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Starting                                            Ending                                              |  constraint  slack  |  constraint  slack  |  constraint  slack  |  constraint  slack
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+System                                              System                                              |  10.000      9.029  |  No paths    -      |  No paths    -      |  No paths    -    
+System                                              sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  10.000      8.516  |  No paths    -      |  No paths    -      |  No paths    -    
+sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  System                                              |  10.000      8.875  |  No paths    -      |  No paths    -      |  No paths    -    
+sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  10.000      0.225  |  No paths    -      |  No paths    -      |  No paths    -    
+sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  sha256_controller|state_inferred_clock[1]           |  No paths    -      |  No paths    -      |  Diff grp    -      |  No paths    -    
+sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  sha256_controller|state_inferred_clock[4]           |  No paths    -      |  No paths    -      |  Diff grp    -      |  No paths    -    
+sha256_controller|state_inferred_clock[1]           sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  No paths    -      |  No paths    -      |  No paths    -      |  Diff grp    -    
+sha256_controller|state_inferred_clock[4]           sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  No paths    -      |  No paths    -      |  No paths    -      |  Diff grp    -    
+==============================================================================================================================================================================================
  Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
        'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
 
@@ -1128,41 +1150,41 @@ Detailed Report for Clock: sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock
 Starting Points with Worst Slack
 ********************************
 
-                                                                          Starting                                                                                                                                        Arrival           
-Instance                                                                  Reference                                              Type        Pin                Net                                                       Time        Slack 
-                                                                          Clock                                                                                                                                                             
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[26]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[26]     5.932       -0.239
-sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[27]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[27]     5.961       -0.225
-sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_TRANS1       sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HTRANS[1]     5.952       -0.105
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[5]              sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  Kt_addr[5]                                                0.076       0.130 
-sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[25]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[25]     5.952       0.168 
-sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[24]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[24]     5.945       0.256 
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg_fast[2]         sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  Kt_addr_fast[2]                                           0.094       0.340 
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[2]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  hash_control_st_reg[2]                                    0.094       0.542 
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r2[3]                      sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  r2[3]                                                     0.094       0.694 
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[6]              sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  st_cnt_reg[6]                                             0.076       0.725 
-============================================================================================================================================================================================================================================
+                                                                                      Starting                                                                                                                                        Arrival          
+Instance                                                                              Reference                                              Type        Pin                Net                                                       Time        Slack
+                                                                                      Clock                                                                                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg_fast[2]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  Kt_addr_fast[2]                                           0.094       0.225
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg_fast[0]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  Kt_addr_fast[0]                                           0.076       0.272
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg_fast[3]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  Kt_addr_fast[3]                                           0.094       0.490
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg_fast[1]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  Kt_addr_fast[1]                                           0.094       0.498
+SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.raddr_pos_fast[2]                          sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  raddr_pos_fast[2]                                         0.094       0.516
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.sha_last_blk_reg       sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  sha_last_blk_reg                                          0.094       0.522
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                              sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[25]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[25]     5.952       0.567
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[6]          sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  st_cnt_reg[6]                                             0.076       0.577
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                              sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[26]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[26]     5.932       0.639
+sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                              sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_060     F_HM0_ADDR[27]     sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[27]     5.961       0.640
+=======================================================================================================================================================================================================================================================
 
 
 Ending Points with Worst Slack
 ******************************
 
-                                                                               Starting                                                                                               Required           
-Instance                                                                       Reference                                              Type     Pin     Net                            Time         Slack 
-                                                                               Clock                                                                                                                     
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterRegAddrSel     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       d_masterRegAddrSel             9.778        -0.239
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[2]          sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable          9.707        -0.053
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[3]          sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable          9.707        -0.053
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[4]          sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable          9.707        -0.053
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[5]          sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable          9.707        -0.053
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHTRANS            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable          9.707        -0.053
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHWRITE            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable          9.707        -0.053
-AHB_slave_dummy_0.read_en                                                      sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      un1_lsram_raddr_1_sqmuxa_0     9.707        0.044 
-AHB_slave_dummy_0.ready                                                        sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      un1_lsram_raddr_1_sqmuxa_0     9.707        0.044 
-AHB_slave_dummy_0.write_en                                                     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      un1_lsram_waddr_0_sqmuxa_0     9.707        0.059 
-=========================================================================================================================================================================================================
+                                                                               Starting                                                                                   Required          
+Instance                                                                       Reference                                              Type     Pin     Net                Time         Slack
+                                                                               Clock                                                                                                        
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[31]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       next_reg_a[31]     9.778        0.225
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_e[31]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       next_reg_e[31]     9.778        0.449
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[30]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       next_reg_a[30]     9.778        0.464
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[29]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       next_reg_a[29]     9.778        0.478
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[28]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       next_reg_a[28]     9.778        0.492
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[27]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       next_reg_a[27]     9.778        0.506
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[26]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       next_reg_a[26]     9.778        0.520
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[25]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       next_reg_a[25]     9.778        0.535
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[24]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       next_reg_a[24]     9.778        0.549
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[23]     sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       next_reg_a[23]     9.778        0.563
+============================================================================================================================================================================================
 
 
 
@@ -1176,270 +1198,108 @@ Path information for path number 1:
     + Clock delay at ending point:           0.000 (ideal)
     = Required time:                         9.778
 
-    - Propagation time:                      10.017
+    - Propagation time:                      9.553
     - Clock delay at starting point:         0.000 (ideal)
-    = Slack (critical) :                     -0.239
+    = Slack (critical) :                     0.225
 
-    Number of logic level(s):                4
-    Starting point:                          sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[26]
-    Ending point:                            sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterRegAddrSel / D
-    The start point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
-    The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
-
-Instance / Net                                                                                        Pin                Pin               Arrival     No. of    
-Name                                                                                      Type        Name               Dir     Delay     Time        Fan Out(s)
------------------------------------------------------------------------------------------------------------------------------------------------------------------
-sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                                  MSS_060     F_HM0_ADDR[26]     Out     5.932     5.932       -         
-sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[26]                                     Net         -                  -       0.990     -           13        
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0[1]              CFG2        B                  In      -         6.922       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0[1]              CFG2        Y                  Out     0.129     7.051       -         
-N_172                                                                                     Net         -                  -       0.670     -           6         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0_RNIIE3M1[1]     CFG4        D                  In      -         7.721       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0_RNIIE3M1[1]     CFG4        Y                  Out     0.236     7.957       -         
-N_177                                                                                     Net         -                  -       0.722     -           9         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_0_a2      CFG4        D                  In      -         8.679       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_0_a2      CFG4        Y                  Out     0.236     8.915       -         
-masterAddrClockEnable                                                                     Net         -                  -       0.821     -           7         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.d_masterRegAddrSel_0            CFG4        B                  In      -         9.736       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.d_masterRegAddrSel_0            CFG4        Y                  Out     0.143     9.879       -         
-d_masterRegAddrSel                                                                        Net         -                  -       0.138     -           1         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterRegAddrSel                SLE         D                  In      -         10.017      -         
-=================================================================================================================================================================
-Total path delay (propagation time + setup) of 10.239 is 6.898(67.4%) logic and 3.340(32.6%) route.
-Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
-
-
-Path information for path number 2: 
-      Requested Period:                      10.000
-    - Setup time:                            0.222
-    + Clock delay at ending point:           0.000 (ideal)
-    = Required time:                         9.778
-
-    - Propagation time:                      10.003
-    - Clock delay at starting point:         0.000 (ideal)
-    = Slack (non-critical) :                 -0.225
-
-    Number of logic level(s):                4
-    Starting point:                          sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[27]
-    Ending point:                            sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterRegAddrSel / D
-    The start point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
-    The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
-
-Instance / Net                                                                                        Pin                Pin               Arrival     No. of    
-Name                                                                                      Type        Name               Dir     Delay     Time        Fan Out(s)
------------------------------------------------------------------------------------------------------------------------------------------------------------------
-sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                                  MSS_060     F_HM0_ADDR[27]     Out     5.961     5.961       -         
-sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[27]                                     Net         -                  -       0.990     -           13        
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0[1]              CFG2        A                  In      -         6.951       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0[1]              CFG2        Y                  Out     0.087     7.038       -         
-N_172                                                                                     Net         -                  -       0.670     -           6         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0_RNIIE3M1[1]     CFG4        D                  In      -         7.708       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0_RNIIE3M1[1]     CFG4        Y                  Out     0.236     7.944       -         
-N_177                                                                                     Net         -                  -       0.722     -           9         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_0_a2      CFG4        D                  In      -         8.665       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_0_a2      CFG4        Y                  Out     0.236     8.902       -         
-masterAddrClockEnable                                                                     Net         -                  -       0.821     -           7         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.d_masterRegAddrSel_0            CFG4        B                  In      -         9.722       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.d_masterRegAddrSel_0            CFG4        Y                  Out     0.143     9.866       -         
-d_masterRegAddrSel                                                                        Net         -                  -       0.138     -           1         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterRegAddrSel                SLE         D                  In      -         10.003      -         
-=================================================================================================================================================================
-Total path delay (propagation time + setup) of 10.225 is 6.885(67.3%) logic and 3.340(32.7%) route.
-Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
-
-
-Path information for path number 3: 
-      Requested Period:                      10.000
-    - Setup time:                            0.222
-    + Clock delay at ending point:           0.000 (ideal)
-    = Required time:                         9.778
-
-    - Propagation time:                      9.883
-    - Clock delay at starting point:         0.000 (ideal)
-    = Slack (non-critical) :                 -0.104
-
-    Number of logic level(s):                4
-    Starting point:                          sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST / F_HM0_TRANS1
-    Ending point:                            sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterRegAddrSel / D
-    The start point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
-    The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
-
-Instance / Net                                                                                        Pin              Pin               Arrival     No. of    
-Name                                                                                      Type        Name             Dir     Delay     Time        Fan Out(s)
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                                  MSS_060     F_HM0_TRANS1     Out     5.952     5.952       -         
-sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HTRANS[1]                                     Net         -                -       0.980     -           3         
-AHB_slave_dummy_0.hwrite_r_0_sqmuxa_0_a2_0_a2_6                                           CFG2        A                In      -         6.931       -         
-AHB_slave_dummy_0.hwrite_r_0_sqmuxa_0_a2_0_a2_6                                           CFG2        Y                Out     0.067     6.999       -         
-N_168                                                                                     Net         -                -       0.648     -           5         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0_RNIIE3M1[1]     CFG4        C                In      -         7.646       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0_RNIIE3M1[1]     CFG4        Y                Out     0.177     7.823       -         
-N_177                                                                                     Net         -                -       0.722     -           9         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_0_a2      CFG4        D                In      -         8.545       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_0_a2      CFG4        Y                Out     0.236     8.781       -         
-masterAddrClockEnable                                                                     Net         -                -       0.821     -           7         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.d_masterRegAddrSel_0            CFG4        B                In      -         9.601       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.d_masterRegAddrSel_0            CFG4        Y                Out     0.143     9.745       -         
-d_masterRegAddrSel                                                                        Net         -                -       0.138     -           1         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterRegAddrSel                SLE         D                In      -         9.883       -         
-===============================================================================================================================================================
-Total path delay (propagation time + setup) of 10.105 is 6.797(67.3%) logic and 3.308(32.7%) route.
-Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
-
-
-Path information for path number 4: 
-      Requested Period:                      10.000
-    - Setup time:                            0.222
-    + Clock delay at ending point:           0.000 (ideal)
-    = Required time:                         9.778
-
-    - Propagation time:                      9.648
-    - Clock delay at starting point:         0.000 (ideal)
-    = Slack (non-critical) :                 0.130
-
-    Number of logic level(s):                30
-    Starting point:                          SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[5] / Q
-    Ending point:                            SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[31] / D
+    Number of logic level(s):                28
+    Starting point:                          SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg_fast[2] / Q
+    Ending point:                            SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[31] / D
     The start point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
     The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
 
-Instance / Net                                                                Pin      Pin               Arrival     No. of    
-Name                                                                 Type     Name     Dir     Delay     Time        Fan Out(s)
--------------------------------------------------------------------------------------------------------------------------------
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[5]         SLE      Q        Out     0.076     0.076       -         
-Kt_addr[5]                                                           Net      -        -       1.106     -           50        
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e_2              CFG4     D        In      -         1.182       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e_2              CFG4     Y        Out     0.284     1.466       -         
-W_m4_e_2                                                             Net      -        -       0.548     -           2         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e_4              CFG4     C        In      -         2.014       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e_4              CFG4     Y        Out     0.182     2.196       -         
-W_m4_e_4                                                             Net      -        -       0.483     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e                CFG4     B        In      -         2.679       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e                CFG4     Y        Out     0.143     2.822       -         
-W_N_9_mux                                                            Net      -        -       0.928     -           35        
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_a4[10]      CFG3     B        In      -         3.750       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_a4[10]      CFG3     Y        Out     0.129     3.879       -         
-N_264                                                                Net      -        -       0.483     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_0[10]       CFG4     D        In      -         4.362       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_0[10]       CFG4     Y        Out     0.236     4.598       -         
-W_out_2_i_0[10]                                                      Net      -        -       0.483     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_2[10]       CFG4     D        In      -         5.082       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_2[10]       CFG4     Y        Out     0.236     5.318       -         
-W_out_2_i_2[10]                                                      Net      -        -       0.483     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.next_r0[10]           CFG4     D        In      -         5.801       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.next_r0[10]           CFG4     Y        Out     0.284     6.085       -         
-Wt_data[10]                                                          Net      -        -       0.548     -           2         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_10         ARI1     B        In      -         6.633       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_10         ARI1     FCO      Out     0.174     6.807       -         
-sum3_cry_10                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_11         ARI1     FCI      In      -         6.807       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_11         ARI1     FCO      Out     0.014     6.821       -         
-sum3_cry_11                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_12         ARI1     FCI      In      -         6.821       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_12         ARI1     FCO      Out     0.014     6.835       -         
-sum3_cry_12                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_13         ARI1     FCI      In      -         6.835       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_13         ARI1     FCO      Out     0.014     6.850       -         
-sum3_cry_13                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_14         ARI1     FCI      In      -         6.850       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_14         ARI1     FCO      Out     0.014     6.864       -         
-sum3_cry_14                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_15         ARI1     FCI      In      -         6.864       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_15         ARI1     FCO      Out     0.014     6.878       -         
-sum3_cry_15                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_16         ARI1     FCI      In      -         6.878       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_16         ARI1     FCO      Out     0.014     6.892       -         
-sum3_cry_16                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_17         ARI1     FCI      In      -         6.892       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_17         ARI1     FCO      Out     0.014     6.907       -         
-sum3_cry_17                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_18         ARI1     FCI      In      -         6.907       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_18         ARI1     FCO      Out     0.014     6.921       -         
-sum3_cry_18                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_19         ARI1     FCI      In      -         6.921       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_19         ARI1     FCO      Out     0.014     6.935       -         
-sum3_cry_19                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_20         ARI1     FCI      In      -         6.935       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_20         ARI1     FCO      Out     0.014     6.949       -         
-sum3_cry_20                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_21         ARI1     FCI      In      -         6.949       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_21         ARI1     FCO      Out     0.014     6.963       -         
-sum3_cry_21                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_22         ARI1     FCI      In      -         6.963       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_22         ARI1     FCO      Out     0.014     6.978       -         
-sum3_cry_22                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_23         ARI1     FCI      In      -         6.978       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_23         ARI1     FCO      Out     0.014     6.992       -         
-sum3_cry_23                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_24         ARI1     FCI      In      -         6.992       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_24         ARI1     FCO      Out     0.014     7.006       -         
-sum3_cry_24                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_25         ARI1     FCI      In      -         7.006       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_25         ARI1     FCO      Out     0.014     7.020       -         
-sum3_cry_25                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_26         ARI1     FCI      In      -         7.020       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_26         ARI1     FCO      Out     0.014     7.034       -         
-sum3_cry_26                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_27         ARI1     FCI      In      -         7.034       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_27         ARI1     FCO      Out     0.014     7.048       -         
-sum3_cry_27                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_28         ARI1     FCI      In      -         7.048       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_28         ARI1     FCO      Out     0.014     7.063       -         
-sum3_cry_28                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_29         ARI1     FCI      In      -         7.063       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_29         ARI1     FCO      Out     0.014     7.077       -         
-sum3_cry_29                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_30         ARI1     FCI      In      -         7.077       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_30         ARI1     FCO      Out     0.014     7.091       -         
-sum3_cry_30                                                          Net      -        -       0.000     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_s_31           ARI1     FCI      In      -         7.091       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_s_31           ARI1     S        Out     0.063     7.154       -         
-sum3[31]                                                             Net      -        -       0.977     -           2         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.next_reg_a_s_31     ARI1     D        In      -         8.131       -         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.next_reg_a_s_31     ARI1     S        Out     0.545     8.677       -         
-next_reg_a[31]                                                       Net      -        -       0.971     -           1         
-SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[31]           SLE      D        In      -         9.648       -         
-===============================================================================================================================
-Total path delay (propagation time + setup) of 9.870 is 2.859(29.0%) logic and 7.011(71.0%) route.
-Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
-
-
-Path information for path number 5: 
-      Requested Period:                      10.000
-    - Setup time:                            0.222
-    + Clock delay at ending point:           0.000 (ideal)
-    = Required time:                         9.778
-
-    - Propagation time:                      9.635
-    - Clock delay at starting point:         0.000 (ideal)
-    = Slack (non-critical) :                 0.143
-
-    Number of logic level(s):                4
-    Starting point:                          sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[26]
-    Ending point:                            sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[14] / D
-    The start point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
-    The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
-
-Instance / Net                                                                                                        Pin                Pin               Arrival     No. of    
-Name                                                                                                      Type        Name               Dir     Delay     Time        Fan Out(s)
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-sha256_system_sb_0.sha256_system_sb_MSS_0.MSS_ADLIB_INST                                                  MSS_060     F_HM0_ADDR[26]     Out     5.932     5.932       -         
-sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[26]                                                     Net         -                  -       0.990     -           13        
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0[1]                              CFG2        B                  In      -         6.922       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0[1]                              CFG2        Y                  Out     0.129     7.051       -         
-N_172                                                                                                     Net         -                  -       0.670     -           6         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0_RNIIE3M1[1]                     CFG4        D                  In      -         7.721       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_0_a2_0_RNIIE3M1[1]                     CFG4        Y                  Out     0.236     7.957       -         
-N_177                                                                                                     Net         -                  -       0.722     -           9         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_RNO_0[14]     CFG4        B                  In      -         8.679       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_RNO_0[14]     CFG4        Y                  Out     0.125     8.803       -         
-N_111_i_1                                                                                                 Net         -                  -       0.483     -           1         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_RNO[14]       CFG4        C                  In      -         9.287       -         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState_RNO[14]       CFG4        Y                  Out     0.210     9.497       -         
-N_111_i_0                                                                                                 Net         -                  -       0.138     -           1         
-sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_0.slave_arbiter.arbRegSMCurrentState[14]           SLE         D                  In      -         9.635       -         
-=================================================================================================================================================================================
-Total path delay (propagation time + setup) of 9.857 is 6.854(69.5%) logic and 3.003(30.5%) route.
+Instance / Net                                                                                 Pin      Pin               Arrival     No. of    
+Name                                                                                  Type     Name     Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg_fast[2]     SLE      Q        Out     0.094     0.094       -         
+Kt_addr_fast[2]                                                                       Net      -        -       0.971     -           23        
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e_2               CFG4     D        In      -         1.065       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e_2               CFG4     Y        Out     0.250     1.315       -         
+W_m4_e_2                                                                              Net      -        -       0.483     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e_4               CFG4     C        In      -         1.798       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e_4               CFG4     Y        Out     0.182     1.980       -         
+W_m4_e_4                                                                              Net      -        -       0.483     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e                 CFG4     D        In      -         2.464       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_m4_e                 CFG4     Y        Out     0.250     2.714       -         
+W_N_9_mux                                                                             Net      -        -       0.909     -           31        
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_a3[12]       CFG2     A        In      -         3.623       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_a3[12]       CFG2     Y        Out     0.087     3.710       -         
+N_311                                                                                 Net      -        -       0.772     -           13        
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_2_3[12]      CFG4     B        In      -         4.482       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_2_3[12]      CFG4     Y        Out     0.143     4.625       -         
+W_out_2_i_2_3[12]                                                                     Net      -        -       0.483     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_2_4[12]      CFG4     B        In      -         5.109       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_2_4[12]      CFG4     Y        Out     0.143     5.252       -         
+W_out_2_i_2_4[12]                                                                     Net      -        -       0.483     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.next_r0[12]            CFG4     D        In      -         5.735       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.next_r0[12]            CFG4     Y        Out     0.284     6.019       -         
+Wt_data[12]                                                                           Net      -        -       0.548     -           2         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_12          ARI1     B        In      -         6.566       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_12          ARI1     FCO      Out     0.174     6.741       -         
+sum3_cry_12                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_13          ARI1     FCI      In      -         6.741       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_13          ARI1     FCO      Out     0.014     6.755       -         
+sum3_cry_13                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_14          ARI1     FCI      In      -         6.755       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_14          ARI1     FCO      Out     0.014     6.769       -         
+sum3_cry_14                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_15          ARI1     FCI      In      -         6.769       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_15          ARI1     FCO      Out     0.014     6.784       -         
+sum3_cry_15                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_16          ARI1     FCI      In      -         6.784       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_16          ARI1     FCO      Out     0.014     6.798       -         
+sum3_cry_16                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_17          ARI1     FCI      In      -         6.798       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_17          ARI1     FCO      Out     0.014     6.812       -         
+sum3_cry_17                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_18          ARI1     FCI      In      -         6.812       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_18          ARI1     FCO      Out     0.014     6.826       -         
+sum3_cry_18                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_19          ARI1     FCI      In      -         6.826       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_19          ARI1     FCO      Out     0.014     6.840       -         
+sum3_cry_19                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_20          ARI1     FCI      In      -         6.840       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_20          ARI1     FCO      Out     0.014     6.855       -         
+sum3_cry_20                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_21          ARI1     FCI      In      -         6.855       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_21          ARI1     FCO      Out     0.014     6.869       -         
+sum3_cry_21                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_22          ARI1     FCI      In      -         6.869       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_22          ARI1     FCO      Out     0.014     6.883       -         
+sum3_cry_22                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_23          ARI1     FCI      In      -         6.883       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_23          ARI1     FCO      Out     0.014     6.897       -         
+sum3_cry_23                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_24          ARI1     FCI      In      -         6.897       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_24          ARI1     FCO      Out     0.014     6.911       -         
+sum3_cry_24                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_25          ARI1     FCI      In      -         6.911       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_25          ARI1     FCO      Out     0.014     6.926       -         
+sum3_cry_25                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_26          ARI1     FCI      In      -         6.926       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_26          ARI1     FCO      Out     0.014     6.940       -         
+sum3_cry_26                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_27          ARI1     FCI      In      -         6.940       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_27          ARI1     FCO      Out     0.014     6.954       -         
+sum3_cry_27                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_28          ARI1     FCI      In      -         6.954       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_28          ARI1     FCO      Out     0.014     6.968       -         
+sum3_cry_28                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_29          ARI1     FCI      In      -         6.968       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_29          ARI1     FCO      Out     0.014     6.982       -         
+sum3_cry_29                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_30          ARI1     FCI      In      -         6.982       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_30          ARI1     FCO      Out     0.014     6.997       -         
+sum3_cry_30                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_s_31            ARI1     FCI      In      -         6.997       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_s_31            ARI1     S        Out     0.063     7.060       -         
+sum3[31]                                                                              Net      -        -       0.977     -           2         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.next_reg_a_s_31      ARI1     D        In      -         8.037       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.next_reg_a_s_31      ARI1     S        Out     0.545     8.582       -         
+next_reg_a[31]                                                                        Net      -        -       0.971     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[31]            SLE      D        In      -         9.553       -         
+================================================================================================================================================
+Total path delay (propagation time + setup) of 9.775 is 2.695(27.6%) logic and 7.081(72.4%) route.
 Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
 
 
@@ -1454,28 +1314,28 @@ Detailed Report for Clock: System
 Starting Points with Worst Slack
 ********************************
 
-                                                 Starting                                                                                           Arrival          
-Instance                                         Reference     Type               Pin        Net                                                    Time        Slack
-                                                 Clock                                                                                                               
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SHA256_BLOCK_0.sha256_controller_0.extra_add     System        SLE                Q          extra_add                                              0.094       8.516
-sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ     System        RCOSC_25_50MHZ     CLKOUT     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000       9.029
-=====================================================================================================================================================================
+                                                                 Starting                                                                                           Arrival          
+Instance                                                         Reference     Type               Pin        Net                                                    Time        Slack
+                                                                 Clock                                                                                                               
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add     System        SLE                Q          extra_add                                              0.094       8.516
+sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ                     System        RCOSC_25_50MHZ     CLKOUT     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000       9.029
+=====================================================================================================================================================================================
 
 
 Ending Points with Worst Slack
 ******************************
 
-                                                  Starting                                                                                         Required          
-Instance                                          Reference     Type     Pin                Net                                                    Time         Slack
-                                                  Clock                                                                                                              
----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SHA256_BLOCK_0.sha256_controller_0.counter[3]     System        SLE      D                  counter_4[3]                                           9.778        8.516
-SHA256_BLOCK_0.sha256_controller_0.counter[2]     System        SLE      D                  counter_4[2]                                           9.778        8.569
-SHA256_BLOCK_0.sha256_controller_0.counter[1]     System        SLE      D                  counter_4[1]                                           9.778        8.698
-SHA256_BLOCK_0.sha256_controller_0.counter[0]     System        SLE      D                  counter_4[0]                                           9.778        8.751
-sha256_system_sb_0.CCC_0.CCC_INST                 System        CCC      RCOSC_25_50MHZ     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     10.000       9.029
-=====================================================================================================================================================================
+                                                                  Starting                                                                                         Required          
+Instance                                                          Reference     Type     Pin                Net                                                    Time         Slack
+                                                                  Clock                                                                                                              
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.counter[3]     System        SLE      D                  counter_4[3]                                           9.778        8.516
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.counter[2]     System        SLE      D                  counter_4[2]                                           9.778        8.569
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.counter[1]     System        SLE      D                  counter_4[1]                                           9.778        8.698
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.counter[0]     System        SLE      D                  counter_4[0]                                           9.778        8.751
+sha256_system_sb_0.CCC_0.CCC_INST                                 System        CCC      RCOSC_25_50MHZ     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     10.000       9.029
+=====================================================================================================================================================================================
 
 
 
@@ -1495,27 +1355,27 @@ Path information for path number 1:
     = Slack (non-critical) :                 8.516
 
     Number of logic level(s):                3
-    Starting point:                          SHA256_BLOCK_0.sha256_controller_0.extra_add / Q
-    Ending point:                            SHA256_BLOCK_0.sha256_controller_0.counter[3] / D
+    Starting point:                          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add / Q
+    Ending point:                            SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.counter[3] / D
     The start point is clocked by            System [rising] on pin CLK
     The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
 
-Instance / Net                                                    Pin      Pin               Arrival     No. of    
-Name                                                     Type     Name     Dir     Delay     Time        Fan Out(s)
--------------------------------------------------------------------------------------------------------------------
-SHA256_BLOCK_0.sha256_controller_0.extra_add             SLE      Q        Out     0.094     0.094       -         
-extra_add                                                Net      -        -       0.509     -           1         
-SHA256_BLOCK_0.sha256_controller_0.un1_extra_add[0]      CFG3     B        In      -         0.603       -         
-SHA256_BLOCK_0.sha256_controller_0.un1_extra_add[0]      CFG3     Y        Out     0.143     0.746       -         
-un1_extra_add[0]                                         Net      -        -       0.000     -           3         
-SHA256_BLOCK_0.sha256_controller_0.un2_counter_1.CO1     CFG3     C        In      -         0.746       -         
-SHA256_BLOCK_0.sha256_controller_0.un2_counter_1.CO1     CFG3     Y        Out     0.182     0.928       -         
-CO1                                                      Net      -        -       0.000     -           2         
-SHA256_BLOCK_0.sha256_controller_0.counter_4[3]          CFG4     C        In      -         0.928       -         
-SHA256_BLOCK_0.sha256_controller_0.counter_4[3]          CFG4     Y        Out     0.196     1.124       -         
-counter_4[3]                                             Net      -        -       0.138     -           1         
-SHA256_BLOCK_0.sha256_controller_0.counter[3]            SLE      D        In      -         1.262       -         
-===================================================================================================================
+Instance / Net                                                                    Pin      Pin               Arrival     No. of    
+Name                                                                     Type     Name     Dir     Delay     Time        Fan Out(s)
+-----------------------------------------------------------------------------------------------------------------------------------
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add             SLE      Q        Out     0.094     0.094       -         
+extra_add                                                                Net      -        -       0.509     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_extra_add[0]      CFG3     B        In      -         0.603       -         
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_extra_add[0]      CFG3     Y        Out     0.143     0.746       -         
+un1_extra_add[0]                                                         Net      -        -       0.000     -           3         
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un2_counter_1.CO1     CFG3     C        In      -         0.746       -         
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un2_counter_1.CO1     CFG3     Y        Out     0.182     0.928       -         
+CO1                                                                      Net      -        -       0.000     -           2         
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.counter_4[3]          CFG4     C        In      -         0.928       -         
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.counter_4[3]          CFG4     Y        Out     0.196     1.124       -         
+counter_4[3]                                                             Net      -        -       0.138     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.counter[3]            SLE      D        In      -         1.262       -         
+===================================================================================================================================
 Total path delay (propagation time + setup) of 1.484 is 0.837(56.4%) logic and 0.647(43.6%) route.
 Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
 
@@ -1524,10 +1384,10 @@ Path delay compensated for clock skew. Clock skew is added to clock-to-out value
 ##### END OF TIMING REPORT #####]
 
 
-Finished final timing analysis (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 173MB peak: 181MB)
+Finished final timing analysis (Real Time elapsed 0h:00m:11s; CPU Time elapsed 0h:00m:11s; Memory used current: 179MB peak: 186MB)
 
 
-Finished timing report (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 173MB peak: 181MB)
+Finished timing report (Real Time elapsed 0h:00m:11s; CPU Time elapsed 0h:00m:11s; Memory used current: 179MB peak: 186MB)
 
 ---------------------------------------
 Resource Usage Report for sha256_system 
@@ -1535,21 +1395,21 @@ Resource Usage Report for sha256_system
 Mapping to part: m2s060fbga484-1
 Cell usage:
 CCC             1 use
-CLKINT          6 uses
+CLKINT          5 uses
 MSS_060         1 use
 RCOSC_25_50MHZ  1 use
 SYSRESET        1 use
-CFG1           4 uses
-CFG2           113 uses
-CFG3           509 uses
-CFG4           933 uses
+CFG1           3 uses
+CFG2           74 uses
+CFG3           529 uses
+CFG4           982 uses
 
 Carry primitives used for arithmetic functions:
 ARI1           677 uses
 
 
 Sequential Cells: 
-SLE            2033 uses
+SLE            2017 uses
 
 DSP Blocks:    0
 
@@ -1558,10 +1418,10 @@ I/O primitives: 1
 OUTBUF         1 use
 
 
-Global Clock Buffers: 6
+Global Clock Buffers: 5
 
 
-Total LUTs:    2236
+Total LUTs:    2265
 
 Extra resources required for RAM and MACC interface logic during P&R:
 
@@ -1569,14 +1429,14 @@ RAM64x18 Interface Logic : SLEs = 0; LUTs = 0;
 RAM1K18  Interface Logic : SLEs = 0; LUTs = 0;
 MACC     Interface Logic : SLEs = 0; LUTs = 0;
 
-Total number of SLEs after P&R:  2033 + 0 + 0 + 0 = 2033;
-Total number of LUTs after P&R:  2236 + 0 + 0 + 0 = 2236;
+Total number of SLEs after P&R:  2017 + 0 + 0 + 0 = 2017;
+Total number of LUTs after P&R:  2265 + 0 + 0 + 0 = 2265;
 
 Mapper successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 56MB peak: 181MB)
+At Mapper Exit (Real Time elapsed 0h:00m:11s; CPU Time elapsed 0h:00m:11s; Memory used current: 58MB peak: 186MB)
 
-Process took 0h:00m:13s realtime, 0h:00m:13s cputime
-# Mon Jun 05 21:49:34 2017
+Process took 0h:00m:11s realtime, 0h:00m:11s cputime
+# Tue Jun 06 20:32:53 2017
 
 ###########################################################]

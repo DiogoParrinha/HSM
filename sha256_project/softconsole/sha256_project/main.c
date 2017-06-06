@@ -14,10 +14,14 @@
 static void delay(void);
 
 #define PIN_LED MSS_GPIO_0
-#define PIN_READ_ENABLE MSS_GPIO_1
+#define PIN_DATA_IN_READY MSS_GPIO_1
 #define PIN_LAST_BLOCK MSS_GPIO_2
 #define PIN_FIRST_BLOCK MSS_GPIO_3
 #define PIN_REQ_DATA MSS_GPIO_4
+#define PIN_DATA_OUT_READY MSS_GPIO_4
+#define PIN_VALID_OUTPUT MSS_GPIO_5
+#define PIN_ERROR_OUTPUT MSS_GPIO_6
+#define PIN_RESET MSS_GPIO_7
 /*==============================================================================
  * main() function.
  */
@@ -32,17 +36,33 @@ int main()
      * Configure MSS GPIOs.
      */
     MSS_GPIO_config( PIN_LED , MSS_GPIO_OUTPUT_MODE ); // LED
-    MSS_GPIO_config( PIN_READ_ENABLE , MSS_GPIO_OUTPUT_MODE ); // Read Enable
-    MSS_GPIO_config( PIN_LAST_BLOCK, MSS_GPIO_OUTPUT_MODE ); // Last Block
-    MSS_GPIO_config( PIN_FIRST_BLOCK , MSS_GPIO_OUTPUT_MODE ); // First Block
+    MSS_GPIO_config( PIN_DATA_IN_READY , MSS_GPIO_OUTPUT_MODE ); // Read Enable
+    MSS_GPIO_config( PIN_RESET , MSS_GPIO_OUTPUT_MODE ); // Reset
     MSS_GPIO_config( PIN_REQ_DATA, MSS_GPIO_INPUT_MODE ); // Valid Output
+    MSS_GPIO_config( PIN_DATA_OUT_READY, MSS_GPIO_INPUT_MODE ); // Data Out Ready (first bank of registers)
+    MSS_GPIO_config( PIN_VALID_OUTPUT, MSS_GPIO_INPUT_MODE ); // Valid
+    MSS_GPIO_config( PIN_ERROR_OUTPUT, MSS_GPIO_INPUT_MODE ); // Error
+
+    MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
+    MSS_GPIO_set_output( PIN_RESET, 0);
+    MSS_GPIO_set_output( PIN_RESET, 1);
+
+    volatile uint32_t readv = 0;
+	readv = *(volatile uint32_t *)0x30000000;
+	readv = *(volatile uint32_t *)0x30000004;
+	readv = *(volatile uint32_t *)0x30000008;
+	readv = *(volatile uint32_t *)0x3000000C;
+	readv = *(volatile uint32_t *)0x30000010;
+	readv = *(volatile uint32_t *)0x30000014;
+	readv = *(volatile uint32_t *)0x30000018;
+	readv = *(volatile uint32_t *)0x3000001C;
+	readv = *(volatile uint32_t *)0x30000020;
 
     MSS_GPIO_set_output( PIN_LED, 1);
-    MSS_GPIO_set_output( PIN_READ_ENABLE, 0);
-    MSS_GPIO_set_output( PIN_LAST_BLOCK, 0);
-    MSS_GPIO_set_output( PIN_FIRST_BLOCK, 0);
     
-    // Write to AHB Slave Interface
+    delay();
+
+    // Write to AHB Slave Interface (16 words of 32-bit)
     *(volatile uint32_t *)0x30000000 = 0x00000001;
     *(volatile uint32_t *)0x30000004 = 0x00000000;
     *(volatile uint32_t *)0x30000008 = 0x00000000;
@@ -52,11 +72,45 @@ int main()
     *(volatile uint32_t *)0x30000018 = 0x00000000;
     *(volatile uint32_t *)0x3000001C = 0x00000000;
     *(volatile uint32_t *)0x30000020 = 0x00000000;
+    *(volatile uint32_t *)0x30000024 = 0x00000000;
+    *(volatile uint32_t *)0x30000028 = 0x00000000;
+    *(volatile uint32_t *)0x3000002C = 0x00000000;
+    *(volatile uint32_t *)0x30000030 = 0x00000000;
+    *(volatile uint32_t *)0x30000034 = 0x00000000;
+    *(volatile uint32_t *)0x30000038 = 0x00000000;
+    *(volatile uint32_t *)0x3000003C = 0x00000000;
+    *(volatile uint32_t *)0x30000040 = 0x00000003;
 
-    MSS_GPIO_set_output( PIN_READ_ENABLE, 1);
-    MSS_GPIO_set_output( PIN_LAST_BLOCK, 1);
-    MSS_GPIO_set_output( PIN_FIRST_BLOCK, 1);
+    uint32_t inputs = MSS_GPIO_get_inputs();
+    while(!(inputs & 0x80)) // 8th bit is 1 (data_available -> we can enable reading and give the data_out_ready signal)
+    {
+    	inputs = MSS_GPIO_get_inputs();
+    }
 
+    delay();
+    delay();
+    delay();
+    delay();
+
+    MSS_GPIO_set_output( PIN_DATA_IN_READY, 1);
+
+    delay();
+    delay();
+    delay();
+
+    readv = *(volatile uint32_t *)0x30000000;
+	readv = *(volatile uint32_t *)0x30000004;
+	readv = *(volatile uint32_t *)0x30000008;
+	readv = *(volatile uint32_t *)0x3000000C;
+	readv = *(volatile uint32_t *)0x30000010;
+	readv = *(volatile uint32_t *)0x30000014;
+	readv = *(volatile uint32_t *)0x30000018;
+	readv = *(volatile uint32_t *)0x3000001C;
+	readv = *(volatile uint32_t *)0x30000020;
+
+
+
+    delay();
     delay();
     delay();
     delay();
@@ -64,7 +118,18 @@ int main()
 
     for(;;)
     {
-    	uint32_t inputs = MSS_GPIO_get_inputs();
+    	readv = *(volatile uint32_t *)0x30000000;
+    	readv = *(volatile uint32_t *)0x30000004;
+    	readv = *(volatile uint32_t *)0x30000008;
+    	readv = *(volatile uint32_t *)0x3000000C;
+    	readv = *(volatile uint32_t *)0x30000010;
+    	readv = *(volatile uint32_t *)0x30000014;
+    	readv = *(volatile uint32_t *)0x30000018;
+    	readv = *(volatile uint32_t *)0x3000001C;
+    	readv = *(volatile uint32_t *)0x30000020;
+
+
+    	inputs = MSS_GPIO_get_inputs();
     }
 
     /*

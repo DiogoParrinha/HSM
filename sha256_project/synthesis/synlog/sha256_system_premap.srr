@@ -19,7 +19,7 @@ Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0
 Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 122MB peak: 124MB)
 
 
-Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 122MB peak: 125MB)
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 122MB peak: 124MB)
 
 @W: BN132 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":5322:4:5322:16|Removing user instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_16,  because it is equivalent to instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_15
 @W: BN132 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":5268:4:5268:16|Removing user instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_15,  because it is equivalent to instance sha256_system_sb_0.CoreAHBLite_0.matrix4x16.slavestage_14
@@ -123,10 +123,10 @@ Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":735:8:735:9|Removing sequential instance SDIF2_PERST_N_q1 of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":719:8:719:9|Removing sequential instance SDIF1_PERST_N_q1 of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\sha256_project\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":703:8:703:9|Removing sequential instance SDIF0_PERST_N_q1 of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
-@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":116:8:116:11|Net SHA256_BLOCK_0.sha256_controller_0.un1_state_1 appears to be an unidentified clock source. Assuming default frequency. 
-@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Net SHA256_BLOCK_0.sha256_controller_0.un1_state_3 appears to be an unidentified clock source. Assuming default frequency. 
-@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":156:19:156:48|Net SHA256_BLOCK_0.sha256_controller_0.extra_add_1_sqmuxa appears to be an unidentified clock source. Assuming default frequency. 
-@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Net SHA256_BLOCK_0.sha256_controller_0.un1_state_5 appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":116:8:116:11|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_1 appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_3 appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":156:19:156:48|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add_1_sqmuxa appears to be an unidentified clock source. Assuming default frequency. 
+@W: MT462 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_5 appears to be an unidentified clock source. Assuming default frequency. 
 syn_allowed_resources : blockrams=69  set on top level netlist sha256_system
 
 Finished netlist restructuring (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 152MB peak: 154MB)
@@ -140,25 +140,23 @@ Start                                                  Requested     Requested  
 Clock                                                  Frequency     Period        Type         Group              
 -------------------------------------------------------------------------------------------------------------------
 System                                                 100.0 MHz     10.000        system       system_clkgroup    
-reg_16x32|ren_pos_inferred_clock                       100.0 MHz     10.000        inferred     Inferred_clkgroup_3
 sha256_controller|state_inferred_clock[1]              100.0 MHz     10.000        inferred     Inferred_clkgroup_1
 sha256_controller|state_inferred_clock[4]              100.0 MHz     10.000        inferred     Inferred_clkgroup_2
 sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     10.000        inferred     Inferred_clkgroup_0
 ===================================================================================================================
 
-@W: MT532 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Found signal identified as System clock which controls 1 sequential elements including SHA256_BLOCK_0.sha256_controller_0.extra_add.  Using this clock, which has no specified timing constraint, can adversely impact design performance. 
-@W: MT530 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Found inferred clock sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock which controls 2074 sequential elements including AHB_slave_dummy_0.ready. This clock has no specified timing constraint which may adversely impact design performance. 
-@W: MT530 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Found inferred clock sha256_controller|state_inferred_clock[1] which controls 8 sequential elements including SHA256_BLOCK_0.sha256_controller_0.start_o. This clock has no specified timing constraint which may adversely impact design performance. 
-@W: MT530 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Found inferred clock sha256_controller|state_inferred_clock[4] which controls 3 sequential elements including SHA256_BLOCK_0.sha256_controller_0.start_o. This clock has no specified timing constraint which may adversely impact design performance. 
-@W: MT530 :"e:\liberoprojects\sha256_project\hdl\reg_2x32.vhd":54:9:54:10|Found inferred clock reg_16x32|ren_pos_inferred_clock which controls 32 sequential elements including SHA256_BLOCK_0.reg_16x32_0.data_out[31:0]. This clock has no specified timing constraint which may adversely impact design performance. 
+@W: MT532 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Found signal identified as System clock which controls 1 sequential elements including SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add.  Using this clock, which has no specified timing constraint, can adversely impact design performance. 
+@W: MT530 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Found inferred clock sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock which controls 2076 sequential elements including AHB_slave_dummy_0.ready. This clock has no specified timing constraint which may adversely impact design performance. 
+@W: MT530 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Found inferred clock sha256_controller|state_inferred_clock[1] which controls 8 sequential elements including SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o. This clock has no specified timing constraint which may adversely impact design performance. 
+@W: MT530 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Found inferred clock sha256_controller|state_inferred_clock[4] which controls 3 sequential elements including SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o. This clock has no specified timing constraint which may adversely impact design performance. 
 
 Finished Pre Mapping Phase.
 @N: BN225 |Writing default property annotation file E:\LiberoProjects\sha256_project\synthesis\sha256_system.sap.
 Pre-mapping successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 82MB peak: 154MB)
+At Mapper Exit (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 81MB peak: 154MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Mon Jun 05 21:49:20 2017
+# Tue Jun 06 20:32:42 2017
 
 ###########################################################]

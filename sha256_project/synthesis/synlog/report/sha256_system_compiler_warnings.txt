@@ -125,7 +125,7 @@
 @W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":116:8:116:11|Latch generated from process for signal ce_o; possible missing assignment in an if or case statement.
 @W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Latch generated from process for signal sel_di; possible missing assignment in an if or case statement.
 @W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Latch generated from process for signal di_wr_o; possible missing assignment in an if or case statement.
-@W: CD638 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":50:11:50:21|Signal d_out_ready is undriven 
+@W: CL271 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":79:4:79:5|Pruning bits 63 to 2 of line8_6(63 downto 0) -- not in use ... 
 @W: CD638 :"E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd":156:11:156:18|Signal pad_data is undriven 
 @W: CD604 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":551:12:551:25|OTHERS clause is not synthesized 
 @W: CD434 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":426:86:426:94|Signal sha_reset in the sensitivity list is not used in the process

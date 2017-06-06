@@ -13,13 +13,13 @@ The file contains the job information from mapper to be displayed as part of the
 </job_status>
 <job_info>
 <info name="Notes">
-<data>106</data>
+<data>100</data>
 <report_link name="more">
 <data>E:\LiberoProjects\sha256_project\synthesis\synlog\report\sha256_system_fpga_mapper_notes.txt</data>
 </report_link>
 </info>
 <info name="Warnings">
-<data>25</data>
+<data>24</data>
 <report_link name="more">
 <data>E:\LiberoProjects\sha256_project\synthesis\synlog\report\sha256_system_fpga_mapper_warnings.txt</data>
 </report_link>
@@ -31,16 +31,16 @@ The file contains the job information from mapper to be displayed as part of the
 </report_link>
 </info>
 <info name="CPU Time">
-<data>0h:00m:13s</data>
+<data>0h:00m:11s</data>
 </info>
 <info name="Real Time">
-<data>0h:00m:13s</data>
+<data>0h:00m:11s</data>
 </info>
 <info name="Peak Memory">
-<data>181MB</data>
+<data>186MB</data>
 </info>
 <info name="Date &amp; Time">
-<data type="timestamp">1496695774</data>
+<data type="timestamp">1496777573</data>
 </info>
 </job_info>
 </job_run_status>

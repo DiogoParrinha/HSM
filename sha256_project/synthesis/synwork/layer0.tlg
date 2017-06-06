@@ -1,7 +1,5 @@
 @N: CD231 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\std1164.vhd":890:16:890:17|Using onehot encoding for type mvl9plus ('U'="1000000000")
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd":17:7:17:19|Synthesizing work.sha256_system.rtl 
-@N: CD630 :"E:\LiberoProjects\sha256_project\hdl\zero_concat.vhd":23:7:23:17|Synthesizing work.zero_concat.architecture_zero_concat 
-Post processing for work.zero_concat.architecture_zero_concat
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd":20:7:20:22|Synthesizing work.sha256_system_sb.rtl 
 @N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":786:10:786:17|Synthesizing smartfusion2.sysreset.syn_black_box 
 Post processing for smartfusion2.sysreset.syn_black_box
@@ -170,6 +168,9 @@ Post processing for smartfusion2.gnd.syn_black_box
 Post processing for smartfusion2.vcc.syn_black_box
 Post processing for work.sha256_system_sb_ccc_0_fccc.def_arch
 Post processing for work.sha256_system_sb.rtl
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\SHA256_Module\SHA256_Module.vhd":17:7:17:19|Synthesizing work.sha256_module.rtl 
+@N: CD630 :"E:\LiberoProjects\sha256_project\hdl\zero_concat.vhd":23:7:23:17|Synthesizing work.zero_concat.architecture_zero_concat 
+Post processing for work.zero_concat.architecture_zero_concat
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd":17:7:17:18|Synthesizing work.sha256_block.rtl 
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":33:7:33:23|Synthesizing work.sha256_controller.architecture_sha256_controller 
 @N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":62:20:62:21|Using onehot encoding for type state_type (wait_data="100000")
@@ -185,9 +186,9 @@ Post processing for work.sha256_controller.architecture_sha256_controller
 @W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":116:8:116:11|Latch generated from process for signal ce_o; possible missing assignment in an if or case statement.
 @W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Latch generated from process for signal sel_di; possible missing assignment in an if or case statement.
 @W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Latch generated from process for signal di_wr_o; possible missing assignment in an if or case statement.
-@N: CD630 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":23:7:23:15|Synthesizing work.reg_16x32.architecture_reg_16x32 
-@W: CD638 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":50:11:50:21|Signal d_out_ready is undriven 
-Post processing for work.reg_16x32.architecture_reg_16x32
+@N: CD630 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":23:7:23:15|Synthesizing work.reg_17x32.architecture_reg_17x32 
+Post processing for work.reg_17x32.architecture_reg_17x32
+@W: CL271 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":79:4:79:5|Pruning bits 63 to 2 of line8_6(63 downto 0) -- not in use ... 
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd":22:7:22:20|Synthesizing work.limiter_1cycle.architecture_limiter_1cycle 
 Post processing for work.limiter_1cycle.architecture_limiter_1cycle
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd":80:7:80:15|Synthesizing work.gv_sha256.rtl 
@@ -219,6 +220,7 @@ Post processing for work.reg_1x32.architecture_reg_1x32
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\mux_9_1.vhd":23:7:23:13|Synthesizing work.mux_9_1.architecture_mux_9_1 
 Post processing for work.mux_9_1.architecture_mux_9_1
 Post processing for work.reg9_1x32.rtl
+Post processing for work.sha256_module.rtl
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\AHB_slave_dummy.vhd":10:7:10:21|Synthesizing work.ahb_slave_dummy.behaviour 
 @W: CD604 :"E:\LiberoProjects\sha256_project\hdl\AHB_slave_dummy.vhd":128:16:128:29|OTHERS clause is not synthesized 
 Post processing for work.ahb_slave_dummy.behaviour

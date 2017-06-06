@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Mon Jun 05 18:41:33 2017
+-- Created by SmartDesign Tue Jun 06 13:47:47 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -25,6 +25,9 @@ entity sha256_system_sb_MSS is
         FIC_2_APB_M_PREADY     : in  std_logic;
         FIC_2_APB_M_PSLVERR    : in  std_logic;
         GPIO_4_F2M             : in  std_logic;
+        GPIO_5_F2M             : in  std_logic;
+        GPIO_6_F2M             : in  std_logic;
+        GPIO_7_F2M             : in  std_logic;
         MCCC_CLK_BASE          : in  std_logic;
         MCCC_CLK_BASE_PLL_LOCK : in  std_logic;
         MSS_RESET_N_F2M        : in  std_logic;
@@ -45,6 +48,7 @@ entity sha256_system_sb_MSS is
         GPIO_1_M2F             : out std_logic;
         GPIO_2_M2F             : out std_logic;
         GPIO_3_M2F             : out std_logic;
+        GPIO_8_M2F             : out std_logic;
         MSS_RESET_N_M2F        : out std_logic
         );
 end sha256_system_sb_MSS;
@@ -699,12 +703,14 @@ signal GPIO_0_M2F_net_0                 : std_logic;
 signal GPIO_1_M2F_net_0                 : std_logic;
 signal GPIO_2_M2F_net_0                 : std_logic;
 signal GPIO_3_M2F_net_0                 : std_logic;
+signal GPIO_8_M2F_net_0                 : std_logic;
 signal MSS_RESET_N_M2F_net_0            : std_logic;
 signal MSS_RESET_N_M2F_net_1            : std_logic;
 signal GPIO_0_M2F_net_1                 : std_logic;
 signal GPIO_1_M2F_net_1                 : std_logic;
 signal GPIO_2_M2F_net_1                 : std_logic;
 signal GPIO_3_M2F_net_1                 : std_logic;
+signal GPIO_8_M2F_net_1                 : std_logic;
 signal FIC_0_AHB_M_HWRITE_net_1         : std_logic;
 signal FIC_2_APB_M_PRESET_N_0_net_0     : std_logic;
 signal FIC_2_APB_M_PCLK_0_net_0         : std_logic;
@@ -810,6 +816,8 @@ begin
  GPIO_2_M2F                       <= GPIO_2_M2F_net_1;
  GPIO_3_M2F_net_1                 <= GPIO_3_M2F_net_0;
  GPIO_3_M2F                       <= GPIO_3_M2F_net_1;
+ GPIO_8_M2F_net_1                 <= GPIO_8_M2F_net_0;
+ GPIO_8_M2F                       <= GPIO_8_M2F_net_1;
  FIC_0_AHB_M_HWRITE_net_1         <= FIC_0_AHB_M_HWRITE_net_0;
  FIC_0_AHB_M_HWRITE               <= FIC_0_AHB_M_HWRITE_net_1;
  FIC_2_APB_M_PRESET_N_0_net_0     <= FIC_2_APB_M_PRESET_N_0;
@@ -920,9 +928,9 @@ MSS_ADLIB_INST : MSS_060
         MGPIO31B_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
         MGPIO3A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
         MGPIO4A_F2H_GPIN                        => GPIO_4_F2M,
-        MGPIO5A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
-        MGPIO6A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
-        MGPIO7A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
+        MGPIO5A_F2H_GPIN                        => GPIO_5_F2M,
+        MGPIO6A_F2H_GPIN                        => GPIO_6_F2M,
+        MGPIO7A_F2H_GPIN                        => GPIO_7_F2M,
         MGPIO8A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
         MGPIO9A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
         MMUART0_CTS_F2H_SCP                     => VCC_net, -- tied to '1' from definition
@@ -1205,7 +1213,7 @@ MSS_ADLIB_INST : MSS_060
         SPI0_SS0_MGPIO7A_H2F_A                  => OPEN,
         SPI0_SS0_MGPIO7A_H2F_B                  => OPEN,
         SPI0_SS1_MGPIO8A_H2F_A                  => OPEN,
-        SPI0_SS1_MGPIO8A_H2F_B                  => OPEN,
+        SPI0_SS1_MGPIO8A_H2F_B                  => GPIO_8_M2F_net_0,
         SPI0_SS2_MGPIO9A_H2F_A                  => OPEN,
         SPI0_SS2_MGPIO9A_H2F_B                  => OPEN,
         SPI0_SS3_MGPIO10A_H2F_A                 => OPEN,
