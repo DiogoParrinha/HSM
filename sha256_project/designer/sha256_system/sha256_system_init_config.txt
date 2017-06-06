@@ -1,6 +1,6 @@
 Configuration Report for MSS, SERDES(s), Fabric DDR and Fabric CCC(s)
 Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
-Date: Thu Jun 01 11:18:05 2017
+Date: Mon Jun 05 21:56:53 2017
 
 sha256_system_sb_0/CCC_0/CCC_INST/INST_CCC_IP
 +-------------------+--------------------+---------------+-------+
@@ -21,11 +21,11 @@ sha256_system_sb_0/CCC_0/CCC_INST/INST_CCC_IP
 | FCCC_GPMUX3_CR    | SEL_GPMUX3[4:0]    | INIT[81:77]   | 5'h18 |
 | FCCC_NGMUX0_CR0   | SELGL[4:0]         | INIT[86:82]   | 5'h18 |
 | FCCC_NGMUX0_CR1   | SELGL[9:5]         | INIT[91:87]   | 5'h18 |
-| FCCC_NGMUX1_CR0   | SELGL[14:10]       | INIT[96:92]   | 5'h18 |
+| FCCC_NGMUX1_CR0   | SELGL[14:10]       | INIT[96:92]   | 5'h7  |
 | FCCC_NGMUX1_CR1   | SELGL[19:15]       | INIT[101:97]  | 5'h18 |
 | FCCC_NGMUX2_CR0   | SELGL[24:20]       | INIT[106:102] | 5'h18 |
 | FCCC_NGMUX2_CR1   | SELGL[29:25]       | INIT[111:107] | 5'h18 |
-| FCCC_NGMUX3_CR0   | SELGL[34:30]       | INIT[116:112] | 5'h7  |
+| FCCC_NGMUX3_CR0   | SELGL[34:30]       | INIT[116:112] | 5'h18 |
 | FCCC_NGMUX3_CR1   | SELGL[39:35]       | INIT[121:117] | 5'h18 |
 | FCCC_GPD0_SYNC_CR | RESET_GENEN[0]     | INIT[122:122] | 1'h0  |
 | FCCC_GPD1_SYNC_CR | RESET_GENEN[1]     | INIT[123:123] | 1'h0  |
@@ -182,9 +182,9 @@ sha256_system_sb_0/sha256_system_sb_MSS_0/MSS_ADLIB_INST/INST_MSS_060_IP
 | PERIPH_CLOCK_MUX_SEL    | TRACECLK_DIV2_SEL           | INIT[464:464]   | 1'h0         | INIT[52]  | 1             |
 | WDOGCONFIG              | G4_TESTWDOGENABLE           | INIT[465:465]   | 1'h0         | INIT[53]  | 1             |
 | WDOGCONFIG              | G4_TESTWDOGMODE             | INIT[466:466]   | 1'h0         | INIT[53]  | 1             |
-| MDDR_IO_CALIB           | PCODE                       | INIT[472:467]   | 'h2c         | INIT[54]  | 1             |
-| MDDR_IO_CALIB           | NCODE                       | INIT[478:473]   | 'h2a         | INIT[54]  | 1             |
-| MDDR_IO_CALIB           | CALIB_TRIM                  | INIT[479:479]   | 1            | INIT[54]  | 1             |
+| MDDR_IO_CALIB           | PCODE                       | INIT[472:467]   | 6'h00        | INIT[54]  | 1             |
+| MDDR_IO_CALIB           | NCODE                       | INIT[478:473]   | 6'h00        | INIT[54]  | 1             |
+| MDDR_IO_CALIB           | CALIB_TRIM                  | INIT[479:479]   | 1'h0         | INIT[54]  | 1             |
 | SPARE_OUT               | MSS_SPARE_OUT               | INIT[495:480]   | 16'h0000     | INIT[55]  | 1             |
 | EDAC_INT_ENABLE         | ESRAM0_EDAC_1E_EN           | INIT[496:496]   | 1'h0         | INIT[56]  | 1             |
 | EDAC_INT_ENABLE         | ESRAM0_EDAC_2E_EN           | INIT[497:497]   | 1'h0         | INIT[56]  | 1             |

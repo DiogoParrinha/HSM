@@ -135,8 +135,6 @@ begin
         data_in <= X"00000001";
         wait for clk_period;
 
-        first_block <= '0';
-
         waddr_in <= "0001";
         data_in <= X"00000000";
         wait for clk_period;
@@ -216,6 +214,7 @@ begin
 
         -- Write to each of the 16 registers
         wen <= '1';
+        first_block <= '0';
 
         waddr_in <= "0000";
         data_in <= X"00000002";
@@ -302,101 +301,15 @@ begin
 
         last_block <= '0';
 
-        --------- NEW TEST
-
         if do_valid_o = '0' then
             wait until do_valid_o = '1';
         end if;
 
+        --------- NEW TEST
+
         -- Write to each of the 16 registers
         first_block <= '1';
         ren <= '0';
-        wen <= '1';
-
-        waddr_in <= "0000";
-        data_in <= X"00000001";
-        wait for clk_period;
-
-        first_block <= '0';
-
-        waddr_in <= "0001";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "0010";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "0011";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "0100";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "0101";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "0110";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "0111";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "1000";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "1001";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "1010";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "1011";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "1100";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "1101";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "1110";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "1111";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        wen <= '0';
-
-        -- Active read for the registers bank
-        ren <= '1';
-        wait for clk_period;
-
-        wait for clk_period; -- init_block state
-        if di_req_o = '0' then
-            wait until di_req_o = '1';
-        end if;
-
-        wait for (16*clk_period);
-
-        ren <= '0';
-
-        wait for (65*clk_period);
-
-        -- Write to each of the 16 registers
         wen <= '1';
 
         waddr_in <= "0000";

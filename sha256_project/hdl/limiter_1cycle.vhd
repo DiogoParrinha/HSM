@@ -28,7 +28,7 @@ port (
 end limiter_1cycle;
 architecture architecture_limiter_1cycle of limiter_1cycle is
     
-    signal prev_sig : std_logic;
+    signal prev_sig : std_logic := '0';
 
 begin
 

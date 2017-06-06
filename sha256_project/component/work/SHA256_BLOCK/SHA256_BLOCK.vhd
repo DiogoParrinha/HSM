@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Mon Jun 05 19:12:25 2017
+-- Created by SmartDesign Mon Jun 05 23:02:44 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -139,6 +139,7 @@ signal H5_o_net_0                    : std_logic_vector(31 downto 0);
 signal H6_o_net_0                    : std_logic_vector(31 downto 0);
 signal H7_o_net_0                    : std_logic_vector(31 downto 0);
 signal limiter_1cycle_0_sig_1cycle   : std_logic;
+signal limiter_1cycle_1_sig_1cycle   : std_logic;
 signal reg_16x32_0_data_out          : std_logic_vector(31 downto 0);
 signal reg_16x32_0_data_out_ready    : std_logic;
 signal sha256_controller_0_bytes_o   : std_logic_vector(1 downto 0);
@@ -222,6 +223,15 @@ limiter_1cycle_0 : limiter_1cycle
         -- Outputs
         sig_1cycle  => limiter_1cycle_0_sig_1cycle 
         );
+-- limiter_1cycle_1
+limiter_1cycle_1 : limiter_1cycle
+    port map( 
+        -- Inputs
+        CLK         => CLK,
+        sig_xcycles => first_block,
+        -- Outputs
+        sig_1cycle  => limiter_1cycle_1_sig_1cycle 
+        );
 -- reg_16x32_0
 reg_16x32_0 : reg_16x32
     port map( 
@@ -241,22 +251,22 @@ reg_16x32_0 : reg_16x32
 sha256_controller_0 : sha256_controller
     port map( 
         -- Inputs
-        read_data   => reg_16x32_0_data_out,
         data_ready  => limiter_1cycle_0_sig_1cycle,
         last_block  => last_block,
-        first_block => first_block,
+        first_block => limiter_1cycle_1_sig_1cycle,
         clk         => CLK,
         RST_N       => RST_N,
         di_req_i    => di_req_o_net_0,
         di_valid_i  => do_valid_o_net_0,
+        read_data   => reg_16x32_0_data_out,
         -- Outputs
-        read_addr   => sha256_controller_0_read_addr,
         ce_o        => sha256_controller_0_ce_o,
-        di_o        => sha256_controller_0_di_o,
-        bytes_o     => sha256_controller_0_bytes_o,
         start_o     => sha256_controller_0_start_o,
         end_o       => sha256_controller_0_end_o,
-        di_wr_o     => sha256_controller_0_di_wr_o 
+        di_wr_o     => sha256_controller_0_di_wr_o,
+        read_addr   => sha256_controller_0_read_addr,
+        di_o        => sha256_controller_0_di_o,
+        bytes_o     => sha256_controller_0_bytes_o 
         );
 
 end RTL;

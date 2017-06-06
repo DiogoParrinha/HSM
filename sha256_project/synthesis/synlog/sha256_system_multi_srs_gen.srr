@@ -2,9 +2,9 @@ Synopsys Netlist Linker, version comp201503sp1p1, Build 240R, built Dec  1 2015
 @N|Running in 64-bit mode
 File E:\LiberoProjects\sha256_project\synthesis\synwork\sha256_system_comp.srs changed - recompiling
 
-At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 80MB peak: 81MB)
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 86MB peak: 87MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Thu Jun 01 11:16:26 2017
+# Mon Jun 05 21:49:18 2017
 
 ###########################################################]

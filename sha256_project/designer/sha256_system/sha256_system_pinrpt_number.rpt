@@ -1,5 +1,5 @@
 *****************************************************************
-Pin Report - Date: Thu Jun 01 11:17:52 2017 Pinchecksum: NOT-AVAILABLE
+Pin Report - Date: Mon Jun 05 21:56:32 2017 Pinchecksum: NOT-AVAILABLE
 Product: Designer
 Release: v11.7 SP1.1
 Version: 11.7.1.14
@@ -138,7 +138,7 @@ D14                 DDRIO64PB1/MDDR_DQ14/CCC_NE1_CLKI3                          
 D15                 VSS                                                              Reserved    
 D16                 DDRIO57PB1/MDDR_ADDR1                                            Unassigned  
 D17                 VDDI1                                                            Reserved    
-D18     GPIO_2_M2F  DDRIO50PB1/MDDR_ADDR14                                           Assigned    LVCMOS25  Output     TRISTATE                        None           No                                  ---              ---         ---            ---             ---          SLOW  ---           4                  5                 
+D18                 DDRIO50PB1/MDDR_ADDR14                                           Unassigned  
 D19                 VSS                                                              Reserved    
 D20                 DDRIO51NB1/MDDR_ADDR13                                           Unassigned  
 D21                 MSI47NB2/MMUART_0_TXD/GPIO_27_B/USB_DIR_C                        Unassigned  
@@ -161,7 +161,7 @@ E15                 DDRIO61PB1/MDDR_RESET_N                                     
 E16                 DDRIO57NB1/MDDR_ADDR2                                            Unassigned  
 E17                 DDRIO53PB1/MDDR_ADDR8                                            Unassigned  
 E18                 DDRIO50NB1/MDDR_ADDR15                                           Unassigned  
-E19     GPIO_1_M2F  DDRIO51PB1/MDDR_ADDR12                                           Assigned    LVCMOS25  Output     TRISTATE                        None           No                                  ---              ---         ---            ---             ---          SLOW  ---           4                  5                 
+E19                 DDRIO51PB1/MDDR_ADDR12                                           Unassigned  
 E20                 VDDI2                                                            Reserved    
 E21                 MSIO46NB2/MMUART_0_DCD/GPIO_22_B                                 Unassigned  
 E22                 MSIO46PB2/MMUART_0_RI/GPIO_21_B                                  Unassigned  

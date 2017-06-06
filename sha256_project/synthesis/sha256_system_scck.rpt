@@ -1,7 +1,7 @@
 # Synopsys Constraint Checker(syntax only), version mapact, Build 1659R, built Dec 10 2015
 # Copyright (C) 1994-2015, Synopsys, Inc. This software and the associated documentation are proprietary to Synopsys, Inc. This software may only be used in accordance with the terms and conditions of a written license agreement with Synopsys, Inc.  All other use, reproduction, or distribution of this software is strictly prohibited.
 
-# Written on Thu Jun 01 11:16:26 2017
+# Written on Mon Jun 05 21:49:19 2017
 
 
 ##### DESIGN INFO #######################################################
@@ -25,5 +25,8 @@ Start                                                  Requested     Requested  
 Clock                                                  Frequency     Period        Type         Group              
 -------------------------------------------------------------------------------------------------------------------
 System                                                 100.0 MHz     10.000        system       system_clkgroup    
+reg_16x32|ren_pos_inferred_clock                       100.0 MHz     10.000        inferred     Inferred_clkgroup_3
+sha256_controller|state_inferred_clock[1]              100.0 MHz     10.000        inferred     Inferred_clkgroup_1
+sha256_controller|state_inferred_clock[4]              100.0 MHz     10.000        inferred     Inferred_clkgroup_2
 sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     10.000        inferred     Inferred_clkgroup_0
 ===================================================================================================================

@@ -66,7 +66,8 @@ data_out <= line7(63 downto 32) when raddr_pos="1111" and ren_pos='1' else
             line1(63 downto 32) when raddr_pos="0011" and ren_pos='1' else
             line1(31 downto  0) when raddr_pos="0010" and ren_pos='1' else
             line0(63 downto 32) when raddr_pos="0001" and ren_pos='1' else
-            line0(31 downto  0) when raddr_pos="0000" and ren_pos='1';
+            line0(31 downto  0) when raddr_pos="0000" and ren_pos='1' else
+            (others => '0');
 
 process(CLK)
 begin

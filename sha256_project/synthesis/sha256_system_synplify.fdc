@@ -1,2 +1,5 @@
 #0 define_false_path
 #1001 define_clock {n:sha256_system_sb_0.CCC_0.GL0_net} -name {sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock} -ref_rise {0.000000} -ref_fall {5.000000} -uncertainty {0.000000} -period {10.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {5.0 . . . 
+#1002 define_clock {n:SHA256_BLOCK_0.sha256_controller_0.state[1]} -name {sha256_controller|state_inferred_clock[1]} -ref_rise {0.000000} -ref_fall {5.000000} -uncertainty {0.000000} -period {10.000000} -clockgroup {Inferred_clkgroup_1} -rise {0.000000} -fall {5 . . . 
+#1003 define_clock {n:SHA256_BLOCK_0.sha256_controller_0.state[4]} -name {sha256_controller|state_inferred_clock[4]} -ref_rise {0.000000} -ref_fall {5.000000} -uncertainty {0.000000} -period {10.000000} -clockgroup {Inferred_clkgroup_2} -rise {0.000000} -fall {5 . . . 
+#1004 define_clock {n:SHA256_BLOCK_0.reg_16x32_0.ren_pos} -name {reg_16x32|ren_pos_inferred_clock} -ref_rise {0.000000} -ref_fall {5.000000} -uncertainty {0.000000} -period {10.000000} -clockgroup {Inferred_clkgroup_3} -rise {0.000000} -fall {5.000000}

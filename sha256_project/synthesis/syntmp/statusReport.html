@@ -31,40 +31,40 @@
          </tr>
   <tr>
   <td class="optionTitle"> (compiler)</td><td>Complete</td>
- <td>49</td>
- <td>305</td>
+ <td>70</td>
+ <td>326</td>
 <td>0</td>
 <td>-</td>
-<td>0m:02s</td>
+<td>0m:05s</td>
 <td>-</td>
-<td><font size="-1">01/06/2017</font><br/><font size="-2">11:16:24</font></td>
+<td><font size="-1">05/06/2017</font><br/><font size="-2">21:49:17</font></td>
 </tr> 
 
  <tr>
   <td class="optionTitle"> (premap)</td><td>Complete</td>
  <td>95</td>
- <td>11</td>
+ <td>19</td>
 <td>0</td>
-<td>0m:00s</td>
-<td>0m:00s</td>
-<td>145MB</td>
-<td><font size="-1">01/06/2017</font><br/><font size="-2">11:16:27</font></td>
+<td>0m:01s</td>
+<td>0m:01s</td>
+<td>154MB</td>
+<td><font size="-1">05/06/2017</font><br/><font size="-2">21:49:20</font></td>
 </tr> 
 
  <tr>
   <td class="optionTitle"> (fpga_mapper)</td><td>Complete</td>
- <td>48</td>
- <td>12</td>
+ <td>106</td>
+ <td>25</td>
 <td>0</td>
-<td>0m:04s</td>
-<td>0m:04s</td>
-<td>157MB</td>
-<td><font size="-1">01/06/2017</font><br/><font size="-2">11:16:31</font></td>
+<td>0m:13s</td>
+<td>0m:13s</td>
+<td>181MB</td>
+<td><font size="-1">05/06/2017</font><br/><font size="-2">21:49:34</font></td>
 </tr> 
 
 <tr>
   <td class="optionTitle">Multi-srs Generator</td>
-  <td>Complete</td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td>0m:01s</td><td class="empty"></td><td class="empty"></td><td><font size="-1">01/06/2017</font><br/><font size="-2">11:16:26</font></td> 		</tbody>
+  <td>Complete</td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td>0m:00s</td><td class="empty"></td><td class="empty"></td><td><font size="-1">05/06/2017</font><br/><font size="-2">21:49:18</font></td> 		</tbody>
      </table>
  <br> 
  <table width="100%" border="1" cellspacing= "0" cellpadding= "0">
@@ -72,18 +72,20 @@
 <tfoot> <tr> <td class="optionTitle" colspan="2"></td><td class="optionTitle" colspan="2"></td></tr> 
  </tfoot> 
  <tbody> <tr> 
-<td title ="Total Sequential Cells used" class="optionTitle" align="left">Sequential Cells</td> <td>390</td>
+<td title ="Total Carry Cells used" class="optionTitle" align="left">Carry Cells</td> <td>677</td>
+<td title ="Total Sequential Cells used" class="optionTitle" align="left">Sequential Cells</td> <td>2033</td>
+</tr>
+<tr> 
 <td title ="Total DSP Blocks (MACC) used" class="optionTitle" align="left">DSP Blocks (MACC)
 (dsp_used)</td> <td>0</td>
+<td title ="Total I/O Cells used" class="optionTitle" align="left">I/O Cells</td> <td>1</td>
 </tr>
 <tr> 
-<td title ="Total I/O Cells used" class="optionTitle" align="left">I/O Cells</td> <td>3</td>
-<td title ="Total Global Clock Buffers used" class="optionTitle" align="left">Global Clock Buffers</td> <td>3</td>
-</tr>
-<tr> 
+<td title ="Total Global Clock Buffers used" class="optionTitle" align="left">Global Clock Buffers</td> <td>6</td>
 <td title ="Total LUTs used" class="optionTitle" align="left">LUTs
-(total_luts)</td> <td>760</td>
-<td class="optionTitle"></td><td></td></tr> 
+(total_luts)</td> <td>2236</td>
+</tr>
+ 
 </tbody>
     </table><br> 
  <table width="100%" border="1" cellspacing= "0" cellpadding= "0">
@@ -92,7 +94,10 @@
  </tfoot> 
 <tbody> 
    <tr><th class="optionTitle" align= "left ">Clock Name</th><th class="optionTitle" align= "left ">Req Freq</th><th class="optionTitle" align= "left ">Est Freq</th><th class="optionTitle" align= "left ">Slack</th></tr> 
-<tr> <td  align="left">sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock</td><td  align="left">100.0 MHz</td><td  align="left">107.1 MHz</td><td  align="left">0.664</td></tr> 
+<tr> <td  align="left">reg_16x32|ren_pos_inferred_clock</td><td  align="left">100.0 MHz</td><td  align="left">NA</td><td  align="left">NA</td></tr> 
+<tr> <td  align="left">sha256_controller|state_inferred_clock[1]</td><td  align="left">100.0 MHz</td><td  align="left">NA</td><td  align="left">NA</td></tr> 
+<tr> <td  align="left">sha256_controller|state_inferred_clock[4]</td><td  align="left">100.0 MHz</td><td  align="left">NA</td><td  align="left">NA</td></tr> 
+<tr> <td  align="left">sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock</td><td  align="left">100.0 MHz</td><td  align="left">97.7 MHz</td><td  align="left">-0.239</td></tr> 
 <tr> <td  align="left">System</td><td  align="left">100.0 MHz</td><td  align="left">1029.4 MHz</td><td  align="left">9.029</td></tr> 
 </tbody> 
  </table>
@@ -100,7 +105,7 @@
  <table width="100%" border="1" cellspacing= "0" cellpadding= "0">
  				   <thead class="tablehead"><tr><th colspan="4">Optimizations Summary</th></tr></thead>
  <tbody> <tr> 
-<td title ="Non-gated/non-generated clock trees / Gated/generated clock trees" class="optionTitle" align="left">Combined Clock Conversion</td> <td>1 / 0</td>
+<td title ="Non-gated/non-generated clock trees / Gated/generated clock trees" class="optionTitle" align="left">Combined Clock Conversion</td> <td>1 / 7</td>
 <td class="optionTitle"></td><td></td></tr> 
 </tbody>
     </table><br> 

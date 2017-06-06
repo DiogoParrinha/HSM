@@ -3,7 +3,7 @@
 <doc>
 <title>Configuration Report for MSS, SERDES(s), Fabric DDR and Fabric CCC(s)</title>
 <text>Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)</text>
-<text>Date: Thu Jun 01 11:18:05 2017
+<text>Date: Mon Jun 05 21:56:53 2017
 </text>
 <section><name>sha256_system_sb_0/CCC_0/CCC_INST/INST_CCC_IP</name></section>
 <table>
@@ -107,7 +107,7 @@
  <cell>FCCC_NGMUX1_CR0</cell>
  <cell>SELGL[14:10]</cell>
  <cell>INIT[96:92]</cell>
- <cell>5&apos;h18</cell>
+ <cell>5&apos;h7</cell>
 </row>
 <row>
  <cell>FCCC_NGMUX1_CR1</cell>
@@ -131,7 +131,7 @@
  <cell>FCCC_NGMUX3_CR0</cell>
  <cell>SELGL[34:30]</cell>
  <cell>INIT[116:112]</cell>
- <cell>5&apos;h7</cell>
+ <cell>5&apos;h18</cell>
 </row>
 <row>
  <cell>FCCC_NGMUX3_CR1</cell>
@@ -1258,7 +1258,7 @@
  <cell>MDDR_IO_CALIB</cell>
  <cell>PCODE</cell>
  <cell>INIT[472:467]</cell>
- <cell>&apos;h2c</cell>
+ <cell>6&apos;h00</cell>
  <cell>INIT[54]</cell>
  <cell>1</cell>
 </row>
@@ -1266,7 +1266,7 @@
  <cell>MDDR_IO_CALIB</cell>
  <cell>NCODE</cell>
  <cell>INIT[478:473]</cell>
- <cell>&apos;h2a</cell>
+ <cell>6&apos;h00</cell>
  <cell>INIT[54]</cell>
  <cell>1</cell>
 </row>
@@ -1274,7 +1274,7 @@
  <cell>MDDR_IO_CALIB</cell>
  <cell>CALIB_TRIM</cell>
  <cell>INIT[479:479]</cell>
- <cell>1</cell>
+ <cell>1&apos;h0</cell>
  <cell>INIT[54]</cell>
  <cell>1</cell>
 </row>
