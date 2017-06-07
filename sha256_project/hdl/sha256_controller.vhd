@@ -40,6 +40,7 @@ port (
     first_block : IN std_logic;
 
     state_out : out std_logic_vector(2 downto 0);
+    waiting_data : out std_logic;
 
     --wait_data : OUT std_logic;
     clk : in std_logic := 'U';                                       -- system clock
@@ -131,6 +132,7 @@ begin
                 restart <= '1';
 
                 state_out <= "001";
+                waiting_data <= '1';
             WHEN init_block =>
                 ce_o <= '1';
                 if(blocks_counter = 0) then
@@ -150,6 +152,7 @@ begin
                 restart <= '0';
 
                 state_out <= "010";
+                waiting_data <= '0';
             WHEN process_word =>
                 ce_o <= '1';
                 start_o <= '0';
@@ -165,6 +168,7 @@ begin
                 restart <= '0';
 
                 state_out <= "011";
+                waiting_data <= '0';
             WHEN process_wait =>
                 ce_o <= '1';
                 start_o <= '0';
@@ -184,6 +188,7 @@ begin
                 restart <= '0';
 
                 state_out <= "100";
+                waiting_data <= '0';
             WHEN end_block =>
                 ce_o <= '1';
                 start_o <= '0';
@@ -203,6 +208,7 @@ begin
                 restart <= '0';
 
                 state_out <= "101";
+                waiting_data <= '0';
             WHEN wait_finish =>
                 ce_o <= '1';
                 start_o <= '0';
@@ -218,6 +224,7 @@ begin
                 restart <= '0';
 
                 state_out <= "110";
+                waiting_data <= '0';
         END CASE;
     END PROCESS;
 

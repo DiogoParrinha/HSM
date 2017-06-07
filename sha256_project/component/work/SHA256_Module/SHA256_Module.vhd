@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Wed Jun 07 18:43:03 2017
+-- Created by SmartDesign Wed Jun 07 21:29:49 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -35,7 +35,8 @@ entity SHA256_Module is
         di_req_o                  : out std_logic;
         do_valid_o                : out std_logic;
         error_o                   : out std_logic;
-        state_out                 : out std_logic_vector(2 downto 0)
+        state_out                 : out std_logic_vector(2 downto 0);
+        waiting_data              : out std_logic
         );
 end SHA256_Module;
 ----------------------------------------------------------------------
@@ -139,7 +140,8 @@ component SHA256_BLOCK
         reg8_out       : out std_logic_vector(31 downto 0);
         reg9_out       : out std_logic_vector(31 downto 0);
         start_o        : out std_logic;
-        state_out      : out std_logic_vector(2 downto 0)
+        state_out      : out std_logic_vector(2 downto 0);
+        waiting_data   : out std_logic
         );
 end component;
 -- zero_concat
@@ -178,6 +180,7 @@ signal SHA256_BLOCK_0_H7_o             : std_logic_vector(31 downto 0);
 signal SHA256_BLOCK_0_start_o          : std_logic;
 signal start_wen                       : std_logic;
 signal state_out_net_0                 : std_logic_vector(2 downto 0);
+signal waiting_data_net_0              : std_logic;
 signal zero_concat_0_s_32bit           : std_logic_vector(31 downto 0);
 signal di_req_o_net_1                  : std_logic;
 signal data_out_ready_net_1            : std_logic;
@@ -188,6 +191,7 @@ signal data_out_net_1                  : std_logic_vector(31 downto 0);
 signal data_available_lastbank_8_net_1 : std_logic;
 signal data_available_lastbank_0_net_1 : std_logic;
 signal state_out_net_1                 : std_logic_vector(2 downto 0);
+signal waiting_data_net_1              : std_logic;
 ----------------------------------------------------------------------
 -- TiedOff Signals
 ----------------------------------------------------------------------
@@ -219,6 +223,8 @@ begin
  data_available_lastbank_0       <= data_available_lastbank_0_net_1;
  state_out_net_1                 <= state_out_net_0;
  state_out(2 downto 0)           <= state_out_net_1;
+ waiting_data_net_1              <= waiting_data_net_0;
+ waiting_data                    <= waiting_data_net_1;
 ----------------------------------------------------------------------
 -- Component instances
 ----------------------------------------------------------------------
@@ -309,7 +315,8 @@ SHA256_BLOCK_0 : SHA256_BLOCK
         reg13_out      => OPEN,
         first_block    => data_available_lastbank_0_net_0,
         last_block     => data_available_lastbank_8_net_0,
-        start_o        => SHA256_BLOCK_0_start_o 
+        start_o        => SHA256_BLOCK_0_start_o,
+        waiting_data   => waiting_data_net_0 
         );
 -- zero_concat_0
 zero_concat_0 : zero_concat

@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Wed Jun 07 18:15:35 2017
+-- Created by SmartDesign Wed Jun 07 21:29:50 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -54,7 +54,8 @@ component SHA256_Module
         di_req_o                  : out std_logic;
         do_valid_o                : out std_logic;
         error_o                   : out std_logic;
-        state_out                 : out std_logic_vector(2 downto 0)
+        state_out                 : out std_logic_vector(2 downto 0);
+        waiting_data              : out std_logic
         );
 end component;
 -- sha256_system_sb
@@ -249,7 +250,8 @@ SHA256_Module_0 : SHA256_Module
         data_out                  => SHA256_Module_0_data_out,
         data_available_lastbank_8 => SHA256_Module_0_data_available_lastbank_8,
         data_available_lastbank_0 => SHA256_Module_0_data_available_lastbank_0,
-        state_out                 => state_out_net_0 
+        state_out                 => state_out_net_0,
+        waiting_data              => OPEN 
         );
 -- sha256_system_sb_0
 sha256_system_sb_0 : sha256_system_sb

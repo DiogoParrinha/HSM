@@ -214,7 +214,7 @@ int main()
     *(volatile uint32_t *)0x30000034 = 0x00000000;
     *(volatile uint32_t *)0x30000038 = 0x00000000;
     *(volatile uint32_t *)0x3000003C = 0x00000000;
-    *(volatile uint32_t *)0x30000040 = 0x00000003; // last
+    *(volatile uint32_t *)0x30000040 = 0x00000002; // last
 
 	inputs = MSS_GPIO_get_inputs();
 	while(!(inputs & 0x80)) // 8th bit is 1 (data_available -> we can enable reading and give the data_out_ready signal)

@@ -14,6 +14,7 @@ add wave -noupdate /sha256_module_tb_swlike/data_available
 add wave -noupdate /sha256_module_tb_swlike/data_out_ready
 add wave -noupdate /sha256_module_tb_swlike/error_o
 add wave -noupdate /sha256_module_tb_swlike/do_valid_o
+add wave -noupdate /sha256_module_tb_swlike/waiting_data
 add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/CLK
 add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/RST_N
 add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/data_in
@@ -113,4 +114,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {6166394779 fs} {15511892409 fs}
+WaveRestoreZoom {0 fs} {22050 ns}

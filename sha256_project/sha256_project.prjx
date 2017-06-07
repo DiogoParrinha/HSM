@@ -387,37 +387,37 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\SHA256_BLOCK\SHA256_BLOCK.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496856880"
-SIZE="8703"
+TIME="1496867390"
+SIZE="8863"
 ENDFILE
 VALUE "<project>\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd,hdl"
 STATE="utd"
-TIME="1496856879"
-SIZE="19370"
+TIME="1496867389"
+SIZE="19729"
 PARENT="<project>\component\work\SHA256_BLOCK\SHA256_BLOCK.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\SHA256_Module\SHA256_Module.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496857383"
-SIZE="4530"
+TIME="1496867389"
+SIZE="4690"
 ENDFILE
 VALUE "<project>\component\work\SHA256_Module\SHA256_Module.vhd,hdl"
 STATE="utd"
-TIME="1496857383"
-SIZE="13941"
+TIME="1496867389"
+SIZE="14301"
 PARENT="<project>\component\work\SHA256_Module\SHA256_Module.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system\sha256_system.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496855736"
+TIME="1496867392"
 SIZE="2285"
 ENDFILE
 VALUE "<project>\component\work\sha256_system\sha256_system.vhd,hdl"
 STATE="utd"
-TIME="1496855735"
-SIZE="16615"
+TIME="1496867390"
+SIZE="16711"
 PARENT="<project>\component\work\sha256_system\sha256_system.cxf"
 IS_READONLY="TRUE"
 ENDFILE
@@ -558,8 +558,8 @@ SIZE="50019"
 ENDFILE
 VALUE "<project>\hdl\sha256_controller.vhd,hdl"
 STATE="utd"
-TIME="1496845605"
-SIZE="8495"
+TIME="1496867358"
+SIZE="8935"
 ENDFILE
 VALUE "<project>\hdl\sha256_hash_core.vhd,hdl"
 STATE="utd"
@@ -760,8 +760,8 @@ SIZE="6142"
 ENDFILE
 VALUE "<project>\stimulus\sha256_module_tb_softwarelike.vhd,tb_hdl"
 STATE="utd"
-TIME="1496858478"
-SIZE="10209"
+TIME="1496868647"
+SIZE="24602"
 ENDFILE
 VALUE "<project>\stimulus\sha256_tb.vhd,tb_hdl"
 STATE="utd"
@@ -774,7 +774,7 @@ TIME="1496346739"
 SIZE="2730"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.edn,syn_edn"
-STATE="utd"
+STATE="ood"
 TIME="1496779313"
 SIZE="1264257"
 ENDFILE
@@ -784,12 +784,12 @@ TIME="1496779314"
 SIZE="228"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.vhd,syn_hdl"
-STATE="utd"
+STATE="ood"
 TIME="1496779321"
 SIZE="731038"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system_sdc.sdc,syn_sdc"
-STATE="utd"
+STATE="ood"
 TIME="1496779313"
 SIZE="1737"
 ENDFILE
@@ -817,8 +817,6 @@ VALUE "<project>\stimulus\bfm_testbench.vhd,tb_hdl"
 ENDLIST
 LIST ProjectState5.1
 LIST Impl1
-LiberoState=Post_Synthesis
-ideSYNTHESIS(<project>\synthesis\sha256_system.edn,syn_edn)=StateSuccess
 ideSTIMULUS=StateSuccess
 LIST FlowOptions
 UsePhySynth=FALSE
@@ -1030,8 +1028,6 @@ ENDLIST
 LIST ProjectState5.1
 LIST "sha256_system::work"
 LIST Impl1
-LiberoState=Post_Synthesis
-ideSYNTHESIS(<project>\synthesis\sha256_system.edn,syn_edn)=StateSuccess
 ideSTIMULUS=StateSuccess
 LIST FlowOptions
 UsePhySynth=FALSE
@@ -1067,14 +1063,11 @@ LIST OpenedFileList
 ORIENTATION;HORIZONTAL
 Reports;Reports;0
 ReportsCurrentItem;Run PROGRAM Action:sha256_system_PROGRAM.log
-HDL;hdl\reg1_highonly.vhd;0
+HDL;hdl\sha256_controller.vhd;0
 SmartDesign;sha256_system;0
 SmartDesign;SHA256_Module;0
 SmartDesign;SHA256_BLOCK;0
-HDL;hdl\sha256_controller.vhd;0
 HDL;stimulus\sha256_module_tb_softwarelike.vhd;0
-HDL;hdl\limiter_1cycle.vhd;0
-HDL;hdl\reg_17x32.vhd;0
 ACTIVEVIEW;stimulus\sha256_module_tb_softwarelike.vhd
 ENDLIST
 LIST ModuleSubBlockList
@@ -1139,10 +1132,10 @@ ENDLIST
 LIST "sha256_kt_rom::work","hdl\sha256_Kt_rom.vhd","FALSE","FALSE"
 ENDLIST
 LIST "SHA256_Module::work","component\work\SHA256_Module\SHA256_Module.vhd","TRUE","FALSE"
-SUBBLOCK "SHA256_BLOCK::work","component\work\SHA256_BLOCK\SHA256_BLOCK.vhd","TRUE","FALSE"
 SUBBLOCK "reg1_highonly::work","hdl\reg1_highonly.vhd","FALSE","FALSE"
 SUBBLOCK "reg9_1x32::work","component\work\reg9_1x32\reg9_1x32.vhd","TRUE","FALSE"
 SUBBLOCK "zero_concat::work","hdl\zero_concat.vhd","FALSE","FALSE"
+SUBBLOCK "SHA256_BLOCK::work","component\work\SHA256_BLOCK\SHA256_BLOCK.vhd","TRUE","FALSE"
 ENDLIST
 LIST "sha256_msg_sch::work","hdl\sha256_msg_sch.vhd","FALSE","FALSE"
 ENDLIST
@@ -1152,8 +1145,8 @@ LIST "sha256_regs::work","hdl\sha256_regs.vhd","FALSE","FALSE"
 ENDLIST
 LIST "sha256_system::work","component\work\sha256_system\sha256_system.vhd","TRUE","FALSE"
 SUBBLOCK "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
-SUBBLOCK "sha256_system_sb::work","component\work\sha256_system_sb\sha256_system_sb.vhd","TRUE","FALSE"
 SUBBLOCK "SHA256_Module::work","component\work\SHA256_Module\SHA256_Module.vhd","TRUE","FALSE"
+SUBBLOCK "sha256_system_sb::work","component\work\sha256_system_sb\sha256_system_sb.vhd","TRUE","FALSE"
 ENDLIST
 LIST "sha256_system_sb::work","component\work\sha256_system_sb\sha256_system_sb.vhd","TRUE","FALSE"
 SUBBLOCK "CoreResetP::work","component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd","FALSE","FALSE"

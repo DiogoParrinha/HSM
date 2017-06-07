@@ -36,6 +36,7 @@ architecture behavioral of SHA256_Module_tb_swlike is
     signal result_addr : std_logic_vector(3 downto 0);
     signal result_ren : std_logic;
     signal data_ready : std_logic;
+    signal waiting_data : std_logic;
 
     -- Outputs
     signal di_req_o : std_logic;
@@ -63,7 +64,8 @@ architecture behavioral of SHA256_Module_tb_swlike is
             data_available : out std_logic;
             data_out_ready : out std_logic;
             error_o : out std_logic;
-            do_valid_o : out std_logic
+            do_valid_o : out std_logic;
+            waiting_data : out std_logic
 
             -- Inouts
 
@@ -95,7 +97,8 @@ begin
             do_valid_o => do_valid_o,
             error_o => error_o,
             data_available => data_available,
-            data_out_ready => data_out_ready
+            data_out_ready => data_out_ready,
+            waiting_data => waiting_data
 
         );
 
@@ -226,10 +229,10 @@ begin
         result_addr <= "1000";
         result_ren <= '1';
 
-      wait for (100*clk_period);
+        wait for (100*clk_period);
 --
-        --if data_out(0) = '0' then
-            --wait until data_out(0) = '1';
+        --if do_valid_o = '0' then
+            --wait until do_valid_o = '1';
         --end if;
 
         -- Read the first 8 registers
@@ -254,7 +257,9 @@ begin
 
         wait for (10*clk_period);
 
-        ---- TEST AGAIN
+        -------------------------------------------------------
+        ------------------------------------------------------- TEST AGAIN WITH 3 BLOCKS
+        -------------------------------------------------------
 
         -- result
         result_ren <= '0';
@@ -273,6 +278,243 @@ begin
         RST_N <= '1';
 
         wait for clk_period;
+
+        ----------- FIRST BLOCK
+
+        -- Write 16 x 32bit
+
+        data_wen <= '1'; -- AHB write enable ON
+
+        waddr_in <= "00000";
+        data_in <= X"00000001";
+        wait for clk_period;
+
+        waddr_in <= "00001";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00010";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00011";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01000";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01001";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01010";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01011";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        -- Set last_block to 1
+        waddr_in <= "10000";
+        data_in <= X"00000003";
+        wait for clk_period;
+
+        data_wen <= '0'; -- AHB write enable OFF
+
+        -- wait until data_available = '1'
+        if data_available = '0' then
+            wait until data_available = '1';
+        end if;
+
+        -- Set data_ready to 1 (GPIO PIN)
+        data_ready <= '1';
+
+        -- Keep reading addr 8 until we have the 'valid' bit = 1
+
+        result_addr <= "1000";
+        result_ren <= '1';
+
+        if do_valid_o = '0' then
+            wait until do_valid_o = '1';
+        end if;
+
+        data_ready <= '0';
+
+        wait for clk_period; -- IMPORTANT TO WAIT 1 cycle (so that the last register bank has all the proper data)
+
+        -- Read the first 8 registers
+
+        result_ren <= '1';
+        result_addr <= "0000";
+        wait for clk_period;
+        result_addr <= "0001";
+        wait for clk_period;
+        result_addr <= "0010";
+        wait for clk_period;
+        result_addr <= "0011";
+        wait for clk_period;
+        result_addr <= "0100";
+        wait for clk_period;
+        result_addr <= "0101";
+        wait for clk_period;
+        result_addr <= "0110";
+        wait for clk_period;
+        result_addr <= "0111";
+        wait for clk_period;
+
+        wait for (100*clk_period);
+
+        -------------------------------------------------------
+        ------------------------------------------------------- TEST AGAIN WITH 2 BLOCKS
+        -------------------------------------------------------
+
+        ----------- FIRST BLOCK
+
+        -- result
+        result_ren <= '0';
+        result_addr <= (others => '0');
+
+        -- input data
+        waddr_in <= (others => '0');
+        data_in <= (others => '0');
+        data_wen <= '0';
+        data_ready <= '0';
+
+        RST_N <= '0';
+
+        wait for clk_period;
+
+        RST_N <= '1';
+
+        wait for clk_period;
+
+        -- Write 16 x 32bit
+
+        data_wen <= '1'; -- AHB write enable ON
+
+        waddr_in <= "00000";
+        data_in <= X"00000001";
+        wait for clk_period;
+
+        waddr_in <= "00001";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00010";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00011";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01000";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01001";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01010";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01011";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        -- Set first_block to 1
+        waddr_in <= "10000";
+        data_in <= X"00000001";
+        wait for clk_period;
+
+        data_wen <= '0'; -- AHB write enable OFF
+
+        -- wait until data_available = '1'
+        if data_available = '0' then
+            wait until data_available = '1';
+        end if;
+
+        -- Set data_ready to 1 (GPIO PIN)
+        data_ready <= '1';
+
+        wait for (5*clk_period); -- IMPORTANT to wait at least 5 cycles so that req_i can go down
+
+        if waiting_data = '0' then
+            wait until waiting_data = '1';
+        end if;
+
+        data_ready <= '0';
+
+        ----------- SECOND BLOCK
 
         -- Write 16 x 32bit
 
@@ -342,10 +584,243 @@ begin
         data_in <= X"00000000";
         wait for clk_period;
 
-        -- Set first_block to 1
         -- Set last_block to 1
         waddr_in <= "10000";
-        data_in <= X"00000003";
+        data_in <= X"00000002";
+        wait for clk_period;
+
+        data_wen <= '0'; -- AHB write enable OFF
+
+        -- wait until data_available = '1'
+        if data_available = '0' then
+            wait until data_available = '1';
+        end if;
+
+        -- Set data_ready to 1 (GPIO PIN)
+        data_ready <= '1';
+
+        -- Keep reading addr 8 until we have the 'valid' bit = 1
+
+        result_addr <= "1000";
+        result_ren <= '1';
+
+        if do_valid_o = '0' then
+            wait until do_valid_o = '1';
+        end if;
+
+        data_ready <= '0';
+
+        wait for clk_period; -- IMPORTANT TO WAIT 1 cycle (so that the last register bank has all the proper data)
+
+        -- Read the first 8 registers
+
+        result_ren <= '1';
+        result_addr <= "0000";
+        wait for clk_period;
+        result_addr <= "0001";
+        wait for clk_period;
+        result_addr <= "0010";
+        wait for clk_period;
+        result_addr <= "0011";
+        wait for clk_period;
+        result_addr <= "0100";
+        wait for clk_period;
+        result_addr <= "0101";
+        wait for clk_period;
+        result_addr <= "0110";
+        wait for clk_period;
+        result_addr <= "0111";
+        wait for clk_period;
+
+        wait for (100*clk_period);
+
+        -------------------------------------------------------
+        ------------------------------------------------------- TEST AGAIN WITH 3 BLOCKS
+        -------------------------------------------------------
+
+        ----------- FIRST BLOCK
+
+        -- result
+        result_ren <= '0';
+        result_addr <= (others => '0');
+
+        -- input data
+        waddr_in <= (others => '0');
+        data_in <= (others => '0');
+        data_wen <= '0';
+        data_ready <= '0';
+
+        RST_N <= '0';
+
+        wait for clk_period;
+
+        RST_N <= '1';
+
+        wait for clk_period;
+
+        -- Write 16 x 32bit
+
+        data_wen <= '1'; -- AHB write enable ON
+
+        waddr_in <= "00000";
+        data_in <= X"00000001";
+        wait for clk_period;
+
+        waddr_in <= "00001";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00010";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00011";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01000";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01001";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01010";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01011";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        -- Set first_block to 1
+        waddr_in <= "10000";
+        data_in <= X"00000001";
+        wait for clk_period;
+
+        data_wen <= '0'; -- AHB write enable OFF
+
+        -- wait until data_available = '1'
+        if data_available = '0' then
+            wait until data_available = '1';
+        end if;
+
+        -- Set data_ready to 1 (GPIO PIN)
+        data_ready <= '1';
+
+        wait for (5*clk_period); -- IMPORTANT to wait at least 5 cycles so that req_i can go down
+
+        if waiting_data = '0' then
+            wait until waiting_data = '1';
+        end if;
+
+        data_ready <= '0';
+
+        ----------- SECOND BLOCK
+
+        -- Write 16 x 32bit
+
+        data_wen <= '1'; -- AHB write enable ON
+
+        waddr_in <= "00000";
+        data_in <= X"00000002";
+        wait for clk_period;
+
+        waddr_in <= "00001";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00010";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00011";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01000";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01001";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01010";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01011";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "10000";
+        data_in <= X"00000000"; -- second block, no first or last
         wait for clk_period;
 
         data_wen <= '0'; -- AHB write enable OFF
@@ -358,17 +833,111 @@ begin
         -- Set data_ready to 1 (GPIO PIN)
         data_ready <= '1';
         
-        -- wait some cycles
-        wait for (10*clk_period);
+        wait for (5*clk_period); -- IMPORTANT to wait at least 5 cycles so that req_i can go down
+
+        if waiting_data = '0' then
+            wait until waiting_data = '1';
+        end if;
+
+        data_ready <= '0';
+
+        ----------- THIRD BLOCK
+
+        -- Write 16 x 32bit
+
+        data_wen <= '1'; -- AHB write enable ON
+
+        waddr_in <= "00000";
+        data_in <= X"00000003";
+        wait for clk_period;
+
+        waddr_in <= "00001";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00010";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00011";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01000";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01001";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01010";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01011";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        -- Set last_block to 1
+        waddr_in <= "10000";
+        data_in <= X"00000002";
+        wait for clk_period;
+
+        data_wen <= '0'; -- AHB write enable OFF
+
+        -- wait until data_available = '1'
+        if data_available = '0' then
+            wait until data_available = '1';
+        end if;
+
+        -- Set data_ready to 1 (GPIO PIN)
+        data_ready <= '1';
 
         -- Keep reading addr 8 until we have the 'valid' bit = 1
 
         result_addr <= "1000";
         result_ren <= '1';
 
-        if data_out(0) = '0' then
-            wait until data_out(0) = '1';
+        if do_valid_o = '0' then
+            wait until do_valid_o = '1';
         end if;
+
+        data_ready <= '0';
+
+        wait for clk_period; -- IMPORTANT TO WAIT 1 cycle (so that the last register bank has all the proper data)
 
         -- Read the first 8 registers
 
