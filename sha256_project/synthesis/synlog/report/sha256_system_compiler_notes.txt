@@ -37,7 +37,7 @@
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\zero_concat.vhd":23:7:23:17|Synthesizing work.zero_concat.architecture_zero_concat 
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd":17:7:17:18|Synthesizing work.sha256_block.rtl 
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":33:7:33:23|Synthesizing work.sha256_controller.architecture_sha256_controller 
-@N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":64:20:64:21|Using onehot encoding for type state_type (wait_data="100000")
+@N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":65:20:65:21|Using onehot encoding for type state_type (wait_data="100000")
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\reg_17x32.vhd":23:7:23:15|Synthesizing work.reg_17x32.architecture_reg_17x32 
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd":22:7:22:20|Synthesizing work.limiter_1cycle.architecture_limiter_1cycle 
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd":80:7:80:15|Synthesizing work.gv_sha256.rtl 
@@ -59,7 +59,7 @@
 @N: CL201 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":354:8:354:9|Trying to extract state machine for register hash_control_st_reg
 @N: CL135 :"E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd":122:8:122:9|Found seqShift r2, depth=8, width=32
 @N: CL135 :"E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd":122:8:122:9|Found seqShift r10, depth=5, width=32
-@N: CL201 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":78:8:78:9|Trying to extract state machine for register state
+@N: CL201 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":79:8:79:9|Trying to extract state machine for register state
 @N: CL201 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Trying to extract state machine for register arbRegSMCurrentState
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif0_spll_lock_q2.
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element fpll_lock_q2.

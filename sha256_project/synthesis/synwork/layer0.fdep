@@ -1,5 +1,5 @@
 #defaultlanguage:vhdl
-#OPTIONS:"|-layerid|0|-orig_srs|E:\\LiberoProjects\\sha256_project\\synthesis\\synwork\\sha256_system_comp.srs|-top|work.sha256_system|-prodtype|synplify_pro|-infer_seqShift|-primux|-dspmac|-pqdpadd|-fixsmult|-sdff_counter|-divnmod|-nram|-encrypt|-pro|-lite|-ui|-fid2|-ram|-sharing|on|-ll|2000|-autosm|-vhdl2008|-ignore_undefined_lib|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work"
+#OPTIONS:"|-layerid|0|-orig_srs|E:\\LiberoProjects\\sha256_project\\synthesis\\synwork\\sha256_system_comp.srs|-top|work.sha256_system|-prodtype|synplify_pro|-infer_seqShift|-primux|-dspmac|-pqdpadd|-fixsmult|-sdff_counter|-divnmod|-nram|-encrypt|-pro|-lite|-ui|-fid2|-ram|-sharing|on|-ll|2000|-autosm|-vhdl2008|-ignore_undefined_lib|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|work|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|COREAHBLITE_LIB|-lib|work|-lib|work"
 #CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\bin64\\c_vhdl.exe":1449218126
 #CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\location.map":1449218134
 #CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\std.vhd":1449218134
@@ -12,6 +12,20 @@
 #CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd2008\\unsigned.vhd":1449218134
 #CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\vhd\\hyperents.vhd":1449218132
 #CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\AHB_slave_dummy.vhd":1495667537
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\reg1_highonly.vhd":1496856621
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\mux_9_1.vhd":1496317010
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\reg_1x32.vhd":1496787222
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\zero_concat.vhd":1496739383
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_control.vhd":1496305835
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_hash_core.vhd":1496305835
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_Ki_rom.vhd":1496305835
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_Kt_rom.vhd":1496305835
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_msg_sch.vhd":1496305835
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_padding.vhd":1496305835
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_regs.vhd":1496305835
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\limiter_1cycle.vhd":1496700158
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\reg_17x32.vhd":1496850934
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_controller.vhd":1496867358
 #CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreResetP\\7.1.100\\rtl\\vhdl\\core\\coreresetp_pcie_hotreset.vhd":1476047285
 #CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system_sb\\CCC_0\\sha256_system_sb_CCC_0_FCCC.vhd":1496836236
 #CUR:"C:\\Microsemi\\Libero_SoC_v11.7\\Synplify\\lib\\generic\\smartfusion2.vhd":1449218130
@@ -22,20 +36,10 @@
 #CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_slavearbiter.vhd":1487266713
 #CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_pkg.vhd":1487266713
 #CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\components.vhd":1487266713
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_control.vhd":1496305835
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_hash_core.vhd":1496305835
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_Ki_rom.vhd":1496305835
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_Kt_rom.vhd":1496305835
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_msg_sch.vhd":1496305835
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_padding.vhd":1496305835
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_regs.vhd":1496305835
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\limiter_1cycle.vhd":1496700158
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\reg_17x32.vhd":1496850934
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\sha256_controller.vhd":1496861900
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\reg1_highonly.vhd":1496856621
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\mux_9_1.vhd":1496317010
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\reg_1x32.vhd":1496787222
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\zero_concat.vhd":1496739383
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\reg9_1x32\\reg9_1x32.vhd":1496787379
+#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\gv_sha256.vhd":1496305835
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\SHA256_BLOCK\\SHA256_BLOCK.vhd":1496867389
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\SHA256_Module\\SHA256_Module.vhd":1496867389
 #CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreResetP\\7.1.100\\rtl\\vhdl\\core\\coreresetp.vhd":1476047285
 #CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system_sb\\FABOSC_0\\sha256_system_sb_FABOSC_0_OSC.vhd":1496836238
 #CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system_sb_MSS\\sha256_system_sb_MSS.vhd":1496836231
@@ -44,120 +48,116 @@
 #CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite_matrix4x16.vhd":1487266713
 #CUR:"E:\\LiberoProjects\\sha256_project\\component\\Actel\\DirectCore\\CoreAHBLite\\5.2.100\\rtl\\vhdl\\core\\coreahblite.vhd":1487266713
 #CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system_sb\\sha256_system_sb.vhd":1496836239
-#CUR:"E:\\LiberoProjects\\sha256_project\\hdl\\gv_sha256.vhd":1496305835
-#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\SHA256_BLOCK\\SHA256_BLOCK.vhd":1496856879
-#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\reg9_1x32\\reg9_1x32.vhd":1496787379
-#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\SHA256_Module\\SHA256_Module.vhd":1496857383
-#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system\\sha256_system.vhd":1496855735
+#CUR:"E:\\LiberoProjects\\sha256_project\\component\\work\\sha256_system\\sha256_system.vhd":1496868791
 0 "E:\LiberoProjects\sha256_project\hdl\AHB_slave_dummy.vhd" vhdl
-1 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp_pcie_hotreset.vhd" vhdl
-2 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd" vhdl
-3 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd" vhdl
-4 "E:\LiberoProjects\sha256_project\component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd" vhdl
-5 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd" vhdl
-6 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_syn.vhd" vhdl
-7 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd" vhdl
-8 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd" vhdl
-9 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_defaultslavesm.vhd" vhdl
-10 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd" vhdl
-11 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd" vhdl
-12 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd" vhdl
-13 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd" vhdl
-14 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_pkg.vhd" vhdl
-15 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd" vhdl
-16 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\components.vhd" vhdl
-17 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd" vhdl
-18 "E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd" vhdl
-19 "E:\LiberoProjects\sha256_project\hdl\sha256_hash_core.vhd" vhdl
-20 "E:\LiberoProjects\sha256_project\hdl\sha256_Ki_rom.vhd" vhdl
-21 "E:\LiberoProjects\sha256_project\hdl\sha256_Kt_rom.vhd" vhdl
-22 "E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd" vhdl
-23 "E:\LiberoProjects\sha256_project\hdl\sha256_padding.vhd" vhdl
-24 "E:\LiberoProjects\sha256_project\hdl\sha256_regs.vhd" vhdl
-25 "E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd" vhdl
-26 "E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd" vhdl
-27 "E:\LiberoProjects\sha256_project\hdl\reg_17x32.vhd" vhdl
-28 "E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd" vhdl
-29 "E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd" vhdl
-30 "E:\LiberoProjects\sha256_project\hdl\reg1_highonly.vhd" vhdl
-31 "E:\LiberoProjects\sha256_project\hdl\mux_9_1.vhd" vhdl
-32 "E:\LiberoProjects\sha256_project\hdl\reg_1x32.vhd" vhdl
-33 "E:\LiberoProjects\sha256_project\component\work\reg9_1x32\reg9_1x32.vhd" vhdl
-34 "E:\LiberoProjects\sha256_project\hdl\zero_concat.vhd" vhdl
-35 "E:\LiberoProjects\sha256_project\component\work\SHA256_Module\SHA256_Module.vhd" vhdl
+1 "E:\LiberoProjects\sha256_project\hdl\reg1_highonly.vhd" vhdl
+2 "E:\LiberoProjects\sha256_project\hdl\mux_9_1.vhd" vhdl
+3 "E:\LiberoProjects\sha256_project\hdl\reg_1x32.vhd" vhdl
+4 "E:\LiberoProjects\sha256_project\component\work\reg9_1x32\reg9_1x32.vhd" vhdl
+5 "E:\LiberoProjects\sha256_project\hdl\zero_concat.vhd" vhdl
+6 "E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd" vhdl
+7 "E:\LiberoProjects\sha256_project\hdl\sha256_hash_core.vhd" vhdl
+8 "E:\LiberoProjects\sha256_project\hdl\sha256_Ki_rom.vhd" vhdl
+9 "E:\LiberoProjects\sha256_project\hdl\sha256_Kt_rom.vhd" vhdl
+10 "E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd" vhdl
+11 "E:\LiberoProjects\sha256_project\hdl\sha256_padding.vhd" vhdl
+12 "E:\LiberoProjects\sha256_project\hdl\sha256_regs.vhd" vhdl
+13 "E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd" vhdl
+14 "E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd" vhdl
+15 "E:\LiberoProjects\sha256_project\hdl\reg_17x32.vhd" vhdl
+16 "E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd" vhdl
+17 "E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd" vhdl
+18 "E:\LiberoProjects\sha256_project\component\work\SHA256_Module\SHA256_Module.vhd" vhdl
+19 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp_pcie_hotreset.vhd" vhdl
+20 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd" vhdl
+21 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd" vhdl
+22 "E:\LiberoProjects\sha256_project\component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd" vhdl
+23 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd" vhdl
+24 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_syn.vhd" vhdl
+25 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd" vhdl
+26 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd" vhdl
+27 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_defaultslavesm.vhd" vhdl
+28 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd" vhdl
+29 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd" vhdl
+30 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd" vhdl
+31 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd" vhdl
+32 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_pkg.vhd" vhdl
+33 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd" vhdl
+34 "E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\components.vhd" vhdl
+35 "E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd" vhdl
 36 "E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd" vhdl
 
 # Dependency Lists (Uses list)
 0 -1
 1 -1
-2 1 
+2 -1
 3 -1
-4 -1
-5 4 
+4 2 3 
+5 -1
 6 -1
-7 6 
+7 -1
 8 -1
 9 -1
-10 8 9 
+10 -1
 11 -1
-12 11 
-13 10 12 
+12 -1
+13 6 11 10 7 12 9 8 
 14 -1
-15 13 14 
+15 -1
 16 -1
-17 3 15 2 5 7 16 
-18 -1
+17 13 14 15 16 
+18 1 4 17 5 
 19 -1
-20 -1
+20 19 
 21 -1
 22 -1
-23 -1
+23 22 
 24 -1
-25 18 23 22 19 24 21 20 
+25 24 
 26 -1
 27 -1
-28 -1
-29 25 26 27 28 
-30 -1
-31 -1
+28 26 27 
+29 -1
+30 29 
+31 28 30 
 32 -1
 33 31 32 
 34 -1
-35 30 33 29 34 
-36 0 35 17 
+35 21 33 20 23 25 34 
+36 0 18 35 
 
 # Dependency Lists (Users Of)
 0 36 
-1 2 
-2 17 
-3 17 
-4 5 
-5 17 
-6 7 
-7 17 
-8 10 
-9 10 
+1 18 
+2 4 
+3 4 
+4 18 
+5 18 
+6 13 
+7 13 
+8 13 
+9 13 
 10 13 
-11 12 
+11 13 
 12 13 
-13 15 
-14 15 
+13 17 
+14 17 
 15 17 
 16 17 
-17 36 
-18 25 
-19 25 
-20 25 
-21 25 
-22 25 
-23 25 
+17 18 
+18 36 
+19 20 
+20 35 
+21 35 
+22 23 
+23 35 
 24 25 
-25 29 
-26 29 
-27 29 
-28 29 
-29 35 
-30 35 
+25 35 
+26 28 
+27 28 
+28 31 
+29 30 
+30 31 
 31 33 
 32 33 
 33 35 
@@ -168,82 +168,82 @@
 # Design Unit to File Association
 arch work ahb_slave_dummy behaviour 0
 module work ahb_slave_dummy 0
-arch work coreresetp_pcie_hotreset rtl 1
-module work coreresetp_pcie_hotreset 1
-arch work coreresetp rtl 2
-module work coreresetp 2
-arch work sha256_system_sb_ccc_0_fccc def_arch 3
-module work sha256_system_sb_ccc_0_fccc 3
-arch work xtlosc_fab def_arch 4
-module work xtlosc_fab 4
-arch work rcosc_25_50mhz_fab def_arch 4
-module work rcosc_25_50mhz_fab 4
-arch work rcosc_1mhz_fab def_arch 4
-module work rcosc_1mhz_fab 4
-arch work xtlosc def_arch 4
-module work xtlosc 4
-arch work rcosc_25_50mhz def_arch 4
-module work rcosc_25_50mhz 4
-arch work rcosc_1mhz def_arch 4
-module work rcosc_1mhz 4
-arch work sha256_system_sb_fabosc_0_osc def_arch 5
-module work sha256_system_sb_fabosc_0_osc 5
-arch work mss_060 def_arch 6
-module work mss_060 6
-arch work sha256_system_sb_mss rtl 7
-module work sha256_system_sb_mss 7
-arch coreahblite_lib coreahblite_addrdec coreahblite_addrdec_arch 8
-module coreahblite_lib coreahblite_addrdec 8
-arch coreahblite_lib coreahblite_defaultslavesm coreahblite_defaultslavesm_arch 9
-module coreahblite_lib coreahblite_defaultslavesm 9
-arch coreahblite_lib coreahblite_masterstage coreahblite_masterstage_arch 10
-module coreahblite_lib coreahblite_masterstage 10
-arch coreahblite_lib coreahblite_slavearbiter coreahblite_slavearbiter_arch 11
-module coreahblite_lib coreahblite_slavearbiter 11
-arch coreahblite_lib coreahblite_slavestage trans 12
-module coreahblite_lib coreahblite_slavestage 12
-arch coreahblite_lib coreahblite_matrix4x16 coreahblite_matrix4x16_arch 13
-module coreahblite_lib coreahblite_matrix4x16 13
-arch coreahblite_lib coreahblite coreahblite_arch 15
-module coreahblite_lib coreahblite 15
-arch work sha256_system_sb rtl 17
-module work sha256_system_sb 17
-arch work sha256_control rtl 18
-module work sha256_control 18
-arch work sha256_hash_core rtl 19
-module work sha256_hash_core 19
-arch work sha256_ki_rom behavioral 20
-module work sha256_ki_rom 20
-arch work sha256_kt_rom behavioral 21
-module work sha256_kt_rom 21
-arch work sha256_msg_sch rtl 22
-module work sha256_msg_sch 22
-arch work sha256_padding rtl 23
-module work sha256_padding 23
-arch work sha256_regs rtl 24
-module work sha256_regs 24
-arch work gv_sha256 rtl 25
-module work gv_sha256 25
-arch work limiter_1cycle architecture_limiter_1cycle 26
-module work limiter_1cycle 26
-arch work reg_17x32 architecture_reg_17x32 27
-module work reg_17x32 27
-arch work sha256_controller architecture_sha256_controller 28
-module work sha256_controller 28
-arch work sha256_block rtl 29
-module work sha256_block 29
-arch work reg1_highonly architecture_reg1_highonly 30
-module work reg1_highonly 30
-arch work mux_9_1 architecture_mux_9_1 31
-module work mux_9_1 31
-arch work reg_1x32 architecture_reg_1x32 32
-module work reg_1x32 32
-arch work reg9_1x32 rtl 33
-module work reg9_1x32 33
-arch work zero_concat architecture_zero_concat 34
-module work zero_concat 34
-arch work sha256_module rtl 35
-module work sha256_module 35
+arch work reg1_highonly architecture_reg1_highonly 1
+module work reg1_highonly 1
+arch work mux_9_1 architecture_mux_9_1 2
+module work mux_9_1 2
+arch work reg_1x32 architecture_reg_1x32 3
+module work reg_1x32 3
+arch work reg9_1x32 rtl 4
+module work reg9_1x32 4
+arch work zero_concat architecture_zero_concat 5
+module work zero_concat 5
+arch work sha256_control rtl 6
+module work sha256_control 6
+arch work sha256_hash_core rtl 7
+module work sha256_hash_core 7
+arch work sha256_ki_rom behavioral 8
+module work sha256_ki_rom 8
+arch work sha256_kt_rom behavioral 9
+module work sha256_kt_rom 9
+arch work sha256_msg_sch rtl 10
+module work sha256_msg_sch 10
+arch work sha256_padding rtl 11
+module work sha256_padding 11
+arch work sha256_regs rtl 12
+module work sha256_regs 12
+arch work gv_sha256 rtl 13
+module work gv_sha256 13
+arch work limiter_1cycle architecture_limiter_1cycle 14
+module work limiter_1cycle 14
+arch work reg_17x32 architecture_reg_17x32 15
+module work reg_17x32 15
+arch work sha256_controller architecture_sha256_controller 16
+module work sha256_controller 16
+arch work sha256_block rtl 17
+module work sha256_block 17
+arch work sha256_module rtl 18
+module work sha256_module 18
+arch work coreresetp_pcie_hotreset rtl 19
+module work coreresetp_pcie_hotreset 19
+arch work coreresetp rtl 20
+module work coreresetp 20
+arch work sha256_system_sb_ccc_0_fccc def_arch 21
+module work sha256_system_sb_ccc_0_fccc 21
+arch work xtlosc_fab def_arch 22
+module work xtlosc_fab 22
+arch work rcosc_25_50mhz_fab def_arch 22
+module work rcosc_25_50mhz_fab 22
+arch work rcosc_1mhz_fab def_arch 22
+module work rcosc_1mhz_fab 22
+arch work xtlosc def_arch 22
+module work xtlosc 22
+arch work rcosc_25_50mhz def_arch 22
+module work rcosc_25_50mhz 22
+arch work rcosc_1mhz def_arch 22
+module work rcosc_1mhz 22
+arch work sha256_system_sb_fabosc_0_osc def_arch 23
+module work sha256_system_sb_fabosc_0_osc 23
+arch work mss_060 def_arch 24
+module work mss_060 24
+arch work sha256_system_sb_mss rtl 25
+module work sha256_system_sb_mss 25
+arch coreahblite_lib coreahblite_addrdec coreahblite_addrdec_arch 26
+module coreahblite_lib coreahblite_addrdec 26
+arch coreahblite_lib coreahblite_defaultslavesm coreahblite_defaultslavesm_arch 27
+module coreahblite_lib coreahblite_defaultslavesm 27
+arch coreahblite_lib coreahblite_masterstage coreahblite_masterstage_arch 28
+module coreahblite_lib coreahblite_masterstage 28
+arch coreahblite_lib coreahblite_slavearbiter coreahblite_slavearbiter_arch 29
+module coreahblite_lib coreahblite_slavearbiter 29
+arch coreahblite_lib coreahblite_slavestage trans 30
+module coreahblite_lib coreahblite_slavestage 30
+arch coreahblite_lib coreahblite_matrix4x16 coreahblite_matrix4x16_arch 31
+module coreahblite_lib coreahblite_matrix4x16 31
+arch coreahblite_lib coreahblite coreahblite_arch 33
+module coreahblite_lib coreahblite 33
+arch work sha256_system_sb rtl 35
+module work sha256_system_sb 35
 arch work sha256_system rtl 36
 module work sha256_system 36
 

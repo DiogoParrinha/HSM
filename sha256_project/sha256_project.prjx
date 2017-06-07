@@ -411,15 +411,8 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system\sha256_system.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496867392"
-SIZE="2285"
-ENDFILE
-VALUE "<project>\component\work\sha256_system\sha256_system.vhd,hdl"
-STATE="utd"
-TIME="1496867390"
-SIZE="16711"
-PARENT="<project>\component\work\sha256_system\sha256_system.cxf"
-IS_READONLY="TRUE"
+TIME="1496871346"
+SIZE="1989"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.cxf,actgen_cxf"
 STATE="utd"
@@ -760,8 +753,8 @@ SIZE="6142"
 ENDFILE
 VALUE "<project>\stimulus\sha256_module_tb_softwarelike.vhd,tb_hdl"
 STATE="utd"
-TIME="1496868647"
-SIZE="24602"
+TIME="1496869622"
+SIZE="24595"
 ENDFILE
 VALUE "<project>\stimulus\sha256_tb.vhd,tb_hdl"
 STATE="utd"
@@ -774,7 +767,7 @@ TIME="1496346739"
 SIZE="2730"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.edn,syn_edn"
-STATE="ood"
+STATE="utd"
 TIME="1496779313"
 SIZE="1264257"
 ENDFILE
@@ -784,12 +777,12 @@ TIME="1496779314"
 SIZE="228"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.vhd,syn_hdl"
-STATE="ood"
+STATE="utd"
 TIME="1496779321"
 SIZE="731038"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system_sdc.sdc,syn_sdc"
-STATE="ood"
+STATE="utd"
 TIME="1496779313"
 SIZE="1737"
 ENDFILE
@@ -808,15 +801,14 @@ LIST UsedFile
 ENDLIST
 LIST NewModulesInfo
 LIST "sha256_system::work"
-FILE "<project>\component\work\sha256_system\sha256_system.vhd,hdl"
-LIST Other_Association
-VALUE "<project>\simulation\subsystem.bfm,sim"
-ENDLIST
+FILE "<project>\component\work\sha256_system\sha256_system.cxf,actgen_cxf"
 LIST AssociatedStimulus
 VALUE "<project>\stimulus\bfm_testbench.vhd,tb_hdl"
 ENDLIST
 LIST ProjectState5.1
 LIST Impl1
+LiberoState=Post_Synthesis
+ideSYNTHESIS(<project>\synthesis\sha256_system.edn,syn_edn)=StateSuccess
 ideSTIMULUS=StateSuccess
 LIST FlowOptions
 UsePhySynth=FALSE
@@ -898,9 +890,6 @@ VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\us
 ENDLIST
 ENDLIST
 LIST Other_Association
-LIST sha256_system
-VALUE "<project>\simulation\subsystem.bfm,sim"
-ENDLIST
 LIST sha256_system_sb
 VALUE "<project>\simulation\subsystem.bfm,sim"
 VALUE "<project>\simulation\bfmtovec_compile.tcl,sim"
@@ -1028,6 +1017,8 @@ ENDLIST
 LIST ProjectState5.1
 LIST "sha256_system::work"
 LIST Impl1
+LiberoState=Post_Synthesis
+ideSYNTHESIS(<project>\synthesis\sha256_system.edn,syn_edn)=StateSuccess
 ideSTIMULUS=StateSuccess
 LIST FlowOptions
 UsePhySynth=FALSE
@@ -1068,7 +1059,7 @@ SmartDesign;sha256_system;0
 SmartDesign;SHA256_Module;0
 SmartDesign;SHA256_BLOCK;0
 HDL;stimulus\sha256_module_tb_softwarelike.vhd;0
-ACTIVEVIEW;stimulus\sha256_module_tb_softwarelike.vhd
+ACTIVEVIEW;sha256_system
 ENDLIST
 LIST ModuleSubBlockList
 LIST "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
@@ -1143,10 +1134,10 @@ LIST "sha256_padding::work","hdl\sha256_padding.vhd","FALSE","FALSE"
 ENDLIST
 LIST "sha256_regs::work","hdl\sha256_regs.vhd","FALSE","FALSE"
 ENDLIST
-LIST "sha256_system::work","component\work\sha256_system\sha256_system.vhd","TRUE","FALSE"
-SUBBLOCK "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
+LIST "sha256_system::work","component\work\sha256_system\sha256_system.cxf","TRUE","FALSE"
 SUBBLOCK "SHA256_Module::work","component\work\SHA256_Module\SHA256_Module.vhd","TRUE","FALSE"
 SUBBLOCK "sha256_system_sb::work","component\work\sha256_system_sb\sha256_system_sb.vhd","TRUE","FALSE"
+SUBBLOCK "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
 ENDLIST
 LIST "sha256_system_sb::work","component\work\sha256_system_sb\sha256_system_sb.vhd","TRUE","FALSE"
 SUBBLOCK "CoreResetP::work","component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd","FALSE","FALSE"
@@ -1174,7 +1165,7 @@ ENDLIST
 LIST "zero_concat::work","hdl\zero_concat.vhd","FALSE","FALSE"
 ENDLIST
 LIST "bfm_testbench::work","stimulus\bfm_testbench.vhd","FALSE","TRUE"
-SUBBLOCK "sha256_system::work","component\work\sha256_system\sha256_system.vhd","TRUE","FALSE"
+SUBBLOCK "sha256_system::work","component\work\sha256_system\sha256_system.cxf","TRUE","FALSE"
 ENDLIST
 LIST "coreparameters::work","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd","FALSE","TRUE"
 ENDLIST

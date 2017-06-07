@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Wed Jun 07 21:29:50 2017
+-- Created by SmartDesign Wed Jun 07 22:38:17 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -116,16 +116,12 @@ signal AHB_slave_dummy_0_read_en                 : std_logic;
 signal AHB_slave_dummy_0_write_en                : std_logic;
 signal GPIO_0_M2F_net_0                          : std_logic;
 signal SHA256_Module_0_data_available            : std_logic;
-signal SHA256_Module_0_data_available_lastbank_0 : std_logic;
 signal SHA256_Module_0_data_available_lastbank_8 : std_logic;
 signal SHA256_Module_0_data_out                  : std_logic_vector(31 downto 0);
-signal SHA256_Module_0_data_out_ready            : std_logic;
 signal SHA256_Module_0_di_req_o                  : std_logic;
 signal SHA256_Module_0_do_valid_o                : std_logic;
 signal SHA256_Module_0_error_o                   : std_logic;
-signal SHA256_Module_0_state_out0to0             : std_logic_vector(0 to 0);
-signal SHA256_Module_0_state_out1to1             : std_logic_vector(1 to 1);
-signal SHA256_Module_0_state_out2to2             : std_logic_vector(2 to 2);
+signal SHA256_Module_0_waiting_data              : std_logic;
 signal sha256_system_sb_0_AMBA_SLAVE_0_HADDR     : std_logic_vector(31 downto 0);
 signal sha256_system_sb_0_AMBA_SLAVE_0_HBURST    : std_logic_vector(2 downto 0);
 signal sha256_system_sb_0_AMBA_SLAVE_0_HMASTLOCK : std_logic;
@@ -144,6 +140,9 @@ signal sha256_system_sb_0_GPIO_9_M2F             : std_logic;
 signal sha256_system_sb_0_POWER_ON_RESET_N       : std_logic;
 signal GPIO_0_M2F_net_1                          : std_logic;
 signal lsram_raddr_slice_0                       : std_logic_vector(4 to 4);
+signal state_out_slice_0                         : std_logic_vector(0 to 0);
+signal state_out_slice_1                         : std_logic_vector(1 to 1);
+signal state_out_slice_2                         : std_logic_vector(2 to 2);
 signal lsram_waddr_net_0                         : std_logic_vector(8 downto 0);
 signal lsram_raddr_net_0                         : std_logic_vector(8 downto 0);
 signal result_addr_net_0                         : std_logic_vector(3 downto 0);
@@ -153,6 +152,7 @@ signal state_out_net_0                           : std_logic_vector(2 downto 0);
 -- TiedOff Signals
 ----------------------------------------------------------------------
 signal VCC_net                                   : std_logic;
+signal GND_net                                   : std_logic;
 ----------------------------------------------------------------------
 -- Bus Interface Nets Declarations - Unequal Pin Widths
 ----------------------------------------------------------------------
@@ -167,6 +167,7 @@ begin
 -- Constant assignments
 ----------------------------------------------------------------------
  VCC_net <= '1';
+ GND_net <= '0';
 ----------------------------------------------------------------------
 -- Top level output port assignments
 ----------------------------------------------------------------------
@@ -184,10 +185,10 @@ begin
  AHB_slave_dummy_0_lsram_waddr2to2(2) <= lsram_waddr_net_0(2);
  AHB_slave_dummy_0_lsram_waddr3to3(3) <= lsram_waddr_net_0(3);
  AHB_slave_dummy_0_lsram_waddr4to4(4) <= lsram_waddr_net_0(4);
- SHA256_Module_0_state_out0to0(0)     <= state_out_net_0(0);
- SHA256_Module_0_state_out1to1(1)     <= state_out_net_0(1);
- SHA256_Module_0_state_out2to2(2)     <= state_out_net_0(2);
  lsram_raddr_slice_0(4)               <= lsram_raddr_net_0(4);
+ state_out_slice_0(0)                 <= state_out_net_0(0);
+ state_out_slice_1(1)                 <= state_out_net_0(1);
+ state_out_slice_2(2)                 <= state_out_net_0(2);
 ----------------------------------------------------------------------
 -- Concatenation assignments
 ----------------------------------------------------------------------
@@ -243,15 +244,15 @@ SHA256_Module_0 : SHA256_Module
         waddr_in                  => waddr_in_net_0,
         -- Outputs
         di_req_o                  => SHA256_Module_0_di_req_o,
-        data_out_ready            => SHA256_Module_0_data_out_ready,
+        data_out_ready            => OPEN,
         do_valid_o                => SHA256_Module_0_do_valid_o,
         error_o                   => SHA256_Module_0_error_o,
         data_available            => SHA256_Module_0_data_available,
         data_out                  => SHA256_Module_0_data_out,
         data_available_lastbank_8 => SHA256_Module_0_data_available_lastbank_8,
-        data_available_lastbank_0 => SHA256_Module_0_data_available_lastbank_0,
+        data_available_lastbank_0 => OPEN,
         state_out                 => state_out_net_0,
-        waiting_data              => OPEN 
+        waiting_data              => SHA256_Module_0_waiting_data 
         );
 -- sha256_system_sb_0
 sha256_system_sb_0 : sha256_system_sb
@@ -262,16 +263,16 @@ sha256_system_sb_0 : sha256_system_sb
         AMBA_SLAVE_0_HREADYOUT_S0         => sha256_system_sb_0_AMBA_SLAVE_0_HREADYOUT,
         AMBA_SLAVE_0_HRESP_S0(1 downto 0) => sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0,
         DEVRST_N                          => DEVRST_N,
-        GPIO_2_F2M                        => SHA256_Module_0_data_available_lastbank_0,
+        GPIO_2_F2M                        => SHA256_Module_0_waiting_data,
         GPIO_3_F2M                        => SHA256_Module_0_data_available_lastbank_8,
         GPIO_4_F2M                        => SHA256_Module_0_di_req_o,
-        GPIO_5_F2M                        => SHA256_Module_0_data_out_ready,
+        GPIO_5_F2M                        => GND_net,
         GPIO_6_F2M                        => SHA256_Module_0_do_valid_o,
         GPIO_7_F2M                        => SHA256_Module_0_data_available,
         GPIO_8_F2M                        => SHA256_Module_0_error_o,
-        GPIO_10_F2M                       => SHA256_Module_0_state_out0to0(0),
-        GPIO_11_F2M                       => SHA256_Module_0_state_out1to1(1),
-        GPIO_12_F2M                       => SHA256_Module_0_state_out2to2(2),
+        GPIO_10_F2M                       => GND_net,
+        GPIO_11_F2M                       => GND_net,
+        GPIO_12_F2M                       => GND_net,
         -- Outputs
         POWER_ON_RESET_N                  => sha256_system_sb_0_POWER_ON_RESET_N,
         INIT_DONE                         => OPEN,

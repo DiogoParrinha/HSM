@@ -11,11 +11,9 @@
 /*==============================================================================
   Private functions.
  */
-static void delay(void);
-
 #define PIN_LED MSS_GPIO_0
 #define PIN_DATA_IN_READY MSS_GPIO_1
-#define PIN_LASTBANK_AVAILABLE0 MSS_GPIO_2
+#define PIN_WAITING_DATA MSS_GPIO_2
 #define PIN_LASTBANK_AVAILABLE1 MSS_GPIO_3
 #define PIN_REQ_DATA MSS_GPIO_4
 #define PIN_DATA_OUT_READY MSS_GPIO_5
@@ -31,6 +29,10 @@ static void delay(void);
  */
 int main()
 {
+    volatile uint32_t readv = 0;
+    uint32_t inputs = 0;
+    int i =0;
+
     /*
      * Initialize MSS GPIOs.
      */
@@ -43,7 +45,7 @@ int main()
     MSS_GPIO_config( PIN_DATA_IN_READY , MSS_GPIO_OUTPUT_MODE ); // Read Enable
     MSS_GPIO_config( PIN_RESET , MSS_GPIO_OUTPUT_MODE ); // Reset
 
-    MSS_GPIO_config( PIN_LASTBANK_AVAILABLE0, MSS_GPIO_INPUT_MODE );
+    MSS_GPIO_config( PIN_WAITING_DATA, MSS_GPIO_INPUT_MODE );
     MSS_GPIO_config( PIN_LASTBANK_AVAILABLE1, MSS_GPIO_INPUT_MODE );
     MSS_GPIO_config( PIN_REQ_DATA, MSS_GPIO_INPUT_MODE ); // Requesting more data
     MSS_GPIO_config( PIN_DATA_OUT_READY, MSS_GPIO_INPUT_MODE ); // Data Out Ready (first bank of registers has read enable=1)
@@ -55,20 +57,17 @@ int main()
     MSS_GPIO_config( PIN_STATE1, MSS_GPIO_INPUT_MODE );
     MSS_GPIO_config( PIN_STATE2, MSS_GPIO_INPUT_MODE );
 
-    uint32_t inputs = MSS_GPIO_get_inputs();
-
-    MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
-    MSS_GPIO_set_output( PIN_RESET, 0);
-    MSS_GPIO_set_output( PIN_RESET, 1);
-
     inputs = MSS_GPIO_get_inputs();
-
-    volatile uint32_t readv = 0;
 
     MSS_GPIO_set_output( PIN_LED, 1);
-    
-    inputs = MSS_GPIO_get_inputs();
-    delay();
+
+    /////////////    /////////////    /////////////
+    ////////// Now test with one block ////////////
+    /////////////    /////////////    /////////////
+
+    MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
+	MSS_GPIO_set_output( PIN_RESET, 0);
+	MSS_GPIO_set_output( PIN_RESET, 1);
 
     // Write to AHB Slave Interface (16 words of 32-bit)
     *(volatile uint32_t *)0x30000000 = 0x00000001;
@@ -95,12 +94,11 @@ int main()
     	inputs = MSS_GPIO_get_inputs();
     }
 
-    delay();
-    delay();
-    delay();
-    delay();
-
     MSS_GPIO_set_output( PIN_DATA_IN_READY, 1);
+
+    // We must wait at least 5 cycles
+    for(i=0;i<10;i++)
+    	asm("NOP");
 
     inputs = MSS_GPIO_get_inputs();
     while(!(inputs & 0x40)) // 7th bit is 1 (valid_output)
@@ -108,27 +106,23 @@ int main()
     	inputs = MSS_GPIO_get_inputs();
     }
 
-    delay();
+    // We must wait at least 5 cycles
+    for(i=0;i<10;i++)
+    	asm("NOP");
 
-    MSS_GPIO_set_output( PIN_LED, 0);
     MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
     MSS_GPIO_set_output( PIN_RESET, 0);
 
-    ///////////// Now test with two blocks
+    /////////////    /////////////    /////////////
+    ////////// Now test with two blocks ///////////
+    /////////////    /////////////    /////////////
 
-    MSS_GPIO_set_output( PIN_RESET, 1);
-
-    inputs = MSS_GPIO_get_inputs();
-
-    readv = 0;
-
-    MSS_GPIO_set_output( PIN_LED, 1);
+    /*MSS_GPIO_set_output( PIN_RESET, 1);
 
     inputs = MSS_GPIO_get_inputs();
-    delay();
 
     // Write to AHB Slave Interface (16 words of 32-bit)
-    *(volatile uint32_t *)0x30000000 = 0x00000002;
+    *(volatile uint32_t *)0x30000000 = 0x00000001;
     *(volatile uint32_t *)0x30000004 = 0x00000000;
     *(volatile uint32_t *)0x30000008 = 0x00000000;
     *(volatile uint32_t *)0x3000000C = 0x00000000;
@@ -154,8 +148,13 @@ int main()
 
     MSS_GPIO_set_output( PIN_DATA_IN_READY, 1);
 
+    // We must wait at least 5 cycles
+    for(i=0;i<10;i++)
+    	asm("NOP");
+
+    // Wait until the controller is waiting for more data
 	inputs = MSS_GPIO_get_inputs();
-	while(!(inputs & 0x20)) // 5th bit is 1 (req_more)
+	while(!(inputs & 0x4)) // 3rd bit is 1 (waiting_data)
 	{
 		inputs = MSS_GPIO_get_inputs();
 	}
@@ -179,7 +178,7 @@ int main()
 	*(volatile uint32_t *)0x30000034 = 0x00000000;
 	*(volatile uint32_t *)0x30000038 = 0x00000000;
 	*(volatile uint32_t *)0x3000003C = 0x00000000;
-	*(volatile uint32_t *)0x30000040 = 0x00000000;
+	*(volatile uint32_t *)0x30000040 = 0x00000002;
 
 	inputs = MSS_GPIO_get_inputs();
 	while(!(inputs & 0x80)) // 8th bit is 1 (data_available -> we can enable reading and give the data_out_ready signal)
@@ -189,16 +188,29 @@ int main()
 
 	MSS_GPIO_set_output( PIN_DATA_IN_READY, 1);
 
-	delay();
+    // We must wait at least 5 cycles
+    for(i=0;i<10;i++)
+    	asm("NOP");
 
-	inputs = MSS_GPIO_get_inputs();
-	while(!(inputs & 0x20)) // 5th bit is 1 (req_more)
-	{
-		inputs = MSS_GPIO_get_inputs();
-	}
+    inputs = MSS_GPIO_get_inputs();
+    while(!(inputs & 0x40)) // 7th bit is 1 (valid_output)
+    {
+    	inputs = MSS_GPIO_get_inputs();
+    }
+
+    MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
+    MSS_GPIO_set_output( PIN_RESET, 0);*/
+    
+    /////////////    /////////////    /////////////
+    ///////// Now test with three blocks //////////
+    /////////////    /////////////    /////////////
+
+    MSS_GPIO_set_output( PIN_RESET, 1);
+
+    inputs = MSS_GPIO_get_inputs();
 
     // Write to AHB Slave Interface (16 words of 32-bit)
-    *(volatile uint32_t *)0x30000000 = 0x00000003;
+    *(volatile uint32_t *)0x30000000 = 0x00000001;
     *(volatile uint32_t *)0x30000004 = 0x00000000;
     *(volatile uint32_t *)0x30000008 = 0x00000000;
     *(volatile uint32_t *)0x3000000C = 0x00000000;
@@ -214,9 +226,9 @@ int main()
     *(volatile uint32_t *)0x30000034 = 0x00000000;
     *(volatile uint32_t *)0x30000038 = 0x00000000;
     *(volatile uint32_t *)0x3000003C = 0x00000000;
-    *(volatile uint32_t *)0x30000040 = 0x00000002; // last
+    *(volatile uint32_t *)0x30000040 = 0x00000001; // first
 
-	inputs = MSS_GPIO_get_inputs();
+    inputs = MSS_GPIO_get_inputs();
 	while(!(inputs & 0x80)) // 8th bit is 1 (data_available -> we can enable reading and give the data_out_ready signal)
 	{
 		inputs = MSS_GPIO_get_inputs();
@@ -224,7 +236,91 @@ int main()
 
     MSS_GPIO_set_output( PIN_DATA_IN_READY, 1);
 
-    delay();
+    // We must wait at least 5 cycles
+    for(i=0;i<10;i++)
+    	asm("NOP");
+
+    // Wait until the controller is waiting for more data
+	inputs = MSS_GPIO_get_inputs();
+	while(!(inputs & 0x4)) // 3rd bit is 1 (waiting_data)
+	{
+		inputs = MSS_GPIO_get_inputs();
+	}
+
+	/// SECOND BLOCK
+
+    // Write to AHB Slave Interface (16 words of 32-bit)
+    *(volatile uint32_t *)0x30000000 = 0x00000002;
+    *(volatile uint32_t *)0x30000004 = 0x00000000;
+    *(volatile uint32_t *)0x30000008 = 0x00000000;
+    *(volatile uint32_t *)0x3000000C = 0x00000000;
+    *(volatile uint32_t *)0x30000010 = 0x00000000;
+    *(volatile uint32_t *)0x30000014 = 0x00000000;
+    *(volatile uint32_t *)0x30000018 = 0x00000000;
+    *(volatile uint32_t *)0x3000001C = 0x00000000;
+    *(volatile uint32_t *)0x30000020 = 0x00000000;
+    *(volatile uint32_t *)0x30000024 = 0x00000000;
+    *(volatile uint32_t *)0x30000028 = 0x00000000;
+    *(volatile uint32_t *)0x3000002C = 0x00000000;
+    *(volatile uint32_t *)0x30000030 = 0x00000000;
+    *(volatile uint32_t *)0x30000034 = 0x00000000;
+    *(volatile uint32_t *)0x30000038 = 0x00000000;
+    *(volatile uint32_t *)0x3000003C = 0x00000000;
+    *(volatile uint32_t *)0x30000040 = 0x00000000; // middle
+
+    inputs = MSS_GPIO_get_inputs();
+	while(!(inputs & 0x80)) // 8th bit is 1 (data_available -> we can enable reading and give the data_out_ready signal)
+	{
+		inputs = MSS_GPIO_get_inputs();
+	}
+
+    MSS_GPIO_set_output( PIN_DATA_IN_READY, 1);
+
+    // We must wait at least 5 cycles
+    for(i=0;i<10;i++)
+    	asm("NOP");
+
+    // Wait until the controller is waiting for more data
+	inputs = MSS_GPIO_get_inputs();
+	while(!(inputs & 0x4)) // 3rd bit is 1 (waiting_data)
+	{
+		inputs = MSS_GPIO_get_inputs();
+	}
+
+	/// THIRD BLOCK
+
+	MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
+
+	// Write to AHB Slave Interface (16 words of 32-bit)
+	*(volatile uint32_t *)0x30000000 = 0x00000003;
+	*(volatile uint32_t *)0x30000004 = 0x00000000;
+	*(volatile uint32_t *)0x30000008 = 0x00000000;
+	*(volatile uint32_t *)0x3000000C = 0x00000000;
+	*(volatile uint32_t *)0x30000010 = 0x00000000;
+	*(volatile uint32_t *)0x30000014 = 0x00000000;
+	*(volatile uint32_t *)0x30000018 = 0x00000000;
+	*(volatile uint32_t *)0x3000001C = 0x00000000;
+	*(volatile uint32_t *)0x30000020 = 0x00000000;
+	*(volatile uint32_t *)0x30000024 = 0x00000000;
+	*(volatile uint32_t *)0x30000028 = 0x00000000;
+	*(volatile uint32_t *)0x3000002C = 0x00000000;
+	*(volatile uint32_t *)0x30000030 = 0x00000000;
+	*(volatile uint32_t *)0x30000034 = 0x00000000;
+	*(volatile uint32_t *)0x30000038 = 0x00000000;
+	*(volatile uint32_t *)0x3000003C = 0x00000000;
+	*(volatile uint32_t *)0x30000040 = 0x00000002; // last
+
+	inputs = MSS_GPIO_get_inputs();
+	while(!(inputs & 0x80)) // 8th bit is 1 (data_available -> we can enable reading and give the data_out_ready signal)
+	{
+		inputs = MSS_GPIO_get_inputs();
+	}
+
+	MSS_GPIO_set_output( PIN_DATA_IN_READY, 1);
+
+    // We must wait at least 5 cycles
+    for(i=0;i<10;i++)
+    	asm("NOP");
 
     inputs = MSS_GPIO_get_inputs();
     while(!(inputs & 0x40)) // 7th bit is 1 (valid_output)
@@ -232,22 +328,16 @@ int main()
     	inputs = MSS_GPIO_get_inputs();
     }
 
-    MSS_GPIO_set_output( PIN_LED, 0);
+    // We must wait at least 5 cycles
+    for(i=0;i<10;i++)
+    	asm("NOP");
+
     MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
     MSS_GPIO_set_output( PIN_RESET, 0);
-    
-    return 0;
-}
 
-/*==============================================================================
-  Delay between displays of the watchdog counter value.
- */
-static void delay(void)
-{
-    volatile uint32_t delay_count = SystemCoreClock / 128u;
-    
-    while(delay_count > 0u)
-    {
-        --delay_count;
-    }
+    ///// END OF TESTS
+
+    MSS_GPIO_set_output( PIN_LED, 0);
+
+    return 0;
 }

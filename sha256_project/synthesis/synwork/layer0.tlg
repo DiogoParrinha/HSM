@@ -173,11 +173,11 @@ Post processing for work.sha256_system_sb.rtl
 Post processing for work.zero_concat.architecture_zero_concat
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd":17:7:17:18|Synthesizing work.sha256_block.rtl 
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":33:7:33:23|Synthesizing work.sha256_controller.architecture_sha256_controller 
-@N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":64:20:64:21|Using onehot encoding for type state_type (wait_data="100000")
-@W: CG296 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":116:4:116:10|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":178:38:178:44|Referenced variable counter is not in sensitivity list
+@N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":65:20:65:21|Using onehot encoding for type state_type (wait_data="100000")
+@W: CG296 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":117:4:117:10|Incomplete sensitivity list - assuming completeness
+@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":182:38:182:44|Referenced variable counter is not in sensitivity list
 Post processing for work.sha256_controller.architecture_sha256_controller
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":58:31:58:33|Latch generated from process for signal bytes_o(1 downto 0); possible missing assignment in an if or case statement.
+@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":59:31:59:33|Latch generated from process for signal bytes_o(1 downto 0); possible missing assignment in an if or case statement.
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\reg_17x32.vhd":23:7:23:15|Synthesizing work.reg_17x32.architecture_reg_17x32 
 Post processing for work.reg_17x32.architecture_reg_17x32
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd":22:7:22:20|Synthesizing work.limiter_1cycle.architecture_limiter_1cycle 
@@ -246,9 +246,9 @@ State machine has 7 reachable states with original encodings of:
 @W: CL249 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":354:8:354:9|Initial value is not supported on state machine hash_control_st_reg
 @N: CL135 :"E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd":122:8:122:9|Found seqShift r2, depth=8, width=32
 @N: CL135 :"E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd":122:8:122:9|Found seqShift r10, depth=5, width=32
-@W: CL190 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":237:8:237:9|Optimizing register bit counter(4) to a constant 0
-@W: CL260 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":237:8:237:9|Pruning register bit 4 of counter(4 downto 0)  
-@N: CL201 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":78:8:78:9|Trying to extract state machine for register state
+@W: CL190 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":244:8:244:9|Optimizing register bit counter(4) to a constant 0
+@W: CL260 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":244:8:244:9|Pruning register bit 4 of counter(4 downto 0)  
+@N: CL201 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":79:8:79:9|Trying to extract state machine for register state
 Extracted state machine for register state
 State machine has 6 reachable states with original encodings of:
    000001
