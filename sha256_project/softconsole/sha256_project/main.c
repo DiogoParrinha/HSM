@@ -15,13 +15,17 @@ static void delay(void);
 
 #define PIN_LED MSS_GPIO_0
 #define PIN_DATA_IN_READY MSS_GPIO_1
-#define PIN_LAST_BLOCK MSS_GPIO_2
-#define PIN_FIRST_BLOCK MSS_GPIO_3
+#define PIN_LASTBANK_AVAILABLE0 MSS_GPIO_2
+#define PIN_LASTBANK_AVAILABLE1 MSS_GPIO_3
 #define PIN_REQ_DATA MSS_GPIO_4
-#define PIN_DATA_OUT_READY MSS_GPIO_4
-#define PIN_VALID_OUTPUT MSS_GPIO_5
-#define PIN_ERROR_OUTPUT MSS_GPIO_6
-#define PIN_RESET MSS_GPIO_7
+#define PIN_DATA_OUT_READY MSS_GPIO_5
+#define PIN_VALID_OUTPUT MSS_GPIO_6
+#define PIN_DATA_AVAILABLE MSS_GPIO_7
+#define PIN_ERROR_OUTPUT MSS_GPIO_8
+#define PIN_RESET MSS_GPIO_9
+#define PIN_STATE0 MSS_GPIO_10
+#define PIN_STATE1 MSS_GPIO_11
+#define PIN_STATE2 MSS_GPIO_12
 /*==============================================================================
  * main() function.
  */
@@ -38,14 +42,26 @@ int main()
     MSS_GPIO_config( PIN_LED , MSS_GPIO_OUTPUT_MODE ); // LED
     MSS_GPIO_config( PIN_DATA_IN_READY , MSS_GPIO_OUTPUT_MODE ); // Read Enable
     MSS_GPIO_config( PIN_RESET , MSS_GPIO_OUTPUT_MODE ); // Reset
-    MSS_GPIO_config( PIN_REQ_DATA, MSS_GPIO_INPUT_MODE ); // Valid Output
-    MSS_GPIO_config( PIN_DATA_OUT_READY, MSS_GPIO_INPUT_MODE ); // Data Out Ready (first bank of registers)
-    MSS_GPIO_config( PIN_VALID_OUTPUT, MSS_GPIO_INPUT_MODE ); // Valid
-    MSS_GPIO_config( PIN_ERROR_OUTPUT, MSS_GPIO_INPUT_MODE ); // Error
+
+    MSS_GPIO_config( PIN_LASTBANK_AVAILABLE0, MSS_GPIO_INPUT_MODE );
+    MSS_GPIO_config( PIN_LASTBANK_AVAILABLE1, MSS_GPIO_INPUT_MODE );
+    MSS_GPIO_config( PIN_REQ_DATA, MSS_GPIO_INPUT_MODE ); // Requesting more data
+    MSS_GPIO_config( PIN_DATA_OUT_READY, MSS_GPIO_INPUT_MODE ); // Data Out Ready (first bank of registers has read enable=1)
+    MSS_GPIO_config( PIN_VALID_OUTPUT, MSS_GPIO_INPUT_MODE ); // Valid Output at the end of the SHA-256 core
+    MSS_GPIO_config( PIN_ERROR_OUTPUT, MSS_GPIO_INPUT_MODE ); // Error at the SHA-256 core
+    MSS_GPIO_config( PIN_DATA_AVAILABLE, MSS_GPIO_INPUT_MODE ); // Data Available (last register has a value)
+
+    MSS_GPIO_config( PIN_STATE0, MSS_GPIO_INPUT_MODE );
+    MSS_GPIO_config( PIN_STATE1, MSS_GPIO_INPUT_MODE );
+    MSS_GPIO_config( PIN_STATE2, MSS_GPIO_INPUT_MODE );
+
+    uint32_t inputs = MSS_GPIO_get_inputs();
 
     MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
     MSS_GPIO_set_output( PIN_RESET, 0);
     MSS_GPIO_set_output( PIN_RESET, 1);
+
+    inputs = MSS_GPIO_get_inputs();
 
     volatile uint32_t readv = 0;
 	readv = *(volatile uint32_t *)0x30000000;
@@ -57,9 +73,18 @@ int main()
 	readv = *(volatile uint32_t *)0x30000018;
 	readv = *(volatile uint32_t *)0x3000001C;
 	readv = *(volatile uint32_t *)0x30000020;
+	readv = *(volatile uint32_t *)0x30000024;
+	readv = *(volatile uint32_t *)0x30000028;
+	readv = *(volatile uint32_t *)0x3000002C;
+	readv = *(volatile uint32_t *)0x30000030;
+	readv = *(volatile uint32_t *)0x30000034;
+	readv = *(volatile uint32_t *)0x30000038;
+	readv = *(volatile uint32_t *)0x3000003C;
+	readv = *(volatile uint32_t *)0x30000040;
 
     MSS_GPIO_set_output( PIN_LED, 1);
     
+    inputs = MSS_GPIO_get_inputs();
     delay();
 
     // Write to AHB Slave Interface (16 words of 32-bit)
@@ -81,7 +106,7 @@ int main()
     *(volatile uint32_t *)0x3000003C = 0x00000000;
     *(volatile uint32_t *)0x30000040 = 0x00000003;
 
-    uint32_t inputs = MSS_GPIO_get_inputs();
+    inputs = MSS_GPIO_get_inputs();
     while(!(inputs & 0x80)) // 8th bit is 1 (data_available -> we can enable reading and give the data_out_ready signal)
     {
     	inputs = MSS_GPIO_get_inputs();
@@ -94,26 +119,12 @@ int main()
 
     MSS_GPIO_set_output( PIN_DATA_IN_READY, 1);
 
-    delay();
-    delay();
-    delay();
+    inputs = MSS_GPIO_get_inputs();
+    while(!(inputs & 0x40)) // 7th bit is 1 (valid_output)
+    {
+    	inputs = MSS_GPIO_get_inputs();
+    }
 
-    readv = *(volatile uint32_t *)0x30000000;
-	readv = *(volatile uint32_t *)0x30000004;
-	readv = *(volatile uint32_t *)0x30000008;
-	readv = *(volatile uint32_t *)0x3000000C;
-	readv = *(volatile uint32_t *)0x30000010;
-	readv = *(volatile uint32_t *)0x30000014;
-	readv = *(volatile uint32_t *)0x30000018;
-	readv = *(volatile uint32_t *)0x3000001C;
-	readv = *(volatile uint32_t *)0x30000020;
-
-
-
-    delay();
-    delay();
-    delay();
-    delay();
     delay();
 
     for(;;)
@@ -132,23 +143,9 @@ int main()
     	inputs = MSS_GPIO_get_inputs();
     }
 
-    /*
-     * Infinite loop.
-     */
-    /*volatile uint32_t readv = 0;
-    for(;;)
-    {
-        uint32_t gpio_pattern;
-        //Decrement delay counter.
-        delay();
-        
-        // Toggle GPIO output pattern by doing an exclusive OR of all pattern bits with ones.
-        gpio_pattern = MSS_GPIO_get_outputs();
-        gpio_pattern ^= 0xFFFFFFFF;
-        MSS_GPIO_set_outputs( gpio_pattern );
-
-        readv = *(volatile uint32_t *)0x30000000;
-    }*/
+    MSS_GPIO_set_output( PIN_LED, 0);
+    MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
+    MSS_GPIO_set_output( PIN_RESET, 0);
     
     return 0;
 }

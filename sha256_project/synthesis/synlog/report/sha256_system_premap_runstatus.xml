@@ -13,13 +13,13 @@ The file contains the job information from mapper to be displayed as part of the
 </job_status>
 <job_info>
 <info name="Notes">
-<data>95</data>
+<data>103</data>
 <report_link name="more">
 <data>E:\LiberoProjects\sha256_project\synthesis\synlog\report\sha256_system_premap_notes.txt</data>
 </report_link>
 </info>
 <info name="Warnings">
-<data>18</data>
+<data>16</data>
 <report_link name="more">
 <data>E:\LiberoProjects\sha256_project\synthesis\synlog\report\sha256_system_premap_warnings.txt</data>
 </report_link>
@@ -40,7 +40,7 @@ The file contains the job information from mapper to be displayed as part of the
 <data>154MB</data>
 </info>
 <info name="Date &amp; Time">
-<data type="timestamp">1496777562</data>
+<data type="timestamp">1496848984</data>
 </info>
 </job_info>
 </job_run_status>

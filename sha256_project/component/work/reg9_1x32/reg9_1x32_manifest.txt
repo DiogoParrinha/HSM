@@ -1,6 +1,6 @@
 Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
 
-Date      :  Thu Jun 01 12:38:20 2017
+Date      :  Tue Jun 06 23:16:20 2017
 Project   :  E:\LiberoProjects\sha256_project
 Component :  reg9_1x32
 Family    :  SmartFusion2

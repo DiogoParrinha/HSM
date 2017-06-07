@@ -32,12 +32,14 @@ use ieee.std_logic_unsigned.all;
 
 entity sha256_controller is
 port (
-    read_addr : OUT std_logic_vector(3 downto 0);  -- selects the register to read from
+    read_addr : OUT std_logic_vector(4 downto 0);  -- selects the register to read from
     read_data : IN std_logic_vector(31 downto 0); -- the output at the selected register
 
     data_ready : IN std_logic;
     last_block : IN std_logic;
     first_block : IN std_logic;
+
+    state_out : out std_logic_vector(2 downto 0);
 
     --wait_data : OUT std_logic;
     clk : in std_logic := 'U';                                       -- system clock
@@ -61,7 +63,7 @@ architecture architecture_sha256_controller of sha256_controller is
 
     TYPE STATE_TYPE IS (wait_data, init_block, process_word, process_wait, end_block, wait_finish);
 
-	signal counter : std_logic_vector(3 downto 0);
+	signal counter : std_logic_vector(4 downto 0);
     signal state : STATE_TYPE;
     signal sel_di : std_logic;
     signal start_counting : std_logic;
@@ -86,10 +88,10 @@ begin
                 WHEN init_block=>
                     state <= process_wait;
                 WHEN process_word=>
-                    IF counter = "1111" THEN
-                        state <= end_block;
-                    ELSIF di_req_i = '0' THEN
+                    IF di_req_i = '0' THEN
                         state <= process_wait;
+                    ELSIF counter = "01111" THEN
+                        state <= end_block;
                     ELSE
                         state <= process_word;
                     END IF;
@@ -118,59 +120,98 @@ begin
                 ce_o <= '0';
                 start_o <= '0';
                 end_o <= '0';
+
                 di_wr_o <= '0';
                 bytes_o <= "00";
                 sel_di <= '0';
+
                 start_counting <= '0';
                 extra_add <= '0';
-                restart <= '1';
                 new_block <= '0';
+                restart <= '1';
+
+                state_out <= "001";
             WHEN init_block =>
                 ce_o <= '1';
                 if(blocks_counter = 0) then
                     start_o <= '1';
                 end if;
                 end_o <= '0';
+
                 di_wr_o <= '0';
                 sel_di <= '1';
                 bytes_o <= "00";
+
                 start_counting <= '0';
                 extra_add <= '0';
                 new_block <= '1';
                 restart <= '0';
+
+                state_out <= "010";
             WHEN process_word =>
                 ce_o <= '1';
                 start_o <= '0';
                 end_o <= '0';
+
                 di_wr_o <= '1';
                 bytes_o <= "00";
                 sel_di <= '1';
+
                 start_counting <= '1';
                 extra_add <= '0';
                 new_block <= '0';
+                restart <= '0';
+
+                state_out <= "011";
             WHEN process_wait =>
+                ce_o <= '1';
+                start_o <= '0';
+                end_o <= '0';
+
                 di_wr_o <= '0';
                 sel_di <= '0';
                 start_o <= '0';
+
                 start_counting <= '0';
                 if(di_req_i = '1' and counter = 0) then
                     extra_add <= '1';
                 end if;
                 new_block <= '0';
+                restart <= '0';
+
+                state_out <= "100";
             WHEN end_block =>
+                ce_o <= '1';
+                start_o <= '0';
                 if(last_block = '1') then
                     end_o <= '1';
                 end if;
+
+                di_wr_o <= '1';
+                bytes_o <= "00";
+                sel_di <= '1';
+
                 start_counting <= '1';
                 extra_add <= '0';
                 new_block <= '0';
+                restart <= '0';
+
+                state_out <= "101";
             WHEN wait_finish =>
+                ce_o <= '1';
+                start_o <= '0';
+                end_o <= '0';
+
                 di_wr_o <= '0';
                 end_o <= '0';
-                sel_di <= '0';  
+                sel_di <= '0';
+
                 start_counting <= '0';
                 extra_add <= '0';
                 new_block <= '0';
+                restart <= '0';
+
+                state_out <= "110";
         END CASE;
     END PROCESS;
 
@@ -190,8 +231,8 @@ begin
         if RST_N = '0' or restart = '1' then
             counter <= (others => '0');
         elsif (clk='1' and clk'event) then
-            if(counter = "1111") then
-                counter <= "0000";
+            if(counter = "01111") then
+                counter <= "00000";
             elsif(start_counting = '1') then
                 counter <= counter + 1;
             else

@@ -173,22 +173,17 @@ Post processing for work.sha256_system_sb.rtl
 Post processing for work.zero_concat.architecture_zero_concat
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd":17:7:17:18|Synthesizing work.sha256_block.rtl 
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":33:7:33:23|Synthesizing work.sha256_controller.architecture_sha256_controller 
-@N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":62:20:62:21|Using onehot encoding for type state_type (wait_data="100000")
-@W: CG296 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":114:4:114:10|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":156:38:156:44|Referenced variable counter is not in sensitivity list
+@N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":64:20:64:21|Using onehot encoding for type state_type (wait_data="100000")
+@W: CG296 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":116:4:116:10|Incomplete sensitivity list - assuming completeness
+@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":176:38:176:44|Referenced variable counter is not in sensitivity list
 Post processing for work.sha256_controller.architecture_sha256_controller
-@A: CL109 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Too many clocks (> 8) for set/reset analysis of start_o, try moving enabling expressions outside process
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Latch generated from process for signal start_o; possible missing assignment in an if or case statement.
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Latch generated from process for signal extra_add; possible missing assignment in an if or case statement.
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Latch generated from process for signal end_o; possible missing assignment in an if or case statement.
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Latch generated from process for signal restart; possible missing assignment in an if or case statement.
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":56:31:56:33|Latch generated from process for signal bytes_o(1 downto 0); possible missing assignment in an if or case statement.
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":116:8:116:11|Latch generated from process for signal ce_o; possible missing assignment in an if or case statement.
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":50:67:50:67|Latch generated from process for signal sel_di; possible missing assignment in an if or case statement.
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":47:28:47:30|Latch generated from process for signal di_wr_o; possible missing assignment in an if or case statement.
+@A: CL109 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":49:28:49:30|Too many clocks (> 8) for set/reset analysis of start_o, try moving enabling expressions outside process
+@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":49:28:49:30|Latch generated from process for signal start_o; possible missing assignment in an if or case statement.
+@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":52:67:52:67|Latch generated from process for signal extra_add; possible missing assignment in an if or case statement.
+@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":49:28:49:30|Latch generated from process for signal end_o; possible missing assignment in an if or case statement.
+@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":58:31:58:33|Latch generated from process for signal bytes_o(1 downto 0); possible missing assignment in an if or case statement.
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":23:7:23:15|Synthesizing work.reg_17x32.architecture_reg_17x32 
 Post processing for work.reg_17x32.architecture_reg_17x32
-@W: CL271 :"E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd":79:4:79:5|Pruning bits 63 to 2 of line8_6(63 downto 0) -- not in use ... 
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd":22:7:22:20|Synthesizing work.limiter_1cycle.architecture_limiter_1cycle 
 Post processing for work.limiter_1cycle.architecture_limiter_1cycle
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd":80:7:80:15|Synthesizing work.gv_sha256.rtl 
@@ -251,7 +246,9 @@ State machine has 7 reachable states with original encodings of:
 @W: CL249 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":354:8:354:9|Initial value is not supported on state machine hash_control_st_reg
 @N: CL135 :"E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd":122:8:122:9|Found seqShift r2, depth=8, width=32
 @N: CL135 :"E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd":122:8:122:9|Found seqShift r10, depth=5, width=32
-@N: CL201 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":76:8:76:9|Trying to extract state machine for register state
+@W: CL190 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":231:8:231:9|Optimizing register bit counter(4) to a constant 0
+@W: CL260 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":231:8:231:9|Pruning register bit 4 of counter(4 downto 0)  
+@N: CL201 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":78:8:78:9|Trying to extract state machine for register state
 Extracted state machine for register state
 State machine has 6 reachable states with original encodings of:
    000001

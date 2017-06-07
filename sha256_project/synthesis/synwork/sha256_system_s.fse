@@ -27,21 +27,19 @@ fsm_state_encoding {1335483542} st_error {1000001}
 
 fsm_registers {1335483542} {hash_control_st_reg[0]}  {hash_control_st_reg[1]}  {hash_control_st_reg[2]}  {hash_control_st_reg[3]}  {hash_control_st_reg[4]}  {hash_control_st_reg[5]}  {hash_control_st_reg_i[6]} 
 
-fsm_encoding {22768763} onehot
+fsm_encoding {22788783} onehot
 
-fsm_state_encoding {22768763} wait_data {000001}
+fsm_state_encoding {22788783} wait_data {00001}
 
-fsm_state_encoding {22768763} init_block {000010}
+fsm_state_encoding {22788783} init_block {00010}
 
-fsm_state_encoding {22768763} process_word {000100}
+fsm_state_encoding {22788783} process_word {00100}
 
-fsm_state_encoding {22768763} process_wait {001000}
+fsm_state_encoding {22788783} process_wait {01000}
 
-fsm_state_encoding {22768763} end_block {010000}
+fsm_state_encoding {22788783} end_block {10000}
 
-fsm_state_encoding {22768763} wait_finish {100000}
-
-fsm_registers {22768763} {state[0]}  {state[1]}  {state[2]}  {state[3]}  {state[4]}  {state[5]} 
+fsm_registers {22788783} {state[0]}  {state[1]}  {state[2]}  {state[3]}  {state[4]} 
 
 fsm_encoding {3039883984} onehot
 

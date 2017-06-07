@@ -3,7 +3,7 @@
 <doc>
 <title>Global Net Report</title>
 <text>Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)</text>
-<text>Date: Tue Jun 06 20:33:33 2017
+<text>Date: Wed Jun 07 16:23:56 2017
 </text>
 <section>
 <name>Global Nets Information</name>
@@ -17,38 +17,31 @@
 </header>
 <row>
  <cell>1</cell>
- <cell>GB[2] </cell>
- <cell>(436, 108)</cell>
+ <cell>GB[6] </cell>
+ <cell>(440, 108)</cell>
  <cell>sha256_system_sb_0/CCC_0/GL0_INST/U0_YWn_GEast</cell>
- <cell>2010</cell>
+ <cell>2016</cell>
 </row>
 <row>
  <cell>2</cell>
- <cell>GB[7] </cell>
- <cell>(441, 108)</cell>
- <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIFQTF/U0_YWn_GEast</cell>
- <cell>37</cell>
-</row>
-<row>
- <cell>3</cell>
- <cell>GB[5] </cell>
- <cell>(439, 108)</cell>
+ <cell>GB[2] </cell>
+ <cell>(436, 108)</cell>
  <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n_RNIE1K2/U0_YWn_GEast</cell>
  <cell>32</cell>
 </row>
 <row>
- <cell>4</cell>
- <cell>GB[6] </cell>
- <cell>(440, 108)</cell>
- <cell>sha256_system_sb_0/SYSRESET_POR_RNI03O8/U0_YWn_GEast</cell>
- <cell>17</cell>
+ <cell>3</cell>
+ <cell>GB[7] </cell>
+ <cell>(441, 108)</cell>
+ <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIFQTF/U0_YWn_GEast</cell>
+ <cell>29</cell>
 </row>
 <row>
- <cell>5</cell>
+ <cell>4</cell>
  <cell>GB[3] </cell>
  <cell>(437, 108)</cell>
- <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state_inferred_clock_RNINA0F_0[1]/U0_YWn_GEast</cell>
- <cell>2</cell>
+ <cell>sha256_system_sb_0/SYSRESET_POR_RNI03O8/U0_YWn_GEast</cell>
+ <cell>17</cell>
 </row>
 </table>
 <text></text>
@@ -71,19 +64,19 @@
 </header>
 <row>
  <cell>1</cell>
- <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int:Q</cell>
- <cell>(761, 193)</cell>
- <cell>GB[7] </cell>
- <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int</cell>
+ <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n:Y</cell>
+ <cell>(735, 186)</cell>
+ <cell>GB[2] </cell>
+ <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n</cell>
  <cell>ROUTED</cell>
  <cell>1</cell>
 </row>
 <row>
  <cell>2</cell>
- <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n:Y</cell>
- <cell>(765, 177)</cell>
- <cell>GB[5] </cell>
- <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n</cell>
+ <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int:Q</cell>
+ <cell>(809, 202)</cell>
+ <cell>GB[7] </cell>
+ <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int</cell>
  <cell>ROUTED</cell>
  <cell>1</cell>
 </row>
@@ -91,17 +84,8 @@
  <cell>3</cell>
  <cell>sha256_system_sb_0/SYSRESET_POR/INST_SYSRESET_IP:POWER_ON_RESET_N</cell>
  <cell>(876, 8)</cell>
- <cell>GB[6] </cell>
- <cell>sha256_system_sb_0/SYSRESET_POR</cell>
- <cell>ROUTED</cell>
- <cell>1</cell>
-</row>
-<row>
- <cell>4</cell>
- <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state_inferred_clock_RNINA0F[1]:Y</cell>
- <cell>(761, 177)</cell>
  <cell>GB[3] </cell>
- <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state_inferred_clock_RNINA0F[1]</cell>
+ <cell>sha256_system_sb_0/SYSRESET_POR</cell>
  <cell>ROUTED</cell>
  <cell>1</cell>
 </row>
@@ -126,7 +110,7 @@
  <cell>sha256_system_sb_0/CCC_0/CCC_INST/INST_CCC_IP:GL0</cell>
  <cell>CCC-NW1 (18, 194)</cell>
  <cell>GL0 =&gt; GL2</cell>
- <cell>GB[2] </cell>
+ <cell>GB[6] </cell>
  <cell>sha256_system_sb_0/CCC_0/GL0_net</cell>
  <cell>HARDWIRED</cell>
  <cell>1</cell>
@@ -157,13 +141,13 @@
 </header>
 <row>
  <cell>1</cell>
- <cell>GB[2] </cell>
- <cell>(436, 108)</cell>
+ <cell>GB[6] </cell>
+ <cell>(440, 108)</cell>
  <cell>sha256_system_sb_0/CCC_0/GL0_INST/U0_YWn_GEast</cell>
- <cell>2010</cell>
+ <cell>2016</cell>
  <cell>1</cell>
- <cell>(662, 129)</cell>
- <cell>44</cell>
+ <cell>(662, 138)</cell>
+ <cell>61</cell>
 </row>
 <row>
  <cell> </cell>
@@ -172,8 +156,8 @@
  <cell></cell>
  <cell></cell>
  <cell>2</cell>
- <cell>(662, 132)</cell>
- <cell>47</cell>
+ <cell>(662, 141)</cell>
+ <cell>86</cell>
 </row>
 <row>
  <cell> </cell>
@@ -182,8 +166,8 @@
  <cell></cell>
  <cell></cell>
  <cell>3</cell>
- <cell>(662, 135)</cell>
- <cell>64</cell>
+ <cell>(662, 144)</cell>
+ <cell>80</cell>
 </row>
 <row>
  <cell> </cell>
@@ -192,8 +176,8 @@
  <cell></cell>
  <cell></cell>
  <cell>4</cell>
- <cell>(662, 138)</cell>
- <cell>119</cell>
+ <cell>(662, 147)</cell>
+ <cell>73</cell>
 </row>
 <row>
  <cell> </cell>
@@ -202,8 +186,8 @@
  <cell></cell>
  <cell></cell>
  <cell>5</cell>
- <cell>(662, 141)</cell>
- <cell>126</cell>
+ <cell>(662, 150)</cell>
+ <cell>122</cell>
 </row>
 <row>
  <cell> </cell>
@@ -212,8 +196,8 @@
  <cell></cell>
  <cell></cell>
  <cell>6</cell>
- <cell>(662, 144)</cell>
- <cell>99</cell>
+ <cell>(662, 153)</cell>
+ <cell>126</cell>
 </row>
 <row>
  <cell> </cell>
@@ -222,8 +206,8 @@
  <cell></cell>
  <cell></cell>
  <cell>7</cell>
- <cell>(662, 147)</cell>
- <cell>91</cell>
+ <cell>(662, 156)</cell>
+ <cell>117</cell>
 </row>
 <row>
  <cell> </cell>
@@ -232,8 +216,8 @@
  <cell></cell>
  <cell></cell>
  <cell>8</cell>
- <cell>(662, 150)</cell>
- <cell>127</cell>
+ <cell>(662, 159)</cell>
+ <cell>100</cell>
 </row>
 <row>
  <cell> </cell>
@@ -242,8 +226,8 @@
  <cell></cell>
  <cell></cell>
  <cell>9</cell>
- <cell>(662, 153)</cell>
- <cell>71</cell>
+ <cell>(662, 162)</cell>
+ <cell>100</cell>
 </row>
 <row>
  <cell> </cell>
@@ -252,8 +236,8 @@
  <cell></cell>
  <cell></cell>
  <cell>10</cell>
- <cell>(662, 156)</cell>
- <cell>73</cell>
+ <cell>(662, 165)</cell>
+ <cell>66</cell>
 </row>
 <row>
  <cell> </cell>
@@ -262,8 +246,8 @@
  <cell></cell>
  <cell></cell>
  <cell>11</cell>
- <cell>(662, 159)</cell>
- <cell>72</cell>
+ <cell>(662, 168)</cell>
+ <cell>98</cell>
 </row>
 <row>
  <cell> </cell>
@@ -272,8 +256,8 @@
  <cell></cell>
  <cell></cell>
  <cell>12</cell>
- <cell>(662, 162)</cell>
- <cell>69</cell>
+ <cell>(662, 171)</cell>
+ <cell>110</cell>
 </row>
 <row>
  <cell> </cell>
@@ -282,8 +266,8 @@
  <cell></cell>
  <cell></cell>
  <cell>13</cell>
- <cell>(662, 165)</cell>
- <cell>85</cell>
+ <cell>(662, 174)</cell>
+ <cell>103</cell>
 </row>
 <row>
  <cell> </cell>
@@ -292,8 +276,8 @@
  <cell></cell>
  <cell></cell>
  <cell>14</cell>
- <cell>(662, 168)</cell>
- <cell>97</cell>
+ <cell>(662, 177)</cell>
+ <cell>38</cell>
 </row>
 <row>
  <cell> </cell>
@@ -302,8 +286,8 @@
  <cell></cell>
  <cell></cell>
  <cell>15</cell>
- <cell>(662, 171)</cell>
- <cell>112</cell>
+ <cell>(662, 180)</cell>
+ <cell>99</cell>
 </row>
 <row>
  <cell> </cell>
@@ -312,8 +296,8 @@
  <cell></cell>
  <cell></cell>
  <cell>16</cell>
- <cell>(662, 174)</cell>
- <cell>55</cell>
+ <cell>(662, 183)</cell>
+ <cell>67</cell>
 </row>
 <row>
  <cell> </cell>
@@ -322,8 +306,8 @@
  <cell></cell>
  <cell></cell>
  <cell>17</cell>
- <cell>(662, 177)</cell>
- <cell>90</cell>
+ <cell>(662, 186)</cell>
+ <cell>101</cell>
 </row>
 <row>
  <cell> </cell>
@@ -332,8 +316,8 @@
  <cell></cell>
  <cell></cell>
  <cell>18</cell>
- <cell>(662, 180)</cell>
- <cell>96</cell>
+ <cell>(662, 189)</cell>
+ <cell>109</cell>
 </row>
 <row>
  <cell> </cell>
@@ -342,8 +326,8 @@
  <cell></cell>
  <cell></cell>
  <cell>19</cell>
- <cell>(662, 183)</cell>
- <cell>73</cell>
+ <cell>(662, 192)</cell>
+ <cell>90</cell>
 </row>
 <row>
  <cell> </cell>
@@ -352,26 +336,6 @@
  <cell></cell>
  <cell></cell>
  <cell>20</cell>
- <cell>(662, 186)</cell>
- <cell>69</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>21</cell>
- <cell>(662, 189)</cell>
- <cell>49</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>22</cell>
  <cell>(662, 204)</cell>
  <cell>1</cell>
 </row>
@@ -381,19 +345,9 @@
  <cell></cell>
  <cell></cell>
  <cell></cell>
- <cell>23</cell>
- <cell>(663, 192)</cell>
- <cell>69</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>24</cell>
+ <cell>21</cell>
  <cell>(663, 195)</cell>
- <cell>77</cell>
+ <cell>95</cell>
 </row>
 <row>
  <cell> </cell>
@@ -401,9 +355,9 @@
  <cell></cell>
  <cell></cell>
  <cell></cell>
- <cell>25</cell>
+ <cell>22</cell>
  <cell>(663, 198)</cell>
- <cell>65</cell>
+ <cell>86</cell>
 </row>
 <row>
  <cell> </cell>
@@ -411,57 +365,77 @@
  <cell></cell>
  <cell></cell>
  <cell></cell>
- <cell>26</cell>
+ <cell>23</cell>
  <cell>(663, 201)</cell>
- <cell>70</cell>
+ <cell>88</cell>
 </row>
 <row>
  <cell>2</cell>
- <cell>GB[7] </cell>
- <cell>(441, 108)</cell>
- <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIFQTF/U0_YWn_GEast</cell>
- <cell>37</cell>
- <cell>1</cell>
- <cell>(662, 192)</cell>
- <cell>18</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>2</cell>
- <cell>(662, 195)</cell>
- <cell>2</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>3</cell>
- <cell>(662, 198)</cell>
- <cell>7</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>4</cell>
- <cell>(662, 201)</cell>
- <cell>10</cell>
-</row>
-<row>
- <cell>3</cell>
- <cell>GB[5] </cell>
- <cell>(439, 108)</cell>
+ <cell>GB[2] </cell>
+ <cell>(436, 108)</cell>
  <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n_RNIE1K2/U0_YWn_GEast</cell>
  <cell>32</cell>
  <cell>1</cell>
+ <cell>(663, 186)</cell>
+ <cell>1</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>2</cell>
+ <cell>(663, 189)</cell>
+ <cell>31</cell>
+</row>
+<row>
+ <cell>3</cell>
+ <cell>GB[7] </cell>
+ <cell>(441, 108)</cell>
+ <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIFQTF/U0_YWn_GEast</cell>
+ <cell>29</cell>
+ <cell>1</cell>
+ <cell>(662, 195)</cell>
+ <cell>12</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>2</cell>
+ <cell>(662, 198)</cell>
+ <cell>12</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>3</cell>
+ <cell>(662, 201)</cell>
+ <cell>5</cell>
+</row>
+<row>
+ <cell>4</cell>
+ <cell>GB[3] </cell>
+ <cell>(437, 108)</cell>
+ <cell>sha256_system_sb_0/SYSRESET_POR_RNI03O8/U0_YWn_GEast</cell>
+ <cell>17</cell>
+ <cell>1</cell>
+ <cell>(663, 171)</cell>
+ <cell>3</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>2</cell>
  <cell>(663, 177)</cell>
  <cell>1</cell>
 </row>
@@ -471,29 +445,19 @@
  <cell></cell>
  <cell></cell>
  <cell></cell>
- <cell>2</cell>
- <cell>(663, 180)</cell>
- <cell>31</cell>
+ <cell>3</cell>
+ <cell>(663, 192)</cell>
+ <cell>12</cell>
 </row>
 <row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
  <cell>4</cell>
- <cell>GB[6] </cell>
- <cell>(440, 108)</cell>
- <cell>sha256_system_sb_0/SYSRESET_POR_RNI03O8/U0_YWn_GEast</cell>
- <cell>17</cell>
- <cell> </cell>
- <cell>(663, 189)</cell>
- <cell>17</cell>
-</row>
-<row>
- <cell>5</cell>
- <cell>GB[3] </cell>
- <cell>(437, 108)</cell>
- <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state_inferred_clock_RNINA0F_0[1]/U0_YWn_GEast</cell>
- <cell>2</cell>
- <cell> </cell>
- <cell>(663, 174)</cell>
- <cell>2</cell>
+ <cell>(664, 195)</cell>
+ <cell>1</cell>
 </row>
 </table>
 <text></text>

@@ -27,7 +27,8 @@ port (
 	data_in : IN  std_logic_vector(31 downto 0);
     wen : IN std_logic;
     ren : IN std_logic;
-    data_out : OUT std_logic_vector(31 downto 0)
+    data_out : OUT std_logic_vector(31 downto 0);
+    data_available : OUT std_logic
 );
 end reg_1x32;
 architecture architecture_reg_1x32 of reg_1x32 is
@@ -47,10 +48,12 @@ begin
         if RST_N='0' then
             line <= (others => '0');
             ren_pos <= '0';
+            data_available <= '0';
         else
             ren_pos <= ren;
             if(wen='1') then
                 line(31 downto 0) <= data_in;
+                data_available <= '1';
             end if;
         end if;
     end if;

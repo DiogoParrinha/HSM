@@ -21,4 +21,20 @@ procedure user_main;
 
 # add your BFM commands below:
 
+//wait 5;
+
+//print "**************************************************************";
+//print "Testing AHB Slave";
+//print "**************************************************************";
+
+//Data Write to 0x00 location
+//write w COREAHBLSRAM_0_0 0x0 0x12345678; 
+//Data Write to 0x04 location
+//write w COREAHBLSRAM_0_0 0x4 0xAAAAAAAA; 
+
+//Readcheck at 0x00 location
+//readcheck w COREAHBLSRAM_0_0 0x0 0x12345678; 
+//Readcheck at 0x04 location
+//readcheck w COREAHBLSRAM_0_0 0x4 0xAAAAAAAA; 
+
 return

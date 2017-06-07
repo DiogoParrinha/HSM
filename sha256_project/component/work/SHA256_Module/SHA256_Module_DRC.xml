@@ -3,10 +3,10 @@
 <drcreport>
   <header>SHA256_Module</header>
   <drc>
-    <status>C:\Microsemi\Libero_SoC_v11.7\Designer/data/drcreport\error.png</status>
-    <StatusMessage>Error</StatusMessage>
-    <message>Undriven Pin</message>
-    <detail>Unconnected top level output port SHA256_Module:data_out_ready</detail>
-    <crossprobe>liberoaction://cross_probe/smartdesign/SHA256_Module/pins/SHA256_Module:data_out_ready</crossprobe>
+    <status>C:\Microsemi\Libero_SoC_v11.7\Designer/data/drcreport\warn.png</status>
+    <StatusMessage>Warning</StatusMessage>
+    <message>Floating Driver</message>
+    <detail>Floating output pin reg9_1x32_0:data_available_lastbank_8</detail>
+    <crossprobe>liberoaction://cross_probe/smartdesign/SHA256_Module/pins/reg9_1x32_0:data_available_lastbank_8</crossprobe>
   </drc>
 </drcreport>

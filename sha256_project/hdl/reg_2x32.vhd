@@ -26,7 +26,7 @@ port (
     RST_N : IN std_logic;
 	data_in : IN  std_logic_vector(31 downto 0);
     waddr_in : IN std_logic_vector(4 downto 0);
-    raddr_in : IN std_logic_vector(3 downto 0);
+    raddr_in : IN std_logic_vector(4 downto 0);
     wen : IN std_logic;
     ren : IN std_logic;
     data_out : OUT std_logic_vector(31 downto 0);
@@ -48,27 +48,29 @@ architecture architecture_reg_17x32 of reg_17x32 is
     signal line7 : std_logic_vector(63 downto 0);
     signal line8 : std_logic_vector(63 downto 0);
 
-    signal raddr_pos : std_logic_vector(3 downto 0);
+    signal raddr_pos : std_logic_vector(4 downto 0);
     signal ren_pos : std_logic;
 
 begin
 
-data_out <= line7(63 downto 32) when raddr_pos="1111" and ren_pos='1' else
-            line7(31 downto  0) when raddr_pos="1110" and ren_pos='1' else
-            line6(63 downto 32) when raddr_pos="1101" and ren_pos='1' else
-            line6(31 downto  0) when raddr_pos="1100" and ren_pos='1' else
-            line5(63 downto 32) when raddr_pos="1011" and ren_pos='1' else
-            line5(31 downto  0) when raddr_pos="1010" and ren_pos='1' else
-            line4(63 downto 32) when raddr_pos="1001" and ren_pos='1' else
-            line4(31 downto  0) when raddr_pos="1000" and ren_pos='1' else
-            line3(63 downto 32) when raddr_pos="0111" and ren_pos='1' else
-            line3(31 downto  0) when raddr_pos="0110" and ren_pos='1' else
-            line2(63 downto 32) when raddr_pos="0101" and ren_pos='1' else
-            line2(31 downto  0) when raddr_pos="0100" and ren_pos='1' else
-            line1(63 downto 32) when raddr_pos="0011" and ren_pos='1' else
-            line1(31 downto  0) when raddr_pos="0010" and ren_pos='1' else
-            line0(63 downto 32) when raddr_pos="0001" and ren_pos='1' else
-            line0(31 downto  0) when raddr_pos="0000" and ren_pos='1' else
+data_out <= line8(63 downto 32) when raddr_pos="10001" and ren_pos='1' else
+            line8(31 downto  0) when raddr_pos="10000" and ren_pos='1' else
+            line7(63 downto 32) when raddr_pos="01111" and ren_pos='1' else
+            line7(31 downto  0) when raddr_pos="01110" and ren_pos='1' else
+            line6(63 downto 32) when raddr_pos="01101" and ren_pos='1' else
+            line6(31 downto  0) when raddr_pos="01100" and ren_pos='1' else
+            line5(63 downto 32) when raddr_pos="01011" and ren_pos='1' else
+            line5(31 downto  0) when raddr_pos="01010" and ren_pos='1' else
+            line4(63 downto 32) when raddr_pos="01001" and ren_pos='1' else
+            line4(31 downto  0) when raddr_pos="01000" and ren_pos='1' else
+            line3(63 downto 32) when raddr_pos="00111" and ren_pos='1' else
+            line3(31 downto  0) when raddr_pos="00110" and ren_pos='1' else
+            line2(63 downto 32) when raddr_pos="00101" and ren_pos='1' else
+            line2(31 downto  0) when raddr_pos="00100" and ren_pos='1' else
+            line1(63 downto 32) when raddr_pos="00011" and ren_pos='1' else
+            line1(31 downto  0) when raddr_pos="00010" and ren_pos='1' else
+            line0(63 downto 32) when raddr_pos="00001" and ren_pos='1' else
+            line0(31 downto  0) when raddr_pos="00000" and ren_pos='1' else
             (others => '0');
 
 first_block <= line8(0);
