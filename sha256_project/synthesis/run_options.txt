@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version J-2015.03M-SP1-2
 #--  Project file E:\LiberoProjects\sha256_project\synthesis\run_options.txt
-#--  Written on Wed Jun 07 16:22:57 2017
+#--  Written on Wed Jun 07 19:59:30 2017
 
 
 #project files
@@ -32,9 +32,10 @@ add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/hdl/sha256_padding.vh
 add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/hdl/sha256_regs.vhd"
 add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/hdl/gv_sha256.vhd"
 add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/hdl/limiter_1cycle.vhd"
+add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/hdl/reg_17x32.vhd"
 add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/hdl/sha256_controller.vhd"
-add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/hdl/reg_2x32.vhd"
 add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/component/work/SHA256_BLOCK/SHA256_BLOCK.vhd"
+add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/hdl/reg1_highonly.vhd"
 add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/hdl/mux_9_1.vhd"
 add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/hdl/reg_1x32.vhd"
 add_file -vhdl -lib work "E:/LiberoProjects/sha256_project/component/work/reg9_1x32/reg9_1x32.vhd"

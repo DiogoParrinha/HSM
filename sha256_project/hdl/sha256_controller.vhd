@@ -135,6 +135,8 @@ begin
                 ce_o <= '1';
                 if(blocks_counter = 0) then
                     start_o <= '1';
+                else
+                    start_o <= '0';
                 end if;
                 end_o <= '0';
 
@@ -175,6 +177,8 @@ begin
                 start_counting <= '0';
                 if(di_req_i = '1' and counter = 0) then
                     extra_add <= '1';
+                else
+                    extra_add <= '0';
                 end if;
                 new_block <= '0';
                 restart <= '0';
@@ -185,6 +189,8 @@ begin
                 start_o <= '0';
                 if(last_block = '1') then
                     end_o <= '1';
+                else
+                    end_o <= '0';
                 end if;
 
                 di_wr_o <= '1';

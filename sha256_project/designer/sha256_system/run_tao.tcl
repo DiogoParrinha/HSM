@@ -22,8 +22,9 @@ read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\hdl\AHB_slave_dummy.
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd}
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd}
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\hdl\mux_9_1.vhd}
+read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\hdl\reg1_highonly.vhd}
+read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\hdl\reg_17x32.vhd}
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\hdl\reg_1x32.vhd}
-read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\hdl\reg_2x32.vhd}
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd}
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd}
 read_vhdl -mode vhdl_2008 {E:\LiberoProjects\sha256_project\hdl\sha256_hash_core.vhd}

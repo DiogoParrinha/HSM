@@ -116,10 +116,7 @@
 @W: CD434 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":357:20:357:32|Signal hreadyout_s16 in the sensitivity list is not used in the process
 @W: CD604 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":637:12:637:25|OTHERS clause is not synthesized 
 @W: CG296 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":116:4:116:10|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":176:38:176:44|Referenced variable counter is not in sensitivity list
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":49:28:49:30|Latch generated from process for signal start_o; possible missing assignment in an if or case statement.
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":52:67:52:67|Latch generated from process for signal extra_add; possible missing assignment in an if or case statement.
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":49:28:49:30|Latch generated from process for signal end_o; possible missing assignment in an if or case statement.
+@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":178:38:178:44|Referenced variable counter is not in sensitivity list
 @W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":58:31:58:33|Latch generated from process for signal bytes_o(1 downto 0); possible missing assignment in an if or case statement.
 @W: CD638 :"E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd":156:11:156:18|Signal pad_data is undriven 
 @W: CD604 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":551:12:551:25|OTHERS clause is not synthesized 
@@ -135,8 +132,8 @@
 @W: CL189 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":384:8:384:9|Register bit msg_bit_cnt_reg(2) is always 0, optimizing ...
 @W: CL279 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":384:8:384:9|Pruning register bits 2 to 0 of msg_bit_cnt_reg(63 downto 0)  
 @W: CL249 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":354:8:354:9|Initial value is not supported on state machine hash_control_st_reg
-@W: CL190 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":231:8:231:9|Optimizing register bit counter(4) to a constant 0
-@W: CL260 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":231:8:231:9|Pruning register bit 4 of counter(4 downto 0)  
+@W: CL190 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":237:8:237:9|Optimizing register bit counter(4) to a constant 0
+@W: CL260 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":237:8:237:9|Pruning register bit 4 of counter(4 downto 0)  
 @W: CL246 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":45:8:45:17|Input port bits 16 to 1 of sdataready(16 downto 0) are unused 
 @W: CL246 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":46:8:46:13|Input port bits 16 to 1 of shresp(16 downto 0) are unused 
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":57:8:57:16|Input HRDATA_S1 is unused

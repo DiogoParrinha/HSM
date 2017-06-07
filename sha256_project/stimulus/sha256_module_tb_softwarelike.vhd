@@ -136,84 +136,84 @@ begin
 
         -- Write 16 x 32bit
 
-        data_wen <= '1'; -- AHB write enable ON
-
-        waddr_in <= "00000";
-        data_in <= X"00000001";
-        wait for clk_period;
-
-        waddr_in <= "00001";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "00010";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "00011";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "00100";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "00101";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "00110";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "00111";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "01000";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "01001";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "01010";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "01011";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "01100";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "01101";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "01110";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        waddr_in <= "01111";
-        data_in <= X"00000000";
-        wait for clk_period;
-
-        -- Set first_block to 1
-        -- Set last_block to 1
-        waddr_in <= "10000";
-        data_in <= X"00000003";
-        wait for clk_period;
-
-        data_wen <= '0'; -- AHB write enable OFF
-
-        -- wait until data_available = '1'
-        if data_available = '0' then
-            wait until data_available = '1';
-        end if;
+        --data_wen <= '1'; -- AHB write enable ON
+--
+        --waddr_in <= "00000";
+        --data_in <= X"00000001";
+        --wait for clk_period;
+--
+        --waddr_in <= "00001";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "00010";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "00011";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "00100";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "00101";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "00110";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "00111";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "01000";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "01001";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "01010";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "01011";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "01100";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "01101";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "01110";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        --waddr_in <= "01111";
+        --data_in <= X"00000000";
+        --wait for clk_period;
+--
+        ---- Set first_block to 1
+        ---- Set last_block to 1
+        --waddr_in <= "10000";
+        --data_in <= X"00000003";
+        --wait for clk_period;
+--
+        --data_wen <= '0'; -- AHB write enable OFF
+--
+        ---- wait until data_available = '1'
+        --if data_available = '0' then
+            --wait until data_available = '1';
+        --end if;
 
         -- Set data_ready to 1 (GPIO PIN)
         data_ready <= '1';
@@ -226,9 +226,11 @@ begin
         result_addr <= "1000";
         result_ren <= '1';
 
-        if data_out(0) = '0' then
-            wait until data_out(0) = '1';
-        end if;
+      wait for (100*clk_period);
+--
+        --if data_out(0) = '0' then
+            --wait until data_out(0) = '1';
+        --end if;
 
         -- Read the first 8 registers
 

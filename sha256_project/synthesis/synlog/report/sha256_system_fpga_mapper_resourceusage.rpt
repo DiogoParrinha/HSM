@@ -2,22 +2,23 @@ Resource Usage Report for sha256_system
 
 Mapping to part: m2s060fbga484-1
 Cell usage:
+AND2            1 use
 CCC             1 use
 CLKINT          4 uses
 MSS_060         1 use
 RCOSC_25_50MHZ  1 use
 SYSRESET        1 use
 CFG1           2 uses
-CFG2           105 uses
+CFG2           103 uses
 CFG3           535 uses
-CFG4           920 uses
+CFG4           945 uses
 
 Carry primitives used for arithmetic functions:
 ARI1           677 uses
 
 
 Sequential Cells: 
-SLE            2019 uses
+SLE            2009 uses
 
 DSP Blocks:    0
 
@@ -29,7 +30,7 @@ OUTBUF         1 use
 Global Clock Buffers: 4
 
 
-Total LUTs:    2239
+Total LUTs:    2262
 
 Extra resources required for RAM and MACC interface logic during P&R:
 
@@ -37,6 +38,6 @@ RAM64x18 Interface Logic : SLEs = 0; LUTs = 0;
 RAM1K18  Interface Logic : SLEs = 0; LUTs = 0;
 MACC     Interface Logic : SLEs = 0; LUTs = 0;
 
-Total number of SLEs after P&R:  2019 + 0 + 0 + 0 = 2019;
-Total number of LUTs after P&R:  2239 + 0 + 0 + 0 = 2239;
+Total number of SLEs after P&R:  2009 + 0 + 0 + 0 = 2009;
+Total number of LUTs after P&R:  2262 + 0 + 0 + 0 = 2262;
 

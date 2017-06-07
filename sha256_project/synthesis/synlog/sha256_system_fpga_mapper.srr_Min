@@ -1,7 +1,7 @@
 
 
 @S |##### START OF TIMING REPORT #####[
-# Timing Report written on Wed Jun 07 16:23:16 2017
+# Timing Report written on Wed Jun 07 19:59:49 2017
 #
 
 
@@ -26,7 +26,7 @@ Worst slack in design: 0.315
                                                        Requested     Estimated      Requested     Estimated                Clock        Clock              
 Starting Clock                                         Frequency     Frequency      Period        Period        Slack      Type         Group              
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     92.8 MHz       10.000        10.777        -0.777     inferred     Inferred_clkgroup_0
+sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     96.7 MHz       10.000        10.336        -0.336     inferred     Inferred_clkgroup_0
 System                                                 100.0 MHz     1029.4 MHz     10.000        0.971         9.029      system       system_clkgroup    
 ===========================================================================================================================================================
 
@@ -40,8 +40,7 @@ Clocks                                                                          
 Starting                                            Ending                                              |  constraint  slack  |  constraint  slack  |  constraint  slack  |  constraint  slack
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 System                                              System                                              |  0.000       0.680  |  No paths    -      |  No paths    -      |  No paths    -    
-System                                              sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  0.000       0.599  |  No paths    -      |  No paths    -      |  No paths    -    
-sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  System                                              |  0.000       0.498  |  No paths    -      |  No paths    -      |  No paths    -    
+System                                              sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  0.000       1.172  |  No paths    -      |  No paths    -      |  No paths    -    
 sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  0.000       0.315  |  No paths    -      |  No paths    -      |  No paths    -    
 ==============================================================================================================================================================================================
  Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
@@ -145,32 +144,29 @@ Starting Points with Worst Slack
 Instance                                                          Reference     Type               Pin        Net                                                    Time        Slack
                                                                   Clock                                                                                                               
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o        System        SLE                Q          last_block_0                                           0.066       0.599
 sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ                      System        RCOSC_25_50MHZ     CLKOUT     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000       0.680
-SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.extra_add      System        SLE                Q          extra_add                                              0.053       1.051
-SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]     System        SLE                Q          sha256_controller_0_bytes_o[1]                         0.066       1.155
-SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.end_o          System        SLE                Q          sha256_controller_0_end_o                              0.066       1.163
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]     System        SLE                Q          sha256_controller_0_bytes_o[1]                         0.066       1.172
 ======================================================================================================================================================================================
 
 
 Ending Points with Worst Slack
 ******************************
 
-                                                                                            Starting                                                                                         Required          
-Instance                                                                                    Reference     Type     Pin                Net                                                    Time         Slack
-                                                                                            Clock                                                                                                              
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[1]       System        SLE      D                  hash_control_st_reg_2                                  0.155        0.599
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[3]       System        SLE      D                  hash_control_st_reg_0                                  0.155        0.599
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[4]       System        SLE      D                  hash_control_st_reg                                    0.155        0.599
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[5]       System        SLE      D                  hash_control_st_reg_4                                  0.155        0.599
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg_i[6]     System        SLE      D                  hash_control_st_reg_nsss_i_0[0]                        0.155        0.599
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[0]       System        SLE      D                  hash_control_st_reg_3                                  0.155        0.629
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[2]       System        SLE      D                  hash_control_st_reg_1                                  0.155        0.629
-sha256_system_sb_0.CCC_0.CCC_INST                                                           System        CCC      RCOSC_25_50MHZ     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000        0.680
-SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.counter[3]                               System        SLE      D                  N_11_i_0                                               0.155        1.051
-SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.counter[0]                               System        SLE      D                  N_139_i_0                                              0.155        1.085
-===============================================================================================================================================================================================================
+                                                                                          Starting                                                                                         Required          
+Instance                                                                                  Reference     Type     Pin                Net                                                    Time         Slack
+                                                                                          Clock                                                                                                              
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.CCC_0.CCC_INST                                                         System        CCC      RCOSC_25_50MHZ     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000        0.680
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[5]     System        SLE      D                  hash_control_st_reg_4                                  0.155        1.172
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[0]     System        SLE      D                  hash_control_st_reg_3                                  0.155        1.189
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[3]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_0_Y                            0.155        1.261
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[4]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_1_S                            0.155        1.314
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[5]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_2_S                            0.155        1.314
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[6]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_3_S                            0.155        1.323
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[7]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_4_S                            0.155        1.331
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[8]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_5_S                            0.155        1.340
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[9]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_6_S                            0.155        1.349
+=============================================================================================================================================================================================================
 
 
 
@@ -179,30 +175,28 @@ Worst Path Information
 
 
 Path information for path number 1: 
-    Propagation time:                        0.754
+    Propagation time:                        0.680
     + Clock delay at starting point:         0.000 (ideal)
 -0.000
     - Requested Period:                      0.000
-    - Hold time:                             0.155
+    - Hold time:                             0.000
     - Clock delay at ending point:           0.000 (ideal)
-    = Slack (non-critical) :                 0.599
+0.000
+    = Slack (non-critical) :                 0.680
 
-    Number of logic level(s):                1
-    Starting point:                          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o / Q
-    Ending point:                            SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg_i[6] / D
-    The start point is clocked by            System [rising] on pin CLK
-    The end   point is clocked by            sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
+    Number of logic level(s):                0
+    Starting point:                          sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ / CLKOUT
+    Ending point:                            sha256_system_sb_0.CCC_0.CCC_INST / RCOSC_25_50MHZ
+    The start point is clocked by            System [rising]
+    The end   point is clocked by            System [rising]
 
-Instance / Net                                                                                            Pin      Pin               Arrival     No. of    
-Name                                                                                             Type     Name     Dir     Delay     Time        Fan Out(s)
------------------------------------------------------------------------------------------------------------------------------------------------------------
-SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.start_o                                       SLE      Q        Out     0.066     0.066       -         
-last_block_0                                                                                     Net      -        -       0.531     -           7         
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg_nsss_i[0]     CFG3     A        In      -         0.597       -         
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg_nsss_i[0]     CFG3     Y        Out     0.061     0.658       -         
-hash_control_st_reg_nsss_i_0[0]                                                                  Net      -        -       0.097     -           1         
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg_i[6]          SLE      D        In      -         0.754       -         
-===========================================================================================================================================================
+Instance / Net                                                            Pin                Pin               Arrival     No. of    
+Name                                                   Type               Name               Dir     Delay     Time        Fan Out(s)
+-------------------------------------------------------------------------------------------------------------------------------------
+sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ           RCOSC_25_50MHZ     CLKOUT             Out     0.000     0.000       -         
+FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     Net                -                  -       0.680     -           1         
+sha256_system_sb_0.CCC_0.CCC_INST                      CCC                RCOSC_25_50MHZ     In      -         0.680       -         
+=====================================================================================================================================
 
 
 
