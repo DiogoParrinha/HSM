@@ -12,18 +12,16 @@
   Private functions.
  */
 #define PIN_LED MSS_GPIO_0
-#define PIN_DATA_IN_READY MSS_GPIO_1
-#define PIN_WAITING_DATA MSS_GPIO_2
-#define PIN_LASTBANK_AVAILABLE1 MSS_GPIO_3
-#define PIN_REQ_DATA MSS_GPIO_4
-#define PIN_DATA_OUT_READY MSS_GPIO_5
-#define PIN_VALID_OUTPUT MSS_GPIO_6
-#define PIN_DATA_AVAILABLE MSS_GPIO_7
-#define PIN_ERROR_OUTPUT MSS_GPIO_8
-#define PIN_RESET MSS_GPIO_9
-#define PIN_STATE0 MSS_GPIO_10
-#define PIN_STATE1 MSS_GPIO_11
-#define PIN_STATE2 MSS_GPIO_12
+#define PIN_DATA_IN_READY MSS_GPIO_1 // jump start the module if we have data available (PIN_DATA_AVAILABLE=1)
+#define PIN_WAITING_DATA MSS_GPIO_2 // sha256 core is waiting for data (state machine)
+#define PIN_LASTBLOCK_OUT MSS_GPIO_3 // the signal lastblock output by the sha256 module (should match our lastblock input)
+#define PIN_REQ_DATA MSS_GPIO_4 // sha256 core req_o
+#define PIN_NOT_USED1 MSS_GPIO_5 // N/A
+#define PIN_VALID_OUTPUT MSS_GPIO_6 // sha256 core valid_o AND start_high)
+#define PIN_DATA_AVAILABLE MSS_GPIO_7 // if first register bank has all data, this input will be 1
+#define PIN_ERROR_OUTPUT MSS_GPIO_8 // sha256 core error_o
+
+#define PIN_RESET MSS_GPIO_9 // output pin to reset sha256 module
 /*==============================================================================
  * main() function.
  */
@@ -46,16 +44,12 @@ int main()
     MSS_GPIO_config( PIN_RESET , MSS_GPIO_OUTPUT_MODE ); // Reset
 
     MSS_GPIO_config( PIN_WAITING_DATA, MSS_GPIO_INPUT_MODE );
-    MSS_GPIO_config( PIN_LASTBANK_AVAILABLE1, MSS_GPIO_INPUT_MODE );
-    MSS_GPIO_config( PIN_REQ_DATA, MSS_GPIO_INPUT_MODE ); // Requesting more data
-    MSS_GPIO_config( PIN_DATA_OUT_READY, MSS_GPIO_INPUT_MODE ); // Data Out Ready (first bank of registers has read enable=1)
-    MSS_GPIO_config( PIN_VALID_OUTPUT, MSS_GPIO_INPUT_MODE ); // Valid Output at the end of the SHA-256 core
-    MSS_GPIO_config( PIN_ERROR_OUTPUT, MSS_GPIO_INPUT_MODE ); // Error at the SHA-256 core
-    MSS_GPIO_config( PIN_DATA_AVAILABLE, MSS_GPIO_INPUT_MODE ); // Data Available (last register has a value)
-
-    MSS_GPIO_config( PIN_STATE0, MSS_GPIO_INPUT_MODE );
-    MSS_GPIO_config( PIN_STATE1, MSS_GPIO_INPUT_MODE );
-    MSS_GPIO_config( PIN_STATE2, MSS_GPIO_INPUT_MODE );
+    MSS_GPIO_config( PIN_LASTBLOCK_OUT, MSS_GPIO_INPUT_MODE );
+    MSS_GPIO_config( PIN_REQ_DATA, MSS_GPIO_INPUT_MODE );
+    MSS_GPIO_config( PIN_NOT_USED1, MSS_GPIO_INPUT_MODE );
+    MSS_GPIO_config( PIN_VALID_OUTPUT, MSS_GPIO_INPUT_MODE );
+    MSS_GPIO_config( PIN_ERROR_OUTPUT, MSS_GPIO_INPUT_MODE );
+    MSS_GPIO_config( PIN_DATA_AVAILABLE, MSS_GPIO_INPUT_MODE );
 
     inputs = MSS_GPIO_get_inputs();
 
@@ -248,6 +242,8 @@ int main()
 	}
 
 	/// SECOND BLOCK
+
+	MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
 
     // Write to AHB Slave Interface (16 words of 32-bit)
     *(volatile uint32_t *)0x30000000 = 0x00000002;

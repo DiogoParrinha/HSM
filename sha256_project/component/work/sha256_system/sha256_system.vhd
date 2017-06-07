@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Wed Jun 07 22:38:17 2017
+-- Created by SmartDesign Wed Jun 07 22:48:10 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -68,9 +68,6 @@ component sha256_system_sb
         AMBA_SLAVE_0_HRESP_S0     : in  std_logic_vector(1 downto 0);
         DEVRST_N                  : in  std_logic;
         FAB_RESET_N               : in  std_logic;
-        GPIO_10_F2M               : in  std_logic;
-        GPIO_11_F2M               : in  std_logic;
-        GPIO_12_F2M               : in  std_logic;
         GPIO_2_F2M                : in  std_logic;
         GPIO_3_F2M                : in  std_logic;
         GPIO_4_F2M                : in  std_logic;
@@ -270,9 +267,6 @@ sha256_system_sb_0 : sha256_system_sb
         GPIO_6_F2M                        => SHA256_Module_0_do_valid_o,
         GPIO_7_F2M                        => SHA256_Module_0_data_available,
         GPIO_8_F2M                        => SHA256_Module_0_error_o,
-        GPIO_10_F2M                       => GND_net,
-        GPIO_11_F2M                       => GND_net,
-        GPIO_12_F2M                       => GND_net,
         -- Outputs
         POWER_ON_RESET_N                  => sha256_system_sb_0_POWER_ON_RESET_N,
         INIT_DONE                         => OPEN,

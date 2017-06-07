@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Wed Jun 07 12:50:31 2017
+-- Created by SmartDesign Wed Jun 07 22:42:06 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -24,9 +24,6 @@ entity sha256_system_sb_MSS is
         FIC_2_APB_M_PRDATA     : in  std_logic_vector(31 downto 0);
         FIC_2_APB_M_PREADY     : in  std_logic;
         FIC_2_APB_M_PSLVERR    : in  std_logic;
-        GPIO_10_F2M            : in  std_logic;
-        GPIO_11_F2M            : in  std_logic;
-        GPIO_12_F2M            : in  std_logic;
         GPIO_2_F2M             : in  std_logic;
         GPIO_3_F2M             : in  std_logic;
         GPIO_4_F2M             : in  std_logic;
@@ -898,10 +895,10 @@ MSS_ADLIB_INST : MSS_060
         I2C1_SDA_F2H_SCP                        => VCC_net, -- tied to '1' from definition
         MDIF                                    => VCC_net, -- tied to '1' from definition
         MGPIO0A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
-        MGPIO10A_F2H_GPIN                       => GPIO_10_F2M,
-        MGPIO11A_F2H_GPIN                       => GPIO_11_F2M,
+        MGPIO10A_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
+        MGPIO11A_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
         MGPIO11B_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
-        MGPIO12A_F2H_GPIN                       => GPIO_12_F2M,
+        MGPIO12A_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
         MGPIO13A_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
         MGPIO14A_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
         MGPIO15A_F2H_GPIN                       => VCC_net, -- tied to '1' from definition

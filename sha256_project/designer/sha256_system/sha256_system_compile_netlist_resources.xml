@@ -3,7 +3,7 @@
 <doc>
 <title>Resource Report</title>
 <text>Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)</text>
-<text>Date: Wed Jun 07 21:54:13 2017
+<text>Date: Wed Jun 07 22:48:57 2017
 </text>
 <section><name>Device Selection</name></section>
 <table>
@@ -106,15 +106,15 @@
 </header>
 <row>
  <cell>4LUT</cell>
- <cell>2230</cell>
+ <cell>2251</cell>
  <cell>56520</cell>
- <cell>3.95</cell>
+ <cell>3.98</cell>
 </row>
 <row>
  <cell>DFF</cell>
- <cell>2010</cell>
+ <cell>2001</cell>
  <cell>56520</cell>
- <cell>3.56</cell>
+ <cell>3.54</cell>
 </row>
 <row>
  <cell>I/O Register</cell>
@@ -204,8 +204,8 @@
 </header>
 <row>
  <cell>Fabric Logic</cell>
- <cell>2230</cell>
- <cell>2010</cell>
+ <cell>2251</cell>
+ <cell>2001</cell>
 </row>
 <row>
  <cell>RAM64x18 Interface Logic</cell>
@@ -224,8 +224,8 @@
 </row>
 <row>
  <cell>Total Used</cell>
- <cell>2230</cell>
- <cell>2010</cell>
+ <cell>2251</cell>
+ <cell>2001</cell>
 </row>
 </table>
 <section><name>MSS Resource Usage</name></section>
@@ -417,7 +417,7 @@
  <cell>Name</cell>
 </header>
 <row>
- <cell>2010</cell>
+ <cell>2001</cell>
  <cell>INT_NET</cell>
  <cell>Net   : sha256_system_sb_0_FIC_0_CLK</cell>
 </row>
@@ -493,7 +493,7 @@
  <cell>Name</cell>
 </header>
 <row>
- <cell>564</cell>
+ <cell>555</cell>
  <cell>INT_NET</cell>
  <cell>Net   : sha256_system_sb_0_GPIO_9_M2F</cell>
 </row>
@@ -523,9 +523,9 @@
  <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_i[6]</cell>
 </row>
 <row>
- <cell>266</cell>
+ <cell>265</cell>
  <cell>INT_NET</cell>
- <cell>Net   : SHA256_Module_0_data_out_ready</cell>
+ <cell>Net   : SHA256_Module_0/data_out_ready</cell>
 </row>
 <row>
  <cell></cell>
@@ -535,12 +535,12 @@
 <row>
  <cell>259</cell>
  <cell>INT_NET</cell>
- <cell>Net   : SHA256_Module_0/reg9_1x32_0/N_68_i_0</cell>
+ <cell>Net   : SHA256_Module_0/reg9_1x32_0/N_62_i_0</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/N_68_i_0_o2</cell>
+ <cell>Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/N_62_i</cell>
 </row>
 <row>
  <cell>257</cell>
@@ -570,10 +570,10 @@
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNITUO81[0]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNIL1OU[0]</cell>
 </row>
 <row>
- <cell>71</cell>
+ <cell>256</cell>
  <cell>INT_NET</cell>
  <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos[0]</cell>
 </row>
@@ -583,14 +583,14 @@
  <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos[0]</cell>
 </row>
 <row>
- <cell>65</cell>
+ <cell>128</cell>
  <cell>INT_NET</cell>
- <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos_0_rep2</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos[1]</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos_0_rep2</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos[1]</cell>
 </row>
 </table>
 <section><name>High fanout nets (through buffer trees)</name></section>
@@ -601,7 +601,7 @@
  <cell>Name</cell>
 </header>
 <row>
- <cell>564</cell>
+ <cell>555</cell>
  <cell>INT_NET</cell>
  <cell>Net   : sha256_system_sb_0_GPIO_9_M2F</cell>
 </row>
@@ -631,9 +631,9 @@
  <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_i[6]</cell>
 </row>
 <row>
- <cell>266</cell>
+ <cell>265</cell>
  <cell>INT_NET</cell>
- <cell>Net   : SHA256_Module_0_data_out_ready</cell>
+ <cell>Net   : SHA256_Module_0/data_out_ready</cell>
 </row>
 <row>
  <cell></cell>
@@ -643,12 +643,12 @@
 <row>
  <cell>259</cell>
  <cell>INT_NET</cell>
- <cell>Net   : SHA256_Module_0/reg9_1x32_0/N_68_i_0</cell>
+ <cell>Net   : SHA256_Module_0/reg9_1x32_0/N_62_i_0</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/N_68_i_0_o2</cell>
+ <cell>Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/N_62_i</cell>
 </row>
 <row>
  <cell>257</cell>
@@ -678,10 +678,10 @@
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNITUO81[0]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNIL1OU[0]</cell>
 </row>
 <row>
- <cell>71</cell>
+ <cell>256</cell>
  <cell>INT_NET</cell>
  <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos[0]</cell>
 </row>
@@ -691,14 +691,14 @@
  <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos[0]</cell>
 </row>
 <row>
- <cell>65</cell>
+ <cell>128</cell>
  <cell>INT_NET</cell>
- <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos_0_rep2</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos[1]</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos_0_rep2</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/raddr_pos[1]</cell>
 </row>
 </table>
 </doc>

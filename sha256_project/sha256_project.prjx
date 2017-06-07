@@ -58,13 +58,13 @@ ENDLIST
 LIST FileManager
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836237"
+TIME="1496871731"
 SIZE="5025"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\coreparameters.vhd,tb_hdl"
 STATE="utd"
-TIME="1496836237"
+TIME="1496871731"
 SIZE="4492"
 LIBRARY="COREAHBLITE_LIB"
 PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
@@ -235,7 +235,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\DirectCore\CoreResetP\7.1.100\CoreResetP.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836237"
+TIME="1496871731"
 SIZE="582"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
@@ -255,13 +255,13 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\SgCore\FCCC\2.0.200\FCCC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836237"
+TIME="1496871731"
 SIZE="241"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SgCore\OSC\2.0.101\OSC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836238"
+TIME="1496871733"
 SIZE="682"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
@@ -291,85 +291,85 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS\1.1.400\MSS.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836231"
+TIME="1496871726"
 SIZE="526"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CCC\1.0.100\MSS_CCC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871720"
 SIZE="253"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CC\1.0.100\MSS_CC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871720"
 SIZE="252"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CFGM\1.1.100\MSS_CFGM.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871720"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CM3\1.0.200\MSS_CM3.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871720"
 SIZE="253"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_DDRB\1.0.200\MSS_DDRB.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871720"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_EDAC\1.0.101\MSS_EDAC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871720"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_ENVM\1.0.101\MSS_ENVM.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871720"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_FIC32\1.0.100\MSS_FIC32.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871721"
 SIZE="255"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_GPIO\1.0.100\MSS_GPIO.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871721"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_INTR\1.0.100\MSS_INTR.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871721"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_RESET\1.0.100\MSS_RESET.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871721"
 SIZE="255"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SECURITY\1.0.100\MSS_SECURITY.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871721"
 SIZE="258"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SWITCH\1.0.101\MSS_SWITCH.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836225"
+TIME="1496871721"
 SIZE="256"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
@@ -411,62 +411,69 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system\sha256_system.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871346"
-SIZE="1989"
+TIME="1496872092"
+SIZE="2285"
+ENDFILE
+VALUE "<project>\component\work\sha256_system\sha256_system.vhd,hdl"
+STATE="utd"
+TIME="1496872090"
+SIZE="16258"
+PARENT="<project>\component\work\sha256_system\sha256_system.cxf"
+IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836236"
+TIME="1496871730"
 SIZE="716"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd,hdl"
 STATE="utd"
-TIME="1496836236"
+TIME="1496871730"
 SIZE="5590"
 PARENT="<project>\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836238"
+TIME="1496871733"
 SIZE="480"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd,hdl"
 STATE="utd"
-TIME="1496836238"
+TIME="1496871733"
 SIZE="1598"
 PARENT="<project>\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\sha256_system_sb.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836241"
-SIZE="13195"
+TIME="1496871735"
+SIZE="12382"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\sha256_system_sb.vhd,hdl"
 STATE="utd"
-TIME="1496836239"
-SIZE="53925"
+TIME="1496871733"
+SIZE="53478"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496836232"
-SIZE="18503"
+TIME="1496871727"
+SIZE="17690"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd,hdl"
 STATE="utd"
-TIME="1496836231"
-SIZE="96902"
+TIME="1496871726"
+SIZE="96836"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_pre.vhd,hdl"
 STATE="utd"
-TIME="1496836230"
+TIME="1496871725"
 SIZE="79486"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 BEGIN_USE_CONSTRAINT
@@ -478,7 +485,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_syn.vhd,hdl"
 STATE="utd"
-TIME="1496836230"
+TIME="1496871725"
 SIZE="79461"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 BEGIN_USE_CONSTRAINT
@@ -607,7 +614,7 @@ PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf
 ENDFILE
 VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
 STATE="utd"
-TIME="1496836230"
+TIME="1496871725"
 SIZE="500"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
@@ -696,7 +703,7 @@ PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
 VALUE "<project>\simulation\test.bfm,sim"
 STATE="utd"
-TIME="1496836230"
+TIME="1496871725"
 SIZE="734"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
@@ -801,7 +808,10 @@ LIST UsedFile
 ENDLIST
 LIST NewModulesInfo
 LIST "sha256_system::work"
-FILE "<project>\component\work\sha256_system\sha256_system.cxf,actgen_cxf"
+FILE "<project>\component\work\sha256_system\sha256_system.vhd,hdl"
+LIST Other_Association
+VALUE "<project>\simulation\subsystem.bfm,sim"
+ENDLIST
 LIST AssociatedStimulus
 VALUE "<project>\stimulus\bfm_testbench.vhd,tb_hdl"
 ENDLIST
@@ -890,6 +900,9 @@ VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\us
 ENDLIST
 ENDLIST
 LIST Other_Association
+LIST sha256_system
+VALUE "<project>\simulation\subsystem.bfm,sim"
+ENDLIST
 LIST sha256_system_sb
 VALUE "<project>\simulation\subsystem.bfm,sim"
 VALUE "<project>\simulation\bfmtovec_compile.tcl,sim"
@@ -1059,7 +1072,7 @@ SmartDesign;sha256_system;0
 SmartDesign;SHA256_Module;0
 SmartDesign;SHA256_BLOCK;0
 HDL;stimulus\sha256_module_tb_softwarelike.vhd;0
-ACTIVEVIEW;sha256_system
+ACTIVEVIEW;Reports
 ENDLIST
 LIST ModuleSubBlockList
 LIST "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
@@ -1134,10 +1147,10 @@ LIST "sha256_padding::work","hdl\sha256_padding.vhd","FALSE","FALSE"
 ENDLIST
 LIST "sha256_regs::work","hdl\sha256_regs.vhd","FALSE","FALSE"
 ENDLIST
-LIST "sha256_system::work","component\work\sha256_system\sha256_system.cxf","TRUE","FALSE"
+LIST "sha256_system::work","component\work\sha256_system\sha256_system.vhd","TRUE","FALSE"
+SUBBLOCK "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
 SUBBLOCK "SHA256_Module::work","component\work\SHA256_Module\SHA256_Module.vhd","TRUE","FALSE"
 SUBBLOCK "sha256_system_sb::work","component\work\sha256_system_sb\sha256_system_sb.vhd","TRUE","FALSE"
-SUBBLOCK "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
 ENDLIST
 LIST "sha256_system_sb::work","component\work\sha256_system_sb\sha256_system_sb.vhd","TRUE","FALSE"
 SUBBLOCK "CoreResetP::work","component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd","FALSE","FALSE"
@@ -1165,7 +1178,7 @@ ENDLIST
 LIST "zero_concat::work","hdl\zero_concat.vhd","FALSE","FALSE"
 ENDLIST
 LIST "bfm_testbench::work","stimulus\bfm_testbench.vhd","FALSE","TRUE"
-SUBBLOCK "sha256_system::work","component\work\sha256_system\sha256_system.cxf","TRUE","FALSE"
+SUBBLOCK "sha256_system::work","component\work\sha256_system\sha256_system.vhd","TRUE","FALSE"
 ENDLIST
 LIST "coreparameters::work","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd","FALSE","TRUE"
 ENDLIST

@@ -3,7 +3,7 @@
 <doc>
 <title>Configuration Report for MSS, SERDES(s), Fabric DDR and Fabric CCC(s)</title>
 <text>Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)</text>
-<text>Date: Wed Jun 07 21:57:03 2017
+<text>Date: Wed Jun 07 22:51:29 2017
 </text>
 <section><name>sha256_system_sb_0/CCC_0/CCC_INST/INST_CCC_IP</name></section>
 <table>

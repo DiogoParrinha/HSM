@@ -3270,11 +3270,11 @@
 </row>
 <row>
  <cell>GPIO10_TYPE</cell>
- <cell>CONNECTION_FABRICA</cell>
+ <cell>CONNECTION_IOA</cell>
 </row>
 <row>
  <cell>GPIO10_USAGE</cell>
- <cell>USAGE_INPUT</cell>
+ <cell>NOT_USED</cell>
 </row>
 <row>
  <cell>GPIO11_FAB_CAPT</cell>
@@ -3282,11 +3282,11 @@
 </row>
 <row>
  <cell>GPIO11_TYPE</cell>
- <cell>CONNECTION_FABRICA</cell>
+ <cell>CONNECTION_IOA</cell>
 </row>
 <row>
  <cell>GPIO11_USAGE</cell>
- <cell>USAGE_INPUT</cell>
+ <cell>NOT_USED</cell>
 </row>
 <row>
  <cell>GPIO12_FAB_CAPT</cell>
@@ -3294,11 +3294,11 @@
 </row>
 <row>
  <cell>GPIO12_TYPE</cell>
- <cell>CONNECTION_FABRICA</cell>
+ <cell>CONNECTION_IOA</cell>
 </row>
 <row>
  <cell>GPIO12_USAGE</cell>
- <cell>USAGE_INPUT</cell>
+ <cell>NOT_USED</cell>
 </row>
 <row>
  <cell>GPIO13_FAB_CAPT</cell>
@@ -3681,21 +3681,6 @@
 <row>
  <cell>GPIO_9_M2F</cell>
  <cell>OUT</cell>
- <cell>-</cell>
-</row>
-<row>
- <cell>GPIO_10_F2M</cell>
- <cell>IN</cell>
- <cell>-</cell>
-</row>
-<row>
- <cell>GPIO_11_F2M</cell>
- <cell>IN</cell>
- <cell>-</cell>
-</row>
-<row>
- <cell>GPIO_12_F2M</cell>
- <cell>IN</cell>
  <cell>-</cell>
 </row>
 </table>

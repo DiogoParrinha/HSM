@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Wed Jun 07 12:50:38 2017
+-- Created by SmartDesign Wed Jun 07 22:42:13 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -26,9 +26,6 @@ entity sha256_system_sb is
         AMBA_SLAVE_0_HRESP_S0     : in  std_logic_vector(1 downto 0);
         DEVRST_N                  : in  std_logic;
         FAB_RESET_N               : in  std_logic;
-        GPIO_10_F2M               : in  std_logic;
-        GPIO_11_F2M               : in  std_logic;
-        GPIO_12_F2M               : in  std_logic;
         GPIO_2_F2M                : in  std_logic;
         GPIO_3_F2M                : in  std_logic;
         GPIO_4_F2M                : in  std_logic;
@@ -201,9 +198,6 @@ component sha256_system_sb_MSS
         FIC_2_APB_M_PRDATA     : in  std_logic_vector(31 downto 0);
         FIC_2_APB_M_PREADY     : in  std_logic;
         FIC_2_APB_M_PSLVERR    : in  std_logic;
-        GPIO_10_F2M            : in  std_logic;
-        GPIO_11_F2M            : in  std_logic;
-        GPIO_12_F2M            : in  std_logic;
         GPIO_2_F2M             : in  std_logic;
         GPIO_3_F2M             : in  std_logic;
         GPIO_4_F2M             : in  std_logic;
@@ -982,9 +976,6 @@ sha256_system_sb_MSS_0 : sha256_system_sb_MSS
         GPIO_6_F2M             => GPIO_6_F2M,
         GPIO_7_F2M             => GPIO_7_F2M,
         GPIO_8_F2M             => GPIO_8_F2M,
-        GPIO_10_F2M            => GPIO_10_F2M,
-        GPIO_11_F2M            => GPIO_11_F2M,
-        GPIO_12_F2M            => GPIO_12_F2M,
         FIC_0_AHB_M_HREADY     => sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HREADY,
         FIC_0_AHB_M_HRESP      => sha256_system_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HRESP_0,
         FIC_2_APB_M_PREADY     => VCC_net, -- tied to '1' from definition
