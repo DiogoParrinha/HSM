@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by Microsemi SmartDesign Mon May 29 13:00:30 2017
+-- Created by Microsemi SmartDesign Wed Jun 07 23:44:47 2017
 -- Parameters for COREAHBLSRAM
 ----------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ package coreparameters is
     constant AHB_DWIDTH : integer := 32;
     constant FAMILY : integer := 19;
     constant HDL_License : string( 1 to 1 ) := "U";
-    constant LSRAM_NUM_LOCATIONS_DWIDTH32 : integer := 2048;
+    constant LSRAM_NUM_LOCATIONS_DWIDTH32 : integer := 65536;
     constant SEL_SRAM_TYPE : integer := 0;
     constant Testbench : string( 1 to 4 ) := "User";
     constant USRAM_NUM_LOCATIONS_DWIDTH32 : integer := 512;

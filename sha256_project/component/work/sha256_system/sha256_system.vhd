@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Wed Jun 07 22:48:10 2017
+-- Created by SmartDesign Wed Jun 07 23:45:05 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -63,9 +63,9 @@ component sha256_system_sb
     -- Port list
     port(
         -- Inputs
-        AMBA_SLAVE_0_HRDATA_S0    : in  std_logic_vector(31 downto 0);
-        AMBA_SLAVE_0_HREADYOUT_S0 : in  std_logic;
-        AMBA_SLAVE_0_HRESP_S0     : in  std_logic_vector(1 downto 0);
+        AMBA_SLAVE_0_HRDATA_S1    : in  std_logic_vector(31 downto 0);
+        AMBA_SLAVE_0_HREADYOUT_S1 : in  std_logic;
+        AMBA_SLAVE_0_HRESP_S1     : in  std_logic_vector(1 downto 0);
         DEVRST_N                  : in  std_logic;
         FAB_RESET_N               : in  std_logic;
         GPIO_2_F2M                : in  std_logic;
@@ -76,16 +76,16 @@ component sha256_system_sb
         GPIO_7_F2M                : in  std_logic;
         GPIO_8_F2M                : in  std_logic;
         -- Outputs
-        AMBA_SLAVE_0_HADDR_S0     : out std_logic_vector(31 downto 0);
-        AMBA_SLAVE_0_HBURST_S0    : out std_logic_vector(2 downto 0);
-        AMBA_SLAVE_0_HMASTLOCK_S0 : out std_logic;
-        AMBA_SLAVE_0_HPROT_S0     : out std_logic_vector(3 downto 0);
-        AMBA_SLAVE_0_HREADY_S0    : out std_logic;
-        AMBA_SLAVE_0_HSEL_S0      : out std_logic;
-        AMBA_SLAVE_0_HSIZE_S0     : out std_logic_vector(2 downto 0);
-        AMBA_SLAVE_0_HTRANS_S0    : out std_logic_vector(1 downto 0);
-        AMBA_SLAVE_0_HWDATA_S0    : out std_logic_vector(31 downto 0);
-        AMBA_SLAVE_0_HWRITE_S0    : out std_logic;
+        AMBA_SLAVE_0_HADDR_S1     : out std_logic_vector(31 downto 0);
+        AMBA_SLAVE_0_HBURST_S1    : out std_logic_vector(2 downto 0);
+        AMBA_SLAVE_0_HMASTLOCK_S1 : out std_logic;
+        AMBA_SLAVE_0_HPROT_S1     : out std_logic_vector(3 downto 0);
+        AMBA_SLAVE_0_HREADY_S1    : out std_logic;
+        AMBA_SLAVE_0_HSEL_S1      : out std_logic;
+        AMBA_SLAVE_0_HSIZE_S1     : out std_logic_vector(2 downto 0);
+        AMBA_SLAVE_0_HTRANS_S1    : out std_logic_vector(1 downto 0);
+        AMBA_SLAVE_0_HWDATA_S1    : out std_logic_vector(31 downto 0);
+        AMBA_SLAVE_0_HWRITE_S1    : out std_logic;
         FIC_0_CLK                 : out std_logic;
         FIC_0_LOCK                : out std_logic;
         GPIO_0_M2F                : out std_logic;
@@ -245,20 +245,20 @@ SHA256_Module_0 : SHA256_Module
         do_valid_o                => SHA256_Module_0_do_valid_o,
         error_o                   => SHA256_Module_0_error_o,
         data_available            => SHA256_Module_0_data_available,
-        data_out                  => SHA256_Module_0_data_out,
         data_available_lastbank_8 => SHA256_Module_0_data_available_lastbank_8,
         data_available_lastbank_0 => OPEN,
-        state_out                 => state_out_net_0,
-        waiting_data              => SHA256_Module_0_waiting_data 
+        waiting_data              => SHA256_Module_0_waiting_data,
+        data_out                  => SHA256_Module_0_data_out,
+        state_out                 => state_out_net_0 
         );
 -- sha256_system_sb_0
 sha256_system_sb_0 : sha256_system_sb
     port map( 
         -- Inputs
         FAB_RESET_N                       => VCC_net,
-        AMBA_SLAVE_0_HRDATA_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HRDATA,
-        AMBA_SLAVE_0_HREADYOUT_S0         => sha256_system_sb_0_AMBA_SLAVE_0_HREADYOUT,
-        AMBA_SLAVE_0_HRESP_S0(1 downto 0) => sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0,
+        AMBA_SLAVE_0_HRDATA_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HRDATA,
+        AMBA_SLAVE_0_HREADYOUT_S1         => sha256_system_sb_0_AMBA_SLAVE_0_HREADYOUT,
+        AMBA_SLAVE_0_HRESP_S1(1 downto 0) => sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0,
         DEVRST_N                          => DEVRST_N,
         GPIO_2_F2M                        => SHA256_Module_0_waiting_data,
         GPIO_3_F2M                        => SHA256_Module_0_data_available_lastbank_8,
@@ -270,16 +270,16 @@ sha256_system_sb_0 : sha256_system_sb
         -- Outputs
         POWER_ON_RESET_N                  => sha256_system_sb_0_POWER_ON_RESET_N,
         INIT_DONE                         => OPEN,
-        AMBA_SLAVE_0_HADDR_S0             => sha256_system_sb_0_AMBA_SLAVE_0_HADDR,
-        AMBA_SLAVE_0_HTRANS_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HTRANS,
-        AMBA_SLAVE_0_HWRITE_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HWRITE,
-        AMBA_SLAVE_0_HSIZE_S0             => sha256_system_sb_0_AMBA_SLAVE_0_HSIZE,
-        AMBA_SLAVE_0_HWDATA_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HWDATA,
-        AMBA_SLAVE_0_HSEL_S0              => sha256_system_sb_0_AMBA_SLAVE_0_HSELx,
-        AMBA_SLAVE_0_HREADY_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HREADY,
-        AMBA_SLAVE_0_HMASTLOCK_S0         => sha256_system_sb_0_AMBA_SLAVE_0_HMASTLOCK,
-        AMBA_SLAVE_0_HBURST_S0            => sha256_system_sb_0_AMBA_SLAVE_0_HBURST,
-        AMBA_SLAVE_0_HPROT_S0             => sha256_system_sb_0_AMBA_SLAVE_0_HPROT,
+        AMBA_SLAVE_0_HADDR_S1             => sha256_system_sb_0_AMBA_SLAVE_0_HADDR,
+        AMBA_SLAVE_0_HTRANS_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HTRANS,
+        AMBA_SLAVE_0_HWRITE_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HWRITE,
+        AMBA_SLAVE_0_HSIZE_S1             => sha256_system_sb_0_AMBA_SLAVE_0_HSIZE,
+        AMBA_SLAVE_0_HWDATA_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HWDATA,
+        AMBA_SLAVE_0_HSEL_S1              => sha256_system_sb_0_AMBA_SLAVE_0_HSELx,
+        AMBA_SLAVE_0_HREADY_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HREADY,
+        AMBA_SLAVE_0_HMASTLOCK_S1         => sha256_system_sb_0_AMBA_SLAVE_0_HMASTLOCK,
+        AMBA_SLAVE_0_HBURST_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HBURST,
+        AMBA_SLAVE_0_HPROT_S1             => sha256_system_sb_0_AMBA_SLAVE_0_HPROT,
         FIC_0_CLK                         => sha256_system_sb_0_FIC_0_CLK,
         FIC_0_LOCK                        => OPEN,
         MSS_READY                         => OPEN,

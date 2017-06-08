@@ -3,7 +3,7 @@
 <doc>
 <text>SmartTime Version 11.7.1.14</text>
 <text>Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
-Date: Wed Jun 07 22:51:23 2017 </text>
+Date: Wed Jun 07 23:49:36 2017 </text>
 <table>
 <header>
 </header>
@@ -51,14 +51,14 @@ Date: Wed Jun 07 22:51:23 2017 </text>
 <row>
  <cell>Setup</cell>
  <cell>            0</cell>
- <cell>         4772</cell>
- <cell>         4772</cell>
+ <cell>         4820</cell>
+ <cell>         4820</cell>
 </row>
 <row>
  <cell>Recovery</cell>
  <cell>            0</cell>
- <cell>           99</cell>
- <cell>           99</cell>
+ <cell>          124</cell>
+ <cell>          124</cell>
 </row>
 <row>
  <cell>Output Setup</cell>
@@ -69,21 +69,21 @@ Date: Wed Jun 07 22:51:23 2017 </text>
 <row>
  <cell>Total Setup</cell>
  <cell>            0</cell>
- <cell>         4872</cell>
- <cell>         4872</cell>
+ <cell>         4945</cell>
+ <cell>         4945</cell>
 </row>
 <separator/>
 <row>
  <cell>Hold</cell>
  <cell>            0</cell>
- <cell>         4772</cell>
- <cell>         4772</cell>
+ <cell>         4820</cell>
+ <cell>         4820</cell>
 </row>
 <row>
  <cell>Removal</cell>
  <cell>            0</cell>
- <cell>           99</cell>
- <cell>           99</cell>
+ <cell>          124</cell>
+ <cell>          124</cell>
 </row>
 <row>
  <cell>Output Hold</cell>
@@ -94,8 +94,8 @@ Date: Wed Jun 07 22:51:23 2017 </text>
 <row>
  <cell>Total Hold</cell>
  <cell>            0</cell>
- <cell>         4872</cell>
- <cell>         4872</cell>
+ <cell>         4945</cell>
+ <cell>         4945</cell>
 </row>
 </table>
 <section>
@@ -112,14 +112,14 @@ Date: Wed Jun 07 22:51:23 2017 </text>
 <row>
  <cell>Setup</cell>
  <cell>            0</cell>
- <cell>         4771</cell>
- <cell>         4771</cell>
+ <cell>         4819</cell>
+ <cell>         4819</cell>
 </row>
 <row>
  <cell>Recovery</cell>
  <cell>            0</cell>
- <cell>           99</cell>
- <cell>           99</cell>
+ <cell>          124</cell>
+ <cell>          124</cell>
 </row>
 <row>
  <cell>Output Setup</cell>
@@ -130,21 +130,21 @@ Date: Wed Jun 07 22:51:23 2017 </text>
 <row>
  <cell>Total Setup</cell>
  <cell>            0</cell>
- <cell>         4871</cell>
- <cell>         4871</cell>
+ <cell>         4944</cell>
+ <cell>         4944</cell>
 </row>
 <separator/>
 <row>
  <cell>Hold</cell>
  <cell>            0</cell>
- <cell>         4771</cell>
- <cell>         4771</cell>
+ <cell>         4819</cell>
+ <cell>         4819</cell>
 </row>
 <row>
  <cell>Removal</cell>
  <cell>            0</cell>
- <cell>           99</cell>
- <cell>           99</cell>
+ <cell>          124</cell>
+ <cell>          124</cell>
 </row>
 <row>
  <cell>Output Hold</cell>
@@ -155,8 +155,8 @@ Date: Wed Jun 07 22:51:23 2017 </text>
 <row>
  <cell>Total Hold</cell>
  <cell>            0</cell>
- <cell>         4871</cell>
- <cell>         4871</cell>
+ <cell>         4944</cell>
+ <cell>         4944</cell>
 </row>
 </table>
 <section>
@@ -282,7 +282,7 @@ Date: Wed Jun 07 22:51:23 2017 </text>
  <item>SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/msg_bit_cnt_reg[41]:D</item>
 </list>
 <text></text>
-<text> - Recovery uncconstrained for the following pins:</text>
+<text> - Recovery uncconstrained for the following pins(first one hundred):</text>
 <text>   </text>
 <list>
  <item>AHB_slave_dummy_0/FSM[0]:ALn</item>
@@ -342,6 +342,14 @@ Date: Wed Jun 07 22:51:23 2017 </text>
  <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state[3]:ALn</item>
  <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state[4]:ALn</item>
  <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state[5]:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_AHBLSramIf/HWRITE_d:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_AHBLSramIf/ahbcurr_state[0]:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_AHBLSramIf/ahbcurr_state[1]:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_AHBLSramIf/ahbsram_req_d1:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_SramCtrlIf/sram_done:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_SramCtrlIf/sramahb_ack_xhdl1:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_SramCtrlIf/sramcurr_state[0]:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_SramCtrlIf/sramcurr_state[1]:ALn</item>
  <item>sha256_system_sb_0/CORERESETP_0/FIC_2_APB_M_PRESET_N_clk_base:ALn</item>
  <item>sha256_system_sb_0/CORERESETP_0/FIC_2_APB_M_PRESET_N_q1:ALn</item>
  <item>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int:ALn</item>
@@ -369,21 +377,14 @@ Date: Wed Jun 07 22:51:23 2017 </text>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[9]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/default_slave_sm/defSlaveSMCurrentState:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/masterRegAddrSel:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[24]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[25]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[2]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[3]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[4]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[5]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[6]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHTRANS:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHWRITE:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/masterDataInProg[0]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[10]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[12]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[13]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[14]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[15]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[2]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[6]:ALn</item>
 </list>
 <text></text>
 <text> - Hold uncconstrained for the following pins(first one hundred):</text>
@@ -491,7 +492,7 @@ Date: Wed Jun 07 22:51:23 2017 </text>
  <item>SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/msg_bit_cnt_reg[41]:D</item>
 </list>
 <text></text>
-<text> - Removal uncconstrained for the following pins:</text>
+<text> - Removal uncconstrained for the following pins(first one hundred):</text>
 <text>   </text>
 <list>
  <item>AHB_slave_dummy_0/FSM[0]:ALn</item>
@@ -551,6 +552,14 @@ Date: Wed Jun 07 22:51:23 2017 </text>
  <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state[3]:ALn</item>
  <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state[4]:ALn</item>
  <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state[5]:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_AHBLSramIf/HWRITE_d:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_AHBLSramIf/ahbcurr_state[0]:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_AHBLSramIf/ahbcurr_state[1]:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_AHBLSramIf/ahbsram_req_d1:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_SramCtrlIf/sram_done:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_SramCtrlIf/sramahb_ack_xhdl1:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_SramCtrlIf/sramcurr_state[0]:ALn</item>
+ <item>sha256_system_sb_0/COREAHBLSRAM_0_0/U_SramCtrlIf/sramcurr_state[1]:ALn</item>
  <item>sha256_system_sb_0/CORERESETP_0/FIC_2_APB_M_PRESET_N_clk_base:ALn</item>
  <item>sha256_system_sb_0/CORERESETP_0/FIC_2_APB_M_PRESET_N_q1:ALn</item>
  <item>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int:ALn</item>
@@ -578,21 +587,14 @@ Date: Wed Jun 07 22:51:23 2017 </text>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/SDATASELInt[9]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/default_slave_sm/defSlaveSMCurrentState:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/masterRegAddrSel:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[24]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[25]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[2]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[3]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[4]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[5]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[6]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHTRANS:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHWRITE:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/masterDataInProg[0]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[10]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[12]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[13]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[14]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[15]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[2]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/slavestage_0/slave_arbiter/arbRegSMCurrentState[6]:ALn</item>
 </list>
 <text></text>
 </section>

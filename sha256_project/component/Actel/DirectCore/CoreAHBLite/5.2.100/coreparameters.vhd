@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by Microsemi SmartDesign Wed Jun 07 22:42:11 2017
+-- Created by Microsemi SmartDesign Wed Jun 07 23:44:47 2017
 -- Parameters for CoreAHBLite
 ----------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ package coreparameters is
     constant HADDR_SHG_CFG : integer := 1;
     constant HDL_license : string( 1 to 1 ) := "U";
     constant M0_AHBSLOT0ENABLE : integer := 1;
-    constant M0_AHBSLOT1ENABLE : integer := 0;
+    constant M0_AHBSLOT1ENABLE : integer := 1;
     constant M0_AHBSLOT2ENABLE : integer := 0;
     constant M0_AHBSLOT3ENABLE : integer := 0;
     constant M0_AHBSLOT4ENABLE : integer := 0;

@@ -3114,6 +3114,65 @@
 </data>
 <separator/>
 <data>
+<name>COREAHBLSRAM_0</name>
+<table>
+<header>
+ <cell>Name</cell>
+ <cell>Subsystem</cell>
+ <cell>Vendor</cell>
+ <cell>Version</cell>
+</header>
+<row>
+ <cell>COREAHBLSRAM</cell>
+ <cell>MSS FIC_0 - MSS Master Subsystem</cell>
+ <cell>Actel</cell>
+ <cell>2.0.113</cell>
+</row>
+</table>
+<cdata>
+<name>Configuration</name>
+<table>
+<header>
+ <cell>Parameter</cell>
+ <cell>Value</cell>
+</header>
+<row>
+ <cell>AHB_AWIDTH</cell>
+ <cell>32</cell>
+</row>
+<row>
+ <cell>AHB_DWIDTH</cell>
+ <cell>32</cell>
+</row>
+<row>
+ <cell>FAMILY</cell>
+ <cell>19</cell>
+</row>
+<row>
+ <cell>HDL_License</cell>
+ <cell>U</cell>
+</row>
+<row>
+ <cell>LSRAM_NUM_LOCATIONS_DWIDTH32</cell>
+ <cell>65536</cell>
+</row>
+<row>
+ <cell>SEL_SRAM_TYPE</cell>
+ <cell>0</cell>
+</row>
+<row>
+ <cell>Testbench</cell>
+ <cell>User</cell>
+</row>
+<row>
+ <cell>USRAM_NUM_LOCATIONS_DWIDTH32</cell>
+ <cell>512</cell>
+</row>
+</table>
+</cdata>
+</data>
+<separator/>
+<data>
 <name>MSS_GPIO</name>
 <table>
 <header>

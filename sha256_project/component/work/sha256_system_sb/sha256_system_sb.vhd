@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Wed Jun 07 22:42:13 2017
+-- Created by SmartDesign Wed Jun 07 23:44:48 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -14,6 +14,8 @@ use smartfusion2.all;
 library COREAHBLITE_LIB;
 use COREAHBLITE_LIB.all;
 use COREAHBLITE_LIB.components.all;
+library COREAHBLSRAM_LIB;
+use COREAHBLSRAM_LIB.all;
 ----------------------------------------------------------------------
 -- sha256_system_sb entity declaration
 ----------------------------------------------------------------------
@@ -21,9 +23,9 @@ entity sha256_system_sb is
     -- Port list
     port(
         -- Inputs
-        AMBA_SLAVE_0_HRDATA_S0    : in  std_logic_vector(31 downto 0);
-        AMBA_SLAVE_0_HREADYOUT_S0 : in  std_logic;
-        AMBA_SLAVE_0_HRESP_S0     : in  std_logic_vector(1 downto 0);
+        AMBA_SLAVE_0_HRDATA_S1    : in  std_logic_vector(31 downto 0);
+        AMBA_SLAVE_0_HREADYOUT_S1 : in  std_logic;
+        AMBA_SLAVE_0_HRESP_S1     : in  std_logic_vector(1 downto 0);
         DEVRST_N                  : in  std_logic;
         FAB_RESET_N               : in  std_logic;
         GPIO_2_F2M                : in  std_logic;
@@ -34,16 +36,16 @@ entity sha256_system_sb is
         GPIO_7_F2M                : in  std_logic;
         GPIO_8_F2M                : in  std_logic;
         -- Outputs
-        AMBA_SLAVE_0_HADDR_S0     : out std_logic_vector(31 downto 0);
-        AMBA_SLAVE_0_HBURST_S0    : out std_logic_vector(2 downto 0);
-        AMBA_SLAVE_0_HMASTLOCK_S0 : out std_logic;
-        AMBA_SLAVE_0_HPROT_S0     : out std_logic_vector(3 downto 0);
-        AMBA_SLAVE_0_HREADY_S0    : out std_logic;
-        AMBA_SLAVE_0_HSEL_S0      : out std_logic;
-        AMBA_SLAVE_0_HSIZE_S0     : out std_logic_vector(2 downto 0);
-        AMBA_SLAVE_0_HTRANS_S0    : out std_logic_vector(1 downto 0);
-        AMBA_SLAVE_0_HWDATA_S0    : out std_logic_vector(31 downto 0);
-        AMBA_SLAVE_0_HWRITE_S0    : out std_logic;
+        AMBA_SLAVE_0_HADDR_S1     : out std_logic_vector(31 downto 0);
+        AMBA_SLAVE_0_HBURST_S1    : out std_logic_vector(2 downto 0);
+        AMBA_SLAVE_0_HMASTLOCK_S1 : out std_logic;
+        AMBA_SLAVE_0_HPROT_S1     : out std_logic_vector(3 downto 0);
+        AMBA_SLAVE_0_HREADY_S1    : out std_logic;
+        AMBA_SLAVE_0_HSEL_S1      : out std_logic;
+        AMBA_SLAVE_0_HSIZE_S1     : out std_logic_vector(2 downto 0);
+        AMBA_SLAVE_0_HTRANS_S1    : out std_logic_vector(1 downto 0);
+        AMBA_SLAVE_0_HWDATA_S1    : out std_logic_vector(31 downto 0);
+        AMBA_SLAVE_0_HWRITE_S1    : out std_logic;
         FIC_0_CLK                 : out std_logic;
         FIC_0_LOCK                : out std_logic;
         GPIO_0_M2F                : out std_logic;
@@ -74,6 +76,35 @@ component sha256_system_sb_CCC_0_FCCC
 end component;
 -- CoreAHBLite   -   Actel:DirectCore:CoreAHBLite:5.2.100
 -- using entity instantiation for component CoreAHBLite
+-- sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM   -   Actel:DirectCore:COREAHBLSRAM:2.0.113
+component sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM
+    generic( 
+        AHB_AWIDTH                   : integer := 32 ;
+        AHB_DWIDTH                   : integer := 32 ;
+        FAMILY                       : integer := 19 ;
+        LSRAM_NUM_LOCATIONS_DWIDTH32 : integer := 65536 ;
+        SEL_SRAM_TYPE                : integer := 0 ;
+        USRAM_NUM_LOCATIONS_DWIDTH32 : integer := 512 
+        );
+    -- Port list
+    port(
+        -- Inputs
+        HADDR     : in  std_logic_vector(31 downto 0);
+        HBURST    : in  std_logic_vector(2 downto 0);
+        HCLK      : in  std_logic;
+        HREADYIN  : in  std_logic;
+        HRESETN   : in  std_logic;
+        HSEL      : in  std_logic;
+        HSIZE     : in  std_logic_vector(2 downto 0);
+        HTRANS    : in  std_logic_vector(1 downto 0);
+        HWDATA    : in  std_logic_vector(31 downto 0);
+        HWRITE    : in  std_logic;
+        -- Outputs
+        HRDATA    : out std_logic_vector(31 downto 0);
+        HREADYOUT : out std_logic;
+        HRESP     : out std_logic_vector(1 downto 0)
+        );
+end component;
 -- CoreResetP   -   Actel:DirectCore:CoreResetP:7.1.100
 component CoreResetP
     generic( 
@@ -240,16 +271,29 @@ end component;
 ----------------------------------------------------------------------
 -- Signal declarations
 ----------------------------------------------------------------------
-signal AHBmslave0_HADDR                                   : std_logic_vector(31 downto 0);
-signal AHBmslave0_HBURST                                  : std_logic_vector(2 downto 0);
-signal AHBmslave0_HMASTLOCK                               : std_logic;
-signal AHBmslave0_HPROT                                   : std_logic_vector(3 downto 0);
-signal AHBmslave0_HREADY                                  : std_logic;
-signal AHBmslave0_HSELx                                   : std_logic;
-signal AHBmslave0_HSIZE                                   : std_logic_vector(2 downto 0);
-signal AHBmslave0_HTRANS                                  : std_logic_vector(1 downto 0);
-signal AHBmslave0_HWDATA                                  : std_logic_vector(31 downto 0);
-signal AHBmslave0_HWRITE                                  : std_logic;
+signal AHBmslave1_HADDR                                   : std_logic_vector(31 downto 0);
+signal AHBmslave1_HBURST                                  : std_logic_vector(2 downto 0);
+signal AHBmslave1_HMASTLOCK                               : std_logic;
+signal AHBmslave1_HPROT                                   : std_logic_vector(3 downto 0);
+signal AHBmslave1_HREADY                                  : std_logic;
+signal AHBmslave1_HSELx                                   : std_logic;
+signal AHBmslave1_HSIZE                                   : std_logic_vector(2 downto 0);
+signal AHBmslave1_HTRANS                                  : std_logic_vector(1 downto 0);
+signal AHBmslave1_HWDATA                                  : std_logic_vector(31 downto 0);
+signal AHBmslave1_HWRITE                                  : std_logic;
+signal CoreAHBLite_0_AHBmslave0_HADDR                     : std_logic_vector(31 downto 0);
+signal CoreAHBLite_0_AHBmslave0_HBURST                    : std_logic_vector(2 downto 0);
+signal CoreAHBLite_0_AHBmslave0_HMASTLOCK                 : std_logic;
+signal CoreAHBLite_0_AHBmslave0_HPROT                     : std_logic_vector(3 downto 0);
+signal CoreAHBLite_0_AHBmslave0_HRDATA                    : std_logic_vector(31 downto 0);
+signal CoreAHBLite_0_AHBmslave0_HREADY                    : std_logic;
+signal CoreAHBLite_0_AHBmslave0_HREADYOUT                 : std_logic;
+signal CoreAHBLite_0_AHBmslave0_HRESP                     : std_logic_vector(1 downto 0);
+signal CoreAHBLite_0_AHBmslave0_HSELx                     : std_logic;
+signal CoreAHBLite_0_AHBmslave0_HSIZE                     : std_logic_vector(2 downto 0);
+signal CoreAHBLite_0_AHBmslave0_HTRANS                    : std_logic_vector(1 downto 0);
+signal CoreAHBLite_0_AHBmslave0_HWDATA                    : std_logic_vector(31 downto 0);
+signal CoreAHBLite_0_AHBmslave0_HWRITE                    : std_logic;
 signal CORERESETP_0_RESET_N_F2M                           : std_logic;
 signal FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC : std_logic;
 signal FABOSC_0_RCOSC_25_50MHZ_O2F                        : std_logic;
@@ -271,16 +315,16 @@ signal sha256_system_sb_MSS_TMP_0_FIC_2_APB_M_PRESET_N    : std_logic;
 signal sha256_system_sb_MSS_TMP_0_MSS_RESET_N_M2F         : std_logic;
 signal POWER_ON_RESET_N_net_1                             : std_logic;
 signal INIT_DONE_net_1                                    : std_logic;
-signal AHBmslave0_HADDR_net_0                             : std_logic_vector(31 downto 0);
-signal AHBmslave0_HTRANS_net_0                            : std_logic_vector(1 downto 0);
-signal AHBmslave0_HWRITE_net_0                            : std_logic;
-signal AHBmslave0_HSIZE_net_0                             : std_logic_vector(2 downto 0);
-signal AHBmslave0_HWDATA_net_0                            : std_logic_vector(31 downto 0);
-signal AHBmslave0_HSELx_net_0                             : std_logic;
-signal AHBmslave0_HREADY_net_0                            : std_logic;
-signal AHBmslave0_HMASTLOCK_net_0                         : std_logic;
-signal AHBmslave0_HBURST_net_0                            : std_logic_vector(2 downto 0);
-signal AHBmslave0_HPROT_net_0                             : std_logic_vector(3 downto 0);
+signal AHBmslave1_HADDR_net_0                             : std_logic_vector(31 downto 0);
+signal AHBmslave1_HTRANS_net_0                            : std_logic_vector(1 downto 0);
+signal AHBmslave1_HWRITE_net_0                            : std_logic;
+signal AHBmslave1_HSIZE_net_0                             : std_logic_vector(2 downto 0);
+signal AHBmslave1_HWDATA_net_0                            : std_logic_vector(31 downto 0);
+signal AHBmslave1_HSELx_net_0                             : std_logic;
+signal AHBmslave1_HREADY_net_0                            : std_logic;
+signal AHBmslave1_HMASTLOCK_net_0                         : std_logic;
+signal AHBmslave1_HBURST_net_0                            : std_logic_vector(2 downto 0);
+signal AHBmslave1_HPROT_net_0                             : std_logic_vector(3 downto 0);
 signal FIC_0_CLK_net_1                                    : std_logic;
 signal FIC_0_LOCK_net_1                                   : std_logic;
 signal MSS_READY_net_1                                    : std_logic;
@@ -318,8 +362,6 @@ signal HSIZE_M3_const_net_0                               : std_logic_vector(2 d
 signal HBURST_M3_const_net_0                              : std_logic_vector(2 downto 0);
 signal HPROT_M3_const_net_0                               : std_logic_vector(3 downto 0);
 signal HWDATA_M3_const_net_0                              : std_logic_vector(31 downto 0);
-signal HRDATA_S1_const_net_0                              : std_logic_vector(31 downto 0);
-signal HRESP_S1_const_net_0                               : std_logic_vector(1 downto 0);
 signal HRDATA_S2_const_net_0                              : std_logic_vector(31 downto 0);
 signal HRESP_S2_const_net_0                               : std_logic_vector(1 downto 0);
 signal HRDATA_S3_const_net_0                              : std_logic_vector(31 downto 0);
@@ -396,8 +438,6 @@ begin
  HBURST_M3_const_net_0          <= B"000";
  HPROT_M3_const_net_0           <= B"0000";
  HWDATA_M3_const_net_0          <= B"00000000000000000000000000000000";
- HRDATA_S1_const_net_0          <= B"00000000000000000000000000000000";
- HRESP_S1_const_net_0           <= B"00";
  HRDATA_S2_const_net_0          <= B"00000000000000000000000000000000";
  HRESP_S2_const_net_0           <= B"00";
  HRDATA_S3_const_net_0          <= B"00000000000000000000000000000000";
@@ -436,26 +476,26 @@ begin
  POWER_ON_RESET_N                    <= POWER_ON_RESET_N_net_1;
  INIT_DONE_net_1                     <= INIT_DONE_net_0;
  INIT_DONE                           <= INIT_DONE_net_1;
- AHBmslave0_HADDR_net_0              <= AHBmslave0_HADDR;
- AMBA_SLAVE_0_HADDR_S0(31 downto 0)  <= AHBmslave0_HADDR_net_0;
- AHBmslave0_HTRANS_net_0             <= AHBmslave0_HTRANS;
- AMBA_SLAVE_0_HTRANS_S0(1 downto 0)  <= AHBmslave0_HTRANS_net_0;
- AHBmslave0_HWRITE_net_0             <= AHBmslave0_HWRITE;
- AMBA_SLAVE_0_HWRITE_S0              <= AHBmslave0_HWRITE_net_0;
- AHBmslave0_HSIZE_net_0              <= AHBmslave0_HSIZE;
- AMBA_SLAVE_0_HSIZE_S0(2 downto 0)   <= AHBmslave0_HSIZE_net_0;
- AHBmslave0_HWDATA_net_0             <= AHBmslave0_HWDATA;
- AMBA_SLAVE_0_HWDATA_S0(31 downto 0) <= AHBmslave0_HWDATA_net_0;
- AHBmslave0_HSELx_net_0              <= AHBmslave0_HSELx;
- AMBA_SLAVE_0_HSEL_S0                <= AHBmslave0_HSELx_net_0;
- AHBmslave0_HREADY_net_0             <= AHBmslave0_HREADY;
- AMBA_SLAVE_0_HREADY_S0              <= AHBmslave0_HREADY_net_0;
- AHBmslave0_HMASTLOCK_net_0          <= AHBmslave0_HMASTLOCK;
- AMBA_SLAVE_0_HMASTLOCK_S0           <= AHBmslave0_HMASTLOCK_net_0;
- AHBmslave0_HBURST_net_0             <= AHBmslave0_HBURST;
- AMBA_SLAVE_0_HBURST_S0(2 downto 0)  <= AHBmslave0_HBURST_net_0;
- AHBmslave0_HPROT_net_0              <= AHBmslave0_HPROT;
- AMBA_SLAVE_0_HPROT_S0(3 downto 0)   <= AHBmslave0_HPROT_net_0;
+ AHBmslave1_HADDR_net_0              <= AHBmslave1_HADDR;
+ AMBA_SLAVE_0_HADDR_S1(31 downto 0)  <= AHBmslave1_HADDR_net_0;
+ AHBmslave1_HTRANS_net_0             <= AHBmslave1_HTRANS;
+ AMBA_SLAVE_0_HTRANS_S1(1 downto 0)  <= AHBmslave1_HTRANS_net_0;
+ AHBmslave1_HWRITE_net_0             <= AHBmslave1_HWRITE;
+ AMBA_SLAVE_0_HWRITE_S1              <= AHBmslave1_HWRITE_net_0;
+ AHBmslave1_HSIZE_net_0              <= AHBmslave1_HSIZE;
+ AMBA_SLAVE_0_HSIZE_S1(2 downto 0)   <= AHBmslave1_HSIZE_net_0;
+ AHBmslave1_HWDATA_net_0             <= AHBmslave1_HWDATA;
+ AMBA_SLAVE_0_HWDATA_S1(31 downto 0) <= AHBmslave1_HWDATA_net_0;
+ AHBmslave1_HSELx_net_0              <= AHBmslave1_HSELx;
+ AMBA_SLAVE_0_HSEL_S1                <= AHBmslave1_HSELx_net_0;
+ AHBmslave1_HREADY_net_0             <= AHBmslave1_HREADY;
+ AMBA_SLAVE_0_HREADY_S1              <= AHBmslave1_HREADY_net_0;
+ AHBmslave1_HMASTLOCK_net_0          <= AHBmslave1_HMASTLOCK;
+ AMBA_SLAVE_0_HMASTLOCK_S1           <= AHBmslave1_HMASTLOCK_net_0;
+ AHBmslave1_HBURST_net_0             <= AHBmslave1_HBURST;
+ AMBA_SLAVE_0_HBURST_S1(2 downto 0)  <= AHBmslave1_HBURST_net_0;
+ AHBmslave1_HPROT_net_0              <= AHBmslave1_HPROT;
+ AMBA_SLAVE_0_HPROT_S1(3 downto 0)   <= AHBmslave1_HPROT_net_0;
  FIC_0_CLK_net_1                     <= FIC_0_CLK_net_0;
  FIC_0_CLK                           <= FIC_0_CLK_net_1;
  FIC_0_LOCK_net_1                    <= FIC_0_LOCK_net_0;
@@ -496,7 +536,7 @@ CoreAHBLite_0 : entity COREAHBLITE_LIB.CoreAHBLite
         FAMILY             => ( 19 ),
         HADDR_SHG_CFG      => ( 1 ),
         M0_AHBSLOT0ENABLE  => ( 1 ),
-        M0_AHBSLOT1ENABLE  => ( 0 ),
+        M0_AHBSLOT1ENABLE  => ( 1 ),
         M0_AHBSLOT2ENABLE  => ( 0 ),
         M0_AHBSLOT3ENABLE  => ( 0 ),
         M0_AHBSLOT4ENABLE  => ( 0 ),
@@ -618,12 +658,12 @@ CoreAHBLite_0 : entity COREAHBLITE_LIB.CoreAHBLite
         HWDATA_M3     => HWDATA_M3_const_net_0, -- tied to X"0" from definition
         HBURST_M3     => HBURST_M3_const_net_0, -- tied to X"0" from definition
         HPROT_M3      => HPROT_M3_const_net_0, -- tied to X"0" from definition
-        HRDATA_S0     => AMBA_SLAVE_0_HRDATA_S0,
-        HREADYOUT_S0  => AMBA_SLAVE_0_HREADYOUT_S0,
-        HRESP_S0      => AMBA_SLAVE_0_HRESP_S0,
-        HRDATA_S1     => HRDATA_S1_const_net_0, -- tied to X"0" from definition
-        HREADYOUT_S1  => VCC_net, -- tied to '1' from definition
-        HRESP_S1      => HRESP_S1_const_net_0, -- tied to X"0" from definition
+        HRDATA_S0     => CoreAHBLite_0_AHBmslave0_HRDATA,
+        HREADYOUT_S0  => CoreAHBLite_0_AHBmslave0_HREADYOUT,
+        HRESP_S0      => CoreAHBLite_0_AHBmslave0_HRESP,
+        HRDATA_S1     => AMBA_SLAVE_0_HRDATA_S1,
+        HREADYOUT_S1  => AMBA_SLAVE_0_HREADYOUT_S1,
+        HRESP_S1      => AMBA_SLAVE_0_HRESP_S1,
         HRDATA_S2     => HRDATA_S2_const_net_0, -- tied to X"0" from definition
         HREADYOUT_S2  => VCC_net, -- tied to '1' from definition
         HRESP_S2      => HRESP_S2_const_net_0, -- tied to X"0" from definition
@@ -682,26 +722,26 @@ CoreAHBLite_0 : entity COREAHBLITE_LIB.CoreAHBLite
         HRESP_M3      => OPEN,
         HRDATA_M3     => OPEN,
         HREADY_M3     => OPEN,
-        HSEL_S0       => AHBmslave0_HSELx,
-        HADDR_S0      => AHBmslave0_HADDR,
-        HSIZE_S0      => AHBmslave0_HSIZE,
-        HTRANS_S0     => AHBmslave0_HTRANS,
-        HWRITE_S0     => AHBmslave0_HWRITE,
-        HWDATA_S0     => AHBmslave0_HWDATA,
-        HREADY_S0     => AHBmslave0_HREADY,
-        HMASTLOCK_S0  => AHBmslave0_HMASTLOCK,
-        HBURST_S0     => AHBmslave0_HBURST,
-        HPROT_S0      => AHBmslave0_HPROT,
-        HSEL_S1       => OPEN,
-        HADDR_S1      => OPEN,
-        HSIZE_S1      => OPEN,
-        HTRANS_S1     => OPEN,
-        HWRITE_S1     => OPEN,
-        HWDATA_S1     => OPEN,
-        HREADY_S1     => OPEN,
-        HMASTLOCK_S1  => OPEN,
-        HBURST_S1     => OPEN,
-        HPROT_S1      => OPEN,
+        HSEL_S0       => CoreAHBLite_0_AHBmslave0_HSELx,
+        HADDR_S0      => CoreAHBLite_0_AHBmslave0_HADDR,
+        HSIZE_S0      => CoreAHBLite_0_AHBmslave0_HSIZE,
+        HTRANS_S0     => CoreAHBLite_0_AHBmslave0_HTRANS,
+        HWRITE_S0     => CoreAHBLite_0_AHBmslave0_HWRITE,
+        HWDATA_S0     => CoreAHBLite_0_AHBmslave0_HWDATA,
+        HREADY_S0     => CoreAHBLite_0_AHBmslave0_HREADY,
+        HMASTLOCK_S0  => CoreAHBLite_0_AHBmslave0_HMASTLOCK,
+        HBURST_S0     => CoreAHBLite_0_AHBmslave0_HBURST,
+        HPROT_S0      => CoreAHBLite_0_AHBmslave0_HPROT,
+        HSEL_S1       => AHBmslave1_HSELx,
+        HADDR_S1      => AHBmslave1_HADDR,
+        HSIZE_S1      => AHBmslave1_HSIZE,
+        HTRANS_S1     => AHBmslave1_HTRANS,
+        HWRITE_S1     => AHBmslave1_HWRITE,
+        HWDATA_S1     => AHBmslave1_HWDATA,
+        HREADY_S1     => AHBmslave1_HREADY,
+        HMASTLOCK_S1  => AHBmslave1_HMASTLOCK,
+        HBURST_S1     => AHBmslave1_HBURST,
+        HPROT_S1      => AHBmslave1_HPROT,
         HSEL_S2       => OPEN,
         HADDR_S2      => OPEN,
         HSIZE_S2      => OPEN,
@@ -852,6 +892,33 @@ CoreAHBLite_0 : entity COREAHBLITE_LIB.CoreAHBLite
         HMASTLOCK_S16 => OPEN,
         HBURST_S16    => OPEN,
         HPROT_S16     => OPEN 
+        );
+-- COREAHBLSRAM_0_0   -   Actel:DirectCore:COREAHBLSRAM:2.0.113
+COREAHBLSRAM_0_0 : sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM
+    generic map( 
+        AHB_AWIDTH                   => ( 32 ),
+        AHB_DWIDTH                   => ( 32 ),
+        FAMILY                       => ( 19 ),
+        LSRAM_NUM_LOCATIONS_DWIDTH32 => ( 65536 ),
+        SEL_SRAM_TYPE                => ( 0 ),
+        USRAM_NUM_LOCATIONS_DWIDTH32 => ( 512 )
+        )
+    port map( 
+        -- Inputs
+        HCLK      => FIC_0_CLK_net_0,
+        HRESETN   => MSS_READY_net_0,
+        HSEL      => CoreAHBLite_0_AHBmslave0_HSELx,
+        HREADYIN  => CoreAHBLite_0_AHBmslave0_HREADY,
+        HSIZE     => CoreAHBLite_0_AHBmslave0_HSIZE,
+        HTRANS    => CoreAHBLite_0_AHBmslave0_HTRANS,
+        HBURST    => CoreAHBLite_0_AHBmslave0_HBURST,
+        HADDR     => CoreAHBLite_0_AHBmslave0_HADDR,
+        HWRITE    => CoreAHBLite_0_AHBmslave0_HWRITE,
+        HWDATA    => CoreAHBLite_0_AHBmslave0_HWDATA,
+        -- Outputs
+        HREADYOUT => CoreAHBLite_0_AHBmslave0_HREADYOUT,
+        HRDATA    => CoreAHBLite_0_AHBmslave0_HRDATA,
+        HRESP     => CoreAHBLite_0_AHBmslave0_HRESP 
         );
 -- CORERESETP_0   -   Actel:DirectCore:CoreResetP:7.1.100
 CORERESETP_0 : CoreResetP

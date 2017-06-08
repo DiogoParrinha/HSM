@@ -6,6 +6,7 @@ COREAHBLITE_LIB = ../component/Actel/DirectCore/CoreAHBLite/5.2.100/mti/user_vhd
 COREAHBLSRAM_LIB = COREAHBLSRAM_LIB
 syncad_vhdl_lib = C:\Microsemi\Libero_SoC_v11.7\Designer/lib/actel/syncad_vhdl_lib
 
+postlayout = ../designer/sha256_system/simulation/postlayout
 [vcom]
 VHDL93 = 1
 
