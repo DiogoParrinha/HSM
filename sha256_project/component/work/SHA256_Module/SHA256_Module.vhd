@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Wed Jun 07 21:29:49 2017
+-- Created by SmartDesign Thu Jun 08 23:31:24 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -122,23 +122,6 @@ component SHA256_BLOCK
         error_o        : out std_logic;
         first_block    : out std_logic;
         last_block     : out std_logic;
-        reg0_out       : out std_logic_vector(31 downto 0);
-        reg10_out      : out std_logic_vector(31 downto 0);
-        reg11_out      : out std_logic_vector(31 downto 0);
-        reg12_out      : out std_logic_vector(31 downto 0);
-        reg13_out      : out std_logic_vector(31 downto 0);
-        reg14_out      : out std_logic_vector(31 downto 0);
-        reg15_out      : out std_logic_vector(31 downto 0);
-        reg16_out      : out std_logic_vector(31 downto 0);
-        reg1_out       : out std_logic_vector(31 downto 0);
-        reg2_out       : out std_logic_vector(31 downto 0);
-        reg3_out       : out std_logic_vector(31 downto 0);
-        reg4_out       : out std_logic_vector(31 downto 0);
-        reg5_out       : out std_logic_vector(31 downto 0);
-        reg6_out       : out std_logic_vector(31 downto 0);
-        reg7_out       : out std_logic_vector(31 downto 0);
-        reg8_out       : out std_logic_vector(31 downto 0);
-        reg9_out       : out std_logic_vector(31 downto 0);
         start_o        : out std_logic;
         state_out      : out std_logic_vector(2 downto 0);
         waiting_data   : out std_logic
@@ -187,11 +170,11 @@ signal data_out_ready_net_1            : std_logic;
 signal do_valid_o_0_net_0              : std_logic;
 signal error_o_net_1                   : std_logic;
 signal data_available_net_1            : std_logic;
-signal data_out_net_1                  : std_logic_vector(31 downto 0);
 signal data_available_lastbank_8_net_1 : std_logic;
 signal data_available_lastbank_0_net_1 : std_logic;
-signal state_out_net_1                 : std_logic_vector(2 downto 0);
 signal waiting_data_net_1              : std_logic;
+signal data_out_net_1                  : std_logic_vector(31 downto 0);
+signal state_out_net_1                 : std_logic_vector(2 downto 0);
 ----------------------------------------------------------------------
 -- TiedOff Signals
 ----------------------------------------------------------------------
@@ -215,16 +198,16 @@ begin
  error_o                         <= error_o_net_1;
  data_available_net_1            <= data_available_net_0;
  data_available                  <= data_available_net_1;
- data_out_net_1                  <= data_out_net_0;
- data_out(31 downto 0)           <= data_out_net_1;
  data_available_lastbank_8_net_1 <= data_available_lastbank_8_net_0;
  data_available_lastbank_8       <= data_available_lastbank_8_net_1;
  data_available_lastbank_0_net_1 <= data_available_lastbank_0_net_0;
  data_available_lastbank_0       <= data_available_lastbank_0_net_1;
- state_out_net_1                 <= state_out_net_0;
- state_out(2 downto 0)           <= state_out_net_1;
  waiting_data_net_1              <= waiting_data_net_0;
  waiting_data                    <= waiting_data_net_1;
+ data_out_net_1                  <= data_out_net_0;
+ data_out(31 downto 0)           <= data_out_net_1;
+ state_out_net_1                 <= state_out_net_0;
+ state_out(2 downto 0)           <= state_out_net_1;
 ----------------------------------------------------------------------
 -- Component instances
 ----------------------------------------------------------------------
@@ -267,9 +250,9 @@ reg9_1x32_0 : reg9_1x32
         data_in_7                 => SHA256_BLOCK_0_H7_o,
         sel                       => result_addr,
         -- Outputs
-        data_out                  => data_out_net_0,
         data_available_lastbank_8 => data_available_lastbank_8_0,
-        data_available_lastbank_0 => OPEN 
+        data_available_lastbank_0 => OPEN,
+        data_out                  => data_out_net_0 
         );
 -- SHA256_BLOCK_0
 SHA256_BLOCK_0 : SHA256_BLOCK
@@ -287,6 +270,10 @@ SHA256_BLOCK_0 : SHA256_BLOCK
         di_req_o       => di_req_o_net_0,
         data_out_ready => data_out_ready_net_0,
         data_available => data_available_net_0,
+        first_block    => data_available_lastbank_0_net_0,
+        last_block     => data_available_lastbank_8_net_0,
+        start_o        => SHA256_BLOCK_0_start_o,
+        waiting_data   => waiting_data_net_0,
         H0_o           => SHA256_BLOCK_0_H0_o,
         H1_o           => SHA256_BLOCK_0_H1_o,
         H2_o           => SHA256_BLOCK_0_H2_o,
@@ -295,28 +282,7 @@ SHA256_BLOCK_0 : SHA256_BLOCK
         H5_o           => SHA256_BLOCK_0_H5_o,
         H6_o           => SHA256_BLOCK_0_H6_o,
         H7_o           => SHA256_BLOCK_0_H7_o,
-        state_out      => state_out_net_0,
-        reg10_out      => OPEN,
-        reg9_out       => OPEN,
-        reg15_out      => OPEN,
-        reg7_out       => OPEN,
-        reg2_out       => OPEN,
-        reg12_out      => OPEN,
-        reg16_out      => OPEN,
-        reg4_out       => OPEN,
-        reg11_out      => OPEN,
-        reg8_out       => OPEN,
-        reg1_out       => OPEN,
-        reg3_out       => OPEN,
-        reg6_out       => OPEN,
-        reg14_out      => OPEN,
-        reg0_out       => OPEN,
-        reg5_out       => OPEN,
-        reg13_out      => OPEN,
-        first_block    => data_available_lastbank_0_net_0,
-        last_block     => data_available_lastbank_8_net_0,
-        start_o        => SHA256_BLOCK_0_start_o,
-        waiting_data   => waiting_data_net_0 
+        state_out      => state_out_net_0 
         );
 -- zero_concat_0
 zero_concat_0 : zero_concat

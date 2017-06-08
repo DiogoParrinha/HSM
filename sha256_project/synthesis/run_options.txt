@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version J-2015.03M-SP1-2
 #--  Project file E:\LiberoProjects\sha256_project\synthesis\run_options.txt
-#--  Written on Wed Jun 07 23:46:10 2017
+#--  Written on Thu Jun 08 23:32:35 2017
 
 
 #project files

@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Wed Jun 07 23:45:05 2017
+-- Created by SmartDesign Thu Jun 08 23:32:20 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -153,10 +153,10 @@ signal GND_net                                   : std_logic;
 ----------------------------------------------------------------------
 -- Bus Interface Nets Declarations - Unequal Pin Widths
 ----------------------------------------------------------------------
-signal sha256_system_sb_0_AMBA_SLAVE_0_HRESP     : std_logic;
 signal sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0_1to1: std_logic_vector(1 to 1);
 signal sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0_0to0: std_logic_vector(0 to 0);
 signal sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0   : std_logic_vector(1 downto 0);
+signal sha256_system_sb_0_AMBA_SLAVE_0_HRESP     : std_logic;
 
 
 begin
@@ -256,9 +256,7 @@ sha256_system_sb_0 : sha256_system_sb
     port map( 
         -- Inputs
         FAB_RESET_N                       => VCC_net,
-        AMBA_SLAVE_0_HRDATA_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HRDATA,
         AMBA_SLAVE_0_HREADYOUT_S1         => sha256_system_sb_0_AMBA_SLAVE_0_HREADYOUT,
-        AMBA_SLAVE_0_HRESP_S1(1 downto 0) => sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0,
         DEVRST_N                          => DEVRST_N,
         GPIO_2_F2M                        => SHA256_Module_0_waiting_data,
         GPIO_3_F2M                        => SHA256_Module_0_data_available_lastbank_8,
@@ -267,25 +265,27 @@ sha256_system_sb_0 : sha256_system_sb
         GPIO_6_F2M                        => SHA256_Module_0_do_valid_o,
         GPIO_7_F2M                        => SHA256_Module_0_data_available,
         GPIO_8_F2M                        => SHA256_Module_0_error_o,
+        AMBA_SLAVE_0_HRDATA_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HRDATA,
+        AMBA_SLAVE_0_HRESP_S1(1 downto 0) => sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0,
         -- Outputs
         POWER_ON_RESET_N                  => sha256_system_sb_0_POWER_ON_RESET_N,
         INIT_DONE                         => OPEN,
-        AMBA_SLAVE_0_HADDR_S1             => sha256_system_sb_0_AMBA_SLAVE_0_HADDR,
-        AMBA_SLAVE_0_HTRANS_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HTRANS,
         AMBA_SLAVE_0_HWRITE_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HWRITE,
-        AMBA_SLAVE_0_HSIZE_S1             => sha256_system_sb_0_AMBA_SLAVE_0_HSIZE,
-        AMBA_SLAVE_0_HWDATA_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HWDATA,
         AMBA_SLAVE_0_HSEL_S1              => sha256_system_sb_0_AMBA_SLAVE_0_HSELx,
         AMBA_SLAVE_0_HREADY_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HREADY,
         AMBA_SLAVE_0_HMASTLOCK_S1         => sha256_system_sb_0_AMBA_SLAVE_0_HMASTLOCK,
-        AMBA_SLAVE_0_HBURST_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HBURST,
-        AMBA_SLAVE_0_HPROT_S1             => sha256_system_sb_0_AMBA_SLAVE_0_HPROT,
         FIC_0_CLK                         => sha256_system_sb_0_FIC_0_CLK,
         FIC_0_LOCK                        => OPEN,
         MSS_READY                         => OPEN,
         GPIO_0_M2F                        => GPIO_0_M2F_net_0,
         GPIO_1_M2F                        => sha256_system_sb_0_GPIO_1_M2F,
-        GPIO_9_M2F                        => sha256_system_sb_0_GPIO_9_M2F 
+        GPIO_9_M2F                        => sha256_system_sb_0_GPIO_9_M2F,
+        AMBA_SLAVE_0_HADDR_S1             => sha256_system_sb_0_AMBA_SLAVE_0_HADDR,
+        AMBA_SLAVE_0_HTRANS_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HTRANS,
+        AMBA_SLAVE_0_HSIZE_S1             => sha256_system_sb_0_AMBA_SLAVE_0_HSIZE,
+        AMBA_SLAVE_0_HWDATA_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HWDATA,
+        AMBA_SLAVE_0_HBURST_S1            => sha256_system_sb_0_AMBA_SLAVE_0_HBURST,
+        AMBA_SLAVE_0_HPROT_S1             => sha256_system_sb_0_AMBA_SLAVE_0_HPROT 
         );
 
 end RTL;

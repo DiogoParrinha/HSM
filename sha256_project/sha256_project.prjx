@@ -762,7 +762,7 @@ SIZE="8604"
 ENDFILE
 VALUE "<project>\simulation\run.do,do"
 STATE="utd"
-TIME="1496870534"
+TIME="1496925490"
 SIZE="2954"
 ENDFILE
 VALUE "<project>\simulation\SHA256_BLOCK_tb_presynth_simulation.log,log"
@@ -787,8 +787,8 @@ SIZE="17421"
 ENDFILE
 VALUE "<project>\simulation\SHA256_Module_tb_swlike_presynth_simulation.log,log"
 STATE="utd"
-TIME="1496870586"
-SIZE="18142"
+TIME="1496926117"
+SIZE="17509"
 ENDFILE
 VALUE "<project>\simulation\subsystem.bfm,sim"
 STATE="utd"
@@ -1127,7 +1127,7 @@ NAME="ModelSim ME"
 FUNCTION="Simulation"
 TOOL="ModelSim"
 LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Model\\win32acoem\modelsim.exe"
-PARAM=" -l SHA256_Module_tb_swlike_presynth_simulation.log "
+PARAM=""
 BATCH=0
 LICENSE=""
 IS32BIT="1"
@@ -1189,12 +1189,8 @@ LIST UserCustomizedFileList
 ENDLIST
 LIST OpenedFileList
 ORIENTATION;HORIZONTAL
-Reports;Reports;0
-ReportsCurrentItem;Run PROGRAM Action:sha256_system_PROGRAM.log
-SmartDesign;sha256_system;0
 StartPage;StartPage;0
-HDL;stimulus\sha256_module_tb_softwarelike.vhd;0
-ACTIVEVIEW;stimulus\sha256_module_tb_softwarelike.vhd
+ACTIVEVIEW;StartPage
 ENDLIST
 LIST ModuleSubBlockList
 LIST "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"

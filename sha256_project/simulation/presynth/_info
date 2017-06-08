@@ -178,9 +178,9 @@ V]66hEH2z>DzYeQi4NT@6g0
 !s100 c3S7oM5blX<ogaI;^O3D61
 R8
 33
-Z31 !s110 1496925499
+Z31 !s110 1496961107
 !i10b 1
-Z32 !s108 1496925499.000000
+Z32 !s108 1496961107.000000
 Z33 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/gv_sha256.vhd|
 Z34 !s107 E:/LiberoProjects/sha256_project/hdl/gv_sha256.vhd|
 !i113 1
@@ -334,9 +334,9 @@ Vj44ddcJCh^ai^7SACKg1;2
 !s100 3OO0AlFjMz3;QR6:Bji6=3
 R8
 33
-Z59 !s110 1496925500
+Z59 !s110 1496961108
 !i10b 1
-Z60 !s108 1496925500.000000
+Z60 !s108 1496961108.000000
 Z61 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/mux_9_1.vhd|
 Z62 !s107 E:/LiberoProjects/sha256_project/hdl/mux_9_1.vhd|
 !i113 1
@@ -507,7 +507,7 @@ R86
 !i113 1
 R13
 Ereg_17x32
-Z87 w1496850934
+Z87 w1496958503
 R4
 R5
 R0
@@ -515,8 +515,8 @@ Z88 8E:/LiberoProjects/sha256_project/hdl/reg_17x32.vhd
 Z89 FE:/LiberoProjects/sha256_project/hdl/reg_17x32.vhd
 l0
 L23
-VjGlDT<>PecMM8kIIH7P3i3
-!s100 A3ze]iTLik3CQEQLh=eGc1
+VKzCYib06VB:i3FWI@19_b3
+!s100 DUIz51nkCcZiEZcdR<`bB2
 R8
 33
 R31
@@ -529,11 +529,11 @@ R13
 Aarchitecture_reg_17x32
 R4
 R5
-DEx4 work 9 reg_17x32 0 22 jGlDT<>PecMM8kIIH7P3i3
-l73
-L58
-VETmg_a7FRo3G;>aH=X@>72
-!s100 :T4P7=<5D^MhQo[170]mU3
+DEx4 work 9 reg_17x32 0 22 KzCYib06VB:i3FWI@19_b3
+l77
+L62
+V40imPzT^R33fa_kmKdYD>3
+!s100 Oi9Y0oo2@eE^dHn[PknzZ3
 R8
 33
 R31
@@ -696,7 +696,7 @@ R114
 !i113 1
 R13
 Esha256_block
-Z115 w1496867389
+Z115 w1496958852
 R4
 R5
 R0
@@ -704,8 +704,8 @@ Z116 8E:/LiberoProjects/sha256_project/component/work/SHA256_BLOCK/SHA256_BLOCK.
 Z117 FE:/LiberoProjects/sha256_project/component/work/SHA256_BLOCK/SHA256_BLOCK.vhd
 l0
 L17
-VD<7Q7S2>>4FdmPmk:7HBU2
-!s100 =AOSkF6AF]TemRdCcXRTc2
+VcHcKJ]8UD36>z7==8:W_n0
+!s100 ;IB_?Ed90PPhidzN2A@XR0
 R8
 33
 R31
@@ -718,11 +718,11 @@ R13
 Artl
 R4
 R5
-DEx4 work 12 sha256_block 0 22 D<7Q7S2>>4FdmPmk:7HBU2
-l254
-L68
-VY5A96Oi5Qn1:>WJgnZ[YD2
-!s100 Ab1iNj0dH<JE1@5j]do<42
+DEx4 work 12 sha256_block 0 22 cHcKJ]8UD36>z7==8:W_n0
+l192
+L51
+VB2?lZi21VhCRG>>Qbb=dG3
+!s100 J]=n[AbABkUi4R;6zIId_3
 R8
 33
 R31
@@ -783,9 +783,9 @@ V1?bNG7nCE]2fQOU]^hkG70
 !s100 h31WYDFGSR@TIkz4lS2IW0
 R8
 33
-Z129 !s110 1496925498
+Z129 !s110 1496961105
 !i10b 1
-Z130 !s108 1496925498.000000
+Z130 !s108 1496961105.000000
 Z131 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_control.vhd|
 Z132 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_control.vhd|
 !i113 1
@@ -809,7 +809,7 @@ R132
 !i113 1
 R13
 Esha256_controller
-Z133 w1496867358
+Z133 w1496961080
 R3
 R2
 R4
@@ -819,8 +819,8 @@ Z134 8E:/LiberoProjects/sha256_project/hdl/sha256_controller.vhd
 Z135 FE:/LiberoProjects/sha256_project/hdl/sha256_controller.vhd
 l0
 L33
-VWAU6YJbkzY43:aS:3kF=H3
-!s100 Ukk_eGENRYiNI;z]ZO=@Z3
+V@zS@4A8l5k_9`hnS>mBQ=3
+!s100 KcJEbaJolnE10hj:XgEH93
 R8
 33
 R31
@@ -835,11 +835,11 @@ R3
 R2
 R4
 R5
-DEx4 work 17 sha256_controller 0 22 WAU6YJbkzY43:aS:3kF=H3
-l75
-L63
-VzZ7M?CMh7o6_3h]nN_Sjb1
-!s100 N2gFBVdRJU;67L2aI@biD1
+DEx4 work 17 sha256_controller 0 22 @zS@4A8l5k_9`hnS>mBQ=3
+l78
+L65
+V8S;@Y9D6jM0Aclm823=YZ2
+!s100 oN0=Kc1O60?>k_I;hI:R80
 R8
 33
 R31
@@ -937,11 +937,11 @@ V;lNmbX3[o@[l:KMjEl<Re2
 !s100 QYO@Of<ci=Tlj=I23aNLA1
 R8
 33
-R129
+Z154 !s110 1496961106
 !i10b 1
-R130
-Z154 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_hash_core.vhd|
-Z155 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_hash_core.vhd|
+Z155 !s108 1496961106.000000
+Z156 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_hash_core.vhd|
+Z157 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_hash_core.vhd|
 !i113 1
 R13
 Artl
@@ -955,11 +955,11 @@ VM8hb9B7Xib0j7l65mkelM3
 !s100 W23go[ZP@OdUfWL8MdLhz1
 R8
 33
-R129
-!i10b 1
-R130
 R154
+!i10b 1
 R155
+R156
+R157
 !i113 1
 R13
 Esha256_ki_rom
@@ -968,19 +968,19 @@ R28
 R4
 R5
 R0
-Z156 8E:/LiberoProjects/sha256_project/hdl/sha256_Ki_rom.vhd
-Z157 FE:/LiberoProjects/sha256_project/hdl/sha256_Ki_rom.vhd
+Z158 8E:/LiberoProjects/sha256_project/hdl/sha256_Ki_rom.vhd
+Z159 FE:/LiberoProjects/sha256_project/hdl/sha256_Ki_rom.vhd
 l0
 L56
 Vz7QhLjeaY?_z^4gHiOClT3
 !s100 9PYW6@Z105>ika?53z?6k1
 R8
 33
-R129
+R154
 !i10b 1
-R130
-Z158 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_Ki_rom.vhd|
-Z159 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_Ki_rom.vhd|
+R155
+Z160 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_Ki_rom.vhd|
+Z161 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_Ki_rom.vhd|
 !i113 1
 R13
 Abehavioral
@@ -994,11 +994,11 @@ VPIQeSNW^0GGgQWGGgVkHk0
 !s100 OC?[1G5lhRTQGlhU7_>zz1
 R8
 33
-R129
+R154
 !i10b 1
-R130
-R158
-R159
+R155
+R160
+R161
 !i113 1
 R13
 Esha256_kt_rom
@@ -1007,19 +1007,19 @@ R28
 R4
 R5
 R0
-Z160 8E:/LiberoProjects/sha256_project/hdl/sha256_Kt_rom.vhd
-Z161 FE:/LiberoProjects/sha256_project/hdl/sha256_Kt_rom.vhd
+Z162 8E:/LiberoProjects/sha256_project/hdl/sha256_Kt_rom.vhd
+Z163 FE:/LiberoProjects/sha256_project/hdl/sha256_Kt_rom.vhd
 l0
 L59
 VMoOVcKDm]bXQk6RN3mS;M1
 !s100 ]a=oWZ5C__`1Kg4iL7JV:3
 R8
 33
-R129
+R154
 !i10b 1
-R130
-Z162 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_Kt_rom.vhd|
-Z163 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_Kt_rom.vhd|
+R155
+Z164 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_Kt_rom.vhd|
+Z165 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_Kt_rom.vhd|
 !i113 1
 R13
 Abehavioral
@@ -1033,68 +1033,68 @@ VJH>Kk>iz2JLmEVW1992:;2
 !s100 J[[?bmKl]P0>^[XgBeW^E0
 R8
 33
-R129
+R154
 !i10b 1
-R130
-R162
-R163
+R155
+R164
+R165
 !i113 1
 R13
 Esha256_module
-R115
+Z166 w1496961084
 R4
 R5
 R0
-Z164 8E:/LiberoProjects/sha256_project/component/work/SHA256_Module/SHA256_Module.vhd
-Z165 FE:/LiberoProjects/sha256_project/component/work/SHA256_Module/SHA256_Module.vhd
+Z167 8E:/LiberoProjects/sha256_project/component/work/SHA256_Module/SHA256_Module.vhd
+Z168 FE:/LiberoProjects/sha256_project/component/work/SHA256_Module/SHA256_Module.vhd
 l0
 L17
 V`9g69=XT=>fOA=ZO7<mc60
 !s100 jl^EekIk]8b3O=E:ZRVmP2
 R8
 33
-R59
+Z169 !s110 1496961109
 !i10b 1
 R60
-Z166 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/component/work/SHA256_Module/SHA256_Module.vhd|
-Z167 !s107 E:/LiberoProjects/sha256_project/component/work/SHA256_Module/SHA256_Module.vhd|
+Z170 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/component/work/SHA256_Module/SHA256_Module.vhd|
+Z171 !s107 E:/LiberoProjects/sha256_project/component/work/SHA256_Module/SHA256_Module.vhd|
 !i113 1
 R13
 Artl
 R4
 R5
 DEx4 work 13 sha256_module 0 22 `9g69=XT=>fOA=ZO7<mc60
-l200
+l183
 L45
-Vez>0R<CBo]M:ahGd<ZPii3
-!s100 l<SjXz;BQGaJGHUmBQn0P0
+VBNCVoFHM_MgTf=mS6aYgU3
+!s100 aG0^Hc16i2mW?QDi3LQ^K0
 R8
 33
-R59
+R169
 !i10b 1
 R60
-R166
-R167
+R170
+R171
 !i113 1
 R13
 Esha256_module_tb
-Z168 w1496763133
+Z172 w1496763133
 R4
 R5
 R0
-Z169 8E:/LiberoProjects/sha256_project/stimulus/SHA256_Module_tb.vhd
-Z170 FE:/LiberoProjects/sha256_project/stimulus/SHA256_Module_tb.vhd
+Z173 8E:/LiberoProjects/sha256_project/stimulus/SHA256_Module_tb.vhd
+Z174 FE:/LiberoProjects/sha256_project/stimulus/SHA256_Module_tb.vhd
 l0
 L23
 VM;_0EA_5XY2S8=HX=_4oK2
 !s100 R2JRGE_nUF8<KKW2U:UR22
 R8
 33
-Z171 !s110 1496763213
+Z175 !s110 1496763213
 !i10b 1
-Z172 !s108 1496763213.000000
-Z173 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/stimulus/SHA256_Module_tb.vhd|
-Z174 !s107 E:/LiberoProjects/sha256_project/stimulus/SHA256_Module_tb.vhd|
+Z176 !s108 1496763213.000000
+Z177 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/stimulus/SHA256_Module_tb.vhd|
+Z178 !s107 E:/LiberoProjects/sha256_project/stimulus/SHA256_Module_tb.vhd|
 !i113 1
 R13
 Abehavioral
@@ -1107,48 +1107,48 @@ VDcVFI64ZAWkeT2f31P7jR1
 !s100 <TRG<<QGICOF_P1ZOBza:3
 R8
 33
-R171
+R175
 !i10b 1
-R172
-R173
-R174
+R176
+R177
+R178
 !i113 1
 R13
 Esha256_module_tb_swlike
-Z175 w1496925487
+Z179 w1496960901
 R4
 R5
 R0
-Z176 8E:/LiberoProjects/sha256_project/stimulus/sha256_module_tb_softwarelike.vhd
-Z177 FE:/LiberoProjects/sha256_project/stimulus/sha256_module_tb_softwarelike.vhd
+Z180 8E:/LiberoProjects/sha256_project/stimulus/sha256_module_tb_softwarelike.vhd
+Z181 FE:/LiberoProjects/sha256_project/stimulus/sha256_module_tb_softwarelike.vhd
 l0
 L23
 VIXRnS6g=?aP>ZKQeH8V:^2
 !s100 Sg1mGieEoTL8UY]ohBPI>0
 R8
 33
-Z178 !s110 1496925501
+R169
 !i10b 1
-Z179 !s108 1496925501.000000
-Z180 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/stimulus/sha256_module_tb_softwarelike.vhd|
-Z181 !s107 E:/LiberoProjects/sha256_project/stimulus/sha256_module_tb_softwarelike.vhd|
+Z182 !s108 1496961109.000000
+Z183 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/stimulus/sha256_module_tb_softwarelike.vhd|
+Z184 !s107 E:/LiberoProjects/sha256_project/stimulus/sha256_module_tb_softwarelike.vhd|
 !i113 1
 R13
 Abehavioral
 R4
 R5
-Z182 DEx4 work 23 sha256_module_tb_swlike 0 22 IXRnS6g=?aP>ZKQeH8V:^2
+Z185 DEx4 work 23 sha256_module_tb_swlike 0 22 IXRnS6g=?aP>ZKQeH8V:^2
 l75
 L26
-VX84oP_KYdI`R:dPTLoCXK0
-!s100 3F@R8VQO>@oSMa=ZNNjdk3
+Z186 V`G^B>ca6P`3L]RENNZbWZ3
+Z187 !s100 B2]6WQ7^<FcSYJC]K^Ehk3
 R8
 33
-R178
+R169
 !i10b 1
-R179
-R180
-R181
+R182
+R183
+R184
 !i113 1
 R13
 Esha256_msg_sch
@@ -1157,19 +1157,19 @@ R28
 R4
 R5
 R0
-Z183 8E:/LiberoProjects/sha256_project/hdl/sha256_msg_sch.vhd
-Z184 FE:/LiberoProjects/sha256_project/hdl/sha256_msg_sch.vhd
+Z188 8E:/LiberoProjects/sha256_project/hdl/sha256_msg_sch.vhd
+Z189 FE:/LiberoProjects/sha256_project/hdl/sha256_msg_sch.vhd
 l0
 L54
 VO^`EaL]2;c@1YZ8nX``mz0
 !s100 O7:z8z8Gl7n[@PQ:5PQnL1
 R8
 33
-R129
+R154
 !i10b 1
-R130
-Z185 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_msg_sch.vhd|
-Z186 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_msg_sch.vhd|
+R155
+Z190 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_msg_sch.vhd|
+Z191 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_msg_sch.vhd|
 !i113 1
 R13
 Artl
@@ -1183,11 +1183,11 @@ Vj8<X=f^lUalhPBV5hgO7T1
 !s100 fC]S:@::UfCUIJ45<4d@j1
 R8
 33
-R129
+R154
 !i10b 1
-R130
-R185
-R186
+R155
+R190
+R191
 !i113 1
 R13
 Esha256_padding
@@ -1196,19 +1196,19 @@ R28
 R4
 R5
 R0
-Z187 8E:/LiberoProjects/sha256_project/hdl/sha256_padding.vhd
-Z188 FE:/LiberoProjects/sha256_project/hdl/sha256_padding.vhd
+Z192 8E:/LiberoProjects/sha256_project/hdl/sha256_padding.vhd
+Z193 FE:/LiberoProjects/sha256_project/hdl/sha256_padding.vhd
 l0
 L58
 Vf3KZLCMk5Q_>^IJUDXHoX0
 !s100 alCHdC`A>gW51:F6gI^B[3
 R8
 33
-R129
+R154
 !i10b 1
-R130
-Z189 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_padding.vhd|
-Z190 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_padding.vhd|
+R155
+Z194 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_padding.vhd|
+Z195 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_padding.vhd|
 !i113 1
 R13
 Artl
@@ -1222,11 +1222,11 @@ V7KWnNL`iDJl8LKnFE;>F81
 !s100 La:5[>KBLYje50IjPUa:>3
 R8
 33
-R129
+R154
 !i10b 1
-R130
-R189
-R190
+R155
+R194
+R195
 !i113 1
 R13
 Esha256_regs
@@ -1235,8 +1235,8 @@ R28
 R4
 R5
 R0
-Z191 8E:/LiberoProjects/sha256_project/hdl/sha256_regs.vhd
-Z192 FE:/LiberoProjects/sha256_project/hdl/sha256_regs.vhd
+Z196 8E:/LiberoProjects/sha256_project/hdl/sha256_regs.vhd
+Z197 FE:/LiberoProjects/sha256_project/hdl/sha256_regs.vhd
 l0
 L55
 VKc>cKC697G92BTbdDf`f61
@@ -1246,8 +1246,8 @@ R8
 R31
 !i10b 1
 R32
-Z193 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_regs.vhd|
-Z194 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_regs.vhd|
+Z198 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/sha256_regs.vhd|
+Z199 !s107 E:/LiberoProjects/sha256_project/hdl/sha256_regs.vhd|
 !i113 1
 R13
 Artl
@@ -1264,8 +1264,8 @@ R8
 R31
 !i10b 1
 R32
-R193
-R194
+R198
+R199
 !i113 1
 R13
 Esha2_core
@@ -1274,8 +1274,8 @@ R108
 R4
 R5
 R0
-Z195 8E:/LiberoProjects/sha256_project/hdl/SHA2_core.vhd
-Z196 FE:/LiberoProjects/sha256_project/hdl/SHA2_core.vhd
+Z200 8E:/LiberoProjects/sha256_project/hdl/SHA2_core.vhd
+Z201 FE:/LiberoProjects/sha256_project/hdl/SHA2_core.vhd
 l0
 L25
 VQdBb6J6mkfXQJ@J6?W__N1
@@ -1285,8 +1285,8 @@ R8
 R111
 !i10b 1
 R112
-Z197 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/SHA2_core.vhd|
-Z198 !s107 E:/LiberoProjects/sha256_project/hdl/SHA2_core.vhd|
+Z202 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/SHA2_core.vhd|
+Z203 !s107 E:/LiberoProjects/sha256_project/hdl/SHA2_core.vhd|
 !i113 1
 R13
 Asha2_core
@@ -1303,8 +1303,8 @@ R8
 R111
 !i10b 1
 R112
-R197
-R198
+R202
+R203
 !i113 1
 R13
 Pshacomponents
@@ -1312,8 +1312,8 @@ R4
 R5
 R1
 R0
-Z199 8E:/LiberoProjects/sha256_project/hdl/SHAComponents.vhd
-Z200 FE:/LiberoProjects/sha256_project/hdl/SHAComponents.vhd
+Z204 8E:/LiberoProjects/sha256_project/hdl/SHAComponents.vhd
+Z205 FE:/LiberoProjects/sha256_project/hdl/SHAComponents.vhd
 l0
 L5
 V^jI]bH::a;IR@RHV0H9f<1
@@ -1323,8 +1323,8 @@ R8
 R9
 !i10b 1
 R16
-Z201 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/SHAComponents.vhd|
-Z202 !s107 E:/LiberoProjects/sha256_project/hdl/SHAComponents.vhd|
+Z206 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/SHAComponents.vhd|
+Z207 !s107 E:/LiberoProjects/sha256_project/hdl/SHAComponents.vhd|
 !i113 1
 R13
 Bbody
@@ -1340,30 +1340,30 @@ R8
 R9
 !i10b 1
 R16
-R201
-R202
+R206
+R207
 !i113 1
 R13
 nbody
 Etestbench
-Z203 w1496611406
+Z208 w1496611406
 R28
 R4
 R5
 R0
-Z204 8E:/LiberoProjects/sha256_project/stimulus/sha256_tb_teste.vhd
-Z205 FE:/LiberoProjects/sha256_project/stimulus/sha256_tb_teste.vhd
+Z209 8E:/LiberoProjects/sha256_project/stimulus/sha256_tb_teste.vhd
+Z210 FE:/LiberoProjects/sha256_project/stimulus/sha256_tb_teste.vhd
 l0
 L214
 VAQa5[8:CS;a@WbXPz>cgc0
 !s100 W7ZzWT5X9aIZmLfO9QQ8K3
 R8
 33
-Z206 !s110 1496680813
+Z211 !s110 1496680813
 !i10b 1
-Z207 !s108 1496680813.000000
-Z208 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/stimulus/sha256_tb_teste.vhd|
-Z209 !s107 E:/LiberoProjects/sha256_project/stimulus/sha256_tb_teste.vhd|
+Z212 !s108 1496680813.000000
+Z213 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/stimulus/sha256_tb_teste.vhd|
+Z214 !s107 E:/LiberoProjects/sha256_project/stimulus/sha256_tb_teste.vhd|
 !i113 1
 R13
 Abehavior
@@ -1378,11 +1378,11 @@ V@o6EW?GI9NLPUE=^Gn_560
 !s100 dozAz_l9HLTJl=CMD4BLl2
 R8
 33
-R206
+R211
 !i10b 1
-R207
-R208
-R209
+R212
+R213
+R214
 !i113 1
 R13
 Ewordgen
@@ -1391,8 +1391,8 @@ R108
 R4
 R5
 R0
-Z210 8E:/LiberoProjects/sha256_project/hdl/wordgen.vhd
-Z211 FE:/LiberoProjects/sha256_project/hdl/wordgen.vhd
+Z215 8E:/LiberoProjects/sha256_project/hdl/wordgen.vhd
+Z216 FE:/LiberoProjects/sha256_project/hdl/wordgen.vhd
 l0
 L6
 ViQYie9[0GJl5BDAQ^:lON1
@@ -1402,8 +1402,8 @@ R8
 R111
 !i10b 1
 R112
-Z212 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/wordgen.vhd|
-Z213 !s107 E:/LiberoProjects/sha256_project/hdl/wordgen.vhd|
+Z217 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/wordgen.vhd|
+Z218 !s107 E:/LiberoProjects/sha256_project/hdl/wordgen.vhd|
 !i113 1
 R13
 Amembased
@@ -1420,17 +1420,17 @@ R8
 R111
 !i10b 1
 R112
-R212
-R213
+R217
+R218
 !i113 1
 R13
 Ezero_concat
-Z214 w1496739383
+Z219 w1496739383
 R4
 R5
 R0
-Z215 8E:/LiberoProjects/sha256_project/hdl/zero_concat.vhd
-Z216 FE:/LiberoProjects/sha256_project/hdl/zero_concat.vhd
+Z220 8E:/LiberoProjects/sha256_project/hdl/zero_concat.vhd
+Z221 FE:/LiberoProjects/sha256_project/hdl/zero_concat.vhd
 l0
 L23
 VnbjK;102i;OHRbC@]l[LS0
@@ -1440,8 +1440,8 @@ R8
 R59
 !i10b 1
 R60
-Z217 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/zero_concat.vhd|
-Z218 !s107 E:/LiberoProjects/sha256_project/hdl/zero_concat.vhd|
+Z222 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/hdl/zero_concat.vhd|
+Z223 !s107 E:/LiberoProjects/sha256_project/hdl/zero_concat.vhd|
 !i113 1
 R13
 Aarchitecture_zero_concat
@@ -1457,28 +1457,28 @@ R8
 R59
 !i10b 1
 R60
-R217
-R218
+R222
+R223
 !i113 1
 R13
 Ezero_concat_tb
-Z219 w1496346739
+Z224 w1496346739
 R4
 R5
 R0
-Z220 8E:/LiberoProjects/sha256_project/stimulus/zero_concat_tb.vhd
-Z221 FE:/LiberoProjects/sha256_project/stimulus/zero_concat_tb.vhd
+Z225 8E:/LiberoProjects/sha256_project/stimulus/zero_concat_tb.vhd
+Z226 FE:/LiberoProjects/sha256_project/stimulus/zero_concat_tb.vhd
 l0
 L32
 V^7OD;8=`g]2=E7XcMGTjF3
 !s100 I2;6XcMfa2?Mo_[PN:AfN1
 R8
 33
-Z222 !s110 1496346842
+Z227 !s110 1496346842
 !i10b 1
-Z223 !s108 1496346842.000000
-Z224 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/stimulus/zero_concat_tb.vhd|
-Z225 !s107 E:/LiberoProjects/sha256_project/stimulus/zero_concat_tb.vhd|
+Z228 !s108 1496346842.000000
+Z229 !s90 -reportprogress|300|-2008|-explicit|-work|presynth|E:/LiberoProjects/sha256_project/stimulus/zero_concat_tb.vhd|
+Z230 !s107 E:/LiberoProjects/sha256_project/stimulus/zero_concat_tb.vhd|
 !i113 1
 R13
 Abehavioral
@@ -1491,10 +1491,10 @@ VcRZ[m[@49lEJ6WISkYb243
 !s100 amlLQYofOG3;<1f43aGmA3
 R8
 33
-R222
+R227
 !i10b 1
-R223
-R224
-R225
+R228
+R229
+R230
 !i113 1
 R13

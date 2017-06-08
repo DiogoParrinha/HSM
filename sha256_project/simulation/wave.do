@@ -36,49 +36,35 @@ add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_
 add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/error_o
 add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/first_block
 add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/last_block
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg0_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg10_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg11_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg12_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg13_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg14_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg15_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg16_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg1_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg2_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg3_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg4_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg5_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg6_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg7_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg8_out
-add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/reg9_out
 add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/start_o
 add wave -noupdate -group block /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/state_out
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/read_addr
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/read_data
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/data_ready
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/last_block
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/first_block
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state_out
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/clk
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/RST_N
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/ce_o
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/di_o
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/bytes_o
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/start_o
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/end_o
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/di_req_i
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/di_wr_o
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/di_valid_i
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/counter
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/sel_di
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/start_counting
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/extra_add
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/restart
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/new_block
-add wave -noupdate -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/blocks_counter
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/last_word
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/read_addr
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/read_data
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/data_ready
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/last_block
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/first_block
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state_out
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/clk
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/RST_N
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/ce_o
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/di_o
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/bytes_o
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/start_o
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/end_o
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/di_req_i
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/di_wr_o
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/di_valid_i
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/counter
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/state
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/sel_di
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/start_counting
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/extra_add
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/restart
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/new_block
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/blocks_counter
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/valid_bytes
+add wave -noupdate -expand -group controller /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/valid_bytes_word
 add wave -noupdate -expand -group sha256 /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/clk_i
 add wave -noupdate -expand -group sha256 /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/ce_i
 add wave -noupdate -expand -group sha256 /sha256_module_tb_swlike/SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/di_i
@@ -100,7 +86,7 @@ add wave -noupdate -expand -group sha256 /sha256_module_tb_swlike/SHA256_Module_
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {7675000000 fs} 0}
 quietly wave cursor active 1
-configure wave -namecolwidth 520
+configure wave -namecolwidth 590
 configure wave -valuecolwidth 100
 configure wave -justifyvalue left
 configure wave -signalnamewidth 0
@@ -114,4 +100,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 fs} {22050 ns}
+WaveRestoreZoom {11223686103 fs} {32040858627 fs}

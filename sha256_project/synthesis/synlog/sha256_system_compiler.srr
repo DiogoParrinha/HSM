@@ -8,9 +8,48 @@ Copyright (C) 1994-2015 Synopsys, Inc. This software and the associated document
 
 @N: CD720 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\std.vhd":146:18:146:21|Setting time resolution to ns
 @N:"E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd":17:7:17:19|Top entity is set to sha256_system.
-Options changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\reg_17x32.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\reg1_highonly.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\mux_9_1.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\reg_1x32.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\zero_concat.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp_pcie_hotreset.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd changed - recompiling
+File C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_syn.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_addrdec.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_defaultslavesm.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_pkg.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd changed - recompiling
+File C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\misc.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\usram_128to9216x8.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\components.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\reg9_1x32\reg9_1x32.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\SHA256_Module\SHA256_Module.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd changed - recompiling
 VHDL syntax check successful!
-Options changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\reg_17x32.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\SHA256_Module\SHA256_Module.vhd changed - recompiling
+File E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd changed - recompiling
 @N: CD231 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\std1164.vhd":890:16:890:17|Using onehot encoding for type mvl9plus ('U'="1000000000")
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd":17:7:17:19|Synthesizing work.sha256_system.rtl 
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd":22:7:22:22|Synthesizing work.sha256_system_sb.rtl 
@@ -238,11 +277,12 @@ Post processing for work.sha256_system_sb.rtl
 Post processing for work.zero_concat.architecture_zero_concat
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd":17:7:17:18|Synthesizing work.sha256_block.rtl 
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":33:7:33:23|Synthesizing work.sha256_controller.architecture_sha256_controller 
-@N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":65:20:65:21|Using onehot encoding for type state_type (wait_data="100000")
-@W: CG296 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":117:4:117:10|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":182:38:182:44|Referenced variable counter is not in sensitivity list
+@N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":67:20:67:21|Using onehot encoding for type state_type (wait_data="100000")
+@W: CG296 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":120:4:120:10|Incomplete sensitivity list - assuming completeness
+@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":165:27:165:42|Referenced variable valid_bytes_word is not in sensitivity list
+@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":185:38:185:44|Referenced variable counter is not in sensitivity list
 Post processing for work.sha256_controller.architecture_sha256_controller
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":59:31:59:33|Latch generated from process for signal bytes_o(1 downto 0); possible missing assignment in an if or case statement.
+@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":61:31:61:33|Latch generated from process for signal bytes_o(1 downto 0); possible missing assignment in an if or case statement.
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\reg_17x32.vhd":23:7:23:15|Synthesizing work.reg_17x32.architecture_reg_17x32 
 Post processing for work.reg_17x32.architecture_reg_17x32
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd":22:7:22:20|Synthesizing work.limiter_1cycle.architecture_limiter_1cycle 
@@ -311,9 +351,9 @@ State machine has 7 reachable states with original encodings of:
 @W: CL249 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":354:8:354:9|Initial value is not supported on state machine hash_control_st_reg
 @N: CL135 :"E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd":122:8:122:9|Found seqShift r2, depth=8, width=32
 @N: CL135 :"E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd":122:8:122:9|Found seqShift r10, depth=5, width=32
-@W: CL190 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":244:8:244:9|Optimizing register bit counter(4) to a constant 0
-@W: CL260 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":244:8:244:9|Pruning register bit 4 of counter(4 downto 0)  
-@N: CL201 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":79:8:79:9|Trying to extract state machine for register state
+@W: CL190 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":247:8:247:9|Optimizing register bit counter(4) to a constant 0
+@W: CL260 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":247:8:247:9|Pruning register bit 4 of counter(4 downto 0)  
+@N: CL201 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":82:8:82:9|Trying to extract state machine for register state
 Extracted state machine for register state
 State machine has 6 reachable states with original encodings of:
    000001
@@ -583,20 +623,20 @@ State machine has 7 reachable states with original encodings of:
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":191:4:191:26|Input SOFT_SDIF0_1_CORE_RESET is unused
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd":10:10:10:12|Input XTL is unused
 
-At c_vhdl Exit (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 129MB peak: 134MB)
+At c_vhdl Exit (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 128MB peak: 133MB)
 
 Process took 0h:00m:03s realtime, 0h:00m:03s cputime
-# Wed Jun 07 23:46:14 2017
+# Thu Jun 08 23:32:39 2017
 
 ###########################################################]
 Synopsys Netlist Linker, version comp201503sp1p1, Build 240R, built Dec  1 2015
 @N|Running in 64-bit mode
 File E:\LiberoProjects\sha256_project\synthesis\synwork\layer0.srs changed - recompiling
 
-At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 80MB peak: 81MB)
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 79MB peak: 80MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Wed Jun 07 23:46:15 2017
+# Thu Jun 08 23:32:40 2017
 
 ###########################################################]
 @END
@@ -604,6 +644,6 @@ Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 At c_hdl Exit (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 3MB peak: 4MB)
 
 Process took 0h:00m:04s realtime, 0h:00m:04s cputime
-# Wed Jun 07 23:46:15 2017
+# Thu Jun 08 23:32:40 2017
 
 ###########################################################]
