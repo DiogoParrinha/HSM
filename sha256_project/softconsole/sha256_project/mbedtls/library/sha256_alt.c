@@ -172,19 +172,12 @@ void mbedtls_sha256_update( mbedtls_sha256_context *ctx, const unsigned char *in
         ctx->first = 0;
     }
 
-    // If we still have input (we surely must have, otherwise there's a bug)
-    // Copy the input into the buffer
-    if( ilen > 0 && ctx->last == 0)
+    // Copy the remaining input into the buffer
+    if( ilen > 0)
     {
         memcpy( (void *) (ctx->buffer + left), input, ilen );
-        ctx->buffer_bytes = ilen;
+        ctx->buffer_bytes += ilen;
     }
-    else if(ctx->buffer_bytes == 64 && ctx->last == 1)
-	{
-		// Send for processing
-		mbedtls_sha256_process(ctx, ctx->buffer);
-		ctx->buffer_bytes = 0;
-	}
 }
 
 static const unsigned char sha256_padding[64] =
@@ -224,8 +217,8 @@ void mbedtls_sha256_finish( mbedtls_sha256_context *ctx, unsigned char output[32
     else
     {
     	ctx->no_padding = 0;
-    	mbedtls_sha256_update( ctx, sha256_padding, padn ); // add padding data
-    	mbedtls_sha256_update( ctx, msglen, 8 ); // part of the padding process
+    	mbedtls_sha256_update( ctx, sha256_padding, padn ); // L+1+k=448mod512 -> the positive solution for k -> number of bits with zeros [1 k_zeroes length]
+    	mbedtls_sha256_update( ctx, msglen, 8 ); // last byte contains message length in bits: bytes * 8
     }
 
     memcpy(output, ctx->state, 32);

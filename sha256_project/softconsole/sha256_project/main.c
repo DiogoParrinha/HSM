@@ -492,6 +492,24 @@ int main()
     ////// Now test with incomplete blocks ////////
     /////////////    /////////////    /////////////
 
+    uint8_t text_incomp0[256] = {0};
+    memcpy(text_incomp0, text0, 32);
+    memset(hash2, 0, 32);
+    mbedtls_sha256(text_incomp0, 32, &hash2[0], 0);
+
+    uint8_t text_incomp1[256] = {0};
+    memcpy(text_incomp1, text0, 64);
+    memcpy(&text_incomp1[64], text1, 16);
+    memset(hash2, 0, 32);
+    mbedtls_sha256(text_incomp1, 80, &hash2[0], 0);
+
+    uint8_t text_incomp2[256] = {0};
+    memcpy(text0123, text0, 64);
+    memcpy(&text0123[64], text1, 64);
+    memcpy(&text0123[128], text2, 32);
+    memset(hash2, 0, 32);
+    mbedtls_sha256(text_incomp2, 160, &hash2[0], 0);
+
     ///// END OF TESTS
 
     MSS_GPIO_set_output( PIN_LED, 0);
