@@ -346,7 +346,7 @@ begin
         wait for clk_period;
 
         waddr_in <= "01111";
-        data_in <= X"00000000";
+        data_in <= X"00000001";
         wait for clk_period;
 
         -- Set last_block to 1

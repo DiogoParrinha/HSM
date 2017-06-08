@@ -12,10 +12,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "sha256_fpga.h"
 #include "mbedtls/config.h"
 #include "mbedtls/sha256.h"
 
 #define PIN_LED MSS_GPIO_0
+/*
 #define PIN_DATA_IN_READY MSS_GPIO_1 // jump start the module if we have data available (PIN_DATA_AVAILABLE=1)
 #define PIN_WAITING_DATA MSS_GPIO_2 // sha256 core is waiting for data (state machine)
 #define PIN_LASTBLOCK_OUT MSS_GPIO_3 // the signal lastblock output by the sha256 module (should match our lastblock input)
@@ -26,13 +28,7 @@
 #define PIN_ERROR_OUTPUT MSS_GPIO_8 // sha256 core error_o
 
 #define PIN_RESET MSS_GPIO_9 // output pin to reset sha256 module
-
-#define AHB_BASE_ADDR 0x31000000
-
-/*==============================================================================
-  Private functions.
- */
-void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t first, uint8_t last);
+*/
 
 /*==============================================================================
  * main() function.
@@ -41,68 +37,118 @@ int main()
 {
     volatile uint32_t readv = 0;
     uint32_t inputs = 0;
-    int i =0;
+    int i = 0;
+    int t = 0;
+
+    /*uint8_t text0[64] = {
+    		0x31, 0x32, 0x33, 0x34,
+			0x35, 0x36, 0x37, 0x38,
+			0x39, 0x41, 0x31, 0x32,
+			0x33, 0x34, 0x35, 0x36,
+			0x37, 0x38, 0x39, 0x42,
+			0x31, 0x32, 0x33, 0x34,
+			0x35, 0x36, 0x37, 0x38,
+			0x39, 0x43, 0x31, 0x32,
+			0x33, 0x34, 0x35, 0x36,
+			0x37, 0x38, 0x39, 0x44,
+			0x31, 0x32, 0x33, 0x34,
+			0x35, 0x36, 0x37, 0x38,
+			0x39, 0x45, 0x31, 0x32,
+			0x33, 0x34, 0x35, 0x36,
+			0x37, 0x38, 0x39, 0x46,
+			0x31, 0x32, 0x33, 0x34
+	};*/
 
     uint8_t text0[64] = {
 			0x00, 0x00, 0x00, 0x01,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x02,
+			0x00, 0x00, 0x00, 0x03,
+			0x00, 0x00, 0x00, 0x04,
+			0x00, 0x00, 0x00, 0x05,
+			0x00, 0x00, 0x00, 0x06,
+			0x00, 0x00, 0x00, 0x07,
+			0x00, 0x00, 0x00, 0x08,
+			0x00, 0x00, 0x00, 0x09,
+			0x00, 0x00, 0x00, 0x0A,
+			0x00, 0x00, 0x00, 0x0B,
+			0x00, 0x00, 0x00, 0x0C,
+			0x00, 0x00, 0x00, 0x0D,
+			0x00, 0x00, 0x00, 0x0E,
+			0x00, 0x00, 0x00, 0x0F,
+			0x00, 0x00, 0x00, 0x01,
 	};
 
-    uint32_t text1[16] = {
-    		0x01000000,
-    		0x00000000,
-    		0x00000000,
-    		0x00000000,
-    		0x00000000,
-			0x00000000,
-    		0x00000000,
-    		0x00000000,
-    		0x00000000,
-    		0x00000000,
-    		0x00000000,
-    		0x00000000,
-    		0x00000000,
-    		0x00000000,
-    		0x00000000,
-    };
-    uint8_t text2[64] = {0};
-    memcpy(text2, text1, sizeof(text1));
+    uint8_t text1[64] = {
+			0x00, 0x00, 0x00, 0x02,
+			0x00, 0x00, 0x00, 0x02,
+			0x00, 0x00, 0x00, 0x03,
+			0x00, 0x00, 0x00, 0x04,
+			0x00, 0x00, 0x00, 0x05,
+			0x00, 0x00, 0x00, 0x06,
+			0x00, 0x00, 0x00, 0x07,
+			0x00, 0x00, 0x00, 0x08,
+			0x00, 0x00, 0x00, 0x09,
+			0x00, 0x00, 0x00, 0x0A,
+			0x00, 0x00, 0x00, 0x0B,
+			0x00, 0x00, 0x00, 0x0C,
+			0x00, 0x00, 0x00, 0x0D,
+			0x00, 0x00, 0x00, 0x0E,
+			0x00, 0x00, 0x00, 0x0F,
+			0x00, 0x00, 0x00, 0x02,
+	};
+
+    uint8_t text2[64] = {
+			0x00, 0x00, 0x00, 0x03,
+			0x00, 0x00, 0x00, 0x02,
+			0x00, 0x00, 0x00, 0x03,
+			0x00, 0x00, 0x00, 0x04,
+			0x00, 0x00, 0x00, 0x05,
+			0x00, 0x00, 0x00, 0x06,
+			0x00, 0x00, 0x00, 0x07,
+			0x00, 0x00, 0x00, 0x08,
+			0x00, 0x00, 0x00, 0x09,
+			0x00, 0x00, 0x00, 0x0A,
+			0x00, 0x00, 0x00, 0x0B,
+			0x00, 0x00, 0x00, 0x0C,
+			0x00, 0x00, 0x00, 0x0D,
+			0x00, 0x00, 0x00, 0x0E,
+			0x00, 0x00, 0x00, 0x0F,
+			0x00, 0x00, 0x00, 0x03,
+	};
+
+    uint8_t text3[64] = {
+			0x00, 0x00, 0x00, 0x04,
+			0x00, 0x00, 0x00, 0x02,
+			0x00, 0x00, 0x00, 0x03,
+			0x00, 0x00, 0x00, 0x04,
+			0x00, 0x00, 0x00, 0x05,
+			0x00, 0x00, 0x00, 0x06,
+			0x00, 0x00, 0x00, 0x07,
+			0x00, 0x00, 0x00, 0x08,
+			0x00, 0x00, 0x00, 0x09,
+			0x00, 0x00, 0x00, 0x0A,
+			0x00, 0x00, 0x00, 0x0B,
+			0x00, 0x00, 0x00, 0x0C,
+			0x00, 0x00, 0x00, 0x0D,
+			0x00, 0x00, 0x00, 0x0E,
+			0x00, 0x00, 0x00, 0x0F,
+			0x00, 0x00, 0x00, 0x04,
+	};
 
     uint8_t hash[32] = {0};
-    mbedtls_sha256(text0, 64, &hash[0], 0);
+    uint8_t hash2[32] = {0};
 
     /*
      * Initialize MSS GPIOs.
      */
     MSS_GPIO_init();
 
+    SHA256_FPGA_init();
+
     /*
      * Configure MSS GPIOs.
      */
     MSS_GPIO_config( PIN_LED , MSS_GPIO_OUTPUT_MODE ); // LED
-    MSS_GPIO_config( PIN_DATA_IN_READY , MSS_GPIO_OUTPUT_MODE ); // Read Enable
-    MSS_GPIO_config( PIN_RESET , MSS_GPIO_OUTPUT_MODE ); // Reset
-
-    MSS_GPIO_config( PIN_WAITING_DATA, MSS_GPIO_INPUT_MODE );
-    MSS_GPIO_config( PIN_LASTBLOCK_OUT, MSS_GPIO_INPUT_MODE );
-    MSS_GPIO_config( PIN_REQ_DATA, MSS_GPIO_INPUT_MODE );
-    MSS_GPIO_config( PIN_NOT_USED1, MSS_GPIO_INPUT_MODE );
-    MSS_GPIO_config( PIN_VALID_OUTPUT, MSS_GPIO_INPUT_MODE );
-    MSS_GPIO_config( PIN_ERROR_OUTPUT, MSS_GPIO_INPUT_MODE );
-    MSS_GPIO_config( PIN_DATA_AVAILABLE, MSS_GPIO_INPUT_MODE );
 
     inputs = MSS_GPIO_get_inputs();
 
@@ -112,8 +158,14 @@ int main()
     ////////// Now test with one block ////////////
     /////////////    /////////////    /////////////
 
-    uint8_t hash2[32] = {0};
-    SHA256_FPGA(text0, hash2, 1, 1);
+	memset(hash, 0, 32);
+    SHA256_FPGA(text0, hash, 1, 1);
+
+    memset(hash2, 0, 32);
+    mbedtls_sha256(text0, 64, &hash2[0], 0);
+
+    t = 0;
+    t++;
 
     /*MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
 	MSS_GPIO_set_output( PIN_RESET, 0);
@@ -166,6 +218,19 @@ int main()
     /////////////    /////////////    /////////////
     ////////// Now test with two blocks ///////////
     /////////////    /////////////    /////////////
+
+	memset(hash, 0, 32);
+    SHA256_FPGA(text0, hash, 1, 0);
+    SHA256_FPGA(text1, hash, 0, 1);
+
+    uint8_t text01[128] = {0};
+    memcpy(text01, text0, 64);
+    memcpy(&text01[64], text1, 64);
+    memset(hash2, 0, 32);
+    mbedtls_sha256(text01, 128, &hash2[0], 0);
+
+    t = 0;
+    t++;
 
     /*MSS_GPIO_set_output( PIN_RESET, 1);
 
@@ -255,7 +320,22 @@ int main()
     ///////// Now test with three blocks //////////
     /////////////    /////////////    /////////////
 
-    MSS_GPIO_set_output( PIN_RESET, 1);
+	memset(hash, 0, 32);
+    SHA256_FPGA(text0, hash, 1, 0);
+    SHA256_FPGA(text1, hash, 0, 0);
+    SHA256_FPGA(text2, hash, 0, 1);
+
+    uint8_t text012[192] = {0};
+    memcpy(text012, text0, 64);
+    memcpy(&text012[64], text1, 64);
+    memcpy(&text012[128], text2, 64);
+    memset(hash2, 0, 32);
+    mbedtls_sha256(text012, 192, &hash2[0], 0);
+
+    t = 0;
+    t++;
+
+    /*MSS_GPIO_set_output( PIN_RESET, 1);
 
     inputs = MSS_GPIO_get_inputs();
 
@@ -385,7 +465,32 @@ int main()
     	asm("NOP");
 
     MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
-    MSS_GPIO_set_output( PIN_RESET, 0);
+    MSS_GPIO_set_output( PIN_RESET, 0);*/
+
+    /////////////    /////////////    /////////////
+    ///////// Now test with four blocks ///////////
+    /////////////    /////////////    /////////////
+
+	memset(hash, 0, 32);
+    SHA256_FPGA(text0, hash, 1, 0);
+    SHA256_FPGA(text1, hash, 0, 0);
+    SHA256_FPGA(text2, hash, 0, 0);
+    SHA256_FPGA(text3, hash, 0, 1);
+
+    uint8_t text0123[256] = {0};
+    memcpy(text0123, text0, 64);
+    memcpy(&text0123[64], text1, 64);
+    memcpy(&text0123[128], text2, 64);
+    memcpy(&text0123[192], text3, 64);
+    memset(hash2, 0, 32);
+    mbedtls_sha256(text0123, 256, &hash2[0], 0);
+
+    t = 0;
+    t++;
+
+    /////////////    /////////////    /////////////
+    ////// Now test with incomplete blocks ////////
+    /////////////    /////////////    /////////////
 
     ///// END OF TESTS
 
@@ -394,94 +499,3 @@ int main()
     return 0;
 }
 
-// Only accepts blocks of size 64B
-// Input is big-endian
-// Output is big-endian
-void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t first, uint8_t last)
-{
-	int i = 0;
-	uint32_t inputs = 0;
-
-	// Convert data from big-endian to little-endian
-	/*uint8_t data_le[64] = {0};
-	int i;
-	for(i=0;i<64;i+=4) // jump every 4 bytes (32-bit words)
-	{
-		data_le[i] = data[i+3];
-		data_le[i+1] = data[i+2];
-		data_le[i+2] = data[i+1];
-		data_le[i+3] = data[i];
-	}*/
-
-	// First block? Last block?
-	uint8_t blockinfo[4] = {0x00, 0x00, 0x00, 0x00};
-	if(first == 1)
-		blockinfo[3] |= 0x01;
-	if(last == 1)
-		blockinfo[3] |= 0x02;
-
-	MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
-	MSS_GPIO_set_output( PIN_RESET, 0);
-	MSS_GPIO_set_output( PIN_RESET, 1);
-
-	// Write to AHB Slave Interface (16 words of 32-bit)
-	*(volatile uint32_t *)0x31000000 = (data[3] & 0x000000FF) | ((data[2] & 0x000000FF) << 8) | ((data[1] & 0x0000FF00) << 16) | ((data[0] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000004 = (data[7] & 0x000000FF) | ((data[6] & 0x000000FF) << 8) | ((data[5] & 0x000000FF) << 16) | ((data[4] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000008 = (data[11] & 0x000000FF) | ((data[10] & 0x000000FF) << 8) | ((data[9] & 0x000000FF) << 16) | ((data[8] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x3100000C = (data[15] & 0x000000FF) | ((data[14] & 0x000000FF) << 8) | ((data[13] & 0x000000FF) << 16) | ((data[12] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000010 = (data[19] & 0x000000FF) | ((data[18] & 0x000000FF) << 8) | ((data[17] & 0x000000FF) << 16) | ((data[16] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000014 = (data[23] & 0x000000FF) | ((data[22] & 0x000000FF) << 8) | ((data[21] & 0x000000FF) << 16) | ((data[20] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000018 = (data[27] & 0x000000FF) | ((data[26] & 0x000000FF) << 8) | ((data[25] & 0x000000FF) << 16) | ((data[24] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x3100001C = (data[31] & 0x000000FF) | ((data[30] & 0x000000FF) << 8) | ((data[29] & 0x000000FF) << 16) | ((data[28] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000020 = (data[35] & 0x000000FF) | ((data[34] & 0x000000FF) << 8) | ((data[33] & 0x000000FF) << 16) | ((data[32] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000024 = (data[39] & 0x000000FF) | ((data[38] & 0x000000FF) << 8) | ((data[37] & 0x000000FF) << 16) | ((data[36] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000028 = (data[43] & 0x000000FF) | ((data[42] & 0x000000FF) << 8) | ((data[41] & 0x000000FF) << 16) | ((data[40] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x3100002C = (data[47] & 0x000000FF) | ((data[46] & 0x000000FF) << 8) | ((data[45] & 0x000000FF) << 16) | ((data[44] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000030 = (data[51] & 0x000000FF) | ((data[50] & 0x000000FF) << 8) | ((data[49] & 0x000000FF) << 16) | ((data[48] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000034 = (data[55] & 0x000000FF) | ((data[54] & 0x000000FF) << 8) | ((data[53] & 0x000000FF) << 16) | ((data[52] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000038 = (data[59] & 0x000000FF) | ((data[58] & 0x000000FF) << 8) | ((data[57] & 0x000000FF) << 16) | ((data[56] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x3100003C = (data[63] & 0x000000FF) | ((data[62] & 0x000000FF) << 8) | ((data[61] & 0x000000FF) << 16) | ((data[60] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000040 = (blockinfo[3] & 0x000000FF) | (blockinfo[2] & 0x000000FF) | ((blockinfo[1] & 0x000000FF) << 16) | ((blockinfo[0] & 0x000000FF) << 24);
-
-	inputs = MSS_GPIO_get_inputs();
-	while(!(inputs & 0x80)) // 8th bit is 1 (data_available -> we can enable reading and give the data_out_ready signal)
-	{
-		inputs = MSS_GPIO_get_inputs();
-	}
-
-	MSS_GPIO_set_output( PIN_DATA_IN_READY, 1);
-
-	// We must wait at least 5 cycles
-	for(i=0;i<10;i++)
-		asm("NOP");
-
-	inputs = MSS_GPIO_get_inputs();
-	while(!(inputs & 0x40)) // 7th bit is 1 (valid_output)
-	{
-		inputs = MSS_GPIO_get_inputs();
-	}
-
-	// We must wait at least 5 cycles
-	for(i=0;i<10;i++)
-		asm("NOP");
-
-	// Take out the hash from [0x31000000, 8]
-	uint32_t * p;
-	p = (uint32_t *)AHB_BASE_ADDR;
-	for(i=0;i<32;i+=4)
-	{
-		uint32_t word = *p;
-
-		// Little endian to big endian
-		hash[i+3] = (word & 0x000000FF);
-		hash[i+2] = (word & 0x0000FF00) >> 8;
-		hash[i+1] = (word & 0x00FF0000) >> 16;
-		hash[i+0] = (word & 0xFF000000) >> 24;
-
-		p++; //reading can be done with a 1 position jump
-	}
-
-	MSS_GPIO_set_output( PIN_DATA_IN_READY, 0);
-	if(last == 1)
-		MSS_GPIO_set_output( PIN_RESET, 0);
-}

@@ -241,7 +241,7 @@
 	#define MBEDTLS_AES_ALT
 	//#define MBEDTLS_SHA256_ALT // our alternative uses a lot of memory
 #endif
-//#define MBEDTLS_SHA256_ALT
+#define MBEDTLS_SHA256_ALT
 //#define MBEDTLS_ARC4_ALT
 //#define MBEDTLS_BLOWFISH_ALT
 //#define MBEDTLS_CAMELLIA_ALT

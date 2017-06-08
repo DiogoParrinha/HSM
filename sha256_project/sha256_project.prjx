@@ -792,8 +792,8 @@ SIZE="18142"
 ENDFILE
 VALUE "<project>\simulation\subsystem.bfm,sim"
 STATE="utd"
-TIME="1496872091"
-SIZE="797"
+TIME="1496875506"
+SIZE="834"
 PARENT="<project>\component\work\sha256_system\sha256_system.cxf"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
@@ -856,7 +856,7 @@ SIZE="6142"
 ENDFILE
 VALUE "<project>\stimulus\sha256_module_tb_softwarelike.vhd,tb_hdl"
 STATE="utd"
-TIME="1496869622"
+TIME="1496925487"
 SIZE="24595"
 ENDFILE
 VALUE "<project>\stimulus\sha256_tb.vhd,tb_hdl"
@@ -871,28 +871,28 @@ SIZE="2730"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.edn,syn_edn"
 STATE="utd"
-TIME="1496872124"
-SIZE="3604285"
+TIME="1496875590"
+SIZE="3797804"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.so,so"
 STATE="utd"
-TIME="1496872124"
+TIME="1496875590"
 SIZE="228"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.vhd,syn_hdl"
 STATE="utd"
-TIME="1496872132"
-SIZE="1840692"
+TIME="1496875599"
+SIZE="1963161"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system_sdc.sdc,syn_sdc"
 STATE="utd"
-TIME="1496872124"
+TIME="1496875590"
 SIZE="962"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system_syn.prj,prj"
 STATE="utd"
-TIME="1496872125"
-SIZE="5823"
+TIME="1496875591"
+SIZE="6596"
 ENDFILE
 VALUE "<project>\synthesis\synwork\layer0.so,so"
 STATE="utd"
@@ -964,13 +964,7 @@ VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bf
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
 VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\coreparameters.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
@@ -1014,13 +1008,7 @@ VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bf
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
-VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
 VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\coreparameters.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
@@ -1130,8 +1118,8 @@ NAME="Synplify Pro ME"
 FUNCTION="Synthesis"
 TOOL="Synplify Pro ME"
 LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Synplify\\bin\synplify_pro.exe"
-PARAM="-licensetype synplifypro_actel -batch -log synplify.log"
-BATCH=1
+PARAM=""
+BATCH=0
 LICENSE=""
 IS32BIT="1"
 EndProfile
@@ -1139,7 +1127,7 @@ NAME="ModelSim ME"
 FUNCTION="Simulation"
 TOOL="ModelSim"
 LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Model\\win32acoem\modelsim.exe"
-PARAM=""
+PARAM=" -l SHA256_Module_tb_swlike_presynth_simulation.log "
 BATCH=0
 LICENSE=""
 IS32BIT="1"
@@ -1204,7 +1192,9 @@ ORIENTATION;HORIZONTAL
 Reports;Reports;0
 ReportsCurrentItem;Run PROGRAM Action:sha256_system_PROGRAM.log
 SmartDesign;sha256_system;0
-ACTIVEVIEW;sha256_system
+StartPage;StartPage;0
+HDL;stimulus\sha256_module_tb_softwarelike.vhd;0
+ACTIVEVIEW;stimulus\sha256_module_tb_softwarelike.vhd
 ENDLIST
 LIST ModuleSubBlockList
 LIST "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
