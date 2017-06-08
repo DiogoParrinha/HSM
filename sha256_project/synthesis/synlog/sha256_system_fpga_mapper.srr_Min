@@ -1,7 +1,7 @@
 
 
 @S |##### START OF TIMING REPORT #####[
-# Timing Report written on Wed Jun 07 22:48:44 2017
+# Timing Report written on Wed Jun 07 23:46:30 2017
 #
 
 
@@ -26,7 +26,7 @@ Worst slack in design: 0.315
                                                        Requested     Estimated      Requested     Estimated                Clock        Clock              
 Starting Clock                                         Frequency     Frequency      Period        Period        Slack      Type         Group              
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     96.7 MHz       10.000        10.336        -0.336     inferred     Inferred_clkgroup_0
+sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     92.5 MHz       10.000        10.816        -0.816     inferred     Inferred_clkgroup_0
 System                                                 100.0 MHz     1029.4 MHz     10.000        0.971         9.029      system       system_clkgroup    
 ===========================================================================================================================================================
 
@@ -40,7 +40,7 @@ Clocks                                                                          
 Starting                                            Ending                                              |  constraint  slack  |  constraint  slack  |  constraint  slack  |  constraint  slack
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 System                                              System                                              |  0.000       0.680  |  No paths    -      |  No paths    -      |  No paths    -    
-System                                              sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  0.000       1.203  |  No paths    -      |  No paths    -      |  No paths    -    
+System                                              sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  0.000       1.158  |  No paths    -      |  No paths    -      |  No paths    -    
 sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  0.000       0.315  |  No paths    -      |  No paths    -      |  No paths    -    
 ==============================================================================================================================================================================================
  Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
@@ -145,7 +145,7 @@ Instance                                                          Reference     
                                                                   Clock                                                                                                               
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 sha256_system_sb_0.FABOSC_0.I_RCOSC_25_50MHZ                      System        RCOSC_25_50MHZ     CLKOUT     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000       0.680
-SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]     System        SLE                Q          sha256_controller_0_bytes_o[1]                         0.053       1.203
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_o[0]     System        SLE                Q          sha256_controller_0_bytes_o[1]                         0.053       1.158
 ======================================================================================================================================================================================
 
 
@@ -157,15 +157,15 @@ Instance                                                                        
                                                                                           Clock                                                                                                              
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 sha256_system_sb_0.CCC_0.CCC_INST                                                         System        CCC      RCOSC_25_50MHZ     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000        0.680
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[0]     System        SLE      D                  hash_control_st_reg_3                                  0.155        1.203
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[5]     System        SLE      D                  hash_control_st_reg_4                                  0.155        1.243
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[3]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_0_Y                            0.155        1.275
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[4]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_1_S                            0.155        1.327
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[5]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_2_S                            0.155        1.327
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[6]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_3_S                            0.155        1.336
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[7]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_4_S                            0.155        1.345
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[8]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_5_S                            0.155        1.354
-SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[9]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_6_S                            0.155        1.363
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[0]     System        SLE      D                  hash_control_st_reg_3                                  0.155        1.158
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.hash_control_st_reg[5]     System        SLE      D                  hash_control_st_reg_4                                  0.155        1.198
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.pad_one_reg                System        SLE      D                  pad_one_reg_0_0                                        0.155        1.527
+SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[2]                                            System        SLE      D                  SHA256_Module_0_error_o                                0.155        1.658
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[3]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_0_Y                            0.155        1.690
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[4]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_1_S                            0.155        1.740
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[5]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_2_S                            0.155        1.740
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[6]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_3_S                            0.155        1.749
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[7]         System        SLE      D                  un1_msg_bit_cnt_reg_cry_4_S                            0.155        1.758
 =============================================================================================================================================================================================================
 
 

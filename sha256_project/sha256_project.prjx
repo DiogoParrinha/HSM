@@ -58,13 +58,13 @@ ENDLIST
 LIST FileManager
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871731"
+TIME="1496875487"
 SIZE="5025"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\coreparameters.vhd,tb_hdl"
 STATE="utd"
-TIME="1496871731"
+TIME="1496875487"
 SIZE="4492"
 LIBRARY="COREAHBLITE_LIB"
 PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
@@ -215,27 +215,61 @@ MODULE_UNDER_TEST="testbench"
 SIMULATION_TIME="-all"
 IS_READONLY="TRUE"
 ENDFILE
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\COREAHBLSRAM.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496875487"
+SIZE="1373"
+PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
+ENDFILE
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
 STATE="utd"
-TIME="1496059230"
-SIZE="803"
+TIME="1496875487"
+SIZE="804"
+PARENT="<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\COREAHBLSRAM.cxf"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd,hdl"
+STATE="utd"
+TIME="1487266714"
+SIZE="11826"
+LIBRARY="COREAHBLSRAM_LIB"
+PARENT="<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\COREAHBLSRAM.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
 STATE="utd"
 TIME="1487266714"
 SIZE="3586"
+PARENT="<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\COREAHBLSRAM.cxf"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
 STATE="utd"
 TIME="1487266714"
 SIZE="14493"
+PARENT="<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\COREAHBLSRAM.cxf"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+STATE="utd"
+TIME="1487961980"
+SIZE="3586"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+STATE="utd"
+TIME="1487961980"
+SIZE="14493"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\DirectCore\CoreResetP\7.1.100\CoreResetP.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871731"
+TIME="1496875487"
 SIZE="582"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
@@ -255,13 +289,13 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\SgCore\FCCC\2.0.200\FCCC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871731"
+TIME="1496875487"
 SIZE="241"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SgCore\OSC\2.0.101\OSC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871733"
+TIME="1496875488"
 SIZE="682"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
@@ -291,85 +325,85 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS\1.1.400\MSS.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871726"
+TIME="1496875482"
 SIZE="526"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CCC\1.0.100\MSS_CCC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871720"
+TIME="1496875477"
 SIZE="253"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CC\1.0.100\MSS_CC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871720"
+TIME="1496875477"
 SIZE="252"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CFGM\1.1.100\MSS_CFGM.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871720"
+TIME="1496875477"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CM3\1.0.200\MSS_CM3.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871720"
+TIME="1496875477"
 SIZE="253"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_DDRB\1.0.200\MSS_DDRB.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871720"
+TIME="1496875477"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_EDAC\1.0.101\MSS_EDAC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871720"
+TIME="1496875477"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_ENVM\1.0.101\MSS_ENVM.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871720"
+TIME="1496875477"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_FIC32\1.0.100\MSS_FIC32.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871721"
+TIME="1496875477"
 SIZE="255"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_GPIO\1.0.100\MSS_GPIO.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871721"
+TIME="1496875477"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_INTR\1.0.100\MSS_INTR.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871721"
+TIME="1496875477"
 SIZE="254"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_RESET\1.0.100\MSS_RESET.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871721"
+TIME="1496875477"
 SIZE="255"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SECURITY\1.0.100\MSS_SECURITY.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871721"
+TIME="1496875477"
 SIZE="258"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SWITCH\1.0.101\MSS_SWITCH.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871721"
+TIME="1496875477"
 SIZE="256"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
@@ -411,69 +445,131 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system\sha256_system.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496872092"
+TIME="1496875507"
 SIZE="2285"
 ENDFILE
 VALUE "<project>\component\work\sha256_system\sha256_system.vhd,hdl"
 STATE="utd"
-TIME="1496872090"
+TIME="1496875505"
 SIZE="16258"
 PARENT="<project>\component\work\sha256_system\sha256_system.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871730"
+TIME="1496875486"
 SIZE="716"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd,hdl"
 STATE="utd"
-TIME="1496871730"
+TIME="1496875486"
 SIZE="5590"
 PARENT="<project>\component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.cxf"
 IS_READONLY="TRUE"
 ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\coreparameters.vhd,tb_hdl"
+STATE="utd"
+TIME="1496874993"
+SIZE="804"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\AHBLSramIf.vhd,hdl"
+STATE="utd"
+TIME="1496874993"
+SIZE="15762"
+LIBRARY="COREAHBLSRAM_LIB"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd,hdl"
+STATE="utd"
+TIME="1496875487"
+SIZE="10134"
+LIBRARY="COREAHBLSRAM_LIB"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd,hdl"
+STATE="utd"
+TIME="1496875487"
+SIZE="195507"
+LIBRARY="COREAHBLSRAM_LIB"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd,hdl"
+STATE="utd"
+TIME="1496875487"
+SIZE="18329"
+LIBRARY="COREAHBLSRAM_LIB"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\usram_128to9216x8.vhd,hdl"
+STATE="utd"
+TIME="1496875487"
+SIZE="214545"
+LIBRARY="COREAHBLSRAM_LIB"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
+STATE="utd"
+TIME="1496875487"
+SIZE="27553"
+PARENT="<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
+MODULE_UNDER_TEST="testbench"
+SIMULATION_TIME="-all"
+IS_READONLY="TRUE"
+ENDFILE
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf,actgen_cxf"
+STATE="utd"
+TIME="1496875487"
+SIZE="3557"
+PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
+ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871733"
+TIME="1496875488"
 SIZE="480"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd,hdl"
 STATE="utd"
-TIME="1496871733"
+TIME="1496875488"
 SIZE="1598"
 PARENT="<project>\component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\sha256_system_sb.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871735"
-SIZE="12382"
+TIME="1496875492"
+SIZE="12829"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb\sha256_system_sb.vhd,hdl"
 STATE="utd"
-TIME="1496871733"
-SIZE="53478"
+TIME="1496875489"
+SIZE="56969"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496871727"
+TIME="1496875483"
 SIZE="17690"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd,hdl"
 STATE="utd"
-TIME="1496871726"
+TIME="1496875482"
 SIZE="96836"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_pre.vhd,hdl"
 STATE="utd"
-TIME="1496871725"
+TIME="1496875482"
 SIZE="79486"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 BEGIN_USE_CONSTRAINT
@@ -485,7 +581,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_syn.vhd,hdl"
 STATE="utd"
-TIME="1496871725"
+TIME="1496875482"
 SIZE="79461"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 BEGIN_USE_CONSTRAINT
@@ -603,7 +699,7 @@ SIZE="919"
 ENDFILE
 VALUE "<project>\simulation\bfmtovec_compile.log,log"
 STATE="utd"
-TIME="1496790707"
+TIME="1496793980"
 SIZE="941"
 ENDFILE
 VALUE "<project>\simulation\bfmtovec_compile.tcl,sim"
@@ -614,7 +710,7 @@ PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf
 ENDFILE
 VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
 STATE="utd"
-TIME="1496871725"
+TIME="1496875482"
 SIZE="500"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
@@ -666,8 +762,8 @@ SIZE="8604"
 ENDFILE
 VALUE "<project>\simulation\run.do,do"
 STATE="utd"
-TIME="1496778118"
-SIZE="2873"
+TIME="1496870534"
+SIZE="2954"
 ENDFILE
 VALUE "<project>\simulation\SHA256_BLOCK_tb_presynth_simulation.log,log"
 STATE="utd"
@@ -691,19 +787,19 @@ SIZE="17421"
 ENDFILE
 VALUE "<project>\simulation\SHA256_Module_tb_swlike_presynth_simulation.log,log"
 STATE="utd"
-TIME="1496778214"
-SIZE="17452"
+TIME="1496870586"
+SIZE="18142"
 ENDFILE
 VALUE "<project>\simulation\subsystem.bfm,sim"
 STATE="utd"
-TIME="1496779282"
+TIME="1496872091"
 SIZE="797"
 PARENT="<project>\component\work\sha256_system\sha256_system.cxf"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
 ENDFILE
 VALUE "<project>\simulation\test.bfm,sim"
 STATE="utd"
-TIME="1496871725"
+TIME="1496875482"
 SIZE="734"
 PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
@@ -720,8 +816,8 @@ PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\simulation\wave.do,do"
 STATE="utd"
-TIME="1496859143"
-SIZE="10345"
+TIME="1496867484"
+SIZE="10388"
 ENDFILE
 VALUE "<project>\simulation\zero_concat_tb_presynth_simulation.log,log"
 STATE="utd"
@@ -775,28 +871,28 @@ SIZE="2730"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.edn,syn_edn"
 STATE="utd"
-TIME="1496779313"
-SIZE="1264257"
+TIME="1496872124"
+SIZE="3604285"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.so,so"
 STATE="utd"
-TIME="1496779314"
+TIME="1496872124"
 SIZE="228"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.vhd,syn_hdl"
 STATE="utd"
-TIME="1496779321"
-SIZE="731038"
+TIME="1496872132"
+SIZE="1840692"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system_sdc.sdc,syn_sdc"
 STATE="utd"
-TIME="1496779313"
-SIZE="1737"
+TIME="1496872124"
+SIZE="962"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system_syn.prj,prj"
 STATE="utd"
-TIME="1496779314"
-SIZE="5739"
+TIME="1496872125"
+SIZE="5823"
 ENDFILE
 VALUE "<project>\synthesis\synwork\layer0.so,so"
 STATE="utd"
@@ -849,6 +945,13 @@ VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bf
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\mti\scripts\wave_user.do,do"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
 ENDLIST
 LIST AssociatedStimulus
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\coreparameters.vhd,tb_hdl"
@@ -860,6 +963,19 @@ VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bf
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslaveext.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
 ENDLIST
 LIST ProjectState5.1
 LIST Impl1
@@ -897,6 +1013,19 @@ VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bf
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslaveext.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
 ENDLIST
 ENDLIST
 LIST Other_Association
@@ -921,6 +1050,13 @@ VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bf
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\mti\scripts\wave_user.do,do"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\coreparameters.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_misc.vhd,tb_hdl"
+VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
+VALUE "<project>\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
 ENDLIST
 LIST sha256_system_sb_MSS
 VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
@@ -1003,7 +1139,7 @@ NAME="ModelSim ME"
 FUNCTION="Simulation"
 TOOL="ModelSim"
 LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Model\\win32acoem\modelsim.exe"
-PARAM=" -l SHA256_Module_tb_swlike_presynth_simulation.log "
+PARAM=""
 BATCH=0
 LICENSE=""
 IS32BIT="1"
@@ -1067,12 +1203,8 @@ LIST OpenedFileList
 ORIENTATION;HORIZONTAL
 Reports;Reports;0
 ReportsCurrentItem;Run PROGRAM Action:sha256_system_PROGRAM.log
-HDL;hdl\sha256_controller.vhd;0
 SmartDesign;sha256_system;0
-SmartDesign;SHA256_Module;0
-SmartDesign;SHA256_BLOCK;0
-HDL;stimulus\sha256_module_tb_softwarelike.vhd;0
-ACTIVEVIEW;Reports
+ACTIVEVIEW;sha256_system
 ENDLIST
 LIST ModuleSubBlockList
 LIST "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
@@ -1136,10 +1268,10 @@ ENDLIST
 LIST "sha256_kt_rom::work","hdl\sha256_Kt_rom.vhd","FALSE","FALSE"
 ENDLIST
 LIST "SHA256_Module::work","component\work\SHA256_Module\SHA256_Module.vhd","TRUE","FALSE"
+SUBBLOCK "SHA256_BLOCK::work","component\work\SHA256_BLOCK\SHA256_BLOCK.vhd","TRUE","FALSE"
 SUBBLOCK "reg1_highonly::work","hdl\reg1_highonly.vhd","FALSE","FALSE"
 SUBBLOCK "reg9_1x32::work","component\work\reg9_1x32\reg9_1x32.vhd","TRUE","FALSE"
 SUBBLOCK "zero_concat::work","hdl\zero_concat.vhd","FALSE","FALSE"
-SUBBLOCK "SHA256_BLOCK::work","component\work\SHA256_BLOCK\SHA256_BLOCK.vhd","TRUE","FALSE"
 ENDLIST
 LIST "sha256_msg_sch::work","hdl\sha256_msg_sch.vhd","FALSE","FALSE"
 ENDLIST
@@ -1158,6 +1290,7 @@ SUBBLOCK "sha256_system_sb_CCC_0_FCCC::work","component\work\sha256_system_sb\CC
 SUBBLOCK "sha256_system_sb_FABOSC_0_OSC::work","component\work\sha256_system_sb\FABOSC_0\sha256_system_sb_FABOSC_0_OSC.vhd","FALSE","FALSE"
 SUBBLOCK "sha256_system_sb_MSS::work","component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd","TRUE","FALSE"
 SUBBLOCK "CoreAHBLite::COREAHBLITE_LIB::components","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM::COREAHBLSRAM_LIB","component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd","FALSE","FALSE"
 ENDLIST
 LIST "sha256_system_sb_CCC_0_FCCC::work","component\work\sha256_system_sb\CCC_0\sha256_system_sb_CCC_0_FCCC.vhd","FALSE","FALSE"
 ENDLIST
@@ -1182,6 +1315,8 @@ SUBBLOCK "sha256_system::work","component\work\sha256_system\sha256_system.vhd",
 ENDLIST
 LIST "coreparameters::work","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd","FALSE","TRUE"
 ENDLIST
+LIST "coreparameters::work","component\work\sha256_system_sb\COREAHBLSRAM_0_0\coreparameters.vhd","FALSE","TRUE"
+ENDLIST
 LIST "reg_16x32::work","","FALSE","FALSE"
 ENDLIST
 LIST "reg_16x32_tb::work","stimulus\reg_16x32_tb.vhd","FALSE","TRUE"
@@ -1202,12 +1337,19 @@ ENDLIST
 LIST "SHA256_Module_tb_swlike::work","stimulus\sha256_module_tb_softwarelike.vhd","FALSE","TRUE"
 SUBBLOCK "SHA256_Module::work","component\work\SHA256_Module\SHA256_Module.vhd","TRUE","FALSE"
 ENDLIST
+LIST "testbench::work","component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\test\user\testbench.vhd","FALSE","TRUE"
+SUBBLOCK "sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM::COREAHBLSRAM_LIB","component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd","FALSE","FALSE"
+ENDLIST
 LIST "testbench::work","stimulus\sha256_tb.vhd","FALSE","TRUE"
 SUBBLOCK "gv_sha256::work","hdl\gv_sha256.vhd","FALSE","FALSE"
 ENDLIST
 LIST "xhdl_misc::work","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd","FALSE","TRUE"
 ENDLIST
+LIST "xhdl_misc::work","component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_misc.vhd","FALSE","TRUE"
+ENDLIST
 LIST "xhdl_std_logic::work","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd","FALSE","TRUE"
+ENDLIST
+LIST "xhdl_std_logic::work","component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_std_logic.vhd","FALSE","TRUE"
 ENDLIST
 LIST "zero_concat_tb::work","stimulus\zero_concat_tb.vhd","FALSE","TRUE"
 SUBBLOCK "zero_concat::work","hdl\zero_concat.vhd","FALSE","FALSE"
@@ -1285,6 +1427,22 @@ LIST "testbench::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.10
 SUBBLOCK "bfM_Ahbl::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbl.vhd","FALSE","TRUE"
 SUBBLOCK "BFM_ahbSLAve::COREAHBLITE_LIB::bfM_packAGE","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\amba_bfm\bfm_ahbslave.vhd","FALSE","TRUE"
 SUBBLOCK "CoreAHBLite::COREAHBLITE_LIB::components","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd","FALSE","FALSE"
+ENDLIST
+LIST "AHBLSramIf::COREAHBLSRAM_LIB","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_system_sb_COREAHBLSRAM_0_0_AHBLSramIf::COREAHBLSRAM_LIB","component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\AHBLSramIf.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM::COREAHBLSRAM_LIB","component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd","FALSE","FALSE"
+SUBBLOCK "AHBLSramIf::COREAHBLSRAM_LIB","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_system_sb_COREAHBLSRAM_0_0_SramCtrlIf::COREAHBLSRAM_LIB","component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_system_sb_COREAHBLSRAM_0_0_lsram_2048to139264x8::COREAHBLSRAM_LIB","component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_system_sb_COREAHBLSRAM_0_0_SramCtrlIf::COREAHBLSRAM_LIB","component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_system_sb_COREAHBLSRAM_0_0_lsram_2048to139264x8::COREAHBLSRAM_LIB","component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_system_sb_COREAHBLSRAM_0_0_usram_128to9216x8::COREAHBLSRAM_LIB","component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\usram_128to9216x8.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_system_sb_COREAHBLSRAM_0_0_usram_128to9216x8::COREAHBLSRAM_LIB","component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\usram_128to9216x8.vhd","FALSE","FALSE"
 ENDLIST
 ENDLIST
 LIST ActiveTestBenchList

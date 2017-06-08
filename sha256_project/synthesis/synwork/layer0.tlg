@@ -1,6 +1,6 @@
 @N: CD231 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\std1164.vhd":890:16:890:17|Using onehot encoding for type mvl9plus ('U'="1000000000")
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd":17:7:17:19|Synthesizing work.sha256_system.rtl 
-@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd":20:7:20:22|Synthesizing work.sha256_system_sb.rtl 
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd":22:7:22:22|Synthesizing work.sha256_system_sb.rtl 
 @N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":786:10:786:17|Synthesizing smartfusion2.sysreset.syn_black_box 
 Post processing for smartfusion2.sysreset.syn_black_box
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd":17:7:17:26|Synthesizing work.sha256_system_sb_mss.rtl 
@@ -67,6 +67,60 @@ Post processing for work.coreresetp.rtl
 @W: CL169 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":1376:8:1376:9|Pruning register sm2_state(2 downto 0)  
 @W: CL169 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":792:8:792:9|Pruning register sm2_areset_n_q1  
 @W: CL169 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":792:8:792:9|Pruning register sm2_areset_n_clk_base  
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd":33:7:33:52|Synthesizing coreahblsram_lib.sha256_system_sb_coreahblsram_0_0_coreahblsram.translated 
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":33:7:33:50|Synthesizing coreahblsram_lib.sha256_system_sb_coreahblsram_0_0_sramctrlif.translated 
+@N: CD364 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":386:12:386:30|Removed redundant assignment
+@W: CD638 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":148:10:148:28|Signal u_ahbsram_wdata_upd is undriven 
+@W: CD638 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":159:11:159:31|Signal ram_rdata_usram_xhdl1 is undriven 
+@W: CD638 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":161:10:161:19|Signal u_busy_all is undriven 
+@W: CD638 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":162:10:162:21|Signal u_busy_all_0 is undriven 
+@W: CD638 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":163:10:163:21|Signal u_busy_all_1 is undriven 
+@W: CD638 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":164:10:164:21|Signal u_busy_all_2 is undriven 
+@W: CD638 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":165:10:165:21|Signal u_busy_all_3 is undriven 
+@W: CD638 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":166:10:166:19|Signal l_busy_all is undriven 
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":31:7:31:60|Synthesizing coreahblsram_lib.sha256_system_sb_coreahblsram_0_0_lsram_2048to139264x8.translated 
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":276:12:276:14|Signal clk in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":276:17:276:25|Signal writedata in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":276:28:276:33|Signal resetn in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":276:36:276:43|Signal ckrdaddr in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":276:46:276:53|Signal readaddr in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":277:3:277:12|Signal readdata10 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":277:15:277:24|Signal readdata11 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":277:27:277:36|Signal readdata12 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":277:39:277:48|Signal readdata13 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":277:51:277:60|Signal readdata14 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":277:63:277:72|Signal readdata15 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":277:75:277:77|Signal wen in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":277:80:277:89|Signal readdata16 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":277:92:277:101|Signal readdata17 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":278:3:278:11|Signal readdata0 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":278:14:278:22|Signal readdata1 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":278:25:278:33|Signal readdata2 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":278:36:278:44|Signal readdata3 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":278:47:278:55|Signal readdata4 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":279:3:279:11|Signal readdata5 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":279:14:279:22|Signal readdata6 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":279:25:279:33|Signal readdata7 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":279:36:279:44|Signal readdata8 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":280:3:280:11|Signal readdata9 in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":280:14:280:22|Signal writeaddr in the sensitivity list is not used in the process
+@W: CD280 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":62:13:62:19|Unbound component RAM1K18 mapped to black box
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":62:13:62:19|Synthesizing coreahblsram_lib.ram1k18.syn_black_box 
+Post processing for coreahblsram_lib.ram1k18.syn_black_box
+Post processing for coreahblsram_lib.sha256_system_sb_coreahblsram_0_0_lsram_2048to139264x8.translated
+@W: CL169 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":263:6:263:7|Pruning register ckRdAddr_3(15 downto 9)  
+Post processing for coreahblsram_lib.sha256_system_sb_coreahblsram_0_0_sramctrlif.translated
+@W: CL240 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":165:10:165:21|u_BUSY_all_3 is not assigned a value (floating) -- simulation mismatch possible. 
+@W: CL240 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":164:10:164:21|u_BUSY_all_2 is not assigned a value (floating) -- simulation mismatch possible. 
+@W: CL240 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":163:10:163:21|u_BUSY_all_1 is not assigned a value (floating) -- simulation mismatch possible. 
+@W: CL240 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":162:10:162:21|u_BUSY_all_0 is not assigned a value (floating) -- simulation mismatch possible. 
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd":33:7:33:16|Synthesizing coreahblsram_lib.ahblsramif.translated 
+Post processing for coreahblsram_lib.ahblsramif.translated
+@W: CL169 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd":186:6:186:7|Pruning register HREADYIN_d_3  
+@W: CL169 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd":186:6:186:7|Pruning register HSEL_d_3  
+@W: CL169 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd":186:6:186:7|Pruning register HTRANS_d_3(1 downto 0)  
+@W: CL169 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd":186:6:186:7|Pruning register HWDATA_d_4(31 downto 0)  
+Post processing for coreahblsram_lib.sha256_system_sb_coreahblsram_0_0_coreahblsram.translated
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd":27:7:27:17|Synthesizing coreahblite_lib.coreahblite.coreahblite_arch 
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":25:7:25:28|Synthesizing coreahblite_lib.coreahblite_matrix4x16.coreahblite_matrix4x16_arch 
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":24:7:24:28|Synthesizing coreahblite_lib.coreahblite_slavestage.trans 
@@ -120,8 +174,6 @@ Post processing for coreahblite_lib.coreahblite_addrdec.coreahblite_addrdec_arch
 Post processing for coreahblite_lib.coreahblite_masterstage.coreahblite_masterstage_arch
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":644:8:644:9|Sharing sequential element addrRegSMCurrentState.
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":24:7:24:29|Synthesizing coreahblite_lib.coreahblite_masterstage.coreahblite_masterstage_arch 
-@W: CD434 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":342:8:342:16|Signal hrdata_s1 in the sensitivity list is not used in the process
-@W: CD434 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":342:20:342:31|Signal hreadyout_s1 in the sensitivity list is not used in the process
 @W: CD434 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":343:8:343:16|Signal hrdata_s2 in the sensitivity list is not used in the process
 @W: CD434 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":343:20:343:31|Signal hreadyout_s2 in the sensitivity list is not used in the process
 @W: CD434 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":344:8:344:16|Signal hrdata_s3 in the sensitivity list is not used in the process
@@ -257,10 +309,8 @@ State machine has 6 reachable states with original encodings of:
    001000
    010000
    100000
-@W: CL246 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":45:8:45:17|Input port bits 16 to 1 of sdataready(16 downto 0) are unused 
-@W: CL246 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":46:8:46:13|Input port bits 16 to 1 of shresp(16 downto 0) are unused 
-@W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":57:8:57:16|Input HRDATA_S1 is unused
-@W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":58:8:58:19|Input HREADYOUT_S1 is unused
+@W: CL246 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":45:8:45:17|Input port bits 16 to 2 of sdataready(16 downto 0) are unused 
+@W: CL246 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":46:8:46:13|Input port bits 16 to 2 of shresp(16 downto 0) are unused 
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":59:8:59:16|Input HRDATA_S2 is unused
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":60:8:60:19|Input HREADYOUT_S2 is unused
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":61:8:61:16|Input HRDATA_S3 is unused
@@ -349,9 +399,6 @@ State machine has 16 reachable states with original encodings of:
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":54:8:54:16|Input HWDATA_M1 is unused
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":63:8:63:16|Input HWDATA_M2 is unused
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":72:8:72:16|Input HWDATA_M3 is unused
-@W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":87:8:87:16|Input HRDATA_S1 is unused
-@W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":88:8:88:19|Input HREADYOUT_S1 is unused
-@W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":89:8:89:15|Input HRESP_S1 is unused
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":98:8:98:16|Input HRDATA_S2 is unused
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":99:8:99:19|Input HREADYOUT_S2 is unused
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":100:8:100:15|Input HRESP_S2 is unused
@@ -426,6 +473,26 @@ State machine has 16 reachable states with original encodings of:
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd":150:0:150:7|Input HPROT_M2 is unused
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd":160:0:160:8|Input HBURST_M3 is unused
 @W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd":161:0:161:7|Input HPROT_M3 is unused
+@N: CL201 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd":212:6:212:7|Trying to extract state machine for register ahbcurr_state
+Extracted state machine for register ahbcurr_state
+State machine has 3 reachable states with original encodings of:
+   00
+   01
+   10
+@W: CL159 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd":85:6:85:9|Input BUSY is unused
+@W: CL159 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":45:6:45:14|Input writeData is unused
+@W: CL159 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":52:6:52:8|Input wen is unused
+@W: CL159 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":53:6:53:8|Input ren is unused
+@W: CL159 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":54:6:54:14|Input writeAddr is unused
+@W: CL159 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":55:6:55:13|Input readAddr is unused
+@N: CL201 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":191:6:191:7|Trying to extract state machine for register sramcurr_state
+Extracted state machine for register sramcurr_state
+State machine has 3 reachable states with original encodings of:
+   00
+   01
+   10
+@W: CL246 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":55:6:55:17|Input port bits 19 to 18 of ahbsram_addr(19 downto 0) are unused 
+@W: CL246 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd":57:6:57:10|Input port bits 31 to 20 of haddr(31 downto 0) are unused 
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif0_spll_lock_q2.
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element fpll_lock_q2.
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif1_spll_lock_q2.

@@ -4,7 +4,7 @@
 @N:"E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd":17:7:17:19|Top entity is set to sha256_system.
 @N: CD231 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\std1164.vhd":890:16:890:17|Using onehot encoding for type mvl9plus ('U'="1000000000")
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd":17:7:17:19|Synthesizing work.sha256_system.rtl 
-@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd":20:7:20:22|Synthesizing work.sha256_system_sb.rtl 
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd":22:7:22:22|Synthesizing work.sha256_system_sb.rtl 
 @N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":786:10:786:17|Synthesizing smartfusion2.sysreset.syn_black_box 
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.vhd":17:7:17:26|Synthesizing work.sha256_system_sb_mss.rtl 
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS_syn.vhd":10:7:10:13|Synthesizing work.mss_060.def_arch 
@@ -18,6 +18,12 @@
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif1_spll_lock_q1.
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif0_spll_lock_q1.
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element fpll_lock_q1.
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd":33:7:33:52|Synthesizing coreahblsram_lib.sha256_system_sb_coreahblsram_0_0_coreahblsram.translated 
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":33:7:33:50|Synthesizing coreahblsram_lib.sha256_system_sb_coreahblsram_0_0_sramctrlif.translated 
+@N: CD364 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":386:12:386:30|Removed redundant assignment
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":31:7:31:60|Synthesizing coreahblsram_lib.sha256_system_sb_coreahblsram_0_0_lsram_2048to139264x8.translated 
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd":62:13:62:19|Synthesizing coreahblsram_lib.ram1k18.syn_black_box 
+@N: CD630 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd":33:7:33:16|Synthesizing coreahblsram_lib.ahblsramif.translated 
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd":27:7:27:17|Synthesizing coreahblite_lib.coreahblite.coreahblite_arch 
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":25:7:25:28|Synthesizing coreahblite_lib.coreahblite_matrix4x16.coreahblite_matrix4x16_arch 
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":24:7:24:28|Synthesizing coreahblite_lib.coreahblite_slavestage.trans 
@@ -61,6 +67,8 @@
 @N: CL135 :"E:\LiberoProjects\sha256_project\hdl\sha256_msg_sch.vhd":122:8:122:9|Found seqShift r10, depth=5, width=32
 @N: CL201 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":79:8:79:9|Trying to extract state machine for register state
 @N: CL201 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Trying to extract state machine for register arbRegSMCurrentState
+@N: CL201 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\core\AHBLSramIf.vhd":212:6:212:7|Trying to extract state machine for register ahbcurr_state
+@N: CL201 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":191:6:191:7|Trying to extract state machine for register sramcurr_state
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif0_spll_lock_q2.
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element fpll_lock_q2.
 @N: CL177 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":936:8:936:9|Sharing sequential element sdif1_spll_lock_q2.
