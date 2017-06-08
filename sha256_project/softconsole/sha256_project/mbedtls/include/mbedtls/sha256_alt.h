@@ -50,7 +50,6 @@ typedef struct
     unsigned char buffer[64];   /*!< data block being processed */
     uint8_t first;
     uint8_t last;
-    uint8_t no_padding;
     uint32_t buffer_bytes;
 }
 mbedtls_sha256_context;

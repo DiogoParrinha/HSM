@@ -159,7 +159,7 @@ int main()
     /////////////    /////////////    /////////////
 
 	memset(hash, 0, 32);
-    SHA256_FPGA(text0, hash, 1, 1);
+    SHA256_FPGA(text0, hash, 64, 1, 1);
 
     memset(hash2, 0, 32);
     mbedtls_sha256(text0, 64, &hash2[0], 0);
@@ -220,8 +220,8 @@ int main()
     /////////////    /////////////    /////////////
 
 	memset(hash, 0, 32);
-    SHA256_FPGA(text0, hash, 1, 0);
-    SHA256_FPGA(text1, hash, 0, 1);
+    SHA256_FPGA(text0, hash, 64, 1, 0);
+    SHA256_FPGA(text1, hash, 64, 0, 1);
 
     uint8_t text01[128] = {0};
     memcpy(text01, text0, 64);
@@ -321,9 +321,9 @@ int main()
     /////////////    /////////////    /////////////
 
 	memset(hash, 0, 32);
-    SHA256_FPGA(text0, hash, 1, 0);
-    SHA256_FPGA(text1, hash, 0, 0);
-    SHA256_FPGA(text2, hash, 0, 1);
+    SHA256_FPGA(text0, hash, 64, 1, 0);
+    SHA256_FPGA(text1, hash, 64, 0, 0);
+    SHA256_FPGA(text2, hash, 64, 0, 1);
 
     uint8_t text012[192] = {0};
     memcpy(text012, text0, 64);
@@ -472,10 +472,10 @@ int main()
     /////////////    /////////////    /////////////
 
 	memset(hash, 0, 32);
-    SHA256_FPGA(text0, hash, 1, 0);
-    SHA256_FPGA(text1, hash, 0, 0);
-    SHA256_FPGA(text2, hash, 0, 0);
-    SHA256_FPGA(text3, hash, 0, 1);
+    SHA256_FPGA(text0, hash, 64, 1, 0);
+    SHA256_FPGA(text1, hash, 64, 0, 0);
+    SHA256_FPGA(text2, hash, 64, 0, 0);
+    SHA256_FPGA(text3, hash, 64, 0, 1);
 
     uint8_t text0123[256] = {0};
     memcpy(text0123, text0, 64);

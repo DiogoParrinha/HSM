@@ -96,13 +96,12 @@ void mbedtls_sha256_starts( mbedtls_sha256_context *ctx, int is224 )
     ctx->buffer_bytes = 0;
     ctx->first = 1;
     ctx->last = 0;
-    ctx->no_padding = 0;
 }
 
 void mbedtls_sha256_process( mbedtls_sha256_context *ctx, const unsigned char data[64] )
 {
 	uint8_t hash[32] = {0};
-	SHA256_FPGA(data, hash, ctx->first, ctx->last);
+	SHA256_FPGA(data, hash, ctx->buffer_bytes, ctx->first, ctx->last);
 
 	// Copy hash to state
 	memcpy(ctx->state, hash, 32);
@@ -117,7 +116,8 @@ void mbedtls_sha256_update( mbedtls_sha256_context *ctx, const unsigned char *in
 {
 	if( ilen == 0 )
 	{
-		if(ctx->buffer_bytes == 64 && ctx->last == 1 && ctx->no_padding == 1)
+		// are we finishing?
+		if(ctx->buffer_bytes > 0 && ctx->last == 1)
 		{
 			// Send for processing
 			mbedtls_sha256_process(ctx, ctx->buffer);
@@ -164,7 +164,10 @@ void mbedtls_sha256_update( mbedtls_sha256_context *ctx, const unsigned char *in
     // meaning we'll always have more than 0 bytes if we process anything within the loop
     while( ilen > 64)
     {
-        mbedtls_sha256_process( ctx, input );
+    	memcpy((void *)ctx->buffer, input, 64);
+    	ctx->buffer_bytes = 64;
+
+        mbedtls_sha256_process( ctx, ctx->buffer);
         input += 64;
         ilen  -= 64;
 
@@ -180,46 +183,15 @@ void mbedtls_sha256_update( mbedtls_sha256_context *ctx, const unsigned char *in
     }
 }
 
-static const unsigned char sha256_padding[64] =
-{
- 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
-
 /*
  * SHA-256 final digest
  */
 void mbedtls_sha256_finish( mbedtls_sha256_context *ctx, unsigned char output[32] )
 {
-    uint32_t last, padn;
-    uint32_t high, low;
-    unsigned char msglen[8];
-
-    high = ( ctx->total[0] >> 29 )
-         | ( ctx->total[1] <<  3 );
-    low  = ( ctx->total[0] <<  3 );
-
-    PUT_UINT32_BE( high, msglen, 0 );
-    PUT_UINT32_BE( low,  msglen, 4 );
-
-    last = ctx->total[0] & 0x3F;
-    padn = ( last < 56 ) ? ( 56 - last ) : ( 120 - last );
-
-    // Because in the work we always assume to have 64B input, we'll need to perform padding here if we don't have 64B in our buffer
+    // Attempt to finish the hashing process
     ctx->last = 1;
-    if(ctx->buffer_bytes == 64)
-    {
-    	ctx->no_padding = 1;
-    	mbedtls_sha256_update( ctx, sha256_padding, 0 ); // set length to 0 and we'll check in the update function if we need to process anything
-    }
-    else
-    {
-    	ctx->no_padding = 0;
-    	mbedtls_sha256_update( ctx, sha256_padding, padn ); // L+1+k=448mod512 -> the positive solution for k -> number of bits with zeros [1 k_zeroes length]
-    	mbedtls_sha256_update( ctx, msglen, 8 ); // last byte contains message length in bits: bytes * 8
-    }
+    uint8_t dummy[32];
+    mbedtls_sha256_update( ctx, dummy, 0 );
 
     memcpy(output, ctx->state, 32);
 }

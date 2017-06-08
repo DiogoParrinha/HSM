@@ -31,8 +31,11 @@ void SHA256_FPGA_init()
 // Only accepts blocks of size 64B
 // Input is big-endian
 // Output is big-endian
-void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t first, uint8_t last)
+void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t size, uint8_t first, uint8_t last)
 {
+	if(size == 0)
+		return;
+
 	int i = 0;
 	uint32_t inputs = 0;
 
@@ -61,6 +64,10 @@ void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t first, uint8_t last)
 		MSS_GPIO_set_output( PIN_RESET, 1);
 	}
 
+	// Figure out how many 4B words we have and subtract 1 to get the position
+	int word_pos = ((size + (4 - 1)) / 4) - 1;
+	blockinfo[0] = (word_pos) << 4; // shift by 4 because it must be in the most significant 4bits below
+
 	// Write to AHB Slave Interface (16 words of 32-bit)
 	*(volatile uint32_t *)0x31000000 = (data[3] & 0x000000FF) | ((data[2] & 0x000000FF) << 8) | ((data[1] & 0x0000FF00) << 16) | ((data[0] & 0x000000FF) << 24);
 	*(volatile uint32_t *)0x31000004 = (data[7] & 0x000000FF) | ((data[6] & 0x000000FF) << 8) | ((data[5] & 0x000000FF) << 16) | ((data[4] & 0x000000FF) << 24);
@@ -79,6 +86,7 @@ void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t first, uint8_t last)
 	*(volatile uint32_t *)0x31000038 = (data[59] & 0x000000FF) | ((data[58] & 0x000000FF) << 8) | ((data[57] & 0x000000FF) << 16) | ((data[56] & 0x000000FF) << 24);
 	*(volatile uint32_t *)0x3100003C = (data[63] & 0x000000FF) | ((data[62] & 0x000000FF) << 8) | ((data[61] & 0x000000FF) << 16) | ((data[60] & 0x000000FF) << 24);
 	*(volatile uint32_t *)0x31000040 = (blockinfo[3] & 0x000000FF) | (blockinfo[2] & 0x000000FF) | ((blockinfo[1] & 0x000000FF) << 16) | ((blockinfo[0] & 0x000000FF) << 24);
+	*(volatile uint32_t *)0x31000044 = 0x00000000;
 
 	inputs = MSS_GPIO_get_inputs();
 	while(!(inputs & 0x80)) // 8th bit is 1 (data_available -> we can enable reading and give the data_out_ready signal)

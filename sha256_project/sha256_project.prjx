@@ -421,36 +421,36 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\SHA256_BLOCK\SHA256_BLOCK.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496867390"
-SIZE="8863"
+TIME="1496958852"
+SIZE="5677"
 ENDFILE
 VALUE "<project>\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd,hdl"
 STATE="utd"
-TIME="1496867389"
-SIZE="19729"
+TIME="1496958852"
+SIZE="13472"
 PARENT="<project>\component\work\SHA256_BLOCK\SHA256_BLOCK.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\SHA256_Module\SHA256_Module.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496867389"
+TIME="1496961084"
 SIZE="4690"
 ENDFILE
 VALUE "<project>\component\work\SHA256_Module\SHA256_Module.vhd,hdl"
 STATE="utd"
-TIME="1496867389"
-SIZE="14301"
+TIME="1496961084"
+SIZE="12703"
 PARENT="<project>\component\work\SHA256_Module\SHA256_Module.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system\sha256_system.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496875507"
+TIME="1496961143"
 SIZE="2285"
 ENDFILE
 VALUE "<project>\component\work\sha256_system\sha256_system.vhd,hdl"
 STATE="utd"
-TIME="1496875505"
+TIME="1496961140"
 SIZE="16258"
 PARENT="<project>\component\work\sha256_system\sha256_system.cxf"
 IS_READONLY="TRUE"
@@ -634,8 +634,8 @@ SIZE="1276"
 ENDFILE
 VALUE "<project>\hdl\reg_17x32.vhd,hdl"
 STATE="utd"
-TIME="1496850934"
-SIZE="7490"
+TIME="1496958503"
+SIZE="8042"
 ENDFILE
 VALUE "<project>\hdl\reg_1x32.vhd,hdl"
 STATE="utd"
@@ -654,8 +654,8 @@ SIZE="50019"
 ENDFILE
 VALUE "<project>\hdl\sha256_controller.vhd,hdl"
 STATE="utd"
-TIME="1496867358"
-SIZE="8935"
+TIME="1496961080"
+SIZE="10343"
 ENDFILE
 VALUE "<project>\hdl\sha256_hash_core.vhd,hdl"
 STATE="utd"
@@ -762,7 +762,7 @@ SIZE="8604"
 ENDFILE
 VALUE "<project>\simulation\run.do,do"
 STATE="utd"
-TIME="1496925490"
+TIME="1496961098"
 SIZE="2954"
 ENDFILE
 VALUE "<project>\simulation\SHA256_BLOCK_tb_presynth_simulation.log,log"
@@ -787,12 +787,12 @@ SIZE="17421"
 ENDFILE
 VALUE "<project>\simulation\SHA256_Module_tb_swlike_presynth_simulation.log,log"
 STATE="utd"
-TIME="1496926117"
-SIZE="17509"
+TIME="1496961135"
+SIZE="21627"
 ENDFILE
 VALUE "<project>\simulation\subsystem.bfm,sim"
 STATE="utd"
-TIME="1496875506"
+TIME="1496961141"
 SIZE="834"
 PARENT="<project>\component\work\sha256_system\sha256_system.cxf"
 PARENT="<project>\component\work\sha256_system_sb\sha256_system_sb.cxf"
@@ -816,8 +816,8 @@ PARENT="<project>\component\work\sha256_system_sb_MSS\sha256_system_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\simulation\wave.do,do"
 STATE="utd"
-TIME="1496867484"
-SIZE="10388"
+TIME="1496958988"
+SIZE="9328"
 ENDFILE
 VALUE "<project>\simulation\zero_concat_tb_presynth_simulation.log,log"
 STATE="utd"
@@ -856,8 +856,8 @@ SIZE="6142"
 ENDFILE
 VALUE "<project>\stimulus\sha256_module_tb_softwarelike.vhd,tb_hdl"
 STATE="utd"
-TIME="1496925487"
-SIZE="24595"
+TIME="1496960901"
+SIZE="48352"
 ENDFILE
 VALUE "<project>\stimulus\sha256_tb.vhd,tb_hdl"
 STATE="utd"
@@ -871,27 +871,27 @@ SIZE="2730"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.edn,syn_edn"
 STATE="utd"
-TIME="1496875590"
-SIZE="3797804"
+TIME="1496961176"
+SIZE="3871143"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.so,so"
 STATE="utd"
-TIME="1496875590"
+TIME="1496961177"
 SIZE="228"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system.vhd,syn_hdl"
 STATE="utd"
-TIME="1496875599"
-SIZE="1963161"
+TIME="1496961186"
+SIZE="2046002"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system_sdc.sdc,syn_sdc"
 STATE="utd"
-TIME="1496875590"
+TIME="1496961176"
 SIZE="962"
 ENDFILE
 VALUE "<project>\synthesis\sha256_system_syn.prj,prj"
 STATE="utd"
-TIME="1496875591"
+TIME="1496961177"
 SIZE="6596"
 ENDFILE
 VALUE "<project>\synthesis\synwork\layer0.so,so"
@@ -1189,8 +1189,16 @@ LIST UserCustomizedFileList
 ENDLIST
 LIST OpenedFileList
 ORIENTATION;HORIZONTAL
+Reports;Reports;0
+ReportsCurrentItem;Run PROGRAM Action:sha256_system_PROGRAM.log
+HDL;stimulus\sha256_module_tb_softwarelike.vhd;0
+SmartDesign;sha256_system;0
+SmartDesign;SHA256_Module;0
+SmartDesign;SHA256_BLOCK;0
+HDL;hdl\sha256_controller.vhd;0
+HDL;hdl\reg_17x32.vhd;0
 StartPage;StartPage;0
-ACTIVEVIEW;StartPage
+ACTIVEVIEW;stimulus\sha256_module_tb_softwarelike.vhd
 ENDLIST
 LIST ModuleSubBlockList
 LIST "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"

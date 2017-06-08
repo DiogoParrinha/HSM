@@ -6,8 +6,8 @@
  *  Copyright (C) 2017, Diogo Parrinha, All Rights Reserved
  *
  */
-#ifndef MBEDTLS_SHA256_ALT_H
-#define MBEDTLS_SHA256_ALT_H
+#ifndef SHA256_FPGA_H
+#define SHA256_FPGA_H
 
 #include <string.h>
 #include <stdio.h>
@@ -16,6 +16,6 @@
 #define AHB_BASE_ADDR 0x31000000
 
 void SHA256_FPGA_init();
-void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t first, uint8_t last);
+void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t size, uint8_t first, uint8_t last);
 
 #endif
