@@ -80,23 +80,24 @@ void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t size, uint8_t first, ui
 	}
 
 	// Write to AHB Slave Interface (16 words of 32-bit)
-	*(volatile uint32_t *)0x50000000 = (data[3] & 0x000000FF) | ((data[2] & 0x000000FF) << 8) | ((data[1] & 0x0000FF00) << 16) | ((data[0] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000004 = (data[7] & 0x000000FF) | ((data[6] & 0x000000FF) << 8) | ((data[5] & 0x000000FF) << 16) | ((data[4] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000008 = (data[11] & 0x000000FF) | ((data[10] & 0x000000FF) << 8) | ((data[9] & 0x000000FF) << 16) | ((data[8] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x5000000C = (data[15] & 0x000000FF) | ((data[14] & 0x000000FF) << 8) | ((data[13] & 0x000000FF) << 16) | ((data[12] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000010 = (data[19] & 0x000000FF) | ((data[18] & 0x000000FF) << 8) | ((data[17] & 0x000000FF) << 16) | ((data[16] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000014 = (data[23] & 0x000000FF) | ((data[22] & 0x000000FF) << 8) | ((data[21] & 0x000000FF) << 16) | ((data[20] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000018 = (data[27] & 0x000000FF) | ((data[26] & 0x000000FF) << 8) | ((data[25] & 0x000000FF) << 16) | ((data[24] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x5000001C = (data[31] & 0x000000FF) | ((data[30] & 0x000000FF) << 8) | ((data[29] & 0x000000FF) << 16) | ((data[28] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000020 = (data[35] & 0x000000FF) | ((data[34] & 0x000000FF) << 8) | ((data[33] & 0x000000FF) << 16) | ((data[32] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000024 = (data[39] & 0x000000FF) | ((data[38] & 0x000000FF) << 8) | ((data[37] & 0x000000FF) << 16) | ((data[36] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000028 = (data[43] & 0x000000FF) | ((data[42] & 0x000000FF) << 8) | ((data[41] & 0x000000FF) << 16) | ((data[40] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x5000002C = (data[47] & 0x000000FF) | ((data[46] & 0x000000FF) << 8) | ((data[45] & 0x000000FF) << 16) | ((data[44] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000030 = (data[51] & 0x000000FF) | ((data[50] & 0x000000FF) << 8) | ((data[49] & 0x000000FF) << 16) | ((data[48] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000034 = (data[55] & 0x000000FF) | ((data[54] & 0x000000FF) << 8) | ((data[53] & 0x000000FF) << 16) | ((data[52] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000038 = (data[59] & 0x000000FF) | ((data[58] & 0x000000FF) << 8) | ((data[57] & 0x000000FF) << 16) | ((data[56] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x5000003C = (data[63] & 0x000000FF) | ((data[62] & 0x000000FF) << 8) | ((data[61] & 0x000000FF) << 16) | ((data[60] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x50000040 = (blockinfo[3] & 0x000000FF) | (blockinfo[2] & 0x000000FF) | ((blockinfo[1] & 0x000000FF) << 16) | ((blockinfo[0] & 0x000000FF) << 24);
+	*(volatile uint32_t *)0x50000000 = (0x000000FF & data[0]) << 24 | ((0x000000FF & data[1]) << 16) | ((0x000000FF & data[2]) << 8) | ((0x000000FF & data[3]) << 0);
+	*(volatile uint32_t *)0x50000004 = (0x000000FF & data[4]) << 24 | ((0x000000FF & data[5]) << 16) | ((0x000000FF & data[6]) << 8) | ((0x000000FF & data[7]) << 0);
+	*(volatile uint32_t *)0x50000008 = (0x000000FF & data[8]) << 24 | ((0x000000FF & data[9]) << 16) | ((0x000000FF & data[10]) << 8) | ((0x000000FF & data[11]) << 0);
+	*(volatile uint32_t *)0x5000000C = (0x000000FF & data[12]) << 24 | ((0x000000FF & data[13]) << 16) | ((0x000000FF & data[14]) << 8) | ((0x000000FF & data[15]) << 0);
+	*(volatile uint32_t *)0x50000010 = (0x000000FF & data[16]) << 24 | ((0x000000FF & data[17]) << 16) | ((0x000000FF & data[18]) << 8) | ((0x000000FF & data[19]) << 0);
+	*(volatile uint32_t *)0x50000014 = (0x000000FF & data[20]) << 24 | ((0x000000FF & data[21]) << 16) | ((0x000000FF & data[22]) << 8) | ((0x000000FF & data[23]) << 0);
+	*(volatile uint32_t *)0x50000018 = (0x000000FF & data[24]) << 24 | ((0x000000FF & data[25]) << 16) | ((0x000000FF & data[26]) << 8) | ((0x000000FF & data[27]) << 0);
+	*(volatile uint32_t *)0x5000001C = (0x000000FF & data[28]) << 24 | ((0x000000FF & data[29]) << 16) | ((0x000000FF & data[30]) << 8) | ((0x000000FF & data[31]) << 0);
+	*(volatile uint32_t *)0x50000020 = (0x000000FF & data[32]) << 24 | ((0x000000FF & data[33]) << 16) | ((0x000000FF & data[34]) << 8) | ((0x000000FF & data[35]) << 0);
+	*(volatile uint32_t *)0x50000024 = (0x000000FF & data[36]) << 24 | ((0x000000FF & data[37]) << 16) | ((0x000000FF & data[38]) << 8) | ((0x000000FF & data[39]) << 0);
+	*(volatile uint32_t *)0x50000028 = (0x000000FF & data[40]) << 24 | ((0x000000FF & data[41]) << 16) | ((0x000000FF & data[42]) << 8) | ((0x000000FF & data[43]) << 0);
+	*(volatile uint32_t *)0x5000002C = (0x000000FF & data[44]) << 24 | ((0x000000FF & data[45]) << 16) | ((0x000000FF & data[46]) << 8) | ((0x000000FF & data[47]) << 0);
+	*(volatile uint32_t *)0x50000030 = (0x000000FF & data[48]) << 24 | ((0x000000FF & data[49]) << 16) | ((0x000000FF & data[50]) << 8) | ((0x000000FF & data[51]) << 0);
+	*(volatile uint32_t *)0x50000034 = (0x000000FF & data[52]) << 24 | ((0x000000FF & data[53]) << 16) | ((0x000000FF & data[54]) << 8) | ((0x000000FF & data[55]) << 0);
+	*(volatile uint32_t *)0x50000038 = (0x000000FF & data[56]) << 24 | ((0x000000FF & data[57]) << 16) | ((0x000000FF & data[58]) << 8) | ((0x000000FF & data[59]) << 0);
+	*(volatile uint32_t *)0x5000003C = (0x000000FF & data[60]) << 24 | ((0x000000FF & data[61]) << 16) | ((0x000000FF & data[62]) << 8) | ((0x000000FF & data[63]) << 0);
+	*(volatile uint32_t *)0x50000040 = (0x000000FF & blockinfo[0]) << 24 | ((0x000000FF & blockinfo[1]) << 16) | ((0x000000FF & blockinfo[2]) << 8) | ((0x000000FF & blockinfo[3]) << 0);
+	//(blockinfo[3] & 0x000000FF) | (blockinfo[2] & 0x000000FF) | ((blockinfo[1] & 0x000000FF) << 16) | ((blockinfo[0] & 0x000000FF) << 24);
 
 	inputs = MSS_GPIO_get_inputs();
 	while(!(inputs & 0x80)) // 8th bit is 1 (data_available -> we can enable reading and give the data_out_ready signal)

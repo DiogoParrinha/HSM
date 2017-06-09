@@ -653,8 +653,8 @@ SIZE="50019"
 ENDFILE
 VALUE "<project>\hdl\sha256_controller.vhd,hdl"
 STATE="utd"
-TIME="1496996847"
-SIZE="9269"
+TIME="1497021328"
+SIZE="9825"
 ENDFILE
 VALUE "<project>\hdl\sha256_hash_core.vhd,hdl"
 STATE="utd"
@@ -751,18 +751,18 @@ PARENT="<project>\component\Actel\SmartFusion2MSS\MSS\1.1.400\MSS.cxf"
 ENDFILE
 VALUE "<project>\simulation\run.do,do"
 STATE="utd"
-TIME="1497009076"
-SIZE="3041"
+TIME="1497023848"
+SIZE="3018"
 ENDFILE
 VALUE "<project>\simulation\SHA256_Module_tb_swlike_presynth_simulation.log,log"
 STATE="utd"
-TIME="1497009087"
-SIZE="124"
+TIME="1497026583"
+SIZE="19138"
 ENDFILE
 VALUE "<project>\simulation\subsystem.bfm,sim"
 STATE="utd"
-TIME="1487955728"
-SIZE="639"
+TIME="1497011240"
+SIZE="834"
 PARENT="<project>\component\work\CertificationSystem\CertificationSystem.cxf"
 PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.cxf"
 ENDFILE
@@ -810,8 +810,8 @@ SIZE="6142"
 ENDFILE
 VALUE "<project>\stimulus\sha256_module_tb_softwarelike.vhd,tb_hdl"
 STATE="utd"
-TIME="1497009072"
-SIZE="52982"
+TIME="1497023844"
+SIZE="58807"
 ENDFILE
 VALUE "<project>\stimulus\sha256_tb.vhd,tb_hdl"
 STATE="utd"
@@ -825,28 +825,28 @@ SIZE="2730"
 ENDFILE
 VALUE "<project>\synthesis\CertificationSystem.edn,syn_edn"
 STATE="utd"
-TIME="1495723160"
-SIZE="1372931"
+TIME="1497021864"
+SIZE="4966480"
 ENDFILE
 VALUE "<project>\synthesis\CertificationSystem.so,so"
 STATE="utd"
-TIME="1495723161"
+TIME="1497021864"
 SIZE="254"
 ENDFILE
 VALUE "<project>\synthesis\CertificationSystem.vhd,syn_hdl"
 STATE="utd"
-TIME="1495723168"
-SIZE="792243"
+TIME="1497021872"
+SIZE="2739474"
 ENDFILE
 VALUE "<project>\synthesis\CertificationSystem_sdc.sdc,syn_sdc"
 STATE="utd"
-TIME="1495723160"
+TIME="1497021864"
 SIZE="974"
 ENDFILE
 VALUE "<project>\synthesis\CertificationSystem_syn.prj,prj"
 STATE="utd"
-TIME="1496994877"
-SIZE="6341"
+TIME="1497021865"
+SIZE="7441"
 ENDFILE
 ENDLIST
 LIST UsedFile
@@ -1098,8 +1098,8 @@ NAME="Synplify Pro ME"
 FUNCTION="Synthesis"
 TOOL="Synplify Pro ME"
 LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Synplify\\bin\synplify_pro.exe"
-PARAM="-licensetype synplifypro_actel -batch -log synplify.log"
-BATCH=1
+PARAM=""
+BATCH=0
 LICENSE=""
 IS32BIT="1"
 EndProfile
@@ -1107,7 +1107,7 @@ NAME="ModelSim ME"
 FUNCTION="Simulation"
 TOOL="ModelSim"
 LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Model\\win32acoem\modelsim.exe"
-PARAM=" -l SHA256_Module_tb_swlike_presynth_simulation.log "
+PARAM=""
 BATCH=0
 LICENSE=""
 IS32BIT="1"
@@ -1195,7 +1195,9 @@ ReportsCurrentItem;Run PROGRAM Action:CertificationSystem_PROGRAM.log
 StartPage;StartPage;0
 SmartDesign;CertificationSystem;0
 SmartDesign;CertificationSystem_sb;0
-ACTIVEVIEW;Reports
+HDL;stimulus\sha256_module_tb_softwarelike.vhd;0
+HDL;hdl\sha256_controller.vhd;0
+ACTIVEVIEW;CertificationSystem
 ENDLIST
 LIST ModuleSubBlockList
 LIST "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"

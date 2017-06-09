@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+
 #include "common.h"
 #include "sha256_fpga.h"
 
@@ -67,8 +68,8 @@ int main()
 				0x31, 0x1E, 0x20, 0x59
 	};*/
 
-	uint8_t text0[] = {
-			0x01, 0x00, 0x00, 0x04,
+	/*uint8_t text0[] = {
+			0x01, 0x01, 0x02, 0x04,
 			0x00, 0x00, 0x00, 0x02,
 			0x00, 0x00, 0x00, 0x03,
 			0x00, 0x00, 0x00, 0x04,
@@ -92,7 +93,7 @@ int main()
     int t = 0;
     t++;
 
-    return 0;
+    return 0;*/
 
 	/*** USE RTC FOR TIME CONTROL ***/
 	MSS_RTC_init(MSS_RTC_CALENDAR_MODE, RTC_PRESCALER);
