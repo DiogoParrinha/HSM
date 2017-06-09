@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Thu Jun 08 22:54:12 2017
+-- Created by SmartDesign Fri Jun 09 02:16:51 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -108,7 +108,7 @@ component reg_17x32
         first_block    : out std_logic;
         last_block     : out std_logic;
         last_word      : out std_logic_vector(3 downto 0);
-        valid_bytes    : out std_logic_vector(31 downto 0)
+        valid_bytes    : out std_logic_vector(1 downto 0)
         );
 end component;
 -- sha256_controller
@@ -125,7 +125,7 @@ component sha256_controller
         last_block   : in  std_logic;
         last_word    : in  std_logic_vector(3 downto 0);
         read_data    : in  std_logic_vector(31 downto 0);
-        valid_bytes  : in  std_logic_vector(31 downto 0);
+        valid_bytes  : in  std_logic_vector(1 downto 0);
         -- Outputs
         bytes_o      : out std_logic_vector(1 downto 0);
         ce_o         : out std_logic;
@@ -160,7 +160,7 @@ signal H7_o_net_0                      : std_logic_vector(31 downto 0);
 signal last_block_net_0                : std_logic;
 signal limiter_1cycle_1_sig_1cycle     : std_logic;
 signal reg_17x32_0_last_word           : std_logic_vector(3 downto 0);
-signal reg_17x32_0_valid_bytes         : std_logic_vector(31 downto 0);
+signal reg_17x32_0_valid_bytes_0       : std_logic_vector(1 downto 0);
 signal sha256_controller_0_bytes_o     : std_logic_vector(1 downto 0);
 signal sha256_controller_0_di_o        : std_logic_vector(31 downto 0);
 signal sha256_controller_0_di_wr_o     : std_logic;
@@ -291,7 +291,7 @@ reg_17x32_0 : reg_17x32
         data_available => data_available_net_0,
         first_block    => first_block_net_0,
         last_block     => last_block_net_0,
-        valid_bytes    => reg_17x32_0_valid_bytes,
+        valid_bytes    => reg_17x32_0_valid_bytes_0,
         last_word      => reg_17x32_0_last_word 
         );
 -- sha256_controller_0
@@ -302,7 +302,7 @@ sha256_controller_0 : sha256_controller
         data_ready   => sig_1cycle,
         last_block   => last_block_net_0,
         first_block  => limiter_1cycle_1_sig_1cycle,
-        valid_bytes  => reg_17x32_0_valid_bytes,
+        valid_bytes  => reg_17x32_0_valid_bytes_0,
         last_word    => reg_17x32_0_last_word,
         clk          => CLK,
         RST_N        => RST_N,

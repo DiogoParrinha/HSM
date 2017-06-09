@@ -18,8 +18,8 @@ The file contains the information about resource utilization per module to be di
 </column_headers>
 <module>
 <data>sha256_system</data>
-<data>2067</data>
-<data>1657</data>
+<data>2034</data>
+<data>1637</data>
 <data>677</data>
 <data>0</data>
 <data>0</data>
@@ -30,7 +30,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>AHB_slave_dummy</data>
 <data>15</data>
-<data>13</data>
+<data>8</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -41,7 +41,7 @@ The file contains the information about resource utilization per module to be di
 </module>
 <module>
 <data>SHA256_Module</data>
-<data>1992</data>
+<data>1956</data>
 <data>1420</data>
 <data>677</data>
 <data>0</data>
@@ -52,8 +52,8 @@ The file contains the information about resource utilization per module to be di
 <data>0</data>
 <module>
 <data>SHA256_BLOCK</data>
-<data>1729</data>
-<data>1253</data>
+<data>1695</data>
+<data>1232</data>
 <data>677</data>
 <data>0</data>
 <data>0</data>
@@ -64,7 +64,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>gv_sha256</data>
 <data>1117</data>
-<data>827</data>
+<data>828</data>
 <data>645</data>
 <data>0</data>
 <data>0</data>
@@ -75,7 +75,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>sha256_control</data>
 <data>93</data>
-<data>61</data>
+<data>66</data>
 <data>69</data>
 <data>0</data>
 <data>0</data>
@@ -99,7 +99,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>sha256_kt_rom</data>
 <data>0</data>
-<data>236</data>
+<data>234</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -123,7 +123,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>sha256_padding</data>
 <data>0</data>
-<data>115</data>
+<data>113</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -171,7 +171,7 @@ The file contains the information about resource utilization per module to be di
 </module>
 <module>
 <data>reg_17x32</data>
-<data>566</data>
+<data>533</data>
 <data>363</data>
 <data>0</data>
 <data>0</data>
@@ -183,8 +183,8 @@ The file contains the information about resource utilization per module to be di
 </module>
 <module>
 <data>sha256_controller</data>
-<data>44</data>
-<data>63</data>
+<data>43</data>
+<data>41</data>
 <data>32</data>
 <data>0</data>
 <data>0</data>
@@ -197,7 +197,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>reg1_highonly</data>
 <data>1</data>
-<data>2</data>
+<data>1</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -208,8 +208,8 @@ The file contains the information about resource utilization per module to be di
 </module>
 <module>
 <data>reg9_1x32</data>
-<data>262</data>
-<data>165</data>
+<data>260</data>
+<data>187</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -220,7 +220,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>mux_9_1</data>
 <data>0</data>
-<data>161</data>
+<data>185</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -327,8 +327,8 @@ The file contains the information about resource utilization per module to be di
 </module>
 <module>
 <data>reg_1x32_8</data>
-<data>5</data>
-<data>2</data>
+<data>3</data>
+<data>0</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -341,8 +341,8 @@ The file contains the information about resource utilization per module to be di
 </module>
 <module>
 <data>sha256_system_sb</data>
-<data>60</data>
-<data>224</data>
+<data>63</data>
+<data>209</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -352,8 +352,8 @@ The file contains the information about resource utilization per module to be di
 <data>0</data>
 <module>
 <data>CoreAHBLite</data>
-<data>43</data>
-<data>208</data>
+<data>46</data>
+<data>190</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -363,8 +363,8 @@ The file contains the information about resource utilization per module to be di
 <data>0</data>
 <module>
 <data>COREAHBLITE_MATRIX4X16</data>
-<data>43</data>
-<data>208</data>
+<data>46</data>
+<data>190</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -374,8 +374,8 @@ The file contains the information about resource utilization per module to be di
 <data>0</data>
 <module>
 <data>COREAHBLITE_MASTERSTAGE_2_1_0_3_0</data>
-<data>28</data>
-<data>148</data>
+<data>26</data>
+<data>119</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -386,7 +386,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>COREAHBLITE_ADDRDEC_2_1_3_0</data>
 <data>0</data>
-<data>2</data>
+<data>1</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -398,7 +398,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>COREAHBLITE_DEFAULTSLAVESM_0</data>
 <data>1</data>
-<data>8</data>
+<data>5</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -410,8 +410,8 @@ The file contains the information about resource utilization per module to be di
 </module>
 <module>
 <data>COREAHBLITE_SLAVESTAGE_1</data>
-<data>9</data>
-<data>50</data>
+<data>6</data>
+<data>46</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -421,8 +421,8 @@ The file contains the information about resource utilization per module to be di
 <data>0</data>
 <module>
 <data>COREAHBLITE_SLAVEARBITER_0</data>
-<data>7</data>
-<data>17</data>
+<data>5</data>
+<data>14</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -434,8 +434,8 @@ The file contains the information about resource utilization per module to be di
 </module>
 <module>
 <data>COREAHBLITE_SLAVESTAGE_2</data>
-<data>6</data>
-<data>10</data>
+<data>14</data>
+<data>25</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -445,8 +445,8 @@ The file contains the information about resource utilization per module to be di
 <data>0</data>
 <module>
 <data>COREAHBLITE_SLAVEARBITER</data>
-<data>5</data>
-<data>10</data>
+<data>13</data>
+<data>19</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -485,7 +485,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM</data>
 <data>8</data>
-<data>14</data>
+<data>17</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -496,7 +496,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>AHBLSramIf</data>
 <data>4</data>
-<data>9</data>
+<data>10</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>
@@ -508,7 +508,7 @@ The file contains the information about resource utilization per module to be di
 <module>
 <data>sha256_system_sb_COREAHBLSRAM_0_0_SramCtrlIf</data>
 <data>4</data>
-<data>5</data>
+<data>7</data>
 <data>0</data>
 <data>0</data>
 <data>0</data>

@@ -223,7 +223,7 @@ System                                                 100.0 MHz     10.000     
 sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     10.000        inferred     Inferred_clkgroup_0
 ===================================================================================================================
 
-@W: MT532 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":61:31:61:33|Found signal identified as System clock which controls 2 sequential elements including SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_o[1:0].  Using this clock, which has no specified timing constraint, can adversely impact design performance. 
+@W: MT532 :"e:\liberoprojects\sha256_project\hdl\sha256_controller.vhd":61:31:61:33|Found signal identified as System clock which controls 1 sequential elements including SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_sel.  Using this clock, which has no specified timing constraint, can adversely impact design performance. 
 @W: MT530 :"e:\liberoprojects\sha256_project\hdl\ahb_slave_dummy.vhd":69:4:69:5|Found inferred clock sha256_system_sb_CCC_0_FCCC|GL0_net_inferred_clock which controls 2206 sequential elements including AHB_slave_dummy_0.ready. This clock has no specified timing constraint which may adversely impact design performance. 
 
 Finished Pre Mapping Phase.
@@ -233,6 +233,6 @@ Pre-mapping successful!
 At Mapper Exit (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 82MB peak: 156MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Thu Jun 08 23:32:44 2017
+# Fri Jun 09 02:51:38 2017
 
 ###########################################################]

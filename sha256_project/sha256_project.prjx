@@ -421,36 +421,36 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\SHA256_BLOCK\SHA256_BLOCK.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496958852"
+TIME="1496971012"
 SIZE="5677"
 ENDFILE
 VALUE "<project>\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd,hdl"
 STATE="utd"
-TIME="1496958852"
-SIZE="13472"
+TIME="1496971011"
+SIZE="13473"
 PARENT="<project>\component\work\SHA256_BLOCK\SHA256_BLOCK.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\SHA256_Module\SHA256_Module.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496961084"
+TIME="1496971013"
 SIZE="4690"
 ENDFILE
 VALUE "<project>\component\work\SHA256_Module\SHA256_Module.vhd,hdl"
 STATE="utd"
-TIME="1496961084"
+TIME="1496971012"
 SIZE="12703"
 PARENT="<project>\component\work\SHA256_Module\SHA256_Module.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\sha256_system\sha256_system.cxf,actgen_cxf"
 STATE="utd"
-TIME="1496961143"
+TIME="1496972125"
 SIZE="2285"
 ENDFILE
 VALUE "<project>\component\work\sha256_system\sha256_system.vhd,hdl"
 STATE="utd"
-TIME="1496961140"
+TIME="1496972123"
 SIZE="16258"
 PARENT="<project>\component\work\sha256_system\sha256_system.cxf"
 IS_READONLY="TRUE"
@@ -634,8 +634,8 @@ SIZE="1276"
 ENDFILE
 VALUE "<project>\hdl\reg_17x32.vhd,hdl"
 STATE="utd"
-TIME="1496958503"
-SIZE="8042"
+TIME="1496971273"
+SIZE="8041"
 ENDFILE
 VALUE "<project>\hdl\reg_1x32.vhd,hdl"
 STATE="utd"
@@ -654,8 +654,8 @@ SIZE="50019"
 ENDFILE
 VALUE "<project>\hdl\sha256_controller.vhd,hdl"
 STATE="utd"
-TIME="1496961080"
-SIZE="10343"
+TIME="1496973047"
+SIZE="9269"
 ENDFILE
 VALUE "<project>\hdl\sha256_hash_core.vhd,hdl"
 STATE="utd"
@@ -856,8 +856,8 @@ SIZE="6142"
 ENDFILE
 VALUE "<project>\stimulus\sha256_module_tb_softwarelike.vhd,tb_hdl"
 STATE="utd"
-TIME="1496960901"
-SIZE="48352"
+TIME="1496974519"
+SIZE="52982"
 ENDFILE
 VALUE "<project>\stimulus\sha256_tb.vhd,tb_hdl"
 STATE="utd"
@@ -1118,8 +1118,8 @@ NAME="Synplify Pro ME"
 FUNCTION="Synthesis"
 TOOL="Synplify Pro ME"
 LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Synplify\\bin\synplify_pro.exe"
-PARAM=""
-BATCH=0
+PARAM="-licensetype synplifypro_actel -batch -log synplify.log"
+BATCH=1
 LICENSE=""
 IS32BIT="1"
 EndProfile
@@ -1127,7 +1127,7 @@ NAME="ModelSim ME"
 FUNCTION="Simulation"
 TOOL="ModelSim"
 LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Model\\win32acoem\modelsim.exe"
-PARAM=""
+PARAM=" -l SHA256_Module_tb_swlike_presynth_simulation.log "
 BATCH=0
 LICENSE=""
 IS32BIT="1"
@@ -1196,8 +1196,8 @@ SmartDesign;sha256_system;0
 SmartDesign;SHA256_Module;0
 SmartDesign;SHA256_BLOCK;0
 HDL;hdl\sha256_controller.vhd;0
-HDL;hdl\reg_17x32.vhd;0
 StartPage;StartPage;0
+HDL;hdl\reg_17x32.vhd;0
 ACTIVEVIEW;stimulus\sha256_module_tb_softwarelike.vhd
 ENDLIST
 LIST ModuleSubBlockList

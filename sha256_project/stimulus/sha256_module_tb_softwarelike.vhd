@@ -259,10 +259,6 @@ begin
         --data_in <= X"F0000003";
         --wait for clk_period;
 --
-        --waddr_in <= "10001";
-        --data_in <= X"00000000"; -- all words are valid
-        --wait for clk_period;
---
         --data_wen <= '0'; -- AHB write enable OFF
 --
         ---- wait until data_available = '1'
@@ -404,10 +400,6 @@ begin
         ---- Set position of last word (most significant 4bits: 0 to F)
         --waddr_in <= "10000";
         --data_in <= X"70000003";
-        --wait for clk_period;
---
-        --waddr_in <= "10001";
-        --data_in <= X"00000000"; -- all words are valid
         --wait for clk_period;
 --
         --data_wen <= '0'; -- AHB write enable OFF
@@ -553,10 +545,6 @@ begin
         --data_in <= X"F0000001";
         --wait for clk_period;
 --
-        --waddr_in <= "10001";
-        --data_in <= X"00000000"; -- all words are valid
-        --wait for clk_period;
---
         --data_wen <= '0'; -- AHB write enable OFF
 --
         ---- wait until data_available = '1'
@@ -649,10 +637,6 @@ begin
         ---- Set last word to F
         --waddr_in <= "10000";
         --data_in <= X"F0000002";
-        --wait for clk_period;
---
-        --waddr_in <= "10001";
-        --data_in <= X"00000000"; -- all words are valid
         --wait for clk_period;
 --
         --data_wen <= '0'; -- AHB write enable OFF
@@ -796,10 +780,6 @@ begin
         ---- Set last word to F
         --waddr_in <= "10000";
         --data_in <= X"F0000001";
-        --wait for clk_period;
---
-        --waddr_in <= "10001";
-        --data_in <= X"00000000"; -- all words are valid
         --wait for clk_period;
 --
         --data_wen <= '0'; -- AHB write enable OFF
@@ -1044,10 +1024,6 @@ begin
         --data_in <= X"F0000001";
         --wait for clk_period;
 --
-        --waddr_in <= "10001";
-        --data_in <= X"00000000"; -- all words are valid
-        --wait for clk_period;
---
         --data_wen <= '0'; -- AHB write enable OFF
 --
         ---- wait until data_available = '1'
@@ -1139,10 +1115,6 @@ begin
         ---- Set last word to position F
         --waddr_in <= "10000";
         --data_in <= X"F0000000"; -- second block, no first or last
-        --wait for clk_period;
---
-        --waddr_in <= "10001";
-        --data_in <= X"00000000"; -- all words are valid
         --wait for clk_period;
 --
         --data_wen <= '0'; -- AHB write enable OFF
@@ -1237,10 +1209,6 @@ begin
         ---- Set last word to position F
         --waddr_in <= "10000";
         --data_in <= X"F0000002";
-        --wait for clk_period;
---
-        --waddr_in <= "10001";
-        --data_in <= X"00000000"; -- all words are valid
         --wait for clk_period;
 --
         --data_wen <= '0'; -- AHB write enable OFF
@@ -1384,10 +1352,6 @@ begin
         --data_in <= X"F0000001";
         --wait for clk_period;
 --
-        --waddr_in <= "10001";
-        --data_in <= X"00000000"; -- all words are valid
-        --wait for clk_period;
---
         --data_wen <= '0'; -- AHB write enable OFF
 --
         ---- wait until data_available = '1'
@@ -1479,10 +1443,6 @@ begin
         ---- Set last word to position F
         --waddr_in <= "10000";
         --data_in <= X"F0000000"; -- second block, no first or last
-        --wait for clk_period;
---
-        --waddr_in <= "10001";
-        --data_in <= X"00000000"; -- all words are valid
         --wait for clk_period;
 --
         --data_wen <= '0'; -- AHB write enable OFF
@@ -1577,10 +1537,6 @@ begin
         ---- Set last word to position 7 (8th word)
         --waddr_in <= "10000";
         --data_in <= X"70000002";
-        --wait for clk_period;
---
-        --waddr_in <= "10001";
-        --data_in <= X"00000000"; -- all words are valid
         --wait for clk_period;
 --
         --data_wen <= '0'; -- AHB write enable OFF
@@ -1720,12 +1676,9 @@ begin
 
         -- Set last_block to 1
         -- Set position of last word (most significant 4bits: 0 to F)
+        -- last word only has 2 valid bytes (10'b in bytes 15-14)
         waddr_in <= "10000";
-        data_in <= X"70000003";
-        wait for clk_period;
-
-        waddr_in <= "10001";
-        data_in <= X"00008000"; -- last word only has 2 valid bytes (10'b in bytes 15-14)
+        data_in <= X"70200003";
         wait for clk_period;
 
         data_wen <= '0'; -- AHB write enable OFF
@@ -1773,6 +1726,246 @@ begin
 
         wait for (100*clk_period);
 
+        -------------------------------------------------------
+        ------------------------------------------------------- TEST AGAIN WITH 2 INCOMPLETE BLOCKS WITH INCOMPLETE WORD
+        -------------------------------------------------------
+
+        ----------- FIRST BLOCK
+
+        -- result
+        result_ren <= '0';
+        result_addr <= (others => '0');
+
+        -- input data
+        waddr_in <= (others => '0');
+        data_in <= (others => '0');
+        data_wen <= '0';
+        data_ready <= '0';
+
+        RST_N <= '0';
+
+        wait for clk_period;
+
+        RST_N <= '1';
+
+        wait for clk_period;
+
+        -- Write 16 x 32bit
+
+        data_wen <= '1'; -- AHB write enable ON
+
+        waddr_in <= "00000";
+        data_in <= X"00000001";
+        wait for clk_period;
+
+        waddr_in <= "00001";
+        data_in <= X"00000002";
+        wait for clk_period;
+
+        waddr_in <= "00010";
+        data_in <= X"00000003";
+        wait for clk_period;
+
+        waddr_in <= "00011";
+        data_in <= X"00000004";
+        wait for clk_period;
+
+        waddr_in <= "00100";
+        data_in <= X"00000005";
+        wait for clk_period;
+
+        waddr_in <= "00101";
+        data_in <= X"00000006";
+        wait for clk_period;
+
+        waddr_in <= "00110";
+        data_in <= X"00000007";
+        wait for clk_period;
+
+        waddr_in <= "00111";
+        data_in <= X"00000008";
+        wait for clk_period;
+
+        waddr_in <= "01000";
+        data_in <= X"00000009";
+        wait for clk_period;
+
+        waddr_in <= "01001";
+        data_in <= X"0000000A";
+        wait for clk_period;
+
+        waddr_in <= "01010";
+        data_in <= X"0000000B";
+        wait for clk_period;
+
+        waddr_in <= "01011";
+        data_in <= X"0000000C";
+        wait for clk_period;
+
+        waddr_in <= "01100";
+        data_in <= X"0000000D";
+        wait for clk_period;
+
+        waddr_in <= "01101";
+        data_in <= X"0000000E";
+        wait for clk_period;
+
+        waddr_in <= "01110";
+        data_in <= X"0000000F";
+        wait for clk_period;
+
+        waddr_in <= "01111";
+        data_in <= X"00000001";
+        wait for clk_period;
+
+        -- Set first_block to 1
+        -- Set last word to F
+        waddr_in <= "10000";
+        data_in <= X"F0000001";
+        wait for clk_period;
+
+        data_wen <= '0'; -- AHB write enable OFF
+
+        -- wait until data_available = '1'
+        if data_available = '0' then
+            wait until data_available = '1';
+        end if;
+
+        -- Set data_ready to 1 (GPIO PIN)
+        data_ready <= '1';
+
+        wait for (5*clk_period); -- IMPORTANT to wait at least 5 cycles so that req_i can go down
+
+        if waiting_data = '0' then
+            wait until waiting_data = '1';
+        end if;
+
+        data_ready <= '0';
+
+        ----------- SECOND BLOCK
+
+        -- Write 16 x 32bit
+
+        data_wen <= '1'; -- AHB write enable ON
+
+        waddr_in <= "00000";
+        data_in <= X"00000002";
+        wait for clk_period;
+
+        waddr_in <= "00001";
+        data_in <= X"00000002";
+        wait for clk_period;
+
+        waddr_in <= "00010";
+        data_in <= X"00000003";
+        wait for clk_period;
+
+        waddr_in <= "00011";
+        data_in <= X"00000004";
+        wait for clk_period;
+
+        waddr_in <= "00100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "00111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01000";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01001";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01010";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01011";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01100";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01101";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01110";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        waddr_in <= "01111";
+        data_in <= X"00000000";
+        wait for clk_period;
+
+        -- Set last_block to 1
+        -- Set last valid word to 3 (4th position)
+        waddr_in <= "10000";
+        data_in <= X"20300002";
+        wait for clk_period;
+
+        waddr_in <= "10001";
+        data_in <= X"00000000"; -- all included words are valid
+        wait for clk_period;
+
+        data_wen <= '0'; -- AHB write enable OFF
+
+        -- wait until data_available = '1'
+        if data_available = '0' then
+            wait until data_available = '1';
+        end if;
+
+        -- Set data_ready to 1 (GPIO PIN)
+        data_ready <= '1';
+
+        -- Keep reading addr 8 until we have the 'valid' bit = 1
+
+        result_addr <= "1000";
+        result_ren <= '1';
+
+        if do_valid_o = '0' then
+            wait until do_valid_o = '1';
+        end if;
+
+        data_ready <= '0';
+
+        wait for clk_period; -- IMPORTANT TO WAIT 1 cycle (so that the last register bank has all the proper data)
+
+        -- Read the first 8 registers
+
+        result_ren <= '1';
+        result_addr <= "0000";
+        wait for clk_period;
+        result_addr <= "0001";
+        wait for clk_period;
+        result_addr <= "0010";
+        wait for clk_period;
+        result_addr <= "0011";
+        wait for clk_period;
+        result_addr <= "0100";
+        wait for clk_period;
+        result_addr <= "0101";
+        wait for clk_period;
+        result_addr <= "0110";
+        wait for clk_period;
+        result_addr <= "0111";
+        wait for clk_period;
+
+        wait for (100*clk_period);
 
         wait for (100*clk_period);
         wait;

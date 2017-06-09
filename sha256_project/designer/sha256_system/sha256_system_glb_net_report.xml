@@ -3,7 +3,7 @@
 <doc>
 <title>Global Net Report</title>
 <text>Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)</text>
-<text>Date: Thu Jun 08 23:33:35 2017
+<text>Date: Fri Jun 09 02:52:27 2017
 </text>
 <section>
 <name>Global Nets Information</name>
@@ -20,14 +20,14 @@
  <cell>GB[6] </cell>
  <cell>(440, 108)</cell>
  <cell>sha256_system_sb_0/CCC_0/GL0_INST/U0_YWn_GEast</cell>
- <cell>2066</cell>
+ <cell>2034</cell>
 </row>
 <row>
  <cell>2</cell>
  <cell>GB[7] </cell>
  <cell>(441, 108)</cell>
  <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIFQTF/U0_YWn_GEast</cell>
- <cell>51</cell>
+ <cell>54</cell>
 </row>
 <row>
  <cell>3</cell>
@@ -65,7 +65,7 @@
 <row>
  <cell>1</cell>
  <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int:Q</cell>
- <cell>(781, 169)</cell>
+ <cell>(778, 196)</cell>
  <cell>GB[7] </cell>
  <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int</cell>
  <cell>ROUTED</cell>
@@ -74,7 +74,7 @@
 <row>
  <cell>2</cell>
  <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n:Y</cell>
- <cell>(790, 195)</cell>
+ <cell>(748, 186)</cell>
  <cell>GB[2] </cell>
  <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n</cell>
  <cell>ROUTED</cell>
@@ -144,10 +144,10 @@
  <cell>GB[6] </cell>
  <cell>(440, 108)</cell>
  <cell>sha256_system_sb_0/CCC_0/GL0_INST/U0_YWn_GEast</cell>
- <cell>2066</cell>
+ <cell>2034</cell>
  <cell>1</cell>
- <cell>(662, 120)</cell>
- <cell>9</cell>
+ <cell>(662, 129)</cell>
+ <cell>34</cell>
 </row>
 <row>
  <cell> </cell>
@@ -156,8 +156,8 @@
  <cell></cell>
  <cell></cell>
  <cell>2</cell>
- <cell>(662, 123)</cell>
- <cell>26</cell>
+ <cell>(662, 132)</cell>
+ <cell>11</cell>
 </row>
 <row>
  <cell> </cell>
@@ -166,8 +166,8 @@
  <cell></cell>
  <cell></cell>
  <cell>3</cell>
- <cell>(662, 126)</cell>
- <cell>75</cell>
+ <cell>(662, 141)</cell>
+ <cell>51</cell>
 </row>
 <row>
  <cell> </cell>
@@ -176,8 +176,8 @@
  <cell></cell>
  <cell></cell>
  <cell>4</cell>
- <cell>(662, 129)</cell>
- <cell>78</cell>
+ <cell>(662, 144)</cell>
+ <cell>67</cell>
 </row>
 <row>
  <cell> </cell>
@@ -186,8 +186,8 @@
  <cell></cell>
  <cell></cell>
  <cell>5</cell>
- <cell>(662, 132)</cell>
- <cell>73</cell>
+ <cell>(662, 147)</cell>
+ <cell>119</cell>
 </row>
 <row>
  <cell> </cell>
@@ -196,8 +196,8 @@
  <cell></cell>
  <cell></cell>
  <cell>6</cell>
- <cell>(662, 135)</cell>
- <cell>124</cell>
+ <cell>(662, 150)</cell>
+ <cell>150</cell>
 </row>
 <row>
  <cell> </cell>
@@ -206,8 +206,8 @@
  <cell></cell>
  <cell></cell>
  <cell>7</cell>
- <cell>(662, 138)</cell>
- <cell>129</cell>
+ <cell>(662, 153)</cell>
+ <cell>165</cell>
 </row>
 <row>
  <cell> </cell>
@@ -216,8 +216,8 @@
  <cell></cell>
  <cell></cell>
  <cell>8</cell>
- <cell>(662, 141)</cell>
- <cell>152</cell>
+ <cell>(662, 156)</cell>
+ <cell>147</cell>
 </row>
 <row>
  <cell> </cell>
@@ -226,8 +226,8 @@
  <cell></cell>
  <cell></cell>
  <cell>9</cell>
- <cell>(662, 144)</cell>
- <cell>159</cell>
+ <cell>(662, 159)</cell>
+ <cell>138</cell>
 </row>
 <row>
  <cell> </cell>
@@ -236,8 +236,8 @@
  <cell></cell>
  <cell></cell>
  <cell>10</cell>
- <cell>(662, 147)</cell>
- <cell>144</cell>
+ <cell>(662, 162)</cell>
+ <cell>153</cell>
 </row>
 <row>
  <cell> </cell>
@@ -246,8 +246,8 @@
  <cell></cell>
  <cell></cell>
  <cell>11</cell>
- <cell>(662, 150)</cell>
- <cell>78</cell>
+ <cell>(662, 165)</cell>
+ <cell>143</cell>
 </row>
 <row>
  <cell> </cell>
@@ -256,8 +256,8 @@
  <cell></cell>
  <cell></cell>
  <cell>12</cell>
- <cell>(662, 153)</cell>
- <cell>88</cell>
+ <cell>(662, 168)</cell>
+ <cell>56</cell>
 </row>
 <row>
  <cell> </cell>
@@ -266,8 +266,8 @@
  <cell></cell>
  <cell></cell>
  <cell>13</cell>
- <cell>(662, 156)</cell>
- <cell>71</cell>
+ <cell>(662, 171)</cell>
+ <cell>96</cell>
 </row>
 <row>
  <cell> </cell>
@@ -276,8 +276,8 @@
  <cell></cell>
  <cell></cell>
  <cell>14</cell>
- <cell>(662, 159)</cell>
- <cell>105</cell>
+ <cell>(662, 174)</cell>
+ <cell>30</cell>
 </row>
 <row>
  <cell> </cell>
@@ -286,8 +286,8 @@
  <cell></cell>
  <cell></cell>
  <cell>15</cell>
- <cell>(662, 162)</cell>
- <cell>62</cell>
+ <cell>(662, 177)</cell>
+ <cell>29</cell>
 </row>
 <row>
  <cell> </cell>
@@ -296,8 +296,8 @@
  <cell></cell>
  <cell></cell>
  <cell>16</cell>
- <cell>(662, 165)</cell>
- <cell>5</cell>
+ <cell>(662, 180)</cell>
+ <cell>82</cell>
 </row>
 <row>
  <cell> </cell>
@@ -306,8 +306,8 @@
  <cell></cell>
  <cell></cell>
  <cell>17</cell>
- <cell>(662, 168)</cell>
- <cell>6</cell>
+ <cell>(662, 183)</cell>
+ <cell>83</cell>
 </row>
 <row>
  <cell> </cell>
@@ -316,8 +316,8 @@
  <cell></cell>
  <cell></cell>
  <cell>18</cell>
- <cell>(662, 171)</cell>
- <cell>54</cell>
+ <cell>(662, 186)</cell>
+ <cell>94</cell>
 </row>
 <row>
  <cell> </cell>
@@ -326,8 +326,8 @@
  <cell></cell>
  <cell></cell>
  <cell>19</cell>
- <cell>(662, 174)</cell>
- <cell>65</cell>
+ <cell>(662, 201)</cell>
+ <cell>4</cell>
 </row>
 <row>
  <cell> </cell>
@@ -336,56 +336,6 @@
  <cell></cell>
  <cell></cell>
  <cell>20</cell>
- <cell>(662, 177)</cell>
- <cell>57</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>21</cell>
- <cell>(662, 180)</cell>
- <cell>74</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>22</cell>
- <cell>(662, 183)</cell>
- <cell>62</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>23</cell>
- <cell>(662, 186)</cell>
- <cell>59</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>24</cell>
- <cell>(662, 198)</cell>
- <cell>60</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>25</cell>
  <cell>(662, 204)</cell>
  <cell>1</cell>
 </row>
@@ -395,9 +345,9 @@
  <cell></cell>
  <cell></cell>
  <cell></cell>
- <cell>26</cell>
+ <cell>21</cell>
  <cell>(663, 189)</cell>
- <cell>87</cell>
+ <cell>115</cell>
 </row>
 <row>
  <cell> </cell>
@@ -405,9 +355,9 @@
  <cell></cell>
  <cell></cell>
  <cell></cell>
- <cell>27</cell>
+ <cell>22</cell>
  <cell>(663, 192)</cell>
- <cell>78</cell>
+ <cell>79</cell>
 </row>
 <row>
  <cell> </cell>
@@ -415,19 +365,29 @@
  <cell></cell>
  <cell></cell>
  <cell></cell>
- <cell>28</cell>
+ <cell>23</cell>
  <cell>(663, 195)</cell>
- <cell>85</cell>
+ <cell>103</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>24</cell>
+ <cell>(663, 198)</cell>
+ <cell>84</cell>
 </row>
 <row>
  <cell>2</cell>
  <cell>GB[7] </cell>
  <cell>(441, 108)</cell>
  <cell>sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIFQTF/U0_YWn_GEast</cell>
- <cell>51</cell>
+ <cell>54</cell>
  <cell>1</cell>
  <cell>(662, 189)</cell>
- <cell>15</cell>
+ <cell>13</cell>
 </row>
 <row>
  <cell> </cell>
@@ -437,7 +397,7 @@
  <cell></cell>
  <cell>2</cell>
  <cell>(662, 192)</cell>
- <cell>7</cell>
+ <cell>13</cell>
 </row>
 <row>
  <cell> </cell>
@@ -447,7 +407,17 @@
  <cell></cell>
  <cell>3</cell>
  <cell>(662, 195)</cell>
- <cell>29</cell>
+ <cell>22</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>4</cell>
+ <cell>(662, 198)</cell>
+ <cell>6</cell>
 </row>
 <row>
  <cell>3</cell>
@@ -455,9 +425,19 @@
  <cell>(436, 108)</cell>
  <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n_RNIE1K2/U0_YWn_GEast</cell>
  <cell>32</cell>
+ <cell>1</cell>
+ <cell>(663, 129)</cell>
+ <cell>31</cell>
+</row>
+<row>
  <cell> </cell>
- <cell>(664, 171)</cell>
- <cell>32</cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>2</cell>
+ <cell>(663, 132)</cell>
+ <cell>1</cell>
 </row>
 <row>
  <cell>4</cell>
@@ -466,7 +446,7 @@
  <cell>sha256_system_sb_0/SYSRESET_POR_RNI03O8/U0_YWn_GEast</cell>
  <cell>17</cell>
  <cell>1</cell>
- <cell>(663, 171)</cell>
+ <cell>(663, 180)</cell>
  <cell>2</cell>
 </row>
 <row>
@@ -476,7 +456,7 @@
  <cell></cell>
  <cell></cell>
  <cell>2</cell>
- <cell>(663, 186)</cell>
+ <cell>(664, 189)</cell>
  <cell>10</cell>
 </row>
 <row>
@@ -486,7 +466,7 @@
  <cell></cell>
  <cell></cell>
  <cell>3</cell>
- <cell>(664, 189)</cell>
+ <cell>(664, 192)</cell>
  <cell>5</cell>
 </row>
 </table>

@@ -157,9 +157,8 @@
 @W: CD434 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":357:20:357:32|Signal hreadyout_s16 in the sensitivity list is not used in the process
 @W: CD604 :"E:\LiberoProjects\sha256_project\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":637:12:637:25|OTHERS clause is not synthesized 
 @W: CG296 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":120:4:120:10|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":165:27:165:42|Referenced variable valid_bytes_word is not in sensitivity list
 @W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":185:38:185:44|Referenced variable counter is not in sensitivity list
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":61:31:61:33|Latch generated from process for signal bytes_o(1 downto 0); possible missing assignment in an if or case statement.
+@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":61:31:61:33|Latch generated from process for signal bytes_sel; possible missing assignment in an if or case statement.
 @W: CD638 :"E:\LiberoProjects\sha256_project\hdl\gv_sha256.vhd":156:11:156:18|Signal pad_data is undriven 
 @W: CD604 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":551:12:551:25|OTHERS clause is not synthesized 
 @W: CD434 :"E:\LiberoProjects\sha256_project\hdl\sha256_control.vhd":426:86:426:94|Signal sha_reset in the sensitivity list is not used in the process

@@ -3,7 +3,7 @@
 <doc>
 <text>SmartTime Version 11.7.1.14</text>
 <text>Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
-Date: Thu Jun 08 23:35:34 2017 </text>
+Date: Fri Jun 09 02:54:31 2017 </text>
 <table>
 <header>
 </header>
@@ -51,14 +51,14 @@ Date: Thu Jun 08 23:35:34 2017 </text>
 <row>
  <cell>Setup</cell>
  <cell>            0</cell>
- <cell>         4934</cell>
- <cell>         4934</cell>
+ <cell>         4833</cell>
+ <cell>         4833</cell>
 </row>
 <row>
  <cell>Recovery</cell>
  <cell>            0</cell>
- <cell>          117</cell>
- <cell>          117</cell>
+ <cell>          120</cell>
+ <cell>          120</cell>
 </row>
 <row>
  <cell>Output Setup</cell>
@@ -69,21 +69,21 @@ Date: Thu Jun 08 23:35:34 2017 </text>
 <row>
  <cell>Total Setup</cell>
  <cell>            0</cell>
- <cell>         5052</cell>
- <cell>         5052</cell>
+ <cell>         4954</cell>
+ <cell>         4954</cell>
 </row>
 <separator/>
 <row>
  <cell>Hold</cell>
  <cell>            0</cell>
- <cell>         4934</cell>
- <cell>         4934</cell>
+ <cell>         4833</cell>
+ <cell>         4833</cell>
 </row>
 <row>
  <cell>Removal</cell>
  <cell>            0</cell>
- <cell>          117</cell>
- <cell>          117</cell>
+ <cell>          120</cell>
+ <cell>          120</cell>
 </row>
 <row>
  <cell>Output Hold</cell>
@@ -94,8 +94,8 @@ Date: Thu Jun 08 23:35:34 2017 </text>
 <row>
  <cell>Total Hold</cell>
  <cell>            0</cell>
- <cell>         5052</cell>
- <cell>         5052</cell>
+ <cell>         4954</cell>
+ <cell>         4954</cell>
 </row>
 </table>
 <section>
@@ -112,14 +112,14 @@ Date: Thu Jun 08 23:35:34 2017 </text>
 <row>
  <cell>Setup</cell>
  <cell>            0</cell>
- <cell>         4932</cell>
- <cell>         4932</cell>
+ <cell>         4832</cell>
+ <cell>         4832</cell>
 </row>
 <row>
  <cell>Recovery</cell>
  <cell>            0</cell>
- <cell>          117</cell>
- <cell>          117</cell>
+ <cell>          120</cell>
+ <cell>          120</cell>
 </row>
 <row>
  <cell>Output Setup</cell>
@@ -130,21 +130,21 @@ Date: Thu Jun 08 23:35:34 2017 </text>
 <row>
  <cell>Total Setup</cell>
  <cell>            0</cell>
- <cell>         5050</cell>
- <cell>         5050</cell>
+ <cell>         4953</cell>
+ <cell>         4953</cell>
 </row>
 <separator/>
 <row>
  <cell>Hold</cell>
  <cell>            0</cell>
- <cell>         4932</cell>
- <cell>         4932</cell>
+ <cell>         4832</cell>
+ <cell>         4832</cell>
 </row>
 <row>
  <cell>Removal</cell>
  <cell>            0</cell>
- <cell>          117</cell>
- <cell>          117</cell>
+ <cell>          120</cell>
+ <cell>          120</cell>
 </row>
 <row>
  <cell>Output Hold</cell>
@@ -155,8 +155,8 @@ Date: Thu Jun 08 23:35:34 2017 </text>
 <row>
  <cell>Total Hold</cell>
  <cell>            0</cell>
- <cell>         5050</cell>
- <cell>         5050</cell>
+ <cell>         4953</cell>
+ <cell>         4953</cell>
 </row>
 </table>
 <section>
@@ -378,13 +378,13 @@ Date: Thu Jun 08 23:35:34 2017 </text>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/default_slave_sm/defSlaveSMCurrentState:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/masterRegAddrSel:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[24]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[25]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[26]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[2]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[3]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[4]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[5]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[6]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHTRANS:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHWRITE:ALn</item>
 </list>
 <text></text>
 <text> - Hold uncconstrained for the following pins(first one hundred):</text>
@@ -588,13 +588,13 @@ Date: Thu Jun 08 23:35:34 2017 </text>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/default_slave_sm/defSlaveSMCurrentState:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/masterRegAddrSel:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[24]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[25]:ALn</item>
- <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[26]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[2]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[3]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[4]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[5]:ALn</item>
  <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHADDR[6]:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHTRANS:ALn</item>
+ <item>sha256_system_sb_0/CoreAHBLite_0/matrix4x16/masterstage_0/regHWRITE:ALn</item>
 </list>
 <text></text>
 </section>
@@ -675,8 +675,8 @@ Date: Thu Jun 08 23:35:34 2017 </text>
 <row>
  <cell>Setup</cell>
  <cell>            0</cell>
- <cell>            2</cell>
- <cell>            2</cell>
+ <cell>            1</cell>
+ <cell>            1</cell>
 </row>
 <row>
  <cell>Recovery</cell>
@@ -693,15 +693,15 @@ Date: Thu Jun 08 23:35:34 2017 </text>
 <row>
  <cell>Total Setup</cell>
  <cell>            0</cell>
- <cell>            2</cell>
- <cell>            2</cell>
+ <cell>            1</cell>
+ <cell>            1</cell>
 </row>
 <separator/>
 <row>
  <cell>Hold</cell>
  <cell>            0</cell>
- <cell>            2</cell>
- <cell>            2</cell>
+ <cell>            1</cell>
+ <cell>            1</cell>
 </row>
 <row>
  <cell>Removal</cell>
@@ -718,8 +718,8 @@ Date: Thu Jun 08 23:35:34 2017 </text>
 <row>
  <cell>Total Hold</cell>
  <cell>            0</cell>
- <cell>            2</cell>
- <cell>            2</cell>
+ <cell>            1</cell>
+ <cell>            1</cell>
 </row>
 </table>
 <section>
@@ -728,18 +728,16 @@ Date: Thu Jun 08 23:35:34 2017 </text>
 <text> - Clock constraint is missing </text>
 <text></text>
 <text></text>
-<text> - Setup uncconstrained for the following pins:</text>
+<text> - Setup uncconstrained for the following pin:</text>
 <text>   </text>
 <list>
- <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/bytes_o[0]:D</item>
- <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/bytes_o[1]:D</item>
+ <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/bytes_sel:D</item>
 </list>
 <text></text>
-<text> - Hold uncconstrained for the following pins:</text>
+<text> - Hold uncconstrained for the following pin:</text>
 <text>   </text>
 <list>
- <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/bytes_o[0]:D</item>
- <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/bytes_o[1]:D</item>
+ <item>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/bytes_sel:D</item>
 </list>
 <text></text>
 </section>

@@ -1,6 +1,6 @@
 Resource Report
 Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
-Date: Thu Jun 08 23:33:12 2017
+Date: Fri Jun 09 02:52:03 2017
 
 Device Selection
 +--------------------------------+----------------+
@@ -37,8 +37,8 @@ Resource Usage
 +---------------------------+------+-------+------------+
 | Type                      | Used | Total | Percentage |
 +---------------------------+------+-------+------------+
-| 4LUT                      | 2335 | 56520 | 4.13       |
-| DFF                       | 2067 | 56520 | 3.66       |
+| 4LUT                      | 2316 | 56520 | 4.10       |
+| DFF                       | 2034 | 56520 | 3.60       |
 | I/O Register              | 0    | 801   | 0.00       |
 | User I/O                  | 1    | 267   | 0.37       |
 | -- Single-ended I/O       | 1    | 267   | 0.37       |
@@ -58,11 +58,11 @@ Detailed Logic Resource Usage
 +--------------------------+------+------+
 | Type                     | 4LUT | DFF  |
 +--------------------------+------+------+
-| Fabric Logic             | 2335 | 2067 |
+| Fabric Logic             | 2316 | 2034 |
 | RAM64x18 Interface Logic | 0    | 0    |
 | RAM1K18 Interface Logic  | 0    | 0    |
 | MACC Interface Logic     | 0    | 0    |
-| Total Used               | 2335 | 2067 |
+| Total Used               | 2316 | 2034 |
 +--------------------------+------+------+
 
 MSS Resource Usage
@@ -126,10 +126,10 @@ Nets assigned to chip global resources
 +--------+---------+--------------------------------------------------------------------------------------+
 | Fanout | Type    | Name                                                                                 |
 +--------+---------+--------------------------------------------------------------------------------------+
-| 2066   | INT_NET | Net   : sha256_system_sb_0_FIC_0_CLK                                                 |
+| 2034   | INT_NET | Net   : sha256_system_sb_0_FIC_0_CLK                                                 |
 |        |         | Driver: sha256_system_sb_0/CCC_0/GL0_INST/U0_RGB1                                    |
 |        |         | Source: NETLIST                                                                      |
-| 51     | INT_NET | Net   : sha256_system_sb_0/MSS_READY                                                 |
+| 54     | INT_NET | Net   : sha256_system_sb_0/MSS_READY                                                 |
 |        |         | Driver: sha256_system_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIFQTF/U0_RGB1           |
 |        |         | Source: NETLIST                                                                      |
 | 32     | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n_i               |
@@ -147,54 +147,54 @@ Nets assigned to row global resources
 +--------+------+------+
 
 High fanout nets
-+--------+---------+--------------------------------------------------------------------------------------------------------------------+
-| Fanout | Type    | Name                                                                                                               |
-+--------+---------+--------------------------------------------------------------------------------------------------------------------+
-| 601    | INT_NET | Net   : sha256_system_sb_0_GPIO_9_M2F                                                                              |
-|        |         | Driver: sha256_system_sb_0/sha256_system_sb_MSS_0/MSS_ADLIB_INST                                                   |
-| 512    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_244_i_0                                                       |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/state_counter_proc.un15_ce_i_i_0_a2_RNIKNCQ |
-| 333    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/hash_control_st_reg_i[6]                                        |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_i[6]                    |
-| 267    | INT_NET | Net   : SHA256_Module_0/data_out_ready                                                                             |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/data_out_ready                                                  |
-| 259    | INT_NET | Net   : SHA256_Module_0/reg9_1x32_0/wen_or                                                                         |
-|        |         | Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/wen_or                                                              |
-| 257    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/oregs_ce_i_a2_0_a2                                              |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2                          |
-| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_168_i_0                                                       |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2_i                        |
-| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/core_ce_o_iv_i_0                                                |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNI42JO1[0]             |
-| 122    | INT_NET | Net   : result_addr_net_0[2]                                                                                       |
-|        |         | Driver: AHB_slave_dummy_0/lsram_raddr[2]                                                                           |
-| 111    | INT_NET | Net   : SHA256_Module_0.reg9_1x32_0.reg_1x32_8.ren_pos                                                             |
-|        |         | Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/ren_pos                                                             |
-+--------+---------+--------------------------------------------------------------------------------------------------------------------+
++--------+---------+------------------------------------------------------------------------------------------------------------+
+| Fanout | Type    | Name                                                                                                       |
++--------+---------+------------------------------------------------------------------------------------------------------------+
+| 567    | INT_NET | Net   : sha256_system_sb_0_GPIO_9_M2F                                                                      |
+|        |         | Driver: sha256_system_sb_0/sha256_system_sb_MSS_0/MSS_ADLIB_INST                                           |
+| 513    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_244                                                   |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/state_counter_proc.un15_ce_i_i_0_a4 |
+| 331    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/hash_control_st_reg_i[6]                                |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_i[6]            |
+| 265    | INT_NET | Net   : SHA256_Module_0/data_out_ready                                                                     |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/data_out_ready                                          |
+| 259    | INT_NET | Net   : SHA256_Module_0/reg9_1x32_0/wen_or                                                                 |
+|        |         | Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/wen_or                                                      |
+| 257    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/oregs_ce_i_a2_0_a2                                      |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2                  |
+| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_168_i_0                                               |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2_i                |
+| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/core_ce_o_iv_i_0                                        |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNINA191[0]     |
+| 126    | INT_NET | Net   : result_addr_net_0[2]                                                                               |
+|        |         | Driver: AHB_slave_dummy_0/lsram_raddr[2]                                                                   |
+| 126    | INT_NET | Net   : SHA256_Module_0.reg9_1x32_0.reg_1x32_8.ren_pos                                                     |
+|        |         | Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/ren_pos                                                     |
++--------+---------+------------------------------------------------------------------------------------------------------------+
 
 High fanout nets (through buffer trees)
-+--------+---------+--------------------------------------------------------------------------------------------------------------------+
-| Fanout | Type    | Name                                                                                                               |
-+--------+---------+--------------------------------------------------------------------------------------------------------------------+
-| 601    | INT_NET | Net   : sha256_system_sb_0_GPIO_9_M2F                                                                              |
-|        |         | Driver: sha256_system_sb_0/sha256_system_sb_MSS_0/MSS_ADLIB_INST                                                   |
-| 512    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_244_i_0                                                       |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/state_counter_proc.un15_ce_i_i_0_a2_RNIKNCQ |
-| 333    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/hash_control_st_reg_i[6]                                        |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_i[6]                    |
-| 267    | INT_NET | Net   : SHA256_Module_0/data_out_ready                                                                             |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/data_out_ready                                                  |
-| 259    | INT_NET | Net   : SHA256_Module_0/reg9_1x32_0/wen_or                                                                         |
-|        |         | Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/wen_or                                                              |
-| 257    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/oregs_ce_i_a2_0_a2                                              |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2                          |
-| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_168_i_0                                                       |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2_i                        |
-| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/core_ce_o_iv_i_0                                                |
-|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNI42JO1[0]             |
-| 122    | INT_NET | Net   : result_addr_net_0[2]                                                                                       |
-|        |         | Driver: AHB_slave_dummy_0/lsram_raddr[2]                                                                           |
-| 111    | INT_NET | Net   : SHA256_Module_0.reg9_1x32_0.reg_1x32_8.ren_pos                                                             |
-|        |         | Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/ren_pos                                                             |
-+--------+---------+--------------------------------------------------------------------------------------------------------------------+
++--------+---------+------------------------------------------------------------------------------------------------------------+
+| Fanout | Type    | Name                                                                                                       |
++--------+---------+------------------------------------------------------------------------------------------------------------+
+| 567    | INT_NET | Net   : sha256_system_sb_0_GPIO_9_M2F                                                                      |
+|        |         | Driver: sha256_system_sb_0/sha256_system_sb_MSS_0/MSS_ADLIB_INST                                           |
+| 513    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_244                                                   |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/state_counter_proc.un15_ce_i_i_0_a4 |
+| 331    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/hash_control_st_reg_i[6]                                |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_i[6]            |
+| 265    | INT_NET | Net   : SHA256_Module_0/data_out_ready                                                                     |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/data_out_ready                                          |
+| 259    | INT_NET | Net   : SHA256_Module_0/reg9_1x32_0/wen_or                                                                 |
+|        |         | Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/wen_or                                                      |
+| 257    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/oregs_ce_i_a2_0_a2                                      |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2                  |
+| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_168_i_0                                               |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2_i                |
+| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/core_ce_o_iv_i_0                                        |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNINA191[0]     |
+| 126    | INT_NET | Net   : result_addr_net_0[2]                                                                               |
+|        |         | Driver: AHB_slave_dummy_0/lsram_raddr[2]                                                                   |
+| 126    | INT_NET | Net   : SHA256_Module_0.reg9_1x32_0.reg_1x32_8.ren_pos                                                     |
+|        |         | Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/ren_pos                                                     |
++--------+---------+------------------------------------------------------------------------------------------------------------+
 

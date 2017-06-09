@@ -1,23 +1,23 @@
 
 . Module name, SLE, CFG, ARI1, BUFFER, MACC, RAM1K18, RAM64X18, GLOBAL, IO
-. sha256_system, 2067, 1657, 677, 0, 0, 0, 0, 4, 1
-.	. AHB_slave_dummy, 15, 13, 0, 0, 0, 0, 0, 0, 0
-.	. SHA256_Module, 1992, 1420, 677, 0, 0, 0, 0, 1, 0
-.	.	. SHA256_BLOCK, 1729, 1253, 677, 0, 0, 0, 0, 1, 0
-.	.	.	. gv_sha256, 1117, 827, 645, 0, 0, 0, 0, 0, 0
-.	.	.	.	. sha256_control, 93, 61, 69, 0, 0, 0, 0, 0, 0
+. sha256_system, 2034, 1637, 677, 0, 0, 0, 0, 4, 1
+.	. AHB_slave_dummy, 15, 8, 0, 0, 0, 0, 0, 0, 0
+.	. SHA256_Module, 1956, 1420, 677, 0, 0, 0, 0, 1, 0
+.	.	. SHA256_BLOCK, 1695, 1232, 677, 0, 0, 0, 0, 1, 0
+.	.	.	. gv_sha256, 1117, 828, 645, 0, 0, 0, 0, 0, 0
+.	.	.	.	. sha256_control, 93, 66, 69, 0, 0, 0, 0, 0, 0
 .	.	.	.	. sha256_hash_core, 256, 290, 224, 0, 0, 0, 0, 0, 0
-.	.	.	.	. sha256_kt_rom, 0, 236, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	. sha256_kt_rom, 0, 234, 0, 0, 0, 0, 0, 0, 0
 .	.	.	.	. sha256_msg_sch, 512, 125, 96, 0, 0, 0, 0, 0, 0
-.	.	.	.	. sha256_padding, 0, 115, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	. sha256_padding, 0, 113, 0, 0, 0, 0, 0, 0, 0
 .	.	.	.	. sha256_regs, 256, 0, 256, 0, 0, 0, 0, 0, 0
 .	.	.	. limiter_1cycle, 1, 0, 0, 0, 0, 0, 0, 0, 0
 .	.	.	. limiter_1cycle_0, 1, 0, 0, 0, 0, 0, 0, 0, 0
-.	.	.	. reg_17x32, 566, 363, 0, 0, 0, 0, 0, 0, 0
-.	.	.	. sha256_controller, 44, 63, 32, 0, 0, 0, 0, 1, 0
-.	.	. reg1_highonly, 1, 2, 0, 0, 0, 0, 0, 0, 0
-.	.	. reg9_1x32, 262, 165, 0, 0, 0, 0, 0, 0, 0
-.	.	.	. mux_9_1, 0, 161, 0, 0, 0, 0, 0, 0, 0
+.	.	.	. reg_17x32, 533, 363, 0, 0, 0, 0, 0, 0, 0
+.	.	.	. sha256_controller, 43, 41, 32, 0, 0, 0, 0, 1, 0
+.	.	. reg1_highonly, 1, 1, 0, 0, 0, 0, 0, 0, 0
+.	.	. reg9_1x32, 260, 187, 0, 0, 0, 0, 0, 0, 0
+.	.	.	. mux_9_1, 0, 185, 0, 0, 0, 0, 0, 0, 0
 .	.	.	. reg_1x32, 33, 2, 0, 0, 0, 0, 0, 0, 0
 .	.	.	. reg_1x32_1, 32, 0, 0, 0, 0, 0, 0, 0, 0
 .	.	.	. reg_1x32_2, 32, 0, 0, 0, 0, 0, 0, 0, 0
@@ -26,21 +26,21 @@
 .	.	.	. reg_1x32_5, 32, 0, 0, 0, 0, 0, 0, 0, 0
 .	.	.	. reg_1x32_6, 32, 0, 0, 0, 0, 0, 0, 0, 0
 .	.	.	. reg_1x32_7, 32, 0, 0, 0, 0, 0, 0, 0, 0
-.	.	.	. reg_1x32_8, 5, 2, 0, 0, 0, 0, 0, 0, 0
-.	. sha256_system_sb, 60, 224, 0, 0, 0, 0, 0, 3, 0
-.	.	. CoreAHBLite, 43, 208, 0, 0, 0, 0, 0, 0, 0
-.	.	.	. COREAHBLITE_MATRIX4X16, 43, 208, 0, 0, 0, 0, 0, 0, 0
-.	.	.	.	. COREAHBLITE_MASTERSTAGE_2_1_0_3_0, 28, 148, 0, 0, 0, 0, 0, 0, 0
-.	.	.	.	.	. COREAHBLITE_ADDRDEC_2_1_3_0, 0, 2, 0, 0, 0, 0, 0, 0, 0
-.	.	.	.	.	. COREAHBLITE_DEFAULTSLAVESM_0, 1, 8, 0, 0, 0, 0, 0, 0, 0
-.	.	.	.	. COREAHBLITE_SLAVESTAGE_1, 9, 50, 0, 0, 0, 0, 0, 0, 0
-.	.	.	.	.	. COREAHBLITE_SLAVEARBITER_0, 7, 17, 0, 0, 0, 0, 0, 0, 0
-.	.	.	.	. COREAHBLITE_SLAVESTAGE_2, 6, 10, 0, 0, 0, 0, 0, 0, 0
-.	.	.	.	.	. COREAHBLITE_SLAVEARBITER, 5, 10, 0, 0, 0, 0, 0, 0, 0
+.	.	.	. reg_1x32_8, 3, 0, 0, 0, 0, 0, 0, 0, 0
+.	. sha256_system_sb, 63, 209, 0, 0, 0, 0, 0, 3, 0
+.	.	. CoreAHBLite, 46, 190, 0, 0, 0, 0, 0, 0, 0
+.	.	.	. COREAHBLITE_MATRIX4X16, 46, 190, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	. COREAHBLITE_MASTERSTAGE_2_1_0_3_0, 26, 119, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	.	. COREAHBLITE_ADDRDEC_2_1_3_0, 0, 1, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	.	. COREAHBLITE_DEFAULTSLAVESM_0, 1, 5, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	. COREAHBLITE_SLAVESTAGE_1, 6, 46, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	.	. COREAHBLITE_SLAVEARBITER_0, 5, 14, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	. COREAHBLITE_SLAVESTAGE_2, 14, 25, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	.	. COREAHBLITE_SLAVEARBITER, 13, 19, 0, 0, 0, 0, 0, 0, 0
 .	.	. CoreResetP, 9, 2, 0, 0, 0, 0, 0, 1, 0
 .	.	. sha256_system_sb_CCC_0_FCCC, 0, 0, 0, 0, 0, 0, 0, 1, 0
-.	.	. sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM, 8, 14, 0, 0, 0, 0, 0, 0, 0
-.	.	.	. AHBLSramIf, 4, 9, 0, 0, 0, 0, 0, 0, 0
-.	.	.	. sha256_system_sb_COREAHBLSRAM_0_0_SramCtrlIf, 4, 5, 0, 0, 0, 0, 0, 0, 0
+.	.	. sha256_system_sb_COREAHBLSRAM_0_0_COREAHBLSRAM, 8, 17, 0, 0, 0, 0, 0, 0, 0
+.	.	.	. AHBLSramIf, 4, 10, 0, 0, 0, 0, 0, 0, 0
+.	.	.	. sha256_system_sb_COREAHBLSRAM_0_0_SramCtrlIf, 4, 7, 0, 0, 0, 0, 0, 0, 0
 .	.	. sha256_system_sb_FABOSC_0_OSC, 0, 0, 0, 0, 0, 0, 0, 0, 0
 .	.	. sha256_system_sb_MSS, 0, 0, 0, 0, 0, 0, 0, 0, 0

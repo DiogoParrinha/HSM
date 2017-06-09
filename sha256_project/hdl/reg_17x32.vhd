@@ -55,7 +55,7 @@ port (
     data_available : OUT std_logic;
     first_block : OUT std_logic;
     last_block : OUT std_logic;
-    valid_bytes : OUT std_logic_vector(31 downto 0);
+    valid_bytes : OUT std_logic_vector(1 downto 0);
     last_word : OUT std_logic_vector(3 downto 0)
 );
 end reg_17x32;
@@ -98,8 +98,8 @@ data_out <= line8(63 downto 32) when raddr_pos="10001" and ren_pos='1' else
 
 first_block <= line8(0);
 last_block <= line8(1);
-valid_bytes <= line8(63 downto 32);
 last_word <= line8(31 downto 28);
+valid_bytes <= line8(21 downto 20);
 
 --reg0_out <= line0(31 downto  0);
 --reg1_out <= line0(63 downto  32);
@@ -146,9 +146,9 @@ begin
                 data_out_ready <= '0';
                 if (waddr_in="10001") then
                     line8(63 downto 32) <= data_in;
-                    data_available <= '1'; -- we wrote to the last available register so we're ready (no need for the one above because we don't use it)
                 elsif (waddr_in="10000") then
                     line8(31 downto 0) <= data_in;
+                    data_available <= '1'; -- we wrote to the last available register so we're ready (no need for the one above because we don't use it)
                 elsif (waddr_in="01111") then
                     line7(63 downto 32) <= data_in;
                 elsif (waddr_in="01110") then

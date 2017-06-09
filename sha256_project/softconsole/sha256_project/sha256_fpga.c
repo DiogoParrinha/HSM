@@ -28,7 +28,7 @@ void SHA256_FPGA_init()
     MSS_GPIO_config( PIN_DATA_AVAILABLE, MSS_GPIO_INPUT_MODE );
 }
 
-// Only accepts blocks of size 64B
+// Accepts max of 64B input. Smaller size will be padded by hardware
 // Input is big-endian
 // Output is big-endian
 void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t size, uint8_t first, uint8_t last)
@@ -39,6 +39,7 @@ void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t size, uint8_t first, ui
 	int i = 0;
 	uint32_t inputs = 0;
 
+	/// COMMENTED because we do the conversion directly when writing to memory below
 	// Convert data from big-endian to little-endian
 	/*uint8_t data_le[64] = {0};
 	int i;
@@ -68,6 +69,16 @@ void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t size, uint8_t first, ui
 	int word_pos = ((size + (4 - 1)) / 4) - 1;
 	blockinfo[0] = (word_pos) << 4; // shift by 4 because it must be in the most significant 4bits below
 
+	// Find out how many valid bytes we have in our last word if size % 4 != 0 (not a multiple of 4B)
+	uint32_t valid_bytes_word = 0;
+	if(size % 4 != 0)
+	{
+		// Last word can't be complete so find how many bytes are valid
+		int byte_pos = size-(word_pos*4);
+
+		blockinfo[1] = byte_pos << 4;
+	}
+
 	// Write to AHB Slave Interface (16 words of 32-bit)
 	*(volatile uint32_t *)0x31000000 = (data[3] & 0x000000FF) | ((data[2] & 0x000000FF) << 8) | ((data[1] & 0x0000FF00) << 16) | ((data[0] & 0x000000FF) << 24);
 	*(volatile uint32_t *)0x31000004 = (data[7] & 0x000000FF) | ((data[6] & 0x000000FF) << 8) | ((data[5] & 0x000000FF) << 16) | ((data[4] & 0x000000FF) << 24);
@@ -86,7 +97,6 @@ void SHA256_FPGA(uint8_t * data, uint8_t * hash, uint8_t size, uint8_t first, ui
 	*(volatile uint32_t *)0x31000038 = (data[59] & 0x000000FF) | ((data[58] & 0x000000FF) << 8) | ((data[57] & 0x000000FF) << 16) | ((data[56] & 0x000000FF) << 24);
 	*(volatile uint32_t *)0x3100003C = (data[63] & 0x000000FF) | ((data[62] & 0x000000FF) << 8) | ((data[61] & 0x000000FF) << 16) | ((data[60] & 0x000000FF) << 24);
 	*(volatile uint32_t *)0x31000040 = (blockinfo[3] & 0x000000FF) | (blockinfo[2] & 0x000000FF) | ((blockinfo[1] & 0x000000FF) << 16) | ((blockinfo[0] & 0x000000FF) << 24);
-	*(volatile uint32_t *)0x31000044 = 0x00000000;
 
 	inputs = MSS_GPIO_get_inputs();
 	while(!(inputs & 0x80)) // 8th bit is 1 (data_available -> we can enable reading and give the data_out_ready signal)

@@ -227,10 +227,9 @@ Post processing for work.zero_concat.architecture_zero_concat
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":33:7:33:23|Synthesizing work.sha256_controller.architecture_sha256_controller 
 @N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":67:20:67:21|Using onehot encoding for type state_type (wait_data="100000")
 @W: CG296 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":120:4:120:10|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":165:27:165:42|Referenced variable valid_bytes_word is not in sensitivity list
 @W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":185:38:185:44|Referenced variable counter is not in sensitivity list
 Post processing for work.sha256_controller.architecture_sha256_controller
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":61:31:61:33|Latch generated from process for signal bytes_o(1 downto 0); possible missing assignment in an if or case statement.
+@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":61:31:61:33|Latch generated from process for signal bytes_sel; possible missing assignment in an if or case statement.
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\reg_17x32.vhd":23:7:23:15|Synthesizing work.reg_17x32.architecture_reg_17x32 
 Post processing for work.reg_17x32.architecture_reg_17x32
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd":22:7:22:20|Synthesizing work.limiter_1cycle.architecture_limiter_1cycle 

@@ -38,7 +38,7 @@ port (
     data_ready : IN std_logic;
     last_block : IN std_logic;
     first_block : IN std_logic;
-    valid_bytes : IN std_logic_vector(31 downto 0); -- 2 bits per word
+    valid_bytes : IN std_logic_vector(1 downto 0); -- 2 bits to validate the last word
     last_word : IN std_logic_vector(3 downto 0); -- indicates the position of the last word so we can stop
 
     state_out : out std_logic_vector(2 downto 0);
@@ -74,7 +74,7 @@ architecture architecture_sha256_controller of sha256_controller is
     signal restart : std_logic := '0';
     signal new_block : std_logic := '0';
     signal blocks_counter : std_logic_vector(31 downto 0);
-    signal valid_bytes_word : std_logic_vector(1 downto 0);
+    signal bytes_sel : std_logic := '0';
 begin
 
     PROCESS (clk, RST_N)
@@ -94,7 +94,7 @@ begin
                 WHEN process_word=>
                     IF di_req_i = '0' THEN
                         state <= process_wait;
-                    ELSIF (counter = "0" & last_word or (valid_bytes_word /= "00")) THEN
+                    ELSIF (counter = "0" & last_word) THEN
                         state <= end_block;
                     ELSE
                         state <= process_word;
@@ -126,7 +126,7 @@ begin
                 end_o <= '0';
 
                 di_wr_o <= '0';
-                bytes_o <= "00";
+                bytes_sel <= '0';
                 sel_di <= '0';
 
                 start_counting <= '0';
@@ -147,7 +147,7 @@ begin
 
                 di_wr_o <= '0';
                 sel_di <= '1';
-                bytes_o <= "00";
+                bytes_sel <= '0';
 
                 start_counting <= '0';
                 extra_add <= '0';
@@ -162,7 +162,7 @@ begin
                 end_o <= '0';
 
                 di_wr_o <= '1';
-                bytes_o <= valid_bytes_word;
+                bytes_sel <= '0';
                 sel_di <= '1';
 
                 start_counting <= '1';
@@ -202,7 +202,7 @@ begin
                 end if;
 
                 di_wr_o <= '1';
-                bytes_o <= valid_bytes_word;
+                bytes_sel <= '1';
                 sel_di <= '1';
 
                 start_counting <= '1';
@@ -257,25 +257,8 @@ begin
         end if;
     end process;
 
-    -- valid bytes
-    valid_bytes_word <=
-        valid_bytes(1 downto 0) when (counter = "00000") else
-        valid_bytes(3 downto 2) when (counter = "00001") else
-        valid_bytes(5 downto 4) when (counter = "00010") else
-        valid_bytes(7 downto 6) when (counter = "00011") else
-        valid_bytes(9 downto 8) when (counter = "00100") else
-        valid_bytes(11 downto 10) when (counter = "00101") else
-        valid_bytes(13 downto 12) when (counter = "00110") else
-        valid_bytes(15 downto 14) when (counter = "00111") else
-        valid_bytes(17 downto 16) when (counter = "01000") else
-        valid_bytes(19 downto 18) when (counter = "01001") else
-        valid_bytes(21 downto 20) when (counter = "01010") else
-        valid_bytes(23 downto 22) when (counter = "01011") else
-        valid_bytes(25 downto 24) when (counter = "01100") else
-        valid_bytes(27 downto 26) when (counter = "01101") else
-        valid_bytes(29 downto 28) when (counter = "01110") else
-        valid_bytes(31 downto 30) when (counter = "01111") else
-        (others => 'X');
+    bytes_o <= valid_bytes when bytes_sel = '1' else
+        (others => '0');
 
     -- read address
     read_addr <= counter;

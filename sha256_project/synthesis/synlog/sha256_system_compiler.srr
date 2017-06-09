@@ -45,11 +45,7 @@ File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\COREAHBLSR
 File E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd changed - recompiling
 File E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd changed - recompiling
 VHDL syntax check successful!
-File E:\LiberoProjects\sha256_project\hdl\reg_17x32.vhd changed - recompiling
 File E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd changed - recompiling
-File E:\LiberoProjects\sha256_project\component\work\SHA256_BLOCK\SHA256_BLOCK.vhd changed - recompiling
-File E:\LiberoProjects\sha256_project\component\work\SHA256_Module\SHA256_Module.vhd changed - recompiling
-File E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd changed - recompiling
 @N: CD231 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\std1164.vhd":890:16:890:17|Using onehot encoding for type mvl9plus ('U'="1000000000")
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system\sha256_system.vhd":17:7:17:19|Synthesizing work.sha256_system.rtl 
 @N: CD630 :"E:\LiberoProjects\sha256_project\component\work\sha256_system_sb\sha256_system_sb.vhd":22:7:22:22|Synthesizing work.sha256_system_sb.rtl 
@@ -279,10 +275,9 @@ Post processing for work.zero_concat.architecture_zero_concat
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":33:7:33:23|Synthesizing work.sha256_controller.architecture_sha256_controller 
 @N: CD231 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":67:20:67:21|Using onehot encoding for type state_type (wait_data="100000")
 @W: CG296 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":120:4:120:10|Incomplete sensitivity list - assuming completeness
-@W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":165:27:165:42|Referenced variable valid_bytes_word is not in sensitivity list
 @W: CG290 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":185:38:185:44|Referenced variable counter is not in sensitivity list
 Post processing for work.sha256_controller.architecture_sha256_controller
-@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":61:31:61:33|Latch generated from process for signal bytes_o(1 downto 0); possible missing assignment in an if or case statement.
+@W: CL117 :"E:\LiberoProjects\sha256_project\hdl\sha256_controller.vhd":61:31:61:33|Latch generated from process for signal bytes_sel; possible missing assignment in an if or case statement.
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\reg_17x32.vhd":23:7:23:15|Synthesizing work.reg_17x32.architecture_reg_17x32 
 Post processing for work.reg_17x32.architecture_reg_17x32
 @N: CD630 :"E:\LiberoProjects\sha256_project\hdl\limiter_1cycle.vhd":22:7:22:20|Synthesizing work.limiter_1cycle.architecture_limiter_1cycle 
@@ -626,7 +621,7 @@ State machine has 7 reachable states with original encodings of:
 At c_vhdl Exit (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 128MB peak: 133MB)
 
 Process took 0h:00m:03s realtime, 0h:00m:03s cputime
-# Thu Jun 08 23:32:39 2017
+# Fri Jun 09 02:51:34 2017
 
 ###########################################################]
 Synopsys Netlist Linker, version comp201503sp1p1, Build 240R, built Dec  1 2015
@@ -636,7 +631,7 @@ File E:\LiberoProjects\sha256_project\synthesis\synwork\layer0.srs changed - rec
 At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 79MB peak: 80MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Thu Jun 08 23:32:40 2017
+# Fri Jun 09 02:51:34 2017
 
 ###########################################################]
 @END
@@ -644,6 +639,6 @@ Process took 0h:00m:01s realtime, 0h:00m:01s cputime
 At c_hdl Exit (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 3MB peak: 4MB)
 
 Process took 0h:00m:04s realtime, 0h:00m:04s cputime
-# Thu Jun 08 23:32:40 2017
+# Fri Jun 09 02:51:34 2017
 
 ###########################################################]

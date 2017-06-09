@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Thu Jun 08 23:32:20 2017
+-- Created by SmartDesign Fri Jun 09 02:35:23 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -153,10 +153,10 @@ signal GND_net                                   : std_logic;
 ----------------------------------------------------------------------
 -- Bus Interface Nets Declarations - Unequal Pin Widths
 ----------------------------------------------------------------------
+signal sha256_system_sb_0_AMBA_SLAVE_0_HRESP     : std_logic;
 signal sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0_1to1: std_logic_vector(1 to 1);
 signal sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0_0to0: std_logic_vector(0 to 0);
 signal sha256_system_sb_0_AMBA_SLAVE_0_HRESP_0   : std_logic_vector(1 downto 0);
-signal sha256_system_sb_0_AMBA_SLAVE_0_HRESP     : std_logic;
 
 
 begin
