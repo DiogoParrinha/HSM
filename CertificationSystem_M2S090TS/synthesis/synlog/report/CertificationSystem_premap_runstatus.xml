@@ -13,13 +13,13 @@ The file contains the job information from mapper to be displayed as part of the
 </job_status>
 <job_info>
 <info name="Notes">
-<data>94</data>
+<data>103</data>
 <report_link name="more">
 <data>E:\LiberoProjects\CertificationSystem_M2S090TS\synthesis\synlog\report\CertificationSystem_premap_notes.txt</data>
 </report_link>
 </info>
 <info name="Warnings">
-<data>11</data>
+<data>13</data>
 <report_link name="more">
 <data>E:\LiberoProjects\CertificationSystem_M2S090TS\synthesis\synlog\report\CertificationSystem_premap_warnings.txt</data>
 </report_link>
@@ -31,16 +31,16 @@ The file contains the job information from mapper to be displayed as part of the
 </report_link>
 </info>
 <info name="CPU Time">
-<data>0h:00m:00s</data>
+<data>0h:00m:01s</data>
 </info>
 <info name="Real Time">
-<data>0h:00m:00s</data>
+<data>0h:00m:01s</data>
 </info>
 <info name="Peak Memory">
-<data>147MB</data>
+<data>157MB</data>
 </info>
 <info name="Date &amp; Time">
-<data type="timestamp">1495723156</data>
+<data type="timestamp">1497021847</data>
 </info>
 </job_info>
 </job_run_status>

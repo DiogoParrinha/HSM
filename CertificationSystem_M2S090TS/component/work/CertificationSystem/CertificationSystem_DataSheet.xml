@@ -12,7 +12,7 @@
     <project-description>
     </project-description>
     <location>E:/LiberoProjects/CertificationSystem_M2S090TS/component/work/CertificationSystem</location>
-    <state>GENERATED ( Fri Feb 24 17:20:44 2017 )</state>
+    <state>SAVED ( Fri Jun 09 13:26:01 2017 )</state>
     <swide-toolchain>SoftConsole workspace has not been generated</swide-toolchain>
   </project-settings>
   <site-map>
@@ -62,6 +62,20 @@
           <range>0x10000000</range>
         </slave>
         <slave>
+          <name>COREAHBLSRAM_0_0</name>
+          <fullPinName>COREAHBLSRAM_0_0:AHBSlaveInterface</fullPinName>
+          <remapAddress>0x30000000</remapAddress>
+          <fullAddressSpace>0x30000000 - 0x3FFFFFFF</fullAddressSpace>
+          <range>0x10000000</range>
+        </slave>
+        <slave>
+          <name>AHB_slave_dummy_0</name>
+          <fullPinName>AHB_slave_dummy_0:BIF_1</fullPinName>
+          <remapAddress>0x50000000</remapAddress>
+          <fullAddressSpace>0x50000000 - 0x5FFFFFFF</fullAddressSpace>
+          <range>0x10000000</range>
+        </slave>
+        <slave>
           <name>AHB2ENVM1_REGISTERS</name>
           <fullPinName>
           </fullPinName>
@@ -89,18 +103,17 @@
           <name>ENVM-Data</name>
           <fullPinName>
           </fullPinName>
-          <remapAddress>0x60015E00</remapAddress>
-          <fullAddressSpace>0x60015E00 - 0x6001817F</fullAddressSpace>
-          <range>0x2380</range>
+          <remapAddress>0x60020000</remapAddress>
+          <fullAddressSpace>0x60020000 - 0x6002007F</fullAddressSpace>
+          <range>0x80</range>
         </slave>
         <slave>
-          <name>COREAHBLSRAM_0_0</name>
-          <fullPinName>COREAHBLSRAM_0_0:AHBSlaveInterface</fullPinName>
-          <remapAddress>0x50000000</remapAddress>
-          <combinedAddressSpace>0x50000000 - 0x50FFFFFF</combinedAddressSpace>
-          <remapAddress>0x30000000</remapAddress>
-          <combinedAddressSpace>0x30000000 - 0x30FFFFFF</combinedAddressSpace>
-          <range>0x01000000</range>
+          <name>ENVM-Main_App</name>
+          <fullPinName>
+          </fullPinName>
+          <remapAddress>0x60000000</remapAddress>
+          <fullAddressSpace>0x60000000 - 0x6000DBFF</fullAddressSpace>
+          <range>0xDC00</range>
         </slave>
         <slave>
           <name>CACHE_BACKDOOR</name>
@@ -3768,6 +3781,14 @@
           <range>0x1000</range>
         </slave>
         <slave>
+          <name>MMUART_1</name>
+          <fullPinName>
+          </fullPinName>
+          <remapAddress>0x40010000</remapAddress>
+          <fullAddressSpace>0x40010000 - 0x40010FFF</fullAddressSpace>
+          <range>0x1000</range>
+        </slave>
+        <slave>
           <name>H2FINTERRUPT</name>
           <fullPinName>
           </fullPinName>
@@ -3797,14 +3818,6 @@
           </fullPinName>
           <remapAddress>0x40001000</remapAddress>
           <fullAddressSpace>0x40001000 - 0x40001FFF</fullAddressSpace>
-          <range>0x1000</range>
-        </slave>
-        <slave>
-          <name>MMUART_0</name>
-          <fullPinName>
-          </fullPinName>
-          <remapAddress>0x40000000</remapAddress>
-          <fullAddressSpace>0x40000000 - 0x40000FFF</fullAddressSpace>
           <range>0x1000</range>
         </slave>
         <slave>

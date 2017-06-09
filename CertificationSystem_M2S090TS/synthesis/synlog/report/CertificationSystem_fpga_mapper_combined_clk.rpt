@@ -3,15 +3,20 @@
 #### START OF CLOCK OPTIMIZATION REPORT #####[
 
 Clock optimization not enabled
-1 non-gated/non-generated clock tree(s) driving 180 clock pin(s) of sequential element(s)
-0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
-0 instances converted, 0 sequential instances remain driven by gated/generated clocks
+1 non-gated/non-generated clock tree(s) driving 2163 clock pin(s) of sequential element(s)
+1 gated/generated clock tree(s) driving 1 clock pin(s) of sequential element(s)
+0 instances converted, 1 sequential instance remains driven by gated/generated clocks
 
-============================================================ Non-Gated/Non-Generated Clocks ============================================================
-Clock Tree ID     Driving Element                             Drive Element Type     Fanout     Sample Instance                                         
---------------------------------------------------------------------------------------------------------------------------------------------------------
-@K:CKID0001       CertificationSystem_sb_0.CCC_0.GL0_INST     CLKINT                 180        CertificationSystem_sb_0.CORERESETP_0.MSS_HPMS_READY_int
-========================================================================================================================================================
+============================================================ Non-Gated/Non-Generated Clocks =============================================================
+Clock Tree ID     Driving Element                             Drive Element Type     Fanout     Sample Instance                                          
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+@K:CKID0002       CertificationSystem_sb_0.CCC_0.GL0_INST     CLKINT                 2163       CertificationSystem_sb_0.CORERESETP_0.POWER_ON_RESET_N_q1
+=========================================================================================================================================================
+================================================================================================================ Gated/Generated Clocks =================================================================================================================
+Clock Tree ID     Driving Element                                                              Drive Element Type     Fanout     Sample Instance                                                  Explanation                                            
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@K:CKID0001       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_2_0_a3_0_a2     CFG2                   1          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_sel     No gated clock conversion method for cell cell:ACG4.SLE
+=========================================================================================================================================================================================================================================================
 
 
 ##### END OF CLOCK OPTIMIZATION REPORT ######]

@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Thu May 25 15:38:43 2017
+-- Created by SmartDesign Fri Jun 09 12:43:42 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -24,6 +24,13 @@ entity CertificationSystem_sb_MSS is
         FIC_2_APB_M_PRDATA     : in    std_logic_vector(31 downto 0);
         FIC_2_APB_M_PREADY     : in    std_logic;
         FIC_2_APB_M_PSLVERR    : in    std_logic;
+        GPIO_2_F2M             : in    std_logic;
+        GPIO_3_F2M             : in    std_logic;
+        GPIO_4_F2M             : in    std_logic;
+        GPIO_5_F2M             : in    std_logic;
+        GPIO_6_F2M             : in    std_logic;
+        GPIO_7_F2M             : in    std_logic;
+        GPIO_8_F2M             : in    std_logic;
         MCCC_CLK_BASE          : in    std_logic;
         MCCC_CLK_BASE_PLL_LOCK : in    std_logic;
         MMUART_1_RXD           : in    std_logic;
@@ -43,6 +50,8 @@ entity CertificationSystem_sb_MSS is
         FIC_2_APB_M_PWDATA     : out   std_logic_vector(31 downto 0);
         FIC_2_APB_M_PWRITE     : out   std_logic;
         GPIO_0_M2F             : out   std_logic;
+        GPIO_1_M2F             : out   std_logic;
+        GPIO_9_M2F             : out   std_logic;
         MMUART_1_TXD           : out   std_logic;
         MSS_RESET_N_M2F        : out   std_logic;
         SPI_0_DO               : out   std_logic;
@@ -742,6 +751,8 @@ signal FIC_2_APB_MASTER_0_PSELx                           : std_logic;
 signal FIC_2_APB_MASTER_0_PWDATA                          : std_logic_vector(31 downto 0);
 signal FIC_2_APB_MASTER_0_PWRITE                          : std_logic;
 signal GPIO_0_M2F_net_0                                   : std_logic;
+signal GPIO_1_M2F_net_0                                   : std_logic;
+signal GPIO_9_M2F_net_0                                   : std_logic;
 signal MMUART_1_RXD_PAD_Y                                 : std_logic;
 signal MMUART_1_TXD_net_0                                 : std_logic;
 signal MSS_ADLIB_INST_MMUART1_TXD_USBC_DATA2_MGPIO24B_OE  : std_logic;
@@ -767,6 +778,8 @@ signal FIC_2_APB_MASTER_0_PWRITE_net_0                    : std_logic;
 signal FIC_2_APB_MASTER_0_PENABLE_net_0                   : std_logic;
 signal FIC_2_APB_MASTER_0_PSELx_net_0                     : std_logic;
 signal MSS_RESET_N_M2F_0_net_0                            : std_logic;
+signal GPIO_1_M2F_net_1                                   : std_logic;
+signal GPIO_9_M2F_net_1                                   : std_logic;
 signal FIC_0_AHB_M_HADDR_net_1                            : std_logic_vector(31 downto 0);
 signal FIC_0_AHB_M_HWDATA_net_1                           : std_logic_vector(31 downto 0);
 signal FIC_0_AHB_M_HSIZE_net_1                            : std_logic_vector(1 downto 0);
@@ -876,6 +889,10 @@ begin
  FIC_2_APB_M_PSEL                 <= FIC_2_APB_MASTER_0_PSELx_net_0;
  MSS_RESET_N_M2F_0_net_0          <= MSS_RESET_N_M2F_0;
  MSS_RESET_N_M2F                  <= MSS_RESET_N_M2F_0_net_0;
+ GPIO_1_M2F_net_1                 <= GPIO_1_M2F_net_0;
+ GPIO_1_M2F                       <= GPIO_1_M2F_net_1;
+ GPIO_9_M2F_net_1                 <= GPIO_9_M2F_net_0;
+ GPIO_9_M2F                       <= GPIO_9_M2F_net_1;
  FIC_0_AHB_M_HADDR_net_1          <= FIC_0_AHB_M_HADDR_net_0;
  FIC_0_AHB_M_HADDR(31 downto 0)   <= FIC_0_AHB_M_HADDR_net_1;
  FIC_0_AHB_M_HWDATA_net_1         <= FIC_0_AHB_M_HWDATA_net_0;
@@ -913,7 +930,7 @@ MSS_ADLIB_INST : MSS_075
     generic map( 
         ACT_UBITS         => ( x"FFFFFFFFFFFFFF" ),
         DDR_CLK_FREQ      => ( 50.0 ),
-        INIT              => ( "00" & x"0000000000000000000000000000036100080000000000000000000000000000000000000000000000000000000000001203610000000000000000000000000000000000000000F00000000F000000000000000000000000000000007FFFFFFFB000001007C35C00000000609300000003FFFFE4000000000000100000000F0E11C00000182DF34010842108421000001FE34001FF8000000400000000000451007FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" ),
+        INIT              => ( "00" & x"0000000000000000000000000000036100080000000000000000000000000000000000000000000000000000000000001203610000000000000000000000000000000000000000F00000000F000000000000000000000000000000007FFFFFFFB000001007C35C00000000609300000003FFFFE4000000000000100000000F0E15C00000182DF34010842108421000001FE34001FF8000000400000000000451007FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" ),
         MEMORYFILE        => ( "ENVM_init.mem" ),
         RTC_MAIN_XTL_FREQ => ( 0.0 ),
         RTC_MAIN_XTL_MODE => ( "" )
@@ -986,15 +1003,15 @@ MSS_ADLIB_INST : MSS_075
         MGPIO27B_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
         MGPIO28B_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
         MGPIO29B_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
-        MGPIO2A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
+        MGPIO2A_F2H_GPIN                        => GPIO_2_F2M,
         MGPIO30B_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
         MGPIO31B_F2H_GPIN                       => VCC_net, -- tied to '1' from definition
-        MGPIO3A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
-        MGPIO4A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
-        MGPIO5A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
-        MGPIO6A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
-        MGPIO7A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
-        MGPIO8A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
+        MGPIO3A_F2H_GPIN                        => GPIO_3_F2M,
+        MGPIO4A_F2H_GPIN                        => GPIO_4_F2M,
+        MGPIO5A_F2H_GPIN                        => GPIO_5_F2M,
+        MGPIO6A_F2H_GPIN                        => GPIO_6_F2M,
+        MGPIO7A_F2H_GPIN                        => GPIO_7_F2M,
+        MGPIO8A_F2H_GPIN                        => GPIO_8_F2M,
         MGPIO9A_F2H_GPIN                        => VCC_net, -- tied to '1' from definition
         MMUART0_CTS_F2H_SCP                     => VCC_net, -- tied to '1' from definition
         MMUART0_DCD_F2H_SCP                     => VCC_net, -- tied to '1' from definition
@@ -1221,7 +1238,7 @@ MSS_ADLIB_INST : MSS_075
         I2C0_SDA_MGPIO30B_H2F_A                 => OPEN,
         I2C0_SDA_MGPIO30B_H2F_B                 => OPEN,
         I2C1_SCL_MGPIO1A_H2F_A                  => OPEN,
-        I2C1_SCL_MGPIO1A_H2F_B                  => OPEN,
+        I2C1_SCL_MGPIO1A_H2F_B                  => GPIO_1_M2F_net_0,
         I2C1_SDA_MGPIO0A_H2F_A                  => OPEN,
         I2C1_SDA_MGPIO0A_H2F_B                  => GPIO_0_M2F_net_0,
         MDCF                                    => OPEN,
@@ -1278,7 +1295,7 @@ MSS_ADLIB_INST : MSS_075
         SPI0_SS1_MGPIO8A_H2F_A                  => OPEN,
         SPI0_SS1_MGPIO8A_H2F_B                  => OPEN,
         SPI0_SS2_MGPIO9A_H2F_A                  => OPEN,
-        SPI0_SS2_MGPIO9A_H2F_B                  => OPEN,
+        SPI0_SS2_MGPIO9A_H2F_B                  => GPIO_9_M2F_net_0,
         SPI0_SS3_MGPIO10A_H2F_A                 => OPEN,
         SPI0_SS3_MGPIO10A_H2F_B                 => OPEN,
         SPI0_SS4_MGPIO19A_H2F_A                 => OPEN,

@@ -20,19 +20,42 @@ Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h
 
 
 
-Starting Optimization and Mapping (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 137MB peak: 139MB)
+Starting Optimization and Mapping (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 142MB peak: 145MB)
 
 @W: MO171 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":781:8:781:9|Sequential instance CertificationSystem_sb_0.CORERESETP_0.sm1_areset_n_q1 reduced to a combinational gate by constant propagation 
 @W: MO171 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":781:8:781:9|Sequential instance CertificationSystem_sb_0.CORERESETP_0.sm1_areset_n_clk_base reduced to a combinational gate by constant propagation 
 @W: MO171 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1331:8:1331:9|Sequential instance CertificationSystem_sb_0.CORERESETP_0.RESET_N_F2M_int reduced to a combinational gate by constant propagation 
+@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_7.ren_pos
+@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_7.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_6.ren_pos
+@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_6.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_5.ren_pos
+@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_5.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_4.ren_pos
+@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_4.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_3.ren_pos
+@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_3.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_2.ren_pos
+@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_2.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_1.ren_pos
+@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_1.ren_pos,  because it is equivalent to instance SHA256_Module_0.reg9_1x32_0.reg_1x32_0.ren_pos
 
 Available hyper_sources - for debug and ip models
 	None Found
 
+@W: MT462 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_controller.vhd":61:31:61:33|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_1 appears to be an unidentified clock source. Assuming default frequency. 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\work\certificationsystem_sb\coreahblsram_0_0\rtl\vhdl\core\ahblsramif.vhd":343:6:343:7|Removing sequential instance ahbsram_wdata_usram_d[31:0] of view:PrimLib.dffre(prim) in hierarchy view:coreahblsram_lib.CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf(translated) because there are no references to its outputs 
 
-Finished RTL optimizations (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 136MB peak: 139MB)
+Finished RTL optimizations (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 142MB peak: 146MB)
 
+Encoding state machine FSM[0:2] (view:work.AHB_slave_dummy(behaviour))
+original code -> new code
+   00 -> 00
+   01 -> 01
+   10 -> 10
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[5] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[6] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[7] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_waddr[8] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[4] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[5] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[6] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[7] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\ahb_slave_dummy.vhd":69:4:69:5|Removing sequential instance lsram_raddr[8] of view:PrimLib.dffr(prim) in hierarchy view:work.AHB_slave_dummy(behaviour) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[20] of view:PrimLib.dffr(prim) in hierarchy view:work.CertificationSystem_sb(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[21] of view:PrimLib.dffr(prim) in hierarchy view:work.CertificationSystem_sb(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[22] of view:PrimLib.dffr(prim) in hierarchy view:work.CertificationSystem_sb(rtl) because there are no references to its outputs 
@@ -43,9 +66,28 @@ Finished RTL optimizations (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[27] of view:PrimLib.dffr(prim) in hierarchy view:work.CertificationSystem_sb(rtl) because there are no references to its outputs 
 @W: MO160 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":305:8:305:9|Register bit CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[16] is always 0, optimizing ...
 @W: MO160 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Register bit CoreAHBLite_0.matrix4x16.masterstage_0.regHSIZE[2] is always 0, optimizing ...
-@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[31],  because it is equivalent to instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[30]
-@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[29],  because it is equivalent to instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[28]
 Encoding state machine arbRegSMCurrentState[0:15] (view:coreahblite_lib.COREAHBLITE_SLAVEARBITER_1(coreahblite_slavearbiter_arch))
+original code -> new code
+   0000 -> 0000000000000001
+   0001 -> 0000000000000010
+   0010 -> 0000000000000100
+   0011 -> 0000000000001000
+   0100 -> 0000000000010000
+   0101 -> 0000000000100000
+   0110 -> 0000000001000000
+   0111 -> 0000000010000000
+   1000 -> 0000000100000000
+   1001 -> 0000001000000000
+   1010 -> 0000010000000000
+   1011 -> 0000100000000000
+   1100 -> 0001000000000000
+   1101 -> 0010000000000000
+   1110 -> 0100000000000000
+   1111 -> 1000000000000000
+@W: MO160 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[3] is always 0, optimizing ...
+@W: MO160 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[7] is always 0, optimizing ...
+@W: MO160 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Register bit arbRegSMCurrentState[11] is always 0, optimizing ...
+Encoding state machine arbRegSMCurrentState[0:15] (view:coreahblite_lib.COREAHBLITE_SLAVEARBITER_0(coreahblite_slavearbiter_arch))
 original code -> new code
    0000 -> 0000000000000001
    0001 -> 0000000000000010
@@ -85,16 +127,100 @@ original code -> new code
    00 -> 00
    01 -> 01
    10 -> 10
-@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[28],  because it is equivalent to instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHTRANS
+@N: FX404 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_regs.vhd":155:34:155:35|Found addmux in view:work.gv_sha256(rtl) inst Inst_sha256_regs.next_reg_H7[31:0] from Inst_sha256_regs.un1_sum7[31:0] 
+@N: FX404 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_regs.vhd":154:34:154:35|Found addmux in view:work.gv_sha256(rtl) inst Inst_sha256_regs.next_reg_H6[31:0] from Inst_sha256_regs.un1_sum6[31:0] 
+@N: FX404 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_regs.vhd":153:34:153:35|Found addmux in view:work.gv_sha256(rtl) inst Inst_sha256_regs.next_reg_H5[31:0] from Inst_sha256_regs.un1_sum5[31:0] 
+@N: FX404 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_regs.vhd":152:34:152:35|Found addmux in view:work.gv_sha256(rtl) inst Inst_sha256_regs.next_reg_H4[31:0] from Inst_sha256_regs.un1_sum4[31:0] 
+@N: FX404 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_regs.vhd":151:34:151:35|Found addmux in view:work.gv_sha256(rtl) inst Inst_sha256_regs.next_reg_H3[31:0] from Inst_sha256_regs.un1_sum3[31:0] 
+@N: FX404 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_regs.vhd":150:34:150:35|Found addmux in view:work.gv_sha256(rtl) inst Inst_sha256_regs.next_reg_H2[31:0] from Inst_sha256_regs.un1_sum2[31:0] 
+@N: FX404 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_regs.vhd":149:34:149:35|Found addmux in view:work.gv_sha256(rtl) inst Inst_sha256_regs.next_reg_H1[31:0] from Inst_sha256_regs.un1_sum1[31:0] 
+@N: FX404 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_regs.vhd":148:34:148:35|Found addmux in view:work.gv_sha256(rtl) inst Inst_sha256_regs.next_reg_H0[31:0] from Inst_sha256_regs.un1_sum0[31:0] 
+Encoding state machine hash_control_st_reg[0:6] (view:work.sha256_control(rtl))
+original code -> new code
+   0000001 -> 0000000
+   0000010 -> 0000011
+   0000100 -> 0000101
+   0001000 -> 0001001
+   0010000 -> 0010001
+   0100000 -> 0100001
+   1000000 -> 1000001
+@N:"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_control.vhd":397:8:397:9|Found counter in view:work.sha256_control(rtl) inst st_cnt_reg[6:0]
+@N: FX404 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_msg_sch.vhd":145:26:145:27|Found addmux in view:work.sha256_msg_sch(rtl) inst next_r0[31:0] from sum0[31:0] 
+@N: FX404 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_hash_core.vhd":151:32:151:33|Found addmux in view:work.sha256_hash_core(rtl) inst next_reg_a[31:0] from sum0[31:0] 
+@N: FX404 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_hash_core.vhd":155:32:155:33|Found addmux in view:work.sha256_hash_core(rtl) inst next_reg_e[31:0] from sum2[31:0] 
+Encoding state machine state[0:5] (view:work.sha256_controller(architecture_sha256_controller))
+original code -> new code
+   000001 -> 000001
+   000010 -> 000010
+   000100 -> 000100
+   001000 -> 001000
+   010000 -> 010000
+   100000 -> 100000
+@N:"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_controller.vhd":244:8:244:9|Found counter in view:work.sha256_controller(architecture_sha256_controller) inst blocks_counter[31:0]
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\work\certificationsystem_sb\coreahblsram_0_0\rtl\vhdl\core\ahblsramif.vhd":135:6:135:7|Removing sequential instance CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf.HSIZE_d[2] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
-@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[30] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[19] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[18] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[17] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[16] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 
-Finished factoring (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 143MB peak: 143MB)
+Finished factoring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 165MB peak: 166MB)
 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[32] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[33] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[34] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[35] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[36] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[37] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[38] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[39] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[40] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[41] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[42] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[43] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[44] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[45] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[46] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[47] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[48] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[49] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[50] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[51] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[52] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[53] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[54] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[55] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[56] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[57] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[58] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[59] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[60] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[61] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[62] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[63] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[2] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[3] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[4] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[5] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[6] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[7] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[8] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[9] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[10] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[11] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[12] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[13] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[14] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[15] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[16] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[17] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[18] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[19] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[22] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[23] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[24] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[25] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[26] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.line8[27] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.slave_arbiter.arbRegSMCurrentState[1] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.slave_arbiter.arbRegSMCurrentState[0] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.slave_arbiter.arbRegSMCurrentState[13] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
@@ -103,81 +229,154 @@ Finished factoring (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; M
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.slave_arbiter.arbRegSMCurrentState[8] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.slave_arbiter.arbRegSMCurrentState[5] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.slave_arbiter.arbRegSMCurrentState[4] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState[1] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState[0] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState[13] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState[12] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState[9] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState[8] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState[5] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState[4] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":122:8:122:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.masterDataInProg[1] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":122:8:122:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.masterDataInProg[2] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":122:8:122:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.masterDataInProg[3] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":122:8:122:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.masterDataInProg[1] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":122:8:122:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.masterDataInProg[2] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":122:8:122:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.masterDataInProg[3] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Removing sequential instance SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.raddr_pos[4] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[31] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[30] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[29] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[28] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[27] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[26] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[25] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[24] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[23] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[22] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[21] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[20] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[19] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[18] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[17] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[16] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[15] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[14] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[13] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[12] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[11] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[10] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[9] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[8] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[7] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[6] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[5] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[4] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance SHA256_Module_0.reg9_1x32_0.reg_1x32_8.line[3] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
 
-Finished gated-clock and generated-clock conversion (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 140MB peak: 144MB)
+Finished gated-clock and generated-clock conversion (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 159MB peak: 167MB)
+
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[31] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
+
+Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 159MB peak: 171MB)
+
+@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[28],  because it is equivalent to instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHTRANS
+
+Starting Early Timing Optimization (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 161MB peak: 171MB)
 
 
-Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 143MB peak: 144MB)
-
-@W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.slave_arbiter.arbRegSMCurrentState[10],  because it is equivalent to instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.slave_arbiter.arbRegSMCurrentState[6]
-@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Removing sequential instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_3.slave_arbiter.arbRegSMCurrentState[6] in hierarchy view:work.CertificationSystem(rtl) because there are no references to its outputs 
-
-Starting Early Timing Optimization (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 144MB peak: 144MB)
+Finished Early Timing Optimization (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 161MB peak: 171MB)
 
 
-Finished Early Timing Optimization (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 144MB peak: 144MB)
+Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 160MB peak: 171MB)
+
+@N: MO106 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_kt_rom.vhd":78:14:78:15|Found ROM, 'SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_kt_rom.next_rout[31:0]', 63 words by 32 bits 
+
+Finished preparing to map (Real Time elapsed 0h:00m:06s; CPU Time elapsed 0h:00m:06s; Memory used current: 161MB peak: 171MB)
 
 
-Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 143MB peak: 144MB)
-
-
-Finished preparing to map (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 143MB peak: 144MB)
-
-
-Finished technology mapping (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 160MB peak: 162MB)
+Finished technology mapping (Real Time elapsed 0h:00m:08s; CPU Time elapsed 0h:00m:08s; Memory used current: 230MB peak: 233MB)
 
 Pass		 CPU time		Worst Slack		Luts / Registers
 ------------------------------------------------------------
-   1		0h:00m:02s		     1.26ns		1981 /       115
-@N: FP130 |Promoting Net CertificationSystem_sb_0.MSS_READY on CLKINT  I_12 
+   1		0h:00m:08s		    -4.93ns		4649 /      2074
+   2		0h:00m:10s		    -4.93ns		3080 /      2074
+@N: FX271 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[1]" with 124 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[2]" with 120 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[0]" with 136 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Instance "SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.raddr_pos[0]" with 256 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Instance "SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.raddr_pos[1]" with 128 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[4]" with 136 loads replicated 3 times to improve timing 
+@N: FX271 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_control.vhd":397:8:397:9|Instance "SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.st_cnt_reg[3]" with 91 loads replicated 3 times to improve timing 
+Timing driven replication report
+Added 21 Registers via timing driven replication
+Added 0 LUTs via timing driven replication
+
+@N: FX271 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_17x32.vhd":124:4:124:5|Instance "SHA256_Module_0.SHA256_BLOCK_0.reg_17x32_0.raddr_pos_fast[0]" with 57 loads replicated 3 times to improve timing 
+Timing driven replication report
+Added 3 Registers via timing driven replication
+Added 0 LUTs via timing driven replication
+
+
+   3		0h:00m:12s		    -4.93ns		3068 /      2098
+
+
+   4		0h:00m:12s		    -4.93ns		3068 /      2098
+@N: FP130 |Promoting Net CertificationSystem_sb_0.MSS_READY on CLKINT  I_1035 
+@N: FP130 |Promoting Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un2_rst_n_i on CLKINT  I_1036 
+@N: FP130 |Promoting Net CertificationSystem_sb_0_POWER_ON_RESET_N on CLKINT  I_1037 
 
 Added 0 Buffers
 Added 0 Cells via replication
 	Added 0 Sequential Cells via replication
 	Added 0 Combinational Cells via replication
 
-Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 161MB peak: 162MB)
+Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 179MB peak: 236MB)
 
 
-Finished restoring hierarchy (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 161MB peak: 162MB)
+Finished restoring hierarchy (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 183MB peak: 236MB)
 
 
 
 #### START OF CLOCK OPTIMIZATION REPORT #####[
 
 Clock optimization not enabled
-1 non-gated/non-generated clock tree(s) driving 180 clock pin(s) of sequential element(s)
-0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
-0 instances converted, 0 sequential instances remain driven by gated/generated clocks
+1 non-gated/non-generated clock tree(s) driving 2163 clock pin(s) of sequential element(s)
+1 gated/generated clock tree(s) driving 1 clock pin(s) of sequential element(s)
+0 instances converted, 1 sequential instance remains driven by gated/generated clocks
 
-============================================================ Non-Gated/Non-Generated Clocks ============================================================
-Clock Tree ID     Driving Element                             Drive Element Type     Fanout     Sample Instance                                         
---------------------------------------------------------------------------------------------------------------------------------------------------------
-@K:CKID0001       CertificationSystem_sb_0.CCC_0.GL0_INST     CLKINT                 180        CertificationSystem_sb_0.CORERESETP_0.MSS_HPMS_READY_int
-========================================================================================================================================================
+============================================================ Non-Gated/Non-Generated Clocks =============================================================
+Clock Tree ID     Driving Element                             Drive Element Type     Fanout     Sample Instance                                          
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+@K:CKID0002       CertificationSystem_sb_0.CCC_0.GL0_INST     CLKINT                 2163       CertificationSystem_sb_0.CORERESETP_0.POWER_ON_RESET_N_q1
+=========================================================================================================================================================
+================================================================================================================ Gated/Generated Clocks =================================================================================================================
+Clock Tree ID     Driving Element                                                              Drive Element Type     Fanout     Sample Instance                                                  Explanation                                            
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+@K:CKID0001       SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_2_0_a3_0_a2     CFG2                   1          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_sel     No gated clock conversion method for cell cell:ACG4.SLE
+=========================================================================================================================================================================================================================================================
 
 
 ##### END OF CLOCK OPTIMIZATION REPORT ######]
 
 
-Start Writing Netlists (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:03s; Memory used current: 131MB peak: 162MB)
+Start Writing Netlists (Real Time elapsed 0h:00m:14s; CPU Time elapsed 0h:00m:14s; Memory used current: 140MB peak: 236MB)
 
 Writing Analyst data base E:\LiberoProjects\CertificationSystem_M2S090TS\synthesis\synwork\CertificationSystem_m.srm
+@W: MT462 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_controller.vhd":61:31:61:33|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_2_0_a3_0_a2 appears to be an unidentified clock source. Assuming default frequency. 
 
-Finished Writing Netlist Databases (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 158MB peak: 162MB)
+Finished Writing Netlist Databases (Real Time elapsed 0h:00m:15s; CPU Time elapsed 0h:00m:15s; Memory used current: 178MB peak: 236MB)
 
 Writing EDIF Netlist and constraint files
+@W: MT462 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_controller.vhd":61:31:61:33|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_2_0_a3_0_a2 appears to be an unidentified clock source. Assuming default frequency. 
 @N: BW103 |Synopsys Constraint File time units using default value of 1ns 
 @N: BW107 |Synopsys Constraint File capacitance units using default value of 1pF 
 J-2015.03M-SP1-2
 
-Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 159MB peak: 162MB)
+Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:16s; CPU Time elapsed 0h:00m:16s; Memory used current: 179MB peak: 236MB)
 
 
-Start final timing analysis (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 159MB peak: 162MB)
+Start final timing analysis (Real Time elapsed 0h:00m:16s; CPU Time elapsed 0h:00m:16s; Memory used current: 175MB peak: 236MB)
 
 @W: MT246 :"e:\liberoprojects\certificationsystem_m2s090ts\component\work\certificationsystem_sb\ccc_0\certificationsystem_sb_ccc_0_fccc.vhd":106:4:106:11|Blackbox CCC is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results) 
 @W: MT420 |Found inferred clock CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock with period 10.00ns. Please declare a user-defined clock on object "n:CertificationSystem_sb_0.CCC_0.GL0_net"
@@ -185,7 +384,7 @@ Start final timing analysis (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:0
 
 
 @S |##### START OF TIMING REPORT #####[
-# Timing Report written on Thu May 25 15:39:21 2017
+# Timing Report written on Fri Jun 09 16:24:24 2017
 #
 
 
@@ -205,14 +404,14 @@ Performance Summary
 *******************
 
 
-Worst slack in design: 2.187
+Worst slack in design: -1.853
 
-                                                             Requested     Estimated      Requested     Estimated               Clock        Clock              
-Starting Clock                                               Frequency     Frequency      Period        Period        Slack     Type         Group              
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     128.0 MHz      10.000        7.813         2.187     inferred     Inferred_clkgroup_0
-System                                                       100.0 MHz     1029.4 MHz     10.000        0.971         9.029     system       system_clkgroup    
-================================================================================================================================================================
+                                                             Requested     Estimated      Requested     Estimated                Clock        Clock              
+Starting Clock                                               Frequency     Frequency      Period        Period        Slack      Type         Group              
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     84.4 MHz       10.000        11.853        -1.853     inferred     Inferred_clkgroup_0
+System                                                       100.0 MHz     1029.4 MHz     10.000        0.971         9.029      system       system_clkgroup    
+=================================================================================================================================================================
 
 
 
@@ -221,13 +420,15 @@ System                                                       100.0 MHz     1029.
 Clock Relationships
 *******************
 
-Clocks                                                                                                              |    rise  to  rise   |    fall  to  fall   |    rise  to  fall   |    fall  to  rise 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Starting                                                  Ending                                                    |  constraint  slack  |  constraint  slack  |  constraint  slack  |  constraint  slack
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-System                                                    System                                                    |  10.000      9.029  |  No paths    -      |  No paths    -      |  No paths    -    
-CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock  CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  10.000      2.187  |  No paths    -      |  No paths    -      |  No paths    -    
-==========================================================================================================================================================================================================
+Clocks                                                                                                              |    rise  to  rise    |    fall  to  fall   |    rise  to  fall   |    fall  to  rise 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Starting                                                  Ending                                                    |  constraint  slack   |  constraint  slack  |  constraint  slack  |  constraint  slack
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+System                                                    System                                                    |  10.000      9.029   |  No paths    -      |  No paths    -      |  No paths    -    
+System                                                    CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  10.000      0.528   |  No paths    -      |  No paths    -      |  No paths    -    
+CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock  System                                                    |  10.000      8.509   |  No paths    -      |  No paths    -      |  No paths    -    
+CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock  CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  10.000      -1.853  |  No paths    -      |  No paths    -      |  No paths    -    
+===========================================================================================================================================================================================================
  Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
        'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
 
@@ -249,41 +450,41 @@ Detailed Report for Clock: CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_cl
 Starting Points with Worst Slack
 ********************************
 
-                                                                                                                      Starting                                                                                                                                                    Arrival          
-Instance                                                                                                              Reference                                                    Type        Pin                Net                                                             Time        Slack
-                                                                                                                      Clock                                                                                                                                                                        
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                                                  CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_075     F_HM0_TRANS1       CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HTRANS[1]     3.108       2.187
-CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                                                  CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_075     F_HM0_ADDR[31]     CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[31]     3.031       2.707
-CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                                                  CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_075     F_HM0_ADDR[29]     CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[29]     3.020       2.767
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf.count[0]               CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  count[0]                                                        0.094       2.857
-CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                                                  CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_075     F_HM0_ADDR[28]     CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[28]     3.022       2.873
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf.count[2]               CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  count[2]                                                        0.076       2.924
-CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                                                  CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_075     F_HM0_ADDR[30]     CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[30]     3.018       2.934
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf.burst_count_reg[0]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  burst_count_reg[0]                                              0.094       2.969
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf.count[4]               CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  count[4]                                                        0.076       2.977
-CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                                                  CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_075     F_HM0_WRITE        CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HWRITE        3.135       3.273
-===================================================================================================================================================================================================================================================================================================
+                                                                                    Starting                                                                                                                                                    Arrival           
+Instance                                                                            Reference                                                    Type        Pin                Net                                                             Time        Slack 
+                                                                                    Clock                                                                                                                                                                         
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_075     F_HM0_ADDR[30]     CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[30]     6.547       -1.853
+CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_075     F_HM0_ADDR[29]     CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[29]     6.472       -1.643
+CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_075     F_HM0_TRANS1       CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HTRANS[1]     6.215       -1.359
+CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_075     F_HM0_ADDR[28]     CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[28]     6.382       -1.085
+CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     MSS_075     F_HM0_ADDR[31]     CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[31]     6.413       -1.021
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[10]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  SDATASELInt[10]                                                 0.076       -0.219
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[6]      CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  SDATASELInt[6]                                                  0.076       -0.154
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[11]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  SDATASELInt[11]                                                 0.076       -0.132
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[0]      CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  SDATASELInt[0]                                                  0.076       -0.087
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SDATASELInt[7]      CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         Q                  SDATASELInt[7]                                                  0.076       -0.066
+==================================================================================================================================================================================================================================================================
 
 
 Ending Points with Worst Slack
 ******************************
 
-                                                                                Starting                                                                                                Required          
-Instance                                                                        Reference                                                    Type     Pin     Net                       Time         Slack
-                                                                                Clock                                                                                                                     
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[0]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable     9.707        2.187
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[1]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable     9.707        2.187
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[2]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable     9.707        2.187
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[3]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable     9.707        2.187
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[4]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable     9.707        2.187
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[5]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable     9.707        2.187
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[6]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable     9.707        2.187
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[7]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable     9.707        2.187
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[8]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable     9.707        2.187
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[9]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      masterAddrClockEnable     9.707        2.187
-==========================================================================================================================================================================================================
+                                                                                Starting                                                                                    Required           
+Instance                                                                        Reference                                                    Type     Pin     Net           Time         Slack 
+                                                                                Clock                                                                                                          
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[0]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_106_i_0     9.707        -1.853
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[1]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_106_i_0     9.707        -1.853
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[2]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_106_i_0     9.707        -1.853
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[3]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_106_i_0     9.707        -1.853
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[4]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_106_i_0     9.707        -1.853
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[5]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_106_i_0     9.707        -1.853
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[6]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_106_i_0     9.707        -1.853
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[7]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_106_i_0     9.707        -1.853
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[8]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_106_i_0     9.707        -1.853
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[9]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      EN      N_106_i_0     9.707        -1.853
+===============================================================================================================================================================================================
 
 
 
@@ -297,36 +498,192 @@ Path information for path number 1:
     + Clock delay at ending point:           0.000 (ideal)
     = Required time:                         9.707
 
-    - Propagation time:                      7.520
+    - Propagation time:                      11.559
     - Clock delay at starting point:         0.000 (ideal)
-    = Slack (critical) :                     2.187
+    = Slack (critical) :                     -1.853
 
     Number of logic level(s):                4
-    Starting point:                          CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST / F_HM0_TRANS1
+    Starting point:                          CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[30]
     Ending point:                            CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[0] / EN
     The start point is clocked by            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
     The end   point is clocked by            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
 
-Instance / Net                                                                                        Pin              Pin               Arrival     No. of    
-Name                                                                                      Type        Name             Dir     Delay     Time        Fan Out(s)
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                      MSS_075     F_HM0_TRANS1     Out     3.108     3.108       -         
-CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HTRANS[1]                               Net         -                -       0.985     -           6         
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.GATEDHTRANS               CFG3        C                In      -         4.093       -         
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.GATEDHTRANS               CFG3        Y                Out     0.182     4.275       -         
-M0GATEDHTRANS                                                                             Net         -                -       0.706     -           8         
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.un88_htrans_2_1           CFG4        D                In      -         4.981       -         
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.un88_htrans_2_1           CFG4        Y                Out     0.250     5.231       -         
-un88_htrans_2_1                                                                           Net         -                -       0.548     -           2         
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.un88_htrans_2             CFG4        B                In      -         5.779       -         
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.un88_htrans_2             CFG4        Y                Out     0.143     5.922       -         
-un88_htrans_2                                                                             Net         -                -       0.483     -           1         
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable     CFG4        B                In      -         6.405       -         
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable     CFG4        Y                Out     0.143     6.548       -         
-masterAddrClockEnable                                                                     Net         -                -       0.972     -           20        
-CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[0]               SLE         EN               In      -         7.520       -         
-===============================================================================================================================================================
-Total path delay (propagation time + setup) of 7.813 is 4.119(52.7%) logic and 3.694(47.3%) route.
+Instance / Net                                                                                                                 Pin                Pin               Arrival     No. of    
+Name                                                                                                               Type        Name               Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                                               MSS_075     F_HM0_ADDR[30]     Out     6.547     6.547       -         
+CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[30]                                                        Net         -                  -       0.980     -           3         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m2[30]                             CFG3        C                  In      -         7.527       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m2[30]                             CFG3        Y                  Out     0.177     7.703       -         
+N_148                                                                                                              Net         -                  -       0.870     -           24        
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_i_o2_1_o2[4]                              CFG3        C                  In      -         8.573       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_i_o2_1_o2[4]                              CFG3        Y                  Out     0.196     8.769       -         
+N_127                                                                                                              Net         -                  -       0.689     -           7         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState_ns_i_0_a2[0]     CFG4        B                  In      -         9.458       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState_ns_i_0_a2[0]     CFG4        Y                  Out     0.143     9.601       -         
+N_226                                                                                                              Net         -                  -       0.722     -           9         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_i_5_RNIU9KI1                 CFG4        D                  In      -         10.323      -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_i_5_RNIU9KI1                 CFG4        Y                  Out     0.250     10.573      -         
+N_106_i_0                                                                                                          Net         -                  -       0.986     -           22        
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[0]                                        SLE         EN                 In      -         11.559      -         
+==========================================================================================================================================================================================
+Total path delay (propagation time + setup) of 11.853 is 7.606(64.2%) logic and 4.246(35.8%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+Path information for path number 2: 
+      Requested Period:                      10.000
+    - Setup time:                            0.293
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.707
+
+    - Propagation time:                      11.559
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -1.853
+
+    Number of logic level(s):                4
+    Starting point:                          CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[30]
+    Ending point:                            CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHTRANS / EN
+    The start point is clocked by            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
+    The end   point is clocked by            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
+
+Instance / Net                                                                                                                 Pin                Pin               Arrival     No. of    
+Name                                                                                                               Type        Name               Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                                               MSS_075     F_HM0_ADDR[30]     Out     6.547     6.547       -         
+CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[30]                                                        Net         -                  -       0.980     -           3         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m2[30]                             CFG3        C                  In      -         7.527       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m2[30]                             CFG3        Y                  Out     0.177     7.703       -         
+N_148                                                                                                              Net         -                  -       0.870     -           24        
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_i_o2_1_o2[4]                              CFG3        C                  In      -         8.573       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_i_o2_1_o2[4]                              CFG3        Y                  Out     0.196     8.769       -         
+N_127                                                                                                              Net         -                  -       0.689     -           7         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState_ns_i_0_a2[0]     CFG4        B                  In      -         9.458       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState_ns_i_0_a2[0]     CFG4        Y                  Out     0.143     9.601       -         
+N_226                                                                                                              Net         -                  -       0.722     -           9         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_i_5_RNIU9KI1                 CFG4        D                  In      -         10.323      -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_i_5_RNIU9KI1                 CFG4        Y                  Out     0.250     10.573      -         
+N_106_i_0                                                                                                          Net         -                  -       0.986     -           22        
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHTRANS                                          SLE         EN                 In      -         11.559      -         
+==========================================================================================================================================================================================
+Total path delay (propagation time + setup) of 11.853 is 7.606(64.2%) logic and 4.246(35.8%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+Path information for path number 3: 
+      Requested Period:                      10.000
+    - Setup time:                            0.293
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.707
+
+    - Propagation time:                      11.559
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -1.853
+
+    Number of logic level(s):                4
+    Starting point:                          CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[30]
+    Ending point:                            CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHWRITE / EN
+    The start point is clocked by            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
+    The end   point is clocked by            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
+
+Instance / Net                                                                                                                 Pin                Pin               Arrival     No. of    
+Name                                                                                                               Type        Name               Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                                               MSS_075     F_HM0_ADDR[30]     Out     6.547     6.547       -         
+CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[30]                                                        Net         -                  -       0.980     -           3         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m2[30]                             CFG3        C                  In      -         7.527       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m2[30]                             CFG3        Y                  Out     0.177     7.703       -         
+N_148                                                                                                              Net         -                  -       0.870     -           24        
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_i_o2_1_o2[4]                              CFG3        C                  In      -         8.573       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_i_o2_1_o2[4]                              CFG3        Y                  Out     0.196     8.769       -         
+N_127                                                                                                              Net         -                  -       0.689     -           7         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState_ns_i_0_a2[0]     CFG4        B                  In      -         9.458       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState_ns_i_0_a2[0]     CFG4        Y                  Out     0.143     9.601       -         
+N_226                                                                                                              Net         -                  -       0.722     -           9         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_i_5_RNIU9KI1                 CFG4        D                  In      -         10.323      -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_i_5_RNIU9KI1                 CFG4        Y                  Out     0.250     10.573      -         
+N_106_i_0                                                                                                          Net         -                  -       0.986     -           22        
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHWRITE                                          SLE         EN                 In      -         11.559      -         
+==========================================================================================================================================================================================
+Total path delay (propagation time + setup) of 11.853 is 7.606(64.2%) logic and 4.246(35.8%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+Path information for path number 4: 
+      Requested Period:                      10.000
+    - Setup time:                            0.293
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.707
+
+    - Propagation time:                      11.559
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -1.853
+
+    Number of logic level(s):                4
+    Starting point:                          CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[30]
+    Ending point:                            CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[10] / EN
+    The start point is clocked by            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
+    The end   point is clocked by            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
+
+Instance / Net                                                                                                                 Pin                Pin               Arrival     No. of    
+Name                                                                                                               Type        Name               Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                                               MSS_075     F_HM0_ADDR[30]     Out     6.547     6.547       -         
+CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[30]                                                        Net         -                  -       0.980     -           3         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m2[30]                             CFG3        C                  In      -         7.527       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m2[30]                             CFG3        Y                  Out     0.177     7.703       -         
+N_148                                                                                                              Net         -                  -       0.870     -           24        
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_i_o2_1_o2[4]                              CFG3        C                  In      -         8.573       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_i_o2_1_o2[4]                              CFG3        Y                  Out     0.196     8.769       -         
+N_127                                                                                                              Net         -                  -       0.689     -           7         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState_ns_i_0_a2[0]     CFG4        B                  In      -         9.458       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState_ns_i_0_a2[0]     CFG4        Y                  Out     0.143     9.601       -         
+N_226                                                                                                              Net         -                  -       0.722     -           9         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_i_5_RNIU9KI1                 CFG4        D                  In      -         10.323      -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_i_5_RNIU9KI1                 CFG4        Y                  Out     0.250     10.573      -         
+N_106_i_0                                                                                                          Net         -                  -       0.986     -           22        
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[10]                                       SLE         EN                 In      -         11.559      -         
+==========================================================================================================================================================================================
+Total path delay (propagation time + setup) of 11.853 is 7.606(64.2%) logic and 4.246(35.8%) route.
+Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
+
+
+Path information for path number 5: 
+      Requested Period:                      10.000
+    - Setup time:                            0.293
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         9.707
+
+    - Propagation time:                      11.559
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -1.853
+
+    Number of logic level(s):                4
+    Starting point:                          CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST / F_HM0_ADDR[30]
+    Ending point:                            CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[9] / EN
+    The start point is clocked by            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK_BASE
+    The end   point is clocked by            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
+
+Instance / Net                                                                                                                 Pin                Pin               Arrival     No. of    
+Name                                                                                                               Type        Name               Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST                                               MSS_075     F_HM0_ADDR[30]     Out     6.547     6.547       -         
+CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR[30]                                                        Net         -                  -       0.980     -           3         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m2[30]                             CFG3        C                  In      -         7.527       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.PREGATEDHADDR_i_m2[30]                             CFG3        Y                  Out     0.177     7.703       -         
+N_148                                                                                                              Net         -                  -       0.870     -           24        
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_i_o2_1_o2[4]                              CFG3        C                  In      -         8.573       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.SADDRSEL_i_o2_1_o2[4]                              CFG3        Y                  Out     0.196     8.769       -         
+N_127                                                                                                              Net         -                  -       0.689     -           7         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState_ns_i_0_a2[0]     CFG4        B                  In      -         9.458       -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_5.slave_arbiter.arbRegSMCurrentState_ns_i_0_a2[0]     CFG4        Y                  Out     0.143     9.601       -         
+N_226                                                                                                              Net         -                  -       0.722     -           9         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_i_5_RNIU9KI1                 CFG4        D                  In      -         10.323      -         
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.masterAddrClockEnable_i_5_RNIU9KI1                 CFG4        Y                  Out     0.250     10.573      -         
+N_106_i_0                                                                                                          Net         -                  -       0.986     -           22        
+CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.masterstage_0.regHADDR[9]                                        SLE         EN                 In      -         11.559      -         
+==========================================================================================================================================================================================
+Total path delay (propagation time + setup) of 11.853 is 7.606(64.2%) logic and 4.246(35.8%) route.
 Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
 
 
@@ -341,23 +698,33 @@ Detailed Report for Clock: System
 Starting Points with Worst Slack
 ********************************
 
-                                                       Starting                                                                                           Arrival          
-Instance                                               Reference     Type               Pin        Net                                                    Time        Slack
-                                                       Clock                                                                                                               
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_0.FABOSC_0.I_RCOSC_25_50MHZ     System        RCOSC_25_50MHZ     CLKOUT     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000       9.029
-===========================================================================================================================================================================
+                                                                 Starting                                                                                           Arrival          
+Instance                                                         Reference     Type               Pin        Net                                                    Time        Slack
+                                                                 Clock                                                                                                               
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_sel     System        SLE                Q          bytes_sel                                              0.076       0.528
+CertificationSystem_sb_0.FABOSC_0.I_RCOSC_25_50MHZ               System        RCOSC_25_50MHZ     CLKOUT     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000       9.029
+=====================================================================================================================================================================================
 
 
 Ending Points with Worst Slack
 ******************************
 
-                                            Starting                                                                                         Required          
-Instance                                    Reference     Type     Pin                Net                                                    Time         Slack
-                                            Clock                                                                                                              
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_0.CCC_0.CCC_INST     System        CCC      RCOSC_25_50MHZ     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     10.000       9.029
-===============================================================================================================================================================
+                                                                               Starting                                          Required          
+Instance                                                                       Reference     Type     Pin     Net                Time         Slack
+                                                                               Clock                                                               
+---------------------------------------------------------------------------------------------------------------------------------------------------
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[31]     System        SLE      D       next_reg_a[31]     9.778        0.528
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_e[31]     System        SLE      D       next_reg_e[31]     9.778        0.753
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[30]     System        SLE      D       next_reg_a[30]     9.778        0.767
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[29]     System        SLE      D       next_reg_a[29]     9.778        0.781
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[28]     System        SLE      D       next_reg_a[28]     9.778        0.795
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[27]     System        SLE      D       next_reg_a[27]     9.778        0.809
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[26]     System        SLE      D       next_reg_a[26]     9.778        0.824
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[25]     System        SLE      D       next_reg_a[25]     9.778        0.838
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[24]     System        SLE      D       next_reg_a[24]     9.778        0.852
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[23]     System        SLE      D       next_reg_a[23]     9.778        0.866
+===================================================================================================================================================
 
 
 
@@ -367,30 +734,125 @@ Worst Path Information
 
 Path information for path number 1: 
       Requested Period:                      10.000
-    - Setup time:                            0.000
+    - Setup time:                            0.222
     + Clock delay at ending point:           0.000 (ideal)
-    + Estimated clock delay at ending point: 0.000
-    = Required time:                         10.000
+    = Required time:                         9.778
 
-    - Propagation time:                      0.971
+    - Propagation time:                      9.250
     - Clock delay at starting point:         0.000 (ideal)
     - Estimated clock delay at start point:  -0.000
-    = Slack (non-critical) :                 9.029
+    = Slack (non-critical) :                 0.528
 
-    Number of logic level(s):                0
-    Starting point:                          CertificationSystem_sb_0.FABOSC_0.I_RCOSC_25_50MHZ / CLKOUT
-    Ending point:                            CertificationSystem_sb_0.CCC_0.CCC_INST / RCOSC_25_50MHZ
-    The start point is clocked by            System [rising]
-    The end   point is clocked by            System [rising]
+    Number of logic level(s):                32
+    Starting point:                          SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_sel / Q
+    Ending point:                            SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[31] / D
+    The start point is clocked by            System [rising] on pin CLK
+    The end   point is clocked by            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock [rising] on pin CLK
 
-Instance / Net                                                            Pin                Pin               Arrival     No. of    
-Name                                                   Type               Name               Dir     Delay     Time        Fan Out(s)
--------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_0.FABOSC_0.I_RCOSC_25_50MHZ     RCOSC_25_50MHZ     CLKOUT             Out     0.000     0.000       -         
-FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     Net                -                  -       0.971     -           1         
-CertificationSystem_sb_0.CCC_0.CCC_INST                CCC                RCOSC_25_50MHZ     In      -         0.971       -         
-=====================================================================================================================================
-Total path delay (propagation time + setup) of 0.971 is 0.000(0.0%) logic and 0.971(100.0%) route.
+Instance / Net                                                                                 Pin      Pin               Arrival     No. of    
+Name                                                                                  Type     Name     Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------------------------------
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_sel                          SLE      Q        Out     0.076     0.076       -         
+bytes_sel                                                                             Net      -        -       0.676     -           4         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_0_o2_0[23]     CFG3     A        In      -         0.752       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_0_o2_0[23]     CFG3     Y        Out     0.087     0.840       -         
+W_out_2_0_o2_0[23]                                                                    Net      -        -       0.483     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_0_o2_1[15]     CFG4     B        In      -         1.323       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_0_o2_1[15]     CFG4     Y        Out     0.129     1.452       -         
+N_116                                                                                 Net      -        -       0.857     -           22        
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_o2_5[8]      CFG3     B        In      -         2.309       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_o2_5[8]      CFG3     Y        Out     0.143     2.452       -         
+N_211                                                                                 Net      -        -       0.706     -           8         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_o2[8]        CFG4     C        In      -         3.158       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_o2[8]        CFG4     Y        Out     0.196     3.354       -         
+N_405                                                                                 Net      -        -       0.689     -           7         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_0[8]         CFG4     B        In      -         4.043       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_0[8]         CFG4     Y        Out     0.129     4.172       -         
+W_out_2_i_0[8]                                                                        Net      -        -       0.483     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_1[8]         CFG4     D        In      -         4.656       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_padding.W_out_2_i_1[8]         CFG4     Y        Out     0.236     4.892       -         
+W_out_2_i_1[8]                                                                        Net      -        -       0.483     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.next_r0[8]             CFG4     D        In      -         5.375       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.next_r0[8]             CFG4     Y        Out     0.284     5.659       -         
+Wt_data[8]                                                                            Net      -        -       0.548     -           2         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_8           ARI1     B        In      -         6.207       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_8           ARI1     FCO      Out     0.174     6.381       -         
+sum3_cry_8                                                                            Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_9           ARI1     FCI      In      -         6.381       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_9           ARI1     FCO      Out     0.014     6.395       -         
+sum3_cry_9                                                                            Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_10          ARI1     FCI      In      -         6.395       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_10          ARI1     FCO      Out     0.014     6.409       -         
+sum3_cry_10                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_11          ARI1     FCI      In      -         6.409       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_11          ARI1     FCO      Out     0.014     6.424       -         
+sum3_cry_11                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_12          ARI1     FCI      In      -         6.424       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_12          ARI1     FCO      Out     0.014     6.438       -         
+sum3_cry_12                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_13          ARI1     FCI      In      -         6.438       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_13          ARI1     FCO      Out     0.014     6.452       -         
+sum3_cry_13                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_14          ARI1     FCI      In      -         6.452       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_14          ARI1     FCO      Out     0.014     6.466       -         
+sum3_cry_14                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_15          ARI1     FCI      In      -         6.466       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_15          ARI1     FCO      Out     0.014     6.480       -         
+sum3_cry_15                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_16          ARI1     FCI      In      -         6.480       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_16          ARI1     FCO      Out     0.014     6.495       -         
+sum3_cry_16                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_17          ARI1     FCI      In      -         6.495       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_17          ARI1     FCO      Out     0.014     6.509       -         
+sum3_cry_17                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_18          ARI1     FCI      In      -         6.509       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_18          ARI1     FCO      Out     0.014     6.523       -         
+sum3_cry_18                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_19          ARI1     FCI      In      -         6.523       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_19          ARI1     FCO      Out     0.014     6.537       -         
+sum3_cry_19                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_20          ARI1     FCI      In      -         6.537       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_20          ARI1     FCO      Out     0.014     6.551       -         
+sum3_cry_20                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_21          ARI1     FCI      In      -         6.551       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_21          ARI1     FCO      Out     0.014     6.566       -         
+sum3_cry_21                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_22          ARI1     FCI      In      -         6.566       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_22          ARI1     FCO      Out     0.014     6.580       -         
+sum3_cry_22                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_23          ARI1     FCI      In      -         6.580       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_23          ARI1     FCO      Out     0.014     6.594       -         
+sum3_cry_23                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_24          ARI1     FCI      In      -         6.594       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_24          ARI1     FCO      Out     0.014     6.608       -         
+sum3_cry_24                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_25          ARI1     FCI      In      -         6.608       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_25          ARI1     FCO      Out     0.014     6.622       -         
+sum3_cry_25                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_26          ARI1     FCI      In      -         6.622       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_26          ARI1     FCO      Out     0.014     6.637       -         
+sum3_cry_26                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_27          ARI1     FCI      In      -         6.637       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_27          ARI1     FCO      Out     0.014     6.651       -         
+sum3_cry_27                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_28          ARI1     FCI      In      -         6.651       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_28          ARI1     FCO      Out     0.014     6.665       -         
+sum3_cry_28                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_29          ARI1     FCI      In      -         6.665       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_29          ARI1     FCO      Out     0.014     6.679       -         
+sum3_cry_29                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_30          ARI1     FCI      In      -         6.679       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_cry_30          ARI1     FCO      Out     0.014     6.693       -         
+sum3_cry_30                                                                           Net      -        -       0.000     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_s_31            ARI1     FCI      In      -         6.693       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.sum3_s_31            ARI1     S        Out     0.063     6.757       -         
+sum3[31]                                                                              Net      -        -       0.977     -           2         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.next_reg_a_s_31      ARI1     D        In      -         7.733       -         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.next_reg_a_s_31      ARI1     S        Out     0.545     8.279       -         
+next_reg_a[31]                                                                        Net      -        -       0.971     -           1         
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_hash_core.reg_a[31]            SLE      D        In      -         9.250       -         
+================================================================================================================================================
+Total path delay (propagation time + setup) of 9.472 is 2.599(27.4%) logic and 6.874(72.6%) route.
 Path delay compensated for clock skew. Clock skew is added to clock-to-out value, and is subtracted from setup time value
 
 
@@ -398,28 +860,33 @@ Path delay compensated for clock skew. Clock skew is added to clock-to-out value
 ##### END OF TIMING REPORT #####]
 
 
-Finished final timing analysis (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 159MB peak: 162MB)
+Finished final timing analysis (Real Time elapsed 0h:00m:17s; CPU Time elapsed 0h:00m:17s; Memory used current: 176MB peak: 236MB)
 
 
-Finished timing report (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 159MB peak: 162MB)
+Finished timing report (Real Time elapsed 0h:00m:17s; CPU Time elapsed 0h:00m:17s; Memory used current: 176MB peak: 236MB)
 
 ---------------------------------------
 Resource Usage Report for CertificationSystem 
 
 Mapping to part: m2s090tsfbga484-1
 Cell usage:
+AND2            1 use
 CCC             1 use
-CLKINT          2 uses
+CLKINT          4 uses
 MSS_075         1 use
 RCOSC_25_50MHZ  1 use
 SYSRESET        1 use
-CFG2           86 uses
-CFG3           91 uses
-CFG4           833 uses
+CFG1           2 uses
+CFG2           148 uses
+CFG3           614 uses
+CFG4           1763 uses
+
+Carry primitives used for arithmetic functions:
+ARI1           677 uses
 
 
 Sequential Cells: 
-SLE            115 uses
+SLE            2099 uses
 
 DSP Blocks:    0
 
@@ -431,13 +898,13 @@ OUTBUF         1 use
 TRIBUFF        2 uses
 
 
-Global Clock Buffers: 2
+Global Clock Buffers: 4
 
 
 RAM/ROM usage summary
 Block Rams (RAM1K18) : 32
 
-Total LUTs:    1010
+Total LUTs:    3204
 
 Extra resources required for RAM and MACC interface logic during P&R:
 
@@ -445,14 +912,14 @@ RAM64x18 Interface Logic : SLEs = 0; LUTs = 0;
 RAM1K18  Interface Logic : SLEs = 1152; LUTs = 1152;
 MACC     Interface Logic : SLEs = 0; LUTs = 0;
 
-Total number of SLEs after P&R:  115 + 0 + 1152 + 0 = 1267;
-Total number of LUTs after P&R:  1010 + 0 + 1152 + 0 = 2162;
+Total number of SLEs after P&R:  2099 + 0 + 1152 + 0 = 3251;
+Total number of LUTs after P&R:  3204 + 0 + 1152 + 0 = 4356;
 
 Mapper successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:04s; CPU Time elapsed 0h:00m:04s; Memory used current: 52MB peak: 162MB)
+At Mapper Exit (Real Time elapsed 0h:00m:17s; CPU Time elapsed 0h:00m:17s; Memory used current: 60MB peak: 236MB)
 
-Process took 0h:00m:04s realtime, 0h:00m:04s cputime
-# Thu May 25 15:39:21 2017
+Process took 0h:00m:17s realtime, 0h:00m:17s cputime
+# Fri Jun 09 16:24:24 2017
 
 ###########################################################]

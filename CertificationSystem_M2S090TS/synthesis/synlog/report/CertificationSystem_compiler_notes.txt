@@ -4,6 +4,27 @@
 @N:"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem\CertificationSystem.vhd":17:7:17:25|Top entity is set to CertificationSystem.
 @N: CD231 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\vhd2008\std1164.vhd":890:16:890:17|Using onehot encoding for type mvl9plus ('U'="1000000000")
 @N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem\CertificationSystem.vhd":17:7:17:25|Synthesizing work.certificationsystem.rtl 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\SHA256_Module.vhd":17:7:17:19|Synthesizing work.sha256_module.rtl 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\zero_concat.vhd":23:7:23:17|Synthesizing work.zero_concat.architecture_zero_concat 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\SHA256_BLOCK.vhd":17:7:17:18|Synthesizing work.sha256_block.rtl 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_controller.vhd":33:7:33:23|Synthesizing work.sha256_controller.architecture_sha256_controller 
+@N: CD231 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_controller.vhd":67:20:67:21|Using onehot encoding for type state_type (wait_data="100000")
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\reg_17x32.vhd":23:7:23:15|Synthesizing work.reg_17x32.architecture_reg_17x32 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\limiter_1cycle.vhd":22:7:22:20|Synthesizing work.limiter_1cycle.architecture_limiter_1cycle 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\gv_sha256.vhd":80:7:80:15|Synthesizing work.gv_sha256.rtl 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_Ki_rom.vhd":56:7:56:19|Synthesizing work.sha256_ki_rom.behavioral 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_Kt_rom.vhd":59:7:59:19|Synthesizing work.sha256_kt_rom.behavioral 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_regs.vhd":55:7:55:17|Synthesizing work.sha256_regs.rtl 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_hash_core.vhd":60:7:60:22|Synthesizing work.sha256_hash_core.rtl 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_msg_sch.vhd":54:7:54:20|Synthesizing work.sha256_msg_sch.rtl 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_padding.vhd":58:7:58:20|Synthesizing work.sha256_padding.rtl 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":250:7:250:20|Synthesizing work.sha256_control.rtl 
+@N: CD231 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":283:31:283:32|Using onehot encoding for type hash_toplevel_control (st_reset="1000000")
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\reg9_1x32.vhd":17:7:17:15|Synthesizing work.reg9_1x32.rtl 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\reg_1x32.vhd":23:7:23:14|Synthesizing work.reg_1x32.architecture_reg_1x32 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\mux_9_1.vhd":23:7:23:13|Synthesizing work.mux_9_1.architecture_mux_9_1 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\reg1_highonly.vhd":25:7:25:19|Synthesizing work.reg1_highonly.architecture_reg1_highonly 
+@N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":191:10:191:13|Synthesizing smartfusion2.and2.syn_black_box 
 @N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\CertificationSystem_sb.vhd":22:7:22:28|Synthesizing work.certificationsystem_sb.rtl 
 @N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":786:10:786:17|Synthesizing smartfusion2.sysreset.syn_black_box 
 @N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.vhd":8:7:8:41|Synthesizing work.certificationsystem_sb_fabosc_0_osc.def_arch 
@@ -43,6 +64,8 @@
 @N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":794:10:794:12|Synthesizing smartfusion2.ccc.syn_black_box 
 @N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":576:10:576:12|Synthesizing smartfusion2.gnd.syn_black_box 
 @N: CD630 :"C:\Microsemi\Libero_SoC_v11.7\Synplify\lib\generic\smartfusion2.vhd":582:10:582:12|Synthesizing smartfusion2.vcc.syn_black_box 
+@N: CD630 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\AHB_slave_dummy.vhd":10:7:10:21|Synthesizing work.ahb_slave_dummy.behaviour 
+@N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\AHB_slave_dummy.vhd":69:4:69:5|Trying to extract state machine for register FSM
 @N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_slavearbiter.vhd":398:8:398:9|Trying to extract state machine for register arbRegSMCurrentState
 @N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\AHBLSramIf.vhd":172:6:172:7|Trying to extract state machine for register ahbcurr_state
 @N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd":179:6:179:7|Trying to extract state machine for register sramcurr_state
@@ -55,5 +78,9 @@
 @N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":1193:8:1193:9|Trying to extract state machine for register sdif1_state
 @N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":1134:8:1134:9|Trying to extract state machine for register sdif0_state
 @N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":1059:8:1059:9|Trying to extract state machine for register sm0_state
+@N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":354:8:354:9|Trying to extract state machine for register hash_control_st_reg
+@N: CL135 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_msg_sch.vhd":122:8:122:9|Found seqShift r2, depth=8, width=32
+@N: CL135 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_msg_sch.vhd":122:8:122:9|Found seqShift r10, depth=5, width=32
+@N: CL201 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_controller.vhd":82:8:82:9|Trying to extract state machine for register state
 @N|Running in 64-bit mode
 

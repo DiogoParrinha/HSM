@@ -2,18 +2,23 @@ Resource Usage Report for CertificationSystem
 
 Mapping to part: m2s090tsfbga484-1
 Cell usage:
+AND2            1 use
 CCC             1 use
-CLKINT          2 uses
+CLKINT          4 uses
 MSS_075         1 use
 RCOSC_25_50MHZ  1 use
 SYSRESET        1 use
-CFG2           86 uses
-CFG3           91 uses
-CFG4           833 uses
+CFG1           2 uses
+CFG2           148 uses
+CFG3           614 uses
+CFG4           1763 uses
+
+Carry primitives used for arithmetic functions:
+ARI1           677 uses
 
 
 Sequential Cells: 
-SLE            115 uses
+SLE            2099 uses
 
 DSP Blocks:    0
 
@@ -25,10 +30,10 @@ OUTBUF         1 use
 TRIBUFF        2 uses
 
 
-Global Clock Buffers: 2
+Global Clock Buffers: 4
 
 
-Total LUTs:    1010
+Total LUTs:    3204
 
 Extra resources required for RAM and MACC interface logic during P&R:
 
@@ -36,6 +41,6 @@ RAM64x18 Interface Logic : SLEs = 0; LUTs = 0;
 RAM1K18  Interface Logic : SLEs = 1152; LUTs = 1152;
 MACC     Interface Logic : SLEs = 0; LUTs = 0;
 
-Total number of SLEs after P&R:  115 + 0 + 1152 + 0 = 1267;
-Total number of LUTs after P&R:  1010 + 0 + 1152 + 0 = 2162;
+Total number of SLEs after P&R:  2099 + 0 + 1152 + 0 = 3251;
+Total number of LUTs after P&R:  3204 + 0 + 1152 + 0 = 4356;
 

@@ -12,8 +12,11 @@ The file contains the area information from mapper to be displayed as part of th
 <data>E:\LiberoProjects\CertificationSystem_M2S090TS\synthesis\synlog\report\CertificationSystem_fpga_mapper_hier_area_report.xml</data>
 <title>Hierarchical Area Report</title>
 </report_link>
+<parameter tooltip="Total Carry Cells used" name="Carry Cells">
+<data>677</data>
+</parameter>
 <parameter tooltip="Total Sequential Cells used" name="Sequential Cells">
-<data>115</data>
+<data>2099</data>
 </parameter>
 <parameter tcl_name="dsp_used" tooltip="Total DSP Blocks (MACC) used" name="DSP Blocks (MACC)">
 <data>0</data>
@@ -22,12 +25,12 @@ The file contains the area information from mapper to be displayed as part of th
 <data>7</data>
 </parameter>
 <parameter tooltip="Total Global Clock Buffers used" name="Global Clock Buffers">
-<data>2</data>
+<data>4</data>
 </parameter>
 <parameter tcl_name="v_ram" tooltip="Total Block Rams (RAM1K18) used" name="Block Rams (RAM1K18)">
 <data>32</data>
 </parameter>
 <parameter tcl_name="total_luts" tooltip="Total LUTs used" name="LUTs">
-<data>1010</data>
+<data>3204</data>
 </parameter>
 </report_table>

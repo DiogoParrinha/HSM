@@ -1,7 +1,7 @@
 
 
 @S |##### START OF TIMING REPORT #####[
-# Timing Report written on Thu May 25 15:39:21 2017
+# Timing Report written on Fri Jun 09 16:24:24 2017
 #
 
 
@@ -23,12 +23,12 @@ Performance Summary
 
 Worst slack in design: 0.315
 
-                                                             Requested     Estimated      Requested     Estimated               Clock        Clock              
-Starting Clock                                               Frequency     Frequency      Period        Period        Slack     Type         Group              
-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     128.0 MHz      10.000        7.813         2.187     inferred     Inferred_clkgroup_0
-System                                                       100.0 MHz     1029.4 MHz     10.000        0.971         9.029     system       system_clkgroup    
-================================================================================================================================================================
+                                                             Requested     Estimated      Requested     Estimated                Clock        Clock              
+Starting Clock                                               Frequency     Frequency      Period        Period        Slack      Type         Group              
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     84.4 MHz       10.000        11.853        -1.853     inferred     Inferred_clkgroup_0
+System                                                       100.0 MHz     1029.4 MHz     10.000        0.971         9.029      system       system_clkgroup    
+=================================================================================================================================================================
 
 
 
@@ -40,6 +40,8 @@ Clocks                                                                          
 Starting                                                  Ending                                                    |  constraint  slack  |  constraint  slack  |  constraint  slack  |  constraint  slack
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 System                                                    System                                                    |  0.000       0.680  |  No paths    -      |  No paths    -      |  No paths    -    
+System                                                    CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  0.000       1.596  |  No paths    -      |  No paths    -      |  No paths    -    
+CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock  System                                                    |  0.000       0.733  |  No paths    -      |  No paths    -      |  No paths    -    
 CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock  CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock  |  0.000       0.315  |  No paths    -      |  No paths    -      |  No paths    -    
 ==========================================================================================================================================================================================================
  Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
@@ -63,41 +65,41 @@ Detailed Report for Clock: CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_cl
 Starting Points with Worst Slack
 ********************************
 
-                                                                                                              Starting                                                                                                  Arrival          
-Instance                                                                                                      Reference                                                    Type     Pin     Net                         Time        Slack
-                                                                                                              Clock                                                                                                                      
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_0.CORERESETP_0.FIC_2_APB_M_PRESET_N_q1                                                 CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       FIC_2_APB_M_PRESET_N_q1     0.053       0.315
-CertificationSystem_sb_0.CORERESETP_0.POWER_ON_RESET_N_q1                                                     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       POWER_ON_RESET_N_q1         0.053       0.315
-CertificationSystem_sb_0.CORERESETP_0.RESET_N_M2F_q1                                                          CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       RESET_N_M2F_q1              0.053       0.315
-CertificationSystem_sb_0.CORERESETP_0.RESET_N_M2F_clk_base                                                    CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       RESET_N_M2F_clk_base        0.066       0.341
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf.HADDR_d[2]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       ahbsram_addr[2]             0.053       0.371
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf.HADDR_d[3]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       ahbsram_addr[3]             0.053       0.371
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf.HADDR_d[4]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       ahbsram_addr[4]             0.053       0.371
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf.HADDR_d[5]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       ahbsram_addr[5]             0.053       0.371
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf.HADDR_d[6]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       ahbsram_addr[6]             0.053       0.371
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf.HADDR_d[7]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       ahbsram_addr[7]             0.053       0.371
-=========================================================================================================================================================================================================================================
+                                                                         Starting                                                                                                  Arrival          
+Instance                                                                 Reference                                                    Type     Pin     Net                         Time        Slack
+                                                                         Clock                                                                                                                      
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_0.CORERESETP_0.FIC_2_APB_M_PRESET_N_q1            CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       FIC_2_APB_M_PRESET_N_q1     0.053       0.315
+CertificationSystem_sb_0.CORERESETP_0.POWER_ON_RESET_N_q1                CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       POWER_ON_RESET_N_q1         0.053       0.315
+CertificationSystem_sb_0.CORERESETP_0.RESET_N_M2F_q1                     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       RESET_N_M2F_q1              0.053       0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r0[0]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       r0[0]                       0.053       0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r0[1]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       r0[1]                       0.053       0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r0[2]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       r0[2]                       0.053       0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r0[3]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       r0[3]                       0.053       0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r0[4]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       r0[4]                       0.053       0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r0[5]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       r0[5]                       0.053       0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r0[6]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      Q       r0[6]                       0.053       0.315
+====================================================================================================================================================================================================
 
 
 Ending Points with Worst Slack
 ******************************
 
-                                                                             Starting                                                                                                            Required          
-Instance                                                                     Reference                                                    Type        Pin            Net                         Time         Slack
-                                                                             Clock                                                                                                                                 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_0.CORERESETP_0.FIC_2_APB_M_PRESET_N_clk_base          CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         D              FIC_2_APB_M_PRESET_N_q1     0.155        0.315
-CertificationSystem_sb_0.CORERESETP_0.POWER_ON_RESET_N_clk_base              CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         D              POWER_ON_RESET_N_q1         0.155        0.315
-CertificationSystem_sb_0.CORERESETP_0.RESET_N_M2F_clk_base                   CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         D              RESET_N_M2F_q1              0.155        0.315
-CertificationSystem_sb_0.CORERESETP_0.mss_ready_state                        CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE         EN             RESET_N_M2F_clk_base        0.205        0.341
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_0.block0     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     RAM1K18     B_ADDR[5]      ahbsram_addr[2]             0.384        0.371
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_0.block0     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     RAM1K18     B_ADDR[6]      ahbsram_addr[3]             0.384        0.371
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_0.block0     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     RAM1K18     B_ADDR[7]      ahbsram_addr[4]             0.384        0.371
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_0.block0     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     RAM1K18     B_ADDR[8]      ahbsram_addr[5]             0.384        0.371
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_0.block0     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     RAM1K18     B_ADDR[9]      ahbsram_addr[6]             0.384        0.371
-CertificationSystem_sb_0.COREAHBLSRAM_0_0.U_SramCtrlIf.S0\.byte_0.block0     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     RAM1K18     B_ADDR[10]     ahbsram_addr[7]             0.384        0.371
-===================================================================================================================================================================================================================
+                                                                         Starting                                                                                                  Required          
+Instance                                                                 Reference                                                    Type     Pin     Net                         Time         Slack
+                                                                         Clock                                                                                                                       
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_0.CORERESETP_0.FIC_2_APB_M_PRESET_N_clk_base      CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       FIC_2_APB_M_PRESET_N_q1     0.155        0.315
+CertificationSystem_sb_0.CORERESETP_0.POWER_ON_RESET_N_clk_base          CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       POWER_ON_RESET_N_q1         0.155        0.315
+CertificationSystem_sb_0.CORERESETP_0.RESET_N_M2F_clk_base               CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       RESET_N_M2F_q1              0.155        0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r2[0]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       r3[0]                       0.155        0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r2[1]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       r3[1]                       0.155        0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r2[2]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       r3[2]                       0.155        0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r2[3]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       r3[3]                       0.155        0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r2[4]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       r3[4]                       0.155        0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r2[5]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       r3[5]                       0.155        0.315
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_msg_sch.r2[6]     CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     SLE      D       r3[6]                       0.155        0.315
+=====================================================================================================================================================================================================
 
 
 
@@ -139,23 +141,33 @@ Detailed Report for Clock: System
 Starting Points with Worst Slack
 ********************************
 
-                                                       Starting                                                                                           Arrival          
-Instance                                               Reference     Type               Pin        Net                                                    Time        Slack
-                                                       Clock                                                                                                               
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_0.FABOSC_0.I_RCOSC_25_50MHZ     System        RCOSC_25_50MHZ     CLKOUT     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000       0.680
-===========================================================================================================================================================================
+                                                                 Starting                                                                                           Arrival          
+Instance                                                         Reference     Type               Pin        Net                                                    Time        Slack
+                                                                 Clock                                                                                                               
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_0.FABOSC_0.I_RCOSC_25_50MHZ               System        RCOSC_25_50MHZ     CLKOUT     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000       0.680
+SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_sel     System        SLE                Q          bytes_sel                                              0.053       1.596
+=====================================================================================================================================================================================
 
 
 Ending Points with Worst Slack
 ******************************
 
-                                            Starting                                                                                         Required          
-Instance                                    Reference     Type     Pin                Net                                                    Time         Slack
-                                            Clock                                                                                                              
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-CertificationSystem_sb_0.CCC_0.CCC_INST     System        CCC      RCOSC_25_50MHZ     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000        0.680
-===============================================================================================================================================================
+                                                                                       Starting                                                                                         Required          
+Instance                                                                               Reference     Type     Pin                Net                                                    Time         Slack
+                                                                                       Clock                                                                                                              
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CertificationSystem_sb_0.CCC_0.CCC_INST                                                System        CCC      RCOSC_25_50MHZ     FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC     0.000        0.680
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[3]      System        SLE      D                  un1_msg_bit_cnt_reg_cry_0_Y                            0.155        1.596
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[4]      System        SLE      D                  un1_msg_bit_cnt_reg_cry_1_S                            0.155        1.653
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[5]      System        SLE      D                  un1_msg_bit_cnt_reg_cry_2_S                            0.155        1.662
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[6]      System        SLE      D                  un1_msg_bit_cnt_reg_cry_3_S                            0.155        1.670
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[7]      System        SLE      D                  un1_msg_bit_cnt_reg_cry_4_S                            0.155        1.679
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[8]      System        SLE      D                  un1_msg_bit_cnt_reg_cry_5_S                            0.155        1.688
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[9]      System        SLE      D                  un1_msg_bit_cnt_reg_cry_6_S                            0.155        1.697
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[10]     System        SLE      D                  un1_msg_bit_cnt_reg_cry_7_S                            0.155        1.706
+SHA256_Module_0.SHA256_BLOCK_0.gv_sha256_0.Inst_sha256_control.msg_bit_cnt_reg[11]     System        SLE      D                  un1_msg_bit_cnt_reg_cry_8_S                            0.155        1.715
+==========================================================================================================================================================================================================
 
 
 

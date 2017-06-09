@@ -1,5 +1,5 @@
 #===========================================================
-# Created by Microsemi SmartDesign Fri Feb 24 17:02:08 2017
+# Created by Microsemi SmartDesign Fri Jun 09 13:27:20 2017
 #
 # Syntax: 
 # ------- 
@@ -17,4 +17,9 @@
 # Define name and base address of each resource.
 #-----------------------------------------------------------
 
-memmap COREAHBLSRAM_0_0 0x50000000;
+memmap COREAHBLSRAM_0_0 0x30000000;
+memmap AHB_slave_dummy_0 0x50000000;
+#-----------------------------------------------------------
+# Include resource scriptlets
+#-----------------------------------------------------------
+

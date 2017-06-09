@@ -10,16 +10,16 @@ Printing clock  summary report in "E:\LiberoProjects\CertificationSystem_M2S090T
 @N: MF248 |Running in 64-bit mode.
 @N: MF667 |Clock conversion disabled 
 
-Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 116MB peak: 119MB)
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 123MB peak: 128MB)
 
 
-Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 116MB peak: 119MB)
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 123MB peak: 128MB)
 
 
-Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 117MB peak: 119MB)
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 124MB peak: 128MB)
 
 
-Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 117MB peak: 119MB)
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 124MB peak: 128MB)
 
 @W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":5322:4:5322:16|Removing user instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_16,  because it is equivalent to instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_15
 @W: BN132 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":5268:4:5268:16|Removing user instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_15,  because it is equivalent to instance CertificationSystem_sb_0.CoreAHBLite_0.matrix4x16.slavestage_14
@@ -43,6 +43,13 @@ Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1252:8:1252:9|Removing sequential instance SDIF2_CORE_RESET_N_0 of view:PrimLib.dffre(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1311:8:1311:9|Removing sequential instance SDIF3_PHY_RESET_N_int of view:PrimLib.dffre(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1311:8:1311:9|Removing sequential instance SDIF3_CORE_RESET_N_0 of view:PrimLib.dffre(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance data_available of view:PrimLib.sdffrse(prim) in hierarchy view:work.reg_1x32_7(architecture_reg_1x32) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance data_available of view:PrimLib.sdffrse(prim) in hierarchy view:work.reg_1x32_6(architecture_reg_1x32) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance data_available of view:PrimLib.sdffrse(prim) in hierarchy view:work.reg_1x32_5(architecture_reg_1x32) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance data_available of view:PrimLib.sdffrse(prim) in hierarchy view:work.reg_1x32_4(architecture_reg_1x32) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance data_available of view:PrimLib.sdffrse(prim) in hierarchy view:work.reg_1x32_3(architecture_reg_1x32) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance data_available of view:PrimLib.sdffrse(prim) in hierarchy view:work.reg_1x32_2(architecture_reg_1x32) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance data_available of view:PrimLib.sdffrse(prim) in hierarchy view:work.reg_1x32_1(architecture_reg_1x32) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance regHMASTLOCK of view:PrimLib.dffre(prim) in hierarchy view:coreahblite_lib.COREAHBLITE_MASTERSTAGE_1_1_0_0_3(coreahblite_masterstage_arch) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance regHSIZE[2:0] of view:PrimLib.dffre(prim) in hierarchy view:coreahblite_lib.COREAHBLITE_MASTERSTAGE_1_1_0_0_3(coreahblite_masterstage_arch) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":235:8:235:9|Removing sequential instance regHWRITE of view:PrimLib.dffre(prim) in hierarchy view:coreahblite_lib.COREAHBLITE_MASTERSTAGE_1_1_0_0_3(coreahblite_masterstage_arch) because there are no references to its outputs 
@@ -55,7 +62,9 @@ Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h
 @N: BN115 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":4238:4:4238:16|Removing instance masterstage_1 of view:coreahblite_lib.COREAHBLITE_MASTERSTAGE_1_1_0_0_3(coreahblite_masterstage_arch) because there are no references to its outputs 
 @N: BN115 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":4311:4:4311:16|Removing instance masterstage_2 of view:coreahblite_lib.COREAHBLITE_MASTERSTAGE_1_1_0_0_2(coreahblite_masterstage_arch) because there are no references to its outputs 
 @N: BN115 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":4384:4:4384:16|Removing instance masterstage_3 of view:coreahblite_lib.COREAHBLITE_MASTERSTAGE_1_1_0_0_1(coreahblite_masterstage_arch) because there are no references to its outputs 
-@N: BN115 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":4458:4:4458:15|Removing instance slavestage_0 of view:coreahblite_lib.COREAHBLITE_SLAVESTAGE_1(trans) because there are no references to its outputs 
+@N: BN115 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":4458:4:4458:15|Removing instance slavestage_0 of view:coreahblite_lib.COREAHBLITE_SLAVESTAGE_2(trans) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance data_available of view:PrimLib.sdffrse(prim) in hierarchy view:work.reg_1x32_8(architecture_reg_1x32) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\reg_1x32.vhd":47:4:47:5|Removing sequential instance data_available of view:PrimLib.sdffrse(prim) in hierarchy view:work.reg_1x32_0(architecture_reg_1x32) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1059:8:1059:9|Removing sequential instance INIT_DONE_int of view:PrimLib.dffre(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1134:8:1134:9|Removing sequential instance sdif0_state[0:3] of view:PrimLib.statemachine(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1193:8:1193:9|Removing sequential instance sdif1_state[0:3] of view:PrimLib.statemachine(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
@@ -89,7 +98,7 @@ Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1495:8:1495:9|Removing sequential instance release_sdif3_core of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1471:8:1471:9|Removing sequential instance release_sdif2_core of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1447:8:1447:9|Removing sequential instance release_sdif1_core of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
-@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":122:8:122:9|Removing sequential instance masterDataInProg[3:0] of view:PrimLib.dffre(prim) in hierarchy view:coreahblite_lib.COREAHBLITE_SLAVESTAGE_1(trans) because there are no references to its outputs 
+@N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreahblite\5.2.100\rtl\vhdl\core\coreahblite_slavestage.vhd":122:8:122:9|Removing sequential instance masterDataInProg[3:0] of view:PrimLib.dffre(prim) in hierarchy view:coreahblite_lib.COREAHBLITE_SLAVESTAGE_2(trans) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1423:8:1423:9|Removing sequential instance release_sdif0_core of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":1519:8:1519:9|Removing sequential instance ddr_settled of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":770:8:770:9|Removing sequential instance sm0_areset_n_clk_base of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
@@ -122,9 +131,10 @@ Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":735:8:735:9|Removing sequential instance SDIF2_PERST_N_q1 of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":719:8:719:9|Removing sequential instance SDIF1_PERST_N_q1 of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
 @N: BN362 :"e:\liberoprojects\certificationsystem_m2s090ts\component\actel\directcore\coreresetp\7.1.100\rtl\vhdl\core\coreresetp.vhd":703:8:703:9|Removing sequential instance SDIF0_PERST_N_q1 of view:PrimLib.dffr(prim) in hierarchy view:work.CoreResetP(rtl) because there are no references to its outputs 
+@W: MT462 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_controller.vhd":61:31:61:33|Net SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.un1_state_1 appears to be an unidentified clock source. Assuming default frequency. 
 syn_allowed_resources : blockrams=109  set on top level netlist CertificationSystem
 
-Finished netlist restructuring (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 145MB peak: 147MB)
+Finished netlist restructuring (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 155MB peak: 157MB)
 
 
 
@@ -138,15 +148,16 @@ CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock     100.0 MHz     10.00
 System                                                       100.0 MHz     10.000        system       system_clkgroup    
 =========================================================================================================================
 
-@W: MT530 :"e:\liberoprojects\certificationsystem_m2s090ts\component\work\certificationsystem_sb_mss\certificationsystem_sb_mss.vhd":912:0:912:13|Found inferred clock CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock which controls 197 sequential elements including CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MSS_ADLIB_INST. This clock has no specified timing constraint which may adversely impact design performance. 
+@W: MT532 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\sha256_controller.vhd":61:31:61:33|Found signal identified as System clock which controls 1 sequential elements including SHA256_Module_0.SHA256_BLOCK_0.sha256_controller_0.bytes_sel.  Using this clock, which has no specified timing constraint, can adversely impact design performance. 
+@W: MT530 :"e:\liberoprojects\certificationsystem_m2s090ts\hdl\ahb_slave_dummy.vhd":69:4:69:5|Found inferred clock CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock which controls 2270 sequential elements including AHB_slave_dummy_0.ready. This clock has no specified timing constraint which may adversely impact design performance. 
 
 Finished Pre Mapping Phase.
 @N: BN225 |Writing default property annotation file E:\LiberoProjects\CertificationSystem_M2S090TS\synthesis\CertificationSystem.sap.
 Pre-mapping successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 77MB peak: 147MB)
+At Mapper Exit (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 83MB peak: 157MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Thu May 25 15:39:16 2017
+# Fri Jun 09 16:24:07 2017
 
 ###########################################################]

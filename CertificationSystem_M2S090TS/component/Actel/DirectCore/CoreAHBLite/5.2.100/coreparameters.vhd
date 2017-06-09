@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by Microsemi SmartDesign Tue Apr 18 22:49:37 2017
+-- Created by Microsemi SmartDesign Fri Jun 09 13:27:14 2017
 -- Parameters for CoreAHBLite
 ----------------------------------------------------------------------
 
@@ -18,7 +18,7 @@ package coreparameters is
     constant M0_AHBSLOT2ENABLE : integer := 0;
     constant M0_AHBSLOT3ENABLE : integer := 1;
     constant M0_AHBSLOT4ENABLE : integer := 0;
-    constant M0_AHBSLOT5ENABLE : integer := 0;
+    constant M0_AHBSLOT5ENABLE : integer := 1;
     constant M0_AHBSLOT6ENABLE : integer := 0;
     constant M0_AHBSLOT7ENABLE : integer := 0;
     constant M0_AHBSLOT8ENABLE : integer := 0;

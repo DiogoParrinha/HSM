@@ -35,10 +35,27 @@
 #include "mbedtls/sha256.h"
 
 #include <string.h>
+
+#if defined(MBEDTLS_SELF_TEST)
+#if defined(MBEDTLS_PLATFORM_C)
+#include "mbedtls/platform.h"
+#else
 #include <stdio.h>
 #include <stdlib.h>
+#define mbedtls_printf printf
+#define mbedtls_calloc    calloc
+#define mbedtls_free       free
+#endif /* MBEDTLS_PLATFORM_C */
+#endif /* MBEDTLS_SELF_TEST */
+
+#include "../../sha256_fpga.h"
 
 #if defined(MBEDTLS_SHA256_ALT)
+
+/* Implementation that should never be optimized out by the compiler */
+static void mbedtls_zeroize( void *v, size_t n ) {
+    volatile unsigned char *p = v; while( n-- ) *p++ = 0;
+}
 
 void mbedtls_sha256_init( mbedtls_sha256_context *ctx )
 {
@@ -50,8 +67,7 @@ void mbedtls_sha256_free( mbedtls_sha256_context *ctx )
     if( ctx == NULL )
         return;
 
-    if(ctx->buffer != NULL)
-    	free(ctx->buffer);
+    mbedtls_zeroize( ctx, sizeof( mbedtls_sha256_context ) );
 }
 
 void mbedtls_sha256_clone( mbedtls_sha256_context *dst,
@@ -65,54 +81,96 @@ void mbedtls_sha256_clone( mbedtls_sha256_context *dst,
  */
 void mbedtls_sha256_starts( mbedtls_sha256_context *ctx, int is224 )
 {
-    ctx->current_size = 0;
-    ctx->buffer = NULL;
+    ctx->total[0] = 0;
+    ctx->total[1] = 0;
+    ctx->buffer_bytes = 0;
+    ctx->first = 1;
+    ctx->last = 0;
 }
 
-void mbedtls_sha256_process( mbedtls_sha256_context *ctx, const unsigned char data[64])
+void mbedtls_sha256_process( mbedtls_sha256_context *ctx, const unsigned char data[64] )
 {
-	// Not required
+	uint8_t hash[32] = {0};
+	SHA256_FPGA(data, hash, ctx->buffer_bytes, ctx->first, ctx->last);
+
+	// Copy hash to state
+	memcpy(ctx->state, hash, 32);
 }
 
 /*
  * SHA-256 process buffer
+ * Only sends to process multiple of 64B, otherwise keep filling the buffer
  */
 void mbedtls_sha256_update( mbedtls_sha256_context *ctx, const unsigned char *input,
                     size_t ilen )
 {
-    if(ilen == 0)
-        return;
-
-    // Because the internal core takes care of padding and processes the whole message
-	// We must simply realloc the buffer and add the new data to it
-	// Unfortunately we cannot simply update the IV to the previously calculated hash
-    ctx->buffer = realloc(ctx->buffer, ctx->current_size+ilen);
-	if(ctx->buffer == NULL)
+	if( ilen == 0 )
 	{
-		// Eventually we may run out of memory...and the hash will fail
-		// (even though these are void functions, in the end the hash will be wrong)
-		// This shouldn't happen for the kind of operations we allow (the data we hash is not big enough)
-		volatile int t = 0;
-		t++;
-		return;
+		// are we finishing?
+		if(ctx->buffer_bytes > 0 && ctx->last == 1)
+		{
+			// Send for processing
+			mbedtls_sha256_process(ctx, ctx->buffer);
+			ctx->buffer_bytes = 0;
+			ctx->first = 0;
+			ctx->last = 0;
+		}
+		else
+			return;
 	}
 
-	memcpy(ctx->buffer+ctx->current_size, input, ilen*sizeof(unsigned char));
-	ctx->current_size += ilen;
+	// Determine whether or not if we have enough space in our buffer to hold the input data
+    size_t fill;
+    uint32_t left;
 
-    // Concatenate existing digest with new data and compute its hash
-    /*uint8_t * data = malloc(sizeof(unsigned char)*(32+ilen));
-    memcpy(data, ctx->digest, 32);
-    memcpy(&data[32], input, ilen);
+    left = ctx->total[0] & 0x3F;
+    fill = 64 - left;
 
-	uint8_t status = MSS_SYS_sha256(data, (32+ilen)*8, &ctx->digest[0]);
-	if(status != MSS_SYS_SUCCESS)
-	{
-		// we have no error handling in these function so we just set the digest to 0
-		memset(ctx->digest, 0, 32*sizeof(unsigned char));
+    ctx->total[0] += (uint32_t) ilen;
+    ctx->total[0] &= 0xFFFFFFFF;
 
-		return; // error
-	}*/
+    if( ctx->total[0] < (uint32_t) ilen )
+        ctx->total[1]++;
+
+    if( left && ilen >= fill )
+    {
+    	// We don't have enough space
+    	// But we still have some space left, copy whatever we can from the input to the buffer
+    	// We'll still have some input left to process after this
+        memcpy( (void *) (ctx->buffer + left), input, fill );
+
+        // Send for processing
+        mbedtls_sha256_process( ctx, ctx->buffer );
+        input += fill;
+        ilen  -= fill;
+        left = 0;
+
+        ctx->buffer_bytes = 0; // no bytes in buffer
+        ctx->first = 0;
+    }
+
+    // For each remaining block of 64B of input, send for processing except the last one
+    // If we have 64B in ilen, then this would be the last block, hence why we check > 64
+    // meaning we'll always have more than 0 bytes if we process anything within the loop
+    while( ilen > 64)
+    {
+    	memcpy((void *)ctx->buffer, input, 64);
+    	ctx->buffer_bytes = 64;
+
+        mbedtls_sha256_process( ctx, ctx->buffer);
+        input += 64;
+        ilen  -= 64;
+
+        ctx->buffer_bytes = 0;
+        ctx->first = 0;
+    }
+
+    // Copy the remaining input into the buffer
+    if( ilen > 0)
+    {
+        memcpy( (void *) (ctx->buffer + left), input, ilen );
+        ctx->buffer_bytes += ilen;
+    }
 }
 
 /*
@@ -120,24 +178,15 @@ void mbedtls_sha256_update( mbedtls_sha256_context *ctx, const unsigned char *in
  */
 void mbedtls_sha256_finish( mbedtls_sha256_context *ctx, unsigned char output[32] )
 {
-	// Calculate hash
-	uint8_t digest[32] = {0};
-	uint8_t status = MSS_SYS_sha256(ctx->buffer, ctx->current_size*8, &output[0]);
-	if(status != MSS_SYS_SUCCESS)
-	{
-		// we have no error handling in these function so we just set the output to 0
-		memset(output, 0, 32*sizeof(unsigned char));
+    // Attempt to finish the hashing process
+    ctx->last = 1;
+    uint8_t dummy[32];
+    mbedtls_sha256_update( ctx, dummy, 0 );
 
-		if(ctx->buffer != NULL)
-			free(ctx->buffer); // mandatory!
-
-		return; // error
-	}
-
-	if(ctx->buffer != NULL)
-		free(ctx->buffer);
+    memcpy(output, ctx->state, 32);
 }
 
 #endif /* !MBEDTLS_SHA256_ALT */
 
-#endif /* MBEDTLS_SHA256_C */
+#endif
+

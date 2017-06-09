@@ -1,6 +1,6 @@
 Configuration Report for MSS, SERDES(s), Fabric DDR and Fabric CCC(s)
 Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
-Date: Thu May 25 15:42:10 2017
+Date: Fri Jun 09 16:29:07 2017
 
 CertificationSystem_sb_0/CCC_0/CCC_INST/INST_CCC_IP
 +-------------------+--------------------+---------------+-------+
@@ -158,7 +158,7 @@ CertificationSystem_sb_0/CertificationSystem_sb_MSS_0/MSS_ADLIB_INST/INST_MSS_07
 | M3_CONFIG               | STCALIB250                  | INIT[402:377]   | 26'h2000000  | INIT[45]  | 1             |
 | M3_CONFIG               | STCLK_DIVISOR               | INIT[404:403]   | 2'b11        | INIT[45]  | 1             |
 | M3_CONFIG               | M3_MPU_DISABLE              | INIT[405:405]   | 1'h0         | INIT[45]  | 1             |
-| FAB_IF                  | FAB0_AHB_BYPASS             | INIT[406:406]   | 1'h0         | INIT[46]  | 1             |
+| FAB_IF                  | FAB0_AHB_BYPASS             | INIT[406:406]   | 1'h1         | INIT[46]  | 1             |
 | FAB_IF                  | FAB1_AHB_BYPASS             | INIT[407:407]   | 1'h0         | INIT[46]  | 1             |
 | FAB_IF                  | FAB0_AHB_MODE               | INIT[408:408]   | 1'h1         | INIT[46]  | 1             |
 | FAB_IF                  | FAB1_AHB_MODE               | INIT[409:409]   | 1'h0         | INIT[46]  | 1             |

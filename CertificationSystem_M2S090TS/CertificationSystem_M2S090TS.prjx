@@ -58,13 +58,13 @@ ENDLIST
 LIST FileManager
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf,actgen_cxf"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011234"
 SIZE="5025"
 PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\coreparameters.vhd,tb_hdl"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011234"
 SIZE="4492"
 LIBRARY="COREAHBLITE_LIB"
 PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf"
@@ -235,7 +235,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\COREAHBLSRAM.cxf,actgen_cxf"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011235"
 SIZE="1281"
 PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.cxf"
 ENDFILE
@@ -265,7 +265,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\DirectCore\CoreResetP\7.1.100\CoreResetP.cxf,actgen_cxf"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011235"
 SIZE="582"
 PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.cxf"
 ENDFILE
@@ -285,13 +285,13 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\SgCore\FCCC\2.0.201\FCCC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011234"
 SIZE="241"
 PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SgCore\OSC\2.0.101\OSC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1492552179"
+TIME="1497011236"
 SIZE="682"
 PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.cxf"
 ENDFILE
@@ -321,165 +321,165 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS\1.1.400\MSS.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723123"
+TIME="1497008622"
 SIZE="526"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CCC\1.0.100\MSS_CCC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="253"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CC\1.0.100\MSS_CC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="252"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CFGM\1.1.100\MSS_CFGM.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_CM3\1.0.200\MSS_CM3.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="253"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_DDRB\1.0.200\MSS_DDRB.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_DMA\1.0.100\MSS_DMA.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="253"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_EDAC\1.0.101\MSS_EDAC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_ENVM\1.0.101\MSS_ENVM.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_FIC32\1.0.100\MSS_FIC32.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="255"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_GPIO\1.0.100\MSS_GPIO.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_INTR\1.0.100\MSS_INTR.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="254"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_MMUART\1.0.100\MSS_MMUART.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="256"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_RESET\1.0.100\MSS_RESET.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="255"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_RTC\1.0.201\MSS_RTC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="253"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SECURITY\1.0.100\MSS_SECURITY.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="258"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SPI\1.0.100\MSS_SPI.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="253"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\Actel\SmartFusion2MSS\MSS_SWITCH\1.0.101\MSS_SWITCH.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723117"
+TIME="1497008616"
 SIZE="256"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem\CertificationSystem.cxf,actgen_cxf"
 STATE="utd"
-TIME="1487963377"
-SIZE="4129"
+TIME="1497011240"
+SIZE="4530"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem\CertificationSystem.vhd,hdl"
 STATE="utd"
-TIME="1487963376"
-SIZE="4521"
+TIME="1497011240"
+SIZE="16730"
 PARENT="<project>\component\work\CertificationSystem\CertificationSystem.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\CCC_0\CertificationSystem_sb_CCC_0_FCCC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1492552176"
+TIME="1497011234"
 SIZE="734"
 PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.cxf"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\CCC_0\CertificationSystem_sb_CCC_0_FCCC.vhd,hdl"
 STATE="utd"
-TIME="1492552176"
+TIME="1497011234"
 SIZE="5608"
 PARENT="<project>\component\work\CertificationSystem_sb\CCC_0\CertificationSystem_sb_CCC_0_FCCC.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.cxf,actgen_cxf"
 STATE="utd"
-TIME="1492552182"
-SIZE="8505"
+TIME="1497011239"
+SIZE="14790"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.vhd,hdl"
 STATE="utd"
-TIME="1492552179"
-SIZE="53780"
+TIME="1497011236"
+SIZE="58969"
 PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf,actgen_cxf"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011235"
 SIZE="2162"
 PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.cxf"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\coreparameters.vhd,tb_hdl"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011235"
 SIZE="804"
 PARENT="<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\AHBLSramIf.vhd,hdl"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011235"
 SIZE="15786"
 LIBRARY="COREAHBLSRAM_LIB"
 PARENT="<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
@@ -487,7 +487,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd,hdl"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011235"
 SIZE="9733"
 LIBRARY="COREAHBLSRAM_LIB"
 PARENT="<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
@@ -495,7 +495,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\lsram_2048to139264x8.vhd,hdl"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011235"
 SIZE="1486737"
 LIBRARY="COREAHBLSRAM_LIB"
 PARENT="<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
@@ -503,7 +503,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\SramCtrlIf.vhd,hdl"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011235"
 SIZE="17461"
 LIBRARY="COREAHBLSRAM_LIB"
 PARENT="<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
@@ -511,7 +511,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\usram_128to9216x8.vhd,hdl"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011235"
 SIZE="73255"
 LIBRARY="COREAHBLSRAM_LIB"
 PARENT="<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
@@ -519,7 +519,7 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
 STATE="utd"
-TIME="1492552177"
+TIME="1497011235"
 SIZE="27560"
 PARENT="<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.cxf"
 MODULE_UNDER_TEST="testbench"
@@ -528,33 +528,33 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.cxf,actgen_cxf"
 STATE="utd"
-TIME="1492552179"
+TIME="1497011236"
 SIZE="492"
 PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.cxf"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.vhd,hdl"
 STATE="utd"
-TIME="1492552179"
+TIME="1497011236"
 SIZE="1616"
 PARENT="<project>\component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf,actgen_cxf"
 STATE="utd"
-TIME="1495723124"
-SIZE="17985"
+TIME="1497008623"
+SIZE="20399"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.vhd,hdl"
 STATE="utd"
-TIME="1495723123"
-SIZE="101702"
+TIME="1497008622"
+SIZE="102501"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS_pre.vhd,hdl"
 STATE="utd"
-TIME="1495723123"
-SIZE="78813"
+TIME="1497008622"
+SIZE="78937"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 BEGIN_USE_CONSTRAINT
 TOOL_CONSTRAINT_TYPE="ideSYNTHESIS"
@@ -565,8 +565,8 @@ IS_READONLY="TRUE"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS_syn.vhd,hdl"
 STATE="utd"
-TIME="1495723123"
-SIZE="78788"
+TIME="1497008622"
+SIZE="78919"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 BEGIN_USE_CONSTRAINT
 TOOL_CONSTRAINT_TYPE="ideSYNTHESIS"
@@ -591,6 +591,116 @@ STATE="utd"
 TIME="1487956077"
 SIZE="402"
 ENDFILE
+VALUE "<project>\hdl\AHB_slave_dummy.vhd,hdl"
+STATE="utd"
+TIME="1496996846"
+SIZE="5462"
+ENDFILE
+VALUE "<project>\hdl\gv_sha256.vhd,hdl"
+STATE="utd"
+TIME="1496996846"
+SIZE="15799"
+ENDFILE
+VALUE "<project>\hdl\limiter_1cycle.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="1086"
+ENDFILE
+VALUE "<project>\hdl\mux2_1.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="906"
+ENDFILE
+VALUE "<project>\hdl\mux_9_1.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="1584"
+ENDFILE
+VALUE "<project>\hdl\reg1_highonly.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="1276"
+ENDFILE
+VALUE "<project>\hdl\reg9_1x32.vhd,hdl"
+STATE="utd"
+TIME="1497006160"
+SIZE="9005"
+ENDFILE
+VALUE "<project>\hdl\reg_17x32.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="8041"
+ENDFILE
+VALUE "<project>\hdl\reg_1x32.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="1539"
+ENDFILE
+VALUE "<project>\hdl\reg_9x32.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="3974"
+ENDFILE
+VALUE "<project>\hdl\SHA256_BLOCK.vhd,hdl"
+STATE="utd"
+TIME="1497006188"
+SIZE="13473"
+ENDFILE
+VALUE "<project>\hdl\sha256_control.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="50019"
+ENDFILE
+VALUE "<project>\hdl\sha256_controller.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="9269"
+ENDFILE
+VALUE "<project>\hdl\sha256_hash_core.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="11274"
+ENDFILE
+VALUE "<project>\hdl\sha256_Ki_rom.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="4675"
+ENDFILE
+VALUE "<project>\hdl\sha256_Kt_rom.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="8203"
+ENDFILE
+VALUE "<project>\hdl\SHA256_Module.vhd,hdl"
+STATE="utd"
+TIME="1497006196"
+SIZE="12703"
+ENDFILE
+VALUE "<project>\hdl\sha256_msg_sch.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="10108"
+ENDFILE
+VALUE "<project>\hdl\sha256_padding.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="9487"
+ENDFILE
+VALUE "<project>\hdl\sha256_regs.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="10723"
+ENDFILE
+VALUE "<project>\hdl\sha256_test.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="66550"
+ENDFILE
+VALUE "<project>\hdl\zero_concat.vhd,hdl"
+STATE="utd"
+TIME="1496996847"
+SIZE="919"
+ENDFILE
 VALUE "<project>\simulation\bfmtovec_compile.tcl,sim"
 STATE="utd"
 TIME="1487266713"
@@ -599,7 +709,7 @@ PARENT="<project>\component\Actel\DirectCore\CoreAHBLite\5.2.100\CoreAHBLite.cxf
 ENDFILE
 VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
 STATE="utd"
-TIME="1495723123"
+TIME="1497008622"
 SIZE="500"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
@@ -639,6 +749,16 @@ TIME="1475082705"
 SIZE="8450"
 PARENT="<project>\component\Actel\SmartFusion2MSS\MSS\1.1.400\MSS.cxf"
 ENDFILE
+VALUE "<project>\simulation\run.do,do"
+STATE="utd"
+TIME="1497009076"
+SIZE="3041"
+ENDFILE
+VALUE "<project>\simulation\SHA256_Module_tb_swlike_presynth_simulation.log,log"
+STATE="utd"
+TIME="1497009087"
+SIZE="124"
+ENDFILE
 VALUE "<project>\simulation\subsystem.bfm,sim"
 STATE="utd"
 TIME="1487955728"
@@ -648,7 +768,7 @@ PARENT="<project>\component\work\CertificationSystem_sb\CertificationSystem_sb.c
 ENDFILE
 VALUE "<project>\simulation\test.bfm,sim"
 STATE="utd"
-TIME="1495723123"
+TIME="1497008622"
 SIZE="734"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
@@ -658,30 +778,75 @@ TIME="1487955720"
 SIZE="555"
 PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.cxf"
 ENDFILE
+VALUE "<project>\simulation\wave.do,do"
+STATE="utd"
+TIME="1496958988"
+SIZE="9328"
+ENDFILE
+VALUE "<project>\stimulus\reg_16x32_tb.vhd,tb_hdl"
+STATE="utd"
+TIME="1497009072"
+SIZE="7310"
+ENDFILE
+VALUE "<project>\stimulus\reg_9_1x32.vhd,tb_hdl"
+STATE="utd"
+TIME="1497009072"
+SIZE="5528"
+ENDFILE
+VALUE "<project>\stimulus\SHA256_BLOCK_tb.vhd,tb_hdl"
+STATE="utd"
+TIME="1497009072"
+SIZE="10078"
+ENDFILE
+VALUE "<project>\stimulus\sha256_controller_tb.vhd,tb_hdl"
+STATE="utd"
+TIME="1497009072"
+SIZE="5634"
+ENDFILE
+VALUE "<project>\stimulus\SHA256_Module_tb.vhd,tb_hdl"
+STATE="utd"
+TIME="1497009072"
+SIZE="6142"
+ENDFILE
+VALUE "<project>\stimulus\sha256_module_tb_softwarelike.vhd,tb_hdl"
+STATE="utd"
+TIME="1497009072"
+SIZE="52982"
+ENDFILE
+VALUE "<project>\stimulus\sha256_tb.vhd,tb_hdl"
+STATE="utd"
+TIME="1497009072"
+SIZE="66550"
+ENDFILE
+VALUE "<project>\stimulus\zero_concat_tb.vhd,tb_hdl"
+STATE="utd"
+TIME="1497009072"
+SIZE="2730"
+ENDFILE
 VALUE "<project>\synthesis\CertificationSystem.edn,syn_edn"
 STATE="utd"
-TIME="1492552232"
+TIME="1495723160"
 SIZE="1372931"
 ENDFILE
 VALUE "<project>\synthesis\CertificationSystem.so,so"
 STATE="utd"
-TIME="1492552233"
+TIME="1495723161"
 SIZE="254"
 ENDFILE
 VALUE "<project>\synthesis\CertificationSystem.vhd,syn_hdl"
 STATE="utd"
-TIME="1492552240"
+TIME="1495723168"
 SIZE="792243"
 ENDFILE
 VALUE "<project>\synthesis\CertificationSystem_sdc.sdc,syn_sdc"
 STATE="utd"
-TIME="1492552232"
+TIME="1495723160"
 SIZE="974"
 ENDFILE
 VALUE "<project>\synthesis\CertificationSystem_syn.prj,prj"
 STATE="utd"
-TIME="1492552233"
-SIZE="5613"
+TIME="1496994877"
+SIZE="6341"
 ENDFILE
 ENDLIST
 LIST UsedFile
@@ -837,6 +1002,12 @@ ENDLIST
 LIST CertificationSystem_sb
 VALUE "<project>\simulation\subsystem.bfm,sim"
 ENDLIST
+LIST CertificationSystem_sb_MSS
+VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
+VALUE "<project>\simulation\user.bfm,sim"
+VALUE "<project>\simulation\test.bfm,sim"
+VALUE "<project>\simulation\peripheral_init.bfm,sim"
+ENDLIST
 LIST CoreAHBLite
 VALUE "<project>\simulation\bfmtovec_compile.tcl,sim"
 VALUE "<project>\simulation\coreahblite_usertb_include.bfm,sim"
@@ -861,23 +1032,17 @@ VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\u
 VALUE "<project>\component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_std_logic.vhd,tb_hdl"
 VALUE "<project>\component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\test\user\testbench.vhd,tb_hdl"
 ENDLIST
-LIST CertificationSystem_sb_MSS
-VALUE "<project>\simulation\CM3_compile_bfm.tcl,sim"
-VALUE "<project>\simulation\user.bfm,sim"
-VALUE "<project>\simulation\test.bfm,sim"
-VALUE "<project>\simulation\peripheral_init.bfm,sim"
-ENDLIST
 ENDLIST
 LIST SimulationOptions
 UseAutomaticDoFile=true
-IncludeWaveDo=false
+IncludeWaveDo=true
 Type=max
 RunTime=1000ns
 Resolution=1fs
 VsimOpt=
 EntityName=testbench
 TopInstanceName=<top>_0
-DoFileName=
+DoFileName=E:/LiberoProjects/sha256_project/simulation/wave.do
 DoFileName2=wave.do
 DoFileParams=
 DisplayDUTWave=false
@@ -942,7 +1107,7 @@ NAME="ModelSim ME"
 FUNCTION="Simulation"
 TOOL="ModelSim"
 LOCATION="C:\Microsemi\Libero_SoC_v11.7\\\Model\\win32acoem\modelsim.exe"
-PARAM=""
+PARAM=" -l SHA256_Module_tb_swlike_presynth_simulation.log "
 BATCH=0
 LICENSE=""
 IS32BIT="1"
@@ -1029,22 +1194,24 @@ Reports;Reports;0
 ReportsCurrentItem;Run PROGRAM Action:CertificationSystem_PROGRAM.log
 StartPage;StartPage;0
 SmartDesign;CertificationSystem;0
-Constraint Manager;Constraint Manager;0
 SmartDesign;CertificationSystem_sb;0
-SmartDesign;CertificationSystem_sb_MSS;0
 ACTIVEVIEW;Reports
 ENDLIST
 LIST ModuleSubBlockList
+LIST "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
+ENDLIST
 LIST "CertificationSystem::work","component\work\CertificationSystem\CertificationSystem.vhd","TRUE","FALSE"
+SUBBLOCK "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
 SUBBLOCK "CertificationSystem_sb::work","component\work\CertificationSystem_sb\CertificationSystem_sb.vhd","TRUE","FALSE"
+SUBBLOCK "SHA256_Module::work","hdl\SHA256_Module.vhd","FALSE","FALSE"
 ENDLIST
 LIST "CertificationSystem_sb::work","component\work\CertificationSystem_sb\CertificationSystem_sb.vhd","TRUE","FALSE"
 SUBBLOCK "CertificationSystem_sb_CCC_0_FCCC::work","component\work\CertificationSystem_sb\CCC_0\CertificationSystem_sb_CCC_0_FCCC.vhd","FALSE","FALSE"
 SUBBLOCK "CertificationSystem_sb_FABOSC_0_OSC::work","component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.vhd","FALSE","FALSE"
+SUBBLOCK "CertificationSystem_sb_MSS::work","component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.vhd","TRUE","FALSE"
 SUBBLOCK "CoreResetP::work","component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd","FALSE","FALSE"
 SUBBLOCK "CoreAHBLite::COREAHBLITE_LIB::components","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd","FALSE","FALSE"
 SUBBLOCK "CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM::COREAHBLSRAM_LIB","component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd","FALSE","FALSE"
-SUBBLOCK "CertificationSystem_sb_MSS::work","component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS.vhd","TRUE","FALSE"
 ENDLIST
 LIST "CertificationSystem_sb_CCC_0_FCCC::work","component\work\CertificationSystem_sb\CCC_0\CertificationSystem_sb_CCC_0_FCCC.vhd","FALSE","FALSE"
 ENDLIST
@@ -1072,7 +1239,22 @@ SUBBLOCK "SmartFusion2_MSS_SPI_Driver::work","","FALSE","FALSE"
 SUBBLOCK "SmartFusion2_MSS_System_Services_Driver::work","","FALSE","FALSE"
 SUBBLOCK "SmartFusion2_MSS_Timer_Driver::work","","FALSE","FALSE"
 ENDLIST
+LIST "gv_sha256::work","hdl\gv_sha256.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_control::work","hdl\sha256_control.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_hash_core::work","hdl\sha256_hash_core.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_ki_rom::work","hdl\sha256_Ki_rom.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_kt_rom::work","hdl\sha256_Kt_rom.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_msg_sch::work","hdl\sha256_msg_sch.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_padding::work","hdl\sha256_padding.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_regs::work","hdl\sha256_regs.vhd","FALSE","FALSE"
+ENDLIST
+LIST "limiter_1cycle::work","hdl\limiter_1cycle.vhd","FALSE","FALSE"
+ENDLIST
 LIST "MSS_075::work","component\work\CertificationSystem_sb_MSS\CertificationSystem_sb_MSS_syn.vhd","FALSE","FALSE"
+ENDLIST
+LIST "mux2_1::work","hdl\mux2_1.vhd","FALSE","FALSE"
+ENDLIST
+LIST "mux_9_1::work","hdl\mux_9_1.vhd","FALSE","FALSE"
 ENDLIST
 LIST "RCOSC_1MHZ::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
 ENDLIST
@@ -1081,6 +1263,46 @@ ENDLIST
 LIST "RCOSC_25_50MHZ::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
 ENDLIST
 LIST "RCOSC_25_50MHZ_FAB::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
+ENDLIST
+LIST "reg1_highonly::work","hdl\reg1_highonly.vhd","FALSE","FALSE"
+ENDLIST
+LIST "reg9_1x32::work","hdl\reg9_1x32.vhd","FALSE","FALSE"
+SUBBLOCK "mux_9_1::work","hdl\mux_9_1.vhd","FALSE","FALSE"
+SUBBLOCK "reg_1x32::work","hdl\reg_1x32.vhd","FALSE","FALSE"
+ENDLIST
+LIST "reg_17x32::work","hdl\reg_17x32.vhd","FALSE","FALSE"
+ENDLIST
+LIST "reg_1x32::work","hdl\reg_1x32.vhd","FALSE","FALSE"
+ENDLIST
+LIST "reg_9x32::work","hdl\reg_9x32.vhd","FALSE","FALSE"
+ENDLIST
+LIST "SHA256_BLOCK::work","hdl\SHA256_BLOCK.vhd","FALSE","FALSE"
+SUBBLOCK "gv_sha256::work","hdl\gv_sha256.vhd","FALSE","FALSE"
+SUBBLOCK "limiter_1cycle::work","hdl\limiter_1cycle.vhd","FALSE","FALSE"
+SUBBLOCK "reg_17x32::work","hdl\reg_17x32.vhd","FALSE","FALSE"
+SUBBLOCK "sha256_controller::work","hdl\sha256_controller.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_control::work","hdl\sha256_control.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_controller::work","hdl\sha256_controller.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_hash_core::work","hdl\sha256_hash_core.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_ki_rom::work","hdl\sha256_Ki_rom.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_kt_rom::work","hdl\sha256_Kt_rom.vhd","FALSE","FALSE"
+ENDLIST
+LIST "SHA256_Module::work","hdl\SHA256_Module.vhd","FALSE","FALSE"
+SUBBLOCK "SHA256_BLOCK::work","hdl\SHA256_BLOCK.vhd","FALSE","FALSE"
+SUBBLOCK "reg1_highonly::work","hdl\reg1_highonly.vhd","FALSE","FALSE"
+SUBBLOCK "reg9_1x32::work","hdl\reg9_1x32.vhd","FALSE","FALSE"
+SUBBLOCK "zero_concat::work","hdl\zero_concat.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_msg_sch::work","hdl\sha256_msg_sch.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_padding::work","hdl\sha256_padding.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_regs::work","hdl\sha256_regs.vhd","FALSE","FALSE"
 ENDLIST
 LIST "SmartFusion2_CMSIS::work","","FALSE","FALSE"
 ENDLIST
@@ -1102,16 +1324,44 @@ LIST "SmartFusion2_MSS_System_Services_Driver::work","","FALSE","FALSE"
 ENDLIST
 LIST "SmartFusion2_MSS_Timer_Driver::work","","FALSE","FALSE"
 ENDLIST
+LIST "testbench::work","hdl\sha256_test.vhd","FALSE","FALSE"
+SUBBLOCK "gv_sha256::work","hdl\gv_sha256.vhd","FALSE","FALSE"
+ENDLIST
 LIST "XTLOSC::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
 ENDLIST
 LIST "XTLOSC_FAB::work","component\Actel\SgCore\OSC\2.0.101\osc_comps.vhd","FALSE","FALSE"
+ENDLIST
+LIST "zero_concat::work","hdl\zero_concat.vhd","FALSE","FALSE"
 ENDLIST
 LIST "coreparameters::work","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\coreparameters.vhd","FALSE","TRUE"
 ENDLIST
 LIST "coreparameters::work","component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\coreparameters.vhd","FALSE","TRUE"
 ENDLIST
+LIST "reg_16x32::work","","FALSE","FALSE"
+ENDLIST
+LIST "reg_16x32_tb::work","stimulus\reg_16x32_tb.vhd","FALSE","TRUE"
+SUBBLOCK "reg_16x32::work","","FALSE","FALSE"
+ENDLIST
+LIST "reg_9_1x32::work","stimulus\reg_9_1x32.vhd","FALSE","TRUE"
+SUBBLOCK "reg9_1x32::work","hdl\reg9_1x32.vhd","FALSE","FALSE"
+ENDLIST
+LIST "SHA256_BLOCK_tb::work","stimulus\SHA256_BLOCK_tb.vhd","FALSE","TRUE"
+SUBBLOCK "SHA256_BLOCK::work","hdl\SHA256_BLOCK.vhd","FALSE","FALSE"
+ENDLIST
+LIST "sha256_controller_tb::work","stimulus\sha256_controller_tb.vhd","FALSE","TRUE"
+SUBBLOCK "sha256_controller::work","hdl\sha256_controller.vhd","FALSE","FALSE"
+ENDLIST
+LIST "SHA256_Module_tb::work","stimulus\SHA256_Module_tb.vhd","FALSE","TRUE"
+SUBBLOCK "SHA256_Module::work","hdl\SHA256_Module.vhd","FALSE","FALSE"
+ENDLIST
+LIST "SHA256_Module_tb_swlike::work","stimulus\sha256_module_tb_softwarelike.vhd","FALSE","TRUE"
+SUBBLOCK "SHA256_Module::work","hdl\SHA256_Module.vhd","FALSE","FALSE"
+ENDLIST
 LIST "testbench::work","component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\test\user\testbench.vhd","FALSE","TRUE"
 SUBBLOCK "CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM::COREAHBLSRAM_LIB","component\work\CertificationSystem_sb\COREAHBLSRAM_0_0\rtl\vhdl\core\CoreAHBLSRAM.vhd","FALSE","FALSE"
+ENDLIST
+LIST "testbench::work","stimulus\sha256_tb.vhd","FALSE","TRUE"
+SUBBLOCK "gv_sha256::work","hdl\gv_sha256.vhd","FALSE","FALSE"
 ENDLIST
 LIST "xhdl_misc::work","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_misc.vhd","FALSE","TRUE"
 ENDLIST
@@ -1120,6 +1370,9 @@ ENDLIST
 LIST "xhdl_std_logic::work","component\Actel\DirectCore\COREAHBLSRAM\2.0.113\rtl\vhdl\test\user\XHDL_std_logic.vhd","FALSE","TRUE"
 ENDLIST
 LIST "xhdl_std_logic::work","component\Actel\DirectCore\COREAHBLSRAM\2.2.104\rtl\vhdl\test\user\XHDL_std_logic.vhd","FALSE","TRUE"
+ENDLIST
+LIST "zero_concat_tb::work","stimulus\zero_concat_tb.vhd","FALSE","TRUE"
+SUBBLOCK "zero_concat::work","hdl\zero_concat.vhd","FALSE","FALSE"
 ENDLIST
 LIST "components::COREAHBLITE_LIB","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\components.vhd","FALSE","FALSE"
 SUBBLOCK "CoreAHBLite::COREAHBLITE_LIB::components","component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite.vhd","FALSE","FALSE"

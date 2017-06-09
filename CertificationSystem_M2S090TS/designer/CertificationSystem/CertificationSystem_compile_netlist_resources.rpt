@@ -1,6 +1,6 @@
 Resource Report
 Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
-Date: Thu May 25 15:39:34 2017
+Date: Fri Jun 09 16:24:40 2017
 
 Device Selection
 +--------------------------------+----------------+
@@ -37,8 +37,8 @@ Resource Usage
 +---------------------------+------+-------+------------+
 | Type                      | Used | Total | Percentage |
 +---------------------------+------+-------+------------+
-| 4LUT                      | 2163 | 86184 | 2.51       |
-| DFF                       | 1267 | 86184 | 1.47       |
+| 4LUT                      | 4357 | 86184 | 5.06       |
+| DFF                       | 3251 | 86184 | 3.77       |
 | I/O Register              | 0    | 801   | 0.00       |
 | User I/O                  | 7    | 267   | 2.62       |
 | -- Single-ended I/O       | 7    | 267   | 2.62       |
@@ -46,7 +46,7 @@ Resource Usage
 | RAM64x18                  | 0    | 112   | 0.00       |
 | RAM1K18                   | 32   | 109   | 29.36      |
 | MACC                      | 0    | 84    | 0.00       |
-| Chip Globals              | 2    | 16    | 12.50      |
+| Chip Globals              | 4    | 16    | 25.00      |
 | CCC                       | 1    | 6     | 16.67      |
 | RCOSC_25_50MHZ            | 1    | 1     | 100.00     |
 | RCOSC_1MHZ                | 0    | 1     | 0.00       |
@@ -60,11 +60,11 @@ Detailed Logic Resource Usage
 +--------------------------+------+------+
 | Type                     | 4LUT | DFF  |
 +--------------------------+------+------+
-| Fabric Logic             | 1011 | 115  |
+| Fabric Logic             | 3205 | 2099 |
 | RAM64x18 Interface Logic | 0    | 0    |
 | RAM1K18 Interface Logic  | 1152 | 1152 |
 | MACC Interface Logic     | 0    | 0    |
-| Total Used               | 2163 | 1267 |
+| Total Used               | 4357 | 3251 |
 +--------------------------+------+------+
 
 MSS Resource Usage
@@ -87,6 +87,15 @@ MSS Resource Usage
 +---------------+------+-------+
 
 * These resources are always marked as used when you are using the MSS
+
+Detailed Carry Chains Resource Usage
++--------+------+
+| Length | Used |
+| 8      | 1    |
+| 32     | 19   |
+| 61     | 1    |
+| Total  | 21   |
++--------+------+
 
 I/O Function
 +-------------------------------+--------------+-------------+-----------------+
@@ -116,16 +125,22 @@ I/O Placement
 +----------+-------+------------+
 
 Nets assigned to chip global resources
-+--------+---------+----------------------------------------------------------------------------------+
-| Fanout | Type    | Name                                                                             |
-+--------+---------+----------------------------------------------------------------------------------+
-| 180    | INT_NET | Net   : CertificationSystem_sb_0/FAB_CCC_GL0                                     |
-|        |         | Driver: CertificationSystem_sb_0/CCC_0/GL0_INST/U0_RGB1                          |
-|        |         | Source: NETLIST                                                                  |
-| 170    | INT_NET | Net   : CertificationSystem_sb_0/MSS_READY                                       |
-|        |         | Driver: CertificationSystem_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIRS5B/U0_RGB1 |
-|        |         | Source: NETLIST                                                                  |
-+--------+---------+----------------------------------------------------------------------------------+
++--------+---------+--------------------------------------------------------------------------------------+
+| Fanout | Type    | Name                                                                                 |
++--------+---------+--------------------------------------------------------------------------------------+
+| 2163   | INT_NET | Net   : CertificationSystem_sb_0_FAB_CCC_GL0                                         |
+|        |         | Driver: CertificationSystem_sb_0/CCC_0/GL0_INST/U0_RGB1                              |
+|        |         | Source: NETLIST                                                                      |
+| 180    | INT_NET | Net   : CertificationSystem_sb_0/MSS_READY                                           |
+|        |         | Driver: CertificationSystem_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIRS5B/U0_RGB1     |
+|        |         | Source: NETLIST                                                                      |
+| 32     | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n_i               |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n_RNIE1K2/U0_RGB1 |
+|        |         | Source: NETLIST                                                                      |
+| 17     | INT_NET | Net   : CertificationSystem_sb_0_POWER_ON_RESET_N                                    |
+|        |         | Driver: CertificationSystem_sb_0/SYSRESET_POR_RNIC1R5/U0_RGB1                        |
+|        |         | Source: NETLIST                                                                      |
++--------+---------+--------------------------------------------------------------------------------------+
 
 Nets assigned to row global resources
 +--------+------+------+
@@ -137,51 +152,51 @@ High fanout nets
 +--------+---------+--------------------------------------------------------------------------------------------------------------------+
 | Fanout | Type    | Name                                                                                                               |
 +--------+---------+--------------------------------------------------------------------------------------------------------------------+
+| 570    | INT_NET | Net   : CertificationSystem_sb_0_GPIO_9_M2F                                                                        |
+|        |         | Driver: CertificationSystem_sb_0/CertificationSystem_sb_MSS_0/MSS_ADLIB_INST                                       |
 | 533    | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[14]                                                 |
 |        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[14] |
-| 373    | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[15]                                                 |
+| 512    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_244_i_0                                                       |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/state_counter_proc.un15_ce_i_i_0_a2_RNIKNCQ |
+| 374    | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[15]                                                 |
 |        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[15] |
-| 149    | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[11]                                                 |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[11] |
-| 146    | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[12]                                                 |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[12] |
-| 78     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[13]                                                 |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[13] |
-| 64     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[2]                                                  |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[2]  |
-| 64     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[3]                                                  |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[3]  |
-| 64     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[4]                                                  |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[4]  |
-| 64     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[5]                                                  |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[5]  |
-| 64     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[6]                                                  |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[6]  |
+| 331    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/hash_control_st_reg_i[6]                                        |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_i[6]                    |
+| 265    | INT_NET | Net   : SHA256_Module_0/data_out_ready                                                                             |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/data_out_ready                                                  |
+| 259    | INT_NET | Net   : SHA256_Module_0/reg9_1x32_0/wen_or_i_3_i_0                                                                 |
+|        |         | Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/wen_or_i_3_i                                                        |
+| 257    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/oregs_ce_i_a2_0_a2                                              |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2                          |
+| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_168_i_0                                                       |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2_i                        |
+| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/core_ce_o_iv_i_0                                                |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNIM1OU[0]              |
 +--------+---------+--------------------------------------------------------------------------------------------------------------------+
 
 High fanout nets (through buffer trees)
 +--------+---------+--------------------------------------------------------------------------------------------------------------------+
 | Fanout | Type    | Name                                                                                                               |
 +--------+---------+--------------------------------------------------------------------------------------------------------------------+
+| 570    | INT_NET | Net   : CertificationSystem_sb_0_GPIO_9_M2F                                                                        |
+|        |         | Driver: CertificationSystem_sb_0/CertificationSystem_sb_MSS_0/MSS_ADLIB_INST                                       |
 | 533    | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[14]                                                 |
 |        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[14] |
-| 373    | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[15]                                                 |
+| 512    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_244_i_0                                                       |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/state_counter_proc.un15_ce_i_i_0_a2_RNIKNCQ |
+| 374    | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[15]                                                 |
 |        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[15] |
-| 149    | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[11]                                                 |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[11] |
-| 146    | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[12]                                                 |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[12] |
-| 78     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[13]                                                 |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[13] |
-| 64     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[2]                                                  |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[2]  |
-| 64     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[3]                                                  |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[3]  |
-| 64     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[4]                                                  |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[4]  |
-| 64     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[5]                                                  |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[5]  |
-| 64     | INT_NET | Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[6]                                                  |
-|        |         | Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[6]  |
+| 331    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/hash_control_st_reg_i[6]                                        |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_i[6]                    |
+| 265    | INT_NET | Net   : SHA256_Module_0/data_out_ready                                                                             |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/data_out_ready                                                  |
+| 259    | INT_NET | Net   : SHA256_Module_0/reg9_1x32_0/wen_or_i_3_i_0                                                                 |
+|        |         | Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/wen_or_i_3_i                                                        |
+| 257    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/oregs_ce_i_a2_0_a2                                              |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2                          |
+| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_168_i_0                                                       |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2_i                        |
+| 256    | INT_NET | Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/core_ce_o_iv_i_0                                                |
+|        |         | Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNIM1OU[0]              |
 +--------+---------+--------------------------------------------------------------------------------------------------------------------+
 

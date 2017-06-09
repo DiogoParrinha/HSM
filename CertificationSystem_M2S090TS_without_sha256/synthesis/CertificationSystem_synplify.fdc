@@ -1,0 +1,8 @@
+#0 define_false_path
+#1001 define_clock {n:CertificationSystem_sb_0.CCC_0.GL0_net} -name {CertificationSystem_sb_CCC_0_FCCC|GL0_net_inferred_clock} -ref_rise {0.000000} -ref_fall {5.000000} -uncertainty {0.000000} -period {10.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000 . . . 
+define_attribute {i:CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MMUART_1_RXD_PAD}  {syn_noprune} 1
+define_attribute {i:CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.MMUART_1_TXD_PAD}  {syn_noprune} 1
+define_attribute {i:CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.SPI_0_CLK_PAD}  {syn_noprune} 1
+define_attribute {i:CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.SPI_0_DI_PAD}  {syn_noprune} 1
+define_attribute {i:CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.SPI_0_DO_PAD}  {syn_noprune} 1
+define_attribute {i:CertificationSystem_sb_0.CertificationSystem_sb_MSS_0.SPI_0_SS0_PAD}  {syn_noprune} 1

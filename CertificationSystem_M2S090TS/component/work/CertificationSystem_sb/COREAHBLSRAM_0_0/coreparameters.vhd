@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by Microsemi SmartDesign Tue Apr 18 22:49:37 2017
+-- Created by Microsemi SmartDesign Fri Jun 09 13:27:15 2017
 -- Parameters for COREAHBLSRAM
 ----------------------------------------------------------------------
 

@@ -1,3 +1,11 @@
+@W: CG296 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_controller.vhd":128:4:128:10|Incomplete sensitivity list - assuming completeness
+@W: CG290 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_controller.vhd":193:38:193:44|Referenced variable counter is not in sensitivity list
+@W: CL117 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_controller.vhd":61:31:61:33|Latch generated from process for signal bytes_sel; possible missing assignment in an if or case statement.
+@W: CD638 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\gv_sha256.vhd":156:11:156:18|Signal pad_data is undriven 
+@W: CD604 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":551:12:551:25|OTHERS clause is not synthesized 
+@W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":426:86:426:94|Signal sha_reset in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":578:44:578:55|Signal padding_next in the sensitivity list is not used in the process
+@W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":578:66:578:75|Signal one_insert in the sensitivity list is not used in the process
 @W: CL240 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.vhd":16:10:16:19|XTLOSC_O2F is not assigned a value (floating) -- simulation mismatch possible. 
 @W: CL240 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.vhd":15:10:15:19|XTLOSC_CCC is not assigned a value (floating) -- simulation mismatch possible. 
 @W: CL240 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.vhd":14:10:14:23|RCOSC_1MHZ_O2F is not assigned a value (floating) -- simulation mismatch possible. 
@@ -359,8 +367,6 @@
 @W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":343:20:343:31|Signal hreadyout_s2 in the sensitivity list is not used in the process
 @W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":345:8:345:16|Signal hrdata_s4 in the sensitivity list is not used in the process
 @W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":345:20:345:31|Signal hreadyout_s4 in the sensitivity list is not used in the process
-@W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":346:8:346:16|Signal hrdata_s5 in the sensitivity list is not used in the process
-@W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":346:20:346:31|Signal hreadyout_s5 in the sensitivity list is not used in the process
 @W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":347:8:347:16|Signal hrdata_s6 in the sensitivity list is not used in the process
 @W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":347:20:347:31|Signal hreadyout_s6 in the sensitivity list is not used in the process
 @W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":348:8:348:16|Signal hrdata_s7 in the sensitivity list is not used in the process
@@ -384,9 +390,15 @@
 @W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":357:8:357:17|Signal hrdata_s16 in the sensitivity list is not used in the process
 @W: CD434 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":357:20:357:32|Signal hreadyout_s16 in the sensitivity list is not used in the process
 @W: CD604 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":637:12:637:25|OTHERS clause is not synthesized 
-@W: CL246 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":45:8:45:17|Input port bits 16 to 4 of sdataready(16 downto 0) are unused 
+@W: CD604 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\AHB_slave_dummy.vhd":128:16:128:29|OTHERS clause is not synthesized 
+@W: CL246 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\AHB_slave_dummy.vhd":15:4:15:8|Input port bits 31 to 11 of haddr(31 downto 0) are unused 
+@W: CL246 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\AHB_slave_dummy.vhd":15:4:15:8|Input port bits 1 to 0 of haddr(31 downto 0) are unused 
+@W: CL247 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\AHB_slave_dummy.vhd":23:4:23:9|Input port bit 0 of htrans(1 downto 0) is unused 
+@W: CL246 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":45:8:45:17|Input port bits 16 to 6 of sdataready(16 downto 0) are unused 
+@W: CL247 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":45:8:45:17|Input port bit 4 of sdataready(16 downto 0) is unused 
 @W: CL246 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":45:8:45:17|Input port bits 2 to 0 of sdataready(16 downto 0) are unused 
-@W: CL246 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":46:8:46:13|Input port bits 16 to 4 of shresp(16 downto 0) are unused 
+@W: CL246 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":46:8:46:13|Input port bits 16 to 6 of shresp(16 downto 0) are unused 
+@W: CL247 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":46:8:46:13|Input port bit 4 of shresp(16 downto 0) is unused 
 @W: CL246 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":46:8:46:13|Input port bits 2 to 0 of shresp(16 downto 0) are unused 
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":55:8:55:16|Input HRDATA_S0 is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":56:8:56:19|Input HREADYOUT_S0 is unused
@@ -396,8 +408,6 @@
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":60:8:60:19|Input HREADYOUT_S2 is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":63:8:63:16|Input HRDATA_S4 is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":64:8:64:19|Input HREADYOUT_S4 is unused
-@W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":65:8:65:16|Input HRDATA_S5 is unused
-@W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":66:8:66:19|Input HREADYOUT_S5 is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":67:8:67:16|Input HRDATA_S6 is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":68:8:68:19|Input HREADYOUT_S6 is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_masterstage.vhd":69:8:69:16|Input HRDATA_S7 is unused
@@ -471,9 +481,6 @@
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":120:8:120:16|Input HRDATA_S4 is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":121:8:121:19|Input HREADYOUT_S4 is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":122:8:122:15|Input HRESP_S4 is unused
-@W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":131:8:131:16|Input HRDATA_S5 is unused
-@W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":132:8:132:19|Input HREADYOUT_S5 is unused
-@W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":133:8:133:15|Input HRESP_S5 is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":142:8:142:16|Input HRDATA_S6 is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":143:8:143:19|Input HREADYOUT_S6 is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreAHBLite\5.2.100\rtl\vhdl\core\coreahblite_matrix4x16.vhd":144:8:144:15|Input HRESP_S6 is unused
@@ -577,4 +584,11 @@
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":190:4:190:26|Input SOFT_SDIF0_0_CORE_RESET is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\Actel\DirectCore\CoreResetP\7.1.100\rtl\vhdl\core\coreresetp.vhd":191:4:191:26|Input SOFT_SDIF0_1_CORE_RESET is unused
 @W: CL159 :"E:\LiberoProjects\CertificationSystem_M2S090TS\component\work\CertificationSystem_sb\FABOSC_0\CertificationSystem_sb_FABOSC_0_OSC.vhd":10:10:10:12|Input XTL is unused
+@W: CL189 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":384:8:384:9|Register bit msg_bit_cnt_reg(0) is always 0, optimizing ...
+@W: CL189 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":384:8:384:9|Register bit msg_bit_cnt_reg(1) is always 0, optimizing ...
+@W: CL189 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":384:8:384:9|Register bit msg_bit_cnt_reg(2) is always 0, optimizing ...
+@W: CL279 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":384:8:384:9|Pruning register bits 2 to 0 of msg_bit_cnt_reg(63 downto 0)  
+@W: CL249 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_control.vhd":354:8:354:9|Initial value is not supported on state machine hash_control_st_reg
+@W: CL190 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_controller.vhd":255:8:255:9|Optimizing register bit counter(4) to a constant 0
+@W: CL260 :"E:\LiberoProjects\CertificationSystem_M2S090TS\hdl\sha256_controller.vhd":255:8:255:9|Pruning register bit 4 of counter(4 downto 0)  
 

@@ -3,7 +3,7 @@
 <doc>
 <title>Resource Report</title>
 <text>Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)</text>
-<text>Date: Thu May 25 15:39:33 2017
+<text>Date: Fri Jun 09 16:24:40 2017
 </text>
 <section><name>Device Selection</name></section>
 <table>
@@ -106,15 +106,15 @@
 </header>
 <row>
  <cell>4LUT</cell>
- <cell>2163</cell>
+ <cell>4357</cell>
  <cell>86184</cell>
- <cell>2.51</cell>
+ <cell>5.06</cell>
 </row>
 <row>
  <cell>DFF</cell>
- <cell>1267</cell>
+ <cell>3251</cell>
  <cell>86184</cell>
- <cell>1.47</cell>
+ <cell>3.77</cell>
 </row>
 <row>
  <cell>I/O Register</cell>
@@ -160,9 +160,9 @@
 </row>
 <row>
  <cell>Chip Globals</cell>
- <cell>2</cell>
+ <cell>4</cell>
  <cell>16</cell>
- <cell>12.50</cell>
+ <cell>25.00</cell>
 </row>
 <row>
  <cell>CCC</cell>
@@ -216,8 +216,8 @@
 </header>
 <row>
  <cell>Fabric Logic</cell>
- <cell>1011</cell>
- <cell>115</cell>
+ <cell>3205</cell>
+ <cell>2099</cell>
 </row>
 <row>
  <cell>RAM64x18 Interface Logic</cell>
@@ -236,8 +236,8 @@
 </row>
 <row>
  <cell>Total Used</cell>
- <cell>2163</cell>
- <cell>1267</cell>
+ <cell>4357</cell>
+ <cell>3251</cell>
 </row>
 </table>
 <section><name>MSS Resource Usage</name></section>
@@ -315,6 +315,31 @@
 </table>
 <text>* These resources are always marked as used when you are using the MSS</text>
 <text></text>
+<section><name>Detailed Carry Chains Resource Usage</name></section>
+<table>
+<header>
+</header>
+<row>
+ <cell>Length</cell>
+ <cell>Used</cell>
+</row>
+<row>
+ <cell>8</cell>
+ <cell>1</cell>
+</row>
+<row>
+ <cell>32</cell>
+ <cell>19</cell>
+</row>
+<row>
+ <cell>61</cell>
+ <cell>1</cell>
+</row>
+<row>
+ <cell>Total</cell>
+ <cell>21</cell>
+</row>
+</table>
 <section><name>I/O Function</name></section>
 <table>
 <header>
@@ -404,9 +429,9 @@
  <cell>Name</cell>
 </header>
 <row>
- <cell>180</cell>
+ <cell>2163</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/FAB_CCC_GL0</cell>
+ <cell>Net   : CertificationSystem_sb_0_FAB_CCC_GL0</cell>
 </row>
 <row>
  <cell></cell>
@@ -419,7 +444,7 @@
  <cell>Source: NETLIST</cell>
 </row>
 <row>
- <cell>170</cell>
+ <cell>180</cell>
  <cell>INT_NET</cell>
  <cell>Net   : CertificationSystem_sb_0/MSS_READY</cell>
 </row>
@@ -427,6 +452,36 @@
  <cell></cell>
  <cell></cell>
  <cell>Driver: CertificationSystem_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIRS5B/U0_RGB1</cell>
+</row>
+<row>
+ <cell></cell>
+ <cell></cell>
+ <cell>Source: NETLIST</cell>
+</row>
+<row>
+ <cell>32</cell>
+ <cell>INT_NET</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n_i</cell>
+</row>
+<row>
+ <cell></cell>
+ <cell></cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n_RNIE1K2/U0_RGB1</cell>
+</row>
+<row>
+ <cell></cell>
+ <cell></cell>
+ <cell>Source: NETLIST</cell>
+</row>
+<row>
+ <cell>17</cell>
+ <cell>INT_NET</cell>
+ <cell>Net   : CertificationSystem_sb_0_POWER_ON_RESET_N</cell>
+</row>
+<row>
+ <cell></cell>
+ <cell></cell>
+ <cell>Driver: CertificationSystem_sb_0/SYSRESET_POR_RNIC1R5/U0_RGB1</cell>
 </row>
 <row>
  <cell></cell>
@@ -450,6 +505,16 @@
  <cell>Name</cell>
 </header>
 <row>
+ <cell>570</cell>
+ <cell>INT_NET</cell>
+ <cell>Net   : CertificationSystem_sb_0_GPIO_9_M2F</cell>
+</row>
+<row>
+ <cell></cell>
+ <cell></cell>
+ <cell>Driver: CertificationSystem_sb_0/CertificationSystem_sb_MSS_0/MSS_ADLIB_INST</cell>
+</row>
+<row>
  <cell>533</cell>
  <cell>INT_NET</cell>
  <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[14]</cell>
@@ -460,7 +525,17 @@
  <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[14]</cell>
 </row>
 <row>
- <cell>373</cell>
+ <cell>512</cell>
+ <cell>INT_NET</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_244_i_0</cell>
+</row>
+<row>
+ <cell></cell>
+ <cell></cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/state_counter_proc.un15_ce_i_i_0_a2_RNIKNCQ</cell>
+</row>
+<row>
+ <cell>374</cell>
  <cell>INT_NET</cell>
  <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[15]</cell>
 </row>
@@ -470,84 +545,64 @@
  <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[15]</cell>
 </row>
 <row>
- <cell>149</cell>
+ <cell>331</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[11]</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/hash_control_st_reg_i[6]</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[11]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_i[6]</cell>
 </row>
 <row>
- <cell>146</cell>
+ <cell>265</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[12]</cell>
+ <cell>Net   : SHA256_Module_0/data_out_ready</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[12]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/data_out_ready</cell>
 </row>
 <row>
- <cell>78</cell>
+ <cell>259</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[13]</cell>
+ <cell>Net   : SHA256_Module_0/reg9_1x32_0/wen_or_i_3_i_0</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[13]</cell>
+ <cell>Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/wen_or_i_3_i</cell>
 </row>
 <row>
- <cell>64</cell>
+ <cell>257</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[2]</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/oregs_ce_i_a2_0_a2</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[2]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2</cell>
 </row>
 <row>
- <cell>64</cell>
+ <cell>256</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[3]</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_168_i_0</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[3]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2_i</cell>
 </row>
 <row>
- <cell>64</cell>
+ <cell>256</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[4]</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/core_ce_o_iv_i_0</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[4]</cell>
-</row>
-<row>
- <cell>64</cell>
- <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[5]</cell>
-</row>
-<row>
- <cell></cell>
- <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[5]</cell>
-</row>
-<row>
- <cell>64</cell>
- <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[6]</cell>
-</row>
-<row>
- <cell></cell>
- <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[6]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNIM1OU[0]</cell>
 </row>
 </table>
 <section><name>High fanout nets (through buffer trees)</name></section>
@@ -558,6 +613,16 @@
  <cell>Name</cell>
 </header>
 <row>
+ <cell>570</cell>
+ <cell>INT_NET</cell>
+ <cell>Net   : CertificationSystem_sb_0_GPIO_9_M2F</cell>
+</row>
+<row>
+ <cell></cell>
+ <cell></cell>
+ <cell>Driver: CertificationSystem_sb_0/CertificationSystem_sb_MSS_0/MSS_ADLIB_INST</cell>
+</row>
+<row>
  <cell>533</cell>
  <cell>INT_NET</cell>
  <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[14]</cell>
@@ -568,7 +633,17 @@
  <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[14]</cell>
 </row>
 <row>
- <cell>373</cell>
+ <cell>512</cell>
+ <cell>INT_NET</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_244_i_0</cell>
+</row>
+<row>
+ <cell></cell>
+ <cell></cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/state_counter_proc.un15_ce_i_i_0_a2_RNIKNCQ</cell>
+</row>
+<row>
+ <cell>374</cell>
  <cell>INT_NET</cell>
  <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[15]</cell>
 </row>
@@ -578,84 +653,64 @@
  <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[15]</cell>
 </row>
 <row>
- <cell>149</cell>
+ <cell>331</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[11]</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/hash_control_st_reg_i[6]</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[11]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_i[6]</cell>
 </row>
 <row>
- <cell>146</cell>
+ <cell>265</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[12]</cell>
+ <cell>Net   : SHA256_Module_0/data_out_ready</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[12]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/reg_17x32_0/data_out_ready</cell>
 </row>
 <row>
- <cell>78</cell>
+ <cell>259</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[13]</cell>
+ <cell>Net   : SHA256_Module_0/reg9_1x32_0/wen_or_i_3_i_0</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[13]</cell>
+ <cell>Driver: SHA256_Module_0/reg9_1x32_0/reg_1x32_0/wen_or_i_3_i</cell>
 </row>
 <row>
- <cell>64</cell>
+ <cell>257</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[2]</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/oregs_ce_i_a2_0_a2</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[2]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2</cell>
 </row>
 <row>
- <cell>64</cell>
+ <cell>256</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[3]</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/N_168_i_0</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[3]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/oregs_ce_i_a2_0_a2_i</cell>
 </row>
 <row>
- <cell>64</cell>
+ <cell>256</cell>
  <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[4]</cell>
+ <cell>Net   : SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/core_ce_o_iv_i_0</cell>
 </row>
 <row>
  <cell></cell>
  <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[4]</cell>
-</row>
-<row>
- <cell>64</cell>
- <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[5]</cell>
-</row>
-<row>
- <cell></cell>
- <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[5]</cell>
-</row>
-<row>
- <cell>64</cell>
- <cell>INT_NET</cell>
- <cell>Net   : CertificationSystem_sb_0/COREAHBLSRAM_0_0/ahbsram_addr[6]</cell>
-</row>
-<row>
- <cell></cell>
- <cell></cell>
- <cell>Driver: CertificationSystem_sb_0/COREAHBLSRAM_0_0/U_CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf/HADDR_d[6]</cell>
+ <cell>Driver: SHA256_Module_0/SHA256_BLOCK_0/gv_sha256_0/Inst_sha256_control/hash_control_st_reg_RNIM1OU[0]</cell>
 </row>
 </table>
 </doc>

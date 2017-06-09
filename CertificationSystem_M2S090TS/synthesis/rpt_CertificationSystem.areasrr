@@ -9,18 +9,19 @@ Part:			M2S090TSFBGA484-1 (Microsemi)
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      115                100 %                
+SLE      2099               100 %                
 =================================================
-Total SEQUENTIAL ELEMENTS in the block CertificationSystem:	115 (9.56 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block CertificationSystem:	2099 (38.58 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           1010               100 %                
-BLACK BOX     166                100 %                
+CFG           2527               100 %                
+ARI1          677                100 %                
+BLACK BOX     285                100 %                
 ======================================================
-Total COMBINATIONAL LOGIC in the block CertificationSystem:	1176 (97.76 % Utilization)
+Total COMBINATIONAL LOGIC in the block CertificationSystem:	3489 (64.14 % Utilization)
 
 
 MEMORY ELEMENTS
@@ -28,15 +29,15 @@ Name        Total elements     Utilization     Notes
 ----------------------------------------------------
 RAM1K18     32                 100 %                
 ====================================================
-Total MEMORY ELEMENTS in the block CertificationSystem:	32 (2.66 % Utilization)
+Total MEMORY ELEMENTS in the block CertificationSystem:	32 (0.59 % Utilization)
 
 
 GLOBAL BUFFERS
 Name       Total elements     Utilization     Notes
 ---------------------------------------------------
-GLOBAL     2                  100 %                
+GLOBAL     4                  100 %                
 ===================================================
-Total GLOBAL BUFFERS in the block CertificationSystem:	2 (0.17 % Utilization)
+Total GLOBAL BUFFERS in the block CertificationSystem:	4 (0.07 % Utilization)
 
 
 IO PADS
@@ -44,7 +45,28 @@ Name     Total elements     Utilization     Notes
 -------------------------------------------------
 IO       7                  100 %                
 =================================================
-Total IO PADS in the block CertificationSystem:	7 (0.58 % Utilization)
+Total IO PADS in the block CertificationSystem:	7 (0.13 % Utilization)
+
+---------------------------------------------------------------------
+########   Utilization report for  cell:   AHB_slave_dummy   ########
+Instance path:   CertificationSystem.AHB_slave_dummy                 
+=====================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      15                 0.7150 %             
+=================================================
+Total SEQUENTIAL ELEMENTS in the block CertificationSystem.AHB_slave_dummy:	15 (0.28 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+CFG           11                 0.4350 %             
+BLACK BOX     10                 3.51 %               
+======================================================
+Total COMBINATIONAL LOGIC in the block CertificationSystem.AHB_slave_dummy:	21 (0.39 % Utilization)
 
 ----------------------------------------------------------------------------
 ########   Utilization report for  cell:   CertificationSystem_sb   ########
@@ -54,18 +76,18 @@ Instance path:   CertificationSystem.CertificationSystem_sb
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      115                100 %                
+SLE      125                5.96 %               
 =================================================
-Total SEQUENTIAL ELEMENTS in the block CertificationSystem.CertificationSystem_sb:	115 (9.56 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block CertificationSystem.CertificationSystem_sb:	125 (2.30 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           1010               100 %                
-BLACK BOX     166                100 %                
+CFG           1230               48.7 %               
+BLACK BOX     177                62.1 %               
 ======================================================
-Total COMBINATIONAL LOGIC in the block CertificationSystem.CertificationSystem_sb:	1176 (97.76 % Utilization)
+Total COMBINATIONAL LOGIC in the block CertificationSystem.CertificationSystem_sb:	1407 (25.86 % Utilization)
 
 
 MEMORY ELEMENTS
@@ -73,15 +95,15 @@ Name        Total elements     Utilization     Notes
 ----------------------------------------------------
 RAM1K18     32                 100 %                
 ====================================================
-Total MEMORY ELEMENTS in the block CertificationSystem.CertificationSystem_sb:	32 (2.66 % Utilization)
+Total MEMORY ELEMENTS in the block CertificationSystem.CertificationSystem_sb:	32 (0.59 % Utilization)
 
 
 GLOBAL BUFFERS
 Name       Total elements     Utilization     Notes
 ---------------------------------------------------
-GLOBAL     2                  100 %                
+GLOBAL     3                  75. %                
 ===================================================
-Total GLOBAL BUFFERS in the block CertificationSystem.CertificationSystem_sb:	2 (0.17 % Utilization)
+Total GLOBAL BUFFERS in the block CertificationSystem.CertificationSystem_sb:	3 (0.06 % Utilization)
 
 
 IO PADS
@@ -89,7 +111,7 @@ Name     Total elements     Utilization     Notes
 -------------------------------------------------
 IO       6                  85.7 %               
 =================================================
-Total IO PADS in the block CertificationSystem.CertificationSystem_sb:	6 (0.50 % Utilization)
+Total IO PADS in the block CertificationSystem.CertificationSystem_sb:	6 (0.11 % Utilization)
 
 ---------------------------------------------------------------------------------------
 ########   Utilization report for  cell:   CertificationSystem_sb_CCC_0_FCCC   ########
@@ -99,17 +121,17 @@ Instance path:   CertificationSystem_sb.CertificationSystem_sb_CCC_0_FCCC
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-BLACK BOX     2                  1.2 %                
+BLACK BOX     2                  0.7020 %             
 ======================================================
-Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CertificationSystem_sb_CCC_0_FCCC:	2 (0.17 % Utilization)
+Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CertificationSystem_sb_CCC_0_FCCC:	2 (0.04 % Utilization)
 
 
 GLOBAL BUFFERS
 Name       Total elements     Utilization     Notes
 ---------------------------------------------------
-GLOBAL     1                  50. %                
+GLOBAL     1                  25. %                
 ===================================================
-Total GLOBAL BUFFERS in the block CertificationSystem_sb.CertificationSystem_sb_CCC_0_FCCC:	1 (0.08 % Utilization)
+Total GLOBAL BUFFERS in the block CertificationSystem_sb.CertificationSystem_sb_CCC_0_FCCC:	1 (0.02 % Utilization)
 
 ----------------------------------------------------------------------------------------------------------
 ########   Utilization report for  cell:   CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM   ########
@@ -119,18 +141,18 @@ Instance path:   CertificationSystem_sb.CertificationSystem_sb_COREAHBLSRAM_0_0_
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      64                 55.7 %               
+SLE      64                 3.05 %               
 =================================================
-Total SEQUENTIAL ELEMENTS in the block CertificationSystem_sb.CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM:	64 (5.32 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block CertificationSystem_sb.CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM:	64 (1.18 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           851                84.3 %               
-BLACK BOX     39                 23.5 %               
+CFG           853                33.8 %               
+BLACK BOX     39                 13.7 %               
 ======================================================
-Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM:	890 (73.98 % Utilization)
+Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM:	892 (16.40 % Utilization)
 
 
 MEMORY ELEMENTS
@@ -138,7 +160,7 @@ Name        Total elements     Utilization     Notes
 ----------------------------------------------------
 RAM1K18     32                 100 %                
 ====================================================
-Total MEMORY ELEMENTS in the block CertificationSystem_sb.CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM:	32 (2.66 % Utilization)
+Total MEMORY ELEMENTS in the block CertificationSystem_sb.CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM:	32 (0.59 % Utilization)
 
 ------------------------------------------------------------------------------------------------------------------------
 ########   Utilization report for  cell:   CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf   ########                
@@ -148,18 +170,18 @@ Instance path:   CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.Certificat
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      28                 24.3 %               
+SLE      28                 1.33 %               
 =================================================
-Total SEQUENTIAL ELEMENTS in the block CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf:	28 (2.33 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf:	28 (0.51 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           25                 2.48 %               
-BLACK BOX     38                 22.9 %               
+CFG           28                 1.11 %               
+BLACK BOX     38                 13.3 %               
 ======================================================
-Total COMBINATIONAL LOGIC in the block CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf:	63 (5.24 % Utilization)
+Total COMBINATIONAL LOGIC in the block CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf:	66 (1.21 % Utilization)
 
 ------------------------------------------------------------------------------------------------------------------------
 ########   Utilization report for  cell:   CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf   ########                
@@ -169,18 +191,18 @@ Instance path:   CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.Certificat
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      36                 31.3 %               
+SLE      36                 1.72 %               
 =================================================
-Total SEQUENTIAL ELEMENTS in the block CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf:	36 (2.99 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf:	36 (0.66 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           826                81.8 %               
-BLACK BOX     1                  0.6020 %             
+CFG           825                32.6 %               
+BLACK BOX     1                  0.3510 %             
 ======================================================
-Total COMBINATIONAL LOGIC in the block CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf:	827 (68.74 % Utilization)
+Total COMBINATIONAL LOGIC in the block CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf:	826 (15.18 % Utilization)
 
 
 MEMORY ELEMENTS
@@ -188,7 +210,7 @@ Name        Total elements     Utilization     Notes
 ----------------------------------------------------
 RAM1K18     32                 100 %                
 ====================================================
-Total MEMORY ELEMENTS in the block CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf:	32 (2.66 % Utilization)
+Total MEMORY ELEMENTS in the block CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM.CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf:	32 (0.59 % Utilization)
 
 --------------------------------------------------------------------------------------------------------------------------------
 ########   Utilization report for  cell:   CertificationSystem_sb_COREAHBLSRAM_0_0_lsram_2048to139264x8   ########              
@@ -198,9 +220,9 @@ Instance path:   CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf.Certificatio
 COMBINATIONAL LOGIC
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-CFG      812                80.4 %               
+CFG      811                32.1 %               
 =================================================
-Total COMBINATIONAL LOGIC in the block CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf.CertificationSystem_sb_COREAHBLSRAM_0_0_lsram_2048to139264x8:	812 (67.50 % Utilization)
+Total COMBINATIONAL LOGIC in the block CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf.CertificationSystem_sb_COREAHBLSRAM_0_0_lsram_2048to139264x8:	811 (14.91 % Utilization)
 
 
 MEMORY ELEMENTS
@@ -208,7 +230,7 @@ Name        Total elements     Utilization     Notes
 ----------------------------------------------------
 RAM1K18     32                 100 %                
 ====================================================
-Total MEMORY ELEMENTS in the block CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf.CertificationSystem_sb_COREAHBLSRAM_0_0_lsram_2048to139264x8:	32 (2.66 % Utilization)
+Total MEMORY ELEMENTS in the block CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf.CertificationSystem_sb_COREAHBLSRAM_0_0_lsram_2048to139264x8:	32 (0.59 % Utilization)
 
 -----------------------------------------------------------------------------------------
 ########   Utilization report for  cell:   CertificationSystem_sb_FABOSC_0_OSC   ########
@@ -218,9 +240,9 @@ Instance path:   CertificationSystem_sb.CertificationSystem_sb_FABOSC_0_OSC
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-BLACK BOX     1                  0.6020 %             
+BLACK BOX     1                  0.3510 %             
 ======================================================
-Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CertificationSystem_sb_FABOSC_0_OSC:	1 (0.08 % Utilization)
+Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CertificationSystem_sb_FABOSC_0_OSC:	1 (0.02 % Utilization)
 
 --------------------------------------------------------------------------------
 ########   Utilization report for  cell:   CertificationSystem_sb_MSS   ########
@@ -230,10 +252,9 @@ Instance path:   CertificationSystem_sb.CertificationSystem_sb_MSS
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           32                 3.17 %               
-BLACK BOX     1                  0.6020 %             
+BLACK BOX     1                  0.3510 %             
 ======================================================
-Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CertificationSystem_sb_MSS:	33 (2.74 % Utilization)
+Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CertificationSystem_sb_MSS:	1 (0.02 % Utilization)
 
 
 IO PADS
@@ -241,7 +262,7 @@ Name     Total elements     Utilization     Notes
 -------------------------------------------------
 IO       6                  85.7 %               
 =================================================
-Total IO PADS in the block CertificationSystem_sb.CertificationSystem_sb_MSS:	6 (0.50 % Utilization)
+Total IO PADS in the block CertificationSystem_sb.CertificationSystem_sb_MSS:	6 (0.11 % Utilization)
 
 -----------------------------------------------------------------
 ########   Utilization report for  cell:   CoreAHBLite   ########
@@ -251,18 +272,18 @@ Instance path:   CertificationSystem_sb.CoreAHBLite
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      42                 36.5 %               
+SLE      52                 2.48 %               
 =================================================
-Total SEQUENTIAL ELEMENTS in the block CertificationSystem_sb.CoreAHBLite:	42 (3.49 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block CertificationSystem_sb.CoreAHBLite:	52 (0.96 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           125                12.4 %               
-BLACK BOX     26                 15.7 %               
+CFG           375                14.8 %               
+BLACK BOX     37                 13. %                
 ======================================================
-Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CoreAHBLite:	151 (12.55 % Utilization)
+Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CoreAHBLite:	412 (7.57 % Utilization)
 
 ----------------------------------------------------------------------------
 ########   Utilization report for  cell:   COREAHBLITE_MATRIX4X16   ########
@@ -272,59 +293,59 @@ Instance path:   CoreAHBLite.COREAHBLITE_MATRIX4X16
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      42                 36.5 %               
+SLE      52                 2.48 %               
 =================================================
-Total SEQUENTIAL ELEMENTS in the block CoreAHBLite.COREAHBLITE_MATRIX4X16:	42 (3.49 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block CoreAHBLite.COREAHBLITE_MATRIX4X16:	52 (0.96 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           125                12.4 %               
-BLACK BOX     26                 15.7 %               
+CFG           375                14.8 %               
+BLACK BOX     37                 13. %                
 ======================================================
-Total COMBINATIONAL LOGIC in the block CoreAHBLite.COREAHBLITE_MATRIX4X16:	151 (12.55 % Utilization)
+Total COMBINATIONAL LOGIC in the block CoreAHBLite.COREAHBLITE_MATRIX4X16:	412 (7.57 % Utilization)
 
----------------------------------------------------------------------------------------
-########   Utilization report for  cell:   COREAHBLITE_MASTERSTAGE_1_1_0_8_0   ########
-Instance path:   COREAHBLITE_MATRIX4X16.COREAHBLITE_MASTERSTAGE_1_1_0_8_0              
-=======================================================================================
+----------------------------------------------------------------------------------------
+########   Utilization report for  cell:   COREAHBLITE_MASTERSTAGE_1_1_0_40_0   ########
+Instance path:   COREAHBLITE_MATRIX4X16.COREAHBLITE_MASTERSTAGE_1_1_0_40_0              
+========================================================================================
 
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      38                 33. %                
+SLE      40                 1.91 %               
 =================================================
-Total SEQUENTIAL ELEMENTS in the block COREAHBLITE_MATRIX4X16.COREAHBLITE_MASTERSTAGE_1_1_0_8_0:	38 (3.16 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block COREAHBLITE_MATRIX4X16.COREAHBLITE_MASTERSTAGE_1_1_0_40_0:	40 (0.74 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           81                 8.02 %               
-BLACK BOX     13                 7.83 %               
+CFG           282                11.2 %               
+BLACK BOX     13                 4.56 %               
 ======================================================
-Total COMBINATIONAL LOGIC in the block COREAHBLITE_MATRIX4X16.COREAHBLITE_MASTERSTAGE_1_1_0_8_0:	94 (7.81 % Utilization)
+Total COMBINATIONAL LOGIC in the block COREAHBLITE_MATRIX4X16.COREAHBLITE_MASTERSTAGE_1_1_0_40_0:	295 (5.42 % Utilization)
 
 ----------------------------------------------------------------------------------
 ########   Utilization report for  cell:   COREAHBLITE_DEFAULTSLAVESM_0   ########
-Instance path:   COREAHBLITE_MASTERSTAGE_1_1_0_8_0.COREAHBLITE_DEFAULTSLAVESM_0   
+Instance path:   COREAHBLITE_MASTERSTAGE_1_1_0_40_0.COREAHBLITE_DEFAULTSLAVESM_0  
 ==================================================================================
 
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      1                  0.870 %              
+SLE      1                  4.76e-002 %          
 =================================================
-Total SEQUENTIAL ELEMENTS in the block COREAHBLITE_MASTERSTAGE_1_1_0_8_0.COREAHBLITE_DEFAULTSLAVESM_0:	1 (0.08 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block COREAHBLITE_MASTERSTAGE_1_1_0_40_0.COREAHBLITE_DEFAULTSLAVESM_0:	1 (0.02 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-CFG      7                  0.6930 %             
+CFG      2                  7.91e-002 %          
 =================================================
-Total COMBINATIONAL LOGIC in the block COREAHBLITE_MASTERSTAGE_1_1_0_8_0.COREAHBLITE_DEFAULTSLAVESM_0:	7 (0.58 % Utilization)
+Total COMBINATIONAL LOGIC in the block COREAHBLITE_MASTERSTAGE_1_1_0_40_0.COREAHBLITE_DEFAULTSLAVESM_0:	2 (0.04 % Utilization)
 
 ------------------------------------------------------------------------------
 ########   Utilization report for  cell:   COREAHBLITE_SLAVESTAGE_0   ########
@@ -334,39 +355,81 @@ Instance path:   COREAHBLITE_MATRIX4X16.COREAHBLITE_SLAVESTAGE_0
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      4                  3.48 %               
+SLE      6                  0.2860 %             
 =================================================
-Total SEQUENTIAL ELEMENTS in the block COREAHBLITE_MATRIX4X16.COREAHBLITE_SLAVESTAGE_0:	4 (0.33 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block COREAHBLITE_MATRIX4X16.COREAHBLITE_SLAVESTAGE_0:	6 (0.11 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           44                 4.36 %               
-BLACK BOX     13                 7.83 %               
+CFG           47                 1.86 %               
+BLACK BOX     12                 4.21 %               
 ======================================================
-Total COMBINATIONAL LOGIC in the block COREAHBLITE_MATRIX4X16.COREAHBLITE_SLAVESTAGE_0:	57 (4.74 % Utilization)
+Total COMBINATIONAL LOGIC in the block COREAHBLITE_MATRIX4X16.COREAHBLITE_SLAVESTAGE_0:	59 (1.08 % Utilization)
+
+----------------------------------------------------------------------------------
+########   Utilization report for  cell:   COREAHBLITE_SLAVEARBITER_1_0   ########
+Instance path:   COREAHBLITE_SLAVESTAGE_0.COREAHBLITE_SLAVEARBITER_1_0            
+==================================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      5                  0.2380 %             
+=================================================
+Total SEQUENTIAL ELEMENTS in the block COREAHBLITE_SLAVESTAGE_0.COREAHBLITE_SLAVEARBITER_1_0:	5 (0.09 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+CFG           15                 0.5940 %             
+BLACK BOX     9                  3.16 %               
+======================================================
+Total COMBINATIONAL LOGIC in the block COREAHBLITE_SLAVESTAGE_0.COREAHBLITE_SLAVEARBITER_1_0:	24 (0.44 % Utilization)
+
+------------------------------------------------------------------------------
+########   Utilization report for  cell:   COREAHBLITE_SLAVESTAGE_1   ########
+Instance path:   COREAHBLITE_MATRIX4X16.COREAHBLITE_SLAVESTAGE_1              
+==============================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      6                  0.2860 %             
+=================================================
+Total SEQUENTIAL ELEMENTS in the block COREAHBLITE_MATRIX4X16.COREAHBLITE_SLAVESTAGE_1:	6 (0.11 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+CFG           46                 1.82 %               
+BLACK BOX     12                 4.21 %               
+======================================================
+Total COMBINATIONAL LOGIC in the block COREAHBLITE_MATRIX4X16.COREAHBLITE_SLAVESTAGE_1:	58 (1.07 % Utilization)
 
 --------------------------------------------------------------------------------
 ########   Utilization report for  cell:   COREAHBLITE_SLAVEARBITER_1   ########
-Instance path:   COREAHBLITE_SLAVESTAGE_0.COREAHBLITE_SLAVEARBITER_1            
+Instance path:   COREAHBLITE_SLAVESTAGE_1.COREAHBLITE_SLAVEARBITER_1            
 ================================================================================
 
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      3                  2.61 %               
+SLE      5                  0.2380 %             
 =================================================
-Total SEQUENTIAL ELEMENTS in the block COREAHBLITE_SLAVESTAGE_0.COREAHBLITE_SLAVEARBITER_1:	3 (0.25 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block COREAHBLITE_SLAVESTAGE_1.COREAHBLITE_SLAVEARBITER_1:	5 (0.09 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           11                 1.09 %               
-BLACK BOX     10                 6.02 %               
+CFG           13                 0.5140 %             
+BLACK BOX     9                  3.16 %               
 ======================================================
-Total COMBINATIONAL LOGIC in the block COREAHBLITE_SLAVESTAGE_0.COREAHBLITE_SLAVEARBITER_1:	21 (1.75 % Utilization)
+Total COMBINATIONAL LOGIC in the block COREAHBLITE_SLAVESTAGE_1.COREAHBLITE_SLAVEARBITER_1:	22 (0.40 % Utilization)
 
 ----------------------------------------------------------------
 ########   Utilization report for  cell:   CoreResetP   ########
@@ -376,26 +439,525 @@ Instance path:   CertificationSystem_sb.CoreResetP
 SEQUENTIAL ELEMENTS
 Name     Total elements     Utilization     Notes
 -------------------------------------------------
-SLE      9                  7.83 %               
+SLE      9                  0.4290 %             
 =================================================
-Total SEQUENTIAL ELEMENTS in the block CertificationSystem_sb.CoreResetP:	9 (0.75 % Utilization)
+Total SEQUENTIAL ELEMENTS in the block CertificationSystem_sb.CoreResetP:	9 (0.17 % Utilization)
 
 
 COMBINATIONAL LOGIC
 Name          Total elements     Utilization     Notes
 ------------------------------------------------------
-CFG           2                  0.1980 %             
-BLACK BOX     96                 57.8 %               
+CFG           2                  7.91e-002 %          
+BLACK BOX     96                 33.7 %               
 ======================================================
-Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CoreResetP:	98 (8.15 % Utilization)
+Total COMBINATIONAL LOGIC in the block CertificationSystem_sb.CoreResetP:	98 (1.80 % Utilization)
 
 
 GLOBAL BUFFERS
 Name       Total elements     Utilization     Notes
 ---------------------------------------------------
-GLOBAL     1                  50. %                
+GLOBAL     1                  25. %                
 ===================================================
-Total GLOBAL BUFFERS in the block CertificationSystem_sb.CoreResetP:	1 (0.08 % Utilization)
+Total GLOBAL BUFFERS in the block CertificationSystem_sb.CoreResetP:	1 (0.02 % Utilization)
+
+-------------------------------------------------------------------
+########   Utilization report for  cell:   SHA256_Module   ########
+Instance path:   CertificationSystem.SHA256_Module                 
+===================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      1959               93.3 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block CertificationSystem.SHA256_Module:	1959 (36.01 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+CFG           1286               50.9 %               
+ARI1          677                100 %                
+BLACK BOX     98                 34.4 %               
+======================================================
+Total COMBINATIONAL LOGIC in the block CertificationSystem.SHA256_Module:	2061 (37.89 % Utilization)
+
+
+GLOBAL BUFFERS
+Name       Total elements     Utilization     Notes
+---------------------------------------------------
+GLOBAL     1                  25. %                
+===================================================
+Total GLOBAL BUFFERS in the block CertificationSystem.SHA256_Module:	1 (0.02 % Utilization)
+
+------------------------------------------------------------------
+########   Utilization report for  cell:   SHA256_BLOCK   ########
+Instance path:   SHA256_Module.SHA256_BLOCK                       
+==================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      1698               80.9 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block SHA256_Module.SHA256_BLOCK:	1698 (31.21 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+CFG           1235               48.9 %               
+ARI1          677                100 %                
+BLACK BOX     59                 20.7 %               
+======================================================
+Total COMBINATIONAL LOGIC in the block SHA256_Module.SHA256_BLOCK:	1971 (36.23 % Utilization)
+
+
+GLOBAL BUFFERS
+Name       Total elements     Utilization     Notes
+---------------------------------------------------
+GLOBAL     1                  25. %                
+===================================================
+Total GLOBAL BUFFERS in the block SHA256_Module.SHA256_BLOCK:	1 (0.02 % Utilization)
+
+---------------------------------------------------------------
+########   Utilization report for  cell:   gv_sha256   ########
+Instance path:   SHA256_BLOCK.gv_sha256                        
+===============================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      1117               53.2 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block SHA256_BLOCK.gv_sha256:	1117 (20.53 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+CFG           830                32.8 %               
+ARI1          645                95.3 %               
+BLACK BOX     1                  0.3510 %             
+======================================================
+Total COMBINATIONAL LOGIC in the block SHA256_BLOCK.gv_sha256:	1476 (27.13 % Utilization)
+
+--------------------------------------------------------------------
+########   Utilization report for  cell:   sha256_control   ########
+Instance path:   gv_sha256.sha256_control                           
+====================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      93                 4.43 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block gv_sha256.sha256_control:	93 (1.71 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+CFG           62                 2.45 %               
+ARI1          69                 10.2 %               
+BLACK BOX     1                  0.3510 %             
+======================================================
+Total COMBINATIONAL LOGIC in the block gv_sha256.sha256_control:	132 (2.43 % Utilization)
+
+----------------------------------------------------------------------
+########   Utilization report for  cell:   sha256_hash_core   ########
+Instance path:   gv_sha256.sha256_hash_core                           
+======================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      256                12.2 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block gv_sha256.sha256_hash_core:	256 (4.71 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+CFG      290                11.5 %               
+ARI1     224                33.1 %               
+=================================================
+Total COMBINATIONAL LOGIC in the block gv_sha256.sha256_hash_core:	514 (9.45 % Utilization)
+
+-------------------------------------------------------------------
+########   Utilization report for  cell:   sha256_kt_rom   ########
+Instance path:   gv_sha256.sha256_kt_rom                           
+===================================================================
+
+COMBINATIONAL LOGIC
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+CFG      237                9.38 %               
+=================================================
+Total COMBINATIONAL LOGIC in the block gv_sha256.sha256_kt_rom:	237 (4.36 % Utilization)
+
+--------------------------------------------------------------------
+########   Utilization report for  cell:   sha256_msg_sch   ########
+Instance path:   gv_sha256.sha256_msg_sch                           
+====================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      512                24.4 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block gv_sha256.sha256_msg_sch:	512 (9.41 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+CFG      125                4.95 %               
+ARI1     96                 14.2 %               
+=================================================
+Total COMBINATIONAL LOGIC in the block gv_sha256.sha256_msg_sch:	221 (4.06 % Utilization)
+
+--------------------------------------------------------------------
+########   Utilization report for  cell:   sha256_padding   ########
+Instance path:   gv_sha256.sha256_padding                           
+====================================================================
+
+COMBINATIONAL LOGIC
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+CFG      116                4.59 %               
+=================================================
+Total COMBINATIONAL LOGIC in the block gv_sha256.sha256_padding:	116 (2.13 % Utilization)
+
+-----------------------------------------------------------------
+########   Utilization report for  cell:   sha256_regs   ########
+Instance path:   gv_sha256.sha256_regs                           
+=================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      256                12.2 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block gv_sha256.sha256_regs:	256 (4.71 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+ARI1     256                37.8 %               
+=================================================
+Total COMBINATIONAL LOGIC in the block gv_sha256.sha256_regs:	256 (4.71 % Utilization)
+
+--------------------------------------------------------------------
+########   Utilization report for  cell:   limiter_1cycle   ########
+Instance path:   SHA256_BLOCK.limiter_1cycle                        
+====================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      1                  4.76e-002 %          
+=================================================
+Total SEQUENTIAL ELEMENTS in the block SHA256_BLOCK.limiter_1cycle:	1 (0.02 % Utilization)
+
+----------------------------------------------------------------------
+########   Utilization report for  cell:   limiter_1cycle_0   ########
+Instance path:   SHA256_BLOCK.limiter_1cycle_0                        
+======================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      1                  4.76e-002 %          
+=================================================
+Total SEQUENTIAL ELEMENTS in the block SHA256_BLOCK.limiter_1cycle_0:	1 (0.02 % Utilization)
+
+---------------------------------------------------------------
+########   Utilization report for  cell:   reg_17x32   ########
+Instance path:   SHA256_BLOCK.reg_17x32                        
+===============================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      536                25.5 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block SHA256_BLOCK.reg_17x32:	536 (9.85 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+CFG           365                14.4 %               
+BLACK BOX     57                 20. %                
+======================================================
+Total COMBINATIONAL LOGIC in the block SHA256_BLOCK.reg_17x32:	422 (7.76 % Utilization)
+
+-----------------------------------------------------------------------
+########   Utilization report for  cell:   sha256_controller   ########
+Instance path:   SHA256_BLOCK.sha256_controller                        
+=======================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      43                 2.05 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block SHA256_BLOCK.sha256_controller:	43 (0.79 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+CFG           40                 1.58 %               
+ARI1          32                 4.73 %               
+BLACK BOX     1                  0.3510 %             
+======================================================
+Total COMBINATIONAL LOGIC in the block SHA256_BLOCK.sha256_controller:	73 (1.34 % Utilization)
+
+
+GLOBAL BUFFERS
+Name       Total elements     Utilization     Notes
+---------------------------------------------------
+GLOBAL     1                  25. %                
+===================================================
+Total GLOBAL BUFFERS in the block SHA256_BLOCK.sha256_controller:	1 (0.02 % Utilization)
+
+-------------------------------------------------------------------
+########   Utilization report for  cell:   reg1_highonly   ########
+Instance path:   SHA256_Module.reg1_highonly                       
+===================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      1                  4.76e-002 %          
+=================================================
+Total SEQUENTIAL ELEMENTS in the block SHA256_Module.reg1_highonly:	1 (0.02 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+CFG      2                  7.91e-002 %          
+=================================================
+Total COMBINATIONAL LOGIC in the block SHA256_Module.reg1_highonly:	2 (0.04 % Utilization)
+
+---------------------------------------------------------------
+########   Utilization report for  cell:   reg9_1x32   ########
+Instance path:   SHA256_Module.reg9_1x32                       
+===============================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      260                12.4 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block SHA256_Module.reg9_1x32:	260 (4.78 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+CFG           49                 1.94 %               
+BLACK BOX     38                 13.3 %               
+======================================================
+Total COMBINATIONAL LOGIC in the block SHA256_Module.reg9_1x32:	87 (1.60 % Utilization)
+
+-------------------------------------------------------------
+########   Utilization report for  cell:   mux_9_1   ########
+Instance path:   reg9_1x32.mux_9_1                           
+=============================================================
+
+COMBINATIONAL LOGIC
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+CFG      47                 1.86 %               
+=================================================
+Total COMBINATIONAL LOGIC in the block reg9_1x32.mux_9_1:	47 (0.86 % Utilization)
+
+--------------------------------------------------------------
+########   Utilization report for  cell:   reg_1x32   ########
+Instance path:   reg9_1x32.reg_1x32                           
+==============================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      33                 1.57 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block reg9_1x32.reg_1x32:	33 (0.61 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+CFG           2                  7.91e-002 %          
+BLACK BOX     1                  0.3510 %             
+======================================================
+Total COMBINATIONAL LOGIC in the block reg9_1x32.reg_1x32:	3 (0.06 % Utilization)
+
+----------------------------------------------------------------
+########   Utilization report for  cell:   reg_1x32_1   ########
+Instance path:   reg9_1x32.reg_1x32_1                           
+================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      32                 1.52 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block reg9_1x32.reg_1x32_1:	32 (0.59 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+BLACK BOX     1                  0.3510 %             
+======================================================
+Total COMBINATIONAL LOGIC in the block reg9_1x32.reg_1x32_1:	1 (0.02 % Utilization)
+
+----------------------------------------------------------------
+########   Utilization report for  cell:   reg_1x32_2   ########
+Instance path:   reg9_1x32.reg_1x32_2                           
+================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      32                 1.52 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block reg9_1x32.reg_1x32_2:	32 (0.59 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+BLACK BOX     1                  0.3510 %             
+======================================================
+Total COMBINATIONAL LOGIC in the block reg9_1x32.reg_1x32_2:	1 (0.02 % Utilization)
+
+----------------------------------------------------------------
+########   Utilization report for  cell:   reg_1x32_3   ########
+Instance path:   reg9_1x32.reg_1x32_3                           
+================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      32                 1.52 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block reg9_1x32.reg_1x32_3:	32 (0.59 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+BLACK BOX     1                  0.3510 %             
+======================================================
+Total COMBINATIONAL LOGIC in the block reg9_1x32.reg_1x32_3:	1 (0.02 % Utilization)
+
+----------------------------------------------------------------
+########   Utilization report for  cell:   reg_1x32_4   ########
+Instance path:   reg9_1x32.reg_1x32_4                           
+================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      32                 1.52 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block reg9_1x32.reg_1x32_4:	32 (0.59 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+BLACK BOX     1                  0.3510 %             
+======================================================
+Total COMBINATIONAL LOGIC in the block reg9_1x32.reg_1x32_4:	1 (0.02 % Utilization)
+
+----------------------------------------------------------------
+########   Utilization report for  cell:   reg_1x32_5   ########
+Instance path:   reg9_1x32.reg_1x32_5                           
+================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      32                 1.52 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block reg9_1x32.reg_1x32_5:	32 (0.59 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+BLACK BOX     1                  0.3510 %             
+======================================================
+Total COMBINATIONAL LOGIC in the block reg9_1x32.reg_1x32_5:	1 (0.02 % Utilization)
+
+----------------------------------------------------------------
+########   Utilization report for  cell:   reg_1x32_6   ########
+Instance path:   reg9_1x32.reg_1x32_6                           
+================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      32                 1.52 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block reg9_1x32.reg_1x32_6:	32 (0.59 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+BLACK BOX     1                  0.3510 %             
+======================================================
+Total COMBINATIONAL LOGIC in the block reg9_1x32.reg_1x32_6:	1 (0.02 % Utilization)
+
+----------------------------------------------------------------
+########   Utilization report for  cell:   reg_1x32_7   ########
+Instance path:   reg9_1x32.reg_1x32_7                           
+================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      32                 1.52 %               
+=================================================
+Total SEQUENTIAL ELEMENTS in the block reg9_1x32.reg_1x32_7:	32 (0.59 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+BLACK BOX     1                  0.3510 %             
+======================================================
+Total COMBINATIONAL LOGIC in the block reg9_1x32.reg_1x32_7:	1 (0.02 % Utilization)
+
+----------------------------------------------------------------
+########   Utilization report for  cell:   reg_1x32_8   ########
+Instance path:   reg9_1x32.reg_1x32_8                           
+================================================================
+
+SEQUENTIAL ELEMENTS
+Name     Total elements     Utilization     Notes
+-------------------------------------------------
+SLE      3                  0.1430 %             
+=================================================
+Total SEQUENTIAL ELEMENTS in the block reg9_1x32.reg_1x32_8:	3 (0.06 % Utilization)
+
+
+COMBINATIONAL LOGIC
+Name          Total elements     Utilization     Notes
+------------------------------------------------------
+BLACK BOX     30                 10.5 %               
+======================================================
+Total COMBINATIONAL LOGIC in the block reg9_1x32.reg_1x32_8:	30 (0.55 % Utilization)
 
 
 ##### END OF AREA REPORT #####]

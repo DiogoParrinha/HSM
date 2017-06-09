@@ -3,7 +3,7 @@
 <doc>
 <title>Global Net Report</title>
 <text>Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)</text>
-<text>Date: Thu May 25 15:39:51 2017
+<text>Date: Fri Jun 09 16:25:13 2017
 </text>
 <section>
 <name>Global Nets Information</name>
@@ -20,14 +20,28 @@
  <cell>GB[3] </cell>
  <cell>(509, 132)</cell>
  <cell>CertificationSystem_sb_0/CCC_0/GL0_INST/U0_YWn</cell>
- <cell>180</cell>
+ <cell>2163</cell>
 </row>
 <row>
  <cell>2</cell>
  <cell>GB[7] </cell>
  <cell>(513, 132)</cell>
  <cell>CertificationSystem_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIRS5B/U0_YWn</cell>
- <cell>170</cell>
+ <cell>180</cell>
+</row>
+<row>
+ <cell>3</cell>
+ <cell>GB[2] </cell>
+ <cell>(508, 132)</cell>
+ <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n_RNIE1K2/U0_YWn_GEast</cell>
+ <cell>32</cell>
+</row>
+<row>
+ <cell>4</cell>
+ <cell>GB[6] </cell>
+ <cell>(512, 132)</cell>
+ <cell>CertificationSystem_sb_0/SYSRESET_POR_RNIC1R5/U0_YWn_GEast</cell>
+ <cell>17</cell>
 </row>
 </table>
 <text></text>
@@ -51,9 +65,27 @@
 <row>
  <cell>1</cell>
  <cell>CertificationSystem_sb_0/CORERESETP_0/MSS_HPMS_READY_int:Q</cell>
- <cell>(935, 247)</cell>
+ <cell>(927, 229)</cell>
  <cell>GB[7] </cell>
  <cell>CertificationSystem_sb_0/CORERESETP_0/MSS_HPMS_READY_int</cell>
+ <cell>ROUTED</cell>
+ <cell>1</cell>
+</row>
+<row>
+ <cell>2</cell>
+ <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n:Y</cell>
+ <cell>(942, 234)</cell>
+ <cell>GB[2] </cell>
+ <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n</cell>
+ <cell>ROUTED</cell>
+ <cell>1</cell>
+</row>
+<row>
+ <cell>3</cell>
+ <cell>CertificationSystem_sb_0/SYSRESET_POR/INST_SYSRESET_IP:POWER_ON_RESET_N</cell>
+ <cell>(1020, 8)</cell>
+ <cell>GB[6] </cell>
+ <cell>CertificationSystem_sb_0/SYSRESET_POR</cell>
  <cell>ROUTED</cell>
  <cell>1</cell>
 </row>
@@ -112,10 +144,10 @@
  <cell>GB[3] </cell>
  <cell>(509, 132)</cell>
  <cell>CertificationSystem_sb_0/CCC_0/GL0_INST/U0_YWn</cell>
- <cell>180</cell>
+ <cell>2163</cell>
  <cell>1</cell>
  <cell>(254, 252)</cell>
- <cell>2</cell>
+ <cell>4</cell>
 </row>
 <row>
  <cell> </cell>
@@ -124,16 +156,6 @@
  <cell></cell>
  <cell></cell>
  <cell>2</cell>
- <cell>(770, 99)</cell>
- <cell>2</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>3</cell>
  <cell>(770, 117)</cell>
  <cell>10</cell>
 </row>
@@ -143,9 +165,19 @@
  <cell></cell>
  <cell></cell>
  <cell></cell>
- <cell>4</cell>
+ <cell>3</cell>
  <cell>(770, 168)</cell>
- <cell>26</cell>
+ <cell>24</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>4</cell>
+ <cell>(770, 180)</cell>
+ <cell>54</cell>
 </row>
 <row>
  <cell> </cell>
@@ -154,8 +186,8 @@
  <cell></cell>
  <cell></cell>
  <cell>5</cell>
- <cell>(770, 171)</cell>
- <cell>2</cell>
+ <cell>(770, 183)</cell>
+ <cell>53</cell>
 </row>
 <row>
  <cell> </cell>
@@ -164,8 +196,8 @@
  <cell></cell>
  <cell></cell>
  <cell>6</cell>
- <cell>(770, 180)</cell>
- <cell>1</cell>
+ <cell>(770, 186)</cell>
+ <cell>49</cell>
 </row>
 <row>
  <cell> </cell>
@@ -174,8 +206,8 @@
  <cell></cell>
  <cell></cell>
  <cell>7</cell>
- <cell>(770, 210)</cell>
- <cell>12</cell>
+ <cell>(770, 189)</cell>
+ <cell>108</cell>
 </row>
 <row>
  <cell> </cell>
@@ -184,8 +216,8 @@
  <cell></cell>
  <cell></cell>
  <cell>8</cell>
- <cell>(770, 213)</cell>
- <cell>20</cell>
+ <cell>(770, 192)</cell>
+ <cell>68</cell>
 </row>
 <row>
  <cell> </cell>
@@ -194,8 +226,8 @@
  <cell></cell>
  <cell></cell>
  <cell>9</cell>
- <cell>(770, 216)</cell>
- <cell>26</cell>
+ <cell>(770, 195)</cell>
+ <cell>99</cell>
 </row>
 <row>
  <cell> </cell>
@@ -204,8 +236,8 @@
  <cell></cell>
  <cell></cell>
  <cell>10</cell>
- <cell>(770, 219)</cell>
- <cell>15</cell>
+ <cell>(770, 198)</cell>
+ <cell>102</cell>
 </row>
 <row>
  <cell> </cell>
@@ -214,8 +246,8 @@
  <cell></cell>
  <cell></cell>
  <cell>11</cell>
- <cell>(770, 222)</cell>
- <cell>7</cell>
+ <cell>(770, 201)</cell>
+ <cell>119</cell>
 </row>
 <row>
  <cell> </cell>
@@ -224,8 +256,8 @@
  <cell></cell>
  <cell></cell>
  <cell>12</cell>
- <cell>(770, 225)</cell>
- <cell>1</cell>
+ <cell>(770, 204)</cell>
+ <cell>80</cell>
 </row>
 <row>
  <cell> </cell>
@@ -234,8 +266,8 @@
  <cell></cell>
  <cell></cell>
  <cell>13</cell>
- <cell>(770, 246)</cell>
- <cell>5</cell>
+ <cell>(770, 207)</cell>
+ <cell>47</cell>
 </row>
 <row>
  <cell> </cell>
@@ -244,8 +276,8 @@
  <cell></cell>
  <cell></cell>
  <cell>14</cell>
- <cell>(770, 249)</cell>
- <cell>22</cell>
+ <cell>(770, 210)</cell>
+ <cell>32</cell>
 </row>
 <row>
  <cell> </cell>
@@ -254,6 +286,136 @@
  <cell></cell>
  <cell></cell>
  <cell>15</cell>
+ <cell>(770, 213)</cell>
+ <cell>37</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>16</cell>
+ <cell>(770, 216)</cell>
+ <cell>102</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>17</cell>
+ <cell>(770, 219)</cell>
+ <cell>69</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>18</cell>
+ <cell>(770, 222)</cell>
+ <cell>160</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>19</cell>
+ <cell>(770, 225)</cell>
+ <cell>89</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>20</cell>
+ <cell>(770, 228)</cell>
+ <cell>113</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>21</cell>
+ <cell>(770, 231)</cell>
+ <cell>134</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>22</cell>
+ <cell>(770, 234)</cell>
+ <cell>132</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>23</cell>
+ <cell>(770, 237)</cell>
+ <cell>104</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>24</cell>
+ <cell>(770, 240)</cell>
+ <cell>99</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>25</cell>
+ <cell>(770, 243)</cell>
+ <cell>81</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>26</cell>
+ <cell>(770, 246)</cell>
+ <cell>96</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>27</cell>
+ <cell>(770, 249)</cell>
+ <cell>71</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>28</cell>
  <cell>(770, 252)</cell>
  <cell>26</cell>
 </row>
@@ -263,17 +425,7 @@
  <cell></cell>
  <cell></cell>
  <cell></cell>
- <cell>16</cell>
- <cell>(770, 255)</cell>
- <cell>2</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>17</cell>
+ <cell>29</cell>
  <cell>(770, 264)</cell>
  <cell>1</cell>
 </row>
@@ -282,10 +434,10 @@
  <cell>GB[7] </cell>
  <cell>(513, 132)</cell>
  <cell>CertificationSystem_sb_0/CORERESETP_0/MSS_HPMS_READY_int_RNIRS5B/U0_YWn</cell>
- <cell>170</cell>
+ <cell>180</cell>
  <cell>1</cell>
  <cell>(255, 252)</cell>
- <cell>2</cell>
+ <cell>4</cell>
 </row>
 <row>
  <cell> </cell>
@@ -305,7 +457,7 @@
  <cell></cell>
  <cell>3</cell>
  <cell>(771, 168)</cell>
- <cell>26</cell>
+ <cell>24</cell>
 </row>
 <row>
  <cell> </cell>
@@ -314,8 +466,8 @@
  <cell></cell>
  <cell></cell>
  <cell>4</cell>
- <cell>(771, 171)</cell>
- <cell>2</cell>
+ <cell>(771, 189)</cell>
+ <cell>22</cell>
 </row>
 <row>
  <cell> </cell>
@@ -324,8 +476,8 @@
  <cell></cell>
  <cell></cell>
  <cell>5</cell>
- <cell>(771, 180)</cell>
- <cell>1</cell>
+ <cell>(771, 195)</cell>
+ <cell>11</cell>
 </row>
 <row>
  <cell> </cell>
@@ -334,8 +486,8 @@
  <cell></cell>
  <cell></cell>
  <cell>6</cell>
- <cell>(771, 210)</cell>
- <cell>12</cell>
+ <cell>(771, 234)</cell>
+ <cell>6</cell>
 </row>
 <row>
  <cell> </cell>
@@ -344,8 +496,8 @@
  <cell></cell>
  <cell></cell>
  <cell>7</cell>
- <cell>(771, 213)</cell>
- <cell>20</cell>
+ <cell>(771, 237)</cell>
+ <cell>5</cell>
 </row>
 <row>
  <cell> </cell>
@@ -354,8 +506,8 @@
  <cell></cell>
  <cell></cell>
  <cell>8</cell>
- <cell>(771, 216)</cell>
- <cell>26</cell>
+ <cell>(771, 240)</cell>
+ <cell>9</cell>
 </row>
 <row>
  <cell> </cell>
@@ -364,8 +516,8 @@
  <cell></cell>
  <cell></cell>
  <cell>9</cell>
- <cell>(771, 219)</cell>
- <cell>15</cell>
+ <cell>(771, 246)</cell>
+ <cell>24</cell>
 </row>
 <row>
  <cell> </cell>
@@ -374,26 +526,6 @@
  <cell></cell>
  <cell></cell>
  <cell>10</cell>
- <cell>(771, 222)</cell>
- <cell>7</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>11</cell>
- <cell>(771, 225)</cell>
- <cell>1</cell>
-</row>
-<row>
- <cell> </cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell></cell>
- <cell>12</cell>
  <cell>(771, 249)</cell>
  <cell>22</cell>
 </row>
@@ -403,9 +535,89 @@
  <cell></cell>
  <cell></cell>
  <cell></cell>
- <cell>13</cell>
+ <cell>11</cell>
  <cell>(771, 252)</cell>
  <cell>26</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>12</cell>
+ <cell>(772, 243)</cell>
+ <cell>17</cell>
+</row>
+<row>
+ <cell>3</cell>
+ <cell>GB[2] </cell>
+ <cell>(508, 132)</cell>
+ <cell>SHA256_Module_0/SHA256_BLOCK_0/sha256_controller_0/un2_rst_n_RNIE1K2/U0_YWn_GEast</cell>
+ <cell>32</cell>
+ <cell>1</cell>
+ <cell>(771, 222)</cell>
+ <cell>31</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>2</cell>
+ <cell>(771, 225)</cell>
+ <cell>1</cell>
+</row>
+<row>
+ <cell>4</cell>
+ <cell>GB[6] </cell>
+ <cell>(512, 132)</cell>
+ <cell>CertificationSystem_sb_0/SYSRESET_POR_RNIC1R5/U0_YWn_GEast</cell>
+ <cell>17</cell>
+ <cell>1</cell>
+ <cell>(771, 204)</cell>
+ <cell>2</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>2</cell>
+ <cell>(771, 207)</cell>
+ <cell>1</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>3</cell>
+ <cell>(771, 213)</cell>
+ <cell>1</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>4</cell>
+ <cell>(771, 231)</cell>
+ <cell>5</cell>
+</row>
+<row>
+ <cell> </cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell></cell>
+ <cell>5</cell>
+ <cell>(771, 243)</cell>
+ <cell>8</cell>
 </row>
 </table>
 <text></text>

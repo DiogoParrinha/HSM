@@ -1,6 +1,6 @@
 Microsemi Corporation - Microsemi Libero Software Release v11.7 SP1.1 (Version 11.7.1.14)
 
-Date      :  Tue Apr 18 22:49:42 2017
+Date      :  Fri Jun 09 13:27:19 2017
 Project   :  E:\LiberoProjects\CertificationSystem_M2S090TS
 Component :  CertificationSystem_sb
 Family    :  SmartFusion2

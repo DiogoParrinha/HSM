@@ -1,0 +1,18 @@
+
+. Module name, SLE, CFG, ARI1, BUFFER, MACC, RAM1K18, RAM64X18, GLOBAL, IO
+. CertificationSystem, 115, 1010, 0, 0, 0, 32, 0, 2, 7
+.	. CertificationSystem_sb, 115, 1010, 0, 0, 0, 32, 0, 2, 6
+.	.	. CertificationSystem_sb_CCC_0_FCCC, 0, 0, 0, 0, 0, 0, 0, 1, 0
+.	.	. CertificationSystem_sb_COREAHBLSRAM_0_0_COREAHBLSRAM, 64, 851, 0, 0, 0, 32, 0, 0, 0
+.	.	.	. CertificationSystem_sb_COREAHBLSRAM_0_0_AHBLSramIf, 28, 25, 0, 0, 0, 0, 0, 0, 0
+.	.	.	. CertificationSystem_sb_COREAHBLSRAM_0_0_SramCtrlIf, 36, 826, 0, 0, 0, 32, 0, 0, 0
+.	.	.	.	. CertificationSystem_sb_COREAHBLSRAM_0_0_lsram_2048to139264x8, 0, 812, 0, 0, 0, 32, 0, 0, 0
+.	.	. CertificationSystem_sb_FABOSC_0_OSC, 0, 0, 0, 0, 0, 0, 0, 0, 0
+.	.	. CertificationSystem_sb_MSS, 0, 32, 0, 0, 0, 0, 0, 0, 6
+.	.	. CoreAHBLite, 42, 125, 0, 0, 0, 0, 0, 0, 0
+.	.	.	. COREAHBLITE_MATRIX4X16, 42, 125, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	. COREAHBLITE_MASTERSTAGE_1_1_0_8_0, 38, 81, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	.	. COREAHBLITE_DEFAULTSLAVESM_0, 1, 7, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	. COREAHBLITE_SLAVESTAGE_0, 4, 44, 0, 0, 0, 0, 0, 0, 0
+.	.	.	.	.	. COREAHBLITE_SLAVEARBITER_1, 3, 11, 0, 0, 0, 0, 0, 0, 0
+.	.	. CoreResetP, 9, 2, 0, 0, 0, 0, 0, 1, 0

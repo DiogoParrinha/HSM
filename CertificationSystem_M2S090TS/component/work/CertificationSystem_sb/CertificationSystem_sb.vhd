@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Created by SmartDesign Tue Apr 18 22:49:39 2017
+-- Created by SmartDesign Fri Jun 09 13:27:16 2017
 -- Version: v11.7 SP1 11.7.1.14
 ----------------------------------------------------------------------
 
@@ -25,12 +25,34 @@ entity CertificationSystem_sb is
         -- Inputs
         DEVRST_N         : in    std_logic;
         FAB_RESET_N      : in    std_logic;
+        GPIO_2_F2M       : in    std_logic;
+        GPIO_3_F2M       : in    std_logic;
+        GPIO_4_F2M       : in    std_logic;
+        GPIO_5_F2M       : in    std_logic;
+        GPIO_6_F2M       : in    std_logic;
+        GPIO_7_F2M       : in    std_logic;
+        GPIO_8_F2M       : in    std_logic;
+        HRDATA_S5        : in    std_logic_vector(31 downto 0);
+        HREADYOUT_S5     : in    std_logic;
+        HRESP_S5         : in    std_logic_vector(1 downto 0);
         MMUART_1_RXD     : in    std_logic;
         SPI_0_DI         : in    std_logic;
         -- Outputs
         FAB_CCC_GL0      : out   std_logic;
         FAB_CCC_LOCK     : out   std_logic;
         GPIO_0_M2F       : out   std_logic;
+        GPIO_1_M2F       : out   std_logic;
+        GPIO_9_M2F       : out   std_logic;
+        HADDR_S5         : out   std_logic_vector(31 downto 0);
+        HBURST_S5        : out   std_logic_vector(2 downto 0);
+        HMASTLOCK_S5     : out   std_logic;
+        HPROT_S5         : out   std_logic_vector(3 downto 0);
+        HREADY_S5        : out   std_logic;
+        HSEL_S5          : out   std_logic;
+        HSIZE_S5         : out   std_logic_vector(2 downto 0);
+        HTRANS_S5        : out   std_logic_vector(1 downto 0);
+        HWDATA_S5        : out   std_logic_vector(31 downto 0);
+        HWRITE_S5        : out   std_logic;
         INIT_DONE        : out   std_logic;
         MMUART_1_TXD     : out   std_logic;
         MSS_READY        : out   std_logic;
@@ -70,6 +92,13 @@ component CertificationSystem_sb_MSS
         FIC_2_APB_M_PRDATA     : in    std_logic_vector(31 downto 0);
         FIC_2_APB_M_PREADY     : in    std_logic;
         FIC_2_APB_M_PSLVERR    : in    std_logic;
+        GPIO_2_F2M             : in    std_logic;
+        GPIO_3_F2M             : in    std_logic;
+        GPIO_4_F2M             : in    std_logic;
+        GPIO_5_F2M             : in    std_logic;
+        GPIO_6_F2M             : in    std_logic;
+        GPIO_7_F2M             : in    std_logic;
+        GPIO_8_F2M             : in    std_logic;
         MCCC_CLK_BASE          : in    std_logic;
         MCCC_CLK_BASE_PLL_LOCK : in    std_logic;
         MMUART_1_RXD           : in    std_logic;
@@ -89,6 +118,8 @@ component CertificationSystem_sb_MSS
         FIC_2_APB_M_PWDATA     : out   std_logic_vector(31 downto 0);
         FIC_2_APB_M_PWRITE     : out   std_logic;
         GPIO_0_M2F             : out   std_logic;
+        GPIO_1_M2F             : out   std_logic;
+        GPIO_9_M2F             : out   std_logic;
         MMUART_1_TXD           : out   std_logic;
         MSS_RESET_N_M2F        : out   std_logic;
         SPI_0_DO               : out   std_logic;
@@ -254,6 +285,16 @@ end component;
 ----------------------------------------------------------------------
 -- Signal declarations
 ----------------------------------------------------------------------
+signal AHBmslave5_HADDR                                         : std_logic_vector(31 downto 0);
+signal AHBmslave5_HBURST                                        : std_logic_vector(2 downto 0);
+signal AHBmslave5_HMASTLOCK                                     : std_logic;
+signal AHBmslave5_HPROT                                         : std_logic_vector(3 downto 0);
+signal AHBmslave5_HREADY                                        : std_logic;
+signal AHBmslave5_HSELx                                         : std_logic;
+signal AHBmslave5_HSIZE                                         : std_logic_vector(2 downto 0);
+signal AHBmslave5_HTRANS                                        : std_logic_vector(1 downto 0);
+signal AHBmslave5_HWDATA                                        : std_logic_vector(31 downto 0);
+signal AHBmslave5_HWRITE                                        : std_logic;
 signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR  : std_logic_vector(31 downto 0);
 signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HRDATA : std_logic_vector(31 downto 0);
 signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HREADY : std_logic;
@@ -281,6 +322,8 @@ signal FAB_CCC_LOCK_net_0                                       : std_logic;
 signal FABOSC_0_RCOSC_25_50MHZ_CCC_OUT_RCOSC_25_50MHZ_CCC       : std_logic;
 signal FABOSC_0_RCOSC_25_50MHZ_O2F                              : std_logic;
 signal GPIO_0_M2F_net_0                                         : std_logic;
+signal GPIO_1_M2F_net_0                                         : std_logic;
+signal GPIO_9_M2F_net_0                                         : std_logic;
 signal INIT_DONE_net_0                                          : std_logic;
 signal MMUART_1_TXD_net_0                                       : std_logic;
 signal MSS_READY_net_0                                          : std_logic;
@@ -294,6 +337,18 @@ signal FAB_CCC_GL0_net_1                                        : std_logic;
 signal FAB_CCC_LOCK_net_1                                       : std_logic;
 signal MSS_READY_net_1                                          : std_logic;
 signal GPIO_0_M2F_net_1                                         : std_logic;
+signal GPIO_1_M2F_net_1                                         : std_logic;
+signal GPIO_9_M2F_net_1                                         : std_logic;
+signal AHBmslave5_HADDR_net_0                                   : std_logic_vector(31 downto 0);
+signal AHBmslave5_HTRANS_net_0                                  : std_logic_vector(1 downto 0);
+signal AHBmslave5_HWRITE_net_0                                  : std_logic;
+signal AHBmslave5_HSIZE_net_0                                   : std_logic_vector(2 downto 0);
+signal AHBmslave5_HWDATA_net_0                                  : std_logic_vector(31 downto 0);
+signal AHBmslave5_HSELx_net_0                                   : std_logic;
+signal AHBmslave5_HREADY_net_0                                  : std_logic;
+signal AHBmslave5_HMASTLOCK_net_0                               : std_logic;
+signal AHBmslave5_HBURST_net_0                                  : std_logic_vector(2 downto 0);
+signal AHBmslave5_HPROT_net_0                                   : std_logic_vector(3 downto 0);
 ----------------------------------------------------------------------
 -- TiedOff Signals
 ----------------------------------------------------------------------
@@ -334,8 +389,6 @@ signal HRDATA_S2_const_net_0                                    : std_logic_vect
 signal HRESP_S2_const_net_0                                     : std_logic_vector(1 downto 0);
 signal HRDATA_S4_const_net_0                                    : std_logic_vector(31 downto 0);
 signal HRESP_S4_const_net_0                                     : std_logic_vector(1 downto 0);
-signal HRDATA_S5_const_net_0                                    : std_logic_vector(31 downto 0);
-signal HRESP_S5_const_net_0                                     : std_logic_vector(1 downto 0);
 signal HRDATA_S6_const_net_0                                    : std_logic_vector(31 downto 0);
 signal HRESP_S6_const_net_0                                     : std_logic_vector(1 downto 0);
 signal HRDATA_S7_const_net_0                                    : std_logic_vector(31 downto 0);
@@ -361,14 +414,14 @@ signal HRESP_S16_const_net_0                                    : std_logic_vect
 ----------------------------------------------------------------------
 -- Bus Interface Nets Declarations - Unequal Pin Widths
 ----------------------------------------------------------------------
-signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HRESP  : std_logic_vector(1 downto 0);
 signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HRESP_0_0to0: std_logic_vector(0 to 0);
 signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HRESP_0: std_logic;
+signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HRESP  : std_logic_vector(1 downto 0);
 
+signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HSIZE  : std_logic_vector(1 downto 0);
 signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HSIZE_0_2to2: std_logic_vector(2 to 2);
 signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HSIZE_0_1to0: std_logic_vector(1 downto 0);
 signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HSIZE_0: std_logic_vector(2 downto 0);
-signal CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HSIZE  : std_logic_vector(1 downto 0);
 
 
 begin
@@ -412,8 +465,6 @@ begin
  HRESP_S2_const_net_0           <= B"00";
  HRDATA_S4_const_net_0          <= B"00000000000000000000000000000000";
  HRESP_S4_const_net_0           <= B"00";
- HRDATA_S5_const_net_0          <= B"00000000000000000000000000000000";
- HRESP_S5_const_net_0           <= B"00";
  HRDATA_S6_const_net_0          <= B"00000000000000000000000000000000";
  HRESP_S6_const_net_0           <= B"00";
  HRDATA_S7_const_net_0          <= B"00000000000000000000000000000000";
@@ -439,22 +490,46 @@ begin
 ----------------------------------------------------------------------
 -- Top level output port assignments
 ----------------------------------------------------------------------
- SPI_0_DO_net_1         <= SPI_0_DO_net_0;
- SPI_0_DO               <= SPI_0_DO_net_1;
- MMUART_1_TXD_net_1     <= MMUART_1_TXD_net_0;
- MMUART_1_TXD           <= MMUART_1_TXD_net_1;
- POWER_ON_RESET_N_net_1 <= POWER_ON_RESET_N_net_0;
- POWER_ON_RESET_N       <= POWER_ON_RESET_N_net_1;
- INIT_DONE_net_1        <= INIT_DONE_net_0;
- INIT_DONE              <= INIT_DONE_net_1;
- FAB_CCC_GL0_net_1      <= FAB_CCC_GL0_net_0;
- FAB_CCC_GL0            <= FAB_CCC_GL0_net_1;
- FAB_CCC_LOCK_net_1     <= FAB_CCC_LOCK_net_0;
- FAB_CCC_LOCK           <= FAB_CCC_LOCK_net_1;
- MSS_READY_net_1        <= MSS_READY_net_0;
- MSS_READY              <= MSS_READY_net_1;
- GPIO_0_M2F_net_1       <= GPIO_0_M2F_net_0;
- GPIO_0_M2F             <= GPIO_0_M2F_net_1;
+ SPI_0_DO_net_1             <= SPI_0_DO_net_0;
+ SPI_0_DO                   <= SPI_0_DO_net_1;
+ MMUART_1_TXD_net_1         <= MMUART_1_TXD_net_0;
+ MMUART_1_TXD               <= MMUART_1_TXD_net_1;
+ POWER_ON_RESET_N_net_1     <= POWER_ON_RESET_N_net_0;
+ POWER_ON_RESET_N           <= POWER_ON_RESET_N_net_1;
+ INIT_DONE_net_1            <= INIT_DONE_net_0;
+ INIT_DONE                  <= INIT_DONE_net_1;
+ FAB_CCC_GL0_net_1          <= FAB_CCC_GL0_net_0;
+ FAB_CCC_GL0                <= FAB_CCC_GL0_net_1;
+ FAB_CCC_LOCK_net_1         <= FAB_CCC_LOCK_net_0;
+ FAB_CCC_LOCK               <= FAB_CCC_LOCK_net_1;
+ MSS_READY_net_1            <= MSS_READY_net_0;
+ MSS_READY                  <= MSS_READY_net_1;
+ GPIO_0_M2F_net_1           <= GPIO_0_M2F_net_0;
+ GPIO_0_M2F                 <= GPIO_0_M2F_net_1;
+ GPIO_1_M2F_net_1           <= GPIO_1_M2F_net_0;
+ GPIO_1_M2F                 <= GPIO_1_M2F_net_1;
+ GPIO_9_M2F_net_1           <= GPIO_9_M2F_net_0;
+ GPIO_9_M2F                 <= GPIO_9_M2F_net_1;
+ AHBmslave5_HADDR_net_0     <= AHBmslave5_HADDR;
+ HADDR_S5(31 downto 0)      <= AHBmslave5_HADDR_net_0;
+ AHBmslave5_HTRANS_net_0    <= AHBmslave5_HTRANS;
+ HTRANS_S5(1 downto 0)      <= AHBmslave5_HTRANS_net_0;
+ AHBmslave5_HWRITE_net_0    <= AHBmslave5_HWRITE;
+ HWRITE_S5                  <= AHBmslave5_HWRITE_net_0;
+ AHBmslave5_HSIZE_net_0     <= AHBmslave5_HSIZE;
+ HSIZE_S5(2 downto 0)       <= AHBmslave5_HSIZE_net_0;
+ AHBmslave5_HWDATA_net_0    <= AHBmslave5_HWDATA;
+ HWDATA_S5(31 downto 0)     <= AHBmslave5_HWDATA_net_0;
+ AHBmslave5_HSELx_net_0     <= AHBmslave5_HSELx;
+ HSEL_S5                    <= AHBmslave5_HSELx_net_0;
+ AHBmslave5_HREADY_net_0    <= AHBmslave5_HREADY;
+ HREADY_S5                  <= AHBmslave5_HREADY_net_0;
+ AHBmslave5_HMASTLOCK_net_0 <= AHBmslave5_HMASTLOCK;
+ HMASTLOCK_S5               <= AHBmslave5_HMASTLOCK_net_0;
+ AHBmslave5_HBURST_net_0    <= AHBmslave5_HBURST;
+ HBURST_S5(2 downto 0)      <= AHBmslave5_HBURST_net_0;
+ AHBmslave5_HPROT_net_0     <= AHBmslave5_HPROT;
+ HPROT_S5(3 downto 0)       <= AHBmslave5_HPROT_net_0;
 ----------------------------------------------------------------------
 -- Bus Interface Nets Assignments - Unequal Pin Widths
 ----------------------------------------------------------------------
@@ -490,12 +565,18 @@ CertificationSystem_sb_MSS_0 : CertificationSystem_sb_MSS
         FIC_0_AHB_M_HRESP      => CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HRESP_0,
         FIC_2_APB_M_PREADY     => VCC_net, -- tied to '1' from definition
         FIC_2_APB_M_PSLVERR    => GND_net, -- tied to '0' from definition
+        GPIO_2_F2M             => GPIO_2_F2M,
+        GPIO_3_F2M             => GPIO_3_F2M,
+        GPIO_4_F2M             => GPIO_4_F2M,
+        GPIO_5_F2M             => GPIO_5_F2M,
+        GPIO_6_F2M             => GPIO_6_F2M,
+        GPIO_7_F2M             => GPIO_7_F2M,
+        GPIO_8_F2M             => GPIO_8_F2M,
         FIC_0_AHB_M_HRDATA     => CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HRDATA,
         FIC_2_APB_M_PRDATA     => FIC_2_APB_M_PRDATA_const_net_0, -- tied to X"0" from definition
         -- Outputs
         SPI_0_DO               => SPI_0_DO_net_0,
         MMUART_1_TXD           => MMUART_1_TXD_net_0,
-        MSS_RESET_N_M2F        => CertificationSystem_sb_MSS_TMP_0_MSS_RESET_N_M2F,
         GPIO_0_M2F             => GPIO_0_M2F_net_0,
         FIC_0_AHB_M_HWRITE     => CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HWRITE,
         FIC_2_APB_M_PRESET_N   => CertificationSystem_sb_MSS_TMP_0_FIC_2_APB_M_PRESET_N,
@@ -503,6 +584,9 @@ CertificationSystem_sb_MSS_0 : CertificationSystem_sb_MSS
         FIC_2_APB_M_PWRITE     => OPEN,
         FIC_2_APB_M_PENABLE    => OPEN,
         FIC_2_APB_M_PSEL       => OPEN,
+        MSS_RESET_N_M2F        => CertificationSystem_sb_MSS_TMP_0_MSS_RESET_N_M2F,
+        GPIO_1_M2F             => GPIO_1_M2F_net_0,
+        GPIO_9_M2F             => GPIO_9_M2F_net_0,
         FIC_0_AHB_M_HADDR      => CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HADDR,
         FIC_0_AHB_M_HWDATA     => CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HWDATA,
         FIC_0_AHB_M_HSIZE      => CertificationSystem_sb_MSS_TMP_0_FIC_0_AHB_MASTER_HSIZE,
@@ -523,7 +607,7 @@ CoreAHBLite_0 : entity COREAHBLITE_LIB.CoreAHBLite
         M0_AHBSLOT2ENABLE  => ( 0 ),
         M0_AHBSLOT3ENABLE  => ( 1 ),
         M0_AHBSLOT4ENABLE  => ( 0 ),
-        M0_AHBSLOT5ENABLE  => ( 0 ),
+        M0_AHBSLOT5ENABLE  => ( 1 ),
         M0_AHBSLOT6ENABLE  => ( 0 ),
         M0_AHBSLOT7ENABLE  => ( 0 ),
         M0_AHBSLOT8ENABLE  => ( 0 ),
@@ -622,7 +706,7 @@ CoreAHBLite_0 : entity COREAHBLITE_LIB.CoreAHBLite
         HREADYOUT_S2  => VCC_net, -- tied to '1' from definition
         HREADYOUT_S3  => CoreAHBLite_0_AHBmslave3_HREADYOUT,
         HREADYOUT_S4  => VCC_net, -- tied to '1' from definition
-        HREADYOUT_S5  => VCC_net, -- tied to '1' from definition
+        HREADYOUT_S5  => HREADYOUT_S5,
         HREADYOUT_S6  => VCC_net, -- tied to '1' from definition
         HREADYOUT_S7  => VCC_net, -- tied to '1' from definition
         HREADYOUT_S8  => VCC_net, -- tied to '1' from definition
@@ -668,8 +752,8 @@ CoreAHBLite_0 : entity COREAHBLITE_LIB.CoreAHBLite
         HRESP_S3      => CoreAHBLite_0_AHBmslave3_HRESP,
         HRDATA_S4     => HRDATA_S4_const_net_0, -- tied to X"0" from definition
         HRESP_S4      => HRESP_S4_const_net_0, -- tied to X"0" from definition
-        HRDATA_S5     => HRDATA_S5_const_net_0, -- tied to X"0" from definition
-        HRESP_S5      => HRESP_S5_const_net_0, -- tied to X"0" from definition
+        HRDATA_S5     => HRDATA_S5,
+        HRESP_S5      => HRESP_S5,
         HRDATA_S6     => HRDATA_S6_const_net_0, -- tied to X"0" from definition
         HRESP_S6      => HRESP_S6_const_net_0, -- tied to X"0" from definition
         HRDATA_S7     => HRDATA_S7_const_net_0, -- tied to X"0" from definition
@@ -717,10 +801,10 @@ CoreAHBLite_0 : entity COREAHBLITE_LIB.CoreAHBLite
         HWRITE_S4     => OPEN,
         HREADY_S4     => OPEN,
         HMASTLOCK_S4  => OPEN,
-        HSEL_S5       => OPEN,
-        HWRITE_S5     => OPEN,
-        HREADY_S5     => OPEN,
-        HMASTLOCK_S5  => OPEN,
+        HSEL_S5       => AHBmslave5_HSELx,
+        HWRITE_S5     => AHBmslave5_HWRITE,
+        HREADY_S5     => AHBmslave5_HREADY,
+        HMASTLOCK_S5  => AHBmslave5_HMASTLOCK,
         HSEL_S6       => OPEN,
         HWRITE_S6     => OPEN,
         HREADY_S6     => OPEN,
@@ -803,12 +887,12 @@ CoreAHBLite_0 : entity COREAHBLITE_LIB.CoreAHBLite
         HWDATA_S4     => OPEN,
         HBURST_S4     => OPEN,
         HPROT_S4      => OPEN,
-        HADDR_S5      => OPEN,
-        HSIZE_S5      => OPEN,
-        HTRANS_S5     => OPEN,
-        HWDATA_S5     => OPEN,
-        HBURST_S5     => OPEN,
-        HPROT_S5      => OPEN,
+        HADDR_S5      => AHBmslave5_HADDR,
+        HSIZE_S5      => AHBmslave5_HSIZE,
+        HTRANS_S5     => AHBmslave5_HTRANS,
+        HWDATA_S5     => AHBmslave5_HWDATA,
+        HBURST_S5     => AHBmslave5_HBURST,
+        HPROT_S5      => AHBmslave5_HPROT,
         HADDR_S6      => OPEN,
         HSIZE_S6      => OPEN,
         HTRANS_S6     => OPEN,

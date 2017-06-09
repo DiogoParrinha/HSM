@@ -32,8 +32,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "../../drivers/mss_sys_services/mss_sys_services.h"
-
 #if defined(MBEDTLS_SHA256_ALT)
 // Regular implementation
 //
@@ -47,9 +45,12 @@ extern "C" {
  */
 typedef struct
 {
-    uint16_t current_size;      /*!< number of bytes processed  */
-    unsigned char * buffer;   		/*!< data block being processed */
-    //unsigned char digest[32];
+    uint32_t total[2];          /*!< number of bytes processed  */
+    uint8_t state[32];          /*!< intermediate digest state  */
+    unsigned char buffer[64];   /*!< data block being processed */
+    uint8_t first;
+    uint8_t last;
+    uint32_t buffer_bytes;
 }
 mbedtls_sha256_context;
 
