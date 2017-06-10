@@ -140,12 +140,20 @@ void mbedtls_sha256_update( mbedtls_sha256_context *ctx, const unsigned char *in
         memcpy( (void *) (ctx->buffer + left), input, fill );
 
         // Send for processing
+        ctx->buffer_bytes = 64;
         mbedtls_sha256_process( ctx, ctx->buffer );
         input += fill;
         ilen  -= fill;
         left = 0;
 
         ctx->buffer_bytes = 0; // no bytes in buffer
+        ctx->first = 0;
+    }
+    else if(ctx->buffer_bytes == 64)
+    {
+    	// Process the block we currently have in the buffer
+    	mbedtls_sha256_process( ctx, ctx->buffer);
+        ctx->buffer_bytes = 0;
         ctx->first = 0;
     }
 

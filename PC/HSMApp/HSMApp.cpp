@@ -19,6 +19,9 @@
 #include <sstream>
 #include <fstream>
 
+#include "mbedtls/config.h"
+#include "mbedtls/sha256.h"
+
 const uint8_t g_separator[] =
 "------------------------------------------------------------------------------\r\n";
 
@@ -36,6 +39,32 @@ int main()
 	printf("\t\tHSM Application\r\n");
 	printf("\tPress ENTER to initiate communication.\r\n");
 	printf("%s", g_separator);
+
+	/*uint8_t text0[64] = {
+		0x00, 0x00, 0x00, 0x01,
+		0x00, 0x00, 0x00, 0x02,
+		0x00, 0x00, 0x00, 0x03,
+		0x00, 0x00, 0x00, 0x04,
+		0x00, 0x00, 0x00, 0x05,
+		0x00, 0x00, 0x00, 0x06,
+		0x00, 0x00, 0x00, 0x07,
+		0x00, 0x00, 0x00, 0x08,
+		0x00, 0x00, 0x00, 0x09,
+		0x00, 0x00, 0x00, 0x0A,
+		0x00, 0x00, 0x00, 0x0B,
+		0x00, 0x00, 0x00, 0x0C,
+		0x00, 0x00, 0x00, 0x0D,
+		0x00, 0x00, 0x00, 0x0E,
+		0x00, 0x00, 0x00, 0x0F,
+		0x00, 0x00, 0x00, 0x01,
+	};
+
+	uint8_t hash[32] = { 0 };
+	uint8_t text_incomp0[256] = { 0 };
+	memcpy(text_incomp0, text0, 32);
+	memset(hash, 0, 32);
+	mbedtls_sha256(text_incomp0, 32, &hash[0], 0);*/
+
 	getchar();
 	
 	CK_ULONG r = 0;
@@ -131,7 +160,7 @@ int main()
 	}*/
 
 	// Execute test
-	/*average = 0.0f;
+	average = 0.0f;
 	printf("\nTesting 4096B of plain text data...");
 	startTimer();
 	HSM_C_SendPlain();
@@ -141,7 +170,7 @@ int main()
 	times = 4096/16; // amount of blocks sent
 	average += elapsedTime;
 	average /= times;
-	printf("Average block transfer: %lfms\n", average);*/
+	printf("Average block transfer: %lfms\n", average);
 
 	// Open Session
 	printf("\nOpening session...\n");
@@ -177,7 +206,7 @@ int main()
 	printf("Average session start: %lfms\n", average);*/
 
 	// Execute test
-	/*average = 0.0f;
+	average = 0.0f;
 	printf("\nTesting 4096B of secure data...");
 	startTimer();
 	HSM_C_SendSecure(phSession);
@@ -188,9 +217,6 @@ int main()
 	average += elapsedTime;
 	average /= times;
 	printf("Average block transfer: %lfms\n", average);
-
-	getchar();
-	return 0;*/
 
 	///// ADD 7 USERS
 
@@ -401,7 +427,7 @@ int main()
 	///// Sign and Verify
 
 	// Login User
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -416,7 +442,7 @@ int main()
 	printf("\nSigning data...\n");
 	startTimer();
 	int i = 0;
-	for (i = 0; i<1; i++)
+	for (i = 0; i<30; i++)
 	{
 		// Sign Data
 		CK_MECHANISM sign_mechanism = {
@@ -441,7 +467,7 @@ int main()
 			return 1;
 		}
 
-		r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
+		/*r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
 		if (r != CKR_OK)
 		{
 			printf("C_SignInit Failed: %d\n", r);
@@ -522,7 +548,7 @@ int main()
 			printf("C_VerifyFinal Failed: %d\n", r);
 			getchar();
 			return 1;
-		}
+		}*/
 
 		times++;
 	}
@@ -538,12 +564,12 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
 
 	///// Login user and generate key pair | Get certificate of user 1 | Logout | Login admin | Generate certificate for generated public key
 
 	// Login user
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -674,7 +700,7 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
 
 	///// Login admin to create log-chain root
 

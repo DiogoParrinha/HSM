@@ -43,7 +43,7 @@
 #include <locale>
 #include <iomanip>
 
-#define VERBOSE 1
+#define VERBOSE 0
 
 /*==============================================================================
 Macro
@@ -110,25 +110,17 @@ HSM::~HSM()
 
 bool HSM::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 {
-	if (VERBOSE == 1)
-		printf("DVC_TEST...");
-
 	comm->reqCommand();
-	memset(buffer, 0, sizeof(buffer));
-	sprintf_s((char*)buffer, sizeof(buffer), "DVC_TEST");
-	int r = comm->send(buffer, strlen((char*)buffer));
-	if (r <= 0)
-	{
-		if (VERBOSE == 1)
-			printf("UART ERROR: 0x%02X\n", r);
+
+	// Exec command 
+	if (!execCmd("DVC_TEST"))
 		return false;
-	}
 
 	// Now it expects:
 	// 32B_HASH
 	if (VERBOSE == 1)
 		printf("\n\tSending DATA...");
-	r = comm->send(pData, ulDataLen);
+	int r = comm->send(pData, ulDataLen);
 	if (r <= 0)
 	{
 		if (VERBOSE == 1)
