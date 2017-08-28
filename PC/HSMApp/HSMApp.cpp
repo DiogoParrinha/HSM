@@ -427,7 +427,7 @@ int main()
 	///// Sign and Verify
 
 	// Login User
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -442,13 +442,13 @@ int main()
 	printf("\nSigning data...\n");
 	startTimer();
 	int i = 0;
-	for (i = 0; i<30; i++)
+	for (i = 0; i<3; i++)
 	{
 		// Sign Data
 		CK_MECHANISM sign_mechanism = {
 			CKM_ECDSA, NULL_PTR, 0
 		};
-		r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
+		/*r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
 		if (r != CKR_OK)
 		{
 			printf("C_SignInit Failed: %d\n", r);
@@ -465,8 +465,9 @@ int main()
 			printf("C_Sign Failed: %d\n", r);
 			getchar();
 			return 1;
-		}
+		}*/
 
+		uint8_t msg[7] = { '1','2','3','4','5','6', '\0' };
 		r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
 		if (r != CKR_OK)
 		{
@@ -502,7 +503,7 @@ int main()
 		}
 
 		// Verify signatures
-		r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
+		/*r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
 		if (r != CKR_OK)
 		{
 			printf("C_VerifyInit Failed: %d\n", r);
@@ -516,7 +517,7 @@ int main()
 			printf("C_Verify Failed: %d\n", r);
 			getchar();
 			return 1;
-		}
+		}*/
 
 		r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
 		if (r != CKR_OK)
@@ -564,7 +565,7 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
 
 	///// Login user and generate key pair | Get certificate of user 1 | Logout | Login admin | Generate certificate for generated public key
 

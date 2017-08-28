@@ -946,9 +946,50 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	else
 		mbedtls_sha256(&pData[1], ulDataLen, digest, 0); // message starts at index 1
 
+	CK_LONG uid = 0;
+	if (loggedIn)
+		uid = authID;
+	else
+		uid = pData[0]; // ID
+
+	// TODO: In theory, all certificates could be already in the PC so no need for a device access here; but this is just a PoC
 	// Get user certificate
+	CK_UTF8CHAR certificate[4096];
+	CK_ULONG bufSize = 4096;
+	if (!getCertificate(uid, (CK_UTF8CHAR_PTR*)&certificate, &bufSize))
+	{
+		return false;
+	}
+
+	if (VERBOSE == 1)
+		printf("\nParse certificate and verify signature...");
+
+	// Read certificate file ./certs/logs.cert
+	mbedtls_x509_crt * user_cert = (mbedtls_x509_crt*)malloc(sizeof(mbedtls_x509_crt));
+	if (user_cert == NULL)
+		return false;
+
+	mbedtls_x509_crt_init(user_cert);
+	mbedtls_pk_init(&user_cert->pk);
+
+	int r = mbedtls_x509_crt_parse(user_cert, buffer, strlen((char*)buffer) + 1);
+	if (r != 0)
+	{
+		// certificate is missing, can't validate chain
+		if (VERBOSE == 1)
+			printf("Error parsing public key certificate.\n");
+		mbedtls_x509_crt_free(user_cert);
+		return false;
+	}
 
 	// Verify signature here
+	int ret = mbedtls_pk_verify(&user_cert->pk, MBEDTLS_MD_SHA256, digest, 32, pSignature, pulSignatureLen);
+	if (ret != 0)
+	{
+		if (VERBOSE == 1)
+			printf("Signature invalid\n");
+		return false;
+	}
 
 	// Exec command 
 	/*if (!execCmd("DTSN_VERIFY"))
@@ -990,11 +1031,14 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	}
 
 	if (VERBOSE == 1)
-		printf("OK\n");*/
+		printf("OK\n");
 
 	// Wait for 'SUCCESS'
 	if (!processResult())
-		return false;
+		return false;*/
+
+	if (VERBOSE == 1)
+		printf("OK\n");
 
 	return true;
 }
