@@ -732,7 +732,7 @@ int main()
 	///// Login user 1, read file and send each line to the HSM
 
 	// Login user 1
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -748,7 +748,7 @@ int main()
 
 	average = 0.0f;
 	times = 0;
-	printf("\nLogging messages...\n");
+	printf("\nLogging messages...\n");*/
 	/*while (std::getline(infile, line))
 	{
 		const char *pMessage = line.c_str();
@@ -766,7 +766,7 @@ int main()
 			return 1;
 		}
 	}*/
-	line = std::string("This is a test command | test command : test");
+	/*line = std::string("This is a test command | test command : test");
 	startTimer();
 	for (int a = 0; a < 10; a++)
 	{
@@ -791,18 +791,18 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}
+	}*/
 
 	///// Get log-chain counters
 
-	CK_ULONG lNumber1, lNumber2;
+	/*CK_ULONG lNumber1, lNumber2;
 	r = HSM_C_LogCounter(phSession, &lNumber1, &lNumber2);
 	if (r != CKR_OK)
 	{
 		printf("HSM_C_LogCounter Failed: %d\n", r);
 		getchar();
 		return 1;
-	}
+	}*/
 
 	// close session
 	r = C_CloseSession(phSession);

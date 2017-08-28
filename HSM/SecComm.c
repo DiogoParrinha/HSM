@@ -292,30 +292,47 @@ BOOL SecComm()
 
 	//// Modify nonce N1 to N1'
 	// (plaintext mod 6)
-	uint8_t mod_nonce[32];
+	uint8_t mod_nonce1[32];
 	int a = 0;
 	for (a = 0; a < 32; a++)
 	{
-		mod_nonce[a] = plaintext[a] % 6; // TODO: plaintext[a] mod 6 for now...
+		mod_nonce1[a] = plaintext[a] % 6; // TODO: plaintext[a] mod 6 for now...
 	}
 
-	//// Send modified nonce using normal secure comm
+	//// Send modified nonce N1 using normal secure comm
 	UART_setKey(sessKey, hmacKey);
-	UART_send(mod_nonce, 32u);
+	UART_send(mod_nonce1, 32u);
 
-	// TODO: Send our nonce N2
+	// Send our nonce N2
+	uint8_t nonce2[32] = {0};
+	#ifdef SECURITY_DEVICE
+		// Generate 256-bit nonce
+		/* Generate random bits */
+		uint8_t status = MSS_SYS_nrbg_generate(&nonce2[0],    // p_requested_data
+			0,              // p_additional_input
+			32,				// requested_length
+			0,              // additional_input_length
+			0,              // pr_req
+			drbg_handle);   // drbg_handle
+		if(status != MSS_SYS_SUCCESS)
+		{
+			return ERROR_UART_IV_GENERATE; // error
+		}
+	#endif
+	UART_send(nonce2, 32u);
 
 	//// Expect a new modified nonce (N2') to confirm the other party has the session key
+	uint8_t mod_nonce2[32];
 	for (a = 0; a < 32; a++)
 	{
-		mod_nonce[a] = mod_nonce[a] % 16; // TODO: mod_nonce[a] mod 16 for now...
+		mod_nonce2[a] = nonce2[a] % 16; // TODO: mod_nonce[a] mod 16 for now...
 	}
 
 	uint8_t ver_challenge[32] = {0};
 	UART_receive(&ver_challenge[0], 32);
 	for(a=0;a<32;a++)
 	{
-		if(ver_challenge[a] != mod_nonce[a])
+		if(ver_challenge[a] != mod_nonce2[a])
 		{
 			mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
 			mbedtls_entropy_free(&SecComm_entropy);

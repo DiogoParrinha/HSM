@@ -465,8 +465,8 @@ int HSM::startSession()
 		mbedtls_md_hmac_starts(&sha_ctx, UART_hmacKey, 32);
 
 		// Generate nonce (256-bit)
-		uint8_t nonce[32] = { 0 };
-		randomArray(nonce, 32);
+		uint8_t nonce1[32] = { 0 };
+		randomArray(nonce1, 32);
 
 		// Encrypt nonce
 		mbedtls_aes_context aes_ctx;
@@ -476,7 +476,7 @@ int HSM::startSession()
 		memset(ciphertext, 0, 32);
 		uint8_t IV_copy[16] = { 0 };
 		memcpy(IV_copy, salt_IV, 16);
-		mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, 32, IV_copy, nonce, &ciphertext[0]);
+		mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, 32, IV_copy, nonce1, &ciphertext[0]);
 		mbedtls_aes_free(&aes_ctx);
 
 		// Compute HMAC of C|IV|P
@@ -543,8 +543,8 @@ int HSM::startSession()
 		comm->setKey(UART_sessionKey, UART_hmacKey, true);
 
 		// Receive modified nonce N1'
-		uint8_t rec_nonce[32] = { 0 };
-		ret = comm->receive(rec_nonce, 32);
+		uint8_t rec_mod_nonce1[32] = { 0 };
+		ret = comm->receive(rec_mod_nonce1, 32);
 		if (ret <= 0)
 		{
 			if (VERBOSE == 1)
@@ -552,17 +552,25 @@ int HSM::startSession()
 			return false;
 		}
 
-		// TODO: Receive nonce N2
+		// Receive nonce N2
+		uint8_t rec_nonce2[32] = { 0 };
+		ret = comm->receive(rec_nonce2, 32);
+		if (ret <= 0)
+		{
+			if (VERBOSE == 1)
+				printf("UART ERROR: 0x%02X\n", ret);
+			return false;
+		}
 
-		uint8_t mod_nonce[32];
+		uint8_t mod_nonce1[32];
 		for (int a = 0; a < 32; a++)
 		{
-			mod_nonce[a] = nonce[a] % 6; // nonce[a] mod 6 for now...
+			mod_nonce1[a] = nonce1[a] % 6; // nonce1[a] mod 6 for now...
 		}
 
 		for (int a = 0; a < 32; a++)
 		{
-			if (rec_nonce[a] != mod_nonce[a])
+			if (rec_mod_nonce1[a] != mod_nonce1[a])
 			{
 				mbedtls_ecdh_free(&ctx_cli);
 				mbedtls_ctr_drbg_free(&ctr_drbg);
@@ -576,13 +584,13 @@ int HSM::startSession()
 
 		///// Send modified nonce N2' encrypted with session key
 
-		uint8_t new_mod_nonce[32];
+		uint8_t mod_nonce2[32];
 		for (int a = 0; a < 32; a++)
 		{
-			new_mod_nonce[a] = rec_nonce[a] % 16; // rec_nonce[a] mod 16 for now...
+			mod_nonce2[a] = rec_nonce2[a] % 16; // rec_nonce2[a] mod 16 for now...
 		}
 
-		r = comm->send(new_mod_nonce, 32);
+		r = comm->send(mod_nonce2, 32);
 		if (r <= 0)
 		{
 			if (VERBOSE == 1)
@@ -938,8 +946,12 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	else
 		mbedtls_sha256(&pData[1], ulDataLen, digest, 0); // message starts at index 1
 
-														 // Exec command 
-	if (!execCmd("DTSN_VERIFY"))
+	// Get user certificate
+
+	// Verify signature here
+
+	// Exec command 
+	/*if (!execCmd("DTSN_VERIFY"))
 		return false;
 
 	// Now it expects:
@@ -978,7 +990,7 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	}
 
 	if (VERBOSE == 1)
-		printf("OK\n");
+		printf("OK\n");*/
 
 	// Wait for 'SUCCESS'
 	if (!processResult())
