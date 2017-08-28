@@ -45,7 +45,33 @@ void SPIFLASH_readBlock(uint8_t ID, uint8_t * buffer, uint32_t base_addr)
 		mbedtls_aes_init(&aes_ctx);
 		mbedtls_aes_setkey_dec(&aes_ctx, FLASH_ENCRYPT_KEY, 256);
 		char IV[16] = {0};
-		memcpy(IV, FLASH_ENCRYPT_IV, 16);
+		switch(ID-1)
+		{
+			case 0:
+				memcpy(IV, FLASH_ENCRYPT_IV0, 16);
+				break;
+			case 1:
+				memcpy(IV, FLASH_ENCRYPT_IV1, 16);
+				break;
+			case 2:
+				memcpy(IV, FLASH_ENCRYPT_IV2, 16);
+				break;
+			case 3:
+				memcpy(IV, FLASH_ENCRYPT_IV3, 16);
+				break;
+			case 4:
+				memcpy(IV, FLASH_ENCRYPT_IV4, 16);
+				break;
+			case 5:
+				memcpy(IV, FLASH_ENCRYPT_IV5, 16);
+				break;
+			case 6:
+				memcpy(IV, FLASH_ENCRYPT_IV6, 16);
+				break;
+			default:
+				memcpy(IV, FLASH_ENCRYPT_IV, 16);
+		}
+
 		mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, FLASH_BLOCK_SIZE, IV, &global_buffer[FLASH_BLOCK_SIZE], &buffer[0]);
 		mbedtls_aes_free(&aes_ctx);
 	}
@@ -71,7 +97,32 @@ void SPIFLASH_writeBlock(uint8_t ID, uint8_t * buffer, uint32_t base_addr)
 		mbedtls_aes_init(&aes_ctx);
 		mbedtls_aes_setkey_enc(&aes_ctx, FLASH_ENCRYPT_KEY, 256);
 		char IV[16] = {0};
-			memcpy(IV, FLASH_ENCRYPT_IV, 16);
+		switch(ID-1)
+		{
+			case 0:
+				memcpy(IV, FLASH_ENCRYPT_IV0, 16);
+				break;
+			case 1:
+				memcpy(IV, FLASH_ENCRYPT_IV1, 16);
+				break;
+			case 2:
+				memcpy(IV, FLASH_ENCRYPT_IV2, 16);
+				break;
+			case 3:
+				memcpy(IV, FLASH_ENCRYPT_IV3, 16);
+				break;
+			case 4:
+				memcpy(IV, FLASH_ENCRYPT_IV4, 16);
+				break;
+			case 5:
+				memcpy(IV, FLASH_ENCRYPT_IV5, 16);
+				break;
+			case 6:
+				memcpy(IV, FLASH_ENCRYPT_IV6, 16);
+				break;
+			default:
+				memcpy(IV, FLASH_ENCRYPT_IV, 16);
+		}
 		mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_ENCRYPT, FLASH_BLOCK_SIZE, IV, buffer, &global_buffer[FLASH_BLOCK_SIZE]);
 		mbedtls_aes_free(&aes_ctx);
 
