@@ -336,7 +336,7 @@ void COMMAND_DATASIGN_process(uint8_t * command)
 
 		// We have the hash
 		// Apply ECDSA
-		if(!PKC_signData(u->privateKey, HASH, HASH_SIZE, &sig[0], &sig_len))
+		if(PKC_signData(u->privateKey, HASH, HASH_SIZE, &sig[0], &sig_len) != 1)
 		{
 			USER_free(u);
 

@@ -69,5 +69,3 @@ Implementation;Synthesis|| CD638 ||@W:Signal xhdl_12 is undriven ||Certification
 Implementation;Synthesis||(null)||Please refer to the log file for details about 635 Warning(s)||CertificationSystem.srr;liberoaction://open_report/file/CertificationSystem.srr||(null);(null)
 Implementation;Place and Route;RootName:CertificationSystem
 Implementation;Place and Route||(null)||Please refer to the log file for details about 3 Info(s)||CertificationSystem_layout_log.log;liberoaction://open_report/file/CertificationSystem_layout_log.log||(null);(null)
-Implementation;Generate Bitstream;RootName:CertificationSystem
-Implementation;Generate Bitstream||(null)||Please refer to the log file for details||CertificationSystem_generateBitstream.log;liberoaction://open_report/file/CertificationSystem_generateBitstream.log||(null);(null)

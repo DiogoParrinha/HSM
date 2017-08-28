@@ -429,7 +429,7 @@ PARENT="<project>\component\work\CertificationSystem_sb_MSS\CertificationSystem_
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem\CertificationSystem.cxf,actgen_cxf"
 STATE="utd"
-TIME="1497011240"
+TIME="1500649453"
 SIZE="4530"
 ENDFILE
 VALUE "<project>\component\work\CertificationSystem\CertificationSystem.vhd,hdl"
@@ -1191,12 +1191,11 @@ ENDLIST
 LIST OpenedFileList
 ORIENTATION;HORIZONTAL
 Reports;Reports;0
-ReportsCurrentItem;Run PROGRAM Action:CertificationSystem_PROGRAM.log
+ReportsCurrentItem;Synthesize:CertificationSystem_compile_netlist_resources.xml
 StartPage;StartPage;0
 SmartDesign;CertificationSystem;0
-SmartDesign;CertificationSystem_sb;0
-HDL;stimulus\sha256_module_tb_softwarelike.vhd;0
-HDL;hdl\sha256_controller.vhd;0
+HDL;hdl\SHA256_Module.vhd;0
+HDL;hdl\SHA256_BLOCK.vhd;0
 ACTIVEVIEW;CertificationSystem
 ENDLIST
 LIST ModuleSubBlockList

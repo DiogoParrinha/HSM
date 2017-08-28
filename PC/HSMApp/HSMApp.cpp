@@ -160,17 +160,17 @@ int main()
 	}*/
 
 	// Execute test
-	average = 0.0f;
-	printf("\nTesting 4096B of plain text data...");
+	/*average = 0.0f;
+	printf("\nTesting 4096B * 32 of plain text data...");
 	startTimer();
-	HSM_C_SendPlain();
-	assert(r == CKR_OK);
+	for (int a = 0; a<32; a++)
+		HSM_C_SendPlain();
 	endTimer();
 	printf("OK.\n");
-	times = 4096/16; // amount of blocks sent
+	times = 4096*32; // amount of blocks sent
 	average += elapsedTime;
 	average /= times;
-	printf("Average block transfer: %lfms\n", average);
+	printf("Average block transfer: %lfms | %lfms\n", elapsedTime, average);*/
 
 	// Open Session
 	printf("\nOpening session...\n");
@@ -206,17 +206,17 @@ int main()
 	printf("Average session start: %lfms\n", average);*/
 
 	// Execute test
-	average = 0.0f;
-	printf("\nTesting 4096B of secure data...");
+	/*average = 0.0f;
+	printf("\nTesting 4096B * 32 of secure data...");
 	startTimer();
-	HSM_C_SendSecure(phSession);
-	assert(r == CKR_OK);
+	for(int a=0;a<32;a++)
+		HSM_C_SendSecure(phSession);
 	printf("OK.\n");
 	endTimer();
-	times = 4096 / 16; // amount of blocks sent
+	times = 4096 * 32; // amount of blocks sent
 	average += elapsedTime;
 	average /= times;
-	printf("Average block transfer: %lfms\n", average);
+	printf("Average block transfer: %lfms | %lfms\n", elapsedTime, average);*/
 
 	///// ADD 7 USERS
 
@@ -427,7 +427,7 @@ int main()
 	///// Sign and Verify
 
 	// Login User
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -467,7 +467,7 @@ int main()
 			return 1;
 		}
 
-		/*r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
+		r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
 		if (r != CKR_OK)
 		{
 			printf("C_SignInit Failed: %d\n", r);
@@ -548,7 +548,7 @@ int main()
 			printf("C_VerifyFinal Failed: %d\n", r);
 			getchar();
 			return 1;
-		}*/
+		}
 
 		times++;
 	}
@@ -564,12 +564,12 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}
+	}*/
 
 	///// Login user and generate key pair | Get certificate of user 1 | Logout | Login admin | Generate certificate for generated public key
 
 	// Login user
-	memset(data, 0, 128);
+	/*memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -700,7 +700,7 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}
+	}*/
 
 	///// Login admin to create log-chain root
 
@@ -732,7 +732,7 @@ int main()
 	///// Login user 1, read file and send each line to the HSM
 
 	// Login user 1
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -749,7 +749,7 @@ int main()
 	average = 0.0f;
 	times = 0;
 	printf("\nLogging messages...\n");
-	while (std::getline(infile, line))
+	/*while (std::getline(infile, line))
 	{
 		const char *pMessage = line.c_str();
 
@@ -765,9 +765,24 @@ int main()
 			getchar();
 			return 1;
 		}
+	}*/
+	line = std::string("This is a test command | test command : test");
+	startTimer();
+	for (int a = 0; a < 10; a++)
+	{
+		r = HSM_C_LogAdd(phSession, (CK_UTF8CHAR_PTR)line.c_str(), line.length(), CK_TRUE);
+		if (r != CKR_OK)
+		{
+			printf("HSM_C_LogAdd Failed: %d\n", r);
+			getchar();
+			return 1;
+		}
+		times++;
 	}
+	endTimer();
+	average += elapsedTime;
 	average /= times;
-	printf("\nAverage log signing: %lf\n", average);
+	printf("\nAverage log signing: %lf | %lf\n", elapsedTime, average);
 
 	// Logout Log User
 	r = C_Logout(phSession);
@@ -776,7 +791,7 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
 
 	///// Get log-chain counters
 

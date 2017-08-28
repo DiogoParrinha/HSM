@@ -70,7 +70,7 @@ BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * sign
 	// Compute SHA-256
 	mbedtls_sha256(global_buffer, olen+w-1, &hash[0], 0);
 
-	if(!PKC_signData(LOGS_PRIVATE_KEY, hash, 32, signature, signature_len))
+	if(PKC_signData(LOGS_PRIVATE_KEY, hash, 32, signature, signature_len) != 1)
 	{
 		return FALSE;
 	}
