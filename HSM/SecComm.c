@@ -82,19 +82,39 @@ BOOL SecComm()
 	UART_sendOK(); //  confirmation to receive
 
 	uint8_t ciphertext[32] = {0};
-	UART_receive(&ciphertext[0], 32u); // ciphertext
+	ret = UART_receive(&ciphertext[0], 32u); // ciphertext
+	if (ret <= 0)
+	{
+		return FALSE;
+	}
 
 	uint8_t salt_IV[16] = {0};
-	UART_receive(&salt_IV[0], 16u); // salt / IV
+	ret = UART_receive(&salt_IV[0], 16u); // salt / IV
+	if (ret <= 0)
+	{
+		return FALSE;
+	}
 
 	uint8_t cli_pub_x[48] = {0};
-	UART_receive(&cli_pub_x[0], 48u); // public key X
+	ret = UART_receive(&cli_pub_x[0], 48u); // public key X
+	if (ret <= 0)
+	{
+		return FALSE;
+	}
 
 	uint8_t cli_pub_y[48] = {0};
-	UART_receive(&cli_pub_y[0], 48u); // public key Y
+	ret = UART_receive(&cli_pub_y[0], 48u); // public key Y
+	if (ret <= 0)
+	{
+		return FALSE;
+	}
 
 	uint8_t recHMAC[32] = {0};
-	UART_receive(&recHMAC[0], 32u); // HMAC
+	ret = UART_receive(&recHMAC[0], 32u); // HMAC
+	if (ret <= 0)
+	{
+		return FALSE;
+	}
 
 	//// Compute shared secret
 
@@ -142,7 +162,8 @@ BOOL SecComm()
 	// compute shared secret
 	int len = 0;
 	uint8_t shared_secret[128] = {0};
-	if((ret = mbedtls_ecdh_calc_secret(&ctx_srv, &len, shared_secret, 128u, mbedtls_ctr_drbg_random, &SecComm_ctr_drbg)) != 0)
+	ret = mbedtls_ecdh_calc_secret(&ctx_srv, &len, shared_secret, 128u, mbedtls_ctr_drbg_random, &SecComm_ctr_drbg);
+	if(ret != 0)
 	{
 		mbedtls_ctr_drbg_free(&SecComm_ctr_drbg);
 		mbedtls_entropy_free(&SecComm_entropy);
@@ -269,7 +290,7 @@ BOOL SecComm()
 	mbedtls_aes_crypt_cbc(&aes_ctx, MBEDTLS_AES_DECRYPT, 32, IV_copy, ciphertext, &plaintext[0]);
 	mbedtls_aes_free(&aes_ctx);
 
-	//// Modify nonce
+	//// Modify nonce N1 to N1'
 	// (plaintext mod 6)
 	uint8_t mod_nonce[32];
 	int a = 0;
@@ -282,7 +303,9 @@ BOOL SecComm()
 	UART_setKey(sessKey, hmacKey);
 	UART_send(mod_nonce, 32u);
 
-	//// Expect a new modified nonce to confirm the other party has the session key
+	// TODO: Send our nonce N2
+
+	//// Expect a new modified nonce (N2') to confirm the other party has the session key
 	for (a = 0; a < 32; a++)
 	{
 		mod_nonce[a] = mod_nonce[a] % 16; // TODO: mod_nonce[a] mod 16 for now...

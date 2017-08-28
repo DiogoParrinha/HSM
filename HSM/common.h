@@ -83,6 +83,7 @@ uint8_t tamper_status;
 uint32_t LOGS_globalCounter1;
 uint32_t LOGS_globalCounter2;
 uint32_t last_timestamp;
+uint32_t UART_commCounter; // up to 4 billion messages per connection...should be enough for a PoC
 
 /*------------------------------------------------------------------------------
  * Key and Sizes

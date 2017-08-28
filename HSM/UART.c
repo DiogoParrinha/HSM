@@ -66,6 +66,8 @@ void UART_setKey(uint8_t * sessKey, uint8_t * hmacKey)
 	memcpy(UART_sessionKey, sessKey, 32);
 	memcpy(UART_hmacKey, hmacKey, 32);
 	UART_usingKey = TRUE;
+
+	UART_commCounter = 0;
 }
 
 uint32_t UART_get
@@ -94,7 +96,7 @@ int UART_send(uint8_t *buffer, uint32_t len)
 	memcpy(data, buffer, len);
 
 	// Get timestamp
-	mss_rtc_calendar_t calendar_count;
+	/*mss_rtc_calendar_t calendar_count;
 	MSS_RTC_get_calendar_count(&calendar_count);
 
 	uint32_t t = convertDateToUnixTime(&calendar_count);
@@ -103,7 +105,14 @@ int UART_send(uint8_t *buffer, uint32_t len)
 	data[len] = t & 0x000000FF;
 	data[len+1] = (t & 0x0000FF00) >> 8;
 	data[len+2] = (t & 0x00FF0000) >> 16;
-	data[len+3] = (t & 0xFF000000) >> 24;
+	data[len+3] = (t & 0xFF000000) >> 24;*/
+
+	// Place the counter into an array
+	UART_commCounter++; // Increase because we're sending a new message
+	data[len] = UART_commCounter & 0x000000FF;
+	data[len+1] = (UART_commCounter & 0x0000FF00) >> 8;
+	data[len+2] = (UART_commCounter & 0x00FF0000) >> 16;
+	data[len+3] = (UART_commCounter & 0xFF000000) >> 24;
 
 	int r = UART_send_e(data, len+4);
 	free(data);
@@ -329,12 +338,10 @@ int UART_receive(char *location, uint32_t locsize)
 		return ERROR_UART_MEMORY;
 	memcpy(data, location, locsize);
 
-	// Get timestamp
-	mss_rtc_calendar_t calendar_count;
-	MSS_RTC_get_calendar_count(&calendar_count);
-
-	// Get our timestamp
-	uint32_t t = convertDateToUnixTime(&calendar_count);
+	// Get timestamp 1
+	mss_rtc_calendar_t calendar_count1;
+	MSS_RTC_get_calendar_count(&calendar_count1);
+	uint32_t t1 = convertDateToUnixTime(&calendar_count1);
 
 	int r = UART_receive_e(data, locsize+BLOCK_SIZE);
 	if(r <= 0)
@@ -343,8 +350,22 @@ int UART_receive(char *location, uint32_t locsize)
 		return r;
 	}
 
+	// Get timestamp 2
+	mss_rtc_calendar_t calendar_count2;
+	MSS_RTC_get_calendar_count(&calendar_count2);
+	uint32_t t2 = convertDateToUnixTime(&calendar_count2);
+
+	if((system_status & STATUS_CONNECTED) && CHECK_TIME_PACKETS == 1)
+	{
+		if(abs(t2-t1) > 10)
+		{
+			free(data);
+			return ERROR_UART_TIMER;
+		}
+	}
+
 	// Get the last 4B
-	uint32_t rec_timestamp = (0x000000FF & data[r-4])
+	/*uint32_t rec_timestamp = (0x000000FF & data[r-4])
 		| ((0x000000FF & data[r-3]) << 8)
 		| ((0x000000FF & data[r-2]) << 16)
 		| ((0x000000FF & data[r-1]) << 24);
@@ -357,7 +378,19 @@ int UART_receive(char *location, uint32_t locsize)
 			free(data);
 			return ERROR_UART_TIMER;
 		}
+	}*/
+
+	// Extract counter and compare with ours
+	uint32_t rec_counter = (0x000000FF & data[r-4])
+			| ((0x000000FF & data[r-3]) << 8)
+			| ((0x000000FF & data[r-2]) << 16)
+			| ((0x000000FF & data[r-1]) << 24);
+	if(rec_counter != UART_commCounter+1 && UART_usingKey)
+	{
+		free(data);
+		return ERROR_UART_TIMER;
 	}
+	UART_commCounter++;
 
 	r -= 4;
 

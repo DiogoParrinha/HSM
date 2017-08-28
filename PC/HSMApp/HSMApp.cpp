@@ -133,7 +133,7 @@ int main()
 
 	//////// Get device certificates
 
-	/*CK_UTF8CHAR certificate0[4096];
+	CK_UTF8CHAR certificate0[4096];
 	CK_ULONG bufSize0 = 4096;
 	r = HSM_C_CertDevice(0, -1, certificate0, &bufSize0);
 	if (r != CKR_OK)
@@ -157,7 +157,7 @@ int main()
 		printf("HSM_C_CertDevice Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
 
 	// Execute test
 	/*average = 0.0f;

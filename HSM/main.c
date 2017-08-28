@@ -294,43 +294,6 @@ int main()
 	uint32_t current_timestamp = 0;
 	while(1)
 	{
-		// Wait for COMMAND
-		//UART_waitCOMMAND();
-
-		// Set an alarm for the next 10s
-		/*mss_rtc_calendar_t new_calendar_time;
-		MSS_RTC_get_calendar_count(&new_calendar_time);
-
-		// check if seconds + 1 > 59
-		if(new_calendar_time.second + 10 <= 59)
-			new_calendar_time.second = new_calendar_time.second+10;
-		else
-		{
-			// check if minutes + 1 > 59
-			if(new_calendar_time.minute + 1 <= 59)
-			{
-				new_calendar_time.minute++;
-				new_calendar_time.second = 10; // may be bigger than a 10s delay but won't be longer than 19s
-			}
-			else
-			{
-				// check if hours + 1 > 23
-				if(new_calendar_time.hour + 1 <= 23)
-				{
-					// force interrupt on the 10th second of the 1st minute of the next hour
-					new_calendar_time.hour++;
-					new_calendar_time.minute = 1;
-					new_calendar_time.second = 10;
-				}
-				else
-				{
-					// unlucky...skip interrupt
-				}
-			}
-		}
-
-		MSS_RTC_set_calendar_count_alarm(&new_calendar_time);*/
-
 		// Alright, client is going to issue a command
 		memset(command, 0, 64);
 		int r = UART_receive(&command[0], 64);

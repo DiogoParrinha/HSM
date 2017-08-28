@@ -46,6 +46,8 @@ class UART {
 		int receive_e(uint8_t *location, uint32_t locsize);
 		int send_e(uint8_t *buffer, uint32_t len);
 
+		uint32_t commCounter;
+
 	public:
 		UART();
 		~UART();

@@ -33,6 +33,8 @@ UART::UART() {
 	memset(sessionKey, 0, 32);
 	memset(hmacKey, 0, 32);
 
+	commCounter = 0;
+
 	//fopen_s(&fpIn, "./logIn.txt", "w+");
 }
  
@@ -80,6 +82,8 @@ void UART::setKey(uint8_t * sessKey, uint8_t * hKey, bool use)
 	memcpy(sessionKey, sessKey, 32);
 	memcpy(hmacKey, hKey, 32);
 	usingKey = use;
+
+	commCounter = 0;
 }
 
 void UART::useTime(bool use)
@@ -92,6 +96,8 @@ void UART::disconnect()
 	usb->disconnect();
 
 	//fclose(fpIn);
+
+	commCounter = 0;
 }
 
 bool UART::reqCommand()
@@ -141,13 +147,20 @@ int UART::send(uint8_t *buffer, uint32_t len)
 	memcpy(data, buffer, len);
 
 	// Get timestamp
-	time_t t = time(NULL);
+	/*time_t t = time(NULL);
 
 	// Place the size into an array
 	data[len] = t & 0x000000FF;
 	data[len + 1] = (t & 0x0000FF00) >> 8;
 	data[len + 2] = (t & 0x00FF0000) >> 16;
-	data[len + 3] = (t & 0xFF000000) >> 24;
+	data[len + 3] = (t & 0xFF000000) >> 24;*/
+
+	// Place the counter into an array
+	commCounter++; // Increase because we're sending a new message
+	data[len] = commCounter & 0x000000FF;
+	data[len + 1] = (commCounter & 0x0000FF00) >> 8;
+	data[len + 2] = (commCounter & 0x00FF0000) >> 16;
+	data[len + 3] = (commCounter & 0xFF000000) >> 24;
 
 	int r = send_e(data, len + 4);
 	free(data);
@@ -407,8 +420,7 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 		return ERROR_UART_MEMORY;
 	memcpy(data, location, locsize);
 
-	// Get timestamp
-	time_t t = time(NULL);
+	time_t t1 = time(NULL);
 
 	int r = receive_e(data, locsize + BLOCK_SIZE);
 	if (r <= 0)
@@ -417,8 +429,20 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 		return r;
 	}
 
+	time_t t2 = time(NULL);
+
+	// Difference > 10s?
+	if (usingTime)
+	{
+		if (abs(t2 - t1) > 10)
+		{
+			free(data);
+			return ERROR_UART_TIMER;
+		}
+	}
+
 	// Get the last 4B
-	uint32_t rec_timestamp = (0x000000FF & data[r-4])
+	/*uint32_t rec_timestamp = (0x000000FF & data[r-4])
 		| ((0x000000FF & data[r-3]) << 8)
 		| ((0x000000FF & data[r-2]) << 16)
 		| ((0x000000FF & data[r-1]) << 24);
@@ -431,7 +455,19 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 			free(data);
 			return ERROR_UART_TIMER;
 		}
+	}*/
+
+	// Extract counter and compare with ours
+	uint32_t rec_counter = (0x000000FF & data[r - 4])
+		| ((0x000000FF & data[r - 3]) << 8)
+		| ((0x000000FF & data[r - 2]) << 16)
+		| ((0x000000FF & data[r - 1]) << 24);
+	if (rec_counter != commCounter + 1 && usingKey)
+	{
+		free(data);
+		return ERROR_UART_TIMER;
 	}
+	commCounter++;
 
 	r -= 4;
 

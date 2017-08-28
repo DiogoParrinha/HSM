@@ -43,7 +43,7 @@
 #include <locale>
 #include <iomanip>
 
-#define VERBOSE 0
+#define VERBOSE 1
 
 /*==============================================================================
 Macro
@@ -542,7 +542,7 @@ int HSM::startSession()
 		// Set AES key
 		comm->setKey(UART_sessionKey, UART_hmacKey, true);
 
-		// Receive modified nonce
+		// Receive modified nonce N1'
 		uint8_t rec_nonce[32] = { 0 };
 		ret = comm->receive(rec_nonce, 32);
 		if (ret <= 0)
@@ -551,6 +551,8 @@ int HSM::startSession()
 				printf("UART ERROR: 0x%02X\n", ret);
 			return false;
 		}
+
+		// TODO: Receive nonce N2
 
 		uint8_t mod_nonce[32];
 		for (int a = 0; a < 32; a++)
@@ -572,7 +574,7 @@ int HSM::startSession()
 			}
 		}
 
-		///// Send modified nonce encrypted with session key
+		///// Send modified nonce N2' encrypted with session key
 
 		uint8_t new_mod_nonce[32];
 		for (int a = 0; a < 32; a++)
