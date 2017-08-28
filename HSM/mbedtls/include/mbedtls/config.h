@@ -2519,6 +2519,7 @@
 /* ECP options */
 //#define MBEDTLS_ECP_MAX_BITS             521 /**< Maximum bit size of groups */
 //#define MBEDTLS_ECP_WINDOW_SIZE            6 /**< Maximum window size used */
+#define MBEDTLS_ECP_FIXED_POINT_OPTIM      1 /**< Enable fixed-point speed-up */
 
 /* Entropy options */
 #define MBEDTLS_ENTROPY_MAX_SOURCES                2 /**< Maximum number of sources supported */
