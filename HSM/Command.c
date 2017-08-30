@@ -686,12 +686,6 @@ void COMMAND_TIME_process(uint8_t * command)
 		uint8_t data[16*BLOCK_SIZE] = {0};
 		uint32_t signature_len = UART_receive(&data[0], 16*BLOCK_SIZE) - 68;
 
-		uint8_t hash[32] = {0};
-		mbedtls_sha256(data, 68, hash, 0);
-
-		uint8_t signature[8*BLOCK_SIZE] = {0};
-		memcpy(signature, &data[68], signature_len);
-
 		// Check time difference
 		MSS_RTC_get_calendar_count(&diff_calendar_time);
 		uint32_t time1 = convertDateToUnixTime(&new_calendar_time);
@@ -704,6 +698,20 @@ void COMMAND_TIME_process(uint8_t * command)
 			COMMAND_ERROR("ERROR: too long");
 			return;
 		}
+
+		// Are the nonces the same?
+		if(memcmp(&data[0], nonce, 64) != 0)
+		{
+			// Respond back with ERROR
+			COMMAND_ERROR("ERROR: invalid nonce");
+			return;
+		}
+
+		uint8_t hash[32] = {0};
+		mbedtls_sha256(data, 68, hash, 0);
+
+		uint8_t signature[8*BLOCK_SIZE] = {0};
+		memcpy(signature, &data[68], signature_len);
 
 		// Verify signature of its hash
 		uint8_t res = PKC_verifySignature(STS_PUBLIC_KEY, hash, 32, signature, signature_len);

@@ -41,8 +41,8 @@ typedef uint8_t BOOL;
 /*------------------------------------------------------------------------------
  * Configuration
  **/
-#define CHECK_TIME_PACKETS 0
-#define SECURE_SESSION 1
+#define CHECK_TIME_PACKETS 1 // whether or not time delay between data response should be checked
+#define SECURE_SESSION 1 // whether or not a secure session is used (must match driver config)
 
 // comment to use M2S060
 #define SECURITY_DEVICE 1
