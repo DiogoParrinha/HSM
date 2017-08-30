@@ -296,7 +296,7 @@ BOOL SecComm()
 	int a = 0;
 	for (a = 0; a < 32; a++)
 	{
-		mod_nonce1[a] = plaintext[a] % 6; // TODO: plaintext[a] mod 6 for now...
+		mod_nonce1[a] = plaintext[a] % 6; // TODO: plaintext[a] mod 6 for PoC...
 	}
 
 	//// Send modified nonce N1 using normal secure comm
@@ -325,7 +325,7 @@ BOOL SecComm()
 	uint8_t mod_nonce2[32];
 	for (a = 0; a < 32; a++)
 	{
-		mod_nonce2[a] = nonce2[a] % 16; // TODO: mod_nonce[a] mod 16 for now...
+		mod_nonce2[a] = nonce2[a] % 16; // TODO: mod_nonce[a] mod 16 for PoC...
 	}
 
 	uint8_t ver_challenge[32] = {0};

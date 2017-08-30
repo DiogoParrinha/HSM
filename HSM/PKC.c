@@ -215,7 +215,7 @@ BOOL PKC_createCertificate(uint8_t* public, uint8_t * subject_name, uint16_t key
 		return FALSE;
 	}
 
-	// TODO: Get next serial to use (last serial is stored in the first sector of SPI Flash) - it's "1" for now
+	// TODO: Get next serial to use (last serial is stored in the first sector of SPI Flash) - it's "1" for PoC
 	if((ret = mbedtls_mpi_read_string(&serial, 10, "1")) != 0)
 	{
 		PKC_free(&issuer_key, &entropy, &ctr_drbg);

@@ -92,6 +92,9 @@ void SPIFLASH_writeBlock(uint8_t ID, uint8_t * buffer, uint32_t base_addr)
 
 	if(ENCRYPT_SPI_FLASH == 1)
 	{
+		// TODO: We should generate a new IV, update the corresponding eNVM region and use it for this write
+		// Because the eNVM has limited writes, we opted for a RAM-based PoC for different IVs demonstration
+
 		// Encrypt data into the second part of the global buffer (the first is being used by an outter function for sure)
 		mbedtls_aes_context aes_ctx;
 		mbedtls_aes_init(&aes_ctx);

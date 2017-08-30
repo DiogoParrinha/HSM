@@ -158,13 +158,13 @@ BOOL USER_add(uint8_t ID, uint8_t * plainPIN)
 	SPIFLASH_writeBlock(ID, global_buffer, FLASH_USERS_BASE_ADDRESS);
 
 	// TODO
-	// According to my debug, the hash of global_buffer won't match the hash of block that is read
+	// According to my debug, the hash of global_buffer won't match the hash of block that is read (for some blocks)
 	// it seems the last 16B may be different, so the hash will be the different
 	// As I currently don't have time to understand why that happens,
-	// We compute the hash of the first first 2048B meaning that out of the 4096B for the user block, only 2048B are actually usable
+	// We compute the hash of the first first 2048B meaning that out of the 4096B for the user block, only 2048B are actually usable (in this example)
 	// This should be fixed for a production version obviously - but as a PoC it's fine
 	// The reason behind this might be related to the erase function that clears a user block
-	// and the possibility of dead cells at the end of the block
+	// and the possibility of dead cells at the end of the block (more likely)
 
 	// TODO: Update hash in eNVM (we do it in RAM for PoC)
 	uint8_t hash[32] = {0};

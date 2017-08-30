@@ -214,7 +214,7 @@ int get_pkcs_padding( unsigned char *input, size_t input_len,
  */
 void sys_services_event_handler(uint8_t opcode, uint8_t response)
 {
-	// TODO: There should be an admin command to clear the mesh and the clock flags (see tamper detection project example)
+	// TODO: Use MSS_SYS_zeroize_device(); to zeroize the device in case we detect a failure below
 
     if(POR_DIGEST_ERROR_OPCODE == opcode)
     {
@@ -262,6 +262,8 @@ void sys_services_event_handler(uint8_t opcode, uint8_t response)
  */
 void sys_services_data_event_handler(uint8_t error_type)
 {
+	// TODO: Use MSS_SYS_zeroize_device(); to zeroize the device in case we detect a failure below
+
     uint8_t fabric_digest_check_failure;
     uint8_t envm0_digest_check_failure;
     uint8_t envm1_digest_check_failure;
