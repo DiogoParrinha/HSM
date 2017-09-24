@@ -234,8 +234,8 @@ int main()
 		}
 	#endif
 
-	/*SPIFLASH_init();
-	SPIFLASH_eraseAll();*/
+	SPIFLASH_init();
+	SPIFLASH_eraseAll();
 
 	USER_init();
 
