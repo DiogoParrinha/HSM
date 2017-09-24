@@ -95,9 +95,9 @@ int main()
 		return 1;
 	}
 
-	// Init Token
+	// Init Token (this will only take effect once, afterwards this will basically do nothing because the device will reject it)
 	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900000"); // admin
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
 	r = C_InitToken(0, data, 32, NULL_PTR);
 	if (r != CKR_OK)
 	{

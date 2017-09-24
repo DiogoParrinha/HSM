@@ -1190,13 +1190,8 @@ LIST UserCustomizedFileList
 ENDLIST
 LIST OpenedFileList
 ORIENTATION;HORIZONTAL
-Reports;Reports;0
-ReportsCurrentItem;Synthesize:CertificationSystem_compile_netlist_resources.xml
 StartPage;StartPage;0
-SmartDesign;CertificationSystem;0
-HDL;hdl\SHA256_Module.vhd;0
-HDL;hdl\SHA256_BLOCK.vhd;0
-ACTIVEVIEW;CertificationSystem
+ACTIVEVIEW;StartPage
 ENDLIST
 LIST ModuleSubBlockList
 LIST "AHB_slave_dummy::work","hdl\AHB_slave_dummy.vhd","FALSE","FALSE"
