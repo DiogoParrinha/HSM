@@ -19,6 +19,7 @@
 #define ERROR_UART_MEMORY				-0x09
 #define ERROR_UART_RESPTIME				-0x0A
 #define ERROR_UART_OK					-0x0B
+#define ERROR_UART_COUNTER				-0x0C
 
 /*==============================================================================
   Globlal Variables

@@ -388,7 +388,7 @@ int UART_receive(char *location, uint32_t locsize)
 	if(rec_counter != UART_commCounter+1 && UART_usingKey)
 	{
 		free(data);
-		return ERROR_UART_TIMER;
+		return ERROR_UART_COUNTER;
 	}
 	UART_commCounter++;
 

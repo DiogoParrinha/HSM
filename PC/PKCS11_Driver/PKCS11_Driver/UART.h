@@ -21,7 +21,7 @@
 #define ERROR_UART_RESPTIME				-0x0A
 #define ERROR_UART_OK					-0x0B
 #define ERROR_UART_INVALID_DATAINFO		-0x0C
-
+#define ERROR_UART_COUNTER				-0x0D
 
 class UART {
 	private:

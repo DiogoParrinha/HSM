@@ -40,31 +40,6 @@ int main()
 	printf("\tPress ENTER to initiate communication.\r\n");
 	printf("%s", g_separator);
 
-	/*uint8_t text0[64] = {
-		0x00, 0x00, 0x00, 0x01,
-		0x00, 0x00, 0x00, 0x02,
-		0x00, 0x00, 0x00, 0x03,
-		0x00, 0x00, 0x00, 0x04,
-		0x00, 0x00, 0x00, 0x05,
-		0x00, 0x00, 0x00, 0x06,
-		0x00, 0x00, 0x00, 0x07,
-		0x00, 0x00, 0x00, 0x08,
-		0x00, 0x00, 0x00, 0x09,
-		0x00, 0x00, 0x00, 0x0A,
-		0x00, 0x00, 0x00, 0x0B,
-		0x00, 0x00, 0x00, 0x0C,
-		0x00, 0x00, 0x00, 0x0D,
-		0x00, 0x00, 0x00, 0x0E,
-		0x00, 0x00, 0x00, 0x0F,
-		0x00, 0x00, 0x00, 0x01,
-	};
-
-	uint8_t hash[32] = { 0 };
-	uint8_t text_incomp0[256] = { 0 };
-	memcpy(text_incomp0, text0, 32);
-	memset(hash, 0, 32);
-	mbedtls_sha256(text_incomp0, 32, &hash[0], 0);*/
-
 	getchar();
 	
 	CK_ULONG r = 0;
@@ -133,6 +108,7 @@ int main()
 
 	//////// Get device certificates
 
+	printf("Get Log-Chain Public Key Certificate...");
 	CK_UTF8CHAR certificate0[4096];
 	CK_ULONG bufSize0 = 4096;
 	r = HSM_C_CertDevice(0, -1, certificate0, &bufSize0);
@@ -142,7 +118,9 @@ int main()
 		getchar();
 		return 1;
 	}
+	printf("Done!\n");
 
+	printf("Get Session Public Key Certificate...");
 	r = HSM_C_CertDevice(0, -2, certificate0, &bufSize0);
 	if (r != CKR_OK)
 	{
@@ -150,7 +128,9 @@ int main()
 		getchar();
 		return 1;
 	}
+	printf("Done!\n");
 
+	printf("Get Issuer Public Key Certificate...");
 	r = HSM_C_CertDevice(0, -3, certificate0, &bufSize0);
 	if (r != CKR_OK)
 	{
@@ -158,6 +138,7 @@ int main()
 		getchar();
 		return 1;
 	}
+	printf("Done!\n");
 
 	// Execute test
 	/*average = 0.0f;
@@ -173,7 +154,7 @@ int main()
 	printf("Average block transfer: %lfms | %lfms\n", elapsedTime, average);*/
 
 	// Open Session
-	printf("\nOpening session...\n");
+	printf("\nOpening session...");
 	CK_BYTE application = 1;
 	CK_SESSION_HANDLE phSession;
 	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
@@ -183,7 +164,7 @@ int main()
 		getchar();
 		return 1;
 	}
-	printf("OK.\n");
+	printf("Done!\n");
 
 	/*average = 0.0f;
 	times = 0;
@@ -219,6 +200,8 @@ int main()
 	printf("Average block transfer: %lfms | %lfms\n", elapsedTime, average);*/
 
 	///// ADD 7 USERS
+
+	printf("Adding 7 new users...");
 
 	// Login
 	/*memset(data, 0, 128);
@@ -318,7 +301,11 @@ int main()
 		return 1;
 	}*/
 
+	printf("Done!\n");
+	printf("Testing user logins...\n");
+
 	// Test each user login
+	printf("\tUser1...");
 	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user1
 	data[32] = 1;
@@ -336,7 +323,9 @@ int main()
 		getchar();
 		return 1;
 	}
+	printf("Done!\n");
 
+	printf("\tUser2...");
 	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900002"); // user2
 	data[32] = 2;
@@ -354,7 +343,9 @@ int main()
 		getchar();
 		return 1;
 	}
+	printf("Done!\n");
 
+	printf("\tUser3...");
 	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900003"); // user3
 	data[32] = 3;
@@ -372,7 +363,9 @@ int main()
 		getchar();
 		return 1;
 	}
+	printf("Done!\n");
 
+	printf("\tUser4...");
 	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900004"); // user4
 	data[32] = 4;
@@ -390,7 +383,9 @@ int main()
 		getchar();
 		return 1;
 	}
+	printf("Done!\n");
 
+	printf("\tUser5...");
 	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900005"); // user5
 	data[32] = 5;
@@ -408,7 +403,9 @@ int main()
 		getchar();
 		return 1;
 	}
+	printf("Done!\n");
 
+	printf("\tUser6...");
 	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900006"); // user6
 	data[32] = 6;
@@ -426,7 +423,9 @@ int main()
 		getchar();
 		return 1;
 	}
+	printf("Done!\n");
 
+	printf("\tUser7...");
 	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900007"); // user7
 	data[32] = 7;
@@ -444,6 +443,9 @@ int main()
 		getchar();
 		return 1;
 	}
+	printf("Done!\n");
+
+	printf("Done!\n");
 
 	/////// Delete User 1 and Add Back
 
@@ -552,9 +554,9 @@ int main()
 	}*/
 
 	///// Sign and Verify
-
+	
 	// Login User
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -565,13 +567,13 @@ int main()
 		return 1;
 	}
 
-	average = 0.0f;
-	printf("\nSigning data...\n");
-	startTimer();
+	/*average = 0.0f;
+	startTimer();*/
 	int i = 0;
-	for (i = 0; i<3; i++)
+	for (i = 0; i<1; i++)
 	{
 		// Sign Data
+		printf("Signing data with User1 Private Key...");
 		CK_MECHANISM sign_mechanism = {
 			CKM_ECDSA, NULL_PTR, 0
 		};
@@ -593,8 +595,9 @@ int main()
 			getchar();
 			return 1;
 		}
+		printf("Done!\n");
 
-		uint8_t msg[7] = { '1','2','3','4','5','6', '\0' };
+		/*uint8_t msg[7] = { '1','2','3','4','5','6', '\0' };
 		r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
 		if (r != CKR_OK)
 		{
@@ -627,9 +630,10 @@ int main()
 			printf("C_SignFinal Failed: %d\n", r);
 			getchar();
 			return 1;
-		}
+		}*/
 
 		// Verify signatures
+		printf("Verifying signature with User1 Public Key...");
 		r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
 		if (r != CKR_OK)
 		{
@@ -645,8 +649,9 @@ int main()
 			getchar();
 			return 1;
 		}
+		printf("Done!\n");
 
-		r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
+		/*r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
 		if (r != CKR_OK)
 		{
 			printf("C_VerifyInit Failed: %d\n", r);
@@ -676,14 +681,14 @@ int main()
 			printf("C_VerifyFinal Failed: %d\n", r);
 			getchar();
 			return 1;
-		}
+		}*/
 
 		times++;
 	}
-	endTimer();
+	/*endTimer();
 	average += elapsedTime;
 	average /= times;
-	printf("Average signature: %lfms\n", average);
+	printf("Average signature: %lfms\n", average);*/
 
 	// Logout User
 	r = C_Logout(phSession);
@@ -692,12 +697,12 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
 
 	///// Login user and generate key pair | Get certificate of user 1 | Logout | Login admin | Generate certificate for generated public key
 
 	// Login user
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -708,7 +713,8 @@ int main()
 		return 1;
 	}
 
-	// Generate a key pair 
+	// Generate a key pair
+	printf("Generating and extracting key pair for User1...");
 	CK_MECHANISM genkey_mechanism = {
 		CKM_EC_KEY_PAIR_GEN, NULL_PTR, 0
 	};
@@ -732,10 +738,10 @@ int main()
 		{ CKA_VALUE, priBuffer, sizeof(priBuffer) }
 	};
 
-	average = 0.0f;
+	/*average = 0.0f;
 	times = 0;
 	printf("\nGenerating keys...");
-	startTimer();
+	startTimer();*/
 	for(int i=0;i<1;i++)
 	{
 		r = C_GenerateKeyPair(phSession, &genkey_mechanism, pubKeyTemplate, 3, priKeyTemplate, 3, &pub, &pri);
@@ -747,10 +753,10 @@ int main()
 		}
 		times++;
 	}
-	endTimer();
+	/*endTimer();
 	average += elapsedTime;
 	average /= times;
-	printf("\nAverage key generation: %lf\n", average);
+	printf("\nAverage key generation: %lf\n", average);*/
 
 	memset(pubBuffer, 0, 512);
 	memset(priBuffer, 0, 512);
@@ -770,8 +776,10 @@ int main()
 		return 1;
 	}
 
-	// We use our own functions
-	CK_UTF8CHAR certificate[4096];
+	printf("Done!\n");
+
+	// We use our own functions to get certificate of internal public key
+	/*CK_UTF8CHAR certificate[4096];
 	CK_ULONG bufSize = 4096;
 	r = HSM_C_CertGet(phSession, 1, certificate, &bufSize);
 	if (r != CKR_OK)
@@ -779,7 +787,7 @@ int main()
 		printf("HSM_C_CertGet Failed: %d\n", r);
 		getchar();
 		return 1;
-	}
+	}*/
 
 	// Logout user 1
 	r = C_Logout(phSession);
@@ -789,6 +797,8 @@ int main()
 		getchar();
 		return 1;
 	}
+
+	printf("Generate public key certificate for extracted public key with admin...");
 
 	// Login admin
 	memset(data, 0, 128);
@@ -828,7 +838,9 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
+
+	printf("Done!\n");
 
 	///// Login admin to create log-chain root
 

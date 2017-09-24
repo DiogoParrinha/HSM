@@ -7,8 +7,8 @@
 #include "pkcs11_common.h"
 #include "UART.h"
 
-#define CHECK_TIME_PACKETS 0
-#define SECURE_SESSION 1
+#define CHECK_TIME_PACKETS 1 // whether or not time delay between data response should be checked
+#define SECURE_SESSION 1 // whether or not a secure session is used (must match HSM config)
 
 class HSM
 {

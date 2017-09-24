@@ -465,7 +465,7 @@ int UART::receive(uint8_t *location, uint32_t locsize)
 	if (rec_counter != commCounter + 1 && usingKey)
 	{
 		free(data);
-		return ERROR_UART_TIMER;
+		return ERROR_UART_COUNTER;
 	}
 	commCounter++;
 

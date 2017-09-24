@@ -36,9 +36,9 @@ int main()
 	MSS_GPIO_config( MSS_GPIO_0 , MSS_GPIO_OUTPUT_MODE );
 
 #ifdef SECURITY_DEVICE
-	MSS_GPIO_set_output( MSS_GPIO_0 , 0 );
-#else
 	MSS_GPIO_set_output( MSS_GPIO_0 , 1 );
+#else
+	MSS_GPIO_set_output( MSS_GPIO_0 , 0 );
 #endif
 
 	//MSS_UART_init(&g_mss_uart0, MSS_UART_57600_BAUD, MSS_UART_DATA_8_BITS | MSS_UART_NO_PARITY | MSS_UART_ONE_STOP_BIT);
@@ -234,12 +234,20 @@ int main()
 		}
 	#endif
 
+	/*SPIFLASH_init();
+	SPIFLASH_eraseAll();*/
+
 	USER_init();
-	//SPIFLASH_eraseAll();
 
 	UART_init();
 
 	MSS_RTC_start();
+
+#ifdef SECURITY_DEVICE
+	MSS_GPIO_set_output( MSS_GPIO_0 , 0 );
+#else
+	MSS_GPIO_set_output( MSS_GPIO_0 , 1 );
+#endif
 
 	/*** Receive commands ***/
 	uint8_t command[64];
