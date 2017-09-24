@@ -204,7 +204,7 @@ int main()
 	printf("Adding 7 new users...");
 
 	// Login
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
 	data[32] = 0;
 	r = C_Login(phSession, CKU_SO, data, 33);
@@ -299,7 +299,7 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
 
 	printf("Done!\n");
 	printf("Testing user logins...\n");
@@ -844,7 +844,9 @@ int main()
 
 	///// Login admin to create log-chain root
 
-	/*memset(data, 0, 128);
+	printf("Creating Log-Chain root with admin...");
+	
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
 	data[32] = 0;
 	r = C_Login(phSession, CKU_SO, data, 33);
@@ -867,12 +869,15 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
+	printf("Done!\n");
 
 	///// Login user 1, read file and send each line to the HSM
 
+	printf("Reading log file with user1 and add to Log-Chain...");
+
 	// Login user 1
-	/*memset(data, 0, 128);
+	memset(data, 0, 128);
 	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
 	data[32] = 1;
 	r = C_Login(phSession, CKU_USER, data, 33);
@@ -886,10 +891,11 @@ int main()
 	std::ifstream infile("messages.txt");
 	std::string line;
 
-	average = 0.0f;
+	/*average = 0.0f;
 	times = 0;
 	printf("\nLogging messages...\n");*/
-	/*while (std::getline(infile, line))
+
+	while (std::getline(infile, line))
 	{
 		const char *pMessage = line.c_str();
 
@@ -905,7 +911,7 @@ int main()
 			getchar();
 			return 1;
 		}
-	}*/
+	}
 	/*line = std::string("This is a test command | test command : test");
 	startTimer();
 	for (int a = 0; a < 10; a++)
@@ -918,11 +924,11 @@ int main()
 			return 1;
 		}
 		times++;
-	}
-	endTimer();
+	}*/
+	/*endTimer();
 	average += elapsedTime;
 	average /= times;
-	printf("\nAverage log signing: %lf | %lf\n", elapsedTime, average);
+	printf("\nAverage log signing: %lf | %lf\n", elapsedTime, average);*/
 
 	// Logout Log User
 	r = C_Logout(phSession);
@@ -931,18 +937,22 @@ int main()
 		printf("C_Logout Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
+
+	printf("Done!\n");
 
 	///// Get log-chain counters
 
-	/*CK_ULONG lNumber1, lNumber2;
+	printf("Verify Log-Chain...");
+
+	CK_ULONG lNumber1, lNumber2;
 	r = HSM_C_LogCounter(phSession, &lNumber1, &lNumber2);
 	if (r != CKR_OK)
 	{
 		printf("HSM_C_LogCounter Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
 
 	// close session
 	r = C_CloseSession(phSession);
@@ -997,7 +1007,7 @@ int main()
 	average /= times;
 	printf("\nOK\n");*/
 
-	/*printf("\nVerify chain...\n");
+	//printf("\nVerify chain...\n");
 
 	uint8_t hash_v[32] = { 0x6f, 0x4e, 0xce, 0x48, 0xaf, 0x1d, 0x8d, 0x1f, 0xff, 0xce, 0x45, 0x65, 0x2b, 0x19, 0x02, 0xb4, 0x05, 0x06, 0x04, 0xe6, 0x67, 0xa0, 0xa3, 0xf3, 0x98, 0x56, 0x96, 0x80, 0x3a, 0xfe, 0xf1, 0x56 };
 	average = 0.0f;
@@ -1010,7 +1020,7 @@ int main()
 	times++;
 
 	average /= times;
-	printf("\nOK\n");
+	//printf("\nOK\n");
 	
 	// Finalize
 	r = C_Finalize(NULL);
@@ -1019,7 +1029,9 @@ int main()
 		printf("C_Finalize Failed: %d\n", r);
 		getchar();
 		return 1;
-	}*/
+	}
+
+	printf("Done!\n");
 
 	printf("\nPress ENTER to continue.\n");
 

@@ -1688,10 +1688,10 @@ bool HSM::logsInit(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_UTF8CHAR_PTR 
 	uint32_t olen_2 = 0;
 
 	// Depending on the date, choose which file to write to
-	//time_t t = time(NULL);
+	time_t t = time(NULL);
 
 	/* Code below is used for fake date/time testing */
-	static time_t static_time, t;
+	/*static time_t static_time, t;
 	static int iteration;
 	if (static_time == 0)
 	{
@@ -1703,7 +1703,7 @@ bool HSM::logsInit(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_UTF8CHAR_PTR 
 	{
 		t += 60 * 60 * 24 * 2;
 	}
-	iteration++;
+	iteration++;*/
 	/* end of test code */
 
 	struct tm now;
@@ -1810,8 +1810,25 @@ bool HSM::logsInit(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_UTF8CHAR_PTR 
 		return false;
 	}
 
-	// Do we have the year X and month Y folder inside logchain?
+	// Check if ./logchain exists
 	DIR *dir;
+	if ((dir = opendir("./logchain")) == NULL)
+	{
+		if (_mkdir("./logchain") == 0)
+		{
+			if (VERBOSE == 1)
+				printf("Directory './logchain' was successfully created\n");
+		}
+		else {
+			if (VERBOSE_ERROR == 1)
+				printf("Problem creating directory './logchain'\n");
+			return false;
+		}
+	}
+	else
+		closedir(dir);
+
+	// Do we have the year X and month Y folder inside logchain?
 	char path[256];
 	sprintf_s(path, 256, "./logchain/%d", now.tm_year + 1900);
 	if ((dir = opendir(path)) == NULL)
