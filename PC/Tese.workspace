@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="Tese" Database="">
+  <Project Name="ECDH" Path="ECDH/ECDH.project" Active="No"/>
+  <Project Name="USB_Serial" Path="USB_Serial/USB_Serial.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="ECDH" ConfigName="Debug"/>
+      <Project Name="USB_Serial" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Environment/>
+      <Project Name="ECDH" ConfigName="Release"/>
+      <Project Name="USB_Serial" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

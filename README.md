@@ -19,3 +19,9 @@ This repository contains two main folders: HSM and PC.
 The HSM contains the software responsible for handling the Hardware Secure Module features, while the PC contains the PC driver that communicates with the device.
 
 
+NOTES:
+* Install FlashPro5 so that the drivers are installed
+* The API uses COM7 by default - make sure the FlashPro5 Serial Converter D port is set to COM7
+* Make sure OpenSSL is installed for the STS to work: https://slproweb.com/products/Win32OpenSSL.html https://www.tbs-certificates.co.uk/FAQ/en/openssl-windows.html
+* Make sure cURL is installed for the STS to work: https://curl.haxx.se/dlwiz/
+* sts.bat and /timestamp must be in the same folder as the executable

@@ -1,0 +1,5 @@
+Mar 13 05:22:09 mybb-plugins saslauthd[146]: do_auth         : auth failure: [user=guitar] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 05:23:20 mybb-plugins saslauthd[145]: do_auth         : auth failure: [user=daniele] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 05:25:01 mybb-plugins systemd: Started Session 13611617 of user root.
+Mar 13 05:25:01 mybb-plugins systemd: Starting Session 13611617 of user root.
+Mar 13 05:25:03 mybb-plugins su: (to postgres) root on none
