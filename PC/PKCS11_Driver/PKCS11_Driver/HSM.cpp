@@ -43,7 +43,7 @@
 #include <locale>
 #include <iomanip>
 
-#define VERBOSE 1
+#define VERBOSE 0
 #define VERBOSE_ERROR 1
 #define DO_NOTHING 0
 
@@ -348,7 +348,7 @@ int HSM::startSession()
 			mbedtls_entropy_free(&entropy);
 
 			if (VERBOSE == 1)
-				printf("Not enough memory for session.cert\n");
+				printf("Not enough memory for session.crt\n");
 			return 7;
 		}
 
@@ -1003,7 +1003,7 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	if (VERBOSE == 1)
 		printf("\nParse certificate and verify signature...");
 
-	// Read certificate file ./certs/logs.cert
+	// Read certificate file ./certs/logs.crt
 	mbedtls_x509_crt * user_cert = (mbedtls_x509_crt*)malloc(sizeof(mbedtls_x509_crt));
 	if (user_cert == NULL)
 		return false;
@@ -2336,7 +2336,7 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 	// Use device logs public key
 	if (logs_cert == NULL)
 	{
-		// Read certificate file ./certs/logs.cert
+		// Read certificate file ./certs/logs.crt
 		logs_cert = (mbedtls_x509_crt*)malloc(sizeof(mbedtls_x509_crt));
 		if (logs_cert == NULL)
 			return false;
@@ -2745,7 +2745,7 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2, CK_UTF8CHAR_PTR 
 	// Use device logs public key
 	if (logs_cert == NULL)
 	{
-		// Read certificate file ./certs/logs.cert
+		// Read certificate file ./certs/logs.crt
 		logs_cert = (mbedtls_x509_crt*)malloc(sizeof(mbedtls_x509_crt));
 		if (logs_cert == NULL)
 			return false;

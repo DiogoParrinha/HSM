@@ -1064,3 +1064,11 @@ CK_PKCS11_FUNCTION_INFO(HSM_C_SendPlain)
 (
 );
 #endif
+
+/* HSM_DeleteSession Deletes a handle from the list. */
+CK_PKCS11_FUNCTION_INFO(HSM_C_DeleteSession)
+#ifdef CK_NEED_ARG_LIST
+(
+	CK_SESSION_HANDLE hSession				/* the session's handle */
+);
+#endif

@@ -18,6 +18,8 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <vector>
+#include <dirent.h>
 
 #include "mbedtls/config.h"
 #include "mbedtls/sha256.h"
@@ -33,6 +35,36 @@ double elapsedTime;
 void startTimer();
 void endTimer();
 
+int getCertificates();
+int add3Users();
+int login3Users();
+int deleteUser3();
+int signVerifyUser1();
+int getUser1Certificate();
+int genKeyPairUser1GetCertificate();
+int createLogChainRootAdmin();
+int addLogChainUser1();
+int verifyLogChain();
+int closeSession(CK_SESSION_HANDLE phSession);
+
+void printOptions() {
+	printf("\n\n");
+	printf("%s", g_separator);
+	printf("Options:\n");
+	printf("0. Get System Certificates\n");
+	printf("1. Add 3 Users\n");
+	printf("2. Login with 3 Users\n");
+	printf("3. Delete User 3\n");
+	printf("4. Sign and Verify Data with User 1\n");
+	printf("5. Generate key pair with user 1 and get certificate with admin\n");
+	printf("6. Get user 1 public key certificate\n");
+	printf("7. Create Log-Chain Root\n");
+	printf("8. Add entries to Log-Chain\n");
+	printf("9. Verify Log-Chain\n");
+	printf("Q. QUIT\n");
+	printf("%s", g_separator);
+}
+
 int main()
 {
 	printf("%s", g_separator);
@@ -40,12 +72,10 @@ int main()
 	printf("\tPress ENTER to initiate communication.\r\n");
 	printf("%s", g_separator);
 
-	getchar();
-	
 	CK_ULONG r = 0;
-	double average = 0.0f;
-	int times = 0;
 	unsigned char data[128];
+
+	getchar();
 
 	// Initialize
 	r = C_Initialize(NULL);
@@ -85,6 +115,14 @@ int main()
 		return 1;
 	}
 
+	/*printf("\nSlot Count: %d\n", slotCount);
+	if (slotCount == 0)
+	{
+		printf("Device is not connected.\n");
+		getchar();
+		return 1;
+	}*/
+
 	// Slot Info
 	CK_SLOT_INFO pInfo;
 	r = C_GetSlotInfo(0, &pInfo);
@@ -106,936 +144,163 @@ int main()
 		return 1;
 	}
 
-	//////// Get device certificates
+	printOptions();
 
-	printf("Get Log-Chain Public Key Certificate...");
-	CK_UTF8CHAR certificate0[4096];
-	CK_ULONG bufSize0 = 4096;
-	r = HSM_C_CertDevice(0, -1, certificate0, &bufSize0);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_CertDevice Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("Get Session Public Key Certificate...");
-	r = HSM_C_CertDevice(0, -2, certificate0, &bufSize0);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_CertDevice Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("Get Issuer Public Key Certificate...");
-	r = HSM_C_CertDevice(0, -3, certificate0, &bufSize0);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_CertDevice Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	// Execute test
-	/*average = 0.0f;
-	printf("\nTesting 4096B * 32 of plain text data...");
-	startTimer();
-	for (int a = 0; a<32; a++)
-		HSM_C_SendPlain();
-	endTimer();
-	printf("OK.\n");
-	times = 4096*32; // amount of blocks sent
-	average += elapsedTime;
-	average /= times;
-	printf("Average block transfer: %lfms | %lfms\n", elapsedTime, average);*/
-
-	// Open Session
-	printf("\nOpening session...");
-	CK_BYTE application = 1;
-	CK_SESSION_HANDLE phSession;
-	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_OpenSession Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	/*average = 0.0f;
-	times = 0;
-	printf("\nOpening sessions...");
-	for (int i = 0; i < 100; i++)
-	{
-		startTimer();
-		r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
-		assert(r == CKR_OK);
-		endTimer();
-		average += elapsedTime;
-		times++;
-
-		// close session
-		r = C_CloseSession(phSession);
-		assert(r == CKR_OK);
-	}
-	average /= times;
-	printf("OK.\n");
-	printf("Average session start: %lfms\n", average);*/
-
-	// Execute test
-	/*average = 0.0f;
-	printf("\nTesting 4096B * 32 of secure data...");
-	startTimer();
-	for(int a=0;a<32;a++)
-		HSM_C_SendSecure(phSession);
-	printf("OK.\n");
-	endTimer();
-	times = 4096 * 32; // amount of blocks sent
-	average += elapsedTime;
-	average /= times;
-	printf("Average block transfer: %lfms | %lfms\n", elapsedTime, average);*/
-
-	///// ADD 7 USERS
-
-	printf("Adding 7 new users...\n");
-
-	// Login
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
-	data[32] = 0;
-	r = C_Login(phSession, CKU_SO, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	printf("\tUser1...");
-	CK_BYTE userID = 0;
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
-	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_UserAdd Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser2...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900002"); // user 2
-	userID = 0;
-	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_UserAdd Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser3...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900003"); // user 3
-	userID = 0;
-	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_UserAdd Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser4...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900004"); // user 4
-	userID = 0;
-	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_UserAdd Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser5...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900005"); // user 5
-	userID = 0;
-	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_UserAdd Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser6...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900006"); // user 6
-	userID = 0;
-	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_UserAdd Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser7...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900007"); // user 7
-	userID = 0;
-	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_UserAdd Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	// Logout Admin
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("Done!\n");
-	printf("Testing user logins...\n");
-
-	// Test each user login
-	printf("\tUser1...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user1
-	data[32] = 1;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser2...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900002"); // user2
-	data[32] = 2;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser3...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900003"); // user3
-	data[32] = 3;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser4...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900004"); // user4
-	data[32] = 4;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser5...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900005"); // user5
-	data[32] = 5;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser6...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900006"); // user6
-	data[32] = 6;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("\tUser7...");
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900007"); // user7
-	data[32] = 7;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	printf("Done!\n");
-
-	/////// Delete User 1 and Add Back
-
-	// Login admin
-	/*memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
-	data[32] = 0;
-	r = C_Login(phSession, CKU_SO, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	r = HSM_C_UserDelete(phSession, 1);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_UserDelete Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	CK_BYTE userID = 0;
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
-	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_UserAdd Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	// Logout Admin
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}*/
-
-	/////// Login with user 1 and modify pin; Logout user 1 and login again with new PIN; Modify PIN and Logout
-
-	// Login user 1
-	/*memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
-	data[32] = 1;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555100"); // user 1
-	r = HSM_C_UserModify(phSession, &data[0], 32);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_UserModify Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	// Logout user 1
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	// Login user 1
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "11111122222233333344444455555100"); // user 1
-	data[32] = 1;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
-	r = HSM_C_UserModify(phSession, &data[0], 32);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_UserModify Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	// Logout user 1
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}*/
-
-	///// Sign and Verify
-	
-	// Login User
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
-	data[32] = 1;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	/*average = 0.0f;
-	startTimer();*/
-	int i = 0;
-	for (i = 0; i<1; i++)
-	{
-		// Sign Data
-		printf("Signing data with User1 Private Key...");
-		CK_MECHANISM sign_mechanism = {
-			CKM_ECDSA, NULL_PTR, 0
-		};
-		r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
-		if (r != CKR_OK)
+	bool exit = false;
+	while (char c = getchar()) {
+		switch (c)
 		{
-			printf("C_SignInit Failed: %d\n", r);
-			getchar();
-			return 1;
+		case '0':
+			//////// Get device certificates
+			printf("\nGet system certificates...");
+			if ((r = getCertificates()) != 0)
+			{
+				printf("\nERROR!");
+				exit = true;
+			}
+			else
+			{
+				printf("\nDone!");
+				printOptions();
+			}
+			break;
+		case '1':
+			///// Add 3 users
+			printf("\nAdd 3 new users...");
+			if ((r = add3Users()) != 0)
+			{
+				printf("\nERROR!");
+				exit = true;
+			}
+			else
+			{
+				printf("\nDone!");
+				printOptions();
+			}
+			break;
+		case '2':
+			///// Login and logout with each user
+			printf("\nLogin with 3 new users...");
+			if ((r = login3Users()) != 0)
+			{
+				printf("\nERROR!");
+				exit = true;
+			}
+			else
+			{
+				printf("\nDone!");
+				printOptions();
+			}
+			break;
+		case '3':
+			///// Delete user 3
+			printf("\nDelete user 3...");
+			if ((r = deleteUser3()) != 0)
+			{
+				printf("\nERROR!");
+				exit = true;
+			}
+			else
+			{
+				printf("\nDone!");
+				printOptions();
+			}
+			break;
+		case '4':
+			///// Sign and Verify
+			printf("\nSign and verify data with user 1...");
+			if ((r = signVerifyUser1()) != 0)
+			{
+				printf("\nERROR!");
+				exit = true;
+			}
+			else
+			{
+				printf("\nDone!");
+				printOptions();
+			}
+			break;
+		case '5':
+			///// Generate key pair with user 1 and get certificate with admin
+			printf("\nGenerate and extract key pair with user 1 and then get certificate for public key with admin...");
+			if ((r = genKeyPairUser1GetCertificate()) != 0)
+			{
+				printf("\nERROR!");
+				exit = true;
+			}
+			else
+			{
+				printf("\nDone!");
+				printOptions();
+			}
+			break;
+		case '6':
+			///// Get user 1 public key certificate
+			printf("\nGet user 1 internal public key certificate...");
+			if ((r = getUser1Certificate()) != 0)
+			{
+				printf("\nERROR!");
+				exit = true;
+			}
+			else
+			{
+				printf("\nDone!");
+				printOptions();
+			}
+			break;
+		case '7':
+			///// Login admin to create log-chain root
+			printf("\nCreating Log-Chain root with admin...");
+			if ((r = createLogChainRootAdmin()) != 0)
+			{
+				printf("\nERROR!");
+				exit = true;
+			}
+			else
+			{
+				printf("\nDone!");
+				printOptions();
+			}
+			break;
+		case '8':
+			///// Login user 1, read file and send each line to the HSM
+			printf("\nReading log file with user1 and add to Log-Chain...");
+			if ((r = addLogChainUser1()) != 0)
+			{
+				printf("\nERROR!");
+				exit = true;
+			}
+			else
+			{
+				printf("\nDone!");
+				printOptions();
+			}
+			break;
+		case '9':
+			///// Verify Log-Chain
+			printf("\nVerify Log-Chain...");
+			if ((r = verifyLogChain()) != 0)
+			{
+				printf("\nERROR!");
+				exit = true;
+			}
+			else
+			{
+				printf("\nDone!");
+				printOptions();
+			}
+			break;
+		case 'Q':
+			exit = true;
+			break;
 		}
-
-		uint8_t msg[7] = { '1','2','3','4','5','6', '\0' };
-		CK_BYTE signature1[512] = { 0 };
-		CK_ULONG sig1_len = 512;
-		r = C_Sign(phSession, msg, sizeof(msg), &signature1[0], &sig1_len);
-		if (r != CKR_OK)
+		
+		if (exit)
 		{
-			printf("C_Sign Failed: %d\n", r);
-			getchar();
-			return 1;
-		}
-		printf("Done!\n");
-
-		/*uint8_t msg[7] = { '1','2','3','4','5','6', '\0' };
-		r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
-		if (r != CKR_OK)
-		{
-			printf("C_SignInit Failed: %d\n", r);
-			getchar();
-			return 1;
-		}
-
-		r = C_SignUpdate(phSession, msg, sizeof(msg));
-		if (r != CKR_OK)
-		{
-			printf("C_SignUpdate Failed: %d\n", r);
-			getchar();
-			return 1;
-		}
-
-		r = C_SignUpdate(phSession, msg, sizeof(msg));
-		if (r != CKR_OK)
-		{
-			printf("C_SignUpdate Failed: %d\n", r);
-			getchar();
-			return 1;
-		}
-
-		CK_BYTE signature2[512] = { 0 };
-		CK_ULONG sig2_len = 512;
-		r = C_SignFinal(phSession, &signature2[0], &sig2_len);
-		if (r != CKR_OK)
-		{
-			printf("C_SignFinal Failed: %d\n", r);
-			getchar();
-			return 1;
-		}*/
-
-		// Verify signatures
-		printf("Verifying signature with User1 Public Key...");
-		r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
-		if (r != CKR_OK)
-		{
-			printf("C_VerifyInit Failed: %d\n", r);
-			getchar();
-			return 1;
-		}
-
-		r = C_Verify(phSession, msg, sizeof(msg), &signature1[0], sig1_len);
-		if (r != CKR_OK)
-		{
-			printf("C_Verify Failed: %d\n", r);
-			getchar();
-			return 1;
-		}
-		printf("Done!\n");
-
-		/*r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
-		if (r != CKR_OK)
-		{
-			printf("C_VerifyInit Failed: %d\n", r);
-			getchar();
-			return 1;
-		}
-
-		r = C_VerifyUpdate(phSession, msg, sizeof(msg));
-		if (r != CKR_OK)
-		{
-			printf("C_VerifyUpdate Failed: %d\n", r);
-			getchar();
-			return 1;
-		}
-
-		r = C_VerifyUpdate(phSession, msg, sizeof(msg));
-		if (r != CKR_OK)
-		{
-			printf("C_VerifyUpdate Failed: %d\n", r);
-			getchar();
-			return 1;
-		}
-
-		r = C_VerifyFinal(phSession, &signature2[0], sig2_len);
-		if (r != CKR_OK)
-		{
-			printf("C_VerifyFinal Failed: %d\n", r);
-			getchar();
-			return 1;
-		}*/
-
-		times++;
-	}
-	/*endTimer();
-	average += elapsedTime;
-	average /= times;
-	printf("Average signature: %lfms\n", average);*/
-
-	// Logout User
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	///// Login user and generate key pair | Get certificate of user 1 | Logout | Login admin | Generate certificate for generated public key
-
-	// Login user
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
-	data[32] = 1;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	// Generate a key pair
-	printf("Generating and extracting key pair for User1...");
-	CK_MECHANISM genkey_mechanism = {
-		CKM_EC_KEY_PAIR_GEN, NULL_PTR, 0
-	};
-
-	CK_OBJECT_HANDLE pri, pub;
-	CK_OBJECT_CLASS keyClass1 = CKO_PUBLIC_KEY;
-	CK_OBJECT_CLASS keyClass2 = CKO_PRIVATE_KEY;
-	CK_KEY_TYPE keyType = CKK_EC;
-
-	uint8_t pubBuffer[512] = { 0 };
-	CK_ATTRIBUTE pubKeyTemplate[] = {
-		{ CKA_CLASS, &keyClass1, sizeof(keyClass1) },
-		{ CKA_KEY_TYPE, &keyType, sizeof(keyType) },
-		{ CKA_EC_POINT, pubBuffer, sizeof(pubBuffer) }
-	};
-
-	uint8_t priBuffer[512] = { 0 };
-	CK_ATTRIBUTE priKeyTemplate[] = {
-		{ CKA_CLASS, &keyClass2, sizeof(keyClass2) },
-		{ CKA_KEY_TYPE, &keyType, sizeof(keyType) },
-		{ CKA_VALUE, priBuffer, sizeof(priBuffer) }
-	};
-
-	/*average = 0.0f;
-	times = 0;
-	printf("\nGenerating keys...");
-	startTimer();*/
-	for(int i=0;i<1;i++)
-	{
-		r = C_GenerateKeyPair(phSession, &genkey_mechanism, pubKeyTemplate, 3, priKeyTemplate, 3, &pub, &pri);
-		if (r != CKR_OK)
-		{
-			printf("C_GenerateKeyPair Failed: %d\n", r);
-			getchar();
-			return 1;
-		}
-		times++;
-	}
-	/*endTimer();
-	average += elapsedTime;
-	average /= times;
-	printf("\nAverage key generation: %lf\n", average);*/
-
-	memset(pubBuffer, 0, 512);
-	memset(priBuffer, 0, 512);
-	r = C_GetAttributeValue(phSession, pub, pubKeyTemplate, 3);
-	if (r != CKR_OK)
-	{
-		printf("C_GetAttributeValue Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	r = C_GetAttributeValue(phSession, pri, priKeyTemplate, 3);
-	if (r != CKR_OK)
-	{
-		printf("C_GetAttributeValue Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	printf("Done!\n");
-
-	// We use our own functions to get certificate of internal public key
-	/*CK_UTF8CHAR certificate[4096];
-	CK_ULONG bufSize = 4096;
-	r = HSM_C_CertGet(phSession, 1, certificate, &bufSize);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_CertGet Failed: %d\n", r);
-		getchar();
-		return 1;
-	}*/
-
-	// Logout user 1
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	printf("Generate public key certificate for extracted public key with admin...");
-
-	// Login admin
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
-	data[32] = 0;
-	r = C_Login(phSession, CKU_SO, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	CK_BBOOL MTRUE = CK_TRUE;
-	CK_UTF8CHAR subject[] = "CN=Diogo Parrinha, O=INESC-ID, C=PT";
-	CK_ATTRIBUTE pubTemplateCert[] = {
-		{ CKA_CLASS, &keyClass1, sizeof(keyClass1) },
-		{ CKA_SUBJECT, subject, sizeof(subject) },
-		{ CKA_VERIFY, &MTRUE, sizeof(MTRUE) },
-		{ CKA_ENCRYPT, &MTRUE, sizeof(MTRUE) },
-		{ CKA_DERIVE, &MTRUE, sizeof(MTRUE) }
-	};
-	CK_UTF8CHAR certificate2[4096];
-	CK_ULONG certSize = 4096;
-	r = HSM_C_CertGen(phSession, pubTemplateCert, 5, pubBuffer, certificate2, &certSize);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_CertGen Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	
-	// Logout Admin
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	printf("Done!\n");
-
-	///// Login admin to create log-chain root
-
-	printf("Creating Log-Chain root with admin...");
-	
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
-	data[32] = 0;
-	r = C_Login(phSession, CKU_SO, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	// Create log-chain root
-	uint8_t hash[32] = { 0x6f, 0x4e, 0xce, 0x48, 0xaf, 0x1d, 0x8d, 0x1f, 0xff, 0xce, 0x45, 0x65, 0x2b, 0x19, 0x02, 0xb4, 0x05, 0x06, 0x04, 0xe6, 0x67, 0xa0, 0xa3, 0xf3, 0x98, 0x56, 0x96, 0x80, 0x3a, 0xfe, 0xf1, 0x56 };
-	uint8_t rootmsg[] = "Log-Chain 1 Root";
-	r = HSM_C_LogInit(phSession, rootmsg, strlen((char*)rootmsg)+1, hash, 32);
-
-	// Logout Log User
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-	printf("Done!\n");
-
-	///// Login user 1, read file and send each line to the HSM
-
-	printf("Reading log file with user1 and add to Log-Chain...");
-
-	// Login user 1
-	memset(data, 0, 128);
-	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
-	data[32] = 1;
-	r = C_Login(phSession, CKU_USER, data, 33);
-	if (r != CKR_OK)
-	{
-		printf("C_Login Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	std::ifstream infile("messages.txt");
-	std::string line;
-
-	/*average = 0.0f;
-	times = 0;
-	printf("\nLogging messages...\n");*/
-
-	while (std::getline(infile, line))
-	{
-		const char *pMessage = line.c_str();
-
-		startTimer();
-		r = HSM_C_LogAdd(phSession, (CK_UTF8CHAR_PTR)pMessage, line.length(), CK_TRUE);
-		endTimer();
-		average += elapsedTime;
-		times++;
-
-		if (r != CKR_OK)
-		{
-			printf("HSM_C_LogAdd Failed: %d\n", r);
-			getchar();
-			return 1;
+			break;
 		}
 	}
-	/*line = std::string("This is a test command | test command : test");
-	startTimer();
-	for (int a = 0; a < 10; a++)
-	{
-		r = HSM_C_LogAdd(phSession, (CK_UTF8CHAR_PTR)line.c_str(), line.length(), CK_TRUE);
-		if (r != CKR_OK)
-		{
-			printf("HSM_C_LogAdd Failed: %d\n", r);
-			getchar();
-			return 1;
-		}
-		times++;
-	}*/
-	/*endTimer();
-	average += elapsedTime;
-	average /= times;
-	printf("\nAverage log signing: %lf | %lf\n", elapsedTime, average);*/
 
-	// Logout Log User
-	r = C_Logout(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_Logout Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	printf("Done!\n");
-
-	///// Get log-chain counters
-
-	printf("Verify Log-Chain...");
-
-	CK_ULONG lNumber1, lNumber2;
-	r = HSM_C_LogCounter(phSession, &lNumber1, &lNumber2);
-	if (r != CKR_OK)
-	{
-		printf("HSM_C_LogCounter Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	// close session
-	r = C_CloseSession(phSession);
-	if (r != CKR_OK)
-	{
-		printf("C_CloseSession Failed: %d\n", r);
-		getchar();
-		return 1;
-	}
-
-	///// Run verifications
-
-	/*printf("\nVerify day...\n");
-
-	average = 0.0f;
-	times = 0;
-	startTimer();
-	r = HSM_C_LogVerifyDay(phSession, 15, 5, 2017);
-	//assert(r == CKR_OK);
-	endTimer();
-	average += elapsedTime;
-	times++;
-
-	average /= times;
-	printf("\nOK\n");
-
-	printf("\nVerify month...\n");
-
-	average = 0.0f;
-	times = 0;
-	startTimer();
-	r = HSM_C_LogVerifyMonth(phSession, 5, 2017);
-	//assert(r == CKR_OK);
-	endTimer();
-	average += elapsedTime;
-	times++;
-
-	average /= times;
-	printf("\nOK\n");
-	
-	printf("\nVerify year...\n");
-
-	average = 0.0f;
-	times = 0;
-	startTimer();
-	r = HSM_C_LogVerifyYear(phSession, 2016);
-	//assert(r == CKR_OK);
-	endTimer();
-	average += elapsedTime;
-	times++;
-
-	average /= times;
-	printf("\nOK\n");*/
-
-	//printf("\nVerify chain...\n");
-
-	uint8_t hash_v[32] = { 0x6f, 0x4e, 0xce, 0x48, 0xaf, 0x1d, 0x8d, 0x1f, 0xff, 0xce, 0x45, 0x65, 0x2b, 0x19, 0x02, 0xb4, 0x05, 0x06, 0x04, 0xe6, 0x67, 0xa0, 0xa3, 0xf3, 0x98, 0x56, 0x96, 0x80, 0x3a, 0xfe, 0xf1, 0x56 };
-	average = 0.0f;
-	times = 0;
-	startTimer();
-	r = HSM_C_LogVerifyChain(0, lNumber1, lNumber2, hash_v);
-	//assert(r == CKR_OK);
-	endTimer();
-	average += elapsedTime;
-	times++;
-
-	average /= times;
-	//printf("\nOK\n");
-	
 	// Finalize
 	r = C_Finalize(NULL);
 	if (r != CKR_OK)
@@ -1045,11 +310,11 @@ int main()
 		return 1;
 	}
 
-	printf("Done!\n");
-
-	printf("\nPress ENTER to continue.\n");
-
-	getchar();
+	printf("\nPress Q and then ENTER to continue.\n");
+	while (char c = getchar()) {
+		if (c == 'Q')
+			break;
+	}
 
     return 0;
 }
@@ -1082,3 +347,810 @@ void endTimer()
 #endif
 }
 
+int getCertificates()
+{
+	int r = 0;
+
+	printf("\n\tGet Log-Chain Public Key Certificate...");
+	CK_UTF8CHAR certificate0[4096];
+	CK_ULONG bufSize0 = 4096;
+	r = HSM_C_CertDevice(0, -1, certificate0, &bufSize0);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_CertDevice Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	printf("\n\tGet Session Public Key Certificate...");
+	r = HSM_C_CertDevice(0, -2, certificate0, &bufSize0);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_CertDevice Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	printf("\n\tGet Issuer Public Key Certificate...");
+	r = HSM_C_CertDevice(0, -3, certificate0, &bufSize0);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_CertDevice Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	return 0;
+}
+
+int add3Users()
+{
+	CK_ULONG r = 0;
+	unsigned char data[128];
+
+	// Open Session
+	printf("\n\tOpening session...");
+	CK_BYTE application = 1;
+	CK_SESSION_HANDLE phSession;
+	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_OpenSession Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Login Admin
+	printf("\n\tLogin admin...");
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
+	data[32] = 0;
+	r = C_Login(phSession, CKU_SO, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	printf("\n\tAdd User1...");
+	CK_BYTE userID = 0;
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
+	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_UserAdd Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	printf("\n\tAdd User2...");
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900002"); // user 2
+	userID = 0;
+	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_UserAdd Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	printf("\n\tAdd User3...");
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900003"); // user 3
+	userID = 0;
+	r = HSM_C_UserAdd(phSession, &data[0], 32, &userID);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_UserAdd Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Logout Admin
+	printf("\n\tLogout admin...");
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	if (closeSession(phSession))
+		return 1;
+	
+	return 0;
+}
+
+int login3Users()
+{
+	CK_ULONG r = 0;
+	unsigned char data[128];
+
+	// Open Session
+	printf("\n\tOpening session...");
+	CK_BYTE application = 1;
+	CK_SESSION_HANDLE phSession;
+	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_OpenSession Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Test each user login
+	printf("\n\tUser1...");
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user1
+	data[32] = 1;
+	r = C_Login(phSession, CKU_USER, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	printf("\n\tUser2...");
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900002"); // user2
+	data[32] = 2;
+	r = C_Login(phSession, CKU_USER, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	printf("\n\tUser3...");
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900003"); // user3
+	data[32] = 3;
+	r = C_Login(phSession, CKU_USER, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	if (closeSession(phSession))
+		return 1;
+
+	return 0;
+}
+
+int deleteUser3()
+{
+	CK_ULONG r = 0;
+	unsigned char data[128];
+
+	// Open Session
+	printf("\n\tOpening session...");
+	CK_BYTE application = 1;
+	CK_SESSION_HANDLE phSession;
+	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_OpenSession Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Login Admin
+	printf("\n\tLogin admin...");
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
+	data[32] = 0;
+	r = C_Login(phSession, CKU_SO, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	printf("\n\tDeleting user 3...");
+	r = HSM_C_UserDelete(phSession, 3);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_UserDelete Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Logout Admin
+	printf("\n\tLogout admin...");
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	if (closeSession(phSession))
+		return 1;
+
+	return 0;
+}
+
+int signVerifyUser1()
+{
+	CK_ULONG r = 0;
+	unsigned char data[128];
+
+	// Open Session
+	printf("\n\tOpening session...");
+	CK_BYTE application = 1;
+	CK_SESSION_HANDLE phSession;
+	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_OpenSession Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Login User
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
+	data[32] = 1;
+	r = C_Login(phSession, CKU_USER, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+
+	// Sign Data
+	printf("\n\tSigning data...");
+	CK_MECHANISM sign_mechanism = {
+		CKM_ECDSA, NULL_PTR, 0
+	};
+	r = C_SignInit(phSession, &sign_mechanism, NULL_PTR);
+	if (r != CKR_OK)
+	{
+		printf("C_SignInit Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+
+	uint8_t msg[7] = { '1','2','3','4','5','6', '\0' };
+	CK_BYTE signature1[512] = { 0 };
+	CK_ULONG sig1_len = 512;
+	r = C_Sign(phSession, msg, sizeof(msg), &signature1[0], &sig1_len);
+	if (r != CKR_OK)
+	{
+		printf("C_Sign Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Verify signatures
+	printf("\n\tVerifying signature with User1 Public Key...");
+	r = C_VerifyInit(phSession, &sign_mechanism, NULL_PTR);
+	if (r != CKR_OK)
+	{
+		printf("C_VerifyInit Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+
+	r = C_Verify(phSession, msg, sizeof(msg), &signature1[0], sig1_len);
+	if (r != CKR_OK)
+	{
+		printf("C_Verify Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Logout User
+	printf("\n\tLogout user...");
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	if (closeSession(phSession))
+		return 1;
+
+	return 0;
+}
+
+int genKeyPairUser1GetCertificate()
+{
+	CK_ULONG r = 0;
+	unsigned char data[128];
+
+	// Open Session
+	printf("\n\tOpening session...");
+	CK_BYTE application = 1;
+	CK_SESSION_HANDLE phSession;
+	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_OpenSession Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Login User
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
+	data[32] = 1;
+	r = C_Login(phSession, CKU_USER, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+
+	// Generate a key pair
+	printf("\n\tGenerating and extracting key pair for User1...");
+	CK_MECHANISM genkey_mechanism = {
+		CKM_EC_KEY_PAIR_GEN, NULL_PTR, 0
+	};
+
+	CK_OBJECT_HANDLE pri, pub;
+	CK_OBJECT_CLASS keyClass1 = CKO_PUBLIC_KEY;
+	CK_OBJECT_CLASS keyClass2 = CKO_PRIVATE_KEY;
+	CK_KEY_TYPE keyType = CKK_EC;
+
+	uint8_t pubBuffer[512] = { 0 };
+	CK_ATTRIBUTE pubKeyTemplate[] = {
+		{ CKA_CLASS, &keyClass1, sizeof(keyClass1) },
+		{ CKA_KEY_TYPE, &keyType, sizeof(keyType) },
+		{ CKA_EC_POINT, pubBuffer, sizeof(pubBuffer) }
+	};
+
+	uint8_t priBuffer[512] = { 0 };
+	CK_ATTRIBUTE priKeyTemplate[] = {
+		{ CKA_CLASS, &keyClass2, sizeof(keyClass2) },
+		{ CKA_KEY_TYPE, &keyType, sizeof(keyType) },
+		{ CKA_VALUE, priBuffer, sizeof(priBuffer) }
+	};
+	
+	for (int i = 0; i<1; i++)
+	{
+		r = C_GenerateKeyPair(phSession, &genkey_mechanism, pubKeyTemplate, 3, priKeyTemplate, 3, &pub, &pri);
+		if (r != CKR_OK)
+		{
+			printf("C_GenerateKeyPair Failed: %d\n", r);
+			HSM_C_DeleteSession(phSession);
+			getchar();
+			return 1;
+		}
+	}
+
+	memset(pubBuffer, 0, 512);
+	memset(priBuffer, 0, 512);
+	r = C_GetAttributeValue(phSession, pub, pubKeyTemplate, 3);
+	if (r != CKR_OK)
+	{
+		printf("C_GetAttributeValue Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+
+	r = C_GetAttributeValue(phSession, pri, priKeyTemplate, 3);
+	if (r != CKR_OK)
+	{
+		printf("C_GetAttributeValue Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Logout User
+	printf("\n\tLogout user 1...");
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Login admin
+	printf("\n\tLogin admin...");
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
+	data[32] = 0;
+	r = C_Login(phSession, CKU_SO, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	printf("\n\tGenerating public key certificate for extracted public key...");
+	CK_BBOOL MTRUE = CK_TRUE;
+	CK_UTF8CHAR subject[] = "CN=Diogo Parrinha, O=INESC-ID, C=PT";
+	CK_ATTRIBUTE pubTemplateCert[] = {
+		{ CKA_CLASS, &keyClass1, sizeof(keyClass1) },
+		{ CKA_SUBJECT, subject, sizeof(subject) },
+		{ CKA_VERIFY, &MTRUE, sizeof(MTRUE) },
+		{ CKA_ENCRYPT, &MTRUE, sizeof(MTRUE) },
+		{ CKA_DERIVE, &MTRUE, sizeof(MTRUE) }
+	};
+	CK_UTF8CHAR certificate2[4096];
+	CK_ULONG certSize = 4096;
+	r = HSM_C_CertGen(phSession, pubTemplateCert, 5, pubBuffer, certificate2, &certSize);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_CertGen Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Logout Admin
+	printf("\n\tLogout admin...");
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	if (closeSession(phSession))
+		return 1;
+
+	return 0;
+}
+
+int getUser1Certificate()
+{
+	CK_ULONG r = 0;
+	unsigned char data[128];
+
+	// Open Session
+	printf("\n\tOpening session...");
+	CK_BYTE application = 1;
+	CK_SESSION_HANDLE phSession;
+	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_OpenSession Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Login User
+	printf("\n\tLogin user 1...");
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
+	data[32] = 1;
+	r = C_Login(phSession, CKU_USER, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	printf("\n\tExtracting public key certificate...");
+	CK_UTF8CHAR certificate[4096];
+	CK_ULONG bufSize = 4096;
+	r = HSM_C_CertGet(phSession, 1, certificate, &bufSize);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_CertGet Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	DIR *dir;
+	if ((dir = opendir("./certs")) == NULL)
+	{
+		if (_mkdir("./certs") != 0)
+		{
+			printf("Problem creating directory './certs'\n");
+		}
+	}
+	else
+		closedir(dir);
+
+	std::ofstream outfile;
+	outfile.open("./certs/user1.crt", std::ofstream::out | std::ofstream::trunc);
+	outfile.write((char*)certificate, strlen((char*)certificate) + 1);
+	outfile.close();
+
+	// Logout User
+	printf("\n\tLogout user...");
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	if (closeSession(phSession))
+		return 1;
+
+	return 0;
+}
+
+int createLogChainRootAdmin()
+{
+	CK_ULONG r = 0;
+	unsigned char data[128];
+
+	// Open Session
+	printf("\n\tOpening session...");
+	CK_BYTE application = 1;
+	CK_SESSION_HANDLE phSession;
+	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_OpenSession Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Login User
+	printf("\n\tLogin admin...");
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678912345"); // admin
+	data[32] = 0;
+	r = C_Login(phSession, CKU_SO, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Create log-chain root
+	printf("\n\tCreating root...");
+	uint8_t hash[32] = { 0x6f, 0x4e, 0xce, 0x48, 0xaf, 0x1d, 0x8d, 0x1f, 0xff, 0xce, 0x45, 0x65, 0x2b, 0x19, 0x02, 0xb4, 0x05, 0x06, 0x04, 0xe6, 0x67, 0xa0, 0xa3, 0xf3, 0x98, 0x56, 0x96, 0x80, 0x3a, 0xfe, 0xf1, 0x56 };
+	uint8_t rootmsg[] = "Log-Chain 1 Root";
+	r = HSM_C_LogInit(phSession, rootmsg, strlen((char*)rootmsg) + 1, hash, 32);
+	printf("Done!");
+
+	// Logout Admin
+	printf("\n\tLogout admin...");
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	if (closeSession(phSession))
+		return 1;
+
+	return 0;
+}
+
+int addLogChainUser1()
+{
+	CK_ULONG r = 0;
+	unsigned char data[128];
+
+	// Open Session
+	printf("\n\tOpening session...");
+	CK_BYTE application = 1;
+	CK_SESSION_HANDLE phSession;
+	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_OpenSession Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	// Login Admin
+	printf("\n\tLogin user 1...");
+	memset(data, 0, 128);
+	sprintf_s((char*)data, 128, "%s", "12345678912345678912345678900001"); // user 1
+	data[32] = 1;
+	r = C_Login(phSession, CKU_USER, data, 33);
+	if (r != CKR_OK)
+	{
+		printf("C_Login Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	printf("\n\tAdding entries to Log-Chain...");
+	std::ifstream infile("messages.txt");
+	std::string line;
+
+	while (std::getline(infile, line))
+	{
+		const char *pMessage = line.c_str();
+
+		r = HSM_C_LogAdd(phSession, (CK_UTF8CHAR_PTR)pMessage, line.length(), CK_TRUE);
+
+		if (r != CKR_OK)
+		{
+			printf("HSM_C_LogAdd Failed: %d\n", r);
+			HSM_C_DeleteSession(phSession);
+			getchar();
+			return 1;
+		}
+	}
+	printf("Done!");
+
+	// Logout User
+	printf("\n\tLogout user...");
+	r = C_Logout(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_Logout Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	if (closeSession(phSession))
+		return 1;
+
+	return 0;
+}
+
+int verifyLogChain()
+{
+	CK_ULONG r = 0;
+	unsigned char data[128];
+
+	// Open Session
+	printf("\n\tOpening session...");
+	CK_BYTE application = 1;
+	CK_SESSION_HANDLE phSession;
+	r = C_OpenSession(0, CKF_SERIAL_SESSION | CKF_RW_SESSION, (CK_VOID_PTR)&application, NULL_PTR, &phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_OpenSession Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	CK_ULONG lNumber1, lNumber2;
+	r = HSM_C_LogCounter(phSession, &lNumber1, &lNumber2);
+	if (r != CKR_OK)
+	{
+		printf("HSM_C_LogCounter Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+
+	if (closeSession(phSession))
+		return 1;
+
+	printf("\n\tVerifying chain...");
+	uint8_t hash_v[32] = { 0x6f, 0x4e, 0xce, 0x48, 0xaf, 0x1d, 0x8d, 0x1f, 0xff, 0xce, 0x45, 0x65, 0x2b, 0x19, 0x02, 0xb4, 0x05, 0x06, 0x04, 0xe6, 0x67, 0xa0, 0xa3, 0xf3, 0x98, 0x56, 0x96, 0x80, 0x3a, 0xfe, 0xf1, 0x56 };
+	r = HSM_C_LogVerifyChain(0, lNumber1, lNumber2, hash_v);
+	if(r != CKR_OK)
+	{
+		printf("HSM_C_LogVerifyChain Failed: %d\n", r);
+		HSM_C_DeleteSession(phSession);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+
+	return 0;
+}
+
+int closeSession(CK_SESSION_HANDLE phSession)
+{
+	// Close session
+	printf("\n\tClosing session...");
+	int r = C_CloseSession(phSession);
+	if (r != CKR_OK)
+	{
+		printf("C_CloseSession Failed: %d\n", r);
+		getchar();
+		return 1;
+	}
+	printf("Done!");
+	return 0;
+}

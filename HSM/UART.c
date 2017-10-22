@@ -56,6 +56,7 @@ void UART_disconnect()
 	memset(UART_sessionKey, 0, 32);
 	memset(UART_hmacKey, 0, 32);
 	UART_usingKey = FALSE;
+	UART_commCounter = 0;
 	system_status &= ~STATUS_ISADMIN;
 	system_status &= ~STATUS_LOGGEDIN;
 	system_status &= ~STATUS_CONNECTED;

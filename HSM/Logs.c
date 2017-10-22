@@ -22,7 +22,7 @@ BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * sign
 	// Format: {base64(message)|date,time|ID|c1,c2|prev_hash}
 
 	size_t olen = 0;
-	if (mbedtls_base64_encode(&global_buffer[GLOBAL_BUFFER_SIZE], 4096, &olen, message, data_len) != 0)
+	if (mbedtls_base64_encode(&global_buffer[GLOBAL_BUFFER_SIZE/2], 4096, &olen, message, data_len) != 0)
 	{
 		return FALSE;
 	}
@@ -34,7 +34,7 @@ BOOL LOGS_sign(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * sign
 
 	// Append time (1B) and user ID (1B)
 	global_buffer[w++] = '{'; // separator
-	memcpy(global_buffer+(w++), &global_buffer[GLOBAL_BUFFER_SIZE], olen);
+	memcpy(global_buffer+(w++), &global_buffer[GLOBAL_BUFFER_SIZE/2], olen);
 	olen--; // we use it as a pointer from now on so we must subtract 1
 	global_buffer[olen+(w++)] = '|'; // separator
 
@@ -86,10 +86,12 @@ BOOL LOGS_init(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * sign
 
 	memset(global_buffer, 0, GLOBAL_BUFFER_SIZE);
 
+	LOGS_globalCounter1 = LOGS_globalCounter2 = 0;
+
 	// Format: {ROOT|message|date,time|hash_init}
 
 	size_t olen = 0;
-	if (mbedtls_base64_encode(&global_buffer[GLOBAL_BUFFER_SIZE], 4096, &olen, message, data_len) != 0)
+	if (mbedtls_base64_encode(&global_buffer[GLOBAL_BUFFER_SIZE/2], 4096, &olen, message, data_len) != 0)
 	{
 		return FALSE;
 	}
@@ -104,7 +106,7 @@ BOOL LOGS_init(uint8_t * message, uint32_t data_len, uint8_t UID, uint8_t * sign
 	memcpy(global_buffer+w, "ROOT", 4);
 	w += 4;
 	global_buffer[(w++)] = '|'; // separator
-	memcpy(global_buffer+(w++), &global_buffer[GLOBAL_BUFFER_SIZE], olen);
+	memcpy(global_buffer+(w++), &global_buffer[GLOBAL_BUFFER_SIZE/2], olen);
 	olen--; // we use it as a pointer from now on so we must subtract 1
 	global_buffer[olen+(w++)] = '|'; // separator
 

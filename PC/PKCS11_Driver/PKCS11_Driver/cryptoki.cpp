@@ -1243,7 +1243,6 @@ CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, 
 
 	if (!d->signData(pData, ulDataLen, pSignature, pulSignatureLen))
 	{
-
 		return CKR_FUNCTION_FAILED;
 	}
 	
@@ -2591,6 +2590,20 @@ CK_RV HSM_C_SendPlain()
 	char data[4096] = { 1 };
 	if (!d->sendData((CK_BYTE_PTR)data, 4096))
 		return CKR_FUNCTION_FAILED;
+
+	return CKR_OK;
+}
+
+// HSM_ResetSessions
+CK_RV HSM_C_DeleteSession(CK_SESSION_HANDLE hSession)
+{
+	if (!g_init)
+	{
+		return CKR_CRYPTOKI_NOT_INITIALIZED;
+	}
+
+	delete g_sessions.at(hSession);
+	g_sessions.erase(g_sessions.begin() + hSession);
 
 	return CKR_OK;
 }

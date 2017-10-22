@@ -262,8 +262,6 @@ int main()
 			char message[128] = {0};
 			sprintf(message, "ERROR_UART_0x%02X", r);
 			COMMAND_ERROR(message);
-
-			UART_disconnect();
 		}
 		else
 		{

@@ -289,7 +289,6 @@ struct CK_FUNCTION_LIST {
 
 #undef CK_PKCS11_FUNCTION_INFO
 
-
 #undef __PASTE
 
 #ifdef __cplusplus
