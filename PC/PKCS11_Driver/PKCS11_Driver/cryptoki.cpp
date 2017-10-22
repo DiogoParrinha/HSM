@@ -547,10 +547,10 @@ CK_RV C_CloseSession(CK_SESSION_HANDLE hSession)
 			return CKR_SESSION_HANDLE_INVALID;
 		}
 
-		d->endSession();
-
 		delete g_sessions.at(hSession);
-		g_sessions.erase(g_sessions.begin()+hSession);
+		g_sessions.erase(g_sessions.begin() + hSession);
+
+		d->endSession();
 	}
 	else
 	{
@@ -2492,7 +2492,7 @@ CK_RV HSM_C_CertGet(CK_SESSION_HANDLE hSession, CK_LONG pUid, CK_UTF8CHAR_PTR ce
 	if (pUid <= 0)
 		return ERROR_BAD_ARGUMENTS;
 
-	if (!d->getCertificate(pUid, &certificate, bufSize))
+	if (!d->getCertificate(pUid, certificate, bufSize))
 	{
 		return CKR_FUNCTION_FAILED;
 	}
@@ -2520,7 +2520,7 @@ CK_RV HSM_C_CertDevice(CK_SLOT_ID slotID, CK_LONG pId, CK_UTF8CHAR_PTR certifica
 	if (pId >= 0) // negative for device certificates
 		return ERROR_BAD_ARGUMENTS;
 
-	if (!d->getCertificate(pId, &certificate, bufSize))
+	if (!d->getCertificate(pId, certificate, bufSize))
 	{
 		return CKR_FUNCTION_FAILED;
 	}

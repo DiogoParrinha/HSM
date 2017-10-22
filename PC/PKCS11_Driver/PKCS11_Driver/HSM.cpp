@@ -43,8 +43,9 @@
 #include <locale>
 #include <iomanip>
 
-#define VERBOSE 0
+#define VERBOSE 1
 #define VERBOSE_ERROR 1
+#define DO_NOTHING 0
 
 /*==============================================================================
 Macro
@@ -111,6 +112,9 @@ HSM::~HSM()
 
 bool HSM::sendData(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 {
+	if (DO_NOTHING)
+		return true;
+
 	comm->reqCommand();
 
 	// Exec command 
@@ -150,6 +154,9 @@ void HSM::randomArray(CK_BYTE_PTR pData, CK_ULONG ulDataLen)
 
 bool HSM::init()
 {
+	if (DO_NOTHING)
+		return true;
+
 	if(VERBOSE == 1)
 		printf("Linking...");
 	// Initialize comm
@@ -217,6 +224,9 @@ bool HSM::isConnected()
 
 void HSM::addSlot(p11_slot * s, int i)
 {
+	if (DO_NOTHING)
+		return;
+
 	// Create slot information
 	s->slotInfo.firmwareVersion.major = 1;
 	s->slotInfo.firmwareVersion.minor = 0;
@@ -240,6 +250,9 @@ void HSM::addSlot(p11_slot * s, int i)
 
 int HSM::startSession()
 {
+	if (DO_NOTHING)
+		return 0;
+
 	// How many open sessions? If >= than HSM_MAX_SESSIONS return 1
 	if (sessionLimit())
 		return 1;
@@ -624,6 +637,9 @@ int HSM::startSession()
 
 bool HSM::endSession()
 {
+	if (DO_NOTHING)
+		return true;
+
 	comm->reqCommand();
 
 	// Exec command 
@@ -649,6 +665,9 @@ bool HSM::sessionLimit()
 
 bool HSM::sendTime()
 {
+	if (DO_NOTHING)
+		return true;
+
 	comm->reqCommand();
 
 	// Exec command 
@@ -698,6 +717,9 @@ bool HSM::sendTime()
 
 bool HSM::checkDevice()
 {
+	if (DO_NOTHING)
+		return true;
+
 	// Exec command 
 	if (!execCmd("DVC_CHECK"))
 		return false;
@@ -732,6 +754,9 @@ bool HSM::checkDevice()
 
 int HSM::initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 {
+	if (DO_NOTHING)
+		return 0;
+
 	if (ulPinLen != 32) // 32B for PIN
 	{
 		return 1;
@@ -785,6 +810,9 @@ int HSM::initDevice(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 
 int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 {
+	if (DO_NOTHING)
+		return 0;
+
 	// According to the standard, an application only needs to login once for the same token
 	// Because all sessions with a token share the same login state
 	if (loggedIn)
@@ -842,6 +870,9 @@ int HSM::login(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_USER_TYPE userType)
 
 int HSM::logout()
 {
+	if (DO_NOTHING)
+		return 0;
+
 	// Not logged in?
 	if (!loggedIn)
 	{
@@ -868,6 +899,9 @@ int HSM::logout()
 
 bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen)
 {
+	if (DO_NOTHING)
+		return true;
+
 	// Not logged in?
 	if (!loggedIn)
 	{
@@ -929,6 +963,9 @@ bool HSM::signData(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature
 
 bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG pulSignatureLen)
 {
+	if (DO_NOTHING)
+		return true;
+
 	// this shouldn't happen! (unless the points of the curve are huge, e,g. > 1000 bits)
 	if (pulSignatureLen > 255)
 		return false; 
@@ -958,7 +995,7 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 	// Get user certificate
 	CK_UTF8CHAR certificate[4096];
 	CK_ULONG bufSize = 4096;
-	if (!getCertificate(uid, (CK_UTF8CHAR_PTR*)&certificate, &bufSize))
+	if (!getCertificate(uid, (CK_UTF8CHAR_PTR)&certificate, &bufSize))
 	{
 		return false;
 	}
@@ -1047,6 +1084,9 @@ bool HSM::verifySignature(CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSi
 
 bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR privateKey, CK_OBJECT_HANDLE_PTR publicKey)
 {
+	if (DO_NOTHING)
+		return true;
+
 	// Not logged in? admin? (only users can generate and extract a key pair)
 	if (!loggedIn || authID == 0)
 	{
@@ -1147,8 +1187,11 @@ bool HSM::generateKeyPair(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR priva
 	return true;
 }
 
-bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR bufSize)
+bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR certificate, CK_ULONG_PTR bufSize)
 {
+	if (DO_NOTHING)
+		return true;
+
 	if (uid == 0)
 		return false;
 
@@ -1403,6 +1446,9 @@ bool HSM::getCertificate(CK_LONG uid, CK_UTF8CHAR_PTR* certificate, CK_ULONG_PTR
 
 bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, CK_UTF8CHAR_PTR publicKey, CK_UTF8CHAR_PTR certificate, CK_ULONG_PTR bufSize)
 {
+	if (DO_NOTHING)
+		return true;
+
 	if (!loggedIn || !isAdmin)
 		return false;
 
@@ -1549,6 +1595,9 @@ bool HSM::genCertificate(CK_ATTRIBUTE_PTR publicKeyTemplate, CK_ULONG ulCount, C
 
 bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 {
+	if (DO_NOTHING)
+		return true;
+
 	if (!loggedIn || !isAdmin)
 		return false;
 
@@ -1605,6 +1654,9 @@ bool HSM::addUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_BYTE_PTR uID)
 
 bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 {
+	if (DO_NOTHING)
+		return true;
+
 	if (!loggedIn || isAdmin) // admin cannot modify PINs
 		return false;
 
@@ -1640,6 +1692,9 @@ bool HSM::modifyUser(CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
 
 bool HSM::deleteUser(CK_BYTE uID)
 {
+	if (DO_NOTHING)
+		return true;
+
 	if (!loggedIn || !isAdmin)
 		return false;
 
@@ -1676,6 +1731,9 @@ bool HSM::deleteUser(CK_BYTE uID)
 // Message must not only contain ASCII characters! 
 bool HSM::logsInit(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_UTF8CHAR_PTR lHash)
 {
+	if (DO_NOTHING)
+		return true;
+
 	// we only accept messages with a maximum of 512 bytes
 	if (lMessage > 512)
 		return false;
@@ -1685,7 +1743,7 @@ bool HSM::logsInit(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_UTF8CHAR_PTR 
 		return false;
 
 	uint8_t base64_2[512] = { 0 };
-	uint32_t olen_2 = 0;
+	size_t olen_2 = 0;
 
 	// Depending on the date, choose which file to write to
 	time_t t = time(NULL);
@@ -1804,7 +1862,7 @@ bool HSM::logsInit(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_UTF8CHAR_PTR 
 	mbedtls_sha256(&buffer[0], strlen((char*)buffer), hash, 0);
 
 	uint8_t base64_1[512];
-	uint32_t olen_1 = 0;
+	size_t olen_1 = 0;
 	if (mbedtls_base64_encode(base64_1, 512, &olen_1, hash, 32) != 0)
 	{
 		return false;
@@ -1895,6 +1953,9 @@ bool HSM::logsInit(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_UTF8CHAR_PTR 
 
 bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_BBOOL sign)
 {
+	if (DO_NOTHING)
+		return true;
+
 	// we only accept messages with a maximum of 512 bytes
 	if (lMessage > 512)
 		return false;
@@ -1983,20 +2044,20 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_BBOOL sign)
 			//std::cout << line << '\n';
 
 			// First find } and substring what's after + 3 chars (includes "} [")
-			unsigned first = line.find('}');
+			size_t first = line.find('}');
 			if (first != std::string::npos)
 			{
 				std::string last_part = line.substr(first + 3);
 
 				// Then look for ] and retrieve data until that posistion (] is an illegal base64 char so it won't appear in the middle of the block)
-				unsigned last = last_part.find(']');
+				size_t last = last_part.find(']');
 				if (last != std::string::npos)
 				{
 					std::string base64_hash = last_part.substr(0, last);
 
 					unsigned char buf[512] = { 0 };
 					sprintf_s((char*)buf, 512, base64_hash.c_str());
-					uint32_t olen = 0;
+					size_t olen = 0;
 					if (mbedtls_base64_decode(prevHash, 32, &olen, buf, base64_hash.length()) != 0)
 					{
 						return false;
@@ -2015,7 +2076,7 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_BBOOL sign)
 	// If there are no existing hashes, use pMessage as the Chain-Root and therefore our hash = all 0s
 
 	uint8_t base64_2[512] = { 0 };
-	uint32_t olen_2 = 0;
+	size_t olen_2 = 0;
 
 	// Depending on the date, choose which file to write to
 	time_t t = time(NULL);
@@ -2171,7 +2232,7 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_BBOOL sign)
 	mbedtls_sha256(&buffer[0], strlen((char*)buffer), hash, 0);
 
 	uint8_t base64_1[512];
-	uint32_t olen_1 = 0;
+	size_t olen_1 = 0;
 	if (mbedtls_base64_encode(base64_1, 512, &olen_1, hash, 32) != 0)
 	{
 		return false;
@@ -2243,6 +2304,9 @@ bool HSM::logsAdd(CK_UTF8CHAR_PTR pMessage, CK_ULONG lMessage, CK_BBOOL sign)
 
 bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain)
 {
+	if (DO_NOTHING)
+		return true;
+
 	int ret = 0;
 	char readPath[256] = { 0 };
 	sprintf_s(readPath, 256, "./logchain/%d/%d", lYear, lMonth);
@@ -2313,7 +2377,7 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 	{
 		// Extract message and compute hash
 		// First find {
-		unsigned first = line.find('{');
+		size_t first = line.find('{');
 		if (first == std::string::npos)
 		{
 			if (VERBOSE_ERROR == 1)
@@ -2323,7 +2387,7 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		}
 
 		// Then find } and retrieve the message
-		unsigned second = line.find('}');
+		size_t second = line.find('}');
 		if (second != std::string::npos)
 		{
 			message = line.substr(first, second + 1 - first);
@@ -2348,14 +2412,14 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 		// Extract hash and compare
 		// Look for ] (] is an illegal base64 char so it won't appear in the middle of the hash block)
 		std::string last_part = line.substr(second + 3);
-		unsigned hash_separator = last_part.find(']');
+		size_t hash_separator = last_part.find(']');
 		if (hash_separator != std::string::npos)
 		{
 			std::string base64_hash = last_part.substr(0, hash_separator); // from [ to ]
 
 			unsigned char buf[512] = { 0 };
 			sprintf_s((char*)buf, 512, base64_hash.c_str());
-			uint32_t olen = 0;
+			size_t olen = 0;
 			if (mbedtls_base64_decode(hash_v, 32, &olen, buf, base64_hash.length()) != 0)
 			{
 				printf("Base64 Decode of Hash on line %d\n", l);
@@ -2382,7 +2446,7 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 
 		// Extract signature
 		std::string signature_part = last_part.substr(hash_separator + 3);
-		unsigned sig_separator = signature_part.find(']');
+		size_t sig_separator = signature_part.find(']');
 		if (sig_separator != std::string::npos)
 		{
 			std::string base64_sig = signature_part.substr(0, sig_separator); // from [ to ]
@@ -2392,7 +2456,7 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 			{
 				unsigned char buf[512] = { 0 };
 				sprintf_s((char*)buf, 512, base64_sig.c_str());
-				uint32_t olen = 0;
+				size_t olen = 0;
 				if (mbedtls_base64_decode(signature, 512, &olen, buf, base64_sig.length()) != 0)
 				{
 					if (VERBOSE_ERROR == 1)
@@ -2465,6 +2529,9 @@ bool HSM::logsVerifyDay(CK_ULONG lDay, CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8C
 
 bool HSM::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain)
 {
+	if (DO_NOTHING)
+		return true;
+
 	// Check if folder exists
 	// Return false if not
 	char readPath[256] = { 0 };
@@ -2552,6 +2619,9 @@ bool HSM::logsVerifyMonth(CK_ULONG lMonth, CK_ULONG lYear, CK_UTF8CHAR_PTR prevH
 
 bool HSM::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL fullChain)
 {
+	if (DO_NOTHING)
+		return true;
+
 	// Check if folder exists
 	// Return false if not
 	char readPath[256] = { 0 };
@@ -2622,6 +2692,9 @@ bool HSM::logsVerifyYear(CK_ULONG lYear, CK_UTF8CHAR_PTR prevHash, CK_BBOOL full
 
 bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2, CK_UTF8CHAR_PTR hash_init)
 {
+	if (DO_NOTHING)
+		return true;
+
 	// Get the oldest year, month and day
 	// Check the first line (must be the root)
 	// Return false if embedded hash != 0 OR hash doesn't match log entry OR signature cannot be verified
@@ -2753,7 +2826,7 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2, CK_UTF8CHAR_PTR 
 
 			unsigned char buf[512] = { 0 };
 			sprintf_s((char*)buf, 512, base64_hash.c_str());
-			uint32_t olen = 0;
+			size_t olen = 0;
 			if (mbedtls_base64_decode(hash_v, 32, &olen, buf, base64_hash.length()) != 0)
 			{
 				if (VERBOSE == 1)
@@ -2788,7 +2861,7 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2, CK_UTF8CHAR_PTR 
 
 			unsigned char buf[512] = { 0 };
 			sprintf_s((char*)buf, 512, base64_sig.c_str());
-			uint32_t olen = 0;
+			size_t olen = 0;
 			if (mbedtls_base64_decode(signature, 512, &olen, buf, base64_sig.length()) != 0)
 			{
 				if (VERBOSE == 1)
@@ -2881,6 +2954,9 @@ bool HSM::logsVerifyChain(CK_ULONG counter1, CK_ULONG counter2, CK_UTF8CHAR_PTR 
 
 bool HSM::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
 {
+	if (DO_NOTHING)
+		return true;
+
 	// Exec command 
 	if (!execCmd("LOGS_COUNTERS"))
 		return false;
@@ -2912,6 +2988,9 @@ bool HSM::logsGetCounter(CK_ULONG_PTR lNumber1, CK_ULONG_PTR lNumber2)
 
 bool HSM::execCmd(char * pCmd)
 {
+	if (DO_NOTHING)
+		return true;
+
 	if (strlen(pCmd) > 64)
 	{
 		if (VERBOSE_ERROR == 1)
@@ -2998,6 +3077,9 @@ bool HSM::execCmd(char * pCmd)
 
 bool HSM::processResult()
 {
+	if (DO_NOTHING)
+		return true;
+
 	uint8_t res[4096] = { 0 };
 
 	// Wait for 'SUCCESS'
@@ -3189,7 +3271,7 @@ int STS_requestTime(uint8_t nonce[64], uint8_t * response)
 	}
 
 	uint8_t signature[128] = { 0 };
-	uint32_t signature_len = 0;
+	size_t signature_len = 0;
 	if ((ret = mbedtls_pk_sign(&ctx, MBEDTLS_MD_SHA256, hash, 32, signature, &signature_len,
 		mbedtls_ctr_drbg_random, &ctr_drbg)) != 0)
 	{
@@ -3304,7 +3386,7 @@ uint32_t STS_getTime()
 	std::string message_content;
 	while (getline(file, line))
 	{
-		unsigned sep = line.find(':');
+		size_t sep = line.find(':');
 		if (sep != std::string::npos)
 		{
 			message_head = line.substr(0, sep + 1);
