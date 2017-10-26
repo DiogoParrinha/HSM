@@ -50,7 +50,7 @@ int closeSession(CK_SESSION_HANDLE phSession);
 void printOptions() {
 	printf("\n\n");
 	printf("%s", g_separator);
-	printf("Options:\n");
+	printf("Test Sequence:\n");
 	printf("0. Get System Certificates\n");
 	printf("1. Add 3 Users\n");
 	printf("2. Login with 3 Users\n");
@@ -61,7 +61,6 @@ void printOptions() {
 	printf("7. Create Log-Chain Root\n");
 	printf("8. Add entries to Log-Chain\n");
 	printf("9. Verify Log-Chain\n");
-	printf("Q. QUIT\n");
 	printf("%s", g_separator);
 }
 
@@ -1131,7 +1130,6 @@ int verifyLogChain()
 	if(r != CKR_OK)
 	{
 		printf("HSM_C_LogVerifyChain Failed: %d\n", r);
-		HSM_C_DeleteSession(phSession);
 		getchar();
 		return 1;
 	}
