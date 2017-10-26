@@ -1,0 +1,5 @@
+Mar 13 05:22:09 user saslauthd[146]: do_auth         : auth failure: [user=guitar] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 05:23:20 user saslauthd[145]: do_auth         : auth failure: [user=daniele] [service=smtp] [realm=] [mech=pam] [reason=PAM auth error]
+Mar 13 05:25:01 user systemd: Started Session 13611617 of user root.
+Mar 13 05:25:01 user systemd: Starting Session 13611617 of user root.
+Mar 13 05:25:03 user su: (to postgres) root on none
