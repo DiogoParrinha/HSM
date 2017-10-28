@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<SynplifyOutput>
-	<result>Success</result>
-	<design>sha256_system</design>
-	<target_edif>E:\LiberoProjects\sha256_project\synthesis\sha256_system.edn</target_edif>
-</SynplifyOutput>
